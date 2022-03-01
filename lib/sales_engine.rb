@@ -30,19 +30,19 @@ class SalesEngine
   end
 
   def invoice_items_repo
-    InvoiceItemsRepository.new(@invoice_items_lines)
+    @invoice_items ||= InvoiceItemsRepository.new(@invoice_items_lines)
   end
 
   def invoices
-    InvoiceRepository.new(@invoices_lines)
+    @invoices ||= InvoiceRepository.new(@invoices_lines)
   end
 
   def customers
-    CustomerRepository.new(@customers_lines)
+    @customers ||= CustomerRepository.new(@customers_lines)
   end
 
   def transactions
-    TransactionRepository.new(@transactions_lines)
+    @transactions ||= TransactionRepository.new(@transactions_lines)
   end
 
   def analyst

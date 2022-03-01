@@ -20,8 +20,8 @@ describe Analyst do
   end
 
   it "finds average item price per merchant" do
-    expect(@sales_analyst.average_item_price_per_merchant("12334185")).to eq(10.78)
-    expect(@sales_analyst.average_item_price_per_merchant("12334185")).to be_a(BigDecimal)
+    expect(@sales_analyst.average_item_price_per_merchant(12334185)).to eq(10.78)
+    expect(@sales_analyst.average_item_price_per_merchant(12334185)).to be_a(BigDecimal)
   end
 
   it "finds average_average_price_per_merchant" do
@@ -59,10 +59,10 @@ describe Analyst do
     expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 
-<<<<<<< HEAD
+
   it "can find the total revenue for the day" do
     expect(@sales_analyst.total_revenue_by_date(date)).to eq(456)
-=======
+  end
   it "determines if invoice has been paid in full" do
     expect(@sales_analyst.invoice_paid_in_full?(46)).to eq(true)
     expect(@sales_analyst.invoice_paid_in_full?(204)).to eq(false)
@@ -70,6 +70,5 @@ describe Analyst do
 
   it "returns total $ amount of invoice with corresponding invoice_id" do
     expect(@sales_analyst.invoice_total(1)).to eq(21067.77)
->>>>>>> 56473477287a52083d175a84ff0ff71337451c25
   end
 end

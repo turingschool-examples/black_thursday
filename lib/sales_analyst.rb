@@ -43,7 +43,7 @@ class Analyst
 
   def average_average_price_per_merchant
     array_of_prices = @mr.repository.map do |merchant|
-      average_item_price_per_merchant(merchant.id.to_s)
+      average_item_price_per_merchant(merchant.id)
     end
     average = average(array_of_prices.sum, array_of_prices.count)
     return average
