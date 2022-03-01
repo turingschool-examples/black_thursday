@@ -1,4 +1,7 @@
 # require "./spec/spec_helper"
+require "./lib/merchant_repo"
+require "./lib/customer_repo"
+require "./lib/invoice_repo"
 require "./lib/item_repo"
 require "./lib/sales_engine"
 require "./lib/item"
@@ -29,8 +32,7 @@ RSpec.describe ItemRepository do
   end
 
   it "can find an item by name" do
-    test_name = "Etre ailleurs"
-    expected_item = ir.find_by_name(test_name)
+    expected_item = ir.find_by_name("ETRE ailleurs")
     expect(expected_item.item_attributes[:name]).to eq "Etre ailleurs"
     expect(expected_item.item_attributes[:id]).to eq 263397059
   end

@@ -1,7 +1,10 @@
 # require "./spec/spec_helper"
 require "./lib/sales_engine"
 require "./lib/customer"
+require "./lib/merchant_repo"
 require "./lib/customer_repo"
+require "./lib/invoice_repo"
+require "./lib/item_repo"
 require "Time"
 require "pry"
 

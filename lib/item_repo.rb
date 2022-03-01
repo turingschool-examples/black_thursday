@@ -24,7 +24,7 @@ class ItemRepository
 
   def find_by_name(name)
     items.find do |item_instance|
-    item_instance.item_attributes[:name] == name.downcase
+    item_instance.item_attributes[:name].downcase == name.downcase
     end
   end
 

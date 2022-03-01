@@ -1,16 +1,21 @@
 # require "./spec/spec_helper"
+require "./lib/merchant_repo"
+require "./lib/customer_repo"
 require "./lib/invoice_repo"
+require "./lib/item_repo"
 require "./lib/sales_engine"
 require "./lib/invoice"
 require "pry"
 
 RSpec.describe InvoiceRepository do
-  se = SalesEngine.from_csv({
-    items: "./data/items.csv",
-    merchants: "./data/merchants.csv",
-    invoices: "./data/invoices.csv",
-    customers: "./data/customers.csv"
-  })
+  let(:se) do
+    SalesEngine.from_csv({
+      items: "./data/items.csv",
+      merchants: "./data/merchants.csv",
+      invoices: "./data/invoices.csv",
+      customers: "./data/customers.csv"
+    })
+  end
   inv_r = InvoiceRepository.new("./data/invoices.csv")
 
   it "is an instance of InvoiceRepository" do
