@@ -130,4 +130,18 @@ describe SalesAnalyst do
     expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 
+  it "SalesAnalyst#is_paid_in_full? returns true if the invoice is paid in full" do
+    expected = @sales_analyst.invoice_paid_in_full?(1)
+    expect(expected).to eq true
+
+    expected = @sales_analyst.invoice_paid_in_full?(200)
+    expect(expected).to eq true
+    # binding.pry
+    expected = @sales_analyst.invoice_paid_in_full?(203)
+    expect(expected).to eq false
+
+    expected = @sales_analyst.invoice_paid_in_full?(204)
+    expect(expected).to eq false
+  end
+
 end

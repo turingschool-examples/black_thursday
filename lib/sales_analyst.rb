@@ -184,4 +184,12 @@ class SalesAnalyst
     invoice_by_status = @invoices.all.find_all{|invoice| invoice.status == status}
     (((invoice_by_status.length).to_f/(@invoices.all.length).to_f) * 100).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    to_check = @transactions.find_all_by_invoice_id(invoice_id)
+    if to_check == []
+      return false
+    end
+    to_check.all? {|transaction| transaction.result == "success"}
+  end
 end
