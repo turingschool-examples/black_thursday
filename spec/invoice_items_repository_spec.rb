@@ -152,6 +152,9 @@ RSpec.describe 'Iteration 3' do
       expect(expected).to eq nil
     end
 
+    it "#delete on unknown invoice does nothing" do
+      @se.invoice_items.delete(22000)
+    end
 
 
   end
