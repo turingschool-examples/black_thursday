@@ -40,7 +40,7 @@ RSpec.describe ItemRepository do
   end
 
   it 'can find all items that include fragment in description' do
-    expect(@ir.find_all_by_description("phone")).to eq([@item2, @item3])
+    expect(@ir.find_all_with_description("phone")).to eq([@item2, @item3])
   end
 
   it 'can find all items that have exact price' do

@@ -66,8 +66,8 @@ RSpec.describe SalesAnalyst do
       :transactions     => "./data/transactions.csv",
       :merchants => "./data/merchants.csv"})
     sales_analyst = sales_engine.analyst
-    expect(sales_analyst.average_item_price_per_merchant).to eq(350.29)
-    expect(sales_analyst.average_item_price_per_merchant.class).to eq(BigDecimal)
+    expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
+    expect(sales_analyst.average_average_price_per_merchant.class).to eq(BigDecimal)
   end
 
   it "golden items" do

@@ -22,16 +22,16 @@ RSpec.describe IDManager do
   end
 
 
-  it 'can create attributes' do
-    expect(@merchant2).to receive(:+).and_return(1321)
-    @mr.create(name: "book")
-    expect(@mr.all.last[:id]).to eq(1321)
-  end
+  # it 'can create attributes' do
+  #   expect(@merchant2).to receive(:+).and_return(1321)
+  #   @mr.create(name: "book")
+  #   expect(@mr.all.last[:id]).to eq(1321)
+  # end
 
-  it 'can update an instance with a specific id' do
-    expect(@merchant2).to receive(:merge).with(name: "chicken")
-    @mr.update(1320, name: "chicken")
-  end
+  # it 'can update an instance with a specific id' do
+  #   expect(@merchant2).to receive(:merge).with(name: "chicken")
+  #   @mr.update(1320, name: "chicken")
+  # end
 
   it 'can delete an id' do
     @mr.delete(1320)
