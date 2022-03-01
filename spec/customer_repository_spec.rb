@@ -67,5 +67,17 @@ RSpec.describe 'Iteration 3' do
       expected = @se.customers.find_by_id(1001)
       expect(expected.first_name).to eq "Joan"
     end
+
+    it "#update updates a customer" do
+      original_time = @se.customers.find_by_id(1001).updated_at
+      attributes = {
+        last_name: "Smith"
+      }
+      @se.customers.update(1001, attributes)
+      expected = @se.customers.find_by_id(1001)
+      expect(expected.last_name).to eq "Smith"
+      expect(expected.first_name).to eq "Joan"
+      expect(expected.updated_at).to be > original_time
+    end
   end
 end
