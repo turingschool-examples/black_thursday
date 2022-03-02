@@ -67,8 +67,22 @@ class SalesAnalyst
   
   def merchants_with_high_item_count
     stdev = average_items_per_merchant_standard_deviation
-    high_items = total_items_per_merchant.find_all {|total| total > stdev + average_items_per_merchant}
-    return high_items.count
+    high_items = []
+    total_items_per_merchant.each_with_index do |total, index|
+      if total > stdev + average_items_per_merchant
+        high_items << merchants[index]
+      end
+    end
+    return high_items
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = itemrepository.find_all_by_merchant_id(merchant_id)
+    unit_price_total = 0
+    items.each do |item|
+      unit_price_total += item.unit_price_to_dollars
+    end
+    (unit_price_total / items.count).round(2)
   end
 
 end

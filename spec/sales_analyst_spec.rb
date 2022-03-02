@@ -42,19 +42,18 @@ RSpec.describe SalesAnalyst do
     end
 
     it "#merchants_with_high_item_count gives merchants with more than 1 standard deviation above average of offered items" do
-      expect(sa.merchants_with_high_item_count).to eq 52
+      expect(sa.merchants_with_high_item_count.count).to eq 52
+      expect(sa.merchants_with_high_item_count.first.class).to eq Merchant
     end
 
-    xit "#average_item_price_for_merchant gives average price per item of a given merchant" do
+    it "#average_item_price_for_merchant gives average price per item of a given merchant" do
       merchant_id = 12334105
 
       expect(sa.average_item_price_for_merchant(merchant_id)).to eq 16.66
-      expect(sa.average_item_price_for_merchant(merchant_id).class).to eq BigDecimal
     end
 
     xit "#average_average_price_per_merchant gives average price for all merchants" do
       expect(sa.average_average_price_per_merchant).to eq 350.29
-      expect(sa.average_average_price_per_merchant.class).to eq BigDecimal
     end
 
     xit "#golden_items gives items 2 standard deviations above average item price" do

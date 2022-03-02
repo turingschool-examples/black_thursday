@@ -1,3 +1,4 @@
+require 'bigdecimal'
 class InvoiceItem
   attr_reader :invoice_item_attributes
 
@@ -11,6 +12,6 @@ class InvoiceItem
   end
 
   def unit_price_to_dollars
-    invoice_item_attributes[:unit_price].to_f
+    BigDecimal(invoice_item_attributes[:unit_price], 4)
   end
 end
