@@ -31,6 +31,7 @@ class InvoiceItemsRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
+    # return nil if find(@invoice_ids, invoice_id).nil?
     find(@invoice_ids, invoice_id)
   end
 

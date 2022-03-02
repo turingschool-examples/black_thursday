@@ -3,9 +3,9 @@ require './lib/invoice_items'
 require 'bigdecimal'
 require 'pry'
 
-describe InvoiceItems do
+describe InvoiceItem do
   before (:each) do
-    @ii = InvoiceItems.new({
+    @ii = InvoiceItem.new({
       :id => 6,
       :item_id => 7,
       :invoice_id => 8,
@@ -17,7 +17,7 @@ describe InvoiceItems do
   end
 
   it "exists" do
-    expect(@ii).to be_an_instance_of(InvoiceItems)
+    expect(@ii).to be_an_instance_of(InvoiceItem)
   end
 
   it "has an id" do
