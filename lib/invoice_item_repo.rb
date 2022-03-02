@@ -44,4 +44,8 @@ class InvoiceItemRepository
     end
     find_by_id(id).invoice_item_attributes[:updated_at] = Time.now
   end
+
+  def delete(id)
+    invoice_items.delete(find_by_id(id))
+  end
 end
