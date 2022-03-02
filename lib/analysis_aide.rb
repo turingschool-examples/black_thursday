@@ -27,10 +27,4 @@ module AnalysisAide
     end
     revenue
   end
-
-
-
-
-
-
 end

@@ -2,6 +2,7 @@
 module RepositoryAide
 
   def read_csv(file)
+    require 'pry'; binding.pry
     CSV.read(file, headers: true, header_converters: :symbol)
   end
 
@@ -33,7 +34,6 @@ module RepositoryAide
     attribute_hash[:created_at] = Time.new
     attribute_hash[:updated_at] = Time.new
     attribute_hash
-    # require 'pry'; binding.pry
   end
 
   def delete(id)
