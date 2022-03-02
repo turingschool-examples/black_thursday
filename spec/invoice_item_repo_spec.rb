@@ -28,4 +28,10 @@ RSpec.describe InvoiceItemRepository do
   it "can return an array of all invoice item instances" do
     expect(iir.all.count).to eq 21830
   end
+
+  it "can find an item by id" do
+    expected_item = iir.find_by_id(20)
+    expect(expected_item.invoice_item_attributes[:item_id]).to eq 263395237
+    expect(expected_item.invoice_item_attributes[:unit_price]).to eq 72018
+  end
 end
