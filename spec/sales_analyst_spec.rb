@@ -20,8 +20,8 @@ describe Analyst do
   end
 
   it "finds average item price per merchant" do
-    expect(@sales_analyst.average_item_price_per_merchant("12334185")).to eq(10.78)
-    expect(@sales_analyst.average_item_price_per_merchant("12334185")).to be_a(BigDecimal)
+    expect(@sales_analyst.average_item_price_per_merchant(12334185)).to eq(10.78)
+    expect(@sales_analyst.average_item_price_per_merchant(12334185)).to be_a(BigDecimal)
   end
 
   it "finds average_average_price_per_merchant" do
@@ -66,5 +66,22 @@ describe Analyst do
 
   it "returns total $ amount of invoice with corresponding invoice_id" do
     expect(@sales_analyst.invoice_total(1)).to eq(21067.77)
+
+  end
+
+  it "returns total revenue for given date" do
+    date = Time.parse("2009-12-09")
+    expected = @sales_analyst.total_revenue_by_date(date)
+    expect(expected).to eq 30158.61
+    expect(expected.class).to eq BigDecimal
+  end
+
+  it "finds top earning merchants" do
+      top_merchants = @sales_analyst.top_revenue_earners(5)
+
+      expect(top_merchants.count).to eq(5)
+      expect(top_merchants.first.class).to eq Merchant
+      expect(top_merchants.first.id).to eq 12334634
+
   end
 end
