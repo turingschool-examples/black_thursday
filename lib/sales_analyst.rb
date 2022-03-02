@@ -1,15 +1,9 @@
 # frozen_string_literal: true
 
+require 'pry'
 require 'bigdecimal'
 require 'bigdecimal/util'
-<<<<<<< HEAD
 require_relative 'sales_engine'
-=======
-
-require_relative './sales_engine'
-
-
->>>>>>> origin
 class SalesAnalyst
   attr_reader :items, :merchants, :invoices, :transactions, :customers, :invoice_items
 
@@ -18,7 +12,7 @@ class SalesAnalyst
     @merchants = merchants
     @invoices = invoices
     @transactions = transactions
-    @customers = _customers
+    @customers = customers
     @invoice_items = invoice_items
     @customers = customers
   end
@@ -178,8 +172,9 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     invoice_id_by_date = []
     @invoices.all.each do |invoice|
-      require "pry"; binding.pry
-      invoice_id_by_date << invoice.id if invoice.created_at.strftime("%D") == date.strftime("%D")
+      # require 'pry'
+      # binding.pry
+      invoice_id_by_date << invoice.id if invoice.created_at.strftime('%D') == date.strftime('%D')
     end
     invoice_items_by_date = []
     invoice_id_by_date.each do |invoice_id|

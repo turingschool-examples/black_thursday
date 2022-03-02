@@ -151,10 +151,5 @@ RSpec.describe 'Iteration 3' do
     it '#delete on unknown customer does nothing' do
       @se.transactions.delete(2000)
     end
-
-    it 'can test the #inspect method workaround' do
-      expect(@transactions.inspect).to be_a(String)
-    end
-
   end
 end
