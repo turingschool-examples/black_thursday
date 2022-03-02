@@ -56,8 +56,12 @@ RSpec.describe SalesAnalyst do
       expect(sa.average_average_price_per_merchant).to eq 350.29
     end
 
-    xit "#golden_items gives items 2 standard deviations above average item price" do
+    it "#golden_items gives items 2 standard deviations above average item price" do
       expect(sa.golden_items.length).to eq 5
       expect(sa.golden_items.first.class).to eq Item
+    end
+
+    it '#average_invoices_per_merchant returns the average number of invoices per merchant' do
+      expect(sa.average_invoices_per_merchant).to eq(10.49)
     end
   end

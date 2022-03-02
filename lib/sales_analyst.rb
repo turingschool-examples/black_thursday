@@ -42,13 +42,13 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (@items.count.to_f / @merchants.count.to_f).round(2)
+    (items.count.to_f / merchants.count.to_f).round(2)
   end
 
   def total_items_per_merchant
     results = []
-    @merchants.each do |merchant|
-      item_count = @items.count do |item|
+    merchants.each do |merchant|
+      item_count = items.count do |item|
         item.item_attributes[:merchant_id] == merchant.merchant_attributes[:id]
       end
       results << item_count
@@ -113,5 +113,9 @@ class SalesAnalyst
     items.find_all do |item| 
       item.item_attributes[:unit_price] > price_average + (stdev * 2)
     end
+  end
+
+  def average_invoices_per_merchant
+    (invoices.count.to_f / merchants.count.to_f).round(2)
   end
 end
