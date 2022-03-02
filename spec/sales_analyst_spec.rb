@@ -1,10 +1,20 @@
 require './lib/sales_analyst'
+require './lib/sales_engine'
 require 'rspec'
 require 'bigdecimal'
 
 describe Analyst do
   before (:each) do
-    @sales_analyst = Analyst.new
+    @sales_engine = SalesEngine.from_csv({
+  :items     => "./data/items.csv",
+  :merchants => "./data/merchants.csv",
+  :invoice_items => "./data/invoice_items.csv",
+  :invoices => "./data/invoices.csv",
+  :customers => "./data/customers.csv",
+  :transactions => "./data/transactions.csv"
+  })
+    @sales_analyst = Analyst.new(@sales_engine)
+    require 'pry'; binding.pry
   end
 
   it "finds average" do

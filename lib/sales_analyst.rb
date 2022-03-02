@@ -15,12 +15,11 @@ class Analyst
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
-    
-    # @mr = mr
-    # @ir = ir
-    # @in = in
-    # @tr = tr
-    # @iir = iir
+    # @mr = MerchantsRepository.new("./data/merchants.csv")
+    # @ir = ItemsRepository.new("./data/items.csv")
+    # @in = InvoiceRepository.new("./data/invoices.csv")
+    # @tr = TransactionRepository.new("./data/transactions.csv")
+    # @iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
     require 'pry'; binding.pry
   end
 

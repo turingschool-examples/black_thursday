@@ -2,7 +2,7 @@
 module RepositoryAide
 
   def read_csv(file)
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     CSV.read(file, headers: true, header_converters: :symbol)
   end
 
