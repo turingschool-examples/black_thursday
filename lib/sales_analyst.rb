@@ -1,21 +1,20 @@
 # frozen_string_literal: true
 
+require 'pry'
 require 'bigdecimal'
 require 'bigdecimal/util'
-
-require_relative './sales_engine'
-
-
+require_relative 'sales_engine'
 class SalesAnalyst
   attr_reader :items, :merchants, :invoices, :transactions, :customers, :invoice_items
 
-  def initialize(items, merchants, invoices, transactions, _customers, invoice_items)
+  def initialize(items, merchants, invoices, transactions, customers, invoice_items)
     @items = items
     @merchants = merchants
     @invoices = invoices
     @transactions = transactions
-    @customers = _customers
+    @customers = customers
     @invoice_items = invoice_items
+    @customers = customers
   end
 
   def average_items_per_merchant
@@ -170,12 +169,12 @@ class SalesAnalyst
     invoices.map { |invoice| (invoice.unit_price * invoice.quantity) }.sum
   end
 
-
   def total_revenue_by_date(date)
     invoice_id_by_date = []
     @invoices.all.each do |invoice|
-      require "pry"; binding.pry
-      invoice_id_by_date << invoice.id if invoice.created_at.strftime("%D") == date.strftime("%D")
+      # require 'pry'
+      # binding.pry
+      invoice_id_by_date << invoice.id if invoice.created_at.strftime('%D') == date.strftime('%D')
     end
     invoice_items_by_date = []
     invoice_id_by_date.each do |invoice_id|

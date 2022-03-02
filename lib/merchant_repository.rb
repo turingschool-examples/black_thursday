@@ -4,8 +4,15 @@
 class MerchantRepository
   attr_reader :merchants
 
-  def initialize(merchants)
-    @merchants = merchants
+  def initialize(file)
+    @merchants = []
+    open_merchants(file)
+  end
+
+  def open_merchants(file)
+    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+      @merchants << Merchant.new(row)
+    end
   end
 
   def all
@@ -34,7 +41,6 @@ class MerchantRepository
   def update(id, attributes)
     merchant = find_by_id(id)
     attributes.map do |key, v|
-      # require "pry"; binding.pry
       merchant.name = v if key == :name
     end
   end

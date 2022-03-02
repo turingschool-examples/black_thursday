@@ -3,7 +3,7 @@ require 'time'
 require 'bigdecimal'
 
 class InvoiceItem
-  attr_accessor   :quantity, :unit_price, :updated_at
+  attr_accessor :quantity, :unit_price, :updated_at
   attr_reader :invoice_id, :item_id, :id, :created_at
 
   def initialize(attributes)
@@ -14,6 +14,5 @@ class InvoiceItem
     @unit_price = BigDecimal(attributes[:unit_price]) / 100
     @created_at = Time.parse(attributes[:created_at].to_s)
     @updated_at = Time.parse(attributes[:updated_at].to_s)
-    # require "pry"; binding.pry
   end
 end

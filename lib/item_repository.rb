@@ -5,8 +5,15 @@ require 'pry'
 class ItemRepository
   attr_reader :items
 
-  def initialize(items)
-    @items = items
+  def initialize(file)
+    @items = []
+    open_items(file)
+  end
+
+  def open_items(file)
+    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+      @items << Item.new(row)
+    end
   end
 
   def all

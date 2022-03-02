@@ -9,14 +9,7 @@ require 'bigdecimal'
 RSpec.describe 'Iteration 2' do
   context 'Invoices' do
     before(:each) do
-      @se = SalesEngine.from_csv({
-                                   items: './data/items.csv',
-                                   merchants: './data/merchants.csv',
-                                   invoices: './data/invoices.csv',
-                                   invoice_items: './data/invoice_items.csv',
-                                   transactions: './data/transactions.csv',
-                                   customers: './data/customers.csv'
-                                 })
+      @se = SalesEngine.from_csv({ invoices: './data/invoices.csv' })
     end
 
     it '#all returns all invoices' do

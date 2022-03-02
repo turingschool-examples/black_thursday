@@ -3,8 +3,15 @@
 class CustomerRepository
   attr_reader :customers
 
-  def initialize(customers)
-    @customers = customers
+  def initialize(file)
+    @customers = []
+    open_customers(file)
+  end
+
+  def open_customers(file)
+    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+      @customers << Customer.new(row)
+    end
   end
 
   def all

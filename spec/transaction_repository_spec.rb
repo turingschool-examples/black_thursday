@@ -8,14 +8,7 @@ require 'pry'
 RSpec.describe 'Iteration 3' do
   context 'Transactions' do
     before(:each) do
-      @se = SalesEngine.from_csv({
-                                   items: './data/items.csv',
-                                   merchants: './data/merchants.csv',
-                                   invoices: './data/invoices.csv',
-                                   transactions: './data/transactions.csv',
-                                   customers: './data/customers.csv',
-                                   invoice_items: './data/invoice_items.csv'
-                                 })
+      @se = SalesEngine.from_csv({ transactions: './data/transactions.csv' })
     end
 
     it '#all returns all transactions' do
@@ -156,12 +149,7 @@ RSpec.describe 'Iteration 3' do
     end
 
     it '#delete on unknown customer does nothing' do
-      @se.customers.delete(2000)
+      @se.transactions.delete(2000)
     end
-
-    it 'can test the #inspect method workaround' do
-      expect(@transactions.inspect).to be_a(String)
-    end
-
   end
 end

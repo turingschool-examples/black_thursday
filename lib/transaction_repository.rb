@@ -5,8 +5,15 @@ require 'pry'
 class TransactionRepository
   attr_reader :transactions
 
-  def initialize(transactions)
-    @transactions = transactions
+  def initialize(file)
+    @transactions = []
+    open_transactions(file)
+  end
+
+  def open_transactions(file)
+    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+      @transactions << Transaction.new(row)
+    end
   end
 
   def all
@@ -47,7 +54,7 @@ class TransactionRepository
   end
 
   def delete(id)
-    @transactions.delete(find_by_id(id))
+    @transactions.delete(find_by_id(id)) unless nil
   end
 
   def inspect

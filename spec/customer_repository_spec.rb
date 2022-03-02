@@ -6,14 +6,7 @@ require_relative '../lib/sales_engine'
 RSpec.describe 'Iteration 3' do
   context 'CustomerRepository' do
     before(:each) do
-      @se = SalesEngine.from_csv({
-                                   items: './data/items.csv',
-                                   merchants: './data/merchants.csv',
-                                   invoices: './data/invoices.csv',
-                                   transactions: './data/transactions.csv',
-                                   customers: './data/customers.csv',
-                                   invoice_items: './data/invoice_items.csv'
-                                 })
+      @se = SalesEngine.from_csv({ customers: './data/customers.csv' })
     end
 
     it 'all returns all customers' do
@@ -129,10 +122,5 @@ RSpec.describe 'Iteration 3' do
       expected = @se.customers.find_by_id(1001)
       expect(expected).to eq nil
     end
-
-    it 'can test the #inspect method workaround' do
-      expect(@customers.inspect).to be_a(String)
-    end
-
   end
 end

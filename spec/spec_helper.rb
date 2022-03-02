@@ -17,4 +17,3 @@ require_relative 'customer_spec'
 require_relative 'customer_repository_spec'
 require_relative 'transaction_spec'
 require_relative 'transaction_repository_spec'
-

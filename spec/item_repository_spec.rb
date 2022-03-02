@@ -8,14 +8,7 @@ require 'bigdecimal'
 
 RSpec.describe ItemRepository do
   before(:each) do
-    @se = SalesEngine.from_csv({
-                                 items: './data/items.csv',
-                                 merchants: './data/merchants.csv',
-                                 invoices: './data/invoices.csv',
-                                 invoice_items: './data/invoice_items.csv',
-                                 transactions: './data/transactions.csv',
-                                 customers: './data/customers.csv'
-                               })
+    @se = SalesEngine.from_csv({ items: './data/items.csv' })
   end
 
   it 'exists' do
@@ -209,10 +202,4 @@ RSpec.describe ItemRepository do
     expected = @se.items.find_by_id(263_567_475)
     expect(expected).to eq nil
   end
-
-  it 'can test the #inspect method workaround' do
-
-    expect(@items.inspect).to eq(String)
-  end
-
 end

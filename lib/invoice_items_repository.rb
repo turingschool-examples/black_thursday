@@ -1,13 +1,18 @@
 # invoice_item_repository
 require 'pry'
 
-
-
 class InvoiceItemsRepository
   attr_reader :invoice_items
 
-  def initialize(invoice_items)
-    @invoice_items = invoice_items
+  def initialize(file)
+    @invoice_items = []
+    open_invoice_items(file)
+  end
+
+  def open_invoice_items(file)
+    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+      @invoice_items << InvoiceItem.new(row)
+    end
   end
 
   def all
@@ -36,9 +41,9 @@ class InvoiceItemsRepository
   def update(id, attributes)
     invoice_item = find_by_id(id)
     attributes.map do |key, value|
-        invoice_item.quantity = value if key == :quantity
-        invoice_item.unit_price = value if key == :unit_price
-        invoice_item.updated_at = Time.now
+      invoice_item.quantity = value if key == :quantity
+      invoice_item.unit_price = value if key == :unit_price
+      invoice_item.updated_at = Time.now
     end
   end
 
@@ -47,6 +52,6 @@ class InvoiceItemsRepository
   end
 
   def inspect
-  "#<#{@invoice_items.class} #{@minvoice_items.all.size} rows>"
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
