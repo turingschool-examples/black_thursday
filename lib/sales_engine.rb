@@ -8,13 +8,14 @@ require_relative 'customer_repository'
 require_relative 'sales_analyst'
 
 class SalesEngine
-attr_reader :merchants, :items, :invoices, :invoice_items, :customers
-  def initialize(merchants, items, invoices, invoice_items, customers)
+attr_reader :merchants, :items, :invoices, :invoice_items, :customers, :transactions
+  def initialize(merchants, items, invoices, invoice_items, customers, transactions)
     @merchants = MerchantRepository.new(merchants)
     @items = ItemRepository.new(items)
     @invoices = InvoiceRepository.new(invoices)
     @invoice_items = InvoiceItemRepository.new(invoice_items)
     @customers = CustomerRepository.new(customers)
+    @transactions = TransactionRepository.new(transactions)
   end
 
   def self.from_csv(input)
@@ -23,10 +24,13 @@ attr_reader :merchants, :items, :invoices, :invoice_items, :customers
     invoice_lines = input[:invoices]
     invoice_item_lines = input[:invoice_items]
     customer_lines = input[:customers]
-    SalesEngine.new(merchant_lines, item_lines, invoice_lines, invoice_item_lines, customer_lines)
+    transaction_lines = input[:transactions]
+    SalesEngine.new(merchant_lines, item_lines, invoice_lines,
+       invoice_item_lines, customer_lines, transaction_lines)
   end
 
   def analyst
-    SalesAnalyst.new(@merchants, @items, @invoices, @invoice_items,  @customers)
+    SalesAnalyst.new(@merchants, @items, @invoices, @invoice_items,
+        @customers, @transactions)
   end
 end
