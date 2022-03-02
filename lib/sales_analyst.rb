@@ -210,4 +210,16 @@ class SalesAnalyst
     end
     successful_transactions.count != 0
   end
+
+  def invoice_total(invoice_id)
+    if invoice_paid_in_full?(invoice_id) == true
+      invoice_item_totals = invoiceitemrepository.find_all_by_invoice_id(invoice_id).map do |invoice_item|
+        invoice_item.invoice_item_attributes[:quantity] * invoice_item.invoice_item_attributes[:unit_price]
+      end
+      iit = invoice_item_totals.sum.to_s.split("")
+      iit.insert(-3, ".")
+      iit = iit.join("")
+      BigDecimal(iit.to_f, iit.length - 1)
+    end
+  end
 end
