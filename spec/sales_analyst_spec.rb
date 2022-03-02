@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require '../lib/sales_engine'
+require_relative '../lib/sales_engine'
+require_relative '../lib/sales_analyst'
 require 'pry'
 require 'bigdecimal'
 
@@ -126,7 +127,7 @@ RSpec.describe ItemRepository do
     end
 
     it "SalesAnalyst#total returns the total dollar amount if the invoice is paid in full" do
-      expected = @
+      expected = @sa.invoice_total(1)
       expect(expected).to eq 21067.77
       expect(expected.class).to eq BigDecimal
     end

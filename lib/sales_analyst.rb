@@ -2,8 +2,10 @@
 
 require 'bigdecimal'
 require 'bigdecimal/util'
-require_relative 'sales_engine'
-require_relative 'item_repository'
+require_relative './sales_engine'
+# require_relative './lib/item_repository'
+# require_relative './lib/invoice_repository'
+# require_relative './lib/invoice_item_repository'
 
 class SalesAnalyst
   attr_reader :items, :merchants, :invoices, :transactions, :customers, :invoice_items
@@ -13,7 +15,7 @@ class SalesAnalyst
     @merchants = merchants
     @invoices = invoices
     @transactions = transactions
-    @items_per_merchant = {}
+    @customers = _customers
     @invoice_items = invoice_items
   end
 
@@ -163,4 +165,10 @@ class SalesAnalyst
     transactions_by_invoice = @transactions.find_all_by_invoice_id(invoice_id)
     transactions_by_invoice.any? { |transaction| transaction.result == :success }
   end
-end
+
+  def invoice_total(invoice_id)
+    @invoice_items.find_all_by_invoice_id(invoice_id).map {|i_items|
+        (i_items.unit_price * i_items.quantity)}.sum
+    end
+
+  end

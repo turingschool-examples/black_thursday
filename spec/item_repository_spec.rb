@@ -211,7 +211,8 @@ RSpec.describe ItemRepository do
   end
 
   it 'can test the #inspect method workaround' do
-    expect(@items.inspect).to be_a(String)
+
+    expect(@items.inspect).to eq(String)
   end
 
 end
