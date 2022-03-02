@@ -126,8 +126,7 @@ RSpec.describe ItemRepository do
     end
 
     it "SalesAnalyst#total returns the total dollar amount if the invoice is paid in full" do
-      expected = @sales_analyst.invoice_total(1)
-
+      expected = @
       expect(expected).to eq 21067.77
       expect(expected.class).to eq BigDecimal
     end
