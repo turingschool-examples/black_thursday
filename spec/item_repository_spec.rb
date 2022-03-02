@@ -202,4 +202,10 @@ RSpec.describe ItemRepository do
     expected = @se.items.find_by_id(263_567_475)
     expect(expected).to eq nil
   end
+
+  it 'can test the #inspect method workaround' do
+
+    expect(@items.inspect).to eq(String)
+  end
+
 end
