@@ -3,32 +3,42 @@ require "item_repo"
 require "invoice_repo"
 require "customer_repo"
 require "transaction_repo"
+require "invoice_item_repo"
 require "bigdecimal"
-require 'pry'
+require "pry"
 
 class SalesAnalyst
   attr_reader :itemrepository,
-              :merchantrepository,
-              :invoicerepository,
-              :customerrepository,
-              :transactionrepository,
-              :items,
-              :merchants,
-              :invoices,
-              :customers,
-              :transactions
+    :merchantrepository,
+    :invoicerepository,
+    :customerrepository,
+    :transactionrepository,
+    :invoiceitemrepository,
+    :items,
+    :merchants,
+    :invoices,
+    :customers,
+    :transactions,
+    :invoiceitems
 
-  def initialize(items_repo, merchants_repo, invoices_repo, customers_repo, transactions_repo)
+  def initialize(items_repo,
+    merchants_repo,
+    invoices_repo,
+    customers_repo,
+    transactions_repo,
+    invoice_items_repo)
     @itemrepository = items_repo
     @merchantrepository = merchants_repo
     @invoicerepository = invoices_repo
     @customerrepository = customers_repo
     @transactionrepository = transactions_repo
+    @invoiceitemrepository = invoice_items_repo
     @items = @itemrepository.all
     @merchants = @merchantrepository.all
     @invoices = @invoicerepository.all
     @customers = @customerrepository.all
     @transactions = @transactionrepository.all
+    @invoiceitems = @invoiceitemrepository.all
   end
 
   def average_items_per_merchant
@@ -47,10 +57,9 @@ class SalesAnalyst
   end
 
   def standard_deviation(mean, variance)
-    result = variance.sum {|object| (object - mean) **2}
+    result = variance.sum { |object| (object - mean)**2 }
     Math.sqrt(result.to_f / (variance.count - 1)).round(2)
   end
-
 
   def average_items_per_merchant_standard_deviation
     standard_deviation(average_items_per_merchant, total_items_per_merchant)
