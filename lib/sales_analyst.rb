@@ -118,4 +118,15 @@ class SalesAnalyst
   def average_invoices_per_merchant
     (invoices.count.to_f / merchants.count.to_f).round(2)
   end
+
+  def total_invoices_per_merchant
+    results = []
+    merchants.each do |merchant|
+      invoice_count = invoices.count do |invoice|
+        invoice.invoice_attributes[:merchant_id] == merchant.merchant_attributes[:id]
+      end
+      results << invoice_count
+    end
+    results
+  end
 end
