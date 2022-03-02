@@ -88,4 +88,11 @@ class SalesAnalyst
     transaction = @transaction_repo.all.find { |transaction| transaction.invoice_id == invoice_id }
     transaction.result == :success
   end
+
+  def invoice_total(invoice_id)
+    if invoice_paid_in_full?(invoice_id)
+      invoice_item = @invoice_item_repo.all.find { |transaction| transaction.invoice_id == invoice_id }
+      invoice_item.unit_price * invoice_item.quantity.to_i
+    end
+  end
 end
