@@ -26,6 +26,6 @@ RSpec.describe InvoiceItemRepository do
   end
 
   it "can return an array of all invoice item instances" do
-    expect(iir.all.count).to eq 1367
+    expect(iir.all.count).to eq 21830
   end
 end
