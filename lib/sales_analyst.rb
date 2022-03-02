@@ -13,13 +13,15 @@ class Analyst
   include TimeHelper
   include AnalysisAide
 
-  def initialize
-    @mr = MerchantsRepository.new("./data/merchants.csv")
-    @ir = ItemsRepository.new("./data/items.csv")
-    @in = InvoiceRepository.new("./data/invoices.csv")
-    @tr = TransactionRepository.new("./data/transactions.csv")
-    @iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
-    # require 'pry'; binding.pry
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
+    
+    # @mr = mr
+    # @ir = ir
+    # @in = in
+    # @tr = tr
+    # @iir = iir
+    require 'pry'; binding.pry
   end
 
   def average_items_per_merchant
