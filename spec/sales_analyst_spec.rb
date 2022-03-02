@@ -109,4 +109,18 @@ RSpec.describe ItemRepository do
 
     expect(expected).to eq 13.5
   end
+
+  it '#is_paid_in_full? returns true if the invoice is paid in full' do
+    expected = @sa.invoice_paid_in_full?(1)
+    expect(expected).to eq true
+
+    expected = @sa.invoice_paid_in_full?(200)
+    expect(expected).to eq true
+
+    expected = @sa.invoice_paid_in_full?(203)
+    expect(expected).to eq false
+
+    expected = @sa.invoice_paid_in_full?(204)
+    expect(expected).to eq false
+  end
 end

@@ -129,5 +129,9 @@ RSpec.describe 'Iteration 3' do
       expected = @se.customers.find_by_id(1001)
       expect(expected).to eq nil
     end
+
+    # it 'test for the inspect workaround' do
+    #   expect(@se.customers.inspect).to be_a(String)
+    # end
   end
 end
