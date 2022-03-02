@@ -64,7 +64,7 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     standard_deviation(average_items_per_merchant, total_items_per_merchant)
   end
-  
+
   def merchants_with_high_item_count
     stdev = average_items_per_merchant_standard_deviation
     high_items = []
@@ -87,7 +87,7 @@ class SalesAnalyst
       unit_price_total = (unit_price_total / items.count).round(2)
     end
     return unit_price_total
-      
+
   end
 
   def average_average_price_per_merchant
@@ -111,7 +111,7 @@ class SalesAnalyst
     end
     price_average = (price_average / items.count).round(2)
     stdev = standard_deviation(price_average, total_prices)
-    items.find_all do |item| 
+    items.find_all do |item|
       item.item_attributes[:unit_price] > price_average + (stdev * 2)
     end
   end
@@ -201,5 +201,25 @@ class SalesAnalyst
       invoice.invoice_attributes[:status] == status
     end
     (matches.to_f/invoices.count.to_f * 100).round(2)
-  end    
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    successful_transactions = []
+    transactionrepository.find_all_by_invoice_id(invoice_id).each do |transaction|
+       successful_transactions << transaction.transaction_attributes[:status] == "success"
+    end
+    successful_transactions.count != 0
+  end
+
+  def invoice_total(invoice_id)
+    if invoice_paid_in_full?(invoice_id) == true
+      invoice_item_totals = invoiceitemrepository.find_all_by_invoice_id(invoice_id).map do |invoice_item|
+        invoice_item.invoice_item_attributes[:quantity] * invoice_item.invoice_item_attributes[:unit_price]
+      end
+      iit = invoice_item_totals.sum.to_s.split("")
+      iit.insert(-3, ".")
+      iit = iit.join("")
+      BigDecimal(iit.to_f, iit.length - 1)
+    end
+  end
 end

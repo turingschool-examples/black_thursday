@@ -110,4 +110,19 @@ RSpec.describe SalesAnalyst do
       expect(sa.invoice_status(:returned)).to eq(13.5)
     end
 
+    it "#is_paid_in_full? returns true if the invoice is paid in full" do
+      expected_invoice = sa.invoice_paid_in_full?(1)
+      expect(expected_invoice).to eq true
+
+      expected_invoice = sa.invoice_paid_in_full?(203)
+      expect(expected_invoice).to eq false
+    end
+
+    it "#total returns the total dollar amount if the invoice is paid in full" do
+      expected_invoice = sa.invoice_total(1)
+
+      expect(expected_invoice).to eq 21067.77
+      expect(expected_invoice.class).to eq BigDecimal
+    end
+
   end
