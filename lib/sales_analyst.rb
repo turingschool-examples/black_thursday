@@ -76,4 +76,13 @@ class SalesAnalyst
     st_dev = Math.sqrt(quotient).round(2)
   end
 
+  def golden_items
+    all_item_prices = @item_repo.all.map { |item| item.unit_price }
+    mean = all_item_prices.sum / all_item_prices.count
+    golden_price = mean + (average_item_price_standard_deviation * 2)
+    golden_items = @item_repo.all.find_all { |item| item.unit_price > golden_price }
+  end
+
+
+
 end
