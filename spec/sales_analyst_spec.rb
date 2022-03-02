@@ -78,4 +78,9 @@ describe Analyst do
     expect(items.first.class).to eq(Item)
   end
 
+  it 'can find the item that generates the most revenue per merchant' do
+    item = @sales_analyst.best_item_for_merchant(12336965)
+    expect(item)
+  end
+
 end
