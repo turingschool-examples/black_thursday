@@ -34,7 +34,7 @@ class SalesAnalyst
     high_item_count_merchants = []
     # high_item_count.each{|item| merchants.find{|merchant| if merchant.id == item[0] high_item_count_merchants.push(merchant)}}
     high_item_count.each do |item|
-      merchants.find_all do |merchant|
+      @merchants.find_all do |merchant|
         if item[0] == merchant.id.to_s
           high_item_count_merchants << merchant
         end
@@ -109,4 +109,35 @@ class SalesAnalyst
     end
     return ((total_to_be_square_rooted/(@merchants.length.to_f - 1))**0.5).round(2)
   end
+
+  def top_merchants_by_invoice_count
+    high_in_invoices = invoices_per_merchant.find_all do |id, invoices|
+      invoices >= (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+    end
+    merchants_high_in_invoices = []
+    high_in_invoices.each do |item|
+      @merchants.find_all do |merchant|
+        if item[0] == merchant.id.to_s
+          merchants_high_in_invoices << merchant
+        end
+      end
+    end
+    merchants_high_in_invoices
+  end
+
+  def bottom_merchants_by_invoice_count
+    low_in_invoices = invoices_per_merchant.find_all do |id, invoices|
+      invoices <= (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+    end
+    merchants_low_in_invoices = []
+    low_in_invoices.each do |invoice|
+      @merchants.find_all do |merchant|
+        if invoice[0] == merchant.id.to_s
+          merchants_low_in_invoices << merchant
+        end
+      end
+    end
+    merchants_low_in_invoices
+  end
+
 end

@@ -59,4 +59,20 @@ RSpec.describe SalesAnalyst do
     sales_analyst = @sales_engine.analyst
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
+
+  it 'top merchants by invoice count' do
+    sales_analyst = @sales_engine.analyst
+    expected = sales_analyst.top_merchants_by_invoice_count
+
+    expect(expected.length).to eq 12
+    expect(expected.first.class).to eq Merchant
+  end
+
+  it 'bottom merchants by invoice count' do
+    sales_analyst = @sales_engine.analyst
+    expected = sales_analyst.bottom_merchants_by_invoice_count
+
+    expect(expected.length).to eq 4
+    expect(expected.first.class).to eq Merchant
+  end
 end
