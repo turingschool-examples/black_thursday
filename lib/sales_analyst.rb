@@ -54,4 +54,6 @@ class SalesAnalyst
     end
     big_boxes = @merchant_repo.all.find_all { |merchant| merchant_ids.include?(merchant.id)}
   end
+
+
 end

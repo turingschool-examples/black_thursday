@@ -59,7 +59,7 @@ RSpec.describe SalesAnalyst do
     end
 
 
-    xit 'what is the avg item price for a merchant' do
+    it 'what is the avg item price for a merchant' do
       expect(@sales_analyst.average_item_price_for_merchant(12334159)).to eq("ummmmm i don't know")
     end
 
