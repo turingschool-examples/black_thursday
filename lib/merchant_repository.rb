@@ -4,9 +4,9 @@ require_relative 'merchant'
 
 class MerchantRepository < Repository
   attr_reader :data, :merchants
-    def inspect
-    "#<\#{self.class} \#{@merchants.size} rows>"
-    end
+#    def inspect
+#    "#<\#{self.class} \#{@merchants.size} rows>"
+#    end
 
     def initialize(data)
       @data = File.readlines data
@@ -44,16 +44,16 @@ class MerchantRepository < Repository
       new_merch
     end
 
-    # def update(id, attribute)
-    #   if attribute.keys.include?(:name) == true
-    #       if find_by_id(id) != nil
-    #           merchant = find_by_id(id)
-    #           merchant.name = attribute[:name]
-    #           merchant.updated_at = Time.now
-    #         end
-    #     end
-    #   merchant
-    # end
+     def update(id, attribute)
+       if attribute.keys.include?(:name) == true
+           if find_by_id(id) != nil
+               merchant = find_by_id(id)
+               merchant.name = attribute[:name]
+               merchant.updated_at = Time.now
+             end
+         end
+       merchant
+     end
 
 #     def delete(id)
 #       @merchants.delete(find_by_id(id)) if find_by_id(id) != nil

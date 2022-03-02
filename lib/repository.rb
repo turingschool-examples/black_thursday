@@ -12,23 +12,23 @@ class Repository
   end
 
   def find_by_name(name)
-    @repo_data.find { |data| data.name == name.downcase}
+    @repo_data.find { |data| data.name.downcase == name.downcase}
   end
 
   def find_all_by_name(fragment)
     @repo_data.find_all { |data| data.name.downcase.include?(fragment)}
   end
 
-  def update(id, attribute)
-    if attribute.keys.include?(:name) == true
-      if find_by_id(id) != nil
-        update_attribute = find_by_id(id)
-        update_attribute.name = attribute[:name]
-        update_attribute.updated_at = Time.now
-      end
-    end
-    update_attribute
-  end
+#  def update(id, attribute)
+#    if attribute.keys.include?(:name) == true
+#      if find_by_id(id) != nil
+#        update_attribute = find_by_id(id)
+#        update_attribute.name = attribute[:name]
+#        update_attribute.updated_at = Time.now
+#      end
+#    end
+#    update_attribute
+#  end
 
   def delete(id)
     @repo_data.delete(find_by_id(id)) if find_by_id(id) != nil
@@ -48,9 +48,7 @@ class Repository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @repo_data.find_all do |data|
-      data.merchant_id == merchant_id
-    end
+    @items.find_all {|item| item.merchant_id == merchant_id}
   end
 
   def find_all_by_invoice_id(invoice_id)
