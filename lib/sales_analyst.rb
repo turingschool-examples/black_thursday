@@ -68,8 +68,9 @@ class SalesAnalyst
   def merchants_with_high_item_count
     stdev = average_items_per_merchant_standard_deviation
     high_items = []
+    average = average_items_per_merchant
     total_items_per_merchant.each_with_index do |total, index|
-      if total > stdev + average_items_per_merchant
+      if total > stdev + average
         high_items << merchants[index]
       end
     end
@@ -133,4 +134,19 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     standard_deviation(average_invoices_per_merchant, total_invoices_per_merchant)
   end
+
+  def top_merchants_by_invoice_count
+    stdev = average_invoices_per_merchant_standard_deviation
+    total_invoices = total_invoices_per_merchant
+    average = average_invoices_per_merchant
+    top_merchants = []
+    total_invoices.each_with_index do |total, index|
+      if total > average + (stdev * 2)
+        top_merchants << merchants[index]
+      end
+    end
+    top_merchants
+  end
+
+      
 end
