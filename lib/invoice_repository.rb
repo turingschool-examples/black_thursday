@@ -50,6 +50,6 @@ class InvoiceRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{@invoice_items.class} #{@invoice_items.all.size} rows>"
   end
 end
