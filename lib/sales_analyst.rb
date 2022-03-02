@@ -2,10 +2,9 @@
 
 require 'bigdecimal'
 require 'bigdecimal/util'
+
 require_relative './sales_engine'
-# require_relative './lib/item_repository'
-# require_relative './lib/invoice_repository'
-# require_relative './lib/invoice_item_repository'
+
 
 class SalesAnalyst
   attr_reader :items, :merchants, :invoices, :transactions, :customers, :invoice_items
@@ -170,5 +169,6 @@ class SalesAnalyst
     @invoice_items.find_all_by_invoice_id(invoice_id).map {|i_items|
         (i_items.unit_price * i_items.quantity)}.sum
     end
-
   end
+end
+

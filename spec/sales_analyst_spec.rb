@@ -132,4 +132,11 @@ RSpec.describe ItemRepository do
       expect(expected.class).to eq BigDecimal
     end
   end
+
+  it '#total returns the total dollar amount if the invoice is paid in full' do
+    expected = @sa.invoice_total(1)
+    # binding.pry
+    expect(expected).to eq 21_067.77
+    expect(expected.class).to eq BigDecimal
+  end
 end
