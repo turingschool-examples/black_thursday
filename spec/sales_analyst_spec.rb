@@ -71,7 +71,11 @@ RSpec.describe SalesAnalyst do
       expect(@sales_analyst.average_average_price_for_merchant.class).to eq(BigDecimal)
     end
 
-    it 'what items are over two st. devs above avg item price' do
+    it 'average_item_price_standard_deviation' do
+      expect(@sales_analyst.average_item_price_standard_deviation).to be_a(Float
+      end)
+
+    xit 'what items are over two st. devs above avg item price' do
       expect(@sales_analyst.golden_items).to eq("ummmmm i don't know")
     end
   end

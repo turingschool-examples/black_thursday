@@ -66,4 +66,9 @@ class SalesAnalyst
     merchant_averages.sum / merchant_averages.count
   end
 
+  def average_item_price_standard_deviation
+    all_item_prices = @item_repo.all.map { |item| item.unit_price }
+    binding.pry
+  end
+
 end
