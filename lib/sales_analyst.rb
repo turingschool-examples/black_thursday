@@ -170,6 +170,7 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     invoice_id_by_date = []
     @invoices.all.each do |invoice|
+      require "pry"; binding.pry
       invoice_id_by_date << invoice.id if invoice.created_at.strftime("%D") == date.strftime("%D")
     end
     invoice_items_by_date = []
