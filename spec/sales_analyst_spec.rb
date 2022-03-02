@@ -22,26 +22,19 @@ RSpec.describe SalesAnalyst do
 
     it 'groups items by merchant id' do
       @sales_analyst.group_items_by_merchant_id
-      expect(@sales_analyst.merchant_items_hash.count).to eq(475)
-      expect(@sales_analyst.merchant_items_hash.class).to eq(Hash)
+      expect(@sales_analyst.group_items_by_merchant_id.count).to eq(475)
+      expect(@sales_analyst.group_items_by_merchant_id.class).to eq(Hash)
     end
 
     it 'makes a list of the number of items offered by each merchant' do
       @sales_analyst.items_per_merchant
-      expect(@sales_analyst.num_items_per_merchant.class).to be(Array)
-      expect(@sales_analyst.num_items_per_merchant.count).to be(475)
-      expect(@sales_analyst.num_items_per_merchant.sum).to be(1367)
+      expect(@sales_analyst.items_per_merchant.class).to be(Array)
+      expect(@sales_analyst.items_per_merchant.count).to be(475)
+      expect(@sales_analyst.items_per_merchant.sum).to be(1367)
     end
 
     it 'what is the average items per merchant' do
       expect(@sales_analyst.average_items_per_merchant).to eq(2.88)
-    end
-
-    it 'collects squared differences of each item count and mean of item counts' do
-      @sales_analyst.square_differences
-      expect(@sales_analyst.set_of_square_differences.count).to eq(475)
-      expect(@sales_analyst.set_of_square_differences.class).to eq(Array)
-      expect(@sales_analyst.set_of_square_differences[0].class).to eq(Float)
     end
 
     it 'what is the standard deviation' do
