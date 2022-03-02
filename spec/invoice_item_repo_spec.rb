@@ -29,19 +29,25 @@ RSpec.describe InvoiceItemRepository do
     expect(iir.all.count).to eq 21830
   end
 
-  xit "finds an invoice item by id" do
+  it "finds an invoice item by id" do
     expected_item = iir.find_by_id(20)
     expect(expected_item.invoice_item_attributes[:item_id]).to eq 263395237
     expect(expected_item.invoice_item_attributes[:unit_price]).to eq 72018
   end
 
-  xit "finds all invoice items by item id" do
+  it "finds all invoice items by item id" do
     expected_items = iir.find_all_by_item_id(263563764)
     expect(expected_items.length).to eq(16)
   end
 
-  xit "finds all invoice items by invoice id" do
+  it "finds all invoice items by invoice id" do
     expected_items = iir.find_all_by_invoice_id(9)
     expect(expected_items.length).to eq(3)
+  end
+
+  it "creates a new invoice item instance" do
+    iir.create({item_id: 999999999})
+    expected_invoice_item = iir.find_by_id(21831)
+    expect(expected_invoice_item.invoice_item_attributes[:id]).to eq(21831)
   end
 end

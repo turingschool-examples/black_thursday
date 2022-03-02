@@ -15,8 +15,8 @@ class InvoiceItemRepository
   end
 
   def find_by_id(id)
-    invoice_items.find do |instance|
-      instance.invoice_item_attributes[:id] == id
+    invoice_items.find do |iii|
+      iii.invoice_item_attributes[:id] == id
     end
   end
 
@@ -30,5 +30,10 @@ class InvoiceItemRepository
     invoice_items.find_all do |instance|
       instance.invoice_item_attributes[:invoice_id] == (id)
     end
+  end
+
+  def create(attributes)
+    attributes[:id] = invoice_items[-1].invoice_item_attributes[:id] + 1
+    invoice_items << InvoiceItem.new(attributes)
   end
 end
