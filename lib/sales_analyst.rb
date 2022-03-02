@@ -60,6 +60,10 @@ class SalesAnalyst
     prices.sum / prices.count
   end
 
-
+  def average_average_price_for_merchant
+    all_merchant_ids = @merchant_repo.all.map { |merchant| merchant.id }
+    merchant_averages = all_merchant_ids.map { |id| average_item_price_for_merchant(id) }
+    merchant_averages.sum / merchant_averages.count
+  end
 
 end

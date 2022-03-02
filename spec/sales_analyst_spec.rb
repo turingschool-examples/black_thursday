@@ -68,7 +68,7 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'what is the avg avg price for a merchant' do
-      expect(@sales_analyst.average_average_price_for_merchant).to eq("ummmmm i don't know")
+      expect(@sales_analyst.average_average_price_for_merchant.class).to eq(BigDecimal)
     end
 
     xit 'what items are over two st. devs above avg item price' do
