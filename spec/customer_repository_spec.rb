@@ -130,8 +130,9 @@ RSpec.describe 'Iteration 3' do
       expect(expected).to eq nil
     end
 
-    # it 'test for the inspect workaround' do
-    #   expect(@se.customers.inspect).to be_a(String)
-    # end
+    it 'can test the #inspect method workaround' do
+      expect(@customers.inspect).to be_a(String)
+    end
+
   end
 end

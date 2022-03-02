@@ -110,4 +110,9 @@ RSpec.describe MerchantRepository do
     expected = @se.merchants.find_by_id(12_336_622)
     expect(expected).to eq nil
   end
+
+  it 'can test the #inspect method workaround' do
+    expect(@merchants.inspect).to be_a(String)
+  end
+
 end
