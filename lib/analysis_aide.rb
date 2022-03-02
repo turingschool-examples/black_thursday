@@ -6,6 +6,8 @@ module AnalysisAide
     @iir.item_ids.each do |id, list|
       items_to_count[@ir.find_by_id(id)] = list.count
     end
+    items_to_count
+  end
 
 
 

@@ -5,11 +5,13 @@ require_relative '../lib/invoice_repository'
 require_relative '../lib/time_helper'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/invoice_items_repository'
+require_relative '../lib/analysis_aide'
 require 'pry'
 
 class Analyst
   include Mathable
   include TimeHelper
+  include AnalysisAide
 
   def initialize
     @mr = MerchantsRepository.new("./data/merchants.csv")
@@ -117,9 +119,9 @@ class Analyst
     # @iir.item_ids.each do |id, list|
     #   items_to_count[@ir.find_by_id(id)] = list.count
     # end
-    require 'pry'; binding.pry
+
     merchants_and_items = {}
-    items_to_count.each do |item, count|
+    num_times_items_ordered.each do |item, count|
       merch_id = @mr.find_by_id(item.merchant_id)
       if !merchants_and_items.key?(merch_id)
         merchants_and_items[merch_id] = {}
