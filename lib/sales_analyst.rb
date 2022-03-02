@@ -53,8 +53,16 @@ class SalesAnalyst
 
 
   def average_items_per_merchant_standard_deviation
-
     standard_deviation(average_items_per_merchant, total_items_per_merchant)
+  end
 
+  def merchants_with_high_item_count
+    high_item_count = []
+    total_items_per_merchant.each do |item_count|
+      if item_count > 6
+      high_item_count << item_count
+      end
+    end
+    high_item_count.length
   end
 end
