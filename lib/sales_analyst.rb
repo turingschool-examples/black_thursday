@@ -2,7 +2,9 @@
 
 require 'bigdecimal'
 require 'bigdecimal/util'
-require_relative 'sales_engine'
+
+require_relative './sales_engine'
+
 
 class SalesAnalyst
   attr_reader :items, :merchants, :invoices, :transactions, :customers, :invoice_items
@@ -12,6 +14,7 @@ class SalesAnalyst
     @merchants = merchants
     @invoices = invoices
     @transactions = transactions
+    @customers = _customers
     @invoice_items = invoice_items
   end
 
@@ -166,6 +169,7 @@ class SalesAnalyst
     invoices = @invoice_items.find_all_by_invoice_id(invoice_id) if invoice_paid_in_full?(invoice_id) == true
     invoices.map { |invoice| (invoice.unit_price * invoice.quantity) }.sum
   end
+
 
   def total_revenue_by_date(date)
     invoice_id_by_date = []

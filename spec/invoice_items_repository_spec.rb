@@ -158,6 +158,8 @@ RSpec.describe 'Iteration 3' do
       @se.invoice_items.delete(22000)
     end
 
-
+    it 'can test the #inspect method workaround' do
+      expect(@invoice_items.inspect).to be_a(String)
+    end
   end
 end
