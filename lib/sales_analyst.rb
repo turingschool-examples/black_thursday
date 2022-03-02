@@ -83,4 +83,9 @@ class SalesAnalyst
     golden_price = mean + (average_item_price_standard_deviation * 2)
     golden_items = @item_repo.all.find_all { |item| item.unit_price > golden_price }
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    transaction = @transaction_repo.all.find { |transaction| transaction.invoice_id == invoice_id }
+    transaction.result == :success
+  end
 end
