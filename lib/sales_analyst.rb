@@ -1,5 +1,5 @@
 class SalesAnalyst
-  attr_reader :merchant_repo, :item_repo, :transaction_repo, :invoice_item_repo, :invoice_repo, :customer_repo, :merchant_items_hash, :num_items_per_merchant, :set_of_square_differences
+  attr_reader :merchant_repo, :item_repo, :transaction_repo, :invoice_item_repo, :invoice_repo, :customer_repo, :merchant_items_hash, :num_items_per_merchant, :set_of_square_differences, :big_box_ids
 
   def initialize(merchant_repo, item_repo, transaction_repo, invoice_item_repo, invoice_repo, customer_repo)
     @merchant_repo = merchant_repo
@@ -12,6 +12,7 @@ class SalesAnalyst
     @num_items_per_merchant = []
     @mean = 0
     @set_of_square_differences = []
+    @big_box_ids = []
   end
 
   def group_items_by_merchant_id
@@ -46,14 +47,19 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     high_count = average_items_per_merchant + average_items_per_merchant_standard_deviation
-    merchant_ids = []
    group_items_by_merchant_id.each do |id, items|
       if items.count > high_count
-        merchant_ids << id
+        @big_box_ids << id
       end
     end
-    big_boxes = @merchant_repo.all.find_all { |merchant| merchant_ids.include?(merchant.id)}
+    big_boxes = @merchant_repo.all.find_all { |merchant| @big_box_ids.include?(merchant.id)}
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    prices = group_items_by_merchant_id[merchant_id].map { |item| item.unit_price }
+    prices.sum / prices.count
+  end
+
 
 
 end
