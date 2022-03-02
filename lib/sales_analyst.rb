@@ -164,16 +164,7 @@ class SalesAnalyst
 
   def invoice_total(invoice_id)
     invoices = @invoice_items.find_all_by_invoice_id(invoice_id) if invoice_paid_in_full?(invoice_id) == true
-    # sum = 0
     invoices.map { |invoice| (invoice.unit_price * invoice.quantity) }.sum
-    # sum
-    # invoices.each { |invoice| sum += (invoice.unit_price * invoice.quantity) }
-    # sum
   end
-end
 
-# @sa.invoice_total(1).each do |invoice|
-#    (invoice.quantity * invoice.unit_price).sum
-# binding.pry
-# invoices do |sum, invoice|
-#   (invoice.unit_price * invoice.quantity).sum
+end

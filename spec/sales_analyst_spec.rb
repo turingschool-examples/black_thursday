@@ -126,8 +126,16 @@ RSpec.describe ItemRepository do
 
   it '#total returns the total dollar amount if the invoice is paid in full' do
     expected = @sa.invoice_total(1)
-    # binding.pry
+
     expect(expected).to eq 21_067.77
+    expect(expected.class).to eq BigDecimal
+  end
+
+  it "#total_revenue_by_date returns total revenue for given date" do
+    date = Time.parse("2009-02-07")
+    expected = @sa.total_revenue_by_date(date)
+
+    expect(expected).to eq 21067.77
     expect(expected.class).to eq BigDecimal
   end
 end
