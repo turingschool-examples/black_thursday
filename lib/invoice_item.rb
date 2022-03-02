@@ -7,7 +7,7 @@ class InvoiceItem
     @invoice_item_attributes[:item_id] = invoice_item_attributes[:item_id].to_i
     @invoice_item_attributes[:invoice_id] = invoice_item_attributes[:invoice_id].to_i
     @invoice_item_attributes[:quantity] = invoice_item_attributes[:quantity].to_i
-    @invoice_item_attributes[:unit_price] = invoice_item_attributes[:unit_price].to_i
+    @invoice_item_attributes[:unit_price] = invoice_item_attributes[:unit_price].to_f
   end
 
   def unit_price_to_dollars
