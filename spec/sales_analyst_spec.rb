@@ -81,4 +81,11 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
   end
+
+  it 'invoice status' do
+    sales_analyst = @sales_engine.analyst
+    expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
+    expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
+    expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
+  end
 end

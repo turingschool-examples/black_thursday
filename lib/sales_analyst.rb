@@ -171,4 +171,10 @@ class SalesAnalyst
       :sundays => days.count {|day| day == "Sunday"} }
   end
 
+  def invoice_status(status)
+    full_count = @invoices.count
+    status_count = @invoices.count {|invoice| invoice.status == status.to_s}
+    ((status_count.to_f / full_count) *  100).round(2)
+  end
+
 end
