@@ -1,5 +1,6 @@
 class SalesAnalyst
-  attr_reader :merchant_repo, :item_repo, :transaction_repo, :invoice_item_repo, :invoice_repo, :customer_repo, :merchant_items_hash, :num_items_per_merchant, :set_of_square_differences, :big_box_ids
+  attr_reader :merchant_repo, :item_repo, :transaction_repo, :invoice_item_repo, :invoice_repo, :customer_repo,
+              :merchant_items_hash, :num_items_per_merchant, :set_of_square_differences, :big_box_ids
 
   def initialize(merchant_repo, item_repo, transaction_repo, invoice_item_repo, invoice_repo, customer_repo)
     @merchant_repo = merchant_repo
@@ -47,23 +48,23 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     high_count = average_items_per_merchant + average_items_per_merchant_standard_deviation
-   group_items_by_merchant_id.each do |id, items|
+    group_items_by_merchant_id.each do |id, items|
       if items.count > high_count
         @big_box_ids << id
       end
     end
-    big_boxes = @merchant_repo.all.find_all { |merchant| @big_box_ids.include?(merchant.id)}
+    big_boxes = @merchant_repo.all.find_all { |merchant| @big_box_ids.include?(merchant.id) }
   end
 
   def average_item_price_for_merchant(merchant_id)
     prices = group_items_by_merchant_id[merchant_id].map { |item| item.unit_price }
-    prices.sum / prices.count
+    avg = (prices.sum / prices.count).round(2)
   end
 
-  def average_average_price_for_merchant
+  def average_average_price_per_merchant
     all_merchant_ids = @merchant_repo.all.map { |merchant| merchant.id }
     merchant_averages = all_merchant_ids.map { |id| average_item_price_for_merchant(id) }
-    merchant_averages.sum / merchant_averages.count
+    avg = (merchant_averages.sum / merchant_averages.count).round(2)
   end
 
   def average_item_price_standard_deviation
@@ -82,7 +83,4 @@ class SalesAnalyst
     golden_price = mean + (average_item_price_standard_deviation * 2)
     golden_items = @item_repo.all.find_all { |item| item.unit_price > golden_price }
   end
-
-
-
 end

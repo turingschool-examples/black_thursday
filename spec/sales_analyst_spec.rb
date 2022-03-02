@@ -58,7 +58,6 @@ RSpec.describe SalesAnalyst do
       expect(@sales_analyst.group_items_by_merchant_id[sample3].count).to be > 6.14
     end
 
-
     it 'what is the avg item price for a merchant' do
       @sales_analyst.merchants_with_high_item_count
       sample1 = @sales_analyst.big_box_ids[0]
@@ -68,7 +67,7 @@ RSpec.describe SalesAnalyst do
     end
 
     it 'what is the avg avg price for a merchant' do
-      expect(@sales_analyst.average_average_price_for_merchant.class).to eq(BigDecimal)
+      expect(@sales_analyst.average_average_price_per_merchant.class).to eq(BigDecimal)
     end
 
     it 'average_item_price_standard_deviation' do
