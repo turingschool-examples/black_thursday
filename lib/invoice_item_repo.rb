@@ -13,4 +13,10 @@ class InvoiceItemRepository
     end
     invoice_items_instances_array
   end
+
+  def find_by_id(id)
+    @items.find do |item_instance|
+      item_instance.invoice_item_attributes[:id] == id
+    end
+  end
 end
