@@ -90,6 +90,7 @@ RSpec.describe SalesAnalyst do
       @sample2 = Invoice.new({ id: 9, customer_id: 2, merchant_id: 12336965, status: :shipped,
         created_at: "2003-03-07", updated_at: "2008-10-09" })
     end
+
     it 'invoice_paid_in_full?' do
       expect(@sales_analyst.invoice_paid_in_full?(@sample1.id)).to eq(true)
       expect(@sales_analyst.invoice_paid_in_full?(@sample2.id)).to eq(false)
