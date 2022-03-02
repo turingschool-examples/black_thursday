@@ -25,4 +25,10 @@ class InvoiceItemRepository
       instance.invoice_item_attributes[:item_id] == (id)
     end
   end
+
+  def find_all_by_invoice_id(id)
+    invoice_items.find_all do |instance|
+      instance.invoice_item_attributes[:invoice_id] == (id)
+    end
+  end
 end
