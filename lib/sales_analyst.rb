@@ -38,6 +38,7 @@ class Analyst
 
   def average_item_price_per_merchant(merchant_id)
     items = @ir.find_all_by_merchant_id(merchant_id)
+    # binding.pry
     unit_price_array = items.map { |price| price.unit_price}
     average_price = average(unit_price_array.sum, unit_price_array.count)
     in_dollars = (average_price / 100).round(2)
@@ -97,10 +98,9 @@ class Analyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    transactions = @tr.find_all_by_invoice_id(invoice_id.to_s)
+    transactions = @tr.find_all_by_invoice_id(invoice_id)
     return false if transactions.nil?
-    # binding.pry if transactions.nil?
-    if transactions.find {|transaction| transaction.result.include?("success")}
+    if transactions.map {|transaction| transaction.result }.include?("success")
       true
     else
       false
@@ -112,6 +112,20 @@ class Analyst
     sum = 0
     invoice_items.each { |invoice_item| sum += ((invoice_item.unit_price.to_f * invoice_item.quantity.to_f)/100.0) }
     sum
+  end
+
+  def merchant_with_pending_invoices
+  coolio = @in.invoice_status[:pending].find_all do |invoice|
+            invoice_paid_in_full?(invoice.id) == false
+          end
+  yeah = coolio.map do |invoice|
+    invoice.merchant_id
+  end
+  array = []
+  yeah.each do |merchant_id|
+    array << @mr.find_by_id(merchant_id)
+  end
+  array.uniq
   end
 
   def total_revenue_by_date(date)
@@ -129,5 +143,6 @@ class Analyst
     end
     top_merchants = (merchant_revenues.values.sort.reverse.first(x)).map {|revenue| @mr.find_by_id(merchant_revenues.key(revenue))}
   end
+
 
 end

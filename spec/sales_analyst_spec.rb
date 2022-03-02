@@ -84,4 +84,10 @@ describe Analyst do
       expect(top_merchants.first.id).to eq 12334634
 
   end
+
+  it "returns an array of merchants with pending invoices" do
+    expect(@sales_analyst.merchant_with_pending_invoices.count).to eq(467)
+  end
+
+
 end
