@@ -15,12 +15,16 @@ module RepositoryAide
   end
 
   def find(search_repo, match)
+    return [] if search_repo[match].nil?
     search_repo[match]
   end
 
   def find_by_id(id)
+    # require 'pry'; binding.pry
     @repository.find {|element| element.id == id.to_i}
   end
+
+
 
   def new_id
     new_id = @repository.sort_by {|element| element.id}.last.id

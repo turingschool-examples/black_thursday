@@ -12,8 +12,8 @@ class InvoiceRepository
     @repository = read_csv(file).map do |invoice|
           Invoice.new({
             :id => invoice[:id].to_i,
-            :customer_id => invoice[:customer_id],
-            :merchant_id => invoice[:merchant_id],
+            :customer_id => invoice[:customer_id].to_i,
+            :merchant_id => invoice[:merchant_id].to_i,
             :status => invoice[:status].to_sym,
             :created_at => create_time(invoice[:created_at]),
             :updated_at => invoice[:updated_at]
@@ -57,7 +57,9 @@ class InvoiceRepository
 
   def update(id, attribute)
     invoice = find_by_id(id)
-    invoice.status = attribute
-    invoice.updated_at = Time.now
+    unless invoice.nil?
+      invoice.status = attribute[:status]
+      invoice.updated_at = Time.now
+    end
   end
 end

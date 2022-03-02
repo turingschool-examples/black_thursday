@@ -14,7 +14,7 @@ describe Analyst do
   :transactions => "./data/transactions.csv"
   })
     @sales_analyst = Analyst.new(@sales_engine)
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end
 
   it "finds average" do

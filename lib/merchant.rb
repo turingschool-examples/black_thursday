@@ -5,7 +5,7 @@ class Merchant
 
   def initialize(info)
     @name = info[:name]
-    @id = info[:id]
+    @id = info[:id].to_i
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
   end

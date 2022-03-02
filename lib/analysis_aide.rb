@@ -18,6 +18,7 @@ module AnalysisAide
       merch_items[merch_id][count] << item
     end
     merch_items
+    require 'pry'; binding.pry
   end
 
   def find_merchant_revenue_by_items(merchant_id)

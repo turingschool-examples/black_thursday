@@ -29,7 +29,7 @@ class SalesEngine
     @merchants ||= MerchantsRepository.new(@merchants_lines)
   end
 
-  def invoice_items_repo
+  def invoice_items
     @invoice_items ||= InvoiceItemsRepository.new(@invoice_items_lines)
   end
 
@@ -45,16 +45,16 @@ class SalesEngine
     @transactions ||= TransactionRepository.new(@transactions_lines)
   end
 
-  def run
-    items
-    merchants
-    invoice_items_repo
-    invoices
-    customers
-    transactions
-  end
+  # def run
+  #   items
+  #   merchants
+  #   invoice_items_repo
+  #   invoices
+  #   customers
+  #   transactions
+  # end
 
   def analyst
-    Analyst.new
+    Analyst.new(self)
   end
 end #SalesEngine class end
