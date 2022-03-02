@@ -141,12 +141,25 @@ class SalesAnalyst
     average = average_invoices_per_merchant
     top_merchants = []
     total_invoices.each_with_index do |total, index|
-      if total > average + (stdev * 2)
+      if total > (average + (stdev * 2)).to_i
         top_merchants << merchants[index]
       end
     end
     top_merchants
   end
 
+  def bottom_merchants_by_invoice_count
+    stdev = average_invoices_per_merchant_standard_deviation
+    total_invoices = total_invoices_per_merchant
+    average = average_invoices_per_merchant
+    bottom_merchants = []
+    p (average - (stdev * 2)).to_i
+    total_invoices.each_with_index do |total, index|
+      if total < (average - (stdev * 2)).to_i
+        bottom_merchants << merchants[index]
+      end
+    end
+    bottom_merchants
+  end
       
 end

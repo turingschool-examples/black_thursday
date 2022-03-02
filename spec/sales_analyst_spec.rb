@@ -72,4 +72,12 @@ RSpec.describe SalesAnalyst do
     it '#average_invoices_per_merchant_standard_deviation calculates standard deviation of merchant invoice average' do
       expect(sa.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     end
+
+    it '#top_merchants_by_invoice_count returns merchants 2 standard deviations above mean' do
+      expect(sa.top_merchants_by_invoice_count.count).to eq(12)
+    end
+
+    it '#bottom_merchants_by_invoice_count returns merchants 2 standard deviations below mean' do
+      expect(sa.bottom_merchants_by_invoice_count.count).to eq(1)
+    end
   end
