@@ -5,6 +5,7 @@ require_relative 'item_repository'
 require_relative 'invoice_item_repository'
 require_relative 'invoice_repository'
 require_relative 'customer_repository'
+require_relative 'transaction_repository'
 require_relative 'sales_analyst'
 
 class SalesEngine
@@ -25,12 +26,10 @@ attr_reader :merchants, :items, :invoices, :invoice_items, :customers, :transact
     invoice_item_lines = input[:invoice_items]
     customer_lines = input[:customers]
     transaction_lines = input[:transactions]
-    SalesEngine.new(merchant_lines, item_lines, invoice_lines,
-       invoice_item_lines, customer_lines, transaction_lines)
+    SalesEngine.new(merchant_lines, item_lines, invoice_lines, invoice_item_lines, customer_lines, transaction_lines)
   end
 
   def analyst
-    SalesAnalyst.new(@merchants, @items, @invoices, @invoice_items,
-        @customers, @transactions)
+    SalesAnalyst.new(@merchants, @items, @invoices, @invoice_items, @customers, @transactions)
   end
 end

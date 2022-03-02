@@ -35,4 +35,12 @@ class TransactionRepository < Repository
     end
     item_to_update
   end
+
+  def find_all_by_credit_card_number(credit_card_number)
+    @transactions.find_all {|item| item.credit_card_number.include?(credit_card_number)}
+  end
+
+  def find_all_by_result(result)
+    @transactions.find_all {|item| item.result.include?(result)}
+  end
 end
