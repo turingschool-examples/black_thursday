@@ -66,6 +66,7 @@ describe Analyst do
 
   it "returns total $ amount of invoice with corresponding invoice_id" do
     expect(@sales_analyst.invoice_total(1)).to eq(21067.77)
+
   end
 
   it "returns total revenue for given date" do
@@ -81,5 +82,6 @@ describe Analyst do
       expect(top_merchants.count).to eq(5)
       expect(top_merchants.first.class).to eq Merchant
       expect(top_merchants.first.id).to eq 12334634
+
   end
 end
