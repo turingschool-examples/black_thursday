@@ -69,10 +69,10 @@ describe Analyst do
     expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 
-
-  xit "can find the total revenue for the day" do
+  it "can find the total revenue for the day" do
     expect(@sales_analyst.total_revenue_by_date(date)).to eq(456)
   end
+
   it "determines if invoice has been paid in full" do
     expect(@sales_analyst.invoice_paid_in_full?(46)).to eq(true)
     expect(@sales_analyst.invoice_paid_in_full?(204)).to eq(false)
@@ -94,5 +94,24 @@ describe Analyst do
     expect(all_items.values.include?(item)).to be true
     highest_item = all_items.keys.sort.last
     expect(all_items[highest_item]).to eq(item)
+  end
+
+  it "returns total revenue for given date" do
+    date = Time.parse("2009-12-09")
+    expected = @sales_analyst.total_revenue_by_date(date)
+    expect(expected).to eq 30158.61
+    expect(expected.class).to eq BigDecimal
+  end
+
+  it "finds top earning merchants" do
+      top_merchants = @sales_analyst.top_revenue_earners(5)
+
+      expect(top_merchants.count).to eq(5)
+      expect(top_merchants.first.class).to eq Merchant
+      expect(top_merchants.first.id).to eq 12334634
+  end
+
+  it "returns an array of merchants with pending invoices" do
+    expect(@sales_analyst.merchant_with_pending_invoices.count).to eq(467)
   end
 end
