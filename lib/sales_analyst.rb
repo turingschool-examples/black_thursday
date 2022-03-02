@@ -68,7 +68,12 @@ class SalesAnalyst
 
   def average_item_price_standard_deviation
     all_item_prices = @item_repo.all.map { |item| item.unit_price }
-    binding.pry
+    mean = all_item_prices.sum / all_item_prices.count
+    differences = all_item_prices.map { |item_price| item_price - mean }
+    square_differences = differences.map { |difference| difference**2 }
+    sum_square_differences = square_differences.sum
+    quotient = sum_square_differences / (all_item_prices.count - 1)
+    st_dev = Math.sqrt(quotient).round(2)
   end
 
 end
