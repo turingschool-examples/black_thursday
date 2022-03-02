@@ -48,9 +48,16 @@ RSpec.describe SalesAnalyst do
       expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
 
-    xit 'which merchants have above one st. dev. avg products offered' do
-      expect(@sales_analyst.merchants_with_high_item_count).to eq("ummmmm i don't know")
+    it 'which merchants have above one st. dev. avg products offered' do
+      expect(@sales_analyst.merchants_with_high_item_count.class).to eq(Array)
+      sample1 = @sales_analyst.merchant_repo.find_by_id(@sales_analyst.merchants_with_high_item_count[0].id).id
+      sample2 = @sales_analyst.merchant_repo.find_by_id(@sales_analyst.merchants_with_high_item_count[1].id).id
+      sample3 = @sales_analyst.merchant_repo.find_by_id(@sales_analyst.merchants_with_high_item_count[2].id).id
+      expect(@sales_analyst.group_items_by_merchant_id[sample1].count).to be > 6.14
+      expect(@sales_analyst.group_items_by_merchant_id[sample2].count).to be > 6.14
+      expect(@sales_analyst.group_items_by_merchant_id[sample3].count).to be > 6.14
     end
+
 
     xit 'what is the avg item price for a merchant' do
       expect(@sales_analyst.average_item_price_for_merchant(12334159)).to eq("ummmmm i don't know")
