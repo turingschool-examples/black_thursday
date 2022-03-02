@@ -18,40 +18,40 @@ class ItemRepository
 
   def find_by_id(id)
     items.find do |item_instance|
-    item_instance.item_attributes[:id] == id
+      item_instance.item_attributes[:id] == id
     end
   end
 
   def find_by_name(name)
     items.find do |item_instance|
-    item_instance.item_attributes[:name].downcase == name.downcase
+      item_instance.item_attributes[:name].downcase == name.downcase
     end
   end
 
   def find_all_with_description(string)
     items.find_all do |item_instance|
       item_instance.item_attributes[:description].include?(string)
-      end
+    end
   end
 
   def find_all_by_price(integer)
     items.find_all do |item_instance|
-    item_instance.item_attributes[:unit_price] == integer.to_s
+      item_instance.item_attributes[:unit_price] == integer.to_s
     end
   end
 
   def find_all_by_price_in_range(range)
     range_items_to_check = []
     items.each do |item_instance|
-        range_items_to_check << (item_instance.item_attributes[:unit_price].to_f <= range.to_a.max && item_instance.item_attributes[:unit_price].to_f >= range.to_a.min)
+      range_items_to_check << (item_instance.item_attributes[:unit_price].to_f <= range.to_a.max && item_instance.item_attributes[:unit_price].to_f >= range.to_a.min)
     end
-    return range_items_to_check
+    range_items_to_check
   end
 
   def find_all_by_merchant_id(input_id)
     items.find_all do |item_instance|
       item_instance.item_attributes[:merchant_id].equal?(input_id)
-      end
+    end
   end
 
   def create(attributes)
@@ -79,5 +79,4 @@ class ItemRepository
   def delete(id)
     items.delete(find_by_id(id))
   end
-
 end

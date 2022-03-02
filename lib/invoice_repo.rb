@@ -1,4 +1,4 @@
-require 'pry'
+require "pry"
 
 class InvoiceRepository
   attr_reader :file_path, :invoices
