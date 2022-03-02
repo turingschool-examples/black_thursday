@@ -58,4 +58,10 @@ RSpec.describe InvoiceItemRepository do
     expect(expected_item_invoice.invoice_item_attributes[:quantity]).to eq(111)
     expect(expected_item_invoice.invoice_item_attributes[:unit_price]).to eq(11111)
   end
+
+  it "deletes an invoice item" do
+    iir.create({quantity: 999})
+    iir.delete(21831)
+    expect(iir.find_by_id(21831)).to eq nil
+  end
 end
