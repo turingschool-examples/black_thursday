@@ -1,17 +1,20 @@
 require "./lib/invoice_item"
+require "./lib/sales_engine"
 require "bigdecimal"
-require "time"
+require "Time"
 
 RSpec.describe "InvoiceItem" do
-  ii = InvoiceItem.new({
-    id: 6,
-    item_id: 7,
-    invoice_id: 8,
-    quantity: 1,
-    unit_price: BigDecimal("10.99", 4),
-    created_at: Time.now,
-    updated_at: Time.now
-  })
+  let(:ii) do
+    InvoiceItem.new({
+      id: 6,
+      item_id: 7,
+      invoice_id: 8,
+      quantity: 1,
+      unit_price: BigDecimal("10.99", 4),
+      created_at: Time.now,
+      updated_at: Time.now
+    })
+  end
 
   it "exists" do
     expect(ii).to be_an_instance_of(InvoiceItem)
