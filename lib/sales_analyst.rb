@@ -45,7 +45,7 @@ class Analyst
 
   def average_average_price_per_merchant
     array_of_prices = @mr.repository.map do |merchant|
-      average_item_price_per_merchant(merchant.id.to_s)
+      average_item_price_per_merchant(merchant.id)
     end
     average = average(array_of_prices.sum, array_of_prices.count)
     return average
@@ -98,10 +98,12 @@ class Analyst
 
   def invoice_paid_in_full?(invoice_id)
     transactions = @tr.find_all_by_invoice_id(invoice_id.to_s)
-    if transactions.map {|transaction| transaction.result }.include?("success")
+    return false if transactions.nil?
+    # binding.pry if transactions.nil?
+    if transactions.find {|transaction| transaction.result.include?("success")}
       true
     else
-     false
+      false
     end
   end
 
@@ -116,6 +118,16 @@ class Analyst
     invoice_id_by_date = @in.find_all_by_date(date).map { |invoice| invoice.id}
     invoice_items_by_date = invoice_id_by_date.map {|invoice_id| @iir.find_all_by_invoice_id(invoice_id.to_s)}
     revenue = invoice_items_by_date.flatten.map { |invoice| (invoice.unit_price * invoice.quantity)}.sum / 100
+  end
+
+  def top_revenue_earners(x)
+    merchant_revenues = {}
+    @in.repository.each do |invoice|
+      merchant_id = invoice.merchant_id
+      merchant_revenues[merchant_id] = 0 if !merchant_revenues.key?(merchant_id)
+      merchant_revenues[merchant_id] += invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+    end
+    top_merchants = (merchant_revenues.values.sort.reverse.first(x)).map {|revenue| @mr.find_by_id(merchant_revenues.key(revenue))}
   end
 
 end
