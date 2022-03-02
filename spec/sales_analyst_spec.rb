@@ -85,14 +85,18 @@ RSpec.describe SalesAnalyst do
       @sales_engine = SalesEngine.from_csv({ :items => "./data/items.csv", :merchants => "./data/merchants.csv",
                                              :transactions => "./data/transactions.csv", :invoice_items => "./data/invoice_items.csv", :invoices => "./data/invoices.csv", :customers => "./data/customers.csv" })
       @sales_analyst = @sales_engine.analyst
+      sample1 = Invoice.new({ id: 1, customer_id: 1, merchant_id: 12335938, status: :pending,
+        created_at: "	2009-02-07", updated_at: "2014-03-15" })
+        sample2 = Invoice.new({ id: 9, customer_id: 2, merchant_id: 12336965, status: :shipped,
+          created_at: "2003-03-07", updated_at: "2008-10-09" })
     end
     it 'invoice_paid_in_full?' do
-      sample1 = Invoice.new({ id: 1, customer_id: 1, merchant_id: 12335938, status: :pending,
-                              created_at: "	2009-02-07", updated_at: "2014-03-15" })
-      sample2 = Invoice.new({ id: 9, customer_id: 2, merchant_id: 12336965, status: :shipped,
-                              created_at: "2003-03-07", updated_at: "2008-10-09" })
       expect(@sales_analyst.invoice_paid_in_full?(sample1.id)).to eq(true)
       expect(@sales_analyst.invoice_paid_in_full?(sample2.id)).to eq(false)
+    end
+
+    it 'returns the total $ amount of the Invoice with the corresponding id' do
+      expect(@sales_analyst.invoice_total(sample1.id).class).to eq(BigDecimal)      
     end
   end
 end
