@@ -36,4 +36,12 @@ class InvoiceItemRepository
     attributes[:id] = invoice_items[-1].invoice_item_attributes[:id] + 1
     invoice_items << InvoiceItem.new(attributes)
   end
+
+  def update(id, attributes)
+    if !(attributes.include?(:id) || attributes.include?(:item_id) || attributes.include?(:invoice_id) || attributes.include?(:created_at) || attributes.include?(:updated_at))
+      find_by_id(id).invoice_item_attributes[:quantity] = attributes[:quantity]
+      find_by_id(id).invoice_item_attributes[:unit_price] = attributes[:unit_price]
+    end
+    find_by_id(id).invoice_item_attributes[:updated_at] = Time.now
+  end
 end
