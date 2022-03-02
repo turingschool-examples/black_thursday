@@ -1,8 +1,9 @@
 require 'pry'
+require_relative 'repository'
 require_relative 'merchant'
 
-class MerchantRepository
-attr_reader :data, :merchants
+class MerchantRepository < Repository
+  attr_reader :data, :merchants
     def inspect
     "#<\#{self.class} \#{@merchants.size} rows>"
     end
@@ -15,6 +16,7 @@ attr_reader :data, :merchants
         columns = line.split(",")
         @merchants << Merchant.new({id: columns[0], name: columns[1], created_at: columns[2], updated_at: columns[3]})
       end
+      super(@merchants)
     end
 
     def all
