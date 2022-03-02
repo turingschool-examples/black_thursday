@@ -8,37 +8,30 @@ class Repository
   end
 
   def find_by_id(id)
-    @repo_data.find do |data|
-      data.id == id
-    end
+    @repo_data.find { |data| data.id == id}
   end
 
   def find_by_name(name)
-    @repo_data.find do |data|
-      data.name.casecmp?(name)
-    end
+    @repo_data.find { |data| data.name == name.downcase}
   end
 
-  def find_all_by_name(name)
-    @repo_data.find_all do |data|
-      data_downcase = data.name.downcase
-      data_downcase.include?(name.downcase)
-    end
+  def find_all_by_name(fragment)
+    @repo_data.find_all { |data| data.name.downcase.include?(fragment)}
   end
 
-  def update(id, attributes)
-    data = find_by_id(id)
-    return unless data
-    attributes.each do |key, value|
-      data.send("#{key}=", value) if data.respond_to?("#{key}=")
+  def update(id, attribute)
+    if attribute.keys.include?(:name) == true
+      if find_by_id(id) != nil
+        update_attribute = find_by_id(id)
+        update_attribute.name = attribute[:name]
+        update_attribute.updated_at = Time.now
+      end
     end
-    data.updated_at = Time.now
-    data
+    update_attribute
   end
 
   def delete(id)
-    data = find_by_id(id)
-    @repo_data.delete(data)
+    @repo_data.delete(find_by_id(id)) if find_by_id(id) != nil
   end
 
   def find_all_by_date(date)
