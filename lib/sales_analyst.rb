@@ -97,7 +97,7 @@ class Analyst
 
   def invoice_paid_in_full?(invoice_id)
     transactions = @tr.find_all_by_invoice_id(invoice_id)
-    # binding.pry
+    return false if transactions.nil?
     if transactions.map {|transaction| transaction.result }.include?("success")
       true
     else
@@ -113,27 +113,16 @@ class Analyst
   end
 
   def merchant_with_pending_invoices
-    # fail_tr = @tr.repository.find_all { |transaction| transaction.result == "failed"}
-    fail = []
-    @tr.invoice_ids.each do |id, transaction|
-      if !invoice_paid_in_full?(id)
-        fail << id
-      end
-      # transaction.each do |t|
-
-        # if t.result.include?("success") == false
-        #   fail << id
-        # end
-    end
-    # fail_ids = fail.map { |transaction| transaction.invoice_id}.uniq
-    # fail_in = @in.repository.find_all do |invoice|
-    #           fail.each { |id| invoice.id == id}
-    #         end
-            binding.pry
-    merch_ids = fail_in.map { |invoice| invoice.merchant_id}.uniq
-    merchants = @mr.repository.find_all do |merchant|
-              merch_ids.each { |id| merchant.id == id}
-            end
+  coolio = @in.invoice_status[:pending].find_all do |invoice|
+            invoice_paid_in_full?(invoice.id) == false
+          end
+  yeah = coolio.map do |invoice|
+    invoice.merchant_id
   end
-
+  array = []
+  yeah.each do |merchant_id|
+    array << @mr.find_by_id(merchant_id)
+  end
+  array.uniq
+  end
 end
