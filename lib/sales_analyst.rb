@@ -167,4 +167,15 @@ class SalesAnalyst
     invoices.map { |invoice| (invoice.unit_price * invoice.quantity) }.sum
   end
 
+  def total_revenue_by_date(date)
+    invoice_id_by_date = []
+    @invoices.all.each do |invoice|
+      invoice_id_by_date << invoice.id if invoice.created_at.strftime("%D") == date.strftime("%D")
+    end
+    invoice_items_by_date = []
+    invoice_id_by_date.each do |invoice_id|
+      invoice_items_by_date << @invoice_items.find_all_by_invoice_id(invoice_id)
+    end
+    invoice_items_by_date.flatten.map { |invoice| (invoice.unit_price * invoice.quantity) }.sum
+  end
 end
