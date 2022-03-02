@@ -80,4 +80,21 @@ RSpec.describe SalesAnalyst do
     it '#bottom_merchants_by_invoice_count returns merchants 2 standard deviations below mean' do
       expect(sa.bottom_merchants_by_invoice_count.count).to eq(1)
     end
+
+    it '#average_invoices_per_day returns the average invoices per week day.' do
+      expect(sa.average_invoices_per_day).to eq((4985.00/7).round(2))
+    end
+
+    it '#total_invoices_per_day returns the total invoices for each day of the week' do
+      expect(sa.total_invoices_per_day.count).to eq(7)
+    end
+
+    it '#average_invoices_per_day_standard_deviation calcs the standard deviation of the average invoices per day' do
+      expect(sa.average_invoices_per_day_standard_deviation).to eq(18.07)
+    end
+
+    it '#top_days_by_invoice_count returns days one stdev above mean for all days' do
+      expect(sa.top_days_by_invoice_count).to eq(["Wednesday"])
+    end
+
   end

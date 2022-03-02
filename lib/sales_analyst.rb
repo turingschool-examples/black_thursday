@@ -153,7 +153,6 @@ class SalesAnalyst
     total_invoices = total_invoices_per_merchant
     average = average_invoices_per_merchant
     bottom_merchants = []
-    p (average - (stdev * 2)).to_i
     total_invoices.each_with_index do |total, index|
       if total < (average - (stdev * 2)).to_i
         bottom_merchants << merchants[index]
@@ -161,5 +160,41 @@ class SalesAnalyst
     end
     bottom_merchants
   end
+
+  def average_invoices_per_day
+    (invoices.count.to_f / 7).round(2)
+  end
+
+  def total_invoices_per_day
+    results = []
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    days.each_with_index do |day, index|
+      invoice_count = invoices.count do |invoice|
+        time = Time.parse(invoice.invoice_attributes[:created_at]).wday
+        time == index
+      end
+      results << invoice_count
+    end
+    results
+  end
+
+  def average_invoices_per_day_standard_deviation
+    standard_deviation(average_invoices_per_day, total_invoices_per_day)
+  end
+
+  def top_days_by_invoice_count
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    totals = total_invoices_per_day
+    average = average_invoices_per_day
+    stdev = average_invoices_per_day_standard_deviation
+    top_days = []
+    totals.each_with_index do |day, index|
+      if day > (average + stdev).to_i
+        top_days << days[index]
+      end
+    end
+    top_days
+  end
+
       
 end
