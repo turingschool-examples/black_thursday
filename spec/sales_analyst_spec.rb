@@ -66,6 +66,23 @@ describe Analyst do
 
   it "returns total $ amount of invoice with corresponding invoice_id" do
     expect(@sales_analyst.invoice_total(1)).to eq(21067.77)
+
+  end
+
+  it "returns total revenue for given date" do
+    date = Time.parse("2009-12-09")
+    expected = @sales_analyst.total_revenue_by_date(date)
+    expect(expected).to eq 30158.61
+    expect(expected.class).to eq BigDecimal
+  end
+
+  it "finds top earning merchants" do
+      top_merchants = @sales_analyst.top_revenue_earners(5)
+
+      expect(top_merchants.count).to eq(5)
+      expect(top_merchants.first.class).to eq Merchant
+      expect(top_merchants.first.id).to eq 12334634
+
   end
 
   it "returns an array of merchants with pending invoices" do

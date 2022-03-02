@@ -5,6 +5,8 @@ require_relative '../lib/invoice_repository'
 require_relative '../lib/time_helper'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/invoice_items_repository'
+require "bigdecimal"
+require "bigdecimal/util"
 require 'pry'
 
 class Analyst
@@ -101,7 +103,7 @@ class Analyst
     if transactions.map {|transaction| transaction.result }.include?("success")
       true
     else
-     false
+      false
     end
   end
 
@@ -125,4 +127,22 @@ class Analyst
   end
   array.uniq
   end
+
+  def total_revenue_by_date(date)
+    invoice_id_by_date = @in.find_all_by_date(date).map { |invoice| invoice.id}
+    invoice_items_by_date = invoice_id_by_date.map {|invoice_id| @iir.find_all_by_invoice_id(invoice_id.to_s)}
+    revenue = invoice_items_by_date.flatten.map { |invoice| (invoice.unit_price * invoice.quantity)}.sum / 100
+  end
+
+  def top_revenue_earners(x)
+    merchant_revenues = {}
+    @in.repository.each do |invoice|
+      merchant_id = invoice.merchant_id
+      merchant_revenues[merchant_id] = 0 if !merchant_revenues.key?(merchant_id)
+      merchant_revenues[merchant_id] += invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+    end
+    top_merchants = (merchant_revenues.values.sort.reverse.first(x)).map {|revenue| @mr.find_by_id(merchant_revenues.key(revenue))}
+  end
+
+
 end
