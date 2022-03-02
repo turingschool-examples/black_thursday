@@ -64,10 +64,10 @@ RSpec.describe SalesAnalyst do
       sample1 = @sales_analyst.big_box_ids[0]
       sample2 = @sales_analyst.big_box_ids[1]
       expect(@sales_analyst.average_item_price_for_merchant(sample1).class).to eq(BigDecimal)
-      expect(@sales_analyst.average_item_price_for_merchant(sample2).class).to eq(BigDecimal)      
+      expect(@sales_analyst.average_item_price_for_merchant(sample2).class).to eq(BigDecimal)
     end
 
-    xit 'what is the avg avg price for a merchant' do
+    it 'what is the avg avg price for a merchant' do
       expect(@sales_analyst.average_average_price_for_merchant).to eq("ummmmm i don't know")
     end
 
