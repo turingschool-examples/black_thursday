@@ -1,21 +1,24 @@
 require_relative 'invoice'
-class InvoiceRepository
+require_relative 'repository'
 
-  def inspect
-    "#<\#{self.class} \#{@invoices.size} rows>"
-  end
+class InvoiceRepository < Repository
+
+#  def inspect
+#    "#<\#{self.class} \#{@invoices.size} rows>"
+#  end
 
   def initialize(data)
     @invoices = []
       CSV.foreach(data, headers: true, header_converters: :symbol) do |row| header ||= row.headers
         @invoices << Invoice.new(row)
     end
+    super(@invoices)
   end
 
 
-  def all
-    @invoices
-  end
+#  def all
+#    @invoices
+#  end
 
   def find_by_id(invoice_id)
     @invoices.find { |invoice| invoice.id == invoice_id}
@@ -25,9 +28,9 @@ class InvoiceRepository
     @invoices.find_all { |invoice| invoice.customer_id == customer_id}
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    @invoices.find_all { |invoice| invoice.merchant_id == merchant_id}
-  end
+#  def find_all_by_merchant_id(merchant_id)
+ #   @invoices.find_all { |invoice| invoice.merchant_id == merchant_id}
+ # end
 
   def find_all_by_status(status)
     @invoices.find_all { |invoice| invoice.status == status}
@@ -55,8 +58,8 @@ class InvoiceRepository
     invoice_to_update
   end
 
-  def delete(id)
-    @invoices.delete(find_by_id(id)) if find_by_id(id) != nil
-  end
+#  def delete(id)
+#    @invoices.delete(find_by_id(id)) if find_by_id(id) != nil
+#  end
 
 end
