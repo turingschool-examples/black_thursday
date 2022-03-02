@@ -1,7 +1,7 @@
 require './lib/item'
 require 'simplecov'
 require 'bigdecimal'
-# built in class method
+
 SimpleCov.start
 
 RSpec.describe Item do
@@ -39,4 +39,3 @@ RSpec.describe Item do
     end
   end
 end
-# require 'pry'; binding.pry

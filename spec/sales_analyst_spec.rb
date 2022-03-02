@@ -91,7 +91,7 @@ RSpec.describe SalesAnalyst do
 
     it 'returns the total $ amount of the Invoice with the corresponding id' do
       expect(@sales_analyst.invoice_total(@sample1.id).class).to eq(BigDecimal)
-      expect(@sales_analyst.invoice_total(@sample1.id)).to eq(681.5)
+      expect(@sales_analyst.invoice_total(@sample1.id)).to eq(21067.77)
     end
   end
 end

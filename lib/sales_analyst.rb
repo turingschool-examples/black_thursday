@@ -72,13 +72,17 @@ class SalesAnalyst
 
   def invoice_paid_in_full?(invoice_id)
     transaction = @transaction_repo.all.find { |transaction| transaction.invoice_id == invoice_id }
+    if transaction == nil
+      return false
+    end
     transaction.result == :success
   end
 
   def invoice_total(invoice_id)
     if invoice_paid_in_full?(invoice_id)
-      invoice_item = @invoice_item_repo.all.find { |transaction| transaction.invoice_id == invoice_id }
-      invoice_item.unit_price * invoice_item.quantity.to_i
+      invoice_items = @invoice_item_repo.all.find_all { |i_item| i_item.invoice_id == invoice_id }
+      price_list = invoice_items.map { |i_item| i_item.unit_price * i_item.quantity }
+      price_list.sum
     end
   end
 end

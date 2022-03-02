@@ -17,7 +17,6 @@ module Crudable
 
   def update(id, attributes)
     attributes.each do |k, v|
-      # require 'pry';binding.pry
       find_by_id(id).instance_variable_set(k.to_s.insert(0, '@').to_sym, v) unless update_checker(k)
     end
     if find_by_id(id).instance_variables.include?(:@updated_at)
@@ -31,7 +30,7 @@ module Crudable
   end
 
   def update_checker (key)
-    forbidden = [:id, :created_at, :merchant_id, :customer_id, :invoice_id]
+    forbidden = [:id, :created_at, :merchant_id, :customer_id, :invoice_id, :item_id]
     forbidden.include?(key)
   end
 

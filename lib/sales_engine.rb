@@ -63,7 +63,7 @@ class SalesEngine
   def customers
     customer_array = @table_hash[:customers].map do |row|
       Customer.new({ id: row[:id].to_i, first_name: row[:first_name], last_name: row[:last_name],
-                     created_at: row[:created_at], updated_at: row[:updated_at] })
+                     created_at: Time.parse(row[:created_at]), updated_at: Time.parse(row[:updated_at]) })
     end
     if @customer_repo == nil
       @customer_repo = CustomerRepository.new(customer_array)
@@ -98,7 +98,7 @@ class SalesEngine
   def invoice_items
     iir_array = @table_hash[:invoice_items].map do |row|
       InvoiceItem.new({ id: row[:id].to_i, item_id: row[:item_id].to_i, invoice_id: row[:invoice_id].to_i,
-                        quantity: row[:quantity], unit_price: BigDecimal(row[:unit_price].to_f / 100, 4), created_at: row[:created_at], updated_at: row[:updated_at] })
+                        quantity: row[:quantity].to_i, unit_price: BigDecimal((row[:unit_price].to_f / 100), row[:unit_price].length), created_at: Time.parse(row[:created_at]), updated_at: Time.parse(row[:updated_at]) })
     end
     if @invoice_item_repo == nil
       @invoice_item_repo = InvoiceItemRepository.new(iir_array)
@@ -109,7 +109,7 @@ class SalesEngine
 
   def transactions
     transaction_array = @table_hash[:transactions].map do |row|
-      Transaction.new ({id: row[:id].to_i, invoice_id: row[:invoice_id].to_i, credit_card_number: row[:credit_card_number], credit_card_expiration_date: row[:credit_card_expiration_date], result: row[:result].to_sym, created_at: row[:created_at], updated_at: row[:updated_at]})
+      Transaction.new ({id: row[:id].to_i, invoice_id: row[:invoice_id].to_i, credit_card_number: row[:credit_card_number], credit_card_expiration_date: row[:credit_card_expiration_date], result: row[:result].to_sym, created_at: Time.parse(row[:created_at]), updated_at: Time.parse(row[:updated_at])})
     end
     @transaction_repo == nil ? @transaction_repo = TransactionRepository.new(transaction_array) : @transaction_repo
 
