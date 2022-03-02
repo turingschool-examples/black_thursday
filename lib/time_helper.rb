@@ -1,4 +1,4 @@
-
+require 'time'
 module TimeHelper
 
   def create_time(date)
@@ -15,5 +15,9 @@ module TimeHelper
     weekday = days[day]
     weekday
   end
+
+  # def fix_time(date)
+  #   binding.pry
+  # end
 
 end

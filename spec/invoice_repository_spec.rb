@@ -42,6 +42,17 @@ describe InvoiceRepository do
     end
   end
 
+  describe '#find_all_by_date' do
+    it 'can find all invoices created on specific date' do
+      items1 = @ir.find_all_by_date(Time.parse("2009-02-07"))
+      items2 = @ir.find_all_by_date(Time.parse("2013-08-05"))
+      items3 = @ir.find_all_by_date(Time.parse("2014-05-06"))
+      expect(items1.count).to eq(1)
+      expect(items2.count).to eq(1)
+      expect(items3.count).to eq(2)
+    end
+  end
+
   describe '#find_all_by_merchant_id' do
     it 'can find all invoices by one merchant' do
       merchant_invoices = @ir.find_all_by_merchant_id("12334389")

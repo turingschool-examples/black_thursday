@@ -1,4 +1,6 @@
 require 'csv'
+require 'time'
+require 'pry'
 require_relative '../lib/invoice'
 require_relative '../lib/repository_aide'
 require_relative '../lib/time_helper'
@@ -27,6 +29,11 @@ class InvoiceRepository
     @merchant_ids = @repository.group_by {|invoice| invoice.merchant_id}
     @invoice_status = @repository.group_by {|invoice| invoice.status}
     @day_invoices = @repository.group_by {|invoice| invoice.created_at.wday}
+    @date_invoices = @repository.group_by { |invoice| invoice.created_at.strftime("%D")}
+  end
+
+  def find_all_by_date(date)
+    find(@date_invoices, date.strftime("%D"))
   end
 
   def call_weekdays

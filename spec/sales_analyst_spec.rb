@@ -67,4 +67,12 @@ describe Analyst do
   it "returns total $ amount of invoice with corresponding invoice_id" do
     expect(@sales_analyst.invoice_total(1)).to eq(21067.77)
   end
+
+  it "returns total revenue for given date" do
+    date = Time.parse("2009-02-07")
+    expected = @sales_analyst.total_revenue_by_date(date)
+
+    expect(expected).to eq 21067.77
+    expect(expected.class).to eq BigDecimal
+  end
 end

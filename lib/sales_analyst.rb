@@ -5,6 +5,8 @@ require_relative '../lib/invoice_repository'
 require_relative '../lib/time_helper'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/invoice_items_repository'
+require "bigdecimal"
+require "bigdecimal/util"
 require 'pry'
 
 class Analyst
@@ -108,6 +110,12 @@ class Analyst
     sum = 0
     invoice_items.each { |invoice_item| sum += ((invoice_item.unit_price.to_f * invoice_item.quantity.to_f)/100.0) }
     sum
+  end
+
+  def total_revenue_by_date(date)
+    invoice_id_by_date = @in.find_all_by_date(date).map { |invoice| invoice.id}
+    invoice_items_by_date = invoice_id_by_date.map {|invoice_id| @iir.find_all_by_invoice_id(invoice_id.to_s)}
+    revenue = invoice_items_by_date.flatten.map { |invoice| (invoice.unit_price * invoice.quantity)}.sum / 100
   end
 
 end
