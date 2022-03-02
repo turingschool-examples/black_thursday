@@ -52,9 +52,7 @@ class Repository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @repo_data.find_all do |data|
-      data.invoice_id == invoice_id
-    end
+    @repo_data.find_all {|item| item.invoice_id == invoice_id}
   end
 
   def find_all_by_item_id(item_id)
