@@ -99,4 +99,19 @@ class SalesAnalyst
     cut_average.delete_at(-1)
     cut_average.join('').to_f
   end
+
+  def golden_items
+    golden_items = []
+    total_prices = []
+    price_average = 0
+    items.each do |item|
+      price_average << item.item_attributes[:unit_price]
+      total_prices << item.item_attributes[:unit_price]
+    end
+    price_average = (price_average / items.count).round(2)
+    stdev = standard_deviation(price_average, total_prices)
+    items.find_all do |item| 
+      item.item_attributes[:unit_price] > price_average + (stdev * 2)
+    end
+  end
 end
