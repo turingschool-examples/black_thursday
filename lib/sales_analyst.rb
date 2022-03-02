@@ -201,6 +201,5 @@ class SalesAnalyst
       invoice.invoice_attributes[:status] == status
     end
     (matches.to_f/invoices.count.to_f * 100).round(2)
-  end
-      
+  end    
 end

@@ -35,6 +35,13 @@ RSpec.describe SalesAnalyst do
 
     it "#total_items_per_merchant gives total number of items per merchant" do
       expect(sa.total_items_per_merchant.count).to eq(475)
+      expect(sa.total_items_per_merchant[0]).to eq 3
+    end
+
+    it " computes sandard deviation" do
+      mean = sa.average_items_per_merchant
+      variance = sa.total_items_per_merchant
+      expect(sa.standard_deviation(mean, variance)).to eq 3.26
     end
 
     it "#average_items_per_merchant_standard_deviation gives a standard deviation" do
