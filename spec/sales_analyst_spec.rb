@@ -75,4 +75,10 @@ RSpec.describe SalesAnalyst do
     expect(expected.length).to eq 4
     expect(expected.first.class).to eq Merchant
   end
+
+  it 'top days by invoice count' do
+    sales_analyst = @sales_engine.analyst
+
+    expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
+  end
 end

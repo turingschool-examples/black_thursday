@@ -140,4 +140,35 @@ class SalesAnalyst
     merchants_low_in_invoices
   end
 
+  def top_days_by_invoice_count
+    days = @invoices.map do |invoice|
+      formatted_date = invoice.created_at.split('')
+      year = formatted_date[0..3].join.to_i
+      month = formatted_date[5..6].join.to_i
+      day = formatted_date[8..9].join.to_i
+      Date.new(year, month, day).cwday
+      day_number_to_name(Date.new(year, month, day).cwday)
+    end
+    recurring_days = day_counter(days)
+    frequency_of_days = recurring_days.map do |day, times_occured|
+      times_occured
+    end
+    top_day = recurring_days.find do |day, times_occured|
+      times_occured == frequency_of_days.max
+    end
+    [top_day[0].to_s.capitalize.delete_suffix("s")]
+  end
+
+  def day_number_to_name(num)
+    {1 => "Monday", 2 => "Tuesday", 3 => "Wednesday",
+    4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday"}[num]
+  end
+
+  def day_counter(days)
+    { :mondays => days.count {|day| day == "Monday"}, :tuesdays => days.count {|day| day == "Tuesday"},
+      :wednesdays => days.count {|day| day == "Wednesday"}, :thursdays => days.count {|day| day == "Thursday"},
+      :fridays => days.count {|day| day == "Friday"}, :saturdays =>  days.count {|day| day == "Saturday"},
+      :sundays => days.count {|day| day == "Sunday"} }
+  end
+
 end
