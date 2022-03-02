@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 # merchant_rep_spec
+require 'CSV'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_engine'
 require 'pry'

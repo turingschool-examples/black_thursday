@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require '../lib/sales_engine'
 require 'pry'
 require 'bigdecimal'
@@ -7,7 +9,10 @@ RSpec.describe ItemRepository do
     @se = SalesEngine.from_csv({
                                  items: './data/items.csv',
                                  merchants: './data/merchants.csv',
-                                 invoices: './data/invoices.csv'
+                                 invoices: './data/invoices.csv',
+                                 invoice_items: './data/invoice_items.csv',
+                                 transactions: './data/transactions.csv',
+                                 customers: './data/customers.csv'
                                })
     @sa = @se.analyst
   end
@@ -55,43 +60,43 @@ RSpec.describe ItemRepository do
     expect(expected.first.class).to eq Item
   end
 
-  it "#average_invoices_per_merchant returns average number of invoices per merchant" do
+  it '#average_invoices_per_merchant returns average number of invoices per merchant' do
     # require "pry"; binding.pry
     expected = @sa.average_invoices_per_merchant
     expect(expected).to eq 10.49
     expect(expected.class).to eq Float
   end
 
-  it "#average_invoices_per_merchant_standard_deviation returns the standard deviation" do
+  it '#average_invoices_per_merchant_standard_deviation returns the standard deviation' do
     expected = @sa.average_invoices_per_merchant_standard_deviation
 
     expect(expected).to eq 3.29
     expect(expected.class).to eq Float
   end
 
-  it "#top_merchants_by_invoice_count returns merchants that are two standard deviations above the mean" do
+  it '#top_merchants_by_invoice_count returns merchants that are two standard deviations above the mean' do
     expected = @sa.top_merchants_by_invoice_count
 
     expect(expected.length).to eq 12
     expect(expected.first.class).to eq Merchant
   end
 
-  it "#bottom_merchants_by_invoice_count returns merchants that are two standard deviations below the mean" do
+  it '#bottom_merchants_by_invoice_count returns merchants that are two standard deviations below the mean' do
     expected = @sa.bottom_merchants_by_invoice_count
 
     expect(expected.length).to eq 4
     expect(expected.first.class).to eq Merchant
   end
 
-  it "#top_days_by_invoice_count returns days with an invoice count more than one standard deviation above the mean" do
+  it '#top_days_by_invoice_count returns days with an invoice count more than one standard deviation above the mean' do
     expected = @sa.top_days_by_invoice_count
 
     expect(expected.length).to eq 1
-    expect(expected.first).to eq "Wednesday"
+    expect(expected.first).to eq 'Wednesday'
     expect(expected.first.class).to eq String
   end
 
-  it "#invoice_status returns the percentage of invoices with given status" do
+  it '#invoice_status returns the percentage of invoices with given status' do
     expected = @sa.invoice_status(:pending)
 
     expect(expected).to eq 29.55
@@ -103,5 +108,26 @@ RSpec.describe ItemRepository do
     expected = @sa.invoice_status(:returned)
 
     expect(expected).to eq 13.5
+  end
+
+  it '#is_paid_in_full? returns true if the invoice is paid in full' do
+    expected = @sa.invoice_paid_in_full?(1)
+    expect(expected).to eq true
+
+    expected = @sa.invoice_paid_in_full?(200)
+    expect(expected).to eq true
+
+    expected = @sa.invoice_paid_in_full?(203)
+    expect(expected).to eq false
+
+    expected = @sa.invoice_paid_in_full?(204)
+    expect(expected).to eq false
+  end
+
+  it '#total returns the total dollar amount if the invoice is paid in full' do
+    expected = @sa.invoice_total(1)
+    # binding.pry
+    expect(expected).to eq 21_067.77
+    expect(expected.class).to eq BigDecimal
   end
 end

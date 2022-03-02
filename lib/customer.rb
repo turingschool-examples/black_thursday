@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
-# Invoice class
 require 'time'
 
-class Invoice
-  attr_accessor :customer_id, :merchant_id, :status, :updated_at
+class Customer
+  attr_accessor :first_name, :last_name, :updated_at
   attr_reader :id, :created_at
 
   def initialize(attributes)
     @id = attributes[:id].to_i
-    @customer_id = attributes[:customer_id].to_i
-    @merchant_id = attributes[:merchant_id].to_i
-    @status = attributes[:status].to_sym
+    @first_name = attributes[:first_name]
+    @last_name = attributes[:last_name]
     @created_at = Time.parse(attributes[:created_at].to_s)
     @updated_at = Time.parse(attributes[:updated_at].to_s)
   end

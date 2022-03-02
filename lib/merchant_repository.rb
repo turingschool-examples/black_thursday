@@ -1,6 +1,6 @@
-# merchant_repository
-require 'CSV'
+# frozen_string_literal: true
 
+# merchant_repository
 class MerchantRepository
   attr_reader :merchants
 
@@ -32,7 +32,7 @@ class MerchantRepository
   end
 
   def create(attributes)
-    @merchants.sort_by { |merchant| merchant.id }
+    @merchants.sort_by(&:id)
     last_id = @merchants.last.id
     attributes[:id] = (last_id += 1)
     @merchants << Merchant.new(attributes)
@@ -41,7 +41,6 @@ class MerchantRepository
   def update(id, attributes)
     merchant = find_by_id(id)
     attributes.map do |key, v|
-      # require "pry"; binding.pry
       merchant.name = v if key == :name
     end
   end

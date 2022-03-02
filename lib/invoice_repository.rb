@@ -1,4 +1,5 @@
-# item_repository
+# invoice_repository
+
 require 'pry'
 class InvoiceRepository
   attr_reader :invoices
@@ -35,7 +36,7 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    @invoices.sort_by { |invoice| invoice.id }
+    @invoices.sort_by(&:id)
     last_id = @invoices.last.id
     attributes[:id] = (last_id += 1)
     @invoices << Invoice.new(attributes)

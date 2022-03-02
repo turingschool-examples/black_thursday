@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Invoice Test spec
 require_relative '../lib/invoice_repository'
 require_relative '../lib/sales_engine'
@@ -135,7 +137,7 @@ RSpec.describe 'Iteration 2' do
     end
 
     it '#update on unknown invoice does nothing' do
-      @se.invoices.update(270_000_000, {})
+      @se.invoices.update(1_239_230, {})
     end
 
     it '#delete deletes the specified invoice' do

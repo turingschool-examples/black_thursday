@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # item_repository_spec
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
