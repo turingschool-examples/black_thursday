@@ -79,10 +79,24 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     items = itemrepository.find_all_by_merchant_id(merchant_id)
     unit_price_total = 0
-    items.each do |item|
-      unit_price_total += item.unit_price_to_dollars
+    if items.count > 0
+      items.each do |item|
+        unit_price_total += item.unit_price_to_dollars
+      end
+      unit_price_total = (unit_price_total / items.count).round(2)
     end
-    (unit_price_total / items.count).round(2)
+    return unit_price_total
+      
   end
 
+  def average_average_price_per_merchant
+    average_prices = []
+    merchants.each do |merchant|
+      average_prices << average_item_price_for_merchant(merchant.merchant_attributes[:id])
+    end
+    unfixed_average = (average_prices.sum / average_prices.length).round(3)
+    cut_average = unfixed_average.to_s.split('')
+    cut_average.delete_at(-1)
+    cut_average.join('').to_f
+  end
 end

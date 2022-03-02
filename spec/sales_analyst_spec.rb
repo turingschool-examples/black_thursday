@@ -52,7 +52,7 @@ RSpec.describe SalesAnalyst do
       expect(sa.average_item_price_for_merchant(merchant_id)).to eq 16.66
     end
 
-    xit "#average_average_price_per_merchant gives average price for all merchants" do
+    it "#average_average_price_per_merchant gives average price for all merchants" do
       expect(sa.average_average_price_per_merchant).to eq 350.29
     end
 
