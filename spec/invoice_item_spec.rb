@@ -26,9 +26,8 @@ RSpec.describe "InvoiceItem" do
     expect(ii.invoice_item_attributes[:created_at]).to be_an_instance_of(Time)
     expect(ii.invoice_item_attributes[:updated_at]).to be_an_instance_of(Time)
   end
+
+  it "can convert unit price to dollars" do
+    expect(ii.unit_price_to_dollars).to eq(10.99)
+  end
 end
-#
-#   it "can convert unit price to dollars" do
-#     expect(item.unit_price_to_dollars).to eq(10.99)
-#   end
-# end
