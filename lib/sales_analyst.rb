@@ -196,5 +196,11 @@ class SalesAnalyst
     top_days
   end
 
+  def invoice_status(status)
+    matches = invoices.count do |invoice|
+      invoice.invoice_attributes[:status] == status
+    end
+    (matches.to_f/invoices.count.to_f * 100).round(2)
+  end
       
 end
