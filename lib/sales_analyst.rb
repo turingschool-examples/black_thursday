@@ -129,4 +129,8 @@ class SalesAnalyst
     end
     results
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(average_invoices_per_merchant, total_invoices_per_merchant)
+  end
 end

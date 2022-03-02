@@ -68,4 +68,8 @@ RSpec.describe SalesAnalyst do
     it '#total_invoices_per_merchant returns the total number of invoices per merchant' do
       expect(sa.total_invoices_per_merchant.count).to eq(475)
     end
+
+    it '#average_invoices_per_merchant_standard_deviation calculates standard deviation of merchant invoice average' do
+      expect(sa.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+    end
   end
