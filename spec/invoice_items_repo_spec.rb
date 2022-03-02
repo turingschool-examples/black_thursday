@@ -29,7 +29,7 @@ describe InvoiceItemsRepository do
   describe '#find_all_by_item_id' do
     it 'can find all invoice items by the item id' do
       iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
-      invoice_item = iir.find_all_by_item_id("263520800")
+      invoice_item = iir.find_all_by_item_id(263520800)
       expect(invoice_item.count).to eq(15)
     end
   end
@@ -37,12 +37,13 @@ describe InvoiceItemsRepository do
   describe '#find_all_by_invoice_id' do
     it 'can find all invoice items by the invoice id' do
       iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
-      invoice_item = iir.find_all_by_invoice_id("1")
+      invoice_item = iir.find_all_by_invoice_id(1)
       expect(invoice_item.count).to eq(8)
-      invoice_item = iir.find_all_by_invoice_id("205")
+      invoice_item = iir.find_all_by_invoice_id(205)
       expect(invoice_item.count).to eq(3)
-      invoice_item = iir.find_all_by_invoice_id("2r5t")
-      expect(invoice_item).to eq(nil)
+      invoice_item = iir.find_all_by_invoice_id(258999)
+      # require 'pry'; binding.pry
+      expect(invoice_item).to eq([])
     end
   end
   #
@@ -58,7 +59,7 @@ describe InvoiceItemsRepository do
                           unit_price: 999,
                           created_at: Time.now,
                           updated_at: Time.now})
-      expect(harry.class).to be(InvoiceItems)
+      expect(harry.class).to be(InvoiceItem)
       expect(invoice_item.id.to_i < harry.id.to_i).to be true
       expect(harry.quantity).to eq(3)
     end

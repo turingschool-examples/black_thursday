@@ -36,7 +36,7 @@ RSpec.describe SalesEngine do
   end
 
   it "creates an instance of invoice_items class" do
-    invoice_items_repo = @se.invoice_items_repo
+    invoice_items_repo = @se.invoice_items
 
     expect(invoice_items_repo).to be_an_instance_of(InvoiceItemsRepository)
   end

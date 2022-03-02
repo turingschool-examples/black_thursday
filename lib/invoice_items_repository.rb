@@ -5,14 +5,14 @@ require 'bigdecimal'
 
 class InvoiceItemsRepository
   include RepositoryAide
-  attr_reader :repository
+  attr_reader :repository, :item_ids
 
   def initialize(file)
     @repository = read_csv(file).map do |invoice_item|
-                  InvoiceItems.new({
+                  InvoiceItem.new({
                     :id => invoice_item[:id].to_i,
-                    :item_id => invoice_item[:item_id],
-                    :invoice_id => invoice_item[:invoice_id],
+                    :item_id => invoice_item[:item_id].to_i,
+                    :invoice_id => invoice_item[:invoice_id].to_i,
                     :quantity => invoice_item[:quantity].to_i,
                     :unit_price => BigDecimal(invoice_item[:unit_price], significant_numbers(invoice_item[:unit_price])),
                     :created_at => invoice_item[:created_at],
@@ -31,19 +31,22 @@ class InvoiceItemsRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
+    # return nil if find(@invoice_ids, invoice_id).nil?
     find(@invoice_ids, invoice_id)
   end
 
   def create(attributes)
-    invoice_item = InvoiceItems.new(create_attribute_hash(attributes))
+    invoice_item = InvoiceItem.new(create_attribute_hash(attributes))
     @repository << invoice_item
     invoice_item
   end
 
   def update(id, attributes)
     invoice_item = find_by_id(id)
-    invoice_item.quantity = attributes[:quantity]
-    invoice_item.unit_price = attributes[:unit_price]
-    invoice_item.updated_at = Time.now
+    unless invoice_item.nil?
+      invoice_item.quantity = attributes[:quantity]
+      invoice_item.unit_price = attributes[:unit_price]
+      invoice_item.updated_at = Time.now
+    end
   end
 end

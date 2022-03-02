@@ -44,8 +44,11 @@ class CustomerRepository
 
   def update(id, attributes)
     customer = find_by_id(id)
-    customer.first_name = attributes[:first_name]
-    customer.last_name = attributes[:last_name]
-    customer.updated_at = Time.now
+    unless customer.nil?
+      attributes.each do |key, value|
+        find_by_id(id).instance_variable_set(key.to_s.insert(0, '@').to_sym, value)
+      end
+      customer.updated_at = Time.now
+    end
   end
 end

@@ -28,13 +28,13 @@ describe TransactionRepository do
     it 'finds the transaction of a specific id' do
       transaction = @tr.find_by_id(17)
       expect(transaction.id).to eq(17)
-      expect(transaction.invoice_id).to eq("2850")
+      expect(transaction.invoice_id).to eq(2850)
     end
   end
 
   describe '#find_all_by_invoice_id' do
     it 'finds transaction with specific invoice id' do
-      transaction = @tr.find_all_by_invoice_id("3715")
+      transaction = @tr.find_all_by_invoice_id(3715)
       expect(transaction[0].id).to eq(5)
     end
   end
@@ -47,16 +47,17 @@ describe TransactionRepository do
       expect(transaction.sample.credit_card_number).to eq("4349426879923290")
 
       transaction = @tr.find_all_by_credit_card_number("9898989898989898")
-      expect(transaction).to eq(nil)
+      expect(transaction).to eq([])
     end
   end
 
   describe '#find_all_by_result' do
     it 'can search for all transactions with a specific result' do
-      transaction = @tr.find_all_by_result("success")
+      transaction = @tr.find_all_by_result(:success)
 
       expect(transaction.class).to eq(Array)
-      expect(transaction.sample.result).to eq("success")
+      require 'pry'; binding.pry
+      expect(transaction.sample.result).to eq(:success)
     end
   end
 

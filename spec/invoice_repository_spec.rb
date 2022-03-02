@@ -36,8 +36,8 @@ describe InvoiceRepository do
 
   describe '#find_all_by_customer_id' do
     it 'can find all invoices by one customer' do
-      customer_invoices = @ir.find_all_by_customer_id("9")
-      expect(customer_invoices.sample.customer_id).to eq("9")
+      customer_invoices = @ir.find_all_by_customer_id(9)
+      expect(customer_invoices.sample.customer_id).to eq(9)
       expect(customer_invoices.class).to eq(Array)
     end
   end
@@ -87,7 +87,8 @@ describe InvoiceRepository do
       invoice = @ir.find_by_id("3")
       first_update = invoice.updated_at
       expect(invoice.status).to eq(:shipped)
-      @ir.update("3", :returned)
+      attributes = {status: :returned}
+      @ir.update(3, attributes)
       expect(invoice.status).to eq(:returned)
       expect(invoice.updated_at).not_to eq(first_update)
     end

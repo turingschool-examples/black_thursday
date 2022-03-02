@@ -12,10 +12,10 @@ class TransactionRepository
     @repository = read_csv(file).map do |transaction|
           Transaction.new({
             :id => transaction[:id].to_i,
-            :invoice_id => transaction[:invoice_id],
+            :invoice_id => transaction[:invoice_id].to_i,
             :credit_card_number => transaction[:credit_card_number],
             :credit_card_expiration_date => transaction[:credit_card_expiration_date],
-            :result => transaction[:result],
+            :result => transaction[:result].to_sym,
             :created_at => transaction[:created_at],
             :updated_at => transaction[:updated_at]
           })
@@ -50,9 +50,11 @@ class TransactionRepository
 
   def update(id, attributes)
     transaction = find_by_id(id)
-    transaction.credit_card_number = attributes[:credit_card_number]
-    transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date]
-    transaction.result = attributes[:result]
-    transaction.updated_at = Time.now
+    unless transaction.nil?
+      attributes.each do |key, value|
+        find_by_id(id).instance_variable_set(key.to_s.insert(0, '@').to_sym, value)
+      end
+      transaction.updated_at = Time.now
+    end
   end
 end

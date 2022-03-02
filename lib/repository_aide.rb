@@ -2,6 +2,7 @@
 module RepositoryAide
 
   def read_csv(file)
+    # require 'pry'; binding.pry
     CSV.read(file, headers: true, header_converters: :symbol)
   end
 
@@ -14,13 +15,16 @@ module RepositoryAide
   end
 
   def find(search_repo, match)
-    # require 'pry'; binding.pry
+    return [] if search_repo[match].nil?
     search_repo[match]
   end
 
   def find_by_id(id)
+    # require 'pry'; binding.pry
     @repository.find {|element| element.id == id.to_i}
   end
+
+
 
   def new_id
     new_id = @repository.sort_by {|element| element.id}.last.id
@@ -34,7 +38,6 @@ module RepositoryAide
     attribute_hash[:created_at] = Time.new
     attribute_hash[:updated_at] = Time.new
     attribute_hash
-    # require 'pry'; binding.pry
   end
 
   def delete(id)

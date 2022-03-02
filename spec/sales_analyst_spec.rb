@@ -1,10 +1,20 @@
 require './lib/sales_analyst'
+require './lib/sales_engine'
 require 'rspec'
 require 'bigdecimal'
 
 describe Analyst do
   before (:each) do
-    @sales_analyst = Analyst.new
+    @sales_engine = SalesEngine.from_csv({
+  :items     => "./data/items.csv",
+  :merchants => "./data/merchants.csv",
+  :invoice_items => "./data/invoice_items.csv",
+  :invoices => "./data/invoices.csv",
+  :customers => "./data/customers.csv",
+  :transactions => "./data/transactions.csv"
+  })
+    @sales_analyst = Analyst.new(@sales_engine)
+    # require 'pry'; binding.pry
   end
 
   it "finds average" do
@@ -20,8 +30,8 @@ describe Analyst do
   end
 
   it "finds average item price per merchant" do
-    expect(@sales_analyst.average_item_price_per_merchant(12334185)).to eq(10.78)
-    expect(@sales_analyst.average_item_price_per_merchant(12334185)).to be_a(BigDecimal)
+    expect(@sales_analyst.average_item_price_for_merchant(12334185)).to eq(10.78)
+    expect(@sales_analyst.average_item_price_for_merchant(12334185)).to be_a(BigDecimal)
   end
 
   it "finds average_average_price_per_merchant" do
@@ -59,6 +69,10 @@ describe Analyst do
     expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 
+  it "can find the total revenue for the day" do
+    expect(@sales_analyst.total_revenue_by_date(date)).to eq(456)
+  end
+
   it "determines if invoice has been paid in full" do
     expect(@sales_analyst.invoice_paid_in_full?(46)).to eq(true)
     expect(@sales_analyst.invoice_paid_in_full?(204)).to eq(false)
@@ -66,7 +80,20 @@ describe Analyst do
 
   it "returns total $ amount of invoice with corresponding invoice_id" do
     expect(@sales_analyst.invoice_total(1)).to eq(21067.77)
+  end
 
+  it 'can find the most sold item for a merchant' do
+    items = @sales_analyst.most_sold_item_for_merchant(12336965)
+    expect(items.count).to eq(2)
+    expect(items.first.class).to eq(Item)
+  end
+
+  it 'can find the item that generates the most revenue per merchant' do
+    item = @sales_analyst.best_item_for_merchant(12336965)
+    all_items = @sales_analyst.find_merchant_revenue_by_items(12336965)
+    expect(all_items.values.include?(item)).to be true
+    highest_item = all_items.keys.sort.last
+    expect(all_items[highest_item]).to eq(item)
   end
 
   it "returns total revenue for given date" do
@@ -82,12 +109,9 @@ describe Analyst do
       expect(top_merchants.count).to eq(5)
       expect(top_merchants.first.class).to eq Merchant
       expect(top_merchants.first.id).to eq 12334634
-
   end
 
   it "returns an array of merchants with pending invoices" do
     expect(@sales_analyst.merchant_with_pending_invoices.count).to eq(467)
   end
-
-
 end
