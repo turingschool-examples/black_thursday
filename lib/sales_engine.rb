@@ -13,7 +13,6 @@ require_relative './customer_repository'
 require_relative './invoice_item'
 require_relative './invoice_item_repository'
 
-
 class SalesEngine
   attr_accessor :invoice_repo, :merchant_repo, :item_repo, :customer_repo, :invoice_item_repo
   attr_reader :table_hash
@@ -84,7 +83,6 @@ class SalesEngine
     end
   end
 
-
   def analyst
     merchants
     items
@@ -109,9 +107,9 @@ class SalesEngine
 
   def transactions
     transaction_array = @table_hash[:transactions].map do |row|
-      Transaction.new ({id: row[:id].to_i, invoice_id: row[:invoice_id].to_i, credit_card_number: row[:credit_card_number], credit_card_expiration_date: row[:credit_card_expiration_date], result: row[:result].to_sym, created_at: Time.parse(row[:created_at]), updated_at: Time.parse(row[:updated_at])})
+      Transaction.new ({ id: row[:id].to_i, invoice_id: row[:invoice_id].to_i,
+                         credit_card_number: row[:credit_card_number], credit_card_expiration_date: row[:credit_card_expiration_date], result: row[:result].to_sym, created_at: Time.parse(row[:created_at]), updated_at: Time.parse(row[:updated_at]) })
     end
     @transaction_repo == nil ? @transaction_repo = TransactionRepository.new(transaction_array) : @transaction_repo
-
   end
 end

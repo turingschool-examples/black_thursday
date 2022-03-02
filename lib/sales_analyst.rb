@@ -1,5 +1,6 @@
 class SalesAnalyst
-  attr_reader :merchant_repo, :item_repo, :transaction_repo, :invoice_item_repo, :invoice_repo, :customer_repo, :big_box_ids
+  attr_reader :merchant_repo, :item_repo, :transaction_repo, :invoice_item_repo, :invoice_repo, :customer_repo,
+              :big_box_ids
 
   def initialize(merchant_repo, item_repo, transaction_repo, invoice_item_repo, invoice_repo, customer_repo)
     @merchant_repo = merchant_repo
@@ -75,6 +76,7 @@ class SalesAnalyst
     if transaction == nil
       return false
     end
+
     transaction.result == :success
   end
 

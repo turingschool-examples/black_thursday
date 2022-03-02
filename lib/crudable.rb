@@ -29,9 +29,8 @@ module Crudable
     @all.delete(erase)
   end
 
-  def update_checker (key)
+  def update_checker(key)
     forbidden = [:id, :created_at, :merchant_id, :customer_id, :invoice_id, :item_id]
     forbidden.include?(key)
   end
-
 end
