@@ -79,8 +79,11 @@ describe Analyst do
   end
 
   it 'can find the item that generates the most revenue per merchant' do
+    all_items = @sales_analyst.find_merchant_revenue_by_items(12336965)
     item = @sales_analyst.best_item_for_merchant(12336965)
-    expect(item)
+    expect(all_items.values.include?(item)).to be true
+    highest_item = all_items.keys.sort.last
+    expect(all_items[highest_item]).to eq(item)
   end
 
 end

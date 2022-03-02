@@ -120,6 +120,9 @@ class Analyst
   end
 
   def best_item_for_merchant(merchant_id)
+    revenue = find_merchant_revenue_by_items(merchant_id)
+    highest_revenue = revenue.keys.sort.last
+    revenue[highest_revenue]
   end
 
 end
