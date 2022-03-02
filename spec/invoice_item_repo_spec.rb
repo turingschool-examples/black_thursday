@@ -39,4 +39,9 @@ RSpec.describe InvoiceItemRepository do
     expected_items = iir.find_all_by_item_id(263563764)
     expect(expected_items.length).to eq(16)
   end
+
+  it "finds all invoice items by invoice id" do
+    expected_items = iir.find_all_by_invoice_id(9)
+    expect(expected_items.length).to eq(3)
+  end
 end
