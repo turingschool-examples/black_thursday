@@ -1,29 +1,31 @@
 require 'pry'
 require 'csv'
+require_relative 'repository'
 require_relative 'customer'
 
-class CustomerRepository
+class CustomerRepository < Repository
 
-  def inspect
-    "#<\#{self.class} \#{@customers.size} rows>"
-  end
+#  def inspect
+#    "#<\#{self.class} \#{@customers.size} rows>"
+#  end
 
   attr_reader :customers
 
   def initialize(data)
     @customers=[]
     CSV.foreach(data, headers: true, header_converters: :symbol) do |row| header ||= row.headers
-    @customers << Customer.new(row)
-#    binding.pry
+      @customers << Customer.new(row)
+    end
+    super(@customers)
   end
 
-  def all
-    @customers
-  end
-
-  def find_by_id(id)
-    @customers.find {|item| item.id == id}
-  end
+  # def all
+  #   @customers
+  # end
+  #
+  # def find_by_id(id)
+  #   @customers.find {|item| item.id == id}
+  # end
 
   def find_all_by_first_name(first_name)
     @customers.find_all {|item| item.first_name.downcase.include?(first_name.downcase)}
@@ -55,8 +57,7 @@ class CustomerRepository
     item_to_update
   end
 
-  def delete(id)
-    @customers.delete(find_by_id(id)) if find_by_id(id) != nil
-    end
-  end
+  # def delete(id)
+  #   @customers.delete(find_by_id(id)) if find_by_id(id) != nil
+  #   end
 end
