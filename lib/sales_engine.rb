@@ -64,7 +64,17 @@ class SalesEngine
     @invoice_items ||= InvoiceItemsRepository.new(data[:invoice_items])
   end
 
+  def run
+    merchants
+    items
+    invoices
+    transactions
+    customers
+    invoice_items
+  end
+
   def analyst
+    run
     SalesAnalyst.new(@items, @merchants, @invoices, @transactions, @customers, @invoice_items)
   end
 end

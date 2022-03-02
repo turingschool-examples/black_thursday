@@ -149,7 +149,7 @@ RSpec.describe 'Iteration 3' do
     end
 
     it '#delete on unknown customer does nothing' do
-      @se.customers.delete(2000)
+      @se.transactions.delete(2000)
     end
   end
 end

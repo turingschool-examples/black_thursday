@@ -54,7 +54,7 @@ class TransactionRepository
   end
 
   def delete(id)
-    @transactions.delete(find_by_id(id))
+    @transactions.delete(find_by_id(id)) unless nil
   end
 
   def inspect
