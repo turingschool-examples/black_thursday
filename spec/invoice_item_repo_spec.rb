@@ -45,9 +45,17 @@ RSpec.describe InvoiceItemRepository do
     expect(expected_items.length).to eq(3)
   end
 
-  it "creates a new invoice item instance" do
+  it "creates a new invoice item" do
     iir.create({item_id: 999999999})
     expected_invoice_item = iir.find_by_id(21831)
     expect(expected_invoice_item.invoice_item_attributes[:id]).to eq(21831)
+  end
+
+  it "updates a invoice item" do
+    iir.create({quantity: 999, unit_price: 99999})
+    iir.update(21831, {quantity: 111, unit_price: 11111})
+    expected_item_invoice = iir.find_by_id(21831)
+    expect(expected_item_invoice.item_invoice_attributes[:quantity]).to eq(111)
+    expect(expected_item_invoice.item_invoice_attributes[:unit_price]).to eq(11111)
   end
 end
