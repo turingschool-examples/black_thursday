@@ -17,6 +17,7 @@ class Analyst
     @in = InvoiceRepository.new("./data/invoices.csv")
     @tr = TransactionRepository.new("./data/transactions.csv")
     @iir = InvoiceItemsRepository.new("./data/invoice_items.csv")
+    # require 'pry'; binding.pry
   end
 
   def average_items_per_merchant
@@ -110,4 +111,26 @@ class Analyst
     sum
   end
 
+  def most_sold_item_for_merchant(merchant_id)
+    m_id = @mr.find_by_id(merchant_id)
+    # items_to_count = {}
+    # @iir.item_ids.each do |id, list|
+    #   items_to_count[@ir.find_by_id(id)] = list.count
+    # end
+    require 'pry'; binding.pry
+    merchants_and_items = {}
+    items_to_count.each do |item, count|
+      merch_id = @mr.find_by_id(item.merchant_id)
+      if !merchants_and_items.key?(merch_id)
+        merchants_and_items[merch_id] = {}
+      end
+      if !merchants_and_items[merch_id].key?(count)
+        merchants_and_items[merch_id][count] = []
+      end
+      merchants_and_items[merch_id][count] << item
+    end
+    high_count = merchants_and_items[m_id].keys.sort.last
+    items_with_high_count = merchants_and_items[m_id][high_count]
+    # require 'pry'; binding.pry
+  end
 end

@@ -5,7 +5,7 @@ require 'bigdecimal'
 
 class InvoiceItemsRepository
   include RepositoryAide
-  attr_reader :repository
+  attr_reader :repository, :item_ids
 
   def initialize(file)
     @repository = read_csv(file).map do |invoice_item|

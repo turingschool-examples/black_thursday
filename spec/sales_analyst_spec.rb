@@ -60,7 +60,7 @@ describe Analyst do
   end
 
 
-  it "can find the total revenue for the day" do
+  xit "can find the total revenue for the day" do
     expect(@sales_analyst.total_revenue_by_date(date)).to eq(456)
   end
   it "determines if invoice has been paid in full" do
@@ -71,4 +71,11 @@ describe Analyst do
   it "returns total $ amount of invoice with corresponding invoice_id" do
     expect(@sales_analyst.invoice_total(1)).to eq(21067.77)
   end
+
+  it 'can find the most sold item for a merchant' do
+    items = @sales_analyst.most_sold_item_for_merchant(12336965)
+    expect(items.count).to eq(2)
+    expect(items.first.class).to eq(Item)
+  end
+
 end
