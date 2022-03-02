@@ -115,24 +115,20 @@ class Analyst
 
   def most_sold_item_for_merchant(merchant_id)
     m_id = @mr.find_by_id(merchant_id)
-    # items_to_count = {}
-    # @iir.item_ids.each do |id, list|
-    #   items_to_count[@ir.find_by_id(id)] = list.count
-    # end
 
-    merchants_and_items = {}
-    num_times_items_ordered.each do |item, count|
-      merch_id = @mr.find_by_id(item.merchant_id)
-      if !merchants_and_items.key?(merch_id)
-        merchants_and_items[merch_id] = {}
-      end
-      if !merchants_and_items[merch_id].key?(count)
-        merchants_and_items[merch_id][count] = []
-      end
-      merchants_and_items[merch_id][count] << item
-    end
-    high_count = merchants_and_items[m_id].keys.sort.last
-    items_with_high_count = merchants_and_items[m_id][high_count]
+    # merchants_and_items = {}
+    # num_times_items_ordered.each do |item, count|
+    #   merch_id = @mr.find_by_id(item.merchant_id)
+    #   if !merchants_and_items.key?(merch_id)
+    #     merchants_and_items[merch_id] = {}
+    #   end
+    #   if !merchants_and_items[merch_id].key?(count)
+    #     merchants_and_items[merch_id][count] = []
+    #   end
+    #   merchants_and_items[merch_id][count] << item
+    # end
+    high_count = create_merchant_items_hash[m_id].keys.sort.last
+    items_with_high_count = create_merchant_items_hash[m_id][high_count]
     # require 'pry'; binding.pry
   end
 end
