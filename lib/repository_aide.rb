@@ -2,7 +2,6 @@
 module RepositoryAide
 
   def read_csv(file)
-    # require 'pry'; binding.pry
     CSV.read(file, headers: true, header_converters: :symbol)
   end
 
@@ -38,6 +37,16 @@ module RepositoryAide
     attribute_hash[:created_at] = Time.new
     attribute_hash[:updated_at] = Time.new
     attribute_hash
+  end
+
+  def update(id, attributes)
+    update = find_by_id(id)
+    unless update.nil?
+      attributes.each do |key, value|
+        find_by_id(id).instance_variable_set(key.to_s.insert(0, '@').to_sym, value)
+      end
+      update.updated_at = Time.now
+    end
   end
 
   def delete(id)

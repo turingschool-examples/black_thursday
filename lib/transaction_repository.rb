@@ -47,14 +47,4 @@ class TransactionRepository
     @repository << transaction
     transaction
   end
-
-  def update(id, attributes)
-    transaction = find_by_id(id)
-    unless transaction.nil?
-      attributes.each do |key, value|
-        find_by_id(id).instance_variable_set(key.to_s.insert(0, '@').to_sym, value)
-      end
-      transaction.updated_at = Time.now
-    end
-  end
 end

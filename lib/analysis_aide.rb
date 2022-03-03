@@ -18,7 +18,7 @@ module AnalysisAide
       merch_items[merch_id][count] << item
     end
     merch_items
-  end
+ end
 
   def find_merchant_revenue_by_items(merchant_id)
     revenue = {}

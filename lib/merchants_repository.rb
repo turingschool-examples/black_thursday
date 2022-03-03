@@ -5,13 +5,16 @@ require_relative '../lib/repository_aide'
 class MerchantsRepository
   include RepositoryAide
   attr_reader :ids
-  attr_accessor :repository
+  attr_accessor :repository, :updated_at
 
   def initialize(file)
     @repository = read_csv(file).map do |merchant|
                   Merchant.new({
                     :id => merchant[:id].to_i,
-                    :name => merchant[:name]})
+                    :name => merchant[:name],
+                    :created_at => merchant[:created_at],
+                    :updated_at => merchant[:updated_at]
+                    })
                 end
     group_hash
   end
@@ -37,10 +40,10 @@ class MerchantsRepository
     merchant
   end
 
-  def update(id, attributes)
-    merchant = find_by_id(id)
-    unless merchant == nil
-      merchant.name = attributes[:name]
-    end
-  end
+  # def update(id, attributes)
+  #   merchant = find_by_id(id)
+  #   unless merchant == nil
+  #     merchant.name = attributes[:name]
+  #   end
+  # end
 end

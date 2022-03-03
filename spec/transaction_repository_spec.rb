@@ -1,4 +1,5 @@
 require 'rspec'
+require 'pry'
 require './lib/transaction_repository'
 
 describe TransactionRepository do
@@ -23,7 +24,7 @@ describe TransactionRepository do
       expect(@tr.all).to eq(@tr.repository)
     end
   end
-
+  
   describe '#find_by_id' do
     it 'finds the transaction of a specific id' do
       transaction = @tr.find_by_id(17)
@@ -54,9 +55,7 @@ describe TransactionRepository do
   describe '#find_all_by_result' do
     it 'can search for all transactions with a specific result' do
       transaction = @tr.find_all_by_result(:success)
-
       expect(transaction.class).to eq(Array)
-      require 'pry'; binding.pry
       expect(transaction.sample.result).to eq(:success)
     end
   end
