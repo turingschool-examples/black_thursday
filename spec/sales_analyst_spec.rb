@@ -135,6 +135,7 @@ RSpec.describe SalesAnalyst do
 
   it "returns all invoice id's under same merchant id" do
     expect(sa.invoices_by_merchant_id(12335938).count).to eq 16
+    expect(sa.invoices_by_merchant_id(12334753).count).to eq 15
   end
 
   xit "#top_revenue_earners(n) returns the top n merchants ranked by revenue" do
