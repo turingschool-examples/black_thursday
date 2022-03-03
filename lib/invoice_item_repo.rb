@@ -1,3 +1,5 @@
+require 'pry'
+
 class InvoiceItemRepository
   attr_reader :file_path, :invoice_items
   def initialize(file_path)

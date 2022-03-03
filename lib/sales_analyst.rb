@@ -228,30 +228,38 @@ class SalesAnalyst
     daily_item_totals.sum / 100
   end
 
-  def invoices_by_merchant_id(merchant_id)
-    all_invoice_ids_per_merchant = []
-    invoices.each do |invoice|
-      if invoice.invoice_attributes[:merchant_id] == merchant_id
-        all_invoice_ids_per_merchant << invoice.invoice_attributes[:id]
+  # def invoices_by_merchant_id(merchant_id)
+  #   all_invoice_ids_per_merchant = []
+  #   invoices.each do |invoice|
+  #     if invoice.invoice_attributes[:merchant_id] == merchant_id
+  #       all_invoice_ids_per_merchant << invoice.invoice_attributes[:id]
+  #     end
+  #   end
+  #   all_invoice_ids_per_merchant
+  # end
+  def top_revenue_earners(number_of_merchants)
+    total_revenue_by_merchant = []
+    invoicerepository.find_all_by_merchant_id(id).each do |invoice|
+      # #find all invoice items under same invoice id's and return
+      # ##for each invoice item, quantity * unit price and return as .00
+      # ###sum all of those, and return as {Merchant => revenue}
+      # sort by hash values high to low and return top n keys
+      invoiceitemrepository.find_all_by_invoice_id(id).each do |invoice_item|
+        total_revenue_by_merchant << invoice_item.invoice_item_attributes[:quantity] * invoice_item.invoice_item_attributes[:unit_price]
       end
     end
-    all_invoice_ids_per_merchant
-  end
+    total_revenue_by_merchant.sum / 100
+    # def invoice_items_by_invoice_id(invoice_id)
+    #   all_invoice_items_per_invoice = []
+    #   invoiceitems.each do |invoice_item|
+    #     if invoice_item.invoice_item_attributes[:invoice_id] == invoice_id
+    #       all_invoice_items_per_invoice << invoice_item.invoice_item_attributes[:invoice_id]
+    #     end
+    #   end
+    #   all_invoice_items_per_invoice
+    # end
 
-  # #find all invoice items under same invoice id's and return
-  # ##for each invoice item, quantity * unit price and return as .00
-  # ###sum all of those, and return as {Merchant => revenue}
-  # sort by hash values high to low and return top n keys
-  def invoice_items_by_invoice_id(invoice_id)
-    all_invoice_items_per_invoice = []
-    invoiceitems.each do |invoice_item|
-      if invoice_item.invoice_item_attributes[:invoice_id] == invoice_id
-        all_invoice_items_per_invoice << invoice_item.invoice_item_attributes[:invoice_id]
-      end
-    end
-    all_invoice_items_per_invoice
+    # def top_revenue_earners(n)
+    #   invoicerepository
   end
-
-  # def top_revenue_earners(n)
-  #   invoicerepository
 end
