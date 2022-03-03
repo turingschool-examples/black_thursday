@@ -1,4 +1,4 @@
-require 'pry'
+require "pry"
 
 class Invoice
   attr_reader :invoice_attributes

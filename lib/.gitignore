@@ -1,1 +1,3 @@
 **/coverage
+
+echo coverage >> .gitignore

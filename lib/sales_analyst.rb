@@ -74,7 +74,7 @@ class SalesAnalyst
         high_items << merchants[index]
       end
     end
-    return high_items
+    high_items
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -86,8 +86,7 @@ class SalesAnalyst
       end
       unit_price_total = (unit_price_total / items.count).round(2)
     end
-    return unit_price_total
-
+    unit_price_total
   end
 
   def average_average_price_per_merchant
@@ -96,13 +95,12 @@ class SalesAnalyst
       average_prices << average_item_price_for_merchant(merchant.merchant_attributes[:id])
     end
     unfixed_average = (average_prices.sum / average_prices.length).round(3)
-    cut_average = unfixed_average.to_s.split('')
+    cut_average = unfixed_average.to_s.split("")
     cut_average.delete_at(-1)
-    cut_average.join('').to_f
+    cut_average.join("").to_f
   end
 
   def golden_items
-    golden_items = []
     total_prices = []
     price_average = 0
     items.each do |item|
@@ -200,13 +198,13 @@ class SalesAnalyst
     matches = invoices.count do |invoice|
       invoice.invoice_attributes[:status] == status
     end
-    (matches.to_f/invoices.count.to_f * 100).round(2)
+    (matches.to_f / invoices.count.to_f * 100).round(2)
   end
 
   def invoice_paid_in_full?(invoice_id)
     successful_transactions = []
     transactionrepository.find_all_by_invoice_id(invoice_id).each do |transaction|
-       successful_transactions << transaction.transaction_attributes[:status] == "success"
+      successful_transactions << transaction.transaction_attributes[:status] == "success"
     end
     successful_transactions.count != 0
   end
@@ -216,10 +214,7 @@ class SalesAnalyst
       invoice_item_totals = invoiceitemrepository.find_all_by_invoice_id(invoice_id).map do |invoice_item|
         invoice_item.invoice_item_attributes[:quantity] * invoice_item.invoice_item_attributes[:unit_price]
       end
-      iit = invoice_item_totals.sum.to_s.split("")
-      iit.insert(-3, ".")
-      iit = iit.join("")
-      BigDecimal(iit.to_f, iit.length - 1)
+      invoice_item_totals.sum / 100
     end
   end
 end

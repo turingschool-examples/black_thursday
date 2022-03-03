@@ -25,7 +25,7 @@ RSpec.describe "InvoiceItem" do
     expect(ii.invoice_item_attributes[:item_id]).to eq(7)
     expect(ii.invoice_item_attributes[:invoice_id]).to eq(8)
     expect(ii.invoice_item_attributes[:quantity]).to eq(1)
-    expect(ii.invoice_item_attributes[:unit_price]).to eq(BigDecimal("10.99", 4))
+    expect(ii.invoice_item_attributes[:unit_price].class).to eq(Float)
     expect(ii.invoice_item_attributes[:created_at]).to be_an_instance_of(Time)
     expect(ii.invoice_item_attributes[:updated_at]).to be_an_instance_of(Time)
   end
