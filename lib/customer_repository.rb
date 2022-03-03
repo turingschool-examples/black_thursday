@@ -19,10 +19,6 @@ class CustomerRepository
     group_hash
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
   def group_hash
     @first_names = @repository.group_by {|customer| customer.first_name}
     @last_names = @repository.group_by {|customer| customer.last_name}
@@ -40,15 +36,5 @@ class CustomerRepository
     customer = Customer.new(create_attribute_hash(attributes))
     @repository << customer
     customer
-  end
-
-  def update(id, attributes)
-    customer = find_by_id(id)
-    unless customer.nil?
-      attributes.each do |key, value|
-        find_by_id(id).instance_variable_set(key.to_s.insert(0, '@').to_sym, value)
-      end
-      customer.updated_at = Time.now
-    end
   end
 end

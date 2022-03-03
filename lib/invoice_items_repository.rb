@@ -31,7 +31,6 @@ class InvoiceItemsRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    # return nil if find(@invoice_ids, invoice_id).nil?
     find(@invoice_ids, invoice_id)
   end
 
@@ -39,14 +38,5 @@ class InvoiceItemsRepository
     invoice_item = InvoiceItem.new(create_attribute_hash(attributes))
     @repository << invoice_item
     invoice_item
-  end
-
-  def update(id, attributes)
-    invoice_item = find_by_id(id)
-    unless invoice_item.nil?
-      invoice_item.quantity = attributes[:quantity]
-      invoice_item.unit_price = attributes[:unit_price]
-      invoice_item.updated_at = Time.now
-    end
   end
 end

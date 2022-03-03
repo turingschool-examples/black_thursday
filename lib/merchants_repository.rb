@@ -1,21 +1,24 @@
 require 'csv'
 require_relative '../lib/merchant'
 require_relative '../lib/repository_aide'
+require_relative '../lib/time_helper'
 
 class MerchantsRepository
   include RepositoryAide
+  include TimeHelper
   attr_reader :ids
-  attr_accessor :repository, :updated_at
+  attr_accessor :repository
 
   def initialize(file)
     @repository = read_csv(file).map do |merchant|
                   Merchant.new({
                     :id => merchant[:id].to_i,
                     :name => merchant[:name],
-                    :created_at => merchant[:created_at],
+                    :created_at => create_time(merchant[:created_at]),
                     :updated_at => merchant[:updated_at]
                     })
                 end
+                require 'pry'; binding.pry
     group_hash
   end
 
@@ -36,14 +39,6 @@ class MerchantsRepository
   def create(attributes)
     merchant = Merchant.new(create_attribute_hash(attributes))
     @repository << merchant
-    # require 'pry'; binding.pry
     merchant
   end
-
-  # def update(id, attributes)
-  #   merchant = find_by_id(id)
-  #   unless merchant == nil
-  #     merchant.name = attributes[:name]
-  #   end
-  # end
 end

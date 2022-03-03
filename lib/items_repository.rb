@@ -21,12 +21,9 @@ class ItemsRepository
         })
       end
     group_hash
-  end #initialize end
-
-
+  end
 
   def group_hash
-    @ids = @repository.group_by{|item| item.id}
     @names = @repository.group_by{|item| item.name}
     @descriptions = @repository.group_by {|item| item.description.downcase}
     @unit_prices = @repository.group_by {|item| item.unit_price}
@@ -53,9 +50,6 @@ class ItemsRepository
     @repository.find_all do |item|
       range.include?(item.unit_price / 100)
     end
-    # @repository.find_all do |item|
-    #   item.(unit_price.between?(range.begin, range.end)
-    # end
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -66,13 +60,5 @@ class ItemsRepository
     item = Item.new(create_attribute_hash(attributes))
     @repository << item
     item
-  end
-
-  def update(id, attributes)
-    item = find_by_id(id)
-    attributes.each do |key, value|
-      find_by_id(id).instance_variable_set(key.to_s.insert(0, '@').to_sym, value)
-    end
-    item.updated_at = Time.now
   end
 end

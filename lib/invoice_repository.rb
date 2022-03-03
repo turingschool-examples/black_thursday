@@ -61,12 +61,4 @@ class InvoiceRepository
     @repository << invoice
     invoice
   end
-
-  def update(id, attribute)
-    invoice = find_by_id(id)
-    unless invoice.nil?
-      invoice.status = attribute[:status]
-      invoice.updated_at = Time.now
-    end
-  end
 end

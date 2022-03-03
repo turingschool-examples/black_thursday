@@ -1,6 +1,6 @@
 
 class Merchant
-  attr_reader :id
+  attr_reader :id, :created_at
   attr_accessor :name, :updated_at
 
   def initialize(info)
@@ -9,5 +9,4 @@ class Merchant
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
   end
-
 end
