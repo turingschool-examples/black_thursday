@@ -17,25 +17,25 @@ class InvoiceRepository
   end
   def find_by_id(id)
     invoices.find do |invoice_instance|
-      invoice_instances.invoice_attributes[:id] == id
+      invoice_instance.invoice_attributes[:id] == id
     end
   end
 
   def find_all_by_customer_id(id)
     invoices.find_all do |invoice_instance|
-      invoice_instances.invoice_attributes[:customer_id] == id
+      invoice_instance.invoice_attributes[:customer_id] == id
     end
   end
 
   def find_all_by_merchant_id(id)
     invoices.find_all do |invoice_instance|
-      invoice_instances.invoice_attributes[:merchant_id] == id
+      invoice_instance.invoice_attributes[:merchant_id] == id
     end
   end
 
   def find_all_by_status(status)
     invoices.find_all do |invoice_instance|
-      invoice_instances.invoice_attributes[:status] == status
+      invoice_instance.invoice_attributes[:status] == status
     end
   end
 

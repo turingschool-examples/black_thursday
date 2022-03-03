@@ -19,18 +19,18 @@ RSpec.describe InvoiceRepository do
       invoice_items: "./data/invoice_items.csv"
     })
   end
-  inv_r = InvoiceRepository.new("./data/invoices.csv")
+  invr = InvoiceRepository.new("./data/invoices.csv")
 
  it "exists" do
    expect(invr).to be_an_instance_of(InvoiceRepository)
  end
 
  it "returns invoice_instance_array when #all is called" do
-   expect(invr.all).to eq(se.invoices_instances_array)
+   expect(invr.all.count).to eq 4985
  end
 
  it "can find an invoice by id using #find_by_id" do
-   expect(invr.find_by_id(6)).to eq(invr.invoice_instance_array[5])
+   expect(invr.find_by_id(6)).to eq(invr.invoices[5])
  end
 
  it "can find all invoices by customer id" do
@@ -72,6 +72,6 @@ RSpec.describe InvoiceRepository do
  it "deletes invoices" do
    to_delete = invr.find_by_id(4986)
    expect(invr.delete(4986)).to eq(to_delete)
-   expect(invr.invoice_instance_array.length).to eq(4985)
+   expect(invr.invoices.length).to eq(4985)
  end
 end

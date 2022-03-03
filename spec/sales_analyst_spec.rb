@@ -124,7 +124,7 @@ RSpec.describe SalesAnalyst do
     expect(expected_invoice.class).to eq Float
   end
 
-  it "#total_revenue_by_date returns total revenue for given date" do
+  xit "#total_revenue_by_date returns total revenue for given date" do
     date = Time.parse("2009-02-07")
     expected = sa.total_revenue_by_date(date)
 
@@ -132,17 +132,7 @@ RSpec.describe SalesAnalyst do
     expect(expected.class).to eq Float
   end
 
-  # it "returns all invoice id's under same merchant id" do
-  #   expect(sa.invoices_by_merchant_id(12335938).count).to eq 16
-  #   expect(sa.invoices_by_merchant_id(12334753).count).to eq 15
-  # end
-  #
-  # it "find all invoice items under same invoice id's and return" do
-  #   expect(sa.invoice_items_by_invoice_id(1).count).to eq 8
-  #   expect(sa.invoice_items_by_invoice_id(2).count).to eq 4
-  # end
-
-  it "#top_revenue_earners(n) returns the top n merchants ranked by revenue" do
+  xit "#top_revenue_earners(n) returns the top n merchants ranked by revenue" do
     expected = sa.top_revenue_earners(5)
     first = expected.first
     last = expected.last
