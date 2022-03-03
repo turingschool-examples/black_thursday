@@ -217,4 +217,14 @@ class SalesAnalyst
       invoice_item_totals.sum / 100
     end
   end
+
+  def total_revenue_by_date(date)
+    daily_item_totals = []
+    invoiceitemrepository.each do |ii|
+      if invoice_item_attributes[:created_at] == date
+        daily_item_totals << invoice_item.invoice_item_attributes[:quantity] * invoice_item.invoice_item_attributes[:unit_price]
+      end
+    end
+    daily_item_totals.sum / 100
+  end
 end
