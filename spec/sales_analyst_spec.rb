@@ -133,7 +133,11 @@ RSpec.describe SalesAnalyst do
     expect(expected.class).to eq Float
   end
 
-  it "#top_revenue_earners(n) returns the top n merchants ranked by revenue" do
+  it "returns all invoice id's under same merchant id" do
+    expect(sa.invoices_by_merchant_id(12335938).count).to eq 16
+  end
+
+  xit "#top_revenue_earners(n) returns the top n merchants ranked by revenue" do
     expected = sa.top_revenue_earners(5)
     first = expected.first
     last = expected.last

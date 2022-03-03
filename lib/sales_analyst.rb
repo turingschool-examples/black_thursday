@@ -227,4 +227,13 @@ class SalesAnalyst
     end
     daily_item_totals.sum / 100
   end
+
+#find all invoices under same merchant id and return their invoice id's
+##find all invoice items under same invoice id's and return
+###for each invoice item, quantity * unit price and return as .00
+####sum all of those, and return as {Merchant => revenue}
+# sort by hash values high to low
+# return top n keys
+  def top_revenue_earners(n)
+    invoicerepository
 end
