@@ -124,7 +124,7 @@ RSpec.describe SalesAnalyst do
     expect(expected_invoice.class).to eq Float
   end
 
-  xit "#total_revenue_by_date returns total revenue for given date" do
+  it "#total_revenue_by_date returns total revenue for given date" do
     date = Time.parse("2009-02-07")
     expected = sa.total_revenue_by_date(date)
 

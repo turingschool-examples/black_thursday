@@ -219,15 +219,17 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    daily_item_totals = []
-    invoiceitems.each do |ii|
-      if ii.invoice_item_attributes[:created_at] == date
-          product = (ii.invoice_item_attributes[:quantity] * ii.invoice_item_attributes[:unit_price])
-        daily_item_totals << product
+    revenue_by_date = []
+    # if @invoiceitems.created_at == date
+    invoiceitems.each do |invoice|
+      invoiceitemrepository.find_all_by_invoice_id(invoiceitems.invoice_attribute[:id]).each do |invoice_item|
+        if invoice_item.invoice_item_attributes[:created_at] == date
+          revenue_by_date << invoice_item.invoice_item_attributes[:quantity] * invoice_item.invoice_item_attributes[:unit_price]
+        end
+
       end
     end
-    daily_item_totals.sum / 100
-    binding.pry
+    revenue_by_date.sum / 100
   end
 
   def top_revenue_earners(number_of_merchants)
