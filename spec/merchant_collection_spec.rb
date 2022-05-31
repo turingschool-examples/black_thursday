@@ -17,9 +17,9 @@ RSpec.describe MerchantCollection do
   end
 
   it 'can find a merchant by id' do
-    expect(@merchant_collection.find_by_id("12334105")).to eq("Shopin1901")
-    expect(@merchant_collection.find_by_id("12334189")).to eq("JacquieMann")
-    expect(@merchant_collection.find_by_id("12335080")).to eq("HooksforBooks")
+    expect(@merchant_collection.find_by_id("12334105").first.name).to eq("Shopin1901")
+    expect(@merchant_collection.find_by_id("12334189").first.name).to eq("JacquieMann")
+    expect(@merchant_collection.find_by_id("12335080").first.name).to eq("HooksforBooks")
   end
 
   it 'can find a merchant by name' do

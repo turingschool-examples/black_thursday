@@ -19,7 +19,7 @@ class MerchantCollection
         merch_name << merchant
       end
     end
-    merch_name.first.name
+    merch_name
   end
 
   def find_by_name(name)
