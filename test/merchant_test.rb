@@ -23,4 +23,13 @@ RSpec.describe Merchant do
     expect(merchant.id).to eq(5)
   end
 
+  it 'returns name' do
+    merchant = Merchant.new({
+      :id => 5,
+      :name => "Turing School"
+      })
+
+    expect(merchant.name).to eq("Turing School")
+  end
+
 end
