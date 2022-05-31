@@ -1,10 +1,10 @@
 class Merchant
 
-  def initialize
-  end
+  attr_reader :id, :name
 
-  def two_plus_two
-    "four"
+  def initialize(input)
+    @id = input[:id]
+    @name = input[:name]
   end
 
 end
