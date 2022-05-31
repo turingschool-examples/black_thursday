@@ -49,7 +49,7 @@ RSpec.describe Item do
 
   describe "#unit_price_to_dollars" do
     xit "returns a unit price as a float" do
-      #some stuff here, an
+      expect(@item.unit_price_to_dollars).to eq @item.unit_price.truncate(2).to_f
     end
   end
 end
