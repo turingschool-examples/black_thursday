@@ -8,4 +8,12 @@ RSpec.describe ItemRepository do
   it "will be an instance of ItemRepository" do
     expect(@item_repo).to be_instance_of ItemRepository
   end
+
+  it "has an all function" do
+    expect(@item_repo.all.class).to equal(Array)
+    expect(@item_repo.all[0].class).to equal(Item)
+    expect(@item_repo.all[0].name).to equal("510+ RealPush Icon Set")
+  end
+
+  
 end
