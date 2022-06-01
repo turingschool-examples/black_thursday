@@ -31,4 +31,13 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.find_by_name("Shopin1901")).to be_a(Merchant)
   end
 
+  it 'can find_all_by_name(name)' do
+    test = @merchant_repository.find_all_by_name("handmade")
+
+    expect(@merchant_repository.find_all_by_name("handmade").count).to eq(6)
+    expect(@merchant_repository.find_all_by_name("handmade")).to be_a(Array)
+    expect(test.map(&:name).include?("SLHandmades")).to eq true
+    expect(test.map(&:id).include?(12334303)).to eq true
+  end
+
 end
