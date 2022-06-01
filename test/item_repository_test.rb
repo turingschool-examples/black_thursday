@@ -73,4 +73,12 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_by_name("SNACK CHEST").id).to eq(263567475)
   end
 
+  it 'can update item instances' do
+    expect(@item_repository.find_by_id(263438579).name).to eq("Air Jordan Coloring Book")
+
+    @item_repository.update(263438579,"Scare Jordan Haunted Halloween Book","A very spooky basketball novelization",600)
+
+    expect(@item_repository.find_by_id(263438579).name).to eq("Scare Jordan Haunted Halloween Book")
+  end
+
 end
