@@ -44,4 +44,8 @@ RSpec.describe Item do
     expect(item.merchant_id).to eq(2)
   end
 
+  it "returns toe price of the item in dollars" do
+    expect(item.unit_price_to_dollars).to eq(10.99)
+  end
+
 end
