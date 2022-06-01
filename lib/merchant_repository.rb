@@ -1,4 +1,4 @@
-class Merchant_Repository
+class MerchantRepository
   attr_reader :file_path, :all
 
 
