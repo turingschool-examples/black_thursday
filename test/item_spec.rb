@@ -36,4 +36,8 @@ RSpec.describe Item do
     expect(item.created_at).to be_instance_of(Time)
   end
 
+  it "has a date for when it was last modified" do
+    expect(item.updated_at).to be_instance_of(Time)
+  end
+
 end
