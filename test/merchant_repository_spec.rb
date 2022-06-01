@@ -31,5 +31,11 @@ RSpec.describe MerchantRepository do
    expect(merchant.find_by_name("ParkerAndMarysDungeonWithDragons")).to eq(nil)
  end
 
-
+ it "can find all by name" do
+   expect(merchant.find_all_by_name("Gran")).to be_an(Array)
+   expect(merchant.find_all_by_name("Gran").first.name).to eq("GranadaFotoBaby")
+   expect(merchant.find_all_by_name("Gran").last.name).to eq("WoolKnittingGranny")
+   expect(merchant.find_all_by_name("Gran").count).to eq(4)
+   expect(merchant.find_all_by_name("ParkerAndMarysDungeonWithDragons")).to eq([])
+ end
 end
