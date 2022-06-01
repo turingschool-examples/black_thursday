@@ -40,4 +40,16 @@ RSpec.describe MerchantRepository do
     expect(test.map(&:id).include?(12334303)).to eq true
   end
 
+  it 'can create_attributes' do
+    attributes = {
+      name: "BryceGems"
+    }
+
+    expect(@merchant_repository.create(attributes)).to be_a Merchant
+    expect(@merchant_repository.create(attributes).id).to eq(12337412)
+    
+    @merchant_repository.create(attributes)
+    expect(@merchant_repository.all.count).to eq(476)
+  end
+
 end
