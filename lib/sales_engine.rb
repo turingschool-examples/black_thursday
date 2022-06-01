@@ -1,7 +1,6 @@
 require_relative 'merchant_repository'
 
 class SalesEngine
-
   attr_reader :merchant_repository, :item_repository
 
   def initialize(items_filepath, merchants_filepath)
