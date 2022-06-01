@@ -28,4 +28,8 @@ class ItemRepository
     @all.select {|item| item.name.downcase.include?(input.downcase.strip)}
   end
 
+  def find_all_by_price(input)
+    @all.select {|item| item.unit_price_to_dollars == input}
+  end
+
 end
