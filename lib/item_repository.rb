@@ -44,8 +44,15 @@ class ItemRepository
     (@all.max_by {|item| item.id.to_i}).id.to_i
   end
 
-  # def create(name,description,price,merchantID)
-  #   @all << Item.new(
-  # end
+  def create(name,description,price,merchantID)
+    @all << Item.new({
+      :id => max_item_id + 1,
+      :name => name,
+      :description => description,
+      :unit_price => price,
+      :created_at => Time.now,
+      :updated_at => Time.now
+      })
+  end
 
 end
