@@ -24,4 +24,8 @@ RSpec.describe Item do
     expect(item.name).to eq("Pencil")
   end
 
+  it "has a description" do
+    expect(item.description).to eq("You can use it to write things")
+  end
+
 end
