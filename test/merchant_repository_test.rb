@@ -64,4 +64,10 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.find_by_name("GoldenRayPress")).to be nil
   end
 
+  it 'can delete merchant instance by id' do
+    @merchant_repository.delete(12334135)
+
+    expect(@merchant_repository.find_by_name("GoldenRayPress")).to be nil
+  end
+
 end
