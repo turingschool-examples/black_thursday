@@ -22,4 +22,8 @@ RSpec.describe ItemRepository do
     expect(@item_repository.all.count).to be > 20
   end
 
+  it 'returns item instance by ID' do
+    expect(@item_repository.find_by_id(263443157).name).to eq("Cheer bow")
+  end
+
 end
