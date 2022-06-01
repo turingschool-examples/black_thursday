@@ -18,5 +18,11 @@ RSpec.describe MerchantRepository do
    expect(merchant.all.length).to eq(475)
  end
 
+ it "can find a merchant by id" do
+   #Should we change merchant ids to integers?
+   expect(merchant.find_by_id("12334281")).to be_an(Merchant)
+   expect(merchant.find_by_id("00000000")).to eq(nil)
+ end
+
 
 end
