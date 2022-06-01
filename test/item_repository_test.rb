@@ -51,8 +51,12 @@ RSpec.describe ItemRepository do
 
   it 'returns all items in specified price range' do
     expect(@item_repository.find_all_by_price_in_range(5,40)).to be_instance_of(Array)
-    binding.pry
     expect(@item_repository.find_all_by_price_in_range(5,40).count).to eq(1)
+  end
+
+  it 'returns all items with specified merchant ID' do
+    expect(@item_repository.find_all_by_merchant_id(12334185)).to be_instance_of(Array)
+    expect(@item_repository.find_all_by_merchant_id(12334185).count).to eq(6)
   end
 
 end
