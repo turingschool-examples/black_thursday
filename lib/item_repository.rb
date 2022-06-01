@@ -40,4 +40,12 @@ class ItemRepository
     @all.select {|item| item.merchant_id.to_i == merchant_id.to_i}
   end
 
+  def max_item_id
+    (@all.max_by {|item| item.id.to_i}).id.to_i
+  end
+
+  # def create(name,description,price,merchantID)
+  #   @all << Item.new(
+  # end
+
 end
