@@ -14,13 +14,14 @@ RSpec.describe MerchantRepository do
 
   it 'can find merchant by ID' do
     merchant_repo = MerchantRepository.new('./data/merchants.csv')
-    expect(merchant_repo.find_by_id(12334105)).to eq('Shopin1901')
+    expect(merchant_repo.find_by_id(12334105)).to be_a(Merchant)
     expect(merchant_repo.find_by_id(12948129048)).to eq(nil)
   end
 
   it 'can find merchant by name' do
     merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    expect(merchant_repo.find_by_name('Shopin1901')).to be_instance_of(Merchant)
+    expect(merchant_repo.find_by_name('sHoPiN1901')).to be_instance_of(Merchant)
     expect(merchant_repo.find_by_name('InvalidName')).to eq(nil)
-    expect(merchant_repo.find_by_name('JUSTEmonsters')).to be_a(Merchant)
   end
 end
