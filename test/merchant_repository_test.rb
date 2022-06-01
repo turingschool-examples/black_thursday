@@ -39,4 +39,13 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.find_by_name("     goldenRAyPreSS    ").id).to eq("12334135")
   end
 
+  it 'returns all matches with by name fragment' do
+    expect(@merchant_repository.find_all_by_name("art")).to be_instance_of(Array)
+    expect(@merchant_repository.find_all_by_name("art").count).to eq(35)
+  end
+
+  it 'returns highest merchant id' do
+    expect(@merchant_repository.max_id).to eq(12337411)
+  end
+
 end
