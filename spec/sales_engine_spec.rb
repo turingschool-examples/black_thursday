@@ -9,7 +9,7 @@ RSpec.describe SalesEngine do
     })
   end
 
-  it "exists" do
+  xit "exists" do
     expect(@sales_engine).to be_a(SalesEngine)
   end
 
