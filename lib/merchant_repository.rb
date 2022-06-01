@@ -18,4 +18,8 @@ class MerchantRepository
     MerchantRepository.new(data[:merchants])
   end
 
+  def find_by_id(id)
+    @all.find {|merchant| merchant.id == id}
+  end
+
 end
