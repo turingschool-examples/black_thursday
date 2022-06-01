@@ -28,4 +28,23 @@ class MerchantRepository
       end
     end
   end
+
+  def find_all_by_name(name)
+    @all.find_all do |merchant|
+      if merchant.name == name.capitalize
+        merchant
+      end
+    end
+  end
+
+  def new_id
+    max_id = @all.max_by do |merchant|
+      merchant.id
+    end
+    merchant_new = max_id.id
+    new_merchant_id = merchant_new + 1
+  end
+
+  def create(id, name)
+  end
 end
