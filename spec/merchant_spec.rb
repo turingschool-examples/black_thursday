@@ -3,7 +3,7 @@ require './lib/merchant'
 RSpec.describe Merchant do
 
   before :each do
-    @merchant = Merchant.new({id: "5", name: "Turing School"})
+    @merchant = Merchant.new({id: 5, name: "Turing School"})
   end
 
   it "exists" do
@@ -11,7 +11,7 @@ RSpec.describe Merchant do
   end
 
   it "has an id" do
-    expect(@merchant.id).to eq("5")
+    expect(@merchant.id).to eq(5)
   end
 
   it "has a name" do
