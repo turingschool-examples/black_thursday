@@ -17,7 +17,7 @@ class Item
   end
 
   def unit_price
-    @info[:unit_price]
+    BigDecimal(@info[:unit_price ])/100
   end
 
   def created_at
@@ -30,6 +30,10 @@ class Item
 
   def merchant_id
     @info[:merchant_id]
+  end
+
+  def unit_price_to_dollars
+    unit_price.truncate(2).to_f
   end
 
 end
