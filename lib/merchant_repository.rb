@@ -13,4 +13,11 @@ class MerchantRepository
     end
   end
 
+  def find_by_id(merchant_id)
+    @all.find do |merchant|
+      return merchant if merchant.id == merchant_id
+      nil
+    end
+  end
+
 end
