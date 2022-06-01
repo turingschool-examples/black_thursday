@@ -25,6 +25,6 @@ RSpec.describe MerchantRepository do
 
   it "can find a merchant by name" do
 
-    expect(@merchant_repository.find_by_name('Shopin1901')).to eq('Shopin1901')
+    expect(@merchant_repository.find_by_name('Shopin1901')).to be_instance_of Merchant
   end
 end

@@ -17,8 +17,14 @@ class MerchantRepository
     @all.find do |merchant|
       if merchant.id == id
         return merchant
-      else
-        nil 
+      end
+    end
+  end
+
+  def find_by_name(name)
+    @all.find do |merchant|
+      if merchant.name == name.capitalize
+        return merchant
       end
     end
   end
