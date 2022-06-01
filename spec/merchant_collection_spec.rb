@@ -1,5 +1,3 @@
-require 'simplecov'
-SimpleCov.start
 require './lib/merchant'
 require "./lib/merchant_collection"
 
