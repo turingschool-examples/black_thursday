@@ -43,4 +43,11 @@ RSpec.describe ItemRepository do
     expect(@item_repo.find_all_by_price_in_range(1000.00..1500.00)[0].id).to eq(263416567)
   end
 
+  it "can find items by merchant id" do
+    expect(@item_repo.find_all_by_merchant_id(12334145).count).to eq(7)
+    expect(@item_repo.find_all_by_merchant_id(12336020).count).to eq(2)
+    expect(@item_repo.find_all_by_merchant_id(12334145)[1].id).to eq(263401045)
+    expect(@item_repo.find_all_by_merchant_id(9874098)).to eq([])
+  end
+
 end

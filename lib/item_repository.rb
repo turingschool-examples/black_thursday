@@ -10,7 +10,7 @@ class ItemRepository
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Item.new({
-        id: row[:id].to_i, name: row[:name], description: row[:description], unit_price: BigDecimal(row[:unit_price].to_i * 0.01, 4), merchant_id: row[:merchant_id], created_at: row[:created_at], updated_at: row[:updated_at]})
+        id: row[:id].to_i, name: row[:name], description: row[:description], unit_price: BigDecimal(row[:unit_price].to_i * 0.01, 4), merchant_id: row[:merchant_id].to_i, created_at: row[:created_at], updated_at: row[:updated_at]})
     end
   end
 
@@ -33,4 +33,11 @@ class ItemRepository
   def find_all_by_price_in_range(range)
     @all.find_all {|row| range.include?(row.unit_price)}
   end
+
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all do |row|
+      row.merchant_id == merchant_id
+    end
+  end
+
 end
