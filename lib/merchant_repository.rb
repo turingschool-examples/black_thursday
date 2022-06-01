@@ -31,4 +31,8 @@ class MerchantRepository
     (@all.max_by {|merchant| merchant.id.to_i}).id.to_i
   end
 
+  def create(name)
+    @all << Merchant.new(max_id + 1,name)
+  end
+
 end
