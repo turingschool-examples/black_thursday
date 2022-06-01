@@ -11,4 +11,7 @@ class MerchantRepository
       # require 'pry';binding.pry
     end
   end
+  def find_by_id(merchant_id)
+    @all.find {|merchant| merchant.id == merchant_id}
+  end
 end
