@@ -40,7 +40,7 @@ RSpec.describe ItemRepository do
 
   it 'returns all items with a specified description' do
     expect(@item_repository.find_all_with_description("coffee")).to be_instance_of(Array)
-    expect(@item_repository.find_all_with_description("coffee").count).to eq(32)
+    expect(@item_repository.find_all_with_description("coffee").count).to eq(8)
   end
 
 end
