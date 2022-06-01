@@ -28,15 +28,15 @@ RSpec.describe ItemRepository do
   end
 
   it 'returns item instance by name' do
-    expect(@item_repository.find_by_name("Air Jordan Coloring Book").id).to eq("263438579")
+    expect(@item_repository.find_by_name("Air Jordan Coloring Book").id).to eq(263438579)
   end
 
   it 'returns item instance by name, case insensitive' do
-    expect(@item_repository.find_by_name("Air JORDAN Coloring BoOK").id).to eq("263438579")
+    expect(@item_repository.find_by_name("Air JORDAN Coloring BoOK").id).to eq(263438579)
   end
 
   it 'returns item instance by name, ignoring leading/trailing spaces' do
-    expect(@item_repository.find_by_name("   Air JORDAN Coloring BoOK   ").id).to eq("263438579")
+    expect(@item_repository.find_by_name("   Air JORDAN Coloring BoOK   ").id).to eq(263438579)
   end
 
   it 'returns all items with a specified description' do
@@ -86,7 +86,7 @@ RSpec.describe ItemRepository do
 
     @item_repository.delete(263438579)
 
-    expect(@item_repository.all.count).to eq(1366)    
+    expect(@item_repository.all.count).to eq(1366)
   end
 
 end

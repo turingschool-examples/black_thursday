@@ -27,16 +27,16 @@ RSpec.describe MerchantRepository do
   end
 
   it 'can find a merchant by name' do
-    expect(@merchant_repository.find_by_name("GoldenRayPress").id).to eq("12334135")
+    expect(@merchant_repository.find_by_name("GoldenRayPress").id).to eq(12334135)
   end
 
   it 'is case insensitive when searching by name' do
-    expect(@merchant_repository.find_by_name("goldenRAyPreSS").id).to eq("12334135")
+    expect(@merchant_repository.find_by_name("goldenRAyPreSS").id).to eq(12334135)
   end
 
   it 'ignores extra spaces before/after when searching by name' do
-    expect(@merchant_repository.find_by_name("goldenRAyPreSS    ").id).to eq("12334135")
-    expect(@merchant_repository.find_by_name("     goldenRAyPreSS    ").id).to eq("12334135")
+    expect(@merchant_repository.find_by_name("goldenRAyPreSS    ").id).to eq(12334135)
+    expect(@merchant_repository.find_by_name("     goldenRAyPreSS    ").id).to eq(12334135)
   end
 
   it 'returns all matches with by name fragment' do
