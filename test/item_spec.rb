@@ -28,4 +28,8 @@ RSpec.describe Item do
     expect(item.description).to eq("You can use it to write things")
   end
 
+  it "has a unit price" do
+    expect(item.unit_price).to eq(BigDecimal(10.99,4))
+  end
+
 end
