@@ -12,7 +12,6 @@ RSpec.describe MerchantRepository do
     expect(merchant_repo.all).to eq([])
     merchant = Merchant.new({:id => 1, :name => "Bob's Burgers"})
     expect(merchant_repo.all).to eq([merchant])
-    
   end
 
 end
