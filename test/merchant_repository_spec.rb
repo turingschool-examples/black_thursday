@@ -21,8 +21,9 @@ RSpec.describe MerchantRepository do
 
   describe '#find_by_id' do
     it 'can find a merchant by id' do
-      expect(@collection.find(12334105)).to be_a Merchant
-      expect(@collection.find(12334105)).to eq ('Shopin1901')
+      expect(@collection.find_by_id('8675309')).to eq nil
+      expect(@collection.find_by_id('12334105')).to be_a Merchant
+      expect(@collection.find_by_id('12334105').name).to eq 'Shopin1901'
     end
   end
 
