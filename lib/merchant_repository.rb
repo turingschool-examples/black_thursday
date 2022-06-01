@@ -11,12 +11,12 @@ class MerchantRepository
     @all = []
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @all << Merchant.new(row[:id],row[:name])
+      @all << Merchant.new(row)
     end
   end
 
   def find_by_id(id_number)
-    @all.find {|merchant| merchant.id == id_number.to_s}
+    @all.find {|merchant| merchant.id == id_number}
   end
 
   def find_by_name(name)
@@ -28,11 +28,14 @@ class MerchantRepository
   end
 
   def max_id
-    (@all.max_by {|merchant| merchant.id.to_i}).id.to_i
+    (@all.max_by {|merchant| merchant.id}).id
   end
 
   def create(name)
-    @all << Merchant.new(max_id + 1,name)
+    @all << Merchant.new({
+      :id => max_id + 1,
+      :name => name
+      })
   end
 
   def update(id,new_name)

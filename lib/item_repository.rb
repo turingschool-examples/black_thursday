@@ -17,7 +17,7 @@ class ItemRepository
   end
 
   def find_by_id(id_number)
-    @all.find {|item| item.id == id_number.to_s}
+    @all.find {|item| item.id == id_number}
   end
 
   def find_by_name(name)
@@ -37,11 +37,11 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @all.select {|item| item.merchant_id.to_i == merchant_id.to_i}
+    @all.select {|item| item.merchant_id == merchant_id}
   end
 
   def max_item_id
-    (@all.max_by {|item| item.id.to_i}).id.to_i
+    (@all.max_by {|item| item.id}).id
   end
 
   def create(name,description,price,merchantID)
@@ -51,7 +51,8 @@ class ItemRepository
       :description => description,
       :unit_price => price,
       :created_at => Time.now,
-      :updated_at => Time.now
+      :updated_at => Time.now,
+      :merchant_id => merchantID
       })
   end
 
