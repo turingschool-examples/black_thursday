@@ -32,4 +32,8 @@ RSpec.describe Item do
     expect(item.unit_price).to eq(BigDecimal(10.99,4))
   end
 
+  it "has a date for when it was created" do
+    expect(item.created_at).to be_instance_of(Time)
+  end
+
 end
