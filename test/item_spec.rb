@@ -8,8 +8,8 @@ RSpec.describe Item do
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :created_at  => '1994-05-07 23:38:43 UTC',
+      :updated_at  => '2016-01-11 11:30:35 UTC',
       :merchant_id => 2
     })
   end
@@ -35,12 +35,12 @@ RSpec.describe Item do
       expect(@pencil.unit_price).to eq BigDecimal(10.99,4)
     end
 
-    xit "has a created time" do
-      expect(@pencil.created_at).to eq Time.now
+    it "has a created time" do
+      expect(@pencil.created_at).to eq '1994-05-07 23:38:43 UTC'
     end
 
-    xit "has an updated time" do
-      expect(@pencil.updated_at).to eq Time.now
+    it "has an updated time" do
+      expect(@pencil.updated_at).to eq '2016-01-11 11:30:35 UTC'
     end
 
     it "has a merchant ID" do
