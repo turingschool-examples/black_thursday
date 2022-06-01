@@ -15,11 +15,25 @@ class MerchantRepository
   def find_by_id(id)
     @all.each do |merchant|
       if merchant.id.to_i == id
-        return merchant.name
+        return merchant
       else
         return nil
       end
     end
+  end
+
+  def find_by_name(name)
+    @all.find do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
+
+    # @all.each do |merchant|
+    #   if merchant.name.downcase == name.downcase
+    #     merchant
+    #   else
+    #     nil
+    #   end
+    # end
   end
 
 end
