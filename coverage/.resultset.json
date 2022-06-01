@@ -1,20 +1,20 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/andrepedro/turing/1module/projects/black_thursday/lib/item.rb": {
+      "/Users/jonathanpope/turing/1mod/projects/black_thursday/lib/item.rb": {
         "lines": [
           1,
           1,
           null,
           null,
           1,
-          4101,
-          4101,
-          4101,
-          4101,
-          4101,
-          4101,
-          4101,
+          6835,
+          6835,
+          6835,
+          6835,
+          6835,
+          6835,
+          6835,
           null,
           null,
           1,
@@ -23,18 +23,18 @@
           null
         ]
       },
-      "/Users/andrepedro/turing/1module/projects/black_thursday/lib/sales_engine.rb": {
+      "/Users/jonathanpope/turing/1mod/projects/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           1,
           null,
           1,
-          3,
-          3,
+          0,
+          0,
           null,
           null,
           1,
-          3,
+          0,
           null,
           null,
           null,
@@ -42,36 +42,16 @@
           null
         ]
       },
-      "/Users/andrepedro/turing/1module/projects/black_thursday/lib/merchant.rb": {
+      "/Users/jonathanpope/turing/1mod/projects/black_thursday/lib/merchant.rb": {
         "lines": [
           1,
           1,
           null,
           1,
-          1425,
-          1425,
+          0,
+          0,
           null,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/andrepedro/turing/1module/projects/black_thursday/lib/merchant_repository.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          null,
-          1,
-          3,
-          3,
-          null,
-          3,
-          1425,
           null,
           null,
           null,
@@ -80,7 +60,27 @@
           null
         ]
       },
-      "/Users/andrepedro/turing/1module/projects/black_thursday/lib/item_repository.rb": {
+      "/Users/jonathanpope/turing/1mod/projects/black_thursday/lib/merchant_repository.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          1,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/jonathanpope/turing/1mod/projects/black_thursday/lib/item_repository.rb": {
         "lines": [
           1,
           null,
@@ -88,30 +88,34 @@
           1,
           null,
           1,
-          3,
-          3,
+          5,
+          5,
           null,
-          3,
-          4101,
+          5,
+          6835,
           null,
-          null,
-          null,
-          null,
-          1,
-          0,
-          0,
           null,
           null,
           null,
           1,
-          0,
-          0,
+          1370,
           null,
+          null,
+          1,
+          1372,
+          null,
+          null,
+          1,
+          2736,
+          null,
+          null,
+          1,
+          0,
           null,
           null
         ]
       }
     },
-    "timestamp": 1654116306
+    "timestamp": 1654118299
   }
 }

@@ -1,4 +1,4 @@
-require './lib/item_repository'
+require_relative './spec_helper'
 
 RSpec.describe ItemRepository do
   before :each do
@@ -16,18 +16,23 @@ RSpec.describe ItemRepository do
   end
 
   it "has a find by id function" do
-    expect(@item_repo.find_by_id(263395237).name).to eq("510+ RealPush Icon Set")
-    expect(@item_repo.find_by_id(123456)).to equal(nil)
+    expect(@item_repo.find_by_id("263395237").name).to eq("510+ RealPush Icon Set")
+    expect(@item_repo.find_by_id("123456")).to equal(nil)
   end
 
   it "has a find by name function" do
-    expect(@item_repo.find_by_name("510+ RealPush Icon Set").id).to eq(263395237)
-    expect(@item_repo.find_by_name("510+ REALPUSH Icon Set").id).to eq(263395237)
-    expect(@item_repo.find_by_name("MINNIE MUG").id).to eq(nil)
+    expect(@item_repo.find_by_name("510+ RealPush Icon Set").id).to eq("263395237")
+    expect(@item_repo.find_by_name("510+ REALPUSH Icon Set").id).to eq("263395237")
+    expect(@item_repo.find_by_name("MINNIE MUG")).to eq(nil)
   end
 
   it "can find items by description" do
     expect(@item_repo.find_all_with_description("tkjlds;afdkla")).to eq([])
-    expect(@item_repo.find_all_with_description("Facebook")).to eq(XXX)
+    expect(@item_repo.find_all_with_description("dress up your cupcakes").count).to eq(3)
   end
+
+  xit "can find items by price" do
+    expect(@item_repo.find_all_by_price()).to eq([])
+  end
+
 end
