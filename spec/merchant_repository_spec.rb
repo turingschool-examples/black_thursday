@@ -12,7 +12,12 @@ RSpec.describe MerchantRepository do
     expect(merchant_repo.all).to eq([])
     merchant = Merchant.new({:id => 1, :name => "Bob's Burgers"})
     expect(merchant_repo.all).to eq([merchant])
-    
+
   end
+
+  it 'can identify customer by its ID' do
+    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+
+    expect(merchant_repo.find_by_id(1)).to eq(Customer)
 
 end
