@@ -32,9 +32,11 @@ class MerchantRepository
     end
   end
 
-  def create(data)
-    @all << Merchant.new({id: data[:id], name: data[:name]})
-    # if id needs to be +1 last id, id: (@all.sort_by do |merchant| merchant.id end.last.id.to_i + 1)
+  def create(name)
+    new_id = @all.sort_by do |merchant|
+      merchant.id
+    end.last.id
+    @all << Merchant.new({id: new_id + 1, name: name})
   end
 
   def update(id, name)
