@@ -48,4 +48,13 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.max_id).to eq(12337411)
   end
 
+  it 'can create new Merchant instance' do
+    @merchant_repository.create("AlexsSaucery")
+    @merchant_repository.create("BBQRUS")
+
+    expect(@merchant_repository.find_by_name("AlexsSaucery").id).to eq(12337412)
+    expect(@merchant_repository.find_by_name("BBQRUS").id).to eq(12337413)
+
+  end
+
 end
