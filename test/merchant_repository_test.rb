@@ -26,4 +26,8 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.find_by_id(909090909)).to be nil
   end
 
+  it 'can find a merchant by name' do
+    expect(@merchant_repository.find_by_name("GoldenRayPress").name).to eq(12334135)
+  end
+
 end
