@@ -21,5 +21,11 @@ class MerchantRepository
     end
   end
 
+  def find_by_name(name)
+    @all.find do |merchant|
+      merchant.name.upcase == name.upcase
+    end
+  end
+
 
 end
