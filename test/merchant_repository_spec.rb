@@ -31,8 +31,16 @@ RSpec.describe MerchantRepository do
     it 'can find a merchant by name' do
       expect(@collection.find_by_name('my big fancy shop!')).to eq nil
       expect(@collection.find_by_name('Shopin1901')).to be_a Merchant
-      expect(@collection.find_by_name('Shopin1901').name).to eq 'Shopin1901'
-      expect(@collection.find_by_name('Shopin1901').id).to eq '12334105'
+      expect(@collection.find_by_name('shopIN1901').name).to eq 'Shopin1901'
+      expect(@collection.find_by_name('ShOPin1901').id).to eq '12334105'
+    end
+  end
+
+  describe '#find_all_by_name' do
+    it 'can find all merchants with a given fragment of a name' do
+      expect(@collection.find_all_by_name('my big fancy shop')).to eq []
+      expect(@collection.find_all_by_name('tan').count).to eq 2
+      expect(@collection.find_all_by_name('gy').count).to eq 3
     end
   end
 
