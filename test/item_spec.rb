@@ -7,11 +7,12 @@ RSpec.describe Item do
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal(10.99,4),
+      :unit_price  => 1099,
       :created_at  => '1994-05-07 23:38:43 UTC',
       :updated_at  => '2016-01-11 11:30:35 UTC',
       :merchant_id => 2
     })
+    # require 'pry'; binding.pry
   end
 
   describe "#initialize" do
@@ -32,7 +33,7 @@ RSpec.describe Item do
     end
 
     it "has a unit price" do
-      expect(@pencil.unit_price).to eq BigDecimal(10.99,4)
+      expect(@pencil.unit_price).to eq 0.1099e2
     end
 
     it "has a created time" do
@@ -49,8 +50,8 @@ RSpec.describe Item do
   end
 
   describe "#unit_price_to_dollars" do
-    xit "returns a unit price as a float" do
-      expect(@pencil.unit_price_to_dollars).to eq @pencil.unit_price.truncate(2).to_f
+    it "returns a unit price as a float" do
+      expect(@pencil.unit_price_to_dollars).to eq 10.99
     end
   end
 end
