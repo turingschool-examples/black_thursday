@@ -81,4 +81,12 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_by_id(263438579).name).to eq("Scare Jordan Haunted Halloween Book")
   end
 
+  it 'can delete item instances' do
+    expect(@item_repository.all.count).to eq(1367)
+
+    @item_repository.delete(263438579)
+
+    expect(@item_repository.all.count).to eq(1366)    
+  end
+
 end
