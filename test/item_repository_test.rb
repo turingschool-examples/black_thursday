@@ -38,4 +38,9 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_by_name("   Air JORDAN Coloring BoOK   ").id).to eq("263438579")
   end
 
+  it 'returns all items with a specified description' do
+    expect(@item_repository.find_all_with_description("coffee")).to be_instance_of(Array)
+    expect(@item_repository.find_all_with_description("coffee").count).to eq(32)
+  end
+
 end
