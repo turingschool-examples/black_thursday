@@ -20,10 +20,12 @@ RSpec.describe MerchantCollection do
     expect(@merchant_collection.find_by_id("12334105").first.name).to eq("Shopin1901")
     expect(@merchant_collection.find_by_id("12334189").first.name).to eq("JacquieMann")
     expect(@merchant_collection.find_by_id("12335080").first.name).to eq("HooksforBooks")
+    expect(@merchant_collection.find_by_id("12335807").first.id).to eq("12335807")
   end
 
   it 'can find a merchant by name' do
     expect(@merchant_collection.find_by_name("JacquieMann")).to be_a(Merchant)
+    expect(@merchant_collection.find_by_name("JacquieMann").id).to eq("12334189")
   end
 
   it 'can find all names given the characters' do
@@ -32,7 +34,7 @@ RSpec.describe MerchantCollection do
     expect(@merchant_collection.find_all_by_name("store").length).to eq(4)
     expect(@merchant_collection.find_all_by_name("sToRe").length).to eq(4)
     expect(@merchant_collection.find_all_by_name("Uniford").length).to eq(1)
-    expect(@merchant_collection.find_all_by_name("unIFoRd").length).to eq(1)
+    expect(@merchant_collection.find_all_by_name("uNIFoRd").length).to eq(1)
     expect(@merchant_collection.find_all_by_name("uniford").first.id).to eq("12334174")
   end
 end

@@ -13,13 +13,7 @@ class MerchantCollection
   end
 
   def find_by_id(id)
-    merch_name = []
-    @all.each do |merchant|
-      if merchant.id == id
-        merch_name << merchant
-      end
-    end
-    merch_name
+    @all.select {|merchant| merchant.id == id}
   end
 
   def find_by_name(name)
@@ -27,13 +21,7 @@ class MerchantCollection
   end
 
   def find_all_by_name(name)
-    specific_name = []
-    @all.each do |merchant|
-      if merchant.name.upcase.include?(name.upcase)
-        specific_name << merchant
-      end
-    end
-    specific_name
+    @all.find_all {|merchant| merchant.name.upcase.include?(name.upcase)}
   end
 
 end
