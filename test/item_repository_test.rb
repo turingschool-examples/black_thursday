@@ -43,4 +43,8 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_all_with_description("coffee").count).to eq(8)
   end
 
+  it 'returns all items with a specified price' do
+    expect(@item_repository.find_all_by_price(150.00)).to be_instance_of(Array)
+  end
+
 end
