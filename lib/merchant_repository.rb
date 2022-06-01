@@ -20,4 +20,11 @@ class MerchantRepository
     end
   end
 
+  def find_by_name(merchant_name)
+    @all.find do |merchant|
+      return merchant if merchant.name.downcase == merchant_name.downcase
+      nil
+    end
+  end
+
 end
