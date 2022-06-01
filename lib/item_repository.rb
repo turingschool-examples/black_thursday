@@ -55,4 +55,11 @@ class ItemRepository
       })
   end
 
+  def update(id,new_name,new_description,new_price)
+    to_be_updated = find_by_id(id)
+    to_be_updated.name = new_name
+    to_be_updated.description = new_description
+    to_be_updated.unit_price = new_price
+  end
+
 end

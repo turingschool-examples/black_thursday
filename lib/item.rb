@@ -5,6 +5,8 @@ class Item
 
   attr_reader :id,:name,:description,:unit_price,:created_at,:updupdated_at,:merchant_id
 
+  attr_writer :name, :description, :unit_price
+
   def initialize(input)
     @id = input[:id]
     @name = input[:name]
