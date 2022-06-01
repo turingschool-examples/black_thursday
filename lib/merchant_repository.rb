@@ -7,12 +7,19 @@ class MerchantRepository
     @all = []
 
     CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
-    @all << Merchant.new(:id => row[:id],:name => row[:name])
+    @all << Merchant.new({:id => row[:id], :name => row[:name]})
 
     end
-
-
   end
 
+  def find_by_id(id)
+    @all.each do |merchant|
+      if merchant.id.to_i == id
+        return merchant.name
+      else
+        return nil
+      end
+    end
+  end
 
 end
