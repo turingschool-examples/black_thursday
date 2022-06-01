@@ -35,4 +35,9 @@ class MerchantRepository
     @all << Merchant.new(max_id + 1,name)
   end
 
+  def update(id,new_name)
+    to_be_updated = find_by_id(id)
+    to_be_updated.name = new_name
+  end
+
 end
