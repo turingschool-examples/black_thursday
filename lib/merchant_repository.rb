@@ -15,15 +15,19 @@ class MerchantRepository
 
   def find_by_id(merchant_id)
     @all.find do |merchant|
-      return merchant if merchant.id == merchant_id
-      nil
+      merchant.id == merchant_id
     end
   end
 
   def find_by_name(merchant_name)
     @all.find do |merchant|
-      return merchant if merchant.name.downcase == merchant_name.downcase
-      nil
+      merchant.name.downcase == merchant_name.downcase
+    end
+  end
+
+  def find_all_by_name(name_fragment)
+    @all.find_all do |merchant|
+      merchant.name.downcase.include?("#{name_fragment.downcase}")
     end
   end
 
