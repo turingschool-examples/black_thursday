@@ -40,4 +40,9 @@ class MerchantRepository
     to_be_updated.name = new_name
   end
 
+  def delete(id)
+    to_be_dropped = find_by_id(id)
+    @all.delete(to_be_dropped)
+  end
+
 end
