@@ -23,7 +23,11 @@ RSpec.describe ItemRepository do
   end
 
   it 'returns item instance by ID' do
-    expect(@item_repository.find_by_id(263443157).name).to eq("Cheer bow")
+    expect(@item_repository.find_by_id(263438579).name).to eq("Air Jordan Coloring Book")
+  end
+
+  it 'returns item instance by name' do
+    expect(@item_repository.find_by_name("Air Jordan Coloring Book").id).to eq("263438579")
   end
 
 end
