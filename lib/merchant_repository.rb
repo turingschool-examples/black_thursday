@@ -22,7 +22,7 @@ class MerchantRepository
 
   def find_by_name(name)
     @all.find do |merchant|
-      merchant.name == name
+      merchant.name.downcase == name.downcase
     end
   end
 
@@ -34,7 +34,7 @@ class MerchantRepository
 
   def create(data)
     @all << Merchant.new({id: data[:id], name: data[:name]})
-    # if id needs to be +1 last id, id: (@all.last.id.to_i + 1).to_s
+    # if id needs to be +1 last id, id: (@all.sort_by do |merchant| merchant.id end.last.id.to_i + 1)
   end
 
   def update(id, name)
