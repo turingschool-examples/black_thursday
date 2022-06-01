@@ -14,12 +14,11 @@ RSpec.describe MerchantRepository do
 
     expect(@merchant_repository.all).to be_a Array
     expect(@merchant_repository.all.count).to eq(475)
-
   end
 
-  xit "can find by id" do
+  it "can find_by_id" do
 
-    expect(@merchant_repository.find_by_id).to be_a Array
+    expect(@merchant_repository.find_by_id(12334105)).to be_a(Merchant)
   end
 
 end
