@@ -27,4 +27,8 @@ class MerchantRepository
     @all.select {|merchant| merchant.name.downcase.include?(input.downcase.strip)}
   end
 
+  def max_id
+    (@all.max_by {|merchant| merchant.id.to_i}).id.to_i
+  end
+
 end
