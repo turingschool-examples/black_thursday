@@ -1,6 +1,6 @@
 class Item
-
-  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
+  attr_reader :id, :name, :description, :unit_price, :created_at,
+  :updated_at, :merchant_id
 
   def initialize(item_data)
     @id = item_data[:id]
@@ -15,5 +15,4 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
-
 end
