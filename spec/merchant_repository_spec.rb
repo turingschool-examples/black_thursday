@@ -24,4 +24,11 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.find_by_id(12334105)).to be_a(Merchant)
   end
 
+  it "can find_by_name" do
+
+    expect(@merchant_repository.find_by_name("Shopin1901")).to eq(@merchant_repository.all.first)
+    expect(@merchant_repository.find_by_name("XYZ")).to eq(nil)
+    expect(@merchant_repository.find_by_name("Shopin1901")).to be_a(Merchant)
+  end
+
 end
