@@ -2,39 +2,58 @@ require "./lib/merchant_collection"
 
 RSpec.describe MerchantCollection do
   before :each do
-    @merchant_collection = MerchantCollection.new("./data/merchants.csv")
+    @mc = MerchantCollection.new("./data/merchants.csv")
   end
 
   it 'exists & has attributes' do
-    expect(@merchant_collection).to be_a(MerchantCollection)
-    expect(@merchant_collection.all).to be_a(Array)
-    expect(@merchant_collection.all.length).to eq(475)
+    expect(@mc).to be_a(MerchantCollection)
+    expect(@mc.all).to be_a(Array)
+    expect(@mc.all.length).to eq(475)
   end
 
   it 'returns data from our merchant array' do
-    expect(@merchant_collection.all.first.id).to eq("12334105")
-    expect(@merchant_collection.all.last.name).to eq("CJsDecor")
+    expect(@mc.all.first.id).to eq("12334105")
+    expect(@mc.all.first).to be_a(Merchant)
+    expect(@mc.all.last.name).to eq("CJsDecor")
   end
 
   it 'can find a merchant by id' do
-    expect(@merchant_collection.find_by_id("12334105").first.name).to eq("Shopin1901")
-    expect(@merchant_collection.find_by_id("12334189").first.name).to eq("JacquieMann")
-    expect(@merchant_collection.find_by_id("12335080").first.name).to eq("HooksforBooks")
-    expect(@merchant_collection.find_by_id("12335807").first.id).to eq("12335807")
+    expect(@mc.find_by_id("12334672")).to be_a(Merchant)
+    expect(@mc.find_by_id("12334105").name).to eq("Shopin1901")
+    expect(@mc.find_by_id("12335080").name).to eq("HooksforBooks")
+    expect(@mc.find_by_id("12335807").id).to eq("12335807")
   end
 
   it 'can find a merchant by name' do
-    expect(@merchant_collection.find_by_name("JacquieMann")).to be_a(Merchant)
-    expect(@merchant_collection.find_by_name("JacquieMann").id).to eq("12334189")
+    expect(@mc.find_by_name("JacquieMann")).to be_a(Merchant)
+    expect(@mc.find_by_name("JacquieMann").id).to eq("12334189")
   end
 
   it 'can find all names given the characters' do
-    expect(@merchant_collection.find_all_by_name("ing").length).to eq(24)
-    expect(@merchant_collection.find_all_by_name("iNg").length).to eq(24)
-    expect(@merchant_collection.find_all_by_name("store").length).to eq(4)
-    expect(@merchant_collection.find_all_by_name("sToRe").length).to eq(4)
-    expect(@merchant_collection.find_all_by_name("Uniford").length).to eq(1)
-    expect(@merchant_collection.find_all_by_name("uNIFoRd").length).to eq(1)
-    expect(@merchant_collection.find_all_by_name("uniford").first.id).to eq("12334174")
+    expect(@mc.find_all_by_name("ing").length).to eq(24)
+    expect(@mc.find_all_by_name("iNg").length).to eq(24)
+    expect(@mc.find_all_by_name("store").length).to eq(4)
+    expect(@mc.find_all_by_name("sToRe").length).to eq(4)
+    expect(@mc.find_all_by_name("Uniford").length).to eq(1)
+    expect(@mc.find_all_by_name("uNIFoRd").length).to eq(1)
+    expect(@mc.find_all_by_name("uniford").first.id).to eq("12334174")
+  end
+
+  it 'can create attributes' do
+    attributes = {
+                  id: 123374112,
+                  name: "WingzandThingz"
+                }
+    expect(@mc.all.length).to eq(475)
+    @mc.create(attributes)
+    expect(@mc.all.length).to eq(476)
+    expect(@mc.all.last.name).to eq("WingzandThingz")
+  end
+
+  it 'can update attributes' do
+    attributes = {
+                  name: "WingzandThingz",
+                  updated_at: Time.now
+                }
   end
 end
