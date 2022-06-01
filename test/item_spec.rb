@@ -1,4 +1,5 @@
 require './lib/item'
+require 'BigDecimal'
 
 RSpec.describe Item do
   before :each do
@@ -15,41 +16,41 @@ RSpec.describe Item do
 
   describe "#initialize" do
     it "is an Item" do
-      expect(@item).to be_a Item
+      expect(@pencil).to be_a Item
     end
 
     it "has an ID" do
-      expect(@item.id).to eq 1
+      expect(@pencil.id).to eq 1
     end
 
     it "has a name" do
-      expect(@item.name).to eq "Pencil"
+      expect(@pencil.name).to eq "Pencil"
     end
 
     it "has a description" do
-      expect(@item.description).to eq "You can use it to write things"
+      expect(@pencil.description).to eq "You can use it to write things"
     end
 
     it "has a unit price" do
-      expect(@item.unit_price).to eq BigDecimal(10.99,4)
+      expect(@pencil.unit_price).to eq BigDecimal(10.99,4)
     end
 
-    it "has a created time" do
-      expect(@item.created_at).to eq Time.now
+    xit "has a created time" do
+      expect(@pencil.created_at).to eq Time.now
     end
 
-    it "has an updated time" do
-      expect(@item.updated_at).to eq Time.now
+    xit "has an updated time" do
+      expect(@pencil.updated_at).to eq Time.now
     end
 
     it "has a merchant ID" do
-      expect(@item.merchant_id).to eq 2
+      expect(@pencil.merchant_id).to eq 2
     end
   end
 
   describe "#unit_price_to_dollars" do
     xit "returns a unit price as a float" do
-      expect(@item.unit_price_to_dollars).to eq @item.unit_price.truncate(2).to_f
+      expect(@pencil.unit_price_to_dollars).to eq @pencil.unit_price.truncate(2).to_f
     end
   end
 end
