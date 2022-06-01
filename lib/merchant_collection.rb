@@ -37,4 +37,11 @@ class MerchantCollection
     updated = self.find_by_id(id)
     updated.update_info(attributes)
   end
+
+  def delete(id)
+    @all.delete_if do |merchant|
+      merchant.id == id
+    end
+  end
+
 end

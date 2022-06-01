@@ -60,4 +60,17 @@ RSpec.describe MerchantCollection do
     @mc.update("12337209", attributes)
     expect(@mc.find_by_id("12337209").name).to eq("Random212")
   end
+
+  it 'can delete attributes' do
+    attributes = {
+                  id: 12337412,
+                  name: "WingzandThingz"
+                }
+    @mc.create(attributes)
+    expect(@mc.find_by_id("12337412")).to be_a(Merchant)
+    expect(@mc.all.length).to eq(476)
+    @mc.delete("12337412")
+    expect(@mc.find_by_id("12337412")).to eq(nil)
+    expect(@mc.all.length).to eq(475)
+  end
 end
