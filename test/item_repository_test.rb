@@ -59,6 +59,10 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_all_by_merchant_id(12334185).count).to eq(6)
   end
 
+  it 'returns max item id' do
+    expect(@item_repository.max_item_id).to eq(12337411)
+  end
+
   it 'can create new item instances' do
     # expect(@item_repository.all.count).to eq(1367)
     @item_repository.create("SNACK CHEST","A big treasure chest filled with snacks",30,9999)
