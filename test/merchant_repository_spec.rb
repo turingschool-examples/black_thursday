@@ -8,17 +8,15 @@ RSpec.describe MerchantRepository do
   end
 
   it 'exists' do
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
-
 
     expect(@merchantrepository).to be_a(MerchantRepository)
   end
 
-  xit 'returns an array of all known merchants' do
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
+  it 'returns an array of all known merchants' do
 
-
-
+    expect(@merchantrepository.all.class).to eq(Array)
+    expect(@merchantrepository.all[0].class).to eq(Merchant)
+    expect(@merchantrepository.all.count).to eq(475)
   end
 
 
