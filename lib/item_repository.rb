@@ -27,8 +27,10 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    @all.find_all do |row|
-      row.unit_price_to_dollars == price
-    end
+    @all.find_all {|row| row.unit_price_to_dollars == price}
+  end
+
+  def find_all_by_price_in_range(range)
+    @all.find_all {|row| range.include?(row.unit_price)}
   end
 end
