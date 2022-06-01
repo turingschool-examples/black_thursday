@@ -1,5 +1,5 @@
 require './lib/merchant'
-require "./lib/merchant_collection"
+require './lib/merchant_collection'
 
 RSpec.describe MerchantCollection do
   before :each do
