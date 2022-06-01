@@ -22,4 +22,8 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.find_by_id(12334135).name).to eq("GoldenRayPress")
   end
 
+  it 'returns nil when merchant id is not found' do
+    expect(@merchant_repository.find_by_id(909090909)).to be nil
+  end
+
 end
