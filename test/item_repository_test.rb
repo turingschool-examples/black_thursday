@@ -3,6 +3,7 @@ SimpleCov.start
 require './lib/item'
 require './lib/item_repository'
 require 'rspec'
+require 'pry'
 
 RSpec.describe ItemRepository do
 
@@ -45,6 +46,13 @@ RSpec.describe ItemRepository do
 
   it 'returns all items with a specified price' do
     expect(@item_repository.find_all_by_price(150.00)).to be_instance_of(Array)
+    expect(@item_repository.find_all_by_price(150.00).count).to eq(1)
+  end
+
+  it 'returns all items in specified price range' do
+    expect(@item_repository.find_all_by_price_range(5,40)).to be_instance_of(Array)
+    binding.pry
+    expect(@item_repository.find_all_by_price_range(5,40).count).to eq(1)
   end
 
 end
