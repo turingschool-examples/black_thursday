@@ -34,4 +34,8 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_by_name("Air JORDAN Coloring BoOK").id).to eq("263438579")
   end
 
+  it 'returns item instance by name, ignoring leading/trailing spaces' do
+    expect(@item_repository.find_by_name("   Air JORDAN Coloring BoOK   ").id).to eq("263438579")
+  end
+
 end
