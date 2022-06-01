@@ -1,5 +1,5 @@
-require './lib/items.rb'
-
+require './lib/item.rb'
+require 'BigDecimal'
 RSpec.describe Item do
 
     i = Item.new({
