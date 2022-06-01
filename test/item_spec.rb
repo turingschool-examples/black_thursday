@@ -40,4 +40,8 @@ RSpec.describe Item do
     expect(item.updated_at).to be_instance_of(Time)
   end
 
+  it "has a merchant id" do
+    expect(item.merchant_id).to eq(2)
+  end
+
 end
