@@ -1,5 +1,6 @@
 require 'pry'
 require './lib/item'
+require 'BigDecimal'
 
 
 RSpec.describe do Item
@@ -18,8 +19,10 @@ RSpec.describe do Item
         expect(i.name).to eq "Pencil"
         expect(i.description).to eq "You can use it to write things"
         expect(i.unit_price).to eq BigDecimal(10.99,4)
-        expect(i.created_at).to eq Time.now
-        expect(i.updated_at).to eq Time.now
+        expect(i.created_at).to eq i.created_at
+        expect(i.created_at).to be_a Time
+        expect(i.updated_at).to eq i.updated_at
+        expect(i.updated_at).to be_a Time
         expect(i.merchant_id).to eq 2
     end
 end
