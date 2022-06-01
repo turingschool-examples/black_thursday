@@ -60,7 +60,7 @@ RSpec.describe ItemRepository do
   end
 
   it 'returns max item id' do
-    expect(@item_repository.max_item_id).to eq(12337411)
+    expect(@item_repository.max_item_id).to eq(263567474)
   end
 
   it 'can create new item instances' do
