@@ -20,4 +20,8 @@ RSpec.describe Item do
     expect(item.id).to eq(1)
   end
 
+  it "has a name" do
+    expect(item.name).to eq("Pencil")
+  end
+
 end
