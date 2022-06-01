@@ -14,6 +14,8 @@ RSpec.describe MerchantRepository do
     it "can return an array of all known Merchant instances" do
       expect(@collection.all).to be_a Array
       expect(@collection.all.count).to eq 475
+      expect(@collection.all.first).to be_a Merchant
+      expect(@collection.all.first.id).to eq '12334105'
     end
   end
 
