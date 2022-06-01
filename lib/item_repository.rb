@@ -1,4 +1,5 @@
 require 'csv'
+require 'BigDecimal'
 
 class ItemRepository
   attr_reader :all
@@ -9,7 +10,7 @@ class ItemRepository
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Item.new({
-        id: row[:id], name: row[:name], description: row[:description], unit_price: row[:unit_price], merchant_id: row[:merchant_id], created_at: row[:created_at], updated_at: row[:updated_at]})
+        id: row[:id].to_i, name: row[:name], description: row[:description], unit_price: BigDecimal(row[:unit_price].to_i * 0.01, 4), merchant_id: row[:merchant_id], created_at: row[:created_at], updated_at: row[:updated_at]})
     end
   end
 
@@ -25,7 +26,9 @@ class ItemRepository
     @all.find_all {|row| row.description.include?(description)}
   end
 
-  def find_all_by_price
-    @all.find_all {|row| row.description.include?(description)}
+  def find_all_by_price(price)
+    @all.find_all do |row|
+      row.unit_price_to_dollars == price
+    end
   end
 end

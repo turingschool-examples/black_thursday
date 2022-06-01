@@ -16,13 +16,13 @@ RSpec.describe ItemRepository do
   end
 
   it "has a find by id function" do
-    expect(@item_repo.find_by_id("263395237").name).to eq("510+ RealPush Icon Set")
-    expect(@item_repo.find_by_id("123456")).to equal(nil)
+    expect(@item_repo.find_by_id(263395237).name).to eq("510+ RealPush Icon Set")
+    expect(@item_repo.find_by_id(123456)).to equal(nil)
   end
 
   it "has a find by name function" do
-    expect(@item_repo.find_by_name("510+ RealPush Icon Set").id).to eq("263395237")
-    expect(@item_repo.find_by_name("510+ REALPUSH Icon Set").id).to eq("263395237")
+    expect(@item_repo.find_by_name("510+ RealPush Icon Set").id).to eq(263395237)
+    expect(@item_repo.find_by_name("510+ REALPUSH Icon Set").id).to eq(263395237)
     expect(@item_repo.find_by_name("MINNIE MUG")).to eq(nil)
   end
 
@@ -31,8 +31,12 @@ RSpec.describe ItemRepository do
     expect(@item_repo.find_all_with_description("dress up your cupcakes").count).to eq(3)
   end
 
-  xit "can find items by price" do
-    expect(@item_repo.find_all_by_price()).to eq([])
+  it "can find items by price" do
+    # binding.pry
+    expect(@item_repo.find_all_by_price(BigDecimal(10)).count).to eq(63)
+    expect(@item_repo.find_all_by_price(BigDecimal(10))[0].class).to eq(Item)
+    expect(@item_repo.find_all_by_price(BigDecimal(10))[0].id).to eq(263405861)
+
   end
 
 end
