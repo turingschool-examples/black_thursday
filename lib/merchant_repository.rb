@@ -23,4 +23,8 @@ class MerchantRepository
     @all.find {|merchant| merchant.name.downcase == name.downcase.strip}
   end
 
+  def find_all_by_name(input)
+    @all.select {|merchant| merchant.name.downcase.include?(input.downcase.strip)}
+  end
+
 end
