@@ -36,4 +36,8 @@ class ItemRepository
     @all.select {|item| item.unit_price_to_dollars >= low_end.to_f && item.unit_price_to_dollars <= high_end.to_f}
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    @all.select {|item| item.merchant_id.to_i == merchant_id.to_i}
+  end
+
 end
