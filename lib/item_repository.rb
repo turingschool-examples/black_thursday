@@ -62,4 +62,9 @@ class ItemRepository
     to_be_updated.unit_price = new_price
   end
 
+  def delete(id)
+    to_be_dropped = find_by_id(id)
+    @all.delete(to_be_dropped)
+  end
+
 end
