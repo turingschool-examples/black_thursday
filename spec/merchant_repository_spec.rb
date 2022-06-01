@@ -9,4 +9,5 @@ RSpec.describe MerchantRepository do
 
     expect(@merchant_repository).to be_instance_of MerchantRepository
   end
+
 end
