@@ -8,6 +8,7 @@ RSpec.describe Merchant do
   it "exists" do
     expect(@merchant).to be_a(Merchant)
   end
-  
+
+
 
 end
