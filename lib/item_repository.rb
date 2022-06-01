@@ -11,7 +11,6 @@ class ItemRepository
     CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
        @all << Item.new({id: row[:id], name: row[:name], description: row[:description], unit_price: row[:unit_price], merchant_id: row[:merchant_id]})
     end
-    require "pry"; binding.pry
   end
 
 end
