@@ -6,6 +6,7 @@ RSpec.describe Merchant do
     expect(merchant).to  be_instance_of (Merchant)
   end
 
+
   it "can return a name" do
     merchant = Merchant.new(:id => 1, :name => "Bob's Burgers")
 
