@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+require './lib/merchant'
 require "./lib/merchant_collection"
 
 RSpec.describe MerchantCollection do
@@ -34,14 +37,13 @@ RSpec.describe MerchantCollection do
     expect(@mc.find_all_by_name("iNg").length).to eq(24)
     expect(@mc.find_all_by_name("store").length).to eq(4)
     expect(@mc.find_all_by_name("sToRe").length).to eq(4)
-    expect(@mc.find_all_by_name("Uniford").length).to eq(1)
     expect(@mc.find_all_by_name("uNIFoRd").length).to eq(1)
     expect(@mc.find_all_by_name("uniford").first.id).to eq("12334174")
   end
 
   it 'can create attributes' do
     attributes = {
-                  id: 123374112,
+                  id: 12337412,
                   name: "WingzandThingz"
                 }
     expect(@mc.all.length).to eq(475)
@@ -52,8 +54,12 @@ RSpec.describe MerchantCollection do
 
   it 'can update attributes' do
     attributes = {
-                  name: "WingzandThingz",
-                  updated_at: Time.now
+                  name: "Random212",
+                  updated_at: Time.now.to_s
                 }
+
+    expect(@mc.find_by_id("12337209").name).to eq("bizuteriaNYC")
+    @mc.update("12337209", attributes)
+    expect(@mc.find_by_id("12337209").name).to eq("Random212")
   end
 end

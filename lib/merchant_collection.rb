@@ -33,4 +33,8 @@ class MerchantCollection
     @all.push(new)
   end
 
+  def update(id, attributes)
+    updated = self.find_by_id(id)
+    updated.update_info(attributes)
+  end
 end
