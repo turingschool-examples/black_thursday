@@ -54,7 +54,14 @@ RSpec.describe MerchantRepository do
 
     expect(@merchant_repository.find_by_name("AlexsSaucery").id).to eq(12337412)
     expect(@merchant_repository.find_by_name("BBQRUS").id).to eq(12337413)
+  end
 
+  it 'can update name of existing merchant' do
+    @merchant_repository.update(12334135,"WowNewName")
+
+    expect(@merchant_repository.find_by_id(12334135).name).to eq("WowNewName")
+
+    expect(@merchant_repository.find_by_name("GoldenRayPress")).to be nil
   end
 
 end
