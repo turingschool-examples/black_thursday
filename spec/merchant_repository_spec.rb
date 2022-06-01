@@ -1,4 +1,5 @@
 require './lib/merchant_repository'
+require './lib/merchant'
 
 RSpec.describe MerchantRepository do
   before :each do
@@ -18,6 +19,8 @@ RSpec.describe MerchantRepository do
 
   it "can find_by_id" do
 
+    expect(@merchant_repository.find_by_id(12334105)).to eq(@merchant_repository.all.first)
+    expect(@merchant_repository.find_by_id(1233)).to eq(nil)
     expect(@merchant_repository.find_by_id(12334105)).to be_a(Merchant)
   end
 
