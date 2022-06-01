@@ -10,4 +10,9 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository).to be_a(MerchantRepository)
   end
 
+  it "returns all known Merchants" do
+
+    expect(@merchant_repository.all).to be_a Array
+  end
+
 end
