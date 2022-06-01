@@ -1,7 +1,64 @@
 {
   "Unit Tests": {
     "coverage": {
+      "/Users/alexboyd/turing/1mod/projects/black_thursday/lib/item.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          5468,
+          5468,
+          5468,
+          5468,
+          5468,
+          5468,
+          5468,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alexboyd/turing/1mod/projects/black_thursday/lib/item_repository.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          4,
+          4,
+          null,
+          4,
+          5468,
+          null,
+          null,
+          null,
+          null,
+          1,
+          441,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null
+        ]
+      }
     },
-    "timestamp": 1654025956
+    "timestamp": 1654056497
   }
 }
