@@ -1,2 +1,2 @@
 require 'simplecov'
-SimpleCov.start 
+SimpleCov.start
