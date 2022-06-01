@@ -4,3 +4,7 @@ SimpleCov.start
 
 require 'pry'
 require './lib/item'
+require './lib/sales_engine'
+require './lib/merchant'
+require './lib/merchant_repository'
+require './lib/item_repository'
