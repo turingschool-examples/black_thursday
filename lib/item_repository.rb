@@ -32,7 +32,7 @@ class ItemRepository
     @all.select {|item| item.unit_price_to_dollars == input.to_f}
   end
 
-  def find_all_by_price_range(low_end,high_end)
+  def find_all_by_price_in_range(low_end,high_end)
     @all.select {|item| item.unit_price_to_dollars >= low_end.to_f && item.unit_price_to_dollars <= high_end.to_f}
   end
 

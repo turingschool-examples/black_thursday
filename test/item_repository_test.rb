@@ -50,9 +50,9 @@ RSpec.describe ItemRepository do
   end
 
   it 'returns all items in specified price range' do
-    expect(@item_repository.find_all_by_price_range(5,40)).to be_instance_of(Array)
+    expect(@item_repository.find_all_by_price_in_range(5,40)).to be_instance_of(Array)
     binding.pry
-    expect(@item_repository.find_all_by_price_range(5,40).count).to eq(1)
+    expect(@item_repository.find_all_by_price_in_range(5,40).count).to eq(1)
   end
 
 end
