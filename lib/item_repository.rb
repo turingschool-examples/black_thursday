@@ -24,4 +24,8 @@ class ItemRepository
     @all.find {|item| item.name.downcase == name.downcase.strip}
   end
 
+  def find_all_with_description(input)
+    @all.select {|item| item.name.downcase.include?(input.downcase.strip)}
+  end
+
 end
