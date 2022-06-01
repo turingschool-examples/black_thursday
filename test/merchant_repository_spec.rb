@@ -19,5 +19,10 @@ RSpec.describe MerchantRepository do
     expect(@merchantrepository.all.count).to eq(475)
   end
 
+  it 'returns either nil or an instance of Merchant with a matching ID' do
+
+    expect(@merchantrepository.find_by_id(12334132).name).to eq("perlesemoi")
+
+  end
 
 end

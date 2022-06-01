@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-06-01T16:13:59-05:00">2022-06-01T16:13:59-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-06-01T17:01:59-05:00">2022-06-01T17:01:59-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  57.78%
+  60.42%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         63.91
+         89.83
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>45</b> relevant lines,
-    <span class="green"><b>26</b> lines covered</span> and
+    <b>48</b> relevant lines,
+    <span class="green"><b>29</b> lines covered</span> and
     <span class="red"><b>19</b> lines missed. </span>
     (<span class="red">
-  57.78%
+  60.42%
 </span>
 )
   </div>
@@ -99,18 +99,18 @@
             <td class="cell--number">5</td>
             <td class="cell--number">5</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">380.60</td>
+            <td class="cell--number">570.60</td>
             
           </tr>
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#8c7126c3a8bbfeafb76a98c6162b77ef3c0ddcb3" class="src_link" title="lib/merchant_repository.rb">lib/merchant_repository.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">16</td>
-            <td class="cell--number">7</td>
-            <td class="cell--number">7</td>
+            <td class="cell--number">23</td>
+            <td class="cell--number">10</td>
+            <td class="cell--number">10</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">137.00</td>
+            <td class="cell--number">144.50</td>
             
           </tr>
         
@@ -770,19 +770,19 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="950" data-linenumber="5">
-            <span class="hits">950</span>
+          <li class="covered" data-hits="1425" data-linenumber="5">
+            <span class="hits">1425</span>
             
 
             
 
-            <code class="ruby">    @id = merchant[:id]</code>
+            <code class="ruby">    @id = merchant[:id].to_i</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="950" data-linenumber="6">
-            <span class="hits">950</span>
+          <li class="covered" data-hits="1425" data-linenumber="6">
+            <span class="hits">1425</span>
             
 
             
@@ -898,8 +898,8 @@
     
 
     <div class="t-line-summary">
-      <b>7</b> relevant lines.
-      <span class="green"><b>7</b> lines covered</span> and
+      <b>10</b> relevant lines.
+      <span class="green"><b>10</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -928,7 +928,7 @@
 
             
 
-            <code class="ruby">  attr_reader :file_path, :all</code>
+            <code class="ruby">  attr_reader :file_path, :all, :find_by_id</code>
           </li>
         </div>
       
@@ -966,8 +966,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="6">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="3" data-linenumber="6">
+            <span class="hits">3</span>
             
 
             
@@ -977,8 +977,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="7">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="3" data-linenumber="7">
+            <span class="hits">3</span>
             
 
             
@@ -999,8 +999,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="9">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="3" data-linenumber="9">
+            <span class="hits">3</span>
             
 
             
@@ -1010,8 +1010,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="950" data-linenumber="10">
-            <span class="hits">950</span>
+          <li class="covered" data-hits="1425" data-linenumber="10">
+            <span class="hits">1425</span>
             
 
             
@@ -1065,7 +1065,73 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="15">
+          <li class="covered" data-hits="1" data-linenumber="15">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def find_by_id(id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="16">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @all.find do |row|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="6" data-linenumber="17">
+            <span class="hits">6</span>
+            
+
+            
+
+            <code class="ruby">      row.id == id</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="18">
+            
+            
+
+            
+
+            <code class="ruby">    </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="19">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="20">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="21">
             
             
 
@@ -1076,7 +1142,18 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="16">
+          <li class="never" data-hits="" data-linenumber="22">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="23">
             
             
 
