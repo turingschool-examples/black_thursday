@@ -24,5 +24,12 @@ RSpec.describe MerchantRepository do
    expect(merchant.find_by_id("00000000")).to eq(nil)
  end
 
+ it "can find a merchant by name" do
+   expect(merchant.find_by_name("HooksforBooks")).to be_an(Merchant)
+   expect(merchant.find_by_name("hooksforbooks")).to be_an(Merchant)
+   expect(merchant.find_by_name("HOOKSFORBOOKS")).to be_an(Merchant)
+   expect(merchant.find_by_name("ParkerAndMarysDungeonWithDragons")).to eq(nil)
+ end
+
 
 end
