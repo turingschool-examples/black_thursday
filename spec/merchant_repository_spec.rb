@@ -17,4 +17,9 @@ describe MerchantRepository do
     expect(@merchant_repository.all.first.id).to eq("12334105")
     expect(@merchant_repository.all.first.name).to eq("Shopin1901")
   end
+  it "can find a merchant by id and return nil if not found" do
+    expect(@merchant_repository.find_by_id("12334105")).to be_a Merchant
+    expect(@merchant_repository.find_by_id("12334105").name).to eq("Shopin1901")
+    expect(@merchant_repository.find_by_id("1")).to eq(nil)
+  end
 end
