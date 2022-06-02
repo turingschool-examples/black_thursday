@@ -33,10 +33,15 @@ RSpec.describe SalesEngine do
     expect(@sales_engine.item_repository.find_by_id(123456)).to equal(nil)
   end
 
-  it "can fid items by name" do
+  it "can find items by name" do
     expect(@sales_engine.item_repository.find_by_name("510+ RealPush Icon Set").id).to eq(263395237)
     expect(@sales_engine.item_repository.find_by_name("510+ REALPUSH Icon Set").id).to eq(263395237)
     expect(@sales_engine.item_repository.find_by_name("MINNIE MUG")).to eq(nil)
+  end
+
+  it "can find items by description" do
+    expect(@sales_engine.item_repository.find_all_with_description("tkjlds;afdkla")).to eq([])
+    expect(@sales_engine.item_repository.find_all_with_description("dress up your cupcakes").count).to eq(3)
   end
 
 end
