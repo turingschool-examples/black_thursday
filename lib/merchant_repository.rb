@@ -31,10 +31,20 @@ class MerchantRepository
     end
   end
 
-  def update(merchant_id_search, attributes)
+  def create(new_merchant)
+    new_id = 0
+    @all.each do |merchant|
+      if merchant.id.to_i > new_id
+        new_id = merchant.id.to_i + 1
+      end
+    end
+    @all << Merchant.new({:id => new_id.to_s, :name => new_merchant})
+  end
+
+  def update(merchant_id_search, new_name)
     @all.find do |merchant|
       merchant.id == merchant_id_search
-      merchant.info[:name] = attributes
+      merchant.info[:name] = new_name
     end
   end
 
