@@ -6,11 +6,11 @@ class SalesAnalyst
     @merchant_repository = merchant_repository
   end
 
-  def average_items_per_merchant
+  def average_items_per_merchant #2.88
     (@item_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end
 
-  def standard_deviation #of a given merch or for the entire group?
+  def average_items_per_merchant_standard_deviation #3.26
     counts = []
     @merchant_repository.all.each do |merchant|
       counts <<  @item_repository.find_all_by_merchant_id(merchant.id).count
@@ -22,19 +22,14 @@ class SalesAnalyst
   def merchants_with_high_item_count
     merch_array = []
     @merchant_repository.all.each do |merchant|
-      if (merchant.standard_deviation - standard_deviation) > 1 #functions aren't called properly yet
+      if (@item_repository.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant > average_items_per_merchant_standard_deviation) #avg items per merchant
         merch_array << merchant
       end
     end
-    merch_array #would return array of merch's that are "more than 1 standard deviation above avg # of products offered"
+    merch_array
   end
 
-  # def difference_between_merchant_items_and_mean
-  #   #do we need a helper method to determine mean of all vendors?
-  #
-  # end
-  #
-  # def sum_of_differences_squared
-  #   #not sure what sum?
-  # end
+
+
+
 end

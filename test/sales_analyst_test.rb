@@ -39,10 +39,15 @@ RSpec.describe SalesAnalyst do
   end
 
   it "can determine standard deviation" do
-    expect(@sales_analyst.standard_deviation).to eq(3.26)
+    expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
 
   it "can determine which merchant sold the most items?" do
     expect(@sales_analyst.merchants_with_high_item_count).to be_instance_of(Array)
   end
+
+  it "can give us avg price of given merchants items" do
+    expect(@sales_analyst.average_item_price_for_merchant(12334159)).to be_instance_of(bigdecimal)
+  end
+  #compare against harness
 end
