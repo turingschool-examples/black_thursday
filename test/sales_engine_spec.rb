@@ -1,4 +1,5 @@
 require "./lib/sales_engine"
+require "./lib/sales_analyst"
 # require "./lib/item_repository"
 # require "./lib/merchant_repository"
 
