@@ -1,6 +1,4 @@
-require 'csv'
-require 'pry'
-require "./lib/item"
+require 'helper'
 
 class ItemRepository
 
