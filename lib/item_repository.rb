@@ -27,12 +27,9 @@ class ItemRepository
     end
   end
 
-  def find_all_by_price_in_range(range)
-    min = range.min
-    max = range.max
-
-    @all_items.find_all do |item|
-      item.unit_price.to_i.between?(min, max)
+  def find_all_by_price(item_price)
+    @all.find_all do |item|
+      item.unit_price == item_price
     end
   end
 end
