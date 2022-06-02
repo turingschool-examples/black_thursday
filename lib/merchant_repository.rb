@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'merchant'
+require 'pry'
 
 class MerchantRepository
   attr_reader :all
@@ -45,6 +46,11 @@ class MerchantRepository
     new_merchant_id = merchant_new + 1
   end
 
-  def create(id, name)
+  def create(name)
+    @all << Merchant.new({:id => new_id, :name => name})
+  end
+
+  def update(id, attributes)
+
   end
 end

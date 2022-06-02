@@ -40,10 +40,15 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.new_id).to be_a Integer
   end
 
-  xit "can create new merchants" do
+  it "can create new merchants" do
 
-    expect(@merchant_repository.create(@merchant_repository.new_id, 'Ducky')).to be_a Merchant
-    # expect(@merchant_repository.create(attributes)).to be_a Merchant
-    # expect(@merchant_repository.create(attributes)).to be_a Merchant
+    expect(@merchant_repository.create('Ducky')).to be_a Array
+    expect(@merchant_repository.all.last.name).to eq('Ducky')
+  end
+
+  it "update the Item instance with the corresponding id with the provided attributes" do
+
+    expect(@merchant_repository.update(12334105))
+
   end
 end
