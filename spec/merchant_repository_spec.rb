@@ -55,7 +55,7 @@ RSpec.describe MerchantRepository do
       name: "BryceGems"
     }
 
-    @merchant_repository.all.update(12334105, attributes)
+    @merchant_repository.update(12334105, attributes)
 
     expect(@merchant_repository.find_by_id(12334105).name).to eq("BryceGems")
     expect(@merchant_repository.find_by_name("Shopin1901")).to eq(nil)
