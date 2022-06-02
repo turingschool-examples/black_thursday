@@ -61,7 +61,9 @@ class ItemRepository
     find_by_id(id).change(key, value, time)
   end
 
-  def delete(item)
+  def delete(id)
+    item_index = @all.find_index(find_by_id(id))
+    @all.delete_at(item_index)
   end
 
 end
