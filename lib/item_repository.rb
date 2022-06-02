@@ -58,5 +58,19 @@ class ItemRepository
     @all.find_all { |item| item.merchant_id == merchant_id }
   end
 
+  def create(attributes)
+    x = (@all.last.id + 1)
+    @all << Item.new({
+      :id => x,
+      :name => attributes[:name],
+      :description => attributes[:description],
+      :unit_price => attributes[:unit_price],
+      :created_at => attributes[:created_at],
+      :updated_at => attributes[:updated_at],
+      :merchant_id => attributes[:merchant_id]
+      })
+
+  end
+
 
 end

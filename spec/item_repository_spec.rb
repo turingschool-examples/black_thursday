@@ -77,11 +77,11 @@ RSpec.describe ItemRepository do
       merchant_id: 25
     }
 
-    @item_repository.create(attributes)
+
 
     expect(@item_repository.create(attributes).last.id).to eq(263567475)
     expect(@item_repository.all.last).to be_a(Item)
-    expect(@item_repository.all.count).to eq 0
+    expect(@item_repository.all.count).to eq 1368
   end
 
 

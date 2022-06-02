@@ -33,9 +33,12 @@ class MerchantRepository
     end
   end
 
-  def create(name)
+  def create(attributes)
     x = (@all.last.id + 1)
-    @all << Merchant.new({:id => x, :name => name})
+    @all << Merchant.new({
+      :id => x,
+      :name => attributes[:name]
+      })
   end
 
   def update(id, attributes)
