@@ -21,6 +21,27 @@ class ItemRepository
     @all.find {|item| item.name.downcase == item_name.downcase}
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    # require "pry"; binding.pry
+    @all_items.find_all {|merchant| merchant.id == merchant_id}
+  end
+
+  def create(name)
+
+    id = (@all_items.last.id.to_i + 1).to_s
+      # require "pry"; binding.pry
+    @all_items << Item.new({:id => id, :name => name})
+
+  end
+
+  def update(id, attributes)
+    @all_items.each do |item|
+      if item.id == id
+        item.name = attributes
+      end
+    end
+  end
+
   def find_all_with_description(item_description)
     @all.find_all do |item|
       item.description.downcase.include?(item_description.downcase)
