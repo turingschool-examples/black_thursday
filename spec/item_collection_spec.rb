@@ -2,6 +2,7 @@ require './lib/merchant'
 require './lib/merchant_collection'
 require './lib/item'
 require "./lib/item_collection"
+require 'bigdecimal'
 
 RSpec.describe ItemCollection do
  before :each do
@@ -34,10 +35,28 @@ RSpec.describe ItemCollection do
    expect(@ic.find_by_name("green footed Ceramic bowl").id).to eq("263399037")
  end
 
- # it 'can find all with description' do
- #   expect(@ic.find_all_with_description("Gorgeous hand knitted baby bootees, knitted in the softest cream coloured wool, the soles are yellow and the bootees are finished with an orange pompom at the back. Would fit from new born up to two months.").last).to be_a(Item)
- #
- #   expect(@ic.find_all_with_description(description).length).to eq(24)
- # end
+ it 'can find all with description' do
+   expect(@ic.find_all_with_description("Disney glitter frames\n\nAny colour glitter available and can do any characters you require\n\nDifferent colour scrabble tiles\n\nBlue\nBlack\nPink\nWooden").last.name).to eq("Disney scrabble frames")
+ end
+
+ it 'can find all items by price' do
+   expect(@ic.find_all_by_price("60000").count).to eq(4)
+   expect(@ic.find_all_by_price("1350").count).to eq(1)
+ end
+
+ it 'can find all items within a price range' do
+   range = 2000..9000
+   range_1 = 30000..60000
+   expect(@ic.find_all_by_price_in_range(range).count).to eq(16)
+   expect(@ic.find_all_by_price_in_range(range_1).count).to eq(9)
+ end
+
+ it 'can find all items by merchant id' do
+   expect(@ic.find_all_by_merchant_id(merchant_id)).to be_a(Item)
+   # expect(@ic.find_all_by_merchant_id(merchant_id).name).to eq()
+   # expect(@ic.find_all_by_merchant_id(merchant_id)).to eq()
+   # expect(@ic.find_by_id("263397867").id).to eq("263397867")
+ end
+
 
 end
