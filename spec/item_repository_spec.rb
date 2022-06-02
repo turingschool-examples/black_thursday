@@ -85,19 +85,21 @@ RSpec.describe ItemRepository do
   end
 
   it "can update(id, attributes) an merchant instance" do
+    x = Time.now
     attributes = {
       name: "BryceGems",
       description: "Any colour gems",
       unit_price: BigDecimal(420.00, 5),
-      created_at: Time.now,
-      updated_at: Time.now,
+      created_at: x,
+      updated_at: x,
       merchant_id: 25
     }
 
     @item_repository.update(263567474, attributes)
 
     expect(@item_repository.find_by_id(263567474).name).to eq("BryceGems")
-    expect(@item_repository.find_by_name("BryceGems")).to eq(nil)
+    expect(@item_repository.find_by_name("Minty Green Knit Crochet Infinity Scarf")).to eq(nil)
+    expect(@item_repository.find_by_id(263567474).updated_at).to be > x
   end
 
 
