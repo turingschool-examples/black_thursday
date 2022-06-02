@@ -13,12 +13,8 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @all.each do |merchant|
-      if merchant.id.to_i == id
-        return merchant
-      else
-        return nil
-      end
+    @all.find do |merchant|
+      merchant.id.to_i == id
     end
   end
 
@@ -33,5 +29,13 @@ class MerchantRepository
       merchant.name.downcase.include?(name_fragment.downcase)
     end
   end
+
+  def create(attribute)
+    new_id = @all.last.id.to_i + 1
+    new_attribute = attribute
+    @all << Merchant.new(:id => new_id.to_s, :name => new_attribute)
+    return @all.last
+  end
+
 
 end
