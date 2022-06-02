@@ -37,10 +37,20 @@ RSpec.describe MerchantRepository do
   it 'returns one or more matches when searching by fragmented name' do
     fragment = "shop"
     expected = @merchantrepository.find_all_by_name(fragment)
-
-    # expect(expected.length).to eq(5)
+    #
+    # # expect(expected.length).to eq(5)
     expect(expected.map(&:name).include?("SimchaCentralShop")).to eq true
     expect(expected.map(&:id).include?(12334863)).to eq true
+    expect(@merchantrepository.find_all_by_name("shop")[9].name.include?("SimchaCentralShop")).to eq(true)
+  end
+
+  it 'can create a new Merchant' do
+
+    expect(@merchantrepository.find_by_id(12337412)).to eq(nil)
+
+    @merchantrepository.create("TuringForLife")
+
+    expect(@merchantrepository.find_by_id(123337412)). to eq("TuringForLife")
   end
 
 end
