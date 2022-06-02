@@ -37,4 +37,9 @@ RSpec.describe SalesAnalyst do
       expect(@sales_analyst.merchants_with_high_item_count.first.class).to eq Merchant
       expect(@sales_analyst.merchants_with_high_item_count.first.name).to eq("Keckenbauer")
   end
+
+  it 'can find the average price of a merchants items' do
+    expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
+    expect(@sales_analyst.average_item_price_for_merchant(12334105).class).to eq(Float)
+  end
 end
