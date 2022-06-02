@@ -16,4 +16,8 @@ attr_accessor :id,
     @unit_price = data_hash[:unit_price]
     @merchant_id = data_hash[:merchant_id]
   end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
 end

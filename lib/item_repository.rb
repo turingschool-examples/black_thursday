@@ -1,5 +1,5 @@
 require 'CSV'
-require 'item'
+require_relative 'item'
 
 class ItemRepository
   attr_reader :file_path,
@@ -13,13 +13,12 @@ class ItemRepository
     end
   end
 
-  def find_all_by_price_in_range(range)
-    min = range.min
-    max = range.max
+  def find_by_id(item_id)
+    @all.find { |item| item.id == item_id}
+  end
 
-    @all_items.find_all do |item|
-      item.unit_price.to_i.between?(min, max)
-    end
+  def find_by_name(item_name)
+    @all.find {|item| item.name.downcase == item_name.downcase}
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -43,8 +42,15 @@ class ItemRepository
     end
   end
 
+  def find_all_with_description(item_description)
+    @all.find_all do |item|
+      item.description.downcase.include?(item_description.downcase)
+    end
+  end
 
-
-
-
+  def find_all_by_price(item_price)
+    @all.find_all do |item|
+      item.unit_price == item_price
+    end
+  end
 end
