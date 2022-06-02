@@ -21,5 +21,12 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_by_id(263395237)).to be_a(Item)
   end
 
+  it "can find_by_name" do
+
+    expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to eq(@item_repository.all.first)
+    expect(@item_repository.find_by_name("XYZ")).to eq(nil)
+    expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to be_a(Item)
+  end
+
 
 end

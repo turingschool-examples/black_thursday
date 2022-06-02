@@ -16,4 +16,16 @@ class ItemRepository
       end
   end
 
+  def find_by_id(id)
+    @all.find do |item|
+      item.id == id
+    end
+  end
+
+  def find_by_name(name)
+    @all.find do |item|
+      item.name.upcase == name.upcase
+    end
+  end
+
 end

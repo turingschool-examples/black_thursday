@@ -29,7 +29,7 @@ end
     expect(@item.merchant_id).to eq 2
     #binding.pry
     expect(@item.created_at).to eq @x
-    expect(@item.updated_at).to eq @x
+    expect(@item.updated_at).to eq @x #come back to this
   end
 
   it 'has unit price to dollars' do
