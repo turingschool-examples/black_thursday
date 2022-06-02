@@ -36,5 +36,9 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_all_with_description("ideal for a romantic date")[0]).to be_a(Item)
   end
 
-  
+  # it "can find an item by description and return an array or instances of item" do
+  #   expect(@item_repository.find_all_by_price(price))
+  # end
+
+
 end
