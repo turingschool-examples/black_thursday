@@ -22,5 +22,10 @@ class ItemRepository
     end
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    # require "pry"; binding.pry
+    @all_items.find_all {|merchant| merchant.id == merchant_id}
+  end
+
 
 end
