@@ -1,7 +1,10 @@
-require 'csv'
+require 'CSV'
 require 'item'
+
 class ItemRepository
-  attr_reader :file_path, :all
+  attr_reader :file_path,
+              :all
+
   def initialize(file_path)
     @file_path = file_path
     @all = []
