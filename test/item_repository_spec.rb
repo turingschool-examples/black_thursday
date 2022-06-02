@@ -13,6 +13,15 @@ require './lib/item'
         :updated_at  => Time.now,
         :merchant_id => 2
       })
+      @update = @item_repository.create({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+        })
     end
 
     it "exists" do
@@ -67,5 +76,13 @@ require './lib/item'
 
       expect(@item_repository.find_by_id(263567475)).to be_a(Item)
       expect(@item_repository.find_by_id(263567475).name).to eq("Pencil")
+    end
+
+    it "can update items" do
+        @item_repository.update(263567475, @update)
+    end
+
+    xit "can delete items" do
+
     end
 end
