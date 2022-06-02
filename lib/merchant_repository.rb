@@ -1,4 +1,6 @@
 require 'CSV'
+require_relative "merchant"
+
 class MerchantRepository
 
   attr_reader :merchants,
@@ -28,5 +30,22 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @all.find_all {|names| names.name.include?(name)}
+  end
+
+  def create(attributes)
+    attributes[:id] = (@all.max {|merchant| merchant.id}).id + 1
+      new_merchant = Merchant.new(attributes)
+        @all << new_merchant
+          new_merchant
+  end
+
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    merchant.name[0..1000000] = attributes[:name]
+  end
+
+  def delete(id)
+    merchant = find_by_id(id)
+    @all.delete(merchant)
   end
 end
