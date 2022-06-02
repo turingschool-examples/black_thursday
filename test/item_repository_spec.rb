@@ -26,4 +26,8 @@ require './lib/item'
       expect(@item_repository.find_by_name("Disney scrabble frames")).to be_a(Item)
     end
 
+    it "can be found with the description" do
+      expect(@item_repository.find_all_with_description("abc")).to eq([])
+    end
+
 end
