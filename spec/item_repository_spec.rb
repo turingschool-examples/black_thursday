@@ -10,4 +10,8 @@ RSpec.describe ItemRepository do
   it "exists" do
     expect(@item_repository).to be_a ItemRepository
   end
+
+  it "can return an array of all known items" do
+    expect(@item_repository.all).to be_a Array
+  end
 end
