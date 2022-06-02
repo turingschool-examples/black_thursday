@@ -34,4 +34,13 @@ RSpec.describe MerchantRepository do
 
   end
 
+  it 'returns one or more matches' do
+    fragment = "shop"
+    expected = @merchantrepository.find_all_by_name(fragment)
+
+    # expect(expected.length).to eq(5)
+    expect(expected.map(&:name).include?("SimchaCentralShop")).to eq true
+    expect(expected.map(&:id).include?(12334863)).to eq true
+  end
+
 end
