@@ -28,6 +28,6 @@ end
   end
 
   it 'has unit price to dollars' do
-    expect(@item.unit_price_to_dollars).to eq 23.48
+    expect(@item.unit_price_to_dollars).to eq 10.99
   end
 end

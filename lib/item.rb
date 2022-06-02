@@ -19,4 +19,8 @@ class Item
     @merchant_id = details[:merchant_id]
   end
 
+  def unit_price_to_dollars
+    @unit_price.round(2)
+  end
+
 end
