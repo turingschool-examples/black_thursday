@@ -1,12 +1,21 @@
-# require "./lib/sales_engine"
-# require "./lib/item_collection"
-# require "./lib/merchant_collection"
-require "./lib/merchant"
+require './lib/merchant'
 
-#add more `expect` lines to each test to make it more robust...!
 RSpec.describe Merchant do
-  it "exists" do
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
-    expect(merchant).to be_instance_of Merchant
+
+  before :each do
+    @merchant = Merchant.new({id: 5, name: "Turing School"})
   end
+
+  it "exists" do
+    expect(@merchant).to be_a(Merchant)
+  end
+
+  it "has an id" do
+    expect(@merchant.id).to eq(5)
+  end
+
+  it "has a name" do
+    expect(@merchant.name).to eq("Turing School")
+  end
+
 end
