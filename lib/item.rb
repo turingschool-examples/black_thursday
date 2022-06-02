@@ -15,4 +15,16 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def change(key, value, time)
+    if key == :unit_price
+      @unit_price = value
+    elsif key == :description
+      @description = value
+    else
+      @name = value
+    end
+    @updated_at = time
+  end
+
 end

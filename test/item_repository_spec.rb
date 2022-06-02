@@ -56,7 +56,18 @@ RSpec.describe ItemRepository do
     expect(@item_repo.all.last.name).to eq("Batmobile")
   end
 
-  
+  it "can update the item and items attributes" do
+    new_item = @item_repo.create({name: "Batmobile", description: "Black and shiny", unit_price: BigDecimal(10000, 5), created_at: Time.now, updated_at: Time.now, merchant_id: 88877766})
+    original_time = @item_repo.find_by_id(263567475).updated_at
+    attributes = {unit_price: BigDecimal(379.99, 5)}
+    @item_repo.update(263567475, attributes)
+    expect(@item_repo.find_by_id(263567475).unit_price).to eq(BigDecimal(379.99, 5))
+    expect(@item_repo.find_by_id(263567475).updated_at).to be > original_time
+  end
 
+  it "can delete things" do
+    @item_repo.delete(263567475)
+    expect(@item_repo.find_by_id(263567475)).to eq(nil)
+  end
 
 end

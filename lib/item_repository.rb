@@ -54,4 +54,14 @@ class ItemRepository
     i
   end
 
+  def update(id, attributes)
+    key = attributes.keys[0]
+    value = attributes.values[0]
+    time = Time.now
+    find_by_id(id).change(key, value, time)
+  end
+
+  def delete(item)
+  end
+
 end
