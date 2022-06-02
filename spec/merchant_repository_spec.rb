@@ -45,10 +45,8 @@ RSpec.describe MerchantRepository do
       name: "BryceGems"
     }
 
-    expect(@merchant_repository.create(attributes)).to be_a Merchant
-    expect(@merchant_repository.create(attributes).id).to eq(12337412)
-    
-    @merchant_repository.create(attributes)
+    expect(@merchant_repository.create(attributes).last.id).to eq(12337412)
+    expect(@merchant_repository.all.last).to be_a(Merchant)
     expect(@merchant_repository.all.count).to eq(476)
   end
 
