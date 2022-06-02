@@ -27,4 +27,8 @@ describe Item do
     expect(@item.updated_at).to be_a Time
     expect(@item.merchant_id).to eq(2)
   end
+
+  it "returns a unit price as a float" do
+    expect(@item.unit_price_to_dollars).to eq 10.99
+  end
 end
