@@ -12,9 +12,9 @@ attr_accessor :name, :description, :unit_price, :updated_at
     @description = data[:description]
     @unit_price = BigDecimal(data[:unit_price])/100
     @merchant_id = data[:merchant_id].to_i
-    @created_at = Time.parse(data[:created_at])
-    @updated_at = Time.parse(data[:updated_at])
-    @unit_price_to_dollars = data[:unit_price].to_f
+    @created_at = Time.parse(data[:created_at].to_s)
+    @updated_at = Time.parse(data[:updated_at].to_s)
+    @unit_price_to_dollars = data[:unit_price].to_f/100
   end
 
 end
