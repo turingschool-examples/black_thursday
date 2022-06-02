@@ -29,7 +29,16 @@ class SalesAnalyst
     merch_array
   end
 
+  def average_item_price_for_merchant(merch_id)
+    price_sum_helper(merch_id) / @item_repository.find_all_by_merchant_id(merch_id).count
+  end
 
+  def price_sum_helper(merch_id) #31500
+    holder_array = @item_repository.find_all_by_merchant_id(merch_id)
+    total_sum = holder_array.sum{|item| item.unit_price_to_dollars}
+    total_sum
+  end
 
+  
 
 end

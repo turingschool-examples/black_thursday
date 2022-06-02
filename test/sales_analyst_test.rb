@@ -26,18 +26,6 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_items_per_merchant).to eq(2.88)
   end
 
-  xit 'returns difference between number of items for specified merchant and average items' do
-
-    expect(@sales_analyst.difference_between_merchant_items_and_mean(12334135)).to eq(1.88)
-
-    expect(@sales_analyst.difference_between_merchant_items_and_mean(12334315)).to eq(2.12)
-  end
-
-  xit 'can return sum of differences squared' do
-    expect(@sales_analyst.sum_of_differences_squared).to eq(11338.44)
-    # I don't feel 100% confident in this
-  end
-
   it "can determine standard deviation" do
     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
@@ -47,7 +35,14 @@ RSpec.describe SalesAnalyst do
   end
 
   it "can give us avg price of given merchants items" do
-    expect(@sales_analyst.average_item_price_for_merchant(12334159)).to be_instance_of(bigdecimal)
+    expect(@sales_analyst.average_item_price_for_merchant(12334159)).to eq(3150)
+    #be_instance_of(bigdecimal)
   end
-  #compare against harness
+
+  it "can return sum of given merchants item prices" do
+    expect(@sales_analyst.price_sum_helper(12334159)).to eq(31500)
+  end
+
+    #compare against harness
+
 end
