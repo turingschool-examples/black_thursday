@@ -36,6 +36,7 @@ RSpec.describe Item do
 
   it "has a unit_price" do
     expect(@i.unit_price).to eq(10.99)
+    expect(@i.unit_price).to be_a(BigDecimal)
   end
 
   it "has created_at" do
