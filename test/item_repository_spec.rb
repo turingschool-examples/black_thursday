@@ -38,5 +38,8 @@ require './lib/item'
       expect(@item_repository.find_all_by_price_in_range(1..5)).to eq([])
     end
 
-
+    it "can find_all_by_merchant_id" do
+      expect(@item_repository.find_all_by_merchant_id(00000)).to eq([])
+    end
+    
 end
