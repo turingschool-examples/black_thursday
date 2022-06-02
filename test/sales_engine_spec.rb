@@ -28,6 +28,9 @@ RSpec.describe SalesEngine do
     expect(@sales_engine.item_repository.all[0].name).to eq("510+ RealPush Icon Set")
   end
 
-
-
+  it "can find items by id" do
+    expect(@sales_engine.item_repository.find_by_id(263395237).name).to eq("510+ RealPush Icon Set")
+    expect(@sales_engine.item_repository.find_by_id(123456)).to equal(nil)
   end
+
+end
