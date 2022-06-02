@@ -3,18 +3,22 @@ SimpleCov.start
 require './lib/helper'
 
 RSpec.describe Invoice do
+  let!(:invoice) {Invoice.new({
+    :id          => 6,
+    :customer_id => 7,
+    :merchant_id => 8,
+    :status      => "pending",
+    :created_at  => Time.now,
+    :updated_at  => Time.now })}
 
   it 'exists' do
-    invoice = Invoice.new({
-      :id => 1,
-      :merchant_id => 2,
-      :customer_id => 143,
-      :status => "pending",
-      :created_at => Time.now,
-      :updated_at => Time.now,
-      })
-
     expect(invoice).to be_instance_of(Invoice)
+  end
+
+  it "can return an invoice id" do
+    expect(invoice.id).to eq(6)
+    expect(invoice.id).to be_a Integer
+    expect(invoice.id).not_to eq(nil)
   end
 
   # it 'returns id' do
