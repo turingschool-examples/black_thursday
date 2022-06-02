@@ -65,4 +65,11 @@ RSpec.describe MerchantRepository do
     expect(merchant_repo.find_by_name("Shopin1901")).to eq(nil)
   end
 
+  it 'can delete a merchant object' do
+    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    expect(merchant_repo.find_by_id(12334105)).to be_a(Merchant)
+    merchant_repo.delete(12334105)
+    expect(merchant_repo.find_by_id(12334105)).to eq(nil)
+  end
+
 end
