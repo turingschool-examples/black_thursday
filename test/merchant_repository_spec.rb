@@ -39,9 +39,11 @@ RSpec.describe MerchantRepository do
  it "can find all by name" do
    expect(merchant.find_all_by_name("Gran")).to be_an(Array)
    expect(merchant.find_all_by_name("Gran").first.name).to eq("GranadaFotoBaby")
-   expect(merchant.find_all_by_name("Gran").last.name).to eq("WoolKnittingGranny")
-   expect(merchant.find_all_by_name("Gran").count).to eq(4)
+   expect(merchant.find_all_by_name("Gran").last.name).to eq("RigRanch")
+   expect(merchant.find_all_by_name("Gran").count).to eq(5)
    expect(merchant.find_all_by_name("ParkerAndMarysDungeonWithDragons")).to eq([])
+   expect(merchant.find_all_by_name("style")).to be_an(Array)
+   expect(merchant.find_all_by_name("style").count).to eq(3)
  end
 
  it "create an instance with attributes" do

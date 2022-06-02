@@ -3,8 +3,9 @@ require_relative "merchant"
 
 class MerchantRepository
 
-  attr_reader :merchants,
-              :all
+  attr_accessor :merchants,
+              :all,
+              :name
 
   def inspect
   "#<#{self.class} #{@merchants.size} rows>"
@@ -29,7 +30,7 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    @all.find_all {|names| names.name.include?(name)}
+    @all.find_all {|names| names.name.downcase.include?(name.downcase)}
   end
 
   def create(attributes)
@@ -41,7 +42,11 @@ class MerchantRepository
 
   def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.name[0..1000000] = attributes[:name]
+    if merchant == nil
+      exit
+    else
+      merchant.name = attributes[:name]
+    end
   end
 
   def delete(id)
