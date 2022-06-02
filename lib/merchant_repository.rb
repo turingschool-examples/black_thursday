@@ -13,22 +13,33 @@ class MerchantRepository
     end
   end
 
-  def find_by_id(merchant_id)
+  def find_by_id(merchant_id_search)
     @all.find do |merchant|
-      merchant.id == merchant_id
+      merchant.id == merchant_id_search
     end
   end
 
-  def find_by_name(merchant_name)
+  def find_by_name(merchant_name_search)
     @all.find do |merchant|
-      merchant.name.downcase == merchant_name.downcase
+      merchant.name.downcase == merchant_name_search.downcase
     end
   end
 
-  def find_all_by_name(name_fragment)
+  def find_all_by_name(name_fragment_search)
     @all.find_all do |merchant|
-      merchant.name.downcase.include?("#{name_fragment.downcase}")
+      merchant.name.downcase.include?("#{name_fragment_search.downcase}")
     end
   end
+
+  def update(merchant_id_search, attributes)
+    @all.find do |merchant|
+      merchant.id == merchant_id_search
+      merchant.info[:name] = attributes
+    end
+  end
+
+  # def delete(id)
+  #   @all.delete()
+  # end
 
 end
