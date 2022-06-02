@@ -88,6 +88,7 @@ RSpec.describe InvoiceRepository do
       expect(@collection.find_by_id('1').status).to eq 'pending'
       @collection.update('1', 'shipped')
       expect(@collection.find_by_id('1').status).to eq 'shipped'
+      expect(@collection.find_by_id('1').updated_at).not_to eq '2014-03-15'
     end
   end
 
