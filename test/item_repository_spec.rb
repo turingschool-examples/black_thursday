@@ -1,4 +1,4 @@
-require "./lib/salesengine"
+require "./lib/sales_engine"
 require "./lib/item_repository"
 require "./lib/item"
 require "./lib/merchant_repository"
