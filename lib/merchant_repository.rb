@@ -4,7 +4,7 @@ require 'pry'
 
 class MerchantRepository
   attr_reader :all
-  attr_accessor 
+  attr_accessor
   def initialize(file_path)
     @file_path = file_path
     @all = []
@@ -53,9 +53,13 @@ class MerchantRepository
 
   def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.name = attributes[:name] #unless attributes[:name].nil?
-    # merchant
-    # merchant = find_by_id(id)
-    # require "pry"; binding.pry
+    merchant.name = attributes[:name]
+
+  end
+
+  def delete(id)
+    merchant = find_by_id(id)
+    @all.delete(merchant)
+    
   end
 end
