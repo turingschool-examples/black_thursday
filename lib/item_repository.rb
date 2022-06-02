@@ -4,6 +4,8 @@ require 'BigDecimal'
 class ItemRepository
   attr_reader :all
 
+  attr_accessor :all
+
   def initialize(file_path)
     @file_path = file_path
     @all = []
@@ -35,9 +37,21 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @all.find_all do |row|
-      row.merchant_id == merchant_id
-    end
+    @all.find_all {|row| row.merchant_id == merchant_id}
+  end
+
+  def create(item)
+    i = Item.new({
+      id: @all.last.id + 1,
+      name: item[:name],
+      description: item[:description],
+      unit_price: item[:unit_price],
+      created_at: item[:created_at],
+      updated_at: item[:updated_at],
+      merchant_id: item[:merchant_id]
+      })
+    @all.append(i)
+    i
   end
 
 end

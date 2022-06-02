@@ -50,4 +50,13 @@ RSpec.describe ItemRepository do
     expect(@item_repo.find_all_by_merchant_id(9874098)).to eq([])
   end
 
+  it "can create a new item" do
+    new_item = @item_repo.create({name: "Batmobile", description: "Black and shiny", unit_price: BigDecimal(10000, 5), created_at: Time.now, updated_at: Time.now, merchant_id: 88877766})
+    expect(new_item.id).to eq(263567475)
+    expect(@item_repo.all.last.name).to eq("Batmobile")
+  end
+
+  
+
+
 end
