@@ -34,7 +34,7 @@ RSpec.describe MerchantRepository do
 
   end
 
-  it 'returns one or more matches' do
+  it 'returns one or more matches when searching by fragmented name' do
     fragment = "shop"
     expected = @merchantrepository.find_all_by_name(fragment)
 

@@ -25,4 +25,12 @@ class MerchantRepository
     end
   end
 
+  def find_all_by_name(name)
+    frag_names = []
+    @all.find_all do |row|
+      frag_names << row
+    end
+    require "pry"; binding.pry
+    frag_names
+  end
 end
