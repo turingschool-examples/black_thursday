@@ -28,5 +28,14 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to be_a(Item)
   end
 
+  it 'can find_all_with_descriprion(description)' do
+    test = @item_repository.find_all_by_description("vector shapes")
+
+    expect(@item_repository.find_all_by_description("vector shapes").count).to eq(1)
+    expect(@item_repository.find_all_by_description("vector shapes")).to be_a(Array)
+    expect(test.map(&:description).include?("100% vector shapes (AI, CDR, SVG)")).to eq true
+    expect(test.map(&:id).include?(263395237)).to eq true
+  end
+
 
 end
