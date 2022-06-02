@@ -43,4 +43,9 @@ class MerchantRepository
     x.name[0..1000000] = attributes[:name]
   end
 
+  def delete(id)
+    x = find_by_id(id)
+    @all.delete(x) 
+  end
+
 end
