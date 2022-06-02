@@ -42,4 +42,6 @@ require './lib/item'
       expect(@item_repository.find_all_by_merchant_id(00000)).to eq([])
     end
 
+    
+
 end
