@@ -17,9 +17,15 @@ RSpec.describe ItemRepository do
     expect(@item_repository.all.first.name).to eq("510+ RealPush Icon Set")
   end
 
-  it "can find by id" do
+  it "can find and item by id and return nil if not found" do
     expect(@item_repository.find_by_id("1")).to eq nil
     expect(@item_repository.find_by_id("263395237")).to be_a(Item)
     expect(@item_repository.find_by_id("263400793")).to be_a(Item)
+  end
+
+  it "can find and item by name and return nil if not found" do
+    expect(@item_repository.find_by_name("Glitter scrabble frames")).to be_a(Item)
+    expect(@item_repository.find_by_name("Cache cache à la plage")).to be_a(Item)
+    expect(@item_repository.find_by_name("zero")).to eq nil
   end
 end
