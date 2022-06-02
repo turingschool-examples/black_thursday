@@ -5,6 +5,7 @@ class Invoice
               :status,
               :created_at,
               :updated_at
+  attr_writer :status
 
   def initialize(invoice)
     @id = invoice[:id]
