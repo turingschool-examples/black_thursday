@@ -1,13 +1,13 @@
 module Methodable
-  def all
+  def self.all
 
   end
 
-  def find_by(thing)
+  def self.find_by(thing)
 
   end
 
-  def find_all_by(thing)
+  def self.find_all_by(thing)
 
   end
 

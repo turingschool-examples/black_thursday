@@ -1,9 +1,6 @@
-require 'csv'
-require 'pry'
-require './lib/merchant'
+require 'helper'
 
 class MerchantRepository
-
   attr_reader :all
 
   def initialize(file_path)
