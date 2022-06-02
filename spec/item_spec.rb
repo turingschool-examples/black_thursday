@@ -1,17 +1,19 @@
 require 'CSV'
 require './lib/item'
 require 'BigDecimal'
+require 'pry'
 
 
 RSpec.describe Item do
   before :each do
+    @x = Time.now
     @item = Item.new({
   :id          => 1,
   :name        => "Pencil",
   :description => "You can use it to write things",
   :unit_price  => BigDecimal(10.99,4),
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
+  :created_at  => @x,
+  :updated_at  => @x,
   :merchant_id => 2
 })
 end
@@ -25,6 +27,9 @@ end
     expect(@item.created_at).to be_a Time
     expect(@item.updated_at).to be_a Time
     expect(@item.merchant_id).to eq 2
+    #binding.pry
+    expect(@item.created_at).to eq @x
+    expect(@item.updated_at).to eq @x
   end
 
   it 'has unit price to dollars' do

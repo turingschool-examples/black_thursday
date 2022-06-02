@@ -40,12 +40,12 @@ class MerchantRepository
 
   def update(id, attributes)
     x = find_by_id(id)
-    x.name[0..1000000] = attributes[:name]
+    x.name = attributes[:name]
   end
 
   def delete(id)
     x = find_by_id(id)
-    @all.delete(x) 
+    @all.delete(x)
   end
 
 end
