@@ -32,9 +32,9 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.items_count_list[0]).to eq(3)
   end
 
-  xit 'can tell you which Merchants sell the most Items' do
-
+  it 'can tell you which Merchants sell the most Items' do
+      expect(@sales_analyst.merchants_with_high_item_count.length).to eq(52)
+      expect(@sales_analyst.merchants_with_high_item_count.first.class).to eq Merchant
+      expect(@sales_analyst.merchants_with_high_item_count.first.name).to eq("Keckenbauer")
   end
-
-
 end
