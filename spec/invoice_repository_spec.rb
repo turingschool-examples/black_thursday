@@ -4,6 +4,13 @@ RSpec.describe InvoiceRepository do
   before :each do
     @filepath = './data/invoices.csv'
     @collection = InvoiceRepository.new(@filepath)
+    @attributes = {
+      :customer_id => '1',
+      :merchant_id => '12335938',
+      :status => 'pending',
+      :created_at => '2009-02-07',
+      :updated_at => '2014-03-15'
+    }
   end
 
   describe '#initialize' do
@@ -63,13 +70,18 @@ RSpec.describe InvoiceRepository do
     end
   end
 
-  # describe '#create' do
-  #   it 'can create a new Invoice with provided attributes' do
-  #     expect(@collection.find_by_id('4986')).to eq nil
-  #     @collection.create('created shop')
-  #     expect(@collection.find_by_id('4986')).to be_a Invoice
-  #   end
-  # end
+  describe '#create' do
+    it 'can create a new Invoice with provided attributes' do
+      expect(@collection.find_by_id('4986')).to eq nil
+      @collection.create(@attributes)
+      expect(@collection.find_by_id('4986')).to be_a Invoice
+      expect(@collection.find_by_id('4986').customer_id).to eq '1'
+      expect(@collection.find_by_id('4986').merchant_id).to eq '12335938'
+      expect(@collection.find_by_id('4986').status).to eq 'pending'
+      expect(@collection.find_by_id('4986').created_at).to eq '2009-02-07'
+      expect(@collection.find_by_id('4986').updated_at).to eq '2014-03-15'
+    end
+  end
 
   describe '#update' do
     it 'can update the status of an invoice' do
