@@ -84,7 +84,7 @@ RSpec.describe ItemRepository do
     expect(@item_repository.all.count).to eq 1368
   end
 
-  it "can update(id, attributes) an merchant instance" do
+  it "can update(id, attributes)" do
     x = Time.now
     attributes = {
       name: "BryceGems",
