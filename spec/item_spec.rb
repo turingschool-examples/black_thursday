@@ -4,7 +4,8 @@ require './lib/item'
 
 describe Item do
   before :each do
-    @item = Item.new({
+    @item = Item.new(
+      {
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
@@ -12,8 +13,10 @@ describe Item do
       :created_at => Time.now,
       :updated_at => Time.now,
       :merchant_id => 2
-    })
+      }
+    )
   end
+
   it "exists and has attributes" do
     expect(@item).to be_a Item
     expect(@item.id).to eq(1)

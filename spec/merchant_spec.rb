@@ -2,6 +2,7 @@ require 'RSpec'
 require './lib/merchant'
 
 describe Merchant do
+  
   it "exists and has attributes" do
     merchant = Merchant.new({:id => 5, :name=> "Turing"})
 
