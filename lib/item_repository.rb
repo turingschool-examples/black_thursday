@@ -55,4 +55,18 @@ class ItemRepository
     end
   end
 
+  def create(attributes)
+    new_id = all.max_by { |item| item.id }.id + 1
+      attributes[:id] = new_id
+        all << Item.new(attributes)
+  end
+
+ # def update(id, attributes)
+ #
+ # end
+
+ # def delete(id)
+ #   @all.delete(item)
+ # end
+
 end
