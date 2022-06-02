@@ -29,4 +29,17 @@ RSpec.describe ItemRepository do
       expect(merchant_id).to be_a(Array)
       expect(merchant_id.first.id).to eq("263395237")
     end
+
+    it "can create a new instance" do
+
+      @item_repository.create("ants")
+      expect(@item_repository.all_items.last).to be_a Item
+      expect(@item_repository.all_items.last.name).to eq("ants")
+      expect(@item_repository.all_items.last.id).to eq("263567475")
+
+    end
+
+
+
+
   end
