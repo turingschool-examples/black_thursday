@@ -21,4 +21,33 @@ RSpec.describe Item do
   it 'converts unit price to dollars' do
     expect(@i.unit_price_to_dollars).to eq(10.99)
   end
+
+  it "has an id" do
+    expect(@i.id).to eq(1)
+  end
+
+  it "has a name" do
+    expect(@i.name).to eq("Pencil")
+  end
+
+  it "has a description" do
+    expect(@i.description).to eq("You can use it to write things")
+  end
+
+  it "has a unit_price" do
+    expect(@i.unit_price).to eq(10.99)
+    expect(@i.unit_price).to be_a(BigDecimal)
+  end
+
+  it "has created_at" do
+    expect(@i.created_at).to be_a(Time)
+  end
+
+  it "has updated_at" do
+    expect(@i.updated_at).to be_a(Time)
+  end
+
+  it "has a merchant_id" do
+    expect(@i.merchant_id).to eq(2)
+  end
 end

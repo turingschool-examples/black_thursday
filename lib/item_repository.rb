@@ -56,14 +56,21 @@ class ItemRepository
   end
 
   def create(attributes)
-    new_id = all.max_by { |item| item.id }.id + 1
+    new_id = @all.max_by { |item| item.id }.id + 1
       attributes[:id] = new_id
-        all << Item.new(attributes)
+        @all << Item.new(attributes)
+        return @all.last
   end
 
- # def update(id, attributes)
-
- # end
+  def update(id, attr)
+      if find_by_id(id) != nil
+        # require 'pry'; binding.pry
+        @all.delete_if do |item|
+          item.id == id
+        end
+        @all << Item.new(attr)
+      end
+    end
 
  # def delete(id)
  #   @all.delete(item)
