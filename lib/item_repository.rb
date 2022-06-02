@@ -3,7 +3,7 @@ require 'item'
 
 class ItemRepository
   attr_reader :file_path,
-              :all
+              :all_items
 
   def initialize(file_path)
     @file_path = file_path
@@ -13,25 +13,14 @@ class ItemRepository
     end
   end
 
-
   def find_all_by_price_in_range(range)
     min = range.min
     max = range.max
-    # require "pry"; binding.pry
+
     @all.find_all do |item|
       item.unit_price.to_i.between?(min, max)
+    end
   end
-
-  end
-    # price_range = []
-    # require "pry"; binding.pry
-    # @all.each do |price|
-    #   if price.range == @item.price
-    #     price_range << @item
-    #   end
-    # end
-    #   price_range
-    # end
 
 
 end
