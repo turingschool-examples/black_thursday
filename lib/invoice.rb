@@ -8,10 +8,6 @@ class Invoice
               :created_at,
               :updated_at
 
-  attr_accessor :name,
-                :description,
-                :unit_price
-
   def initialize(input)
     @id = input[:id]
     @merchant_id = input[:merchant_id]
@@ -20,9 +16,4 @@ class Invoice
     @created_at = input[:created_at]
     @updated_at = input[:updated_at]
   end
-
-  # def unit_price_to_dollars
-  #   @unit_price.to_f
-  # end
-
 end
