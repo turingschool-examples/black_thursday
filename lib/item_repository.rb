@@ -13,9 +13,11 @@ class ItemRepository
     end
   end
 
-  def find_by_id(id)
-    @all.find { |id| id }
+  def find_by_id(item_id)
+    @all.find { |item| item.id == item_id}
   end
 
+  def find_by_name(item_name)
+    @all.find { |item| item.name == item_name}
+  end
 end
-# require 'pry'; binding.pry
