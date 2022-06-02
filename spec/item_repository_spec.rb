@@ -5,6 +5,7 @@ require './lib/item_repository'
 RSpec.describe ItemRepository do
   before :each do
     @item_repository =ItemRepository.new("./data/items.csv")
+
   end
 
   it "exists" do
@@ -36,9 +37,10 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_all_with_description("ideal for a romantic date")[0]).to be_a(Item)
   end
 
-  # it "can find an item by description and return an array or instances of item" do
-  #   expect(@item_repository.find_all_by_price(price))
-  # end
-
+  it "can return an instance of an Item within a price range" do
+    price_in_range = @item_repository.find_all_by_price_in_range(0..500)
+    expect(price_in_range).to be_a(Array)
+    expect(price_in_range.first).to be_a(Item)
+  end
 
 end
