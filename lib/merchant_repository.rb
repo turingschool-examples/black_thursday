@@ -8,10 +8,10 @@ class MerchantRepository
     @file_path = file_path
     @all = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @all << Merchant.new({
+      @all << Merchant.new(
         :id => row[:id].to_i,
         :name => row[:name]
-        })
+        )
       end
   end
 
@@ -32,6 +32,12 @@ class MerchantRepository
       merchant.name.upcase.include?(name_fragment.upcase)
     end
   end
+# @merchant = Merchant.new({:id => 5, :name => "Turing School"})
+  def create(name)
+    x = (@all.last.id + 1)
+    @all << Merchant.new({:id => x, :name => name})
+  end
+
 
 
 end
