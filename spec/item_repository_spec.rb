@@ -36,5 +36,8 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_all_with_description("ideal for a romantic date")[0]).to be_a(Item)
   end
 
-  
+  it "can find an item that exactly matches by supplied price" do
+    expect(@item_repository.find_all_by_price).to be_a(Array)
+    expect(@item_repository.find_all_by_price.first).to eq(13.00)
+  end
 end
