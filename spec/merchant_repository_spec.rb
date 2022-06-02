@@ -52,10 +52,17 @@ RSpec.describe MerchantRepository do
 
   it "can create a new merchant instance" do
     merchant_repo = MerchantRepository.new('./data/merchants.csv')
-    attribute = {name: "Turing School of Software and Design"}
-    merchant_repo.create(attribute)
-    new_merchant = merchant_repo.find_by_id(12337412)
-    expect(new_merchant.name).to be ("Turing School of Software and Design")
-  end 
+    new_merchant = merchant_repo.create("Turing School of Software and Design")
+    expect(new_merchant.name).to eq("Turing School of Software and Design")
+    expect(merchant_repo.find_by_id(12337412)).to be_a(Merchant)
+  end
+
+  it "can update a merchant object" do
+    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    expect(merchant_repo.find_by_id(12334105).name).to eq("Shopin1901")
+    merchant_repo.update(12334105, "Shopin2022")
+    expect(merchant_repo.find_by_id(12334105).name).to eq("Shopin2022")
+    expect(merchant_repo.find_by_name("Shopin1901")).to eq(nil)
+  end
 
 end
