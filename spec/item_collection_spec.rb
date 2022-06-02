@@ -52,10 +52,9 @@ RSpec.describe ItemCollection do
  end
 
  it 'can find all items by merchant id' do
-   expect(@ic.find_all_by_merchant_id(merchant_id)).to be_a(Item)
-   # expect(@ic.find_all_by_merchant_id(merchant_id).name).to eq()
-   # expect(@ic.find_all_by_merchant_id(merchant_id)).to eq()
-   # expect(@ic.find_by_id("263397867").id).to eq("263397867")
+   expect(@ic.find_all_by_merchant_id("12334185").count).to eq(3)
+   expect(@ic.find_all_by_merchant_id("12334183").count).to eq(1)
+   expect(@ic.find_all_by_merchant_id("12334195").count).to eq(12)
  end
 
 
