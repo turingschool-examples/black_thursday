@@ -33,4 +33,10 @@ RSpec.describe SalesEngine do
     expect(@sales_engine.item_repository.find_by_id(123456)).to equal(nil)
   end
 
+  it "can fid items by name" do
+    expect(@sales_engine.item_repository.find_by_name("510+ RealPush Icon Set").id).to eq(263395237)
+    expect(@sales_engine.item_repository.find_by_name("510+ REALPUSH Icon Set").id).to eq(263395237)
+    expect(@sales_engine.item_repository.find_by_name("MINNIE MUG")).to eq(nil)
+  end
+
 end
