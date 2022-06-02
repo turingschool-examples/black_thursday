@@ -37,9 +37,12 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     items = @item_repository.find_all_by_merchant_id(merchant_id)
-    prices = items.map do |item|
-      item.unit_price_to_dollars
-    end
+    prices = items.map {|item| item.unit_price_to_dollars}
     (prices.sum/items.count).round(2)
+  end
+
+  def average_average_price_per_merchant
+    averages = merchant_ids.map {|merchant_id| average_item_price_for_merchant(merchant_id)}
+    (averages.sum / averages.count).round(2)
   end
 end
