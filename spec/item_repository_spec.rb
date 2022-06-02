@@ -102,5 +102,12 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_by_id(263567474).updated_at).to be > x
   end
 
+  it "can delete a item instance" do
+
+    expect(@item_repository.find_by_name("Minty Green Knit Crochet Infinity Scarf")).to be_a(Item)
+    @item_repository.delete(263567474)
+    expect(@item_repository.find_by_name("Minty Green Knit Crochet Infinity Scarf")).to eq(nil)
+  end
+
 
 end
