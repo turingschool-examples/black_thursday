@@ -57,8 +57,7 @@ class ItemRepository
   def update(id, attributes)
     key = attributes.keys[0]
     value = attributes.values[0]
-    time = Time.now
-    find_by_id(id).change(key, value, time)
+    find_by_id(id).change(key, value)
   end
 
   def delete(id)

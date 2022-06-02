@@ -16,7 +16,7 @@ class Item
     @unit_price.to_f
   end
 
-  def change(key, value, time)
+  def change(key, value)
     if key == :unit_price
       @unit_price = value
     elsif key == :description
@@ -24,7 +24,7 @@ class Item
     else
       @name = value
     end
-    @updated_at = time
+    @updated_at = Time.now
   end
 
 end

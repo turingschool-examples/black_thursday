@@ -48,4 +48,16 @@ RSpec.describe Item do
     expect(item.unit_price_to_dollars).to eq(10.99)
   end
 
+  it "can change an Item" do
+    expect(item.unit_price).to eq(0.1099e2)
+    item.change(:unit_price, 0.37999e3)
+    expect(item.unit_price).to eq(0.37999e3)
+    expect(item.description).to eq("You can use it to write things")
+    item.change(:description, "Yellow and old")
+    expect(item.description).to eq("Yellow and old")
+    expect(item.name).to eq("Pencil")
+    item.change(:name, "Writing Utensil")
+    expect(item.name).to eq("Writing Utensil")
+  end
+
 end
