@@ -46,11 +46,10 @@ RSpec.describe MerchantRepository do
 
   it 'can create a new Merchant' do
 
-    expect(@merchantrepository.find_by_id(12337412)).to eq(nil)
-
     @merchantrepository.create("TuringForLife")
 
-    expect(@merchantrepository.find_by_id(123337412)). to eq("TuringForLife")
+    expect(@merchantrepository.all[-1].name).to eq("TuringForLife")
+    expect(@merchantrepository.all[-1].id).to eq(12337412)
   end
 
 end

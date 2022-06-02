@@ -30,4 +30,18 @@ class MerchantRepository
       row.name.upcase.include?(name.upcase)
     end
   end
+
+  def create(new_merchant_name)
+    last_id = @all[-1].id
+    new_id = last_id + 1
+    @all <<  Merchant.new({:id => new_id,:name => new_merchant_name})
+  end
+
+
+
+
+
+
+
+
 end
