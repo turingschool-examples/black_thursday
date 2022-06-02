@@ -75,7 +75,7 @@ RSpec.describe InvoiceRepository do
     it 'can update the status of an invoice' do
       expect(@collection.find_by_id('1').status).to eq 'pending'
       @collection.update('1', 'shipped')
-      expect(@collection.find_by_id('1').status).to eq 'status'
+      expect(@collection.find_by_id('1').status).to eq 'shipped'
     end
   end
 end
