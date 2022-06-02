@@ -21,4 +21,11 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def update(attr)
+    @name = attr[:name] unless attr[:name] == nil
+    @description = attr[:description] unless attr[:description] == nil
+    @unit_price = BigDecimal(attr[:unit_price], 4) unless attr[:unit_price] == nil
+    @updated_at = Time.now
+  end
 end
