@@ -13,7 +13,7 @@ RSpec.describe SalesAnalyst do
   before :each do
   end
 
-  xit "exists" do
+  it "exists" do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -23,7 +23,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst).to be_instance_of(SalesAnalyst)
   end
 
-  xit "can determine average items" do
+  it "can determine average items" do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -33,7 +33,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
   end
 
-  xit 'returns difference between number of items for specified merchant and average items' do
+  it 'returns difference between number of items for specified merchant and average items' do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv"

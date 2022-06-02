@@ -18,4 +18,8 @@ class SalesAnalyst
     total = counts.sum {|difference| (difference - average_items_per_merchant) ** 2}
     Math.sqrt(total / (counts.length - 1)).round(2)
   end
+
+  def difference_between_merchant_items_and_mean
+
+  end
 end

@@ -1,20 +1,20 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/brennastuart/Documents/Turing/1-mod/4-week/group-project/black_thursday/lib/merchant.rb": {
+      "/Users/sandymarie/turing/1module/projects/black_thursday/lib/merchant.rb": {
         "lines": [
           1,
           1,
           1,
           null,
           1,
-          475,
-          475,
+          1900,
+          1900,
           null,
           null
         ]
       },
-      "/Users/brennastuart/Documents/Turing/1-mod/4-week/group-project/black_thursday/lib/merchant_repository.rb": {
+      "/Users/sandymarie/turing/1module/projects/black_thursday/lib/merchant_repository.rb": {
         "lines": [
           1,
           1,
@@ -25,11 +25,11 @@
           1,
           null,
           1,
-          1,
-          1,
+          4,
+          4,
           null,
-          1,
-          475,
+          4,
+          1900,
           null,
           null,
           null,
@@ -69,22 +69,18 @@
           null
         ]
       },
-      "/Users/brennastuart/Documents/Turing/1-mod/4-week/group-project/black_thursday/lib/sales_analyst.rb": {
+      "/Users/sandymarie/turing/1module/projects/black_thursday/lib/sales_analyst.rb": {
         "lines": [
           1,
-          null,
           1,
           null,
           1,
-          1,
-          1,
-          null,
-          null,
-          null,
+          4,
+          4,
           null,
           null,
           1,
-          475,
+          476,
           null,
           null,
           1,
@@ -95,49 +91,32 @@
           476,
           1,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           null
         ]
       },
-      "/Users/brennastuart/Documents/Turing/1-mod/4-week/group-project/black_thursday/lib/sales_engine.rb": {
+      "/Users/sandymarie/turing/1module/projects/black_thursday/lib/sales_engine.rb": {
         "lines": [
           1,
           null,
           1,
           null,
           1,
-          1,
-          1,
+          4,
+          4,
           null,
           null,
           1,
-          1,
+          4,
           null,
           null,
           1,
-          1,
+          4,
           null,
           null,
           null
         ]
       },
-      "/Users/brennastuart/Documents/Turing/1-mod/4-week/group-project/black_thursday/lib/item.rb": {
+      "/Users/sandymarie/turing/1module/projects/black_thursday/lib/item.rb": {
         "lines": [
           1,
           1,
@@ -149,13 +128,13 @@
           1,
           null,
           1,
-          1367,
-          1367,
-          1367,
-          1367,
-          1367,
-          1367,
-          1367,
+          5468,
+          5468,
+          5468,
+          5468,
+          5468,
+          5468,
+          5468,
           null,
           null,
           1,
@@ -165,7 +144,7 @@
           null
         ]
       },
-      "/Users/brennastuart/Documents/Turing/1-mod/4-week/group-project/black_thursday/lib/item_repository.rb": {
+      "/Users/sandymarie/turing/1module/projects/black_thursday/lib/item_repository.rb": {
         "lines": [
           1,
           1,
@@ -176,11 +155,11 @@
           1,
           null,
           1,
-          1,
-          1,
+          4,
+          4,
           null,
-          1,
-          1367,
+          4,
+          5468,
           null,
           null,
           null,
@@ -241,6 +220,6 @@
         ]
       }
     },
-    "timestamp": 1654140111
+    "timestamp": 1654157427
   }
 }
