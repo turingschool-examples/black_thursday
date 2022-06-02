@@ -37,5 +37,9 @@ class MerchantRepository
     return @all.last
   end
 
+  def update(id, attributes)
+    renamed_merchant = find_by_id(id)
+    renamed_merchant.name = attributes
+  end
 
 end
