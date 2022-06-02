@@ -26,4 +26,8 @@ end
     expect(@item.updated_at).to be_a Time
     expect(@item.merchant_id).to eq 2
   end
+
+  it 'has unit price to dollars' do
+    expect(@item.unit_price_to_dollars).to eq 23.48
+  end
 end
