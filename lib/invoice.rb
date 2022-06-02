@@ -2,9 +2,10 @@ require 'helper'
 
 class Invoice
   attr_reader :id,
+              :merchant_id,
+              :customer_id,
               :created_at,
-              :updated_at,
-              :merchant_id
+              :updated_at
 
   attr_accessor :name,
                 :description,

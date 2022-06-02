@@ -23,8 +23,14 @@ RSpec.describe Invoice do
 
   it "can return a merchant id" do
     expect(invoice.merchant_id).to eq(8)
-    expect(invoice.id).to be_a Integer
-    expect(invoice.id).not_to eq(nil)
+    expect(invoice.merchant_id).to be_a Integer
+    expect(invoice.merchant_id).not_to eq(nil)
+  end
+
+  it "can return a customer id" do
+    expect(invoice.customer_id).to eq(7)
+    expect(invoice.customer_id).to be_a Integer
+    expect(invoice.customer_id).not_to eq(nil)
   end
 
   # it 'returns id' do
