@@ -18,6 +18,19 @@ class ItemRepository
   end
 
   def find_by_name(item_name)
-    @all.find { |item| item.name == item_name}
+    @all.find {|item| item.name.downcase == item_name.downcase}
+  end
+  # require 'pry'; binding.pry
+
+  def find_all_with_description(item_description)
+    @all.find_all do |item|
+      item.description.downcase.include?(item_description.downcase)
+    end
+  end
+
+  def find_all_by_price(item_price)
+    @all.find_all do |item|
+      item.price.include?(item_price)
+    end
   end
 end
