@@ -1,3 +1,5 @@
+# require 'Math'
+
 class SalesAnalyst
   attr_reader :item_repository, :merchant_repository
 
@@ -13,18 +15,11 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     merchant_ids
     items_count_list
-
+    # list = items_count_list; can refactor later if population sd
     list = items_count_list.sample(5)
-    index_1 = 0
-    index_2 = 1
-    sum = 0
-    while index_1 < list.length
-      sum += ((list[index_1] - list[index_2])^2)
-      index_1 += 1
-      index_2 += 1
-    end
-
-    sqrt(sum / (list.length - 1))
+    mean = list.sum.to_f / list.size
+    sum = list.sum {|num| (num - mean)**2}
+    sd = (Math.sqrt(sum / (list.size - 1))).round(2)
   end
 
   def merchant_ids
