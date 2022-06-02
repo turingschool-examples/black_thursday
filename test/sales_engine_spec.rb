@@ -44,4 +44,11 @@ RSpec.describe SalesEngine do
     expect(@sales_engine.item_repository.find_all_with_description("dress up your cupcakes").count).to eq(3)
   end
 
+  it "can find items by price" do
+    expect(@sales_engine.item_repository.find_all_by_price(BigDecimal(10)).count).to eq(63)
+    expect(@sales_engine.item_repository.find_all_by_price(BigDecimal(1000000)).count).to eq(0)
+    expect(@sales_engine.item_repository.find_all_by_price(BigDecimal(10))[0].class).to eq(Item)
+    expect(@sales_engine.item_repository.find_all_by_price(BigDecimal(10))[0].id).to eq(263405861)
+  end
+
 end
