@@ -28,4 +28,13 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_by_name("Cache cache à la plage")).to be_a(Item)
     expect(@item_repository.find_by_name("zero")).to eq nil
   end
+
+  it "can find an item by description and return an array or instances of item" do
+    expect(@item_repository.find_all_with_description("Acrylique")).to be_a(Array)
+    expect(@item_repository.find_all_with_description("Acrylique sur toile exécutée en 2009")[0]).to be_a(Item)
+    expect(@item_repository.find_all_with_description("Acrylique sur toile exécutée en 2012")[0]).to be_a(Item)
+    expect(@item_repository.find_all_with_description("ideal for a romantic date")[0]).to be_a(Item)
+  end
+
+  
 end
