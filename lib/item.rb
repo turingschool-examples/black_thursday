@@ -1,5 +1,5 @@
 class Item
-attr_reader :id,
+attr_accessor :id,
             :name,
             :description,
             :created_at,
