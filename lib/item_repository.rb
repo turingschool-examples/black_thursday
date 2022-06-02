@@ -62,9 +62,15 @@ class ItemRepository
         return @all.last
   end
 
- # def update(id, attributes)
-
- # end
+  def update(id, attr)
+      if find_by_id(id) != nil
+        # require 'pry'; binding.pry
+        @all.delete_if do |item|
+          item.id == id
+        end
+        @all << Item.new(id, attr)
+      end
+    end
 
  # def delete(id)
  #   @all.delete(item)
