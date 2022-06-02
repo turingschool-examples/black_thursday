@@ -69,4 +69,19 @@ RSpec.describe SalesEngine do
     expect(@sales_engine.item_repository.all.last.name).to eq("Batmobile")
   end
 
+  it "can update the item and items attributes" do
+    new_item = @sales_engine.item_repository.create({name: "Batmobile", description: "Black and shiny", unit_price: BigDecimal(10000, 5), created_at: Time.now, updated_at: Time.now, merchant_id: 88877766})
+    original_time = @sales_engine.item_repository.find_by_id(263567475).updated_at
+    attributes = {unit_price: BigDecimal(379.99, 5)}
+    @sales_engine.item_repository.update(263567475, attributes)
+    expect(@sales_engine.item_repository.find_by_id(263567475).unit_price).to eq(BigDecimal(379.99, 5))
+    expect(@sales_engine.item_repository.find_by_id(263567475).updated_at).to be > original_time
+    attributes_2 = {name: "Batmobile Extreme"}
+    @sales_engine.item_repository.update(263567475, attributes_2)
+    expect(@sales_engine.item_repository.find_by_id(263567475).name).to eq("Batmobile Extreme")
+    attributes_3 = {description: "Big and very loud"}
+    @sales_engine.item_repository.update(263567475, attributes_3)
+    expect(@sales_engine.item_repository.find_by_id(263567475).description).to eq("Big and very loud")
+  end
+
 end
