@@ -10,6 +10,9 @@ require './lib/item'
       expect(@item_repository).to be_a(ItemRepository)
     end
 
+    it "returns an array of all known Item instances" do
+      expect(@item_repository.all).to be_a(Array)
+    end
 
 
 end
