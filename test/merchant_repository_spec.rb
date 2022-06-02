@@ -1,12 +1,16 @@
 require './lib/merchant'
 require './lib/merchant_repository'
-# require './lib/item'
-# require './lib/item_repository'
+require './lib/item'
+require './lib/item_repository'
+require './lib/sales_engine'
 
 RSpec.describe MerchantRepository do
 
-  file_path = "./data/merchants.csv"
- let(:merchant) {MerchantRepository.new(file_path)}
+  let(:sales_engine) {SalesEngine.from_csv({
+     :items     => "./data/items.csv",
+     :merchants => "./data/merchants.csv"
+     })}
+ let(:merchant) {sales_engine.merchants}
 
  it "exists" do
    expect(merchant).to be_an(MerchantRepository)

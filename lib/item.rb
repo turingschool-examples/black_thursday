@@ -16,10 +16,4 @@ attr_accessor :name, :description, :unit_price, :updated_at
     @unit_price_to_dollars = data[:unit_price].to_f
   end
 
-  def self.create_item(data)
-    CSV.parse(File.read(data), headers: true, header_converters: :symbol).map do |row|
-       Item.new(row)
-     end
-  end
-
 end
