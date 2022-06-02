@@ -26,14 +26,12 @@ class MerchantRepository
     @all.find do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
+  end
 
-    # @all.each do |merchant|
-    #   if merchant.name.downcase == name.downcase
-    #     merchant
-    #   else
-    #     nil
-    #   end
-    # end
+  def find_all_by_name(name_fragment)
+    @all.find_all do |merchant|
+      merchant.name.downcase.include?(name_fragment.downcase)
+    end
   end
 
 end
