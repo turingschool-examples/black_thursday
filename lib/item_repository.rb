@@ -38,4 +38,15 @@ class ItemRepository
     end
   end
 
+  def find_all_by_price_in_range(range)
+  range_array = []
+
+    @all.each do |item|
+      if item.unit_price.to_i >= range.first && item.unit_price.to_i <= range.last
+        range_array << item
+      end
+    end
+      range_array
+  end
+
 end

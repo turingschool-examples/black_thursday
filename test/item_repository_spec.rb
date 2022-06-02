@@ -34,4 +34,9 @@ require './lib/item'
       expect(@item_repository.find_all_by_price(100)).to eq([])
     end
 
+    it "can find_all_by_price_in_range" do
+      expect(@item_repository.find_all_by_price_in_range(1..5)).to eq([])
+    end
+
+
 end
