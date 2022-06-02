@@ -39,18 +39,18 @@ RSpec.describe ItemRepository do
   end
 
   it 'Can find by description' do
-    expect(@item_repo.find_by_description("510+ icons")).to eq([@item_repo.all.first])
-    expect(@item_repo.find_by_description("adsflkjhweoth")).to eq([])
+    expect(@item_repo.find_all_with_description("510+ icons")).to eq([@item_repo.all.first])
+    expect(@item_repo.find_all_with_description("adsflkjhweoth")).to eq([])
   end
 
   it 'can find by price' do
-    expect(@item_repo.find_all_by_price(3700)).to eq([@item_repo.find_by_id(263400233)])
+    expect(@item_repo.find_all_by_price(37.00)).to eq([@item_repo.find_by_id(263400233)])
     expect(@item_repo.find_all_by_price(2349873495732)).to eq([])
   end
 
   it 'can find by price in range' do
-    expect(@item_repo.find_all_by_price_in_range(3699.. 3701)).to be_a(Array)
-    expect(@item_repo.find_all_by_price_in_range(3699 .. 3701).length).to eq(1)
+    expect(@item_repo.find_all_by_price_in_range(1000.0..1500.0)).to be_a(Array)
+    expect(@item_repo.find_all_by_price_in_range(1000.0..1500.0).length).to eq(19)
     expect(@item_repo.find_all_by_price_in_range(2349873495732 .. 324987345902739)).to eq([])
   end
 

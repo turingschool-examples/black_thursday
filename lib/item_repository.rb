@@ -1,3 +1,4 @@
+require 'time'
 require 'CSV'
 require_relative 'item'
 
@@ -13,7 +14,7 @@ class ItemRepository
     @file_path = file_path
     @all = []
     CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
-       @all << Item.new({id: row[:id], name: row[:name], description: row[:description], unit_price: row[:unit_price], merchant_id: row[:merchant_id]})
+       @all << Item.new({id: row[:id], name: row[:name], description: row[:description], unit_price: row[:unit_price], merchant_id: row[:merchant_id], created_at: row[:created_at], updated_at: row[:updated_at]})
     end
   end
 
@@ -42,18 +43,13 @@ class ItemRepository
     end
   end
 
-  # def find_by_id(id)
-  #   @all.find do |item|
-  #     item.id.to_i == id.to_i
-  #   end
-  # end
 
   def find_all_by_merchant_id(input_id)
     @all.find_all{|item| item.merchant_id == input_id}
 
   end
 
-  def find_by_description(description)
+  def find_all_with_description(description)
     @all.find_all do |item|
       item.description.downcase.include?(description.downcase)
     end

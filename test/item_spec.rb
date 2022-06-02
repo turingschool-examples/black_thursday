@@ -1,4 +1,4 @@
-require "./lib/salesengine"
+require "./lib/sales_engine"
 require "./lib/item_repository"
 require "./lib/item"
 require "./lib/merchant_repository"
@@ -11,7 +11,7 @@ RSpec.describe Item do
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal(10.99,4),
+      :unit_price  => BigDecimal(1099),
       :created_at  => Time.now.round,
       :updated_at  => Time.now.round,
       :merchant_id => 2
@@ -40,7 +40,7 @@ RSpec.describe Item do
 
   it 'has a unit_price' do
     expect(@i.unit_price).to be_a(BigDecimal)
-    expect(@i.unit_price).to eq(0.1099e2)
+    expect(@i.unit_price).to eq(10.99)
   end
 
   it 'has a merchant_id' do
