@@ -14,4 +14,8 @@ RSpec.describe ItemRepository do
   it "can return an array of all known items" do
     expect(@item_repository.all).to be_a Array
   end
+
+  it "can find by id" do
+    expect(@item_repository.find_by_id(263395237)).to be_a(Item)
+  end
 end
