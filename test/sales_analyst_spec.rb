@@ -13,10 +13,15 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst).to be_instance_of(SalesAnalyst)
   end
 
-  xit "can tell you the average items per merchant" do
+  it "can tell you the average items per merchant" do
     expect(@sales_analyst.average_items_per_merchant).to eq(2.88)
   end
 
+  it "can tell you the standard deviation of average items per merchant" do
+    expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
+  end
+
+  # xit "can tel"
 
 
 end
