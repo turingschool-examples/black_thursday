@@ -63,6 +63,12 @@ RSpec.describe ItemRepository do
     @item_repo.update(263567475, attributes)
     expect(@item_repo.find_by_id(263567475).unit_price).to eq(BigDecimal(379.99, 5))
     expect(@item_repo.find_by_id(263567475).updated_at).to be > original_time
+    attributes_2 = {name: "Batmobile Extreme"}
+    @item_repo.update(263567475, attributes_2)
+    expect(@item_repo.find_by_id(263567475).name).to eq("Batmobile Extreme")
+    attributes_3 = {description: "Big and very loud"}
+    @item_repo.update(263567475, attributes_3)
+    expect(@item_repo.find_by_id(263567475).description).to eq("Big and very loud")
   end
 
   it "can delete things" do
