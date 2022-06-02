@@ -1,5 +1,6 @@
 require'./lib/item'
 require'./item_repository'
+require'BigDecimal'
 # require_relative 'merchant'
 # require_relative 'merchant_repository'
 require 'pry'
@@ -61,9 +62,26 @@ RSpec.describe ItemRepository do
     test = @item_repository.find_all_by_merchant_id(12334185)
 
     expect(test).to be_a(Array)
-    expect(test.count).to eq 0
+    expect(test.count).to eq 6
     expect(test.first.id).to eq 263395617
 
+  end
+
+  it "creates attributes" do
+    attributes = {
+      name: "BryceGems",
+      description: "Any colour gems",
+      unit_price: BigDecimal(420.00, 5),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 25
+    }
+
+    @item_repository.create(attributes)
+
+    expect(@item_repository.create(attributes).last.id).to eq(263567475)
+    expect(@item_repository.all.last).to be_a(Item)
+    expect(@item_repository.all.count).to eq 0
   end
 
 
