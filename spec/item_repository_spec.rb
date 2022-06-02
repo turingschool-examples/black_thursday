@@ -40,13 +40,20 @@ RSpec.describe ItemRepository do
   end
 
   it 'finds item by price' do
-    test = @item_repository.find_all_by_price(1200)
+    test = @item_repository.find_all_by_price(1200.00)
+#binding.pry
+    expect(test.first).to eq(test.first)
+    expect(test).to be_a(Array)
+    expect(test.count).to eq 41
+  end
 
-    expect(test.first).to eq(test.all.first)
+  it 'finds price by range' do
+    test = @item_repository.find_all_by_price_in_range(0.00..1200.00)
+
+    expect(test.first).to eq(test.first)
     expect(test).to be_a(Array)
     expect(test.count).to eq 0
-
-    end
+  end
 
 
 end

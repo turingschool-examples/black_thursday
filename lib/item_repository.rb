@@ -14,7 +14,7 @@ class ItemRepository
         :id => row[:id].to_i,
         :name => row[:name],
         :description => row[:description].delete("\n"),
-        :unit_price => row[:unit_price],
+        :unit_price => row[:unit_price].to_f,
         :created_at => row[:created_at],
         :updated_at => row[:updated_at],
         :merchant_id => row[:merchant_id]
@@ -37,6 +37,12 @@ class ItemRepository
   def find_all_with_description(description_fragment)
     @all.find_all do |item|
       item.description.upcase.include?(description_fragment.upcase)
+    end
+  end
+
+  def find_all_by_price(price)
+    @all.find_all do |item|
+      item.unit_price == price
     end
   end
 
