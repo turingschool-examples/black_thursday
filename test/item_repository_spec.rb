@@ -44,7 +44,7 @@ RSpec.describe ItemRepository do
   end
 
   it 'can find by price' do
-    expect(@item_repo.find_all_by_price(1200)).to eq([@item_repo.all.first])
+    expect(@item_repo.find_all_by_price(3700)).to eq([@item_repo.find_by_id(263400233)])
     expect(@item_repo.find_all_by_price(2349873495732)).to eq([])
   end
 
@@ -56,7 +56,7 @@ RSpec.describe ItemRepository do
 
   it 'Can find all by merchant id' do
     expect(@item_repo.find_all_by_merchant_id(12334141)).to be_a(Array)
-    expect(@item_repo.find_all_by_merchant_id(12334141).length).to eq(170)
+    expect(@item_repo.find_all_by_merchant_id(12334141).length).to eq(1)
     expect(@item_repo.find_all_by_merchant_id(12334141345436)).to eq([])
   end
 
@@ -71,6 +71,10 @@ RSpec.describe ItemRepository do
         })
 
       expect(@item_repo.all.length).to eq(1368)
+  end
+
+  it 'find the largest id #' do
+    expect(@item_repo.find_max_id).to eq(263567474)
   end
 
   it 'can update attributes' do
