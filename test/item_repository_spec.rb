@@ -4,6 +4,15 @@ require './lib/item'
   RSpec.describe ItemRepository do
     before :each do
       @item_repository = ItemRepository.new('./data/items.csv')
+      @i = Item.new({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      })
     end
 
     it "exists" do
@@ -31,7 +40,7 @@ require './lib/item'
     end
 
     it "can find_all_by_price" do
-      expect(@item_repository.find_all_by_price(100)).to eq([])
+      expect(@item_repository.find_all_by_price(101)).to eq([])
     end
 
     it "can find_all_by_price_in_range" do
@@ -42,6 +51,21 @@ require './lib/item'
       expect(@item_repository.find_all_by_merchant_id(00000)).to eq([])
     end
 
-    
+    it "can create new item" do
+      expect(@item_repository.find_by_id(263567475)).to be_nil
+      # require 'pry'; binding.pry
 
+      @item_repository.create(({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      }))
+
+      expect(@item_repository.find_by_id(263567475)).to be_a(Item)
+      expect(@item_repository.find_by_id(263567475).name).to eq("Pencil")
+    end
 end
