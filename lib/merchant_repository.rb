@@ -1,5 +1,5 @@
 class MerchantRepository
-  attr_reader :file_path, :all, :find_by_id
+  attr_reader :file_path, :all
 
 
   def initialize(file_path)
@@ -26,11 +26,8 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    frag_names = []
     @all.find_all do |row|
-      frag_names << row
+      row.name.upcase.include?(name.upcase)
     end
-    require "pry"; binding.pry
-    frag_names
   end
 end
