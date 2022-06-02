@@ -20,6 +20,11 @@ class ItemRepository
     end
   end
 
+  def find_by_name(name)
+    @all.find do |item|
+      item.name.downcase == name.downcase
+    end
+  end
 
 
 end
