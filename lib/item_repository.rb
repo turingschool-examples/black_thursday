@@ -1,18 +1,18 @@
-require 'csv'
-require_relative 'item'
+require 'CSV'
+require './lib/item'
 
 class ItemRepository
-
   attr_reader :all
 
   def initialize(filepath)
     @filepath = filepath
-    @all = []
-
-    CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
-      @all << Item.new({id: row[:id], name: row[:name], description: row[:description], unit_price: row[:unit_price], created_at: row[:created_at], updated_at: row[:updated_at], merchant_id: row[:merchant_id]})
+    @all =
+      item_objects = []
+      CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
+        item_objects << Item.new(row)
+      end
+      item_objects
     end
-  end
 
   def find_by_id(id)
     @all.find do |item|
@@ -28,26 +28,45 @@ class ItemRepository
 
   def find_all_with_description(description)
     @all.find_all do |item|
-      item.description.downcase.include?(description.downcase)
+      item.description.downcase == description.downcase
     end
   end
 
   def find_all_by_price(price)
     @all.find_all do |item|
-      item.unit_price.to_i == price
+      item.unit_price == price
     end
   end
 
   def find_all_by_price_in_range(range)
+  range_array = []
+
+    @all.each do |item|
+      if item.unit_price.to_i >= range.first && item.unit_price.to_i <= range.last
+        range_array << item
+      end
+    end
+      range_array
+  end
+
+  def find_all_by_merchant_id(merchant_id)
     @all.find_all do |item|
-      range.include?(item.unit_price.to_i)
+      item.merchant_id == merchant_id
     end
   end
 
-  def find_all_by_merchant_id(id)
-    @all.find_all do |item|
-      item.merchant_id == id
-    end
+  def create(attributes)
+    new_id = all.max_by { |item| item.id }.id + 1
+      attributes[:id] = new_id
+        all << Item.new(attributes)
   end
+
+ # def update(id, attributes)
+
+ # end
+
+ # def delete(id)
+ #   @all.delete(item)
+ # end
 
 end
