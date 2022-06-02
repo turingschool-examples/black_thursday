@@ -84,5 +84,21 @@ RSpec.describe ItemRepository do
     expect(@item_repository.all.count).to eq 1368
   end
 
+  it "can update(id, attributes) an merchant instance" do
+    attributes = {
+      name: "BryceGems",
+      description: "Any colour gems",
+      unit_price: BigDecimal(420.00, 5),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 25
+    }
+
+    @item_repository.update(263567474, attributes)
+
+    expect(@item_repository.find_by_id(263567474).name).to eq("BryceGems")
+    expect(@item_repository.find_by_name("BryceGems")).to eq(nil)
+  end
+
 
 end
