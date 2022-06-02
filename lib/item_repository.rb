@@ -78,7 +78,7 @@ class ItemRepository
         find_by_id(input_id).unit_price = BigDecimal(value,4)
       end
     end
-    find_by_id(input_id).updated_at = Time.now
+    find_by_id(input_id).updated_at = Time.now if find_by_id(input_id).class == Item
   end
 
   def delete(input_id)
