@@ -33,6 +33,11 @@ RSpec.describe Invoice do
     expect(invoice.customer_id).not_to eq(nil)
   end
 
+  it "can return current invoice status" do
+    expect(invoice.status).to eq("pending")
+    expect(invoice.status).to be_a String
+  end
+
   # it 'returns id' do
   #   invoice = Invoice.new({
   #     :id => 1,
