@@ -68,8 +68,12 @@ class ItemRepository
       end
   end
 
- # def delete(id)
- #   @all.delete(item)
- # end
+
+ def delete(id)
+   @all.delete_if do |item|
+     item.id == id
+   end
+ end
+
 
 end
