@@ -24,4 +24,16 @@ RSpec.describe MerchantRepository do
     expect(merchant_repo.find_by_name('sHoPiN1901')).to be_instance_of(Merchant)
     expect(merchant_repo.find_by_name('InvalidName')).to eq(nil)
   end
+
+  it 'can find all merchants by name fragment' do
+    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    expect(merchant_repo.find_all_by_name('mini')).to be_instance_of(Array)
+    expect(merchant_repo.find_all_by_name('MiNi')).to be_instance_of(Array)
+    expect(merchant_repo.find_all_by_name('inG')).to be_instance_of(Array)
+    expect(merchant_repo.find_all_by_name('sHoPiN')).to be_instance_of(Array)
+    expect(merchant_repo.find_all_by_name('sHoPiN1901')).to be_instance_of(Array)
+    expect(merchant_repo.find_all_by_name('InvalidName')).to eq([])
+  end
+
+  #Nick and Thiago left off here, need to ask if lines 30 - 32 are valid tests
 end
