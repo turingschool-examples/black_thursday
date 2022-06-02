@@ -51,4 +51,9 @@ RSpec.describe SalesEngine do
     expect(@sales_engine.item_repository.find_all_by_price(BigDecimal(10))[0].id).to eq(263405861)
   end
 
+  it "can find items in a range" do
+    expect(@sales_engine.item_repository.find_all_by_price_in_range(1000.00..1500.00).count).to eq(19)
+    expect(@sales_engine.item_repository.find_all_by_price_in_range(1000.00..1500.00)[0].id).to eq(263416567)
+  end
+
 end
