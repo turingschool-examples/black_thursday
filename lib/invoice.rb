@@ -8,7 +8,6 @@ class Invoice
               :created_at,
               :updated_at
 
-
   attr_accessor :name,
                 :description,
                 :unit_price
