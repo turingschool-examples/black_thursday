@@ -63,11 +63,19 @@ RSpec.describe InvoiceRepository do
     end
   end
 
-  describe '#create' do
-    it 'can create a new Invoice with provided attributes' do
-      expect(@collection.find_by_id('4986')).to eq nil
-      @collection.create('created shop')
-      expect(@collection.find_by_id('4986')).to be_a Invoice
+  # describe '#create' do
+  #   it 'can create a new Invoice with provided attributes' do
+  #     expect(@collection.find_by_id('4986')).to eq nil
+  #     @collection.create('created shop')
+  #     expect(@collection.find_by_id('4986')).to be_a Invoice
+  #   end
+  # end
+
+  describe '#update' do
+    it 'can update the status of an invoice' do
+      expect(@collection.find_by_id('1').status).to eq 'pending'
+      @collection.update('1', 'shipped')
+      expect(@collection.find_by_id('1').status).to eq 'status'
     end
   end
 end
