@@ -35,5 +35,16 @@ class ItemRepository
 
   end
 
+  def update(id, attributes)
+    @all_items.each do |item|
+      if item.id == id
+        item.name = attributes
+      end
+    end
+  end
+
+
+
+
 
 end

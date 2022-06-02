@@ -33,7 +33,7 @@ RSpec.describe ItemRepository do
     it "can create a new instance" do
 
       @item_repository.create("ants")
-      expect(@item_repository.all_items.last).to be_a Ite
+      expect(@item_repository.all_items.last).to be_a Item
       expect(@item_repository.all_items.last.name).to eq("ants")
       expect(@item_repository.all_items.last.id).to eq("263567475")
 
@@ -43,5 +43,7 @@ RSpec.describe ItemRepository do
     @item_repository.update("263395237", "test")
     expect(@item_repository.find_by_id("263395237").name).to eq("test")
     end
+
+
 
   end
