@@ -64,13 +64,9 @@ class ItemRepository
 
   def update(id, attr)
       if find_by_id(id) != nil
-        # require 'pry'; binding.pry
-        @all.delete_if do |item|
-          item.id == id
-        end
-        @all << Item.new(attr)
+        find_by_id(id).update(attr)
       end
-    end
+  end
 
  # def delete(id)
  #   @all.delete(item)
