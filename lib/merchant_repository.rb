@@ -32,12 +32,15 @@ class MerchantRepository
       merchant.name.upcase.include?(name_fragment.upcase)
     end
   end
-# @merchant = Merchant.new({:id => 5, :name => "Turing School"})
+
   def create(name)
     x = (@all.last.id + 1)
     @all << Merchant.new({:id => x, :name => name})
   end
 
-
+  def update(id, attributes)
+    x = find_by_id(id)
+    x.name[0..1000000] = attributes[:name]
+  end
 
 end
