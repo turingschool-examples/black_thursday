@@ -78,4 +78,12 @@ RSpec.describe InvoiceRepository do
       expect(@collection.find_by_id('1').status).to eq 'shipped'
     end
   end
+
+  describe '#delete' do
+    it 'can delete an Invoice based on id' do
+      expect(@collection.find_by_id('1').status).to eq 'pending'
+      @collection.delete('1')
+      expect(@collection.find_by_id('1')).to eq nil
+    end
+  end
 end
