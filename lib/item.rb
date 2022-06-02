@@ -21,8 +21,10 @@ class Item
       @unit_price = value
     elsif key == :description
       @description = value
-    else
+    elsif key == :name
       @name = value
+    else
+      return nil
     end
     @updated_at = Time.now
   end
