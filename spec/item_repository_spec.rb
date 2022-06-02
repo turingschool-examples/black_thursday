@@ -1,5 +1,6 @@
 require'./lib/item'
 require'./item_repository'
+require 'pry'
 
 RSpec.describe ItemRepository do
   before :each do
@@ -29,13 +30,23 @@ RSpec.describe ItemRepository do
   end
 
   it 'can find_all_with_descriprion(description)' do
-    test = @item_repository.find_all_by_description("vector shapes")
+    test = @item_repository.find_all_with_description("Any colour glitter")
 
-    expect(@item_repository.find_all_by_description("vector shapes").count).to eq(1)
-    expect(@item_repository.find_all_by_description("vector shapes")).to be_a(Array)
-    expect(test.map(&:description).include?("100% vector shapes (AI, CDR, SVG)")).to eq true
-    expect(test.map(&:id).include?(263395237)).to eq true
+    expect(@item_repository.find_all_with_description("Any colour glitter").count).to eq(4)
+    expect(@item_repository.find_all_with_description("Any colour glitter")).to be_a(Array)
+    expect(@item_repository.find_all_with_description("aNy CoLoUr GlItTeR").first.id).to eq 263395617
+
+    expect(test.map(&:id).include?(263395721)).to eq true
   end
+
+  it 'finds item by price' do
+    test = @item_repository.find_all_by_price(1200)
+
+    expect(test.first).to eq(test.all.first)
+    expect(test).to be_a(Array)
+    expect(test.count).to eq 0
+
+    end
 
 
 end
