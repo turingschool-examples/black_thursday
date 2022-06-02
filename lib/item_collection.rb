@@ -19,13 +19,30 @@ class ItemCollection
   def find_by_name(name)
     @all.find {|item| item.name.upcase == name.upcase}
   end
+## potential refactor
+  def find_all_with_description(description)
+    item_d = []
+    @all.each do |item|
+      if item.description.upcase.include?(description.upcase)
+        item_d << item
+      end
+    end
+    item_d
+  end
 
-  # def find_all_with_description(description)
-  #   # require "pry"; binding.pry
-  #   @all.find_all do |item|
-  #   require "pry"; binding.pry
-  #   # {item.description.include?(description.upcase)}
-  # end
-  # end
+  def find_all_by_price(price)
+    @all.find_all {|item| item.unit_price == price}
+  end
+
+  def find_all_by_price_in_range(range)
+    @all.find_all do |item|
+    (range.min..range.max).cover?(item.unit_price.to_i)
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all {|item| item.merchant_id == merchant_id}
+  end
+
 
 end
