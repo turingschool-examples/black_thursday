@@ -15,5 +15,11 @@ RSpec.describe ItemRepository do
     expect(@item_repository.all.count).to eq(1367)
   end
 
+  it 'can find by id' do
+    expect(@item_repository.find_by_id(263395237)).to eq(@item_repository.all.first)
+    expect(@item_repository.find_by_id(1233)).to eq(nil)
+    expect(@item_repository.find_by_id(263395237)).to be_a(Item)
+  end
+
 
 end
