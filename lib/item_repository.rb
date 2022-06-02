@@ -27,5 +27,13 @@ class ItemRepository
     @all_items.find_all {|merchant| merchant.id == merchant_id}
   end
 
+  def create(name)
+
+    id = (@all_items.last.id.to_i + 1).to_s
+      # require "pry"; binding.pry
+    @all_items << Item.new({:id => id, :name => name})
+
+  end
+
 
 end
