@@ -68,7 +68,7 @@ class ItemRepository
         @all.delete_if do |item|
           item.id == id
         end
-        @all << Item.new(id, attr)
+        @all << Item.new(attr)
       end
     end
 
