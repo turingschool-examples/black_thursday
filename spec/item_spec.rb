@@ -22,8 +22,8 @@ end
     expect(@item.name).to eq "Pencil"
     expect(@item.description).to eq "You can use it to write things"
     expect(@item.unit_price).to eq BigDecimal(10.99,4)
-    expect(@item.created_at).to eq Time.now
-    expect(@item.updated_at).to eq Time.now
+    expect(@item.created_at).to be_a Time
+    expect(@item.updated_at).to be_a Time
     expect(@item.merchant_id).to eq 2
   end
 end
