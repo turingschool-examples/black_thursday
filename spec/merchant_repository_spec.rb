@@ -50,4 +50,15 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.all.count).to eq(476)
   end
 
+  it "can update(id, attributes) an merchant instance" do
+    attributes = {
+      name: "BryceGems"
+    }
+
+    @merchant_repository.all.update(12334105, attributes)
+
+    expect(@merchant_repository.find_by_id(12334105).name).to eq("BryceGems")
+    expect(@merchant_repository.find_by_name("Shopin1901")).to eq(nil)
+  end
+
 end
