@@ -1,5 +1,7 @@
 require 'CSV'
 require_relative 'item'
+require_relative 'merchant'
+require_relative 'merchant_repository'
 require 'pry'
 
 class ItemRepository
@@ -17,7 +19,7 @@ class ItemRepository
         :unit_price => row[:unit_price].to_f,
         :created_at => row[:created_at],
         :updated_at => row[:updated_at],
-        :merchant_id => row[:merchant_id]
+        :merchant_id => row[:merchant_id].to_i
         )
       end
   end
@@ -41,9 +43,16 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    @all.find_all do |item|
-      item.unit_price == price
-    end
+    @all.find_all { |item| item.unit_price == price }
+
   end
+
+  def find_all_by_price_in_range(price_range)
+    @all.find_all { |item| item.unit_price.between? price_range.first, price_range.last}
+    # @all.select do |item|
+    #   item.unit_price >= x && item.unit_price <= y
+    # end
+  end
+
 
 end

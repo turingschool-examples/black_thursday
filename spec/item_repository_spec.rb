@@ -1,5 +1,7 @@
 require'./lib/item'
 require'./item_repository'
+# require_relative 'merchant'
+# require_relative 'merchant_repository'
 require 'pry'
 
 RSpec.describe ItemRepository do
@@ -52,7 +54,16 @@ RSpec.describe ItemRepository do
 
     expect(test.first).to eq(test.first)
     expect(test).to be_a(Array)
+    expect(test.count).to eq 350
+  end
+
+  it 'find all by merchant id' do
+    test = @item_repository.find_all_by_merchant_id(12334185)
+
+    expect(test).to be_a(Array)
     expect(test.count).to eq 0
+    expect(test.first.id).to eq 263395617
+
   end
 
 
