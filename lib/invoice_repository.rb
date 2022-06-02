@@ -44,4 +44,14 @@ class InvoiceRepository
     end
   end
 
+  # def create(attributes)
+  #
+  # end
+
+  def update(invoice_id_search, status_update)
+    @all.find do |invoice|
+      invoice.id == invoice_id_search
+      invoice.status = status_update
+    end
+  end
 end
