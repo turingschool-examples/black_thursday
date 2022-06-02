@@ -83,7 +83,7 @@ require './lib/item'
       @item_repository.create(@pencil)
 
       expect(@item_repository.find_by_id(263567475).name).to eq("Pencil")
-        @item_repository.update(263567475, @pencil_2)
+        @item_repository.update(263567475, @pencil_1)
 
         expect(@item_repository.find_by_id(263567475).name).to eq("Mechanical Pencil")
     end
