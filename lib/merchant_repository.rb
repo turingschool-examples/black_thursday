@@ -15,9 +15,14 @@ class MerchantRepository
   def find_by_id(id)
     @all.find do |row|
       row.id == id
-    
+
     end
   end
 
+  def find_by_name(name)
+    @all.find do |row|
+      row.name.upcase == name.upcase
+    end
+  end
 
 end
