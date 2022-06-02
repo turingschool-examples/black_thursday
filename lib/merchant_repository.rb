@@ -6,6 +6,10 @@ class MerchantRepository
   attr_reader :merchants,
               :all
 
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def initialize(file_path)
     @file_path = file_path
     @all = []
@@ -14,10 +18,6 @@ class MerchantRepository
       # require "pry"; binding.pry
     end
     @all
-  end
-
-  def self.from_csv(data)
-    MerchantRepository.new(data[:merchants])
   end
 
   def find_by_id(id)
