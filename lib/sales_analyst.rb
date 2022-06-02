@@ -43,6 +43,17 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     averages = merchant_ids.map {|merchant_id| average_item_price_for_merchant(merchant_id)}
-    (averages.sum / averages.count).round(2)
+    (averages.sum / averages.count).floor(2)
+  end
+
+  def golden_items
+    @item_repository.all.find_all {|item| item.unit_price_to_dollars > sd_prices * 2}
+  end
+
+  def sd_prices
+    prices = @item_repository.all.map {|item| item.unit_price_to_dollars}
+    mean = prices.sum / prices.size
+    sum = prices.sum {|num| (num - mean)**2}
+    price_sd = (Math.sqrt(sum / (prices.size - 1))).round(2)
   end
 end
