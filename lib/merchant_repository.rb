@@ -48,8 +48,11 @@ class MerchantRepository
     end
   end
 
-  # def delete(id)
-  #   @all.delete()
-  # end
+  def delete(merchant_id_search)
+    @all.find do |merchant|
+      merchant.id == merchant_id_search
+      @all.delete(merchant)
+    end
+  end
 
 end
