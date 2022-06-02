@@ -44,5 +44,8 @@ RSpec.describe SalesAnalyst do
   end
 
     #compare against harness
+  it "can sum all of the averages and find the average price across all merchants" do
+    expect(sales_analyst.average_average_price_per_merchant).to eq(0)
+  end
 
 end
