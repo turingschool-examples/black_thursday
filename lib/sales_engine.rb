@@ -1,3 +1,7 @@
+require_relative 'item_repository'
+require_relative 'merchant_repository'
+require_relative 'item'
+require_relative 'merchant'
 class SalesEngine
 
   attr_reader :merchants, :items

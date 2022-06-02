@@ -1,9 +1,13 @@
 require 'CSV'
-require './lib/item'
+require_relative 'item'
 
 class ItemRepository
 
   attr_reader :all
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
 
   def initialize(file_path)
     @file_path = file_path
