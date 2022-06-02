@@ -84,4 +84,10 @@ RSpec.describe SalesEngine do
     expect(@sales_engine.item_repository.find_by_id(263567475).description).to eq("Big and very loud")
   end
 
+  it "can delete items" do
+    new_item = @sales_engine.item_repository.create({name: "Batmobile", description: "Black and shiny", unit_price: BigDecimal(10000, 5), created_at: Time.now, updated_at: Time.now, merchant_id: 88877766})
+    @sales_engine.item_repository.delete(263567475)
+    expect(@sales_engine.item_repository.find_by_id(263567475)).to eq(nil)
+  end
+
 end
