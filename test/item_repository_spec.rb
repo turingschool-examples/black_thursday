@@ -58,17 +58,25 @@ RSpec.describe ItemRepository do
 
   it "can update the item and items attributes" do
     new_item = @item_repo.create({name: "Batmobile", description: "Black and shiny", unit_price: BigDecimal(10000, 5), created_at: Time.now, updated_at: Time.now, merchant_id: 88877766})
+
     original_time = @item_repo.find_by_id(263567475).updated_at
     attributes = {unit_price: BigDecimal(379.99, 5)}
     @item_repo.update(263567475, attributes)
     expect(@item_repo.find_by_id(263567475).unit_price).to eq(BigDecimal(379.99, 5))
     expect(@item_repo.find_by_id(263567475).updated_at).to be > original_time
+
     attributes_2 = {name: "Batmobile Extreme"}
     @item_repo.update(263567475, attributes_2)
     expect(@item_repo.find_by_id(263567475).name).to eq("Batmobile Extreme")
+
     attributes_3 = {description: "Big and very loud"}
     @item_repo.update(263567475, attributes_3)
     expect(@item_repo.find_by_id(263567475).description).to eq("Big and very loud")
+
+    time = @item_repo.find_by_id(263567475).updated_at
+    expect(@item_repo.find_by_id(263567475).change(:id, 1223345434)).to eq(nil)
+    expect(@item_repo.find_by_id(263567475).id).to eq(263567475)
+    expect(@item_repo.find_by_id(263567475).updated_at).to eq(time)
   end
 
   it "can delete things" do
