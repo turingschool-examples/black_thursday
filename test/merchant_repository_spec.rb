@@ -4,6 +4,7 @@ require './lib/merchant_repository'
 # require './lib/item_repository'
 
 RSpec.describe MerchantRepository do
+
   file_path = "./data/merchants.csv"
  let(:merchant) {MerchantRepository.new(file_path)}
 
@@ -14,14 +15,14 @@ RSpec.describe MerchantRepository do
  it "has attributes" do
    expect(merchant.all).to be_an(Array)
    expect(merchant.all.first.name).to eq("Shopin1901")
-   expect(merchant.all.first.id).to eq("12334105")
+   expect(merchant.all.first.id).to eq(12334105)
    expect(merchant.all.length).to eq(475)
  end
 
  it "can find a merchant by id" do
    #Should we change merchant ids to integers?
-   expect(merchant.find_by_id("12334281")).to be_an(Merchant)
-   expect(merchant.find_by_id("00000000")).to eq(nil)
+   expect(merchant.find_by_id(12334281).name).to eq("justMstyle")
+   expect(merchant.find_by_id(00000000)).to eq(nil)
  end
 
  it "can find a merchant by name" do
@@ -37,5 +38,29 @@ RSpec.describe MerchantRepository do
    expect(merchant.find_all_by_name("Gran").last.name).to eq("WoolKnittingGranny")
    expect(merchant.find_all_by_name("Gran").count).to eq(4)
    expect(merchant.find_all_by_name("ParkerAndMarysDungeonWithDragons")).to eq([])
+ end
+
+ it "create an instance with attributes" do
+   attributes = {
+     :name => "TiltedTurtles"
+   }
+   merchant.create(attributes)
+   expect(merchant.find_by_id(12337412).name).to eq("TiltedTurtles")
+   expect(merchant.all.last.id).to eq(12337412)
+ end
+
+ it "can update the name of an merchant" do
+   attributes = {
+     :name => "MEEEEEPS"
+   }
+   expect(merchant.find_by_id(12334669).name).to eq("BEEEPS")
+   merchant.update(12334669, attributes)
+   expect(merchant.find_by_id(12334669).name).to eq("MEEEEEPS")
+ end
+
+ it "can delete merchants based on id" do
+   expect(merchant.all.length).to eq(475)
+   merchant.delete(12334669)
+   expect(merchant.all.length).to eq(474)
  end
 end
