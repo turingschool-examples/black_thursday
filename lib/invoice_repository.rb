@@ -65,6 +65,7 @@ class InvoiceRepository
     @all.find do |invoice|
       invoice.id == invoice_id_search
       invoice.status = status_update
+      invoice.updated_at = Time.now
     end
   end
 
