@@ -29,8 +29,11 @@ require './lib/item'
           :unit_price  => BigDecimal(19.99,4),
           :created_at  => Time.now,
           :updated_at  => Time.now,
-          :merchant_id => 2
+          :merchant_id => 4
           }
+
+          @update1 = {:merchant_id => 6}
+          @update2 = {name:"Steve"}
     end
 
     it "exists" do
@@ -86,9 +89,17 @@ require './lib/item'
         @item_repository.update(263567475, @pencil_1)
 
         expect(@item_repository.find_by_id(263567475).name).to eq("Mechanical Pencil")
+
+        expect(@item_repository.find_by_id(263567475).merchant_id).to eq(2)
+        @item_repository.update(263567475, @update1)
+        expect(@item_repository.find_by_id(263567475).merchant_id).to eq(2)
+        @item_repository.update(263567475, @update2)
+        expect(@item_repository.find_by_id(263567475).name).to eq("Steve")
+
+        require "pry"; binding.pry
     end
 
-    xit "can delete items" do
+    it "can delete items" do
 
     end
 end
