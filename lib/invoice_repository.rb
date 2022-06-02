@@ -45,7 +45,20 @@ class InvoiceRepository
   end
 
   def create(attributes)
-
+    new_id = 0
+    @all.each do |invoice|
+      if invoice.id.to_i > new_id
+        new_id = invoice.id.to_i + 1
+      end
+    end
+    @all << Invoice.new( {
+      :id => new_id.to_s,
+      :customer_id => attributes[:customer_id],
+      :merchant_id => attributes[:merchant_id],
+      :status => attributes[:status],
+      :created_at => attributes[:created_at],
+      :updated_at => attributes[:updated_at]
+      } )
   end
 
   def update(invoice_id_search, status_update)
