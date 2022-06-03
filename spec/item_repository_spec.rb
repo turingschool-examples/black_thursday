@@ -56,8 +56,13 @@ RSpec.describe ItemRepository do
   #Ask instructor if only adding a name for a new item is okay...Ran out of time lol.
   it "can create a new item with provided attributes" do
     item_repo = ItemRepository.new('./data/items.csv')
-    new_item = (item_repo.create("Oreos"))
+    new_item_attributes = {:name => "Oreos", :description => "a sandwich cookie",
+    :unit_price => "50", }
+    new_item = (item_repo.create(new_item_attributes))
     expect(new_item.name).to eq("Oreos")
+    expect(new_item.unit_price).to eq("50")
+    expect(new_item.description).to eq("a sandwich cookie")
+    expect(new_item.created_at).to be_instance_of(Time)
     expect(item_repo.find_by_id(263567475)).to be_a(Item)
   end
 
