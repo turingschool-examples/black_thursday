@@ -18,6 +18,21 @@ class InvoiceRepository
         })
     end
   end
+  def find_by_id(invoice_id)
+    @all.find { |invoice| invoice.id.to_i == invoice_id}
+  end
+
+  def find_all_by_customer_id(cust_id)
+    @all.find_all {|invoice| invoice.customer_id.to_i == cust_id}
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all {|invoice| invoice.merchant_id == merchant_id}
+  end
+
+  def find_all_by_status(status)
+    @all.find_all {|invoice| invoice.status == status}
+  end
   def create(data_hash)
     id = (@all.last.id.to_i + 1)
     @all << Invoice.new({
