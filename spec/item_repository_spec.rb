@@ -71,6 +71,12 @@ RSpec.describe ItemRepository do
     expect(item_repo.find_by_id(263567474).name).to eq("New Test Scarf")
     expect(item_repo.find_by_id(263567474).description).to eq("A beautiful testing scarf")
     expect(item_repo.find_by_id(263567474).unit_price).to eq("1")
+  end
 
+  it "can delete an item" do
+    item_repo = ItemRepository.new('./data/items.csv')
+    expect(item_repo.find_by_id(263567474)).to be_a(Item)
+    item_repo.delete(263567474)
+    expect(item_repo.find_by_id(263567474)).to eq(nil)
   end
 end
