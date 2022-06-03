@@ -4,12 +4,12 @@ require 'CSV'
 class Item
 	attr_reader :id,
 							:created_at,
-							:updated_at,
 							:merchant_id
 
 	attr_accessor :name,
 								:description,
-								:unit_price
+								:unit_price,
+								:updated_at
 
 	def initialize(data)
 		@id = data[:id]
