@@ -21,8 +21,16 @@ RSpec.describe InvoiceRepository do
   end
 
   it "can find an invoice by id and return nil if not found" do
-    expect(@invoice_repository.find_by_id("0")).to eq nil
-    expect(@invoice_repository.find_by_id("11")).to be_a(Invoice)
-    expect(@invoice_repository.find_by_id("370")).to be_a(Invoice)
+    expect(@invoice_repository.find_by_id(0)).to eq nil
+    expect(@invoice_repository.find_by_id(11)).to be_a(Invoice)
+    expect(@invoice_repository.find_by_id(370)).to be_a(Invoice)
   end
+
+  it "can find an invoice by customer id and return an array if one or more matches found" do
+    expect(@invoice_repository.find_all_by_customer_id(205)).to be_a(Invoice)
+    expect(@invoice_repository.find_all_by_customer_id(400)).to be_a(Invoice)
+    expect(@invoice_repository.find_all_by_customer_id(0)).to eq nil
+  end
+
+
 end
