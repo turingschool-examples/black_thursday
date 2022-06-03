@@ -1,4 +1,5 @@
 require 'BigDecimal'
+
 class Item
   attr_reader :id,
               :name,

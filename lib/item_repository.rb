@@ -1,5 +1,5 @@
-require 'CSV'
-require './lib/item'
+require 'csv'
+require_relative 'item'
 
 class ItemRepository
   attr_reader :all

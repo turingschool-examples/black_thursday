@@ -1,5 +1,5 @@
-require 'CSV'
-require './lib/invoice'
+require 'csv'
+require_relative 'invoice'
 
 class InvoiceRepository
   attr_reader :all
