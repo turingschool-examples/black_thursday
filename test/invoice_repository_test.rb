@@ -10,7 +10,7 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo).to be_instance_of InvoiceRepository
   end
 
-  xit "can return all invoice instances in an array" do
+  it "can return all invoice instances in an array" do
     expect(invoice_repo.all).to be_a Array
   end
 
