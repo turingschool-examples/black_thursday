@@ -18,4 +18,10 @@ class ItemRepository
 			:merchant_id => row[:merchant_id]})
 		end
 	end
+
+	def find_by_id(id)
+		@all.find do |item|
+			item.id.to_i == id
+		end
+	end
 end

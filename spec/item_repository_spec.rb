@@ -17,4 +17,11 @@ RSpec.describe ItemRepository do
     expect(item_repo.find_by_id(263400305)).to be_a(Item)
     expect(item_repo.find_by_id(12345678910)).to eq(nil)
   end
+
+  it "can find an item by name" do
+    item_repo = ItemRepository.new('./data/items.csv')
+    expect(item_repo.find_by_name("Free standing Woden letters")).to be_instance_of(Item)
+    expect(item_repo.find_by_name("FREE stANDing wOdeN lEttErs")).to be_instance_of(Item)
+    expect(item_repo.find_by_name("InvalidName")).to eq(nil)
+  end
 end
