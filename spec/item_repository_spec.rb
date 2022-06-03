@@ -60,4 +60,17 @@ RSpec.describe ItemRepository do
     expect(new_item.name).to eq("Oreos")
     expect(item_repo.find_by_id(263567475)).to be_a(Item)
   end
+
+  it "can update an item's attributes" do
+    item_repo = ItemRepository.new('./data/items.csv')
+    expect(item_repo.find_by_id(263567474).name).to eq("Minty Green Knit Crochet Infinity Scarf")
+    expect(item_repo.find_by_id(263567474).description).to eq("- Super Chunky knit infinity scarf\n- Soft mixture of 97% Acrylic and 3% Viscose\n- Beautiful, Warm, and Stylish\n- Very easy to care for\n\nHand wash with cold water and lay flat to dry")
+    expect(item_repo.find_by_id(263567474).unit_price).to eq("3800")
+    new_test_attributes = {:name => "New Test Scarf", :description => "A beautiful testing scarf", :unit_price => "1"}
+    item_repo.update(263567474, new_test_attributes)
+    expect(item_repo.find_by_id(263567474).name).to eq("New Test Scarf")
+    expect(item_repo.find_by_id(263567474).description).to eq("A beautiful testing scarf")
+    expect(item_repo.find_by_id(263567474).unit_price).to eq("1")
+
+  end
 end

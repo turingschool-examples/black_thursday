@@ -62,4 +62,11 @@ class ItemRepository
 		@all << Item.new(:id => new_id.to_s, :name => new_attribute)
 		return @all.last
 	end
+
+	def update(id, attributes)
+		updated_item = find_by_id(id)
+		updated_item.name = attributes[:name]
+		updated_item.unit_price = attributes[:unit_price]
+		updated_item.description = attributes[:description]
+	end
 end
