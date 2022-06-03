@@ -47,6 +47,6 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
 
     expect(sales_analyst.merchants_with_high_item_count).to be_a(Array)
-    expect(sales_analyst.merchants_with_high_item_count.length).to eq(3)
+    expect(sales_analyst.merchants_with_high_item_count.length).to eq(52)
   end
 end
