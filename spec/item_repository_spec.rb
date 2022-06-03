@@ -31,4 +31,10 @@ RSpec.describe ItemRepository do
     expect(item_repo.find_all_with_description("dISneY")).to be_instance_of(Array)
     expect(item_repo.find_all_with_description("Thiago")).to eq([])
   end
+
+  it "can find all items by price" do
+    item_repo = ItemRepository.new('./data/items.csv')
+    expect(item_repo.find_all_by_price("1300")).to be_instance_of(Array)
+    expect(item_repo.find_all_by_price("1,000,000")).to eq([])
+  end
 end
