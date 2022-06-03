@@ -37,10 +37,10 @@ class MerchantRepository
     @all <<  Merchant.new({:id => new_id,:name => new_merchant_name})
   end
 
-  def delete(id)
-    key = find_by_id(id)
-    @all.delete(key)
-  end
+  # def delete(id)
+  #   key = find_by_id(id)
+  #   @all.delete(key)
+  # end
 
   def update(id, attributes)
     @all.each do |merchant|
