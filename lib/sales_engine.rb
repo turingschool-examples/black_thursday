@@ -4,11 +4,11 @@ require_relative("./merchant")
 require_relative("./merchant_repository")
 
 class SalesEngine
-  attr_reader :item_repository, :merchants
+  attr_reader :item_repository, :merchant_repository
 
   def initialize(items_path, merchant_path)
-    # @item_repository = ItemRepository.new(items_path)
-    @merchants = MerchantRepository.new(merchant_path)
+    @item_repository = ItemRepository.new(items_path)
+    @merchant_repository = MerchantRepository.new(merchant_path)
   end
 
   def self.from_csv(data)
