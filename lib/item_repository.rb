@@ -4,14 +4,14 @@ class ItemRepository
   attr_reader :all
 
   def initialize(file_path)
-    # @file_path = file_path
-    # @items = all
-    @all = CSV.foreach(file_path, headers: true, header_converters: :symbol) {|row| Item.new(row)}
+    @all = make_repo(file_path)
   end
 
-  # def all
-  #   CSV.foreach(file_path, headers: true, header_converters: :symbol) {|row| Item.new(row)}
-  # end
+  def make_repo(file_path)
+    repo = Array.new
+    CSV.foreach(file_path, headers: true, header_converters: :symbol){|row| repo.push(Item.new(row))}
+    repo
+  end
 
   def find_by_id(id_number)
     @all.find {|item| item.id == id_number}
