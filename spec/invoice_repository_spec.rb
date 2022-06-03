@@ -86,4 +86,14 @@ RSpec.describe InvoiceRepository do
       expect(@invoice_repository.find_by_id(4986).status).to eq("shipped")
     end
 
+    it "can delete invoices" do
+      @invoice_repository.create(@pizza_invoice)
+
+      expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
+
+      @invoice_repository.delete(4986)
+
+      expect(@invoice_repository.find_by_id(4986)).to be_nil
+    end
+
 end
