@@ -30,4 +30,9 @@ RSpec.describe InvoiceRepository do
   @invoice_repository.update(1, "shipped")
   expect(@invoice_repository.find_by_id(1).status).to eq("shipped")
   end
+  it "can delete the invoice instance" do
+    @invoice_repository.delete(1)
+    
+    expect(@invoice_repository.all.first.customer_id).to eq(2)
+  end
 end
