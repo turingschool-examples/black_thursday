@@ -31,4 +31,17 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.find_by_id(1).id).to eq(1)
   end
 
+  it "can find_all_by_customer_id" do
+    expect(@invoice_repository.find_all_by_customer_id(000)).to eq([])
+    require "pry"; binding.pry
+    expect(@invoice_repository.find_all_by_customer_id(1)).to be_a(Invoice)
+    expect(@invoice_repository.find_all_by_customer_id(1).id).to eq(1)
+  end
+
+  xit "can find_all_by_merchant_id" do
+    expect(@invoice_repository.find_all_by_customer_id(000)).to eq([])
+    expect(@invoice_repository.find_all_by_customer_id(1)).to be_a(Invoice)
+    expect(@invoice_repository.find_all_by_customer_id(1).id).to eq(1)
+  end
+
 end
