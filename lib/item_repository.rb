@@ -72,4 +72,8 @@ class ItemRepository
      item.id == id
    end
  end
+
+ def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
