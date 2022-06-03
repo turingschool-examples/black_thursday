@@ -1,5 +1,6 @@
 require './lib/item_repository'
 require './lib/item'
+require 'pry'
 
 RSpec.describe ItemRepository do
   before :each do
@@ -63,7 +64,25 @@ RSpec.describe ItemRepository do
       expect(@item_repository.find_all_by_merchant_id(00000000).length).to eq 0
   end
 
+  it 'can create a new item_id' do
+    expect(@item_repository.new_id)
+  end
+
   it 'can create a new item instance' do
+    attributes =   {
+        :name => "Candace",
+        :description => "Clean Queen Frog",
+        :unit_price => 20,
+        :created_at => Time.now,
+        :updated_at => Time.now,
+        :merchant_id => 12334105
+  }
+
+     expect(@item_repository.create(attributes)).to be_a Array
+     expect(@item_repository.all.last).to be_a Item
+     expect(@item_repository.all.last.name).to eq "Candace"
+     expect(@item_repository.all.last.id).to eq 263567475
+  end
 
 
 
