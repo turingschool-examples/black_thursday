@@ -4,7 +4,13 @@ class MerchantRepository
   attr_reader :all
 
   def initialize(file_path)
-    @all = CSV.foreach(file_path, headers: true, header_converters: :symbol){|row| Merchant.new(row)}
+    @all = make_repo(file_path)
+  end
+
+  def make_repo(file_path)
+    repo = Array.new
+    CSV.foreach(file_path, headers: true, header_converters: :symbol){|row| repo << Merchant.new(row)}
+    repo
   end
 
   def find_by_id(id_number)
