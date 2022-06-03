@@ -52,4 +52,12 @@ RSpec.describe ItemRepository do
     expect(item_repo.find_all_by_merchant_id(12334105)).to be_instance_of(Array)
     expect(item_repo.find_all_by_merchant_id(12345678910112)).to eq([])
   end
+
+  #Ask instructor if only adding a name for a new item is okay...Ran out of time lol.
+  it "can create a new item with provided attributes" do
+    item_repo = ItemRepository.new('./data/items.csv')
+    new_item = (item_repo.create("Oreos"))
+    expect(new_item.name).to eq("Oreos")
+    expect(item_repo.find_by_id(263567475)).to be_a(Item)
+  end
 end
