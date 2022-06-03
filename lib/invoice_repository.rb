@@ -14,6 +14,6 @@ class InvoiceRepository
   end
 
   def find_by_id(id_number)
-    @all.find {|merchant| merchant.id == id_number}
+    @all.find {|invoice| invoice.id == id_number}
   end
 end

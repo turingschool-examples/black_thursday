@@ -14,7 +14,7 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo.all).to be_a Array
   end
 
-  xit "can find invoices by their id" do
-    expect(invoice_repo.find_by_id(10).customer_id).to eq(2)
+  it "can find invoices by their id" do
+    expect(invoice_repo.find_by_id(10)).to be_instance_of Invoice
   end
 end
