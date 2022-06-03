@@ -68,4 +68,6 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.find_by_name("Shopin1901")).to eq(nil)
   end
 
+  
+
 end
