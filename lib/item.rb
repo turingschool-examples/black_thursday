@@ -1,11 +1,14 @@
-require 'csv'
-require 'pry'
+require 'helper'
 
 class Item
+  attr_reader :id,
+              :created_at,
+              :updupdated_at,
+              :merchant_id
 
-  attr_reader :id,:created_at,:updupdated_at,:merchant_id
-
-  attr_accessor :name, :description, :unit_price
+  attr_accessor :name,
+                :description,
+                :unit_price
 
   def initialize(input)
     @id = input[:id].to_i
@@ -20,5 +23,4 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
-
 end

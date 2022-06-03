@@ -1,9 +1,6 @@
-require 'csv'
-require 'pry'
-require "./lib/item"
+require 'helper'
 
 class ItemRepository
-
   attr_reader :all
 
   def initialize(file_path)
