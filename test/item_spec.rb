@@ -52,12 +52,18 @@ RSpec.describe Item do
     expect(item.unit_price).to eq(0.1099e2)
     item.change(:unit_price, 0.37999e3)
     expect(item.unit_price).to eq(0.37999e3)
+
     expect(item.description).to eq("You can use it to write things")
     item.change(:description, "Yellow and old")
     expect(item.description).to eq("Yellow and old")
+
     expect(item.name).to eq("Pencil")
     item.change(:name, "Writing Utensil")
     expect(item.name).to eq("Writing Utensil")
-  end
 
+    time = item.updated_at
+    expect(item.change(:id, 1223345434)).to eq(nil)
+    expect(item.id).to eq(1)
+    expect(item.updated_at).to eq(time)
+  end 
 end

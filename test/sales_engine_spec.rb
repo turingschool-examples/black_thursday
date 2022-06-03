@@ -90,4 +90,7 @@ RSpec.describe SalesEngine do
     expect(@sales_engine.item_repository.find_by_id(263567475)).to eq(nil)
   end
 
+  it 'can initialize a SalesAnalyst' do
+      expect(@sales_engine.analyst).to be_instance_of(SalesAnalyst)
+  end
 end
