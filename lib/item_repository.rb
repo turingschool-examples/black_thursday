@@ -48,4 +48,10 @@ class ItemRepository
 			(range.min..range.max).include?(item.unit_price.to_i)
 		end
 	end
+
+	def find_all_by_merchant_id(merchant_id)
+		@all.find_all do |item|
+			merchant_id.to_i == item.merchant_id.to_i
+		end
+	end 
 end
