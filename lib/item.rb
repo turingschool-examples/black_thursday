@@ -13,7 +13,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f
+    (@unit_price.to_f)
   end
 
   def change(key, value)
@@ -21,8 +21,10 @@ class Item
       @unit_price = value
     elsif key == :description
       @description = value
-    else
+    elsif key == :name
       @name = value
+    else
+      return nil
     end
     @updated_at = Time.now
   end
