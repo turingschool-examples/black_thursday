@@ -1,35 +1,18 @@
+require 'BigDecimal'
 class Item
-  attr_reader :info
+  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
+  attr_writer :name, :description, :unit_price, :updated_at
   def initialize(info)
-    @info = info
+    @id = info[:id]
+    @name = info[:name]
+    @description = info[:description]
+    @unit_price = BigDecimal(info[:unit_price ])/100
+    @created_at = info[:created_at]
+    @updated_at = info[:updated_at]
+    @merchant_id = info[:merchant_id]
   end
 
-  def id
-    @info[:id]
+  def unit_price_to_dollars
+    @unit_price.truncate(2).to_f
   end
-
-  def name
-    @info[:name]
-  end
-
-  def description
-    @info[:description]
-  end
-
-  def unit_price
-    @info[:unit_price]
-  end
-
-  def created_at
-    @info[:created_at]
-  end
-
-  def updated_at
-    @info[:updated_at]
-  end
-
-  def merchant_id
-    @info[:merchant_id]
-  end
-
 end
