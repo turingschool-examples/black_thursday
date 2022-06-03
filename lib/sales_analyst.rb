@@ -22,6 +22,7 @@ class SalesAnalyst < SalesEngine
       total_prices << item.unit_price_to_dollars
     end
     BigDecimal((total_prices.sum/item_count).round(2).to_s)
+  end
 
   def average_items_per_merchant_standard_deviation
     item_count = @merchants.all.map do |merchant|
