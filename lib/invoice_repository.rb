@@ -1,4 +1,5 @@
 require 'CSV'
+require './lib/invoice'
 
 class InvoiceRepository
   attr_reader :all
@@ -7,7 +8,7 @@ class InvoiceRepository
     @filepath = filepath
     @all = []
       CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
-        @all << Invoice.new(id: row[:id], merchant_id: row[:merchant_id], status: row[:status], created_at: row[:created_at], updated_at: row[:updated_at])
+        @all << Invoice.new(id: row[:id], customer_id: row[:customer_id], merchant_id: row[:merchant_id], status: row[:status], created_at: row[:created_at], updated_at: row[:updated_at])
       end
     end
 
@@ -17,38 +18,44 @@ class InvoiceRepository
     end
   end
 
-  # def find_all_by_customer_id(customer_id)
-  #   @all.find do |invoice|
-  #     # require "pry"; binding.pry
-  #     invoice.id + 1 == customer_id
-  #   end
-  # end
-
-  # def find_all_by_customer_id(customer_id)
-  #   @all.find_all { |invoice| require "pry"; binding.pry invoice.customer_id == customer_id}
-  #
-  # end
+  def find_all_by_customer_id(customer_id)
+    customer_id_array = []
+    @all.find_all do |invoice|
+      if invoice.customer_id == customer_id
+        customer_id_array << invoice
+      end
+    end
+    customer_id_array
+  end
 
   def find_all_by_merchant_id(merchant_id)
     merchant_id_array = []
-    @all.find do |invoice|
+    @all.find_all do |invoice|
       # require "pry"; binding.pry
       if invoice.merchant_id == merchant_id
-        merchant_id_array << invoice.id
+        merchant_id_array << invoice
       end
     end
     merchant_id_array
   end
 
   def find_all_by_status(status)
-    status_array = []
-    @all.find_all do |invoice|
-      # require "pry"; binding.pry
-      if invoice.status == status
-        status_array << invoice.id
-      end
+  status_array =  @all.find_all do |invoice|
+    invoice.status == status
     end
-    status_array
+  end
+
+  def create(attributes)
+    new_invoice = @all.max_by { |invoice| invoice.id }.id + 1
+      attributes[:id] = new_invoice
+        @all << Invoice.new(attributes)
+        return @all.last
+  end
+
+  def update(id, attributes)
+    if find_by_id(id) != nil
+      find_by_id(id).update(attributes)
+    end
   end
 
 end
