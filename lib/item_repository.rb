@@ -70,6 +70,7 @@ class ItemRepository
 		updated_item.name = attributes[:name]
 		updated_item.unit_price = attributes[:unit_price]
 		updated_item.description = attributes[:description]
+		updated_item.updated_at = Time.now
 	end
 
 	def delete(id)

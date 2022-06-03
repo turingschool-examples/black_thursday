@@ -76,6 +76,7 @@ RSpec.describe ItemRepository do
     expect(item_repo.find_by_id(263567474).name).to eq("New Test Scarf")
     expect(item_repo.find_by_id(263567474).description).to eq("A beautiful testing scarf")
     expect(item_repo.find_by_id(263567474).unit_price).to eq("1")
+    expect(item_repo.find_by_id(263567474).updated_at).to be_instance_of(Time)
   end
 
   it "can delete an item" do
