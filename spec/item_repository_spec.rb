@@ -64,10 +64,6 @@ RSpec.describe ItemRepository do
       expect(@item_repository.find_all_by_merchant_id(00000000).length).to eq 0
   end
 
-  it 'can create a new item_id' do
-    expect(@item_repository.new_id)
-  end
-
   it 'can create a new item instance' do
     attributes =   {
         :name => "Candace",
@@ -84,6 +80,42 @@ RSpec.describe ItemRepository do
      expect(@item_repository.all.last.id).to eq 263567475
   end
 
+  it ' can update the name, description, and unit price' do
+    attributes0 =   {
+        :name => "Candace",
+        :description => "Clean Queen Frog",
+        :unit_price => 20,
+        :created_at => Time.now,
+        :updated_at => Time.now,
+        :merchant_id => 12334105
+  }
+
+    @item_repository.create(attributes0)
+
+    attributes = {
+        :name => "Tyler",
+        :description => "Toad Master",
+        :unit_price => 35 
+    }
+
+    @item_repository.update(263567475,attributes)
+
+      expect(@item_repository.all.last.name).to eq "Tyler"
+      expect(@item_repository.all.last.description).to eq "Toad Master"
+      expect(@item_repository.all.last.unit_price).to eq 35
+
+      
+      attributes1 = {
+          :name => "Anna",
+          :unit_price => 35 
+        }
+        
+    @item_repository.update(263567475,attributes1)
+
+    expect(@item_repository.all.last.name).to eq "Anna"
+    expect(@item_repository.all.last.description).to eq "Toad Master"
+    expect(@item_repository.all.last.unit_price).to eq 35
+  end
 
 
 end
