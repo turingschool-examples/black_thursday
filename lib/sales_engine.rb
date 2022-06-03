@@ -11,4 +11,8 @@ class SalesEngine
     SalesEngine.new(data[:items], data[:merchants])
   end
 
+  def analyst
+    SalesAnalyst.new
+  end
+
 end
