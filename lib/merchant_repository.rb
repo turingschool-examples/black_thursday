@@ -4,7 +4,7 @@ require 'pry'
 
 class MerchantRepository
   attr_reader :all
-  attr_accessor
+
   def initialize(file_path)
     @file_path = file_path
     @all = []
@@ -60,6 +60,6 @@ class MerchantRepository
   def delete(id)
     merchant = find_by_id(id)
     @all.delete(merchant)
-    
+
   end
 end

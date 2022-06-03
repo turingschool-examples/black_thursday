@@ -11,9 +11,7 @@ class SalesEngine
   end
 
   def self.from_csv(data)
-    # binding.pry
     SalesEngine.new(data[:items], data[:merchants])
-
   end
 
 end

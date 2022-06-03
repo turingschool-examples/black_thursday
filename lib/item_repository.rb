@@ -1,5 +1,6 @@
 require 'pry'
 require 'csv'
+require_relative '../lib/item'
 
 class ItemRepository
 
@@ -58,7 +59,7 @@ class ItemRepository
     def create(attributes)
         new_id = attributes[:id] = @all.last.id + 1
         @all << Item.new(:id => new_id, :name => attributes[:name],:description => attributes[:description],
-        :unit_price => attributes[:unit_price], :created_at => attributes[:created_at], 
+        :unit_price => attributes[:unit_price], :created_at => attributes[:created_at],
         :updated_at => attributes[:updated_at], :merchant_id => attributes[:merchant_id])
     end
 
@@ -79,6 +80,6 @@ class ItemRepository
         item = find_by_id(id)
         @all.delete(item)
     end
-  
-  
+
+
 end
