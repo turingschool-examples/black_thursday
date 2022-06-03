@@ -18,7 +18,6 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.merchant_items_hash.count).to eq(475)
   end
 
-
   it 'gives average items per merchant' do
     # require "pry"; binding.pry
     expect(@sales_analyst.average_items_per_merchant).to eq(2.88)
