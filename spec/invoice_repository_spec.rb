@@ -19,4 +19,10 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.all.first.id).to eq("1")
     expect(@invoice_repository.all.first.merchant_id).to eq("12335938")
   end
+
+  it "can find an invoice by id and return nil if not found" do
+    expect(@invoice_repository.find_by_id("0")).to eq nil
+    expect(@invoice_repository.find_by_id("11")).to be_a(Invoice)
+    expect(@invoice_repository.find_by_id("370")).to be_a(Invoice)
+  end
 end
