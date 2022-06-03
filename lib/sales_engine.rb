@@ -10,7 +10,6 @@ class SalesEngine
     @items = check_items(data)
     @merchants = check_merchants(data)
     @invoices = check_invoices(data)
-    @analyst = analyze_stuff
   end
 
   def self.from_csv(data)

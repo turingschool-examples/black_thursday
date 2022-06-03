@@ -1,19 +1,14 @@
 require 'simplecov'
 SimpleCov.start
-require './lib/sales_engine'
-require './lib/merchant_repository'
-require './lib/item_repository'
-require './lib/merchant'
-require 'rspec'
+require './lib/helper'
 
-RSpec.describe SalesEngine do
+RSpec.describe ItemRepository do
+  let!(:sales_engine) {SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv"
+  })}
 
   it 'exists' do
-    sales_engine = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-      })
-
     expect(sales_engine).to be_instance_of(SalesEngine)
   end
 
