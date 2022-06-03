@@ -23,6 +23,10 @@ class SalesEngine
     @item_repository
   end
 
+  def invoices
+    @invoice_repository
+  end
+
   def analyst
     SalesAnalyst.new(@item_repository,@merchant_repository,@invoice_repository)
   end
