@@ -12,7 +12,6 @@ RSpec.describe Item do
       :updated_at  => '2016-01-11 11:30:35 UTC',
       :merchant_id => 2
     })
-    # require 'pry'; binding.pry
   end
 
   describe "#initialize" do
