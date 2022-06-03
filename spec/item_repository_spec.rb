@@ -117,5 +117,28 @@ RSpec.describe ItemRepository do
     expect(@item_repository.all.last.unit_price).to eq 35
   end
 
+  it 'can delete items' do
+        attributes =   {
+            :name => "Candace",
+            :description => "Clean Queen Frog",
+            :unit_price => 20,
+            :created_at => Time.now,
+            :updated_at => Time.now,
+            :merchant_id => 12334105
+        }
+
+        expect(@item_repository.all.count).to eq 1367
+        
+        @item_repository.create(attributes)
+
+        expect(@item_repository.all.count).to eq 1368
+
+        @item_repository.delete(263567475)
+
+        expect(@item_repository.all.count).to eq 1367
+        expect(@item_repository.find_by_id(263567475)).to be_nil
+   end
+
+
 
 end
