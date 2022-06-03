@@ -36,36 +36,21 @@ class ItemRepository
         item.description.downcase.include?(description.downcase)
     end
   end
+
+  def find_all_by_price(price)
+    @all.find_all do |item|
+        item.unit_price == price
+    end
+  end
+
+  def range_price
+    items = @all.minmax_by do |item|
+        item.unit_price
+    end
+    range = [items[0].unit_price, items[1].unit_price]
+  end
+
+
   
   
 end
-
-# def find_all_with_description(description)
-#     array = []
-#     @all.select do |item|
-#         # binding.pry
-#         if item.description.downcase.include?(description.downcase)
-#             array << item
-#         end
-#     end
-#     array
-#   end
-
-# @all.select do |item|
-#     if item.description.downcase == description.downcase
-#         return item
-#     end
-# end
-#    @all.find_all do |item|
-#         if item.description.downcase.include?(description.downcase)
-#             return item
-#         end
-#     end
-    # array = []
-    # @all.each do |item|
-    #     if item.description.include?(description)
-    #         array << item
-    #     end
-    # end
-    # binding.pry
-    # array
