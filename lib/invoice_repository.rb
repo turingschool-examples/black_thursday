@@ -34,6 +34,6 @@ class InvoiceRepository
   end
   #refactor delete
     def delete(customer_id)
-      array = @all.delete(@all.find_by_id(customer_id))
+      @all.delete(@all.find_by_id(customer_id))
     end
 end
