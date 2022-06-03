@@ -91,5 +91,4 @@ RSpec.describe SalesAnalyst do
 
   xit 'returns percent of invoices returned' do
     expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
-  end
 end

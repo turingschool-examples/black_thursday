@@ -1,9 +1,6 @@
 require 'simplecov'
 SimpleCov.start
-require './lib/item'
-require './lib/item_repository'
-require 'rspec'
-require 'pry'
+require 'helper'
 
 RSpec.describe ItemRepository do
 
