@@ -37,11 +37,22 @@ class MerchantRepository
     @all <<  Merchant.new({:id => new_id,:name => new_merchant_name})
   end
 
-  def update(id, name)
-    require "pry"; binding.pry
-    name = name
-    find_by_id(id).change(name)
+  def delete(id)
+    item_index = @all.find_index(find_by_id(id))
+    @all.delete_at(item_index)
   end
+
+  # def delete(id)
+  #   key = @all.find_by_id(id)
+  #   require "pry"; binding.pry
+  #   @all.delete_at(key)
+  # end
+
+  # def update(id, name)
+  #   require "pry"; binding.pry
+  #   name = name
+  #   find_by_id(id).change(name)
+  # end
 
 
 

@@ -56,6 +56,7 @@ RSpec.describe MerchantRepository do
     @merchantrepository.create("TuringForLife")
     @merchantrepository.delete(12337412)
     expect(@merchantrepository.find_by_id(12337412)).to eq(nil)
+  end
 
   xit 'update the name' do
     @merchantrepository.create("TuringForLife")
