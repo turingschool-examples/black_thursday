@@ -79,11 +79,21 @@ class ItemRepository
     @all << Item.new(attributes)
   end
 
-  def update (id, attributes) #unfinished, doesn't work
+  def update (id, attributes)
+    @all.each do |item|
+      if item.id == id
+        item.name = attributes[:name]
+        item.description = attributes[:description]
+        item.unit_price = attributes[:unit_price]
+        item.updated_at = Time.now
+      end
+    end
+  end
+
+  def delete(id)
     @all.find do |item|
       item.id == id
-      binding.pry
-      item.name = attributes[:name]
+      @all.delete(item)
     end
   end
 end
