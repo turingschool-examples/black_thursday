@@ -43,13 +43,13 @@ class ItemRepository
     end
   end
 
-  def range_price
-    items = @all.minmax_by do |item|
-        item.unit_price
+  def find_all_by_price_in_range(range)
+    @all.find_all do |item|
+        item.unit_price.between?(range.first, range.last)
     end
-    range = [items[0].unit_price, items[1].unit_price]
   end
 
+  
 
   
   

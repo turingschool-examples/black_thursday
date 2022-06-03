@@ -51,13 +51,9 @@ RSpec.describe ItemRepository do
       expect(@item_repository.find_all_by_price(1200).first.id).to eq 263395237
   end
 
-  it 'can find item price range' do
-    expect(@item_repository.range_price).to be_a Array
-    expect(@item_repository.range_price.length).to eq 2
-  end
-
   it 'is verifing passed in range is within item unit_price range of instantiated items' do
-      expect(@item_repository.)
+      expect(@item_repository.find_all_by_price_in_range(0..1200)).to be_a Array
+      expect(@item_repository.find_all_by_price_in_range(0..1200).length).to eq 350
   end
 
 
