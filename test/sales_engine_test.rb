@@ -17,13 +17,26 @@ RSpec.describe SalesEngine do
     expect(sales_engine).to be_instance_of(SalesEngine)
   end
 
-  it 'can return an array of all merchants' do
+  it 'can return merchant repository' do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv"
       })
 
-    expect(sales_engine.merchant_repository).to be_instance_of(MerchantRepository)
+    merchant_repo = sales_engine.merchants
+
+    expect(merchant_repo).to be_instance_of(MerchantRepository)
+  end
+
+  it 'can return item repository' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+
+    item_repo = sales_engine.items
+
+    expect(item_repo).to be_instance_of(ItemRepository)
   end
 
 end
