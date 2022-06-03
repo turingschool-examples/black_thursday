@@ -1,21 +1,20 @@
+require 'bigdecimal'
+require 'time'
+
 class Item
 
-attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
+attr_reader :id, :merchant_id, :created_at, :unit_price_to_dollars
+attr_accessor :name, :description, :unit_price, :updated_at
 
   def initialize(data)
     @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
-    @unit_price = data[:unit_price].to_i
-    @merchant_id = data[:merchant_id]
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
-  end
-
-  def self.create_item(data)
-    CSV.parse(File.read(data), headers: true, header_converters: :symbol).map do |row|
-       Item.new(row)
-     end
+    @unit_price = BigDecimal(data[:unit_price])/100
+    @merchant_id = data[:merchant_id].to_i
+    @created_at = Time.parse(data[:created_at].to_s)
+    @updated_at = Time.parse(data[:updated_at].to_s)
+    @unit_price_to_dollars = data[:unit_price].to_f/100
   end
 
 end
