@@ -30,13 +30,12 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
 
-  it "can determine which merchant sold the most items?" do #takes a while to test
+  it "can determine which merchant sold the most items?" do #takes a while to test but passes as an array
     expect(@sales_analyst.merchants_with_high_item_count).to be_instance_of(Array)
   end
 
   it "can give us avg price of given merchants items" do
     expect(@sales_analyst.average_item_price_for_merchant(12334159)).to eq(3150)
-    #be_instance_of(bigdecimal)
   end
 
   it "can return sum of given merchants item prices" do
@@ -48,6 +47,6 @@ RSpec.describe SalesAnalyst do
   end
 
   it "determins items that are TWO standard deviations above average item price" do
-    expect(@sales_analyst.golden_items).to be_instance_of(Array) #might be able to test more directly?
+    expect(@sales_analyst.golden_items).to be_instance_of(Array) #might be able to test more directly? maybe check to see if its an instance of items?
   end
 end
