@@ -61,4 +61,15 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.golden_items).to be_a(Array)
     expect(sales_analyst.golden_items.length).to eq(5)
   end
+
+  it 'can calculate standard_deviation'do
+  sales_engine = SalesEngine.from_csv({
+    :items => "./data/items.csv",
+    :merchants => "./data/merchants.csv"
+  })
+
+  sales_analyst = sales_engine.analyst
+
+  expect(sales_analyst.standard_deviation([3,4,5],4)).to eq(1.0)
+  end
 end

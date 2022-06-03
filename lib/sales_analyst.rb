@@ -19,17 +19,34 @@ class SalesAnalyst < SalesEngine
     @item_count = @merchants.all.map do |merchant|
       @items.find_all_by_merchant_id(merchant.id).length
     end
+    standard_deviation(@item_count, average_items_per_merchant)
+    # total_sum = @item_count.sum do |count|
+    #   (count - average_items_per_merchant)**2
+    # end
+    #
+    # Math.sqrt(total_sum / (@merchants.all.length - 1)).round(2)
+  end
 
-    total_sum = @item_count.sum do |count|
-      (count - average_items_per_merchant)**2
+  def standard_deviation(counts, average)
+    total_sum = counts.sum do |count|
+      (count - average)**2
     end
 
-    Math.sqrt(total_sum / (@merchants.all.length - 1)).round(2)
+    Math.sqrt(total_sum / (counts.length - 1)).round(2)
   end
 
   def merchants_with_high_item_count
     high_item_count = average_items_per_merchant + average_items_per_merchant_standard_deviation
     @merchants.all.find_all {|merchant| @items.find_all_by_merchant_id(merchant.id).length > high_item_count}
 
+  end
+
+  def golden_items
+    item_list = @items.all.map{|item| item.unit_price}
+    price_sum = @items.all.sum{|item| item.unit_price}
+    average = price_sum / @items.all.length
+    sd = standard_deviation(item_list, average)
+
+    @items.all.find_all{|item| item.unit_price > (average + (sd * 2))}
   end
 end
