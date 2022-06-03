@@ -2,8 +2,8 @@ require 'CSV'
 require_relative 'invoice'
 
 class InvoiceRepository
-  attr_reader :all,
-              :file_path
+  attr_reader :file_path
+  attr_accessor :all
 
 
   def initialize(file_path)
@@ -20,6 +20,7 @@ class InvoiceRepository
         })
     end
   end
+
   def find_by_id(invoice_id)
     @all.find { |invoice| invoice.id.to_i == invoice_id}
   end
@@ -35,6 +36,7 @@ class InvoiceRepository
   def find_all_by_status(status)
     @all.find_all {|invoice| invoice.status == status}
   end
+
   def create(data_hash)
     id = (@all.last.id.to_i + 1)
     @all << Invoice.new({
@@ -45,12 +47,13 @@ class InvoiceRepository
       :updated_at => data_hash[:updated_at]
       })
   end
-  def update(customer_id, status)
-    @all.find_by_id(customer_id).status = status
-    @ll.find_by_id(customer_id).updated_at = Time.now
+  
+  def update(id, status)
+    find_by_id(id).status = status
+    find_by_id(id).updated_at = Time.now
   end
-  #refactor delete
-    def delete(customer_id)
-      @all.delete(@all.find_by_id(customer_id))
-    end
+
+  def delete(id)
+    @all.delete(find_by_id(id))
+  end
 end
