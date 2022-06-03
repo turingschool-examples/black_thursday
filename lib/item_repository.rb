@@ -39,14 +39,13 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-  range_array = []
-
+    range_array = []
     @all.each do |item|
       if item.unit_price.to_i >= range.first && item.unit_price.to_i <= range.last
         range_array << item
       end
     end
-      range_array
+    range_array
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -57,23 +56,20 @@ class ItemRepository
 
   def create(attributes)
     new_id = @all.max_by { |item| item.id }.id + 1
-      attributes[:id] = new_id
-        @all << Item.new(attributes)
-        return @all.last
+    attributes[:id] = new_id
+    @all << Item.new(attributes)
+    return @all.last
   end
 
   def update(id, attr)
-      if find_by_id(id) != nil
-        find_by_id(id).update(attr)
-      end
+    if find_by_id(id) != nil
+      find_by_id(id).update(attr)
+    end
   end
-
 
  def delete(id)
    @all.delete_if do |item|
      item.id == id
    end
  end
-
-
 end

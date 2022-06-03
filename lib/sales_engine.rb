@@ -1,4 +1,6 @@
-require_relative 'merchant_repository'
+
+require "./lib/item_repository"
+require "./lib/merchant_repository"
 
 class SalesEngine
   attr_reader :merchant_repository, :item_repository
