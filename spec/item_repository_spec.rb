@@ -12,7 +12,7 @@ RSpec.describe ItemRepository do
   end
 
   it "can return an array of all known items" do
-    expect(@item_repository.all_items).to be_a Array
+    expect(@item_repository.all).to be_a Array
   end
 
   it "can return an instance of an Item within a price range" do
@@ -30,9 +30,9 @@ RSpec.describe ItemRepository do
 
     it "can create a new instance" do
       @item_repository.create("ants")
-      expect(@item_repository.all_items.last).to be_a Item
-      expect(@item_repository.all_items.last.name).to eq("ants")
-      expect(@item_repository.all_items.last.id).to eq("263567475")
+      expect(@item_repository.all.last).to be_a Item
+      expect(@item_repository.all.last.name).to eq("ants")
+      expect(@item_repository.all.last.id).to eq("263567475")
     end
 
     it "can can update item instances "do
@@ -59,6 +59,12 @@ RSpec.describe ItemRepository do
     end
 
     it "can find an item that exactly matches by supplied price" do
-      expect(@item_repository.find_all_by_price).to be_a(Array)
-      expect(@item_repository.find_all_by_price.first).to eq(13.00)
+      expect(@item_repository.find_all_by_price("1200")).to be_a(Array)
+      expect(@item_repository.find_all_by_price("1200").first.unit_price).to eq("1200")
     end
+
+    it "can delete the merchant instace" do
+      @item_repository.delete("263395617")
+      expect(@item_repository.all.first.id).to eq("263395237")
+    end
+end
