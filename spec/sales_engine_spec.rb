@@ -16,4 +16,8 @@ RSpec.describe SalesEngine do
   it "exists" do
     expect(@salesengine).to be_a(SalesEngine)
   end
+
+  it "can return an array of all items" do
+      expect(@salesengine.item_repository).to be_instance_of ItemRepository
+    end
 end
