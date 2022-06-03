@@ -7,29 +7,34 @@ class SalesEngine
               :analyst
 
   def initialize(data)
-    @items = ItemRepository.new(data[:items])
-    @merchants = MerchantRepository.new(data[:merchants])
-    @invoices = InvoiceRepository.new(data[:invoices])
-    @analyst = SalesAnalyst.new
+    @items = check_items(data)
+    @merchants = check_merchants(data)
+    @invoices = check_invoices(data)
+    # @analyst = analyze_stuff(data)
+
+    # @items = ItemRepository.new(data[:items])
+    # @merchants = MerchantRepository.new(data[:merchants])
+    # @invoices = InvoiceRepository.new(data[:invoices])
+    # @analyst = SalesAnalyst.new(@items, @merchants)
   end
 
   def self.from_csv(data)
     SalesEngine.new(data)
   end
 
-  # def analyst
-  #   @sales_analyst
-  # end
-  #
-  # def merchants
-  #   @merchants
-  # end
-  #
-  # def items
-  #   @items
-  # end
-  #
-  # def invoices
-  #   @invoice_repository
-  # end
+  def check_items(data)
+    return ItemRepository.new(data[:items]) if data.keys.include?(:items) == true
+  end
+
+  def check_merchants(data)
+    return MerchantRepository.new(data[:merchants]) if data.keys.include?(:merchants) == true
+  end
+
+  def check_invoices(data)
+    return InvoiceRepository.new(data[:invoices]) if data.keys.include?(:invoices) == true
+  end
+
+  def analyst
+    SalesAnalyst.new(@items, @merchants)
+  end
 end
