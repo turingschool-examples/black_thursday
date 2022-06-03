@@ -24,4 +24,10 @@ RSpec.describe ItemRepository do
     expect(item_repo.find_by_name("FREE stANDing wOdeN lEttErs")).to be_instance_of(Item)
     expect(item_repo.find_by_name("InvalidName")).to eq(nil)
   end
+
+  it "can return an item by parts of a description" do
+    item_repo = ItemRepository.new('./data/items.csv')
+    expect(item_repo.find_all_with_description("Disney")).to be_instance_of(Array)
+    expect(item_repo.find_all_with_description("AAAAAAAAAAA")).to be([])
+  end
 end
