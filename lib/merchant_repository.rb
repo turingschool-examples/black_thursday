@@ -19,11 +19,11 @@ class MerchantRepository
   #   end
   # end
 
-  def find_by_name(name)
-    @all.find do |row|
-      row.name.upcase == name.upcase
-    end
-  end
+  # def find_by_name(name)
+  #   @all.find do |row|
+  #     row.name.upcase == name.upcase
+  #   end
+  # end
 
   def find_all_by_name(name)
     @all.find_all do |row|
