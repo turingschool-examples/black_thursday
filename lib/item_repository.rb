@@ -55,6 +55,7 @@ class ItemRepository
   end
 
   def update(id, attributes)
+    require "pry"; binding.pry
     key = attributes.keys[0]
     value = attributes.values[0]
     find_by_id(id).change(key, value)

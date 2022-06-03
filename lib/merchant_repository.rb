@@ -38,7 +38,11 @@ class MerchantRepository
   end
 
   def update(id, name)
-    
+    require "pry"; binding.pry
+    name = name
+    find_by_id(id).change(name)
+  end
+
 
 
 

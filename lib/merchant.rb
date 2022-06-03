@@ -7,6 +7,14 @@ class Merchant
 
 
   end
+  # def change(name)
+  #   require "pry"; binding.pry
+  #   @all.each do |value|
+  #     value == value
+  #   end
+  # end
+
+
 
 
 
