@@ -7,7 +7,13 @@ RSpec.describe InvoiceRepository do
   # let!(:invoice_repo) {sales_engine.invoices}
 
   before :each do
-    @invoice_repo = InvoiceRepository.new("./data/invoices.csv")
+    @sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+
+    @invoice_repo = @sales_engine.invoices
   end
 
   it "exists" do
