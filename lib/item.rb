@@ -4,11 +4,11 @@ require 'BigDecimal'
 class Item
     attr_reader :id,
                 :name,
-                :description,
                 :unit_price,
                 :created_at,
                 :updated_at,
                 :merchant_id
+    attr_accessor :description
     def initialize(data)
         @id = data[:id].to_i
         @name = data[:name]

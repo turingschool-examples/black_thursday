@@ -32,14 +32,40 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-      frog = @all.find_all do |item|
-      if item.description.downcase == description.downcase
-        return item
-      end
+      @all.find_all do |item|
+        item.description.downcase.include?(description.downcase)
     end
-    binding.pry
-
   end
-
-
+  
+  
 end
+
+# def find_all_with_description(description)
+#     array = []
+#     @all.select do |item|
+#         # binding.pry
+#         if item.description.downcase.include?(description.downcase)
+#             array << item
+#         end
+#     end
+#     array
+#   end
+
+# @all.select do |item|
+#     if item.description.downcase == description.downcase
+#         return item
+#     end
+# end
+#    @all.find_all do |item|
+#         if item.description.downcase.include?(description.downcase)
+#             return item
+#         end
+#     end
+    # array = []
+    # @all.each do |item|
+    #     if item.description.include?(description)
+    #         array << item
+    #     end
+    # end
+    # binding.pry
+    # array
