@@ -56,6 +56,15 @@ RSpec.describe ItemRepository do
       expect(@item_repository.find_all_by_price_in_range(0..1200).length).to eq 350
   end
 
+  it 'can find all by merchant id' do
+      expect(@item_repository.find_all_by_merchant_id(12334105).first).to be_a Item 
+      expect(@item_repository.find_all_by_merchant_id(12334105).length).to eq 3 
+      expect(@item_repository.find_all_by_merchant_id(12334105)).to be_a Array
+      expect(@item_repository.find_all_by_merchant_id(00000000).length).to eq 0
+  end
+
+  it 'can create a new item instance' do
+
 
 
 end
