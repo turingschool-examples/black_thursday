@@ -17,4 +17,8 @@ RSpec.describe InvoiceRepository do
   it "can find invoices by their id" do
     expect(invoice_repo.find_by_id(10)).to be_instance_of Invoice
   end
+
+  it "can find invoices by their customer_id" do
+    expect(invoice_repo.find_by_customer_id(2)).to be_instance_of Invoice
+  end
 end
