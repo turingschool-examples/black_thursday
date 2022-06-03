@@ -9,10 +9,15 @@ RSpec.describe SalesAnalyst do
     @sales_analyst = @sales_engine.analyst
   end
 
-  it "exists" do
+  it 'exists' do
     expect(@sales_engine).to be_a(SalesEngine)
     expect(@sales_analyst).to be_a(SalesAnalyst)
   end
+
+  it 'creates a hash of merchants and their number of items' do
+    expect(@sales_analyst.merchant_items_hash.count).to eq(475)
+  end
+
 
   it 'gives average items per merchant' do
     # require "pry"; binding.pry
@@ -23,4 +28,8 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
 
+  it 'gives the merchants that sell the most items' do
+    expect(@sales_analyst.merchants_with_high_item_count).to include(Merchant)
+    expect(@sales_analyst.merchants_with_high_item_count.count).to eq(52)
+  end
 end
