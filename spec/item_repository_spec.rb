@@ -77,19 +77,21 @@ RSpec.describe ItemRepository do
   end
 
   it "can update the item's attributes" do
-    @items.create({
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => 1099,
-      :created_at  => '1994-05-07 23:38:43 UTC',
-      :updated_at  => '2016-01-11 11:30:35 UTC',
-      :merchant_id => 2
-    })
-    @items.update("263567475", {:name => "Pen", :description => "You can write things sitll",
-      :unit_price => 1299, :updated_at => '2022-01-11 11:30:35 UTC'})
-    expect(@items.find_by_id("263567475").name).to eq("Pen")
+    @items.update("263395237", {
+      :name => "test name change",
+      :description => "test update",
+      :unit_price => 1299,
+      :updated_at => 'dummy data'}
+    )
+    expect(@items.find_by_id("263395237").name).to eq('test name change')
+    expect(@items.find_by_id("263395237").description).to eq('test update')
+    expect(@items.find_by_id("263395237").unit_price).to eq(1299)
+    expect(@items.find_by_id("263395237").updated_at).not_to eq '2007-06-04 21:35:10 UTC'
   end
 
-
-
+  it 'can delete items' do
+    expect(@items.find_by_id("263395237")).to be_a Item
+    @items.delete('263395237')
+    expect(@items.find_by_id("263395237")).to be nil
+  end
 end
