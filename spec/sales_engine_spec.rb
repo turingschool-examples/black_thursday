@@ -18,6 +18,10 @@ RSpec.describe SalesEngine do
   end
 
   it "can return an array of all items" do
-      expect(@salesengine.item_repository).to be_instance_of ItemRepository
-    end
+    expect(@salesengine.item_repository).to be_instance_of ItemRepository
+  end
+
+  it "can return an array of all merchants" do
+    expect(@salesengine.merchant_repository).to be_instance_of MerchantRepository
+  end
 end
