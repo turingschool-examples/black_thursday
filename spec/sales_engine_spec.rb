@@ -1,5 +1,4 @@
 require "./lib/sales_engine"
-
 require "./lib/item_repository"
 require "./lib/merchant_repository"
 
@@ -10,6 +9,7 @@ RSpec.describe SalesEngine do
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
+		require "pry"; binding.pry
     expect(sales_engine).to be_instance_of SalesEngine
   end
 
