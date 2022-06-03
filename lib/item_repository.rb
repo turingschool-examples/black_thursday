@@ -41,5 +41,11 @@ class ItemRepository
 		@all.find_all do |item|
 			item.unit_price.include?(unit_price)
 		end
-	end 
+	end
+
+	def find_all_by_price_in_range(range)
+		@all.find_all do |item|
+			(range.min..range.max).include?(item.unit_price.to_i)
+		end
+	end
 end
