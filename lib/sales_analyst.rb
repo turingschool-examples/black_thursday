@@ -15,10 +15,10 @@ class SalesAnalyst < SalesEngine
   end
 
   def average_items_per_merchant_standard_deviation
-    @item_count = @merchants.all.map do |merchant|
+    item_count = @merchants.all.map do |merchant|
       @items.find_all_by_merchant_id(merchant.id).length
     end
-    standard_deviation(@item_count, average_items_per_merchant)
+    standard_deviation(item_count, average_items_per_merchant)
   end
 
   def standard_deviation(counts, average)
