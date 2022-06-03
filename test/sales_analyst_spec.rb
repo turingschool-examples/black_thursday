@@ -49,4 +49,16 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_high_item_count).to be_a(Array)
     expect(sales_analyst.merchants_with_high_item_count.length).to eq(52)
   end
+
+  it 'return golden items' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.golden_items).to be_a(Array)
+    expect(sales_analyst.golden_items.length).to eq(5)
+  end
 end
