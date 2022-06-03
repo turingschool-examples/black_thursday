@@ -28,6 +28,7 @@ RSpec.describe ItemRepository do
   it "can return an item by parts of a description" do
     item_repo = ItemRepository.new('./data/items.csv')
     expect(item_repo.find_all_with_description("Disney")).to be_instance_of(Array)
-    expect(item_repo.find_all_with_description("AAAAAAAAAAA")).to be([])
+    expect(item_repo.find_all_with_description("dISneY")).to be_instance_of(Array)
+    expect(item_repo.find_all_with_description("Thiago")).to eq([])
   end
 end
