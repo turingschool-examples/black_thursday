@@ -32,4 +32,8 @@ class InvoiceRepository
     @all.find_by_id(customer_id).status = status
     @ll.find_by_id(customer_id).updated_at = Time.now
   end
+  #refactor delete
+    def delete(customer_id)
+      array = @all.delete(@all.find_by_id(customer_id))
+    end
 end
