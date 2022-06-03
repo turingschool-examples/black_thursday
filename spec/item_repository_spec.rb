@@ -1,9 +1,6 @@
 require'./lib/item'
-require'./item_repository'
+require'./lib/item_repository'
 require'BigDecimal'
-# require_relative 'merchant'
-# require_relative 'merchant_repository'
-require 'pry'
 
 RSpec.describe ItemRepository do
   before :each do
