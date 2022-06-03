@@ -24,6 +24,52 @@ RSpec.describe SalesAnalyst do
 
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.average_items_per_merchant).to eq(5)
+    expect(sales_analyst.average_items_per_merchant).to eq(2.88)
+  end
+
+  it 'return a standard deviation of the number of items per merchant' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
+  end
+
+  it 'checks for merchants with high item count' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.merchants_with_high_item_count).to be_a(Array)
+    expect(sales_analyst.merchants_with_high_item_count.length).to eq(52)
+  end
+
+  it 'return golden items' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.golden_items).to be_a(Array)
+    expect(sales_analyst.golden_items.length).to eq(5)
+  end
+
+  it 'can calculate standard_deviation'do
+  sales_engine = SalesEngine.from_csv({
+    :items => "./data/items.csv",
+    :merchants => "./data/merchants.csv"
+  })
+
+  sales_analyst = sales_engine.analyst
+
+  expect(sales_analyst.standard_deviation([3,4,5],4)).to eq(1.0)
   end
 end
