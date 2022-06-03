@@ -6,4 +6,7 @@ class Merchant
     @name = data[:name]
   end
 
+  def update(attributes)
+    @name = attributes[:name] unless attributes[:name] == nil
+  end
 end

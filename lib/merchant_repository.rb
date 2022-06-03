@@ -32,22 +32,27 @@ class MerchantRepository
     end
   end
 
-  def create(name)
-    new_id = @all.sort_by do |merchant|
-      merchant.id
-    end.last.id
-    @all << Merchant.new({id: new_id + 1, name: name})
+  def create(attributes)
+    new_id = @all.max_by {|merchant| merchant.id }.id + 1
+    attributes[:id] = new_id
+    @all << Merchant.new(attributes)
+    return @all.last
   end
 
-  def update(id, name)
+  def update(id, attributes)
     if find_by_id(id) != nil
-      @all.delete_if do |merchant|
-        merchant.id == id
-      end
-      @all << Merchant.new({id: id, name: name})
-      # does this need to have both merchant attributes as the second argument?
+      find_by_id(id).update(attributes)
     end
   end
+
+  # def update(id, name)
+  #   if find_by_id(id) != nil
+  #     @all.delete_if do |merchant|
+  #       merchant.id == id
+  #     end
+  #     @all << Merchant.new({id: id, name: name})
+  #   end
+  # end
 
   def delete(id)
     @all.delete_if do |merchant|

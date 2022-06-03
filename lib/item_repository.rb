@@ -61,9 +61,9 @@ class ItemRepository
     return @all.last
   end
 
-  def update(id, attr)
+  def update(id, attributes)
     if find_by_id(id) != nil
-      find_by_id(id).update(attr)
+      find_by_id(id).update(attributes)
     end
   end
 
