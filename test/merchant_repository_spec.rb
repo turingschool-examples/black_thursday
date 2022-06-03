@@ -52,4 +52,10 @@ RSpec.describe MerchantRepository do
     expect(@merchantrepository.all[-1].id).to eq(12337412)
   end
 
+  it 'update the name' do
+    @merchantrepository.create("TuringForLife")
+
+    expect(@merchantrepository.update(12337412, "TuringForLife")).to eq("TuringForever")
+  end
+
 end

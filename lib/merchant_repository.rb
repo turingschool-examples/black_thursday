@@ -37,6 +37,9 @@ class MerchantRepository
     @all <<  Merchant.new({:id => new_id,:name => new_merchant_name})
   end
 
+  def update(id, name)
+    
+
 
 
 
