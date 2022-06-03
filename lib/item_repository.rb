@@ -1,4 +1,5 @@
 require 'CSV'
+require "BigDecimal"
 require './lib/item.rb'
 
 class ItemRepository
@@ -39,7 +40,7 @@ class ItemRepository
 
 	def find_all_by_price(unit_price)
 		@all.find_all do |item|
-			item.unit_price.include?(unit_price)
+			item.unit_price == unit_price
 		end
 	end
 
@@ -59,7 +60,8 @@ class ItemRepository
 	def create(attributes)
 		new_id = @all.last.id.to_i + 1
 		new_attribute = attributes
-		@all << Item.new(:id => new_id.to_s, :name => new_attribute)
+		@all << Item.new(:id => new_id.to_s, :name => new_attribute[:name], :unit_price =>
+		new_attribute[:unit_price], :description => new_attribute[:description], :created_at => Time.now)
 		return @all.last
 	end
 
@@ -68,6 +70,7 @@ class ItemRepository
 		updated_item.name = attributes[:name]
 		updated_item.unit_price = attributes[:unit_price]
 		updated_item.description = attributes[:description]
+		updated_item.updated_at = Time.now
 	end
 
 	def delete(id)
