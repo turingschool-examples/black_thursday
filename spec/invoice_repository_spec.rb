@@ -37,4 +37,11 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.find_all_by_merchant_id(12334444)).to be_a(Array)
     expect(@invoice_repository.find_all_by_merchant_id(1)).to eq([])
   end
+
+  it "can find all by status and return an array" do
+    expect(@invoice_repository.find_all_by_status("pending")).to be_a(Array)
+    expect(@invoice_repository.find_all_by_status("shipped")).to be_a(Array)
+    expect(@invoice_repository.find_all_by_status("returned")).to be_a(Array)
+    expect(@invoice_repository.find_all_by_status("no status")).to eq([])
+  end
 end
