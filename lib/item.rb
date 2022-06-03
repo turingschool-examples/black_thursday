@@ -1,6 +1,6 @@
 class Item
-  attr_reader :id, :name, :description, :unit_price, :created_at,
-  :updated_at, :merchant_id
+  attr_reader :id, :created_at, :merchant_id
+  attr_accessor :name, :description, :unit_price, :updated_at
 
   def initialize(item_data)
     @id = item_data[:id]
@@ -16,17 +16,17 @@ class Item
     (@unit_price.to_f)
   end
 
-  def change(key, value)
-    if key == :unit_price
-      @unit_price = value
-    elsif key == :description
-      @description = value
-    elsif key == :name
-      @name = value
-    else
-      return nil
-    end
-    @updated_at = Time.now
-  end
+  # def change(key, value)
+  #   if key == :unit_price
+  #     @unit_price = value
+  #   elsif key == :description
+  #     @description = value
+  #   elsif key == :name
+  #     @name = value
+  #   else
+  #     return nil
+  #   end
+  #   @updated_at = Time.now
+  # end
 
 end

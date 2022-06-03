@@ -74,7 +74,7 @@ RSpec.describe ItemRepository do
     expect(@item_repo.find_by_id(263567475).description).to eq("Big and very loud")
 
     time = @item_repo.find_by_id(263567475).updated_at
-    expect(@item_repo.find_by_id(263567475).change(:id, 1223345434)).to eq(nil)
+    expect(@item_repo.update(263567475, {id: 1223345434})).to eq(nil)
     expect(@item_repo.find_by_id(263567475).id).to eq(263567475)
     expect(@item_repo.find_by_id(263567475).updated_at).to eq(time)
   end

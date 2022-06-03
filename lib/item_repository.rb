@@ -1,9 +1,9 @@
 require 'csv'
 require 'BigDecimal'
+require_relative './enumerable'
 
 class ItemRepository
-  attr_reader :all
-
+  include Enumerable
   attr_accessor :all
 
   def initialize(file_path)
@@ -14,14 +14,6 @@ class ItemRepository
       @all << Item.new({
         id: row[:id].to_i, name: row[:name], description: row[:description], unit_price: BigDecimal(row[:unit_price].to_i * 0.01, 4), merchant_id: row[:merchant_id].to_i, created_at: row[:created_at], updated_at: row[:updated_at]})
     end
-  end
-
-  def find_by_id(id)
-    @all.find {|row| row.id == id}
-  end
-
-  def find_by_name(name)
-    @all.find {|row| row.name.downcase == name.downcase}
   end
 
   def find_all_with_description(description)
@@ -53,17 +45,4 @@ class ItemRepository
     @all.append(i)
     i
   end
-
-  def update(id, attributes)
-    require "pry"; binding.pry
-    key = attributes.keys[0]
-    value = attributes.values[0]
-    find_by_id(id).change(key, value)
-  end
-
-  def delete(id)
-    item_index = @all.find_index(find_by_id(id))
-    @all.delete_at(item_index)
-  end
-
 end

@@ -61,7 +61,7 @@ RSpec.describe MerchantRepository do
   it 'update the name' do
     @merchantrepository.create("TuringForLife")
 
-    @merchantrepository.update(12337412, "TuringForever")
+    @merchantrepository.update(12337412, {name: "TuringForever"})
 
     expect(@merchantrepository.find_by_id(12337412).name).to eq("TuringForever")
   end
