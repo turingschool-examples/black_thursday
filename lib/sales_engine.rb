@@ -1,4 +1,6 @@
-require_relative 'merchant_repository'
+
+require "./lib/item_repository"
+require "./lib/merchant_repository"
 
 class SalesEngine
   attr_reader :merchant_repository, :item_repository
@@ -12,4 +14,7 @@ class SalesEngine
     SalesEngine.new(data[:items], data[:merchants])
   end
 
+  def analyst
+    SalesAnalyst.new(@item_repository, @merchant_repository)
+  end
 end
