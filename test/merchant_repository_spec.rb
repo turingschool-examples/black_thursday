@@ -52,4 +52,18 @@ RSpec.describe MerchantRepository do
     expect(@merchantrepository.all[-1].id).to eq(12337412)
   end
 
+  it 'deletes merchant with corrosponding id' do
+    @merchantrepository.create("TuringForLife")
+    @merchantrepository.delete(12337412)
+    expect(@merchantrepository.find_by_id(12337412)).to eq(nil)
+  end
+
+  it 'update the name' do
+    @merchantrepository.create("TuringForLife")
+
+    @merchantrepository.update(12337412, "TuringForever")
+
+    expect(@merchantrepository.find_by_id(12337412).name).to eq("TuringForever")
+  end
+
 end
