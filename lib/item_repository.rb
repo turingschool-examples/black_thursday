@@ -16,10 +16,6 @@ class ItemRepository
     end
   end
 
-  # def find_by_name(name)
-  #   @all.find {|row| row.name.downcase == name.downcase}
-  # end
-
   def find_all_with_description(description)
     @all.find_all {|row| row.description.include?(description)}
   end
@@ -49,16 +45,4 @@ class ItemRepository
     @all.append(i)
     i
   end
-
-  def update(id, attributes)
-    key = attributes.keys[0]
-    value = attributes.values[0]
-    find_by_id(id).change(key, value)
-  end
-
-  # def delete(id)
-  #   item_index = @all.find_index(find_by_id(id))
-  #   @all.delete_at(item_index)
-  # end
-
 end
