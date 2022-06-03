@@ -47,5 +47,20 @@ class SalesAnalyst
     (total_sum / @merchant_repository.all.count).round(2)
   end
 
+  def average_item_price
+    total_sum = @item_repository.all.sum {|item| item.unit_price_to_dollars}
+    (total_sum / @item_repository.all.count).round(2)
+  end
+
+  def item_price_standard_deviation
+    total = @item_repository.all.sum {|item| (item.unit_price_to_dollars - average_item_price) ** 2}
+    Math.sqrt(total / @item_repository.all.count - 1).round(2)
+  end
+
+  def golden_items
+    standard_dev = item_price_standard_deviation
+    @item_repository.all.select {|item| item.unit_price_to_dollars > (average_item_price + (standard_dev * 2))}
+  end
+
 
 end
