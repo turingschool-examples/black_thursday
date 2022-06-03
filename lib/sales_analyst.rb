@@ -47,4 +47,16 @@ class SalesAnalyst
     average_average = average.sum / average.count
   end
 
+  def average_price_plus_two_standard_deviations
+    prices = @item_repository.all.map {|item| item.unit_price}
+    average = prices.sum / prices.count
+    diff_squared = prices.map {|price| (price-average)**2}
+    std_dev = (diff_squared.sum / (diff_squared.count.to_f - 1))**0.5
+    avg_plus_two_std_dev = average + 2 * std_dev
+  end
+
+  def golden_items
+    top_items = @item_repository.all.find_all {|item| item.unit_price > average_price_plus_two_standard_deviations}
+    top_items
+  end
 end

@@ -36,4 +36,12 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_item_price_for_merchant(12334159)).to be_a(BigDecimal)
     expect(@sales_analyst.average_average_price_per_merchant).to be_a(BigDecimal)
   end
+
+  it 'returns the average item price plus two standard deviations' do
+    expect(@sales_analyst.average_price_plus_two_standard_deviations).to be_a(BigDecimal)
+  end
+
+  it 'returns the golden items' do
+    expect(@sales_analyst.golden_items).to include(Item)
+  end
 end
