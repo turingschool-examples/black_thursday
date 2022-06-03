@@ -31,17 +31,19 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.find_by_id(1).id).to eq(1)
   end
 
-  it "can find_all_by_customer_id" do
-    expect(@invoice_repository.find_all_by_customer_id(000)).to eq([])
-    require "pry"; binding.pry
-    expect(@invoice_repository.find_all_by_customer_id(1)).to be_a(Invoice)
-    expect(@invoice_repository.find_all_by_customer_id(1).id).to eq(1)
+  xit "can find_all_by_customer_id" do
+    # expect(@invoice_repository.find_all_by_customer_id(000)).to eq([])
+    expect(@invoice_repository.find_all_by_customer_id(1)).to be_a(Array)
+    expect(@invoice_repository.find_all_by_customer_id(1)).to eq([1..8])
   end
 
-  xit "can find_all_by_merchant_id" do
-    expect(@invoice_repository.find_all_by_customer_id(000)).to eq([])
-    expect(@invoice_repository.find_all_by_customer_id(1)).to be_a(Invoice)
-    expect(@invoice_repository.find_all_by_customer_id(1).id).to eq(1)
+  it "can find_all_by_merchant_id" do
+    expect(@invoice_repository.find_all_by_merchant_id(16510561)).to eq([])
+    expect(@invoice_repository.find_all_by_merchant_id(12335938)).to eq([1])
+  end
+
+  it 'can find_all_by_status' do
+    expect(@invoice_repository.find_all_by_status("pending")).to include(1, 4, 5, 6, 7, 10, 11, 14, 17, 23, 30, 35, 38, 41, 45, 48, 50, 54, 55, 57, 73, 78, 79, 80, 86, 87)
   end
 
 end
