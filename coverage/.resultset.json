@@ -1,7 +1,17 @@
 {
   "RSpec": {
     "coverage": {
+<<<<<<< HEAD
     },
     "timestamp": 1654184322
+=======
+      "/Users/ethan/black_thursday/spec/item_spec.rb": {
+        "lines": [
+
+        ]
+      }
+    },
+    "timestamp": 1654104730
+>>>>>>> ad356820789ded57429c238dec327098178fabaa
   }
 }
