@@ -23,7 +23,8 @@ class SalesAnalyst
   def merchants_with_high_item_count
     merch_array = []
     @merchant_repository.all.each do |merchant|
-      if (@item_repository.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant > average_items_per_merchant_standard_deviation) #avg items per merchant
+      if (@item_repository.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant > average_items_per_merchant_standard_deviation)
+        #avg items per merchant
         merch_array << merchant
       end
     end
