@@ -13,7 +13,7 @@ attr_accessor :id,
     @description = data_hash[:description]
     @created_at = data_hash[:created_at]
     @updated_at = data_hash[:updated_at]
-    @unit_price = data_hash[:unit_price]
+    @unit_price = BigDecimal(data_hash[:unit_price],4)
     @merchant_id = data_hash[:merchant_id]
   end
 
