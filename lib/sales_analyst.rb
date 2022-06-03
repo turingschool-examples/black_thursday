@@ -47,4 +47,16 @@ class SalesAnalyst
     (total_sum / @merchant_repository.all.count).round(2)
   end
 
+  def golden_items
+    golden_item_array = []
+    @merchant_repository.all.each do |merchant|
+
+      if (@item_repository.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant >= average_items_per_merchant_standard_deviation * 2) #checking to see what values are higher than 2 standard deviations - would that be *2 or +2?
+        golden_item_array << @item_repository.find_all_by_merchant_id(merchant.id)
+      end
+    end
+    golden_item_array
+    # require 'pry' ; binding.pry
+  end
+
 end
