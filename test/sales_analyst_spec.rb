@@ -1,0 +1,29 @@
+require "./lib/sales_engine"
+require "./lib/sales_analyst"
+# require "./lib/item_repository"
+# require "./lib/merchant_repository"
+
+#You may need to add more `expect` lines to each test to make it more robust...!
+RSpec.describe SalesAnalyst do
+  it "exists" do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst).to be_a(SalesAnalyst)
+  end
+
+  it 'returns the average items per merchant' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.average_items_per_merchant).to eq(5)
+  end
+end
