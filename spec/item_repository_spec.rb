@@ -31,6 +31,9 @@ RSpec.describe ItemRepository do
     item_repo = ItemRepository.new('./data/items.csv')
     expect(item_repo.find_all_with_description("Disney")).to be_instance_of(Array)
     expect(item_repo.find_all_with_description("dISneY")).to be_instance_of(Array)
+    #This next one was tricky, I had to look through the items.csv, and filter
+    #out anything that wasn't a specific item (lots of pitches, dialogues)
+    expect(item_repo.find_all_with_description("Disney").length).to eq (5)
     expect(item_repo.find_all_with_description("Thiago")).to eq([])
   end
 
