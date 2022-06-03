@@ -61,7 +61,7 @@ RSpec.describe MerchantRepository do
   end
 
   describe '#delete' do
-    xit 'can delete a Merchant based on id' do
+    it 'can delete a Merchant based on id' do
       expect(@collection.find_by_id('12334105').name).to eq 'Shopin1901'
       @collection.delete('12334105')
       expect(@collection.find_by_id('12334105')).to eq nil

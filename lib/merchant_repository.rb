@@ -44,12 +44,15 @@ class MerchantRepository
   def update(merchant_id_search, new_name)
     @all.find do |merchant|
       merchant.id == merchant_id_search
-      merchant.info[:name] = new_name
+      merchant.name = new_name
     end
   end
 
-  # def delete(id)
-  #   @all.delete()
-  # end
+  def delete(merchant_id_search)
+    @all.find do |merchant|
+      merchant.id == merchant_id_search
+      @all.delete(merchant)
+    end
+  end
 
 end
