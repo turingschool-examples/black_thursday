@@ -42,4 +42,9 @@ class MerchantRepository
     renamed_merchant.name = attributes
   end
 
+  def delete(id)
+    removed_merchant = find_by_id(id)
+    @all.delete(removed_merchant)
+  end
+
 end
