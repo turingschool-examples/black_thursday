@@ -14,4 +14,7 @@ class SalesEngine
     SalesEngine.new(data[:items], data[:merchants])
   end
 
+  def analyst
+    SalesAnalyst.new(@item_repository, @merchant_repository)
+  end
 end
