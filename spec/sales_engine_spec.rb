@@ -3,6 +3,7 @@ require './lib/merchant'
 require './lib/item_repository'
 require './lib/item'
 require './lib/sales_engine'
+require 'CSV'
 
 RSpec.describe SalesEngine do
   before :each do
@@ -15,4 +16,4 @@ RSpec.describe SalesEngine do
   it "exists" do
     expect(@salesengine).to be_a(SalesEngine)
   end
-end 
+end
