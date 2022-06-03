@@ -58,10 +58,12 @@ RSpec.describe MerchantRepository do
     expect(@merchantrepository.find_by_id(12337412)).to eq(nil)
   end
 
-  xit 'update the name' do
+  it 'update the name' do
     @merchantrepository.create("TuringForLife")
 
-    expect(@merchantrepository.update(12337412, "Tu")).to eq("TuringForever")
+    @merchantrepository.update(12337412, "TuringForever")
+
+    expect(@merchantrepository.find_by_id(12337412).name).to eq("TuringForever")
   end
 
 end

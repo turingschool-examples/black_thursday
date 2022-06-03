@@ -38,21 +38,21 @@ class MerchantRepository
   end
 
   def delete(id)
-    item_index = @all.find_index(find_by_id(id))
-    @all.delete_at(item_index)
+    key = find_by_id(id)
+    @all.delete(key)
   end
 
-  # def delete(id)
-  #   key = @all.find_by_id(id)
-  #   require "pry"; binding.pry
-  #   @all.delete_at(key)
-  # end
+  def update(id, attributes)
+    @all.each do |merchant|
+      if merchant.id == id
+        merchant.name = attributes
 
-  # def update(id, name)
-  #   require "pry"; binding.pry
-  #   name = name
-  #   find_by_id(id).change(name)
-  # end
+      end
+    end
+  end
+
+
+
 
 
 
