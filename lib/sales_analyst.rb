@@ -47,4 +47,5 @@ class SalesAnalyst
     (total_sum / @merchant_repository.all.count).round(2)
   end
 
+
 end
