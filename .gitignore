@@ -5,3 +5,4 @@ default.reek
 Gemfile
 Rakefile
 utility_scripts/
+Gemfile.lock
