@@ -29,6 +29,5 @@ RSpec.describe SalesAnalyst do
    it "can return the merchants more than one standard deviation from average products sold" do
      expect(@sales_analyst.merchants_with_high_item_count).to be_a Array
      expect(@sales_analyst.merchants_with_high_item_count[0]).to be_a Merchant
-
    end
 end
