@@ -213,12 +213,19 @@
         "lines": [
           1,
           1,
+          null,
           1,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1654210405
+    "timestamp": 1654223072
   }
 }

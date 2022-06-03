@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-06-02T16:53:25-06:00">2022-06-02T16:53:25-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-06-02T20:24:32-06:00">2022-06-02T20:24:32-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  51.55%
+  49.5%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.52
+         0.5
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>97</b> relevant lines,
+    <b>101</b> relevant lines,
     <span class="green"><b>50</b> lines covered</span> and
-    <span class="red"><b>47</b> lines missed. </span>
+    <span class="red"><b>51</b> lines missed. </span>
     (<span class="red">
-  51.55%
+  49.5%
 </span>
 )
   </div>
@@ -94,12 +94,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#b03c2eafdc59c583782fc34f00bc389ee9727a76" class="src_link" title="lib/invoice_repository.rb">lib/invoice_repository.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">5</td>
+            <td class="red strong cell--number t-file__coverage">42.86 %</td>
+            <td class="cell--number">12</td>
+            <td class="cell--number">7</td>
             <td class="cell--number">3</td>
-            <td class="cell--number">3</td>
-            <td class="cell--number">0</td>
-            <td class="cell--number">1.00</td>
+            <td class="cell--number">4</td>
+            <td class="cell--number">0.43</td>
             
           </tr>
         
@@ -593,8 +593,8 @@
   <div class="header">
     <h3>lib/invoice_repository.rb</h3>
     <h4>
-      <span class="green">
-  100.0%
+      <span class="red">
+  42.86%
 </span>
 
       lines covered
@@ -603,9 +603,9 @@
     
 
     <div class="t-line-summary">
-      <b>3</b> relevant lines.
+      <b>7</b> relevant lines.
       <span class="green"><b>3</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <span class="red"><b>4</b> lines missed.</span>
     </div>
 
     
@@ -633,23 +633,100 @@
 
             
 
-            <code class="ruby">  def initialize(this)</code>
+            <code class="ruby">  attr_reader :all</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="3">
+          <li class="never" data-hits="" data-linenumber="3">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="4">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    @this = this</code>
+            <code class="ruby">  def initialize(file_path)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="4">
+          <li class="missed" data-hits="0" data-linenumber="5">
+            
+            
+
+            
+
+            <code class="ruby">    @file_path = file_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="6">
+            
+            
+
+            
+
+            <code class="ruby">    @all = []</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="7">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="8">
+            
+            
+
+            
+
+            <code class="ruby">    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="9">
+            
+            
+
+            
+
+            <code class="ruby">      @all &lt;&lt; Invoice.new(row)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="10">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="11">
             
             
 
@@ -660,7 +737,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="5">
+          <li class="never" data-hits="" data-linenumber="12">
             
             
 
