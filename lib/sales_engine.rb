@@ -1,3 +1,4 @@
+require './lib/entry'
 class SalesEngine
 
   attr_reader :item_repository, :merchant_repository
@@ -12,7 +13,7 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new
+    SalesAnalyst.new(item_repository, merchant_repository)
   end
 
 end
