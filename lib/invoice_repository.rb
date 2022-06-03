@@ -58,4 +58,9 @@ class InvoiceRepository
     end
   end
 
+  def delete(id)
+    @all.delete_if do |invoice|
+      invoice.id == id
+    end
+  end
 end
