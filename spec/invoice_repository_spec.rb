@@ -25,4 +25,10 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.all.first.id).to eq(1)
   end
 
+  it "can find_by_id" do
+    expect(@invoice_repository.find_by_id(000)).to be_nil
+    expect(@invoice_repository.find_by_id(1)).to be_a(Invoice)
+    expect(@invoice_repository.find_by_id(1).id).to eq(1)
+  end
+
 end
