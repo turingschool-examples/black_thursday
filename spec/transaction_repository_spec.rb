@@ -3,6 +3,16 @@ require './lib/transaction_repository'
 RSpec.describe TransactionRepository do
   before :each do
     @tr = TransactionRepository.new('./data/transactions.csv')
+
+    @test_transaction = {
+      :id => 6,
+      :invoice_id => 8,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
   end
 
   it "exists" do
@@ -32,6 +42,12 @@ RSpec.describe TransactionRepository do
   it "can find_all_by_result" do
     expect(@tr.find_all_by_result("success")).to be_a(Array)
     expect(@tr.find_all_by_result("success").length).to eq(4158)
+  end
+
+  it "can create new transactions" do
+    expect(@tr.find_by_id(4986)).to be_nil
+    @tr.create(@test_transaction)
+    expect(@tr.find_by_id(4986)).to be_a(Transaction)
   end
 
 end
