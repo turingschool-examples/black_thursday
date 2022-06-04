@@ -45,4 +45,8 @@ RSpec.describe InvoiceItem do
   it "can return the time the object was updated" do
     expect(invoice_item.updated_at.strftime("%Y-%m-%d %H:%M")).to eq(time.strftime("%Y-%m-%d %H:%M"))
   end
+
+  xit "can return the unit price converted to dollars" do
+    expect(invoice_item.unit_price_to_dollars).to eq(23.48)
+  end
 end
