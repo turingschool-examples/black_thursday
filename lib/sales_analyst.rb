@@ -60,26 +60,19 @@ class SalesAnalyst
 		(merchant_price_sums.sum / merchant_price_sums.size).to_d(3)
 	end
 
+	def standard_deviation(values, mean)
+    sums = values.sum { |value| (value - mean)**2 }
+    std_dev = Math.sqrt(sums / (values.length - 1).to_f)
+    std_dev.round(2)
+  end
+
 	def golden_items
-		require "pry"; binding.pry
-		average_item_price_per_merchant_standard_deviation
-
-		# standard_deviation = average_items_per_merchant_standard_deviation
-		# golden_item_standard = standard_deviation + average_average_price_per_merchant
-		# merchants_with_high_sales = []
-		# items_by_merchant.each_pair do |merchant, items|
-		# 	merchants_with_high_sales << merchant if items > mean_and_standard_dev
-		# end
-		# return merchants_with_high_sales
-	end
-
-	def average_item_price_per_merchant_standard_deviation
 		array_of_all_prices = @items.all.map {|item| item.unit_price.to_i}
 		set = array_of_all_prices
 		mean = array_of_all_prices.sum / array_of_all_prices.size
-		sums = set.sum { |num| (num - mean)**2 }
-		std_dev = Math.sqrt(sums / (set.length - 1).to_f)
-		std_dev.round(2)
+		std_dev = standard_deviation(set, mean)
+		minimum_golden_price = mean += (2 * std_dev)
+		items.all.find_all{ |item| item.unit_price.to_i > minimum_golden_price }
 	end
 
 end
