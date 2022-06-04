@@ -5,7 +5,7 @@ class Invoice
     @id = invoice[:id].to_i
     @customer_id = invoice[:customer_id].to_i
     @merchant_id = invoice[:merchant_id].to_i
-    @status = invoice[:status]
+    @status = invoice[:status].to_sym
     @created_at = invoice[:created_at]
     @updated_at = invoice[:updated_at]
   end

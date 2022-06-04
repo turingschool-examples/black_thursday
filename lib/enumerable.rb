@@ -38,4 +38,10 @@ module Enumerable
   def find_all_by_merchant_id(merchant_id)
     @all.find_all {|row| row.merchant_id == merchant_id}
   end
+
+  def create(attributes)
+    last_id = @all[-1].id
+    new_id = last_id + 1
+    add_new(new_id, attributes)
+  end
 end

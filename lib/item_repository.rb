@@ -28,17 +28,15 @@ class ItemRepository
     @all.find_all {|row| range.include?(row.unit_price)}
   end
 
-
-
-  def create(item)
+  def add_new(new_id, attributes)
     i = Item.new({
-      id: @all.last.id + 1,
-      name: item[:name],
-      description: item[:description],
-      unit_price: item[:unit_price],
-      created_at: item[:created_at],
-      updated_at: item[:updated_at],
-      merchant_id: item[:merchant_id]
+      id: new_id,
+      name: attributes[:name],
+      description: attributes[:description],
+      unit_price: attributes[:unit_price],
+      created_at: attributes[:created_at],
+      updated_at: attributes[:updated_at],
+      merchant_id: attributes[:merchant_id]
       })
     @all.append(i)
     i

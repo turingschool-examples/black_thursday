@@ -27,4 +27,23 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.find_all_by_merchant_id(1000)).to eq([])
     expect(@invoice_repository.find_all_by_merchant_id(12335080).length).to eq(7)
   end
+
+  it 'returns an empty [] or one or more matches with having a matching status' do
+    expect(@invoice_repository.find_all_by_status(:sold)).to eq([])
+    expect(@invoice_repository.find_all_by_status(:shipped).length).to eq(2839)
+    expect(@invoice_repository.find_all_by_status(:pending).length).to eq(1473)
+  end
+
+  it 'create a new invoice' do
+    attributes = {
+                  :customer_id => 7,
+                  :merchant_id => 8,
+                  :status      => "pending",
+                  :created_at  => Time.now ,
+                  :updated_at  => Time.now
+                  }
+    @invoice_repository.create(attributes)
+    expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
+    expect(@invoice_repository.find_by_id(4986).merchant_id).to eq(8)
+  end
 end
