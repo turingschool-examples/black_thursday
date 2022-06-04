@@ -12,5 +12,8 @@ class TransactionRepository
     end
   end
 
+  def find_by_id(id)
+    @all.find { |transaction| transaction.id == id }
+  end
 
 end
