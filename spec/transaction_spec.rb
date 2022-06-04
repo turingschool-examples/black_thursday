@@ -17,4 +17,8 @@ RSpec.describe Transaction do
     expect(@t).to be_a(Transaction)
   end
 
+  it "has an id" do
+    expect(@t.id).to eq(6)
+  end
+
 end
