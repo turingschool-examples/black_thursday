@@ -45,4 +45,9 @@ RSpec.describe InvoiceItem do
     expect(@ii.updated_at).to be_instance_of(Time)
   end
 
+  it 'returns the price in float format' do
+    expect(@ii.unit_price_to_dollars).to be_instance_of(Float)
+    expect(@ii.unit_price_to_dollars).to eq(10.99)
+  end
+
 end

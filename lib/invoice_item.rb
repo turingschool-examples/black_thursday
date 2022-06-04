@@ -1,4 +1,7 @@
+require_relative './enumerable'
+
 class InvoiceItem
+  include Enumerable
   attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at
 
   def initialize(data)
@@ -10,5 +13,7 @@ class InvoiceItem
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
   end
+
+
 
 end

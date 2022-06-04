@@ -1,4 +1,7 @@
+require_relative './enumerable'
+
 class Item
+  include Enumerable
   attr_reader :id, :created_at, :merchant_id
   attr_accessor :name, :description, :unit_price, :updated_at
 
@@ -10,9 +13,5 @@ class Item
     @created_at = item_data[:created_at]
     @updated_at = item_data[:updated_at]
     @merchant_id = item_data[:merchant_id]
-  end
-
-  def unit_price_to_dollars
-    (@unit_price.to_f)
   end
 end
