@@ -2,7 +2,8 @@ require_relative './enumerable'
 
 class InvoiceItem
   include Enumerable
-  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at
+  attr_reader :id, :item_id, :invoice_id, :created_at
+  attr_accessor :quantity, :unit_price, :updated_at
 
   def initialize(data)
     @id = data[:id].to_i

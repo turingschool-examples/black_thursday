@@ -39,4 +39,15 @@ class InvoiceItemRepository
     ii
   end
 
+  def change(id, key, value)
+    if key == :quantity
+      find_by_id(id).quantity = value
+    elsif key == :unit_price
+      find_by_id(id).unit_price = value
+    else
+      return nil
+    end
+    find_by_id(id).updated_at = Time.now
+  end
+
 end
