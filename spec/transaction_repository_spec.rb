@@ -64,4 +64,11 @@ RSpec.describe TransactionRepository do
     expect(@tr.find_by_id(4986).result).to eq("failed")
   end
 
+  it "has delete(id)" do
+    @tr.create(@test_transaction)
+    expect(@tr.find_by_id(4986).invoice_id).to eq(8)
+    @tr.delete(4986)
+    expect(@tr.find_by_id(4986)).to be_nil
+  end
+
 end
