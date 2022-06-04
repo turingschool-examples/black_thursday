@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-06-03T19:56:01-05:00">2022-06-03T19:56:01-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-06-03T19:58:18-05:00">2022-06-03T19:58:18-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  41.86%
+  42.31%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.43
+         0.45
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>129</b> relevant lines,
-    <span class="green"><b>54</b> lines covered</span> and
+    <b>130</b> relevant lines,
+    <span class="green"><b>55</b> lines covered</span> and
     <span class="red"><b>75</b> lines missed. </span>
     (<span class="red">
-  41.86%
+  42.31%
 </span>
 )
   </div>
@@ -84,11 +84,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#74de835a76b379e53f526d96384a8a060f429804" class="src_link" title="lib/invoice.rb">lib/invoice.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">8</td>
-            <td class="cell--number">4</td>
-            <td class="cell--number">4</td>
+            <td class="cell--number">9</td>
+            <td class="cell--number">5</td>
+            <td class="cell--number">5</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">1.25</td>
+            <td class="cell--number">1.80</td>
             
           </tr>
         
@@ -594,8 +594,8 @@
     
 
     <div class="t-line-summary">
-      <b>4</b> relevant lines.
-      <span class="green"><b>4</b> lines covered</span> and
+      <b>5</b> relevant lines.
+      <span class="green"><b>5</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -624,7 +624,7 @@
 
             
 
-            <code class="ruby">  attr_reader :id</code>
+            <code class="ruby">  attr_reader :id, :customer_id</code>
           </li>
         </div>
       
@@ -651,8 +651,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="5">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="3" data-linenumber="5">
+            <span class="hits">3</span>
             
 
             
@@ -662,13 +662,13 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="6">
-            
-            
-
+          <li class="covered" data-hits="3" data-linenumber="6">
+            <span class="hits">3</span>
             
 
-            <code class="ruby">  end</code>
+            
+
+            <code class="ruby">    @customer_id = invoice[:customer_id]</code>
           </li>
         </div>
       
@@ -679,12 +679,23 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="8">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="9">
             
             
 
