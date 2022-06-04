@@ -17,8 +17,16 @@ RSpec.describe InvoiceItem do
     expect(@ii).to be_instance_of InvoiceItem
   end
 
+  it 'returns the integer id' do
+    expect(@ii.id).to eq(6)
+  end
+
   it 'returns the item id' do
-    expect(@ii.item_id).to eq(6)
+    expect(@ii.item_id).to eq(7)
+  end
+
+  xit 'returns the invoice id' do
+    expect(@ii.invoice_id).to eq(8)
   end
 
 end
