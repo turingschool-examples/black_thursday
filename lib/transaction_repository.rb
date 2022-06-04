@@ -19,4 +19,8 @@ class TransactionRepository
         })
     end
   end
+
+  def find_all_by_invoice_id(id)
+    @all.find_all {|row| row.invoice_id == id}
+  end
 end

@@ -33,4 +33,8 @@ RSpec.describe TransactionRepository do
   it 'can find by id' do
     expect(@sales_engine.transactions.find_by_id(2).class).to eq(Transaction)
   end
+
+  it 'can find all by Invoice id' do
+    expect(@sales_engine.transactions.find_all_by_invoice_id(2179).length).to eq(2)
+  end
 end
