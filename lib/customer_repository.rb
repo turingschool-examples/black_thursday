@@ -23,4 +23,11 @@ class CustomerRepository
   def find_all_by_last_name(last_name)
     @all.find_all { |customer| customer.last_name == last_name }
   end
+
+  def create(attributes)
+    # require "pry"; binding.pry
+    attributes[:id] = @all.max_by { |customer| customer.id }.id + 1
+    @all << Customer.new(attributes)
+    @all.last
+  end
 end
