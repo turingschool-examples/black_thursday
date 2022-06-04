@@ -56,9 +56,12 @@ RSpec.describe InvoiceRepository do
                   :updated_at  => Time.now
                   }
     @invoice_repository.create(attributes)
+    invoice_updated_at = @invoice_repository.find_by_id(4986).updated_at
     expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
     @invoice_repository.update(4986, {status: "success"})
     expect(@invoice_repository.find_by_id(4986).status).to eq(:success)
+
+    expect(@invoice_repository.find_by_id(4986).updated_at).to be > invoice_updated_at
   end
 
 end

@@ -40,4 +40,13 @@ class InvoiceRepository
     @all.append(i)
     i
   end
+
+  def change(id, key, value)
+    if key == :status
+      find_by_id(id).status = value.to_sym
+      find_by_id(id).updated_at = Time.now
+    else
+      return nil
+    end
+  end
 end
