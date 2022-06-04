@@ -21,6 +21,7 @@ RSpec.describe Invoice do
   it "exist" do
     expect(@invoice).to be_a(Invoice)
   end
+
   it "has attributes" do
     expect(@invoice.id).to eq(2)
     expect(@invoice.customer_id).to eq(1)
