@@ -15,13 +15,20 @@ class SalesAnalyst < SalesEngine
     (@items.all.count / @merchants.all.count.to_f).round(2)
   end
 
-  def average_item_price_for_merchant(id)
-    item_count = @items.find_all_by_merchant_id(id).count
-    total_prices = []
-    @items.find_all_by_merchant_id(id).each do |item|
-      total_prices << item.unit_price_to_dollars
+#helper method for average_item_price_for_merchant
+  def count_merchants_items(id)
+    @items.find_all_by_merchant_id(id).count
+  end
+
+#helper method for average_item_price_for_merchant
+  def price_array(id)
+    @items.find_all_by_merchant_id(id).map do |item|
+     item.unit_price_to_dollars
     end
-    BigDecimal((total_prices.sum/item_count).round(2).to_s)
+  end
+
+  def average_item_price_for_merchant(id)
+    BigDecimal((price_array(id).sum/count_merchants_items(id)).round(2).to_s)
   end
 
   def average_items_per_merchant_standard_deviation
