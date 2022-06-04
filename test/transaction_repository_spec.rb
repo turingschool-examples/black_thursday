@@ -37,4 +37,8 @@ RSpec.describe TransactionRepository do
   it 'can find all by Invoice id' do
     expect(@sales_engine.transactions.find_all_by_invoice_id(2179).length).to eq(2)
   end
+
+  it 'can find all by credit card number' do
+    expect(@sales_engine.transactions.find_all_by_credit_card_number("4848466917766329").length).to eq(1)
+  end
 end
