@@ -7,7 +7,8 @@ RSpec.describe SalesAnalyst do
   it "exists" do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     sales_analyst = sales_engine.analyst
     expect(sales_analyst).to be_a(SalesAnalyst)
@@ -16,7 +17,8 @@ RSpec.describe SalesAnalyst do
   it 'returns the average items per merchant' do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
@@ -25,7 +27,8 @@ RSpec.describe SalesAnalyst do
   it "count the total amount of items a merchant has" do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.count_merchants_items(12334105)).to eq(3)
@@ -34,7 +37,8 @@ RSpec.describe SalesAnalyst do
   it "finds all items a merchant has by ID and makes them into an array" do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.price_array(12334105)).to eq([29.99, 9.99, 9.99])
@@ -43,7 +47,8 @@ RSpec.describe SalesAnalyst do
   it "retrieves array of prices and number of items and calculates an average price for a merchant" do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
 
     sales_analyst = sales_engine.analyst
@@ -53,7 +58,8 @@ RSpec.describe SalesAnalyst do
   it 'return a standard deviation of the number of items per merchant' do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
 
     sales_analyst = sales_engine.analyst
@@ -64,7 +70,8 @@ RSpec.describe SalesAnalyst do
   it 'checks for merchants with high item count' do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
 
     sales_analyst = sales_engine.analyst
@@ -76,7 +83,8 @@ RSpec.describe SalesAnalyst do
   it 'return golden items' do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
 
     sales_analyst = sales_engine.analyst
@@ -88,7 +96,8 @@ RSpec.describe SalesAnalyst do
   it 'can calculate standard_deviation'do
   sales_engine = SalesEngine.from_csv({
     :items => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
   })
 
   sales_analyst = sales_engine.analyst
@@ -99,7 +108,8 @@ RSpec.describe SalesAnalyst do
   it "calculates the average average price per merchant (average of all merchants price)" do
      sales_engine = SalesEngine.from_csv({
        :items => "./data/items.csv",
-       :merchants => "./data/merchants.csv"
+       :merchants => "./data/merchants.csv",
+       :invoices => "./data/invoices.csv"
      })
 
        sales_analyst = sales_engine.analyst

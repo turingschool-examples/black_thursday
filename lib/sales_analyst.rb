@@ -7,7 +7,7 @@ require 'bigdecimal'
 require 'pry'
 class SalesAnalyst < SalesEngine
 
-  def initialize(items_path,merchants_path)
+  def initialize(items_path, merchants_path, invoice_path)
     super
   end
 
@@ -66,5 +66,29 @@ class SalesAnalyst < SalesEngine
   unique_merchants = all_merchants.uniq.count
   all_merchants.map! {|merchant_id| average_item_price_for_merchant(merchant_id)}
   BigDecimal((all_merchants.sum / unique_merchants).round(2).to_s)
+  end
+
+  def average_invoices_per_merchant
+    #10.49
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    #3.29
+  end
+
+  def top_merchants_by_invoice_count
+    #Which merchants are more than two standard deviations above the mean? return array
+  end
+
+  def bottom_merchants_by_invoice_count
+    #Which merchants are more than two standard deviations below the mean?
+  end
+
+  def top_days_by_invoice_count
+    #On which days are invoices created at more than one standard deviation above the mean?
+  end
+
+  def invoice_status(tracking)
+    #What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
   end
 end
