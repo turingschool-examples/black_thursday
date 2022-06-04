@@ -11,4 +11,8 @@ class CustomerRepository
       @all << Customer.new(row)
     end
   end
+
+  def find_by_id(id)
+    @all.find { |customer| customer.id == id }
+  end
 end
