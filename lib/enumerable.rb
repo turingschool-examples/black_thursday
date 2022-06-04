@@ -1,7 +1,10 @@
 module Enumerable
 
   def find_by_id(id)
-    @all.find {|row| row.id == id}
+    @all.find do |row|
+      row.id == id
+    end
+    # {|row| row.id == id}
   end
 
   def find_by_name(name)
