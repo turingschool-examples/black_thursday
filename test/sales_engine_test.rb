@@ -2,7 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require './lib/helper'
 
-RSpec.describe ItemRepository do
+RSpec.describe SalesEngine do
   let!(:sales_engine) {SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv"
