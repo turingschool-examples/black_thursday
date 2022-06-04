@@ -74,4 +74,9 @@ class SalesAnalyst
     date = Date.new(created_at_array[0].to_i,created_at_array[1].to_i,created_at_array[2].to_i)
     date.wday
   end
+
+  def invoices_by_day_of_week(day)
+    numeric_weekday = Date.parse(day).wday
+    @invoice_repository.all.count {|invoice| invoice_day_of_week_by_id(invoice.id) == numeric_weekday}
+  end
 end
