@@ -18,31 +18,33 @@ RSpec.describe ItemRepository do
   it "can return an instance of an Item within a price range" do
       price_in_range = @item_repository.find_all_by_price_in_range(0..500)
       expect(price_in_range).to be_a(Array)
-      expect(price_in_range.first.id).to eq("263397163")
+      expect(price_in_range.first.id).to eq(263397163)
     end
 
-  it 'can find all merchants by merchant id' do
-    merchant_id = @item_repository.find_all_by_merchant_id("263395237")
+  it 'can find all items with same merchant id' do
+    merchant_id = @item_repository.find_all_by_merchant_id(12334105)
     expect(merchant_id).to be_a(Array)
-    expect(merchant_id.first.id).to eq("263395237")
+    expect(merchant_id.first).to be_a(Item)
+    expect(merchant_id.first.id).to eq(263396209)
+    expect(merchant_id.count).to eq(3)
   end
 
   it "can create a new instance" do
     @item_repository.create("ants")
     expect(@item_repository.all.last).to be_a Item
     expect(@item_repository.all.last.name).to eq("ants")
-    expect(@item_repository.all.last.id).to eq("263567475")
+    expect(@item_repository.all.last.id).to eq(263567475)
   end
 
   it "can can update item instances "do
-    @item_repository.update("263395237", "test")
-    expect(@item_repository.find_by_id("263395237").name).to eq("test")
+    @item_repository.update(263395237, "test")
+    expect(@item_repository.find_by_id(263395237).name).to eq("test")
   end
 
   it "can find and item by id and return nil if not found" do
-    expect(@item_repository.find_by_id("1")).to eq nil
-    expect(@item_repository.find_by_id("263395237")).to be_a(Item)
-    expect(@item_repository.find_by_id("263400793")).to be_a(Item)
+    expect(@item_repository.find_by_id(1)).to eq nil
+    expect(@item_repository.find_by_id(263395237)).to be_a(Item)
+    expect(@item_repository.find_by_id(263400793)).to be_a(Item)
   end
 
   it "can find an item by name and return nil if not found" do
@@ -64,7 +66,7 @@ RSpec.describe ItemRepository do
   end
 
   it "can delete the merchant instace" do
-    @item_repository.delete("263395617")
-    expect(@item_repository.all.first.id).to eq("263395237")
+    @item_repository.delete(263395617)
+    expect(@item_repository.all.first.id).to eq(263395237)
   end
 end
