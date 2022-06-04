@@ -32,11 +32,11 @@ RSpec.describe SalesAnalyst do
      expect(@sales_analyst.merchants_with_high_item_count[0]).to be_a Merchant
    end
 
-   xit "can find the average price of a merchant’s items" do
-     expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq(4999)
+   it "can find the average price of a merchant’s items" do
+     expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq(1666)
    end
 
-   xit "can find sum all of the averages and find the average price across all merchants" do
-    expect(sales_analyst.average_average_price_per_merchant)
+   it "can find sum all of the averages and find the average price across all merchants" do
+    expect(@sales_analyst.average_average_price_per_merchant).to be_a Float
    end
 end
