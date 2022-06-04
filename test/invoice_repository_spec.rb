@@ -46,4 +46,19 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
     expect(@invoice_repository.find_by_id(4986).merchant_id).to eq(8)
   end
+
+  it 'can update invoice status' do
+    attributes = {
+                  :customer_id => 7,
+                  :merchant_id => 8,
+                  :status      => "pending",
+                  :created_at  => Time.now ,
+                  :updated_at  => Time.now
+                  }
+    @invoice_repository.create(attributes)
+    expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
+    @invoice_repository.update(4986, {status: "success"})
+    expect(@invoice_repository.find_by_id(4986).status).to eq(:success)
+  end
+
 end

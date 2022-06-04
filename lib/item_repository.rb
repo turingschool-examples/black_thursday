@@ -41,4 +41,17 @@ class ItemRepository
     @all.append(i)
     i
   end
+
+  def change(id, key, value)
+    if key == :unit_price
+      find_by_id(id).unit_price = value
+    elsif key == :description
+      find_by_id(id).description = value
+    elsif key == :name
+      find_by_id(id).name = value
+    else
+      return nil
+    end
+    find_by_id(id).updated_at = Time.now
+  end
 end
