@@ -12,7 +12,7 @@ class ItemRepository
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Item.new({
-        id: row[:id].to_i, name: row[:name], description: row[:description], unit_price: BigDecimal(row[:unit_price].to_i * 0.01, 4), merchant_id: row[:merchant_id].to_i, created_at: row[:created_at], updated_at: row[:updated_at]})
+        id: row[:id], name: row[:name], description: row[:description], unit_price: BigDecimal(row[:unit_price].to_i * 0.01, 4), merchant_id: row[:merchant_id], created_at: row[:created_at], updated_at: row[:updated_at]})
     end
   end
 
