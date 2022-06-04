@@ -7,10 +7,10 @@ class InvoiceItemRepository
   def initialize(filepath)
     @filepath = filepath
     @all = []
-      CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
-        @all << InvoiceItem.new(row)
-      end
+    CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
+      @all << InvoiceItem.new(row)
     end
+  end
 
   def find_by_id(id)
     @all.find { |invoiceitem| invoiceitem.id == id }

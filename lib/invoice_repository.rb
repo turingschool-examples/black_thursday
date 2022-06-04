@@ -7,60 +7,40 @@ class InvoiceRepository
   def initialize(filepath)
     @filepath = filepath
     @all = []
-      CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
-        @all << Invoice.new(id: row[:id], customer_id: row[:customer_id], merchant_id: row[:merchant_id], status: row[:status], created_at: row[:created_at], updated_at: row[:updated_at])
-      end
+    CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
+      @all << Invoice.new(row)
     end
+  end
 
   def find_by_id(id)
-    @all.find do |invoice|
-      invoice.id == id
-    end
+    @all.find { |invoice| invoice.id == id }
   end
 
   def find_all_by_customer_id(customer_id)
-    customer_id_array = []
-    @all.find_all do |invoice|
-      if invoice.customer_id == customer_id
-        customer_id_array << invoice
-      end
-    end
-    customer_id_array
+    @all.find_all { |invoice| invoice.customer_id == customer_id }
   end
 
   def find_all_by_merchant_id(merchant_id)
-    merchant_id_array = []
-    @all.find_all do |invoice|
-      # require "pry"; binding.pry
-      if invoice.merchant_id == merchant_id
-        merchant_id_array << invoice
-      end
-    end
-    merchant_id_array
+    @all.find_all { |invoice| invoice.merchant_id == merchant_id }
   end
 
   def find_all_by_status(status)
-  status_array =  @all.find_all do |invoice|
-    invoice.status == status
-    end
+    @all.find_all { |invoice| invoice.status == status }
   end
 
   def create(attributes)
-    new_invoice = @all.max_by { |invoice| invoice.id }.id + 1
-      attributes[:id] = new_invoice
-        @all << Invoice.new(attributes)
-        return @all.last
+    attributes[:id] = @all.max_by { |invoice| invoice.id }.id + 1
+    @all << Invoice.new(attributes)
+    @all.last
   end
 
   def update(id, attributes)
-    if find_by_id(id) != nil
+    if find_by_id(id)
       find_by_id(id).update(attributes)
     end
   end
 
   def delete(id)
-    @all.delete_if do |invoice|
-      invoice.id == id
-    end
+    @all.delete_if { |invoice| invoice.id == id }
   end
 end
