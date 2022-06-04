@@ -33,4 +33,8 @@ RSpec.describe InvoiceItem do
     expect(@ii.quantity).to eq(1)
   end
 
+  it 'returns the unit price' do
+    expect(@ii.unit_price).to eq(BigDecimal(10.99, 4))
+  end
+
 end
