@@ -1,8 +1,8 @@
 class Invoice
-  attr_reader
+  attr_reader :id
 
   def initialize(invoice)
-    @id
+    @id = invoice[:id]
   end
 
 end
