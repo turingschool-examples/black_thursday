@@ -9,9 +9,7 @@ RSpec.describe SalesAnalyst do
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
-
     sales_analyst = sales_engine.analyst
-
     expect(sales_analyst).to be_a(SalesAnalyst)
   end
 
@@ -20,10 +18,36 @@ RSpec.describe SalesAnalyst do
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.average_items_per_merchant).to eq(2.88)
+  end
+
+  it "count the total amount of items a merchant has" do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.count_merchants_items(12334105)).to eq(3)
+  end
+
+  it "finds all items a merchant has by ID and makes them into an array" do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.price_array(12334105)).to eq([29.99, 9.99, 9.99])
+  end
+
+  it "retrieves array of prices and number of items and calculates an average price for a merchant" do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
 
     sales_analyst = sales_engine.analyst
-
-    expect(sales_analyst.average_items_per_merchant).to eq(2.88)
+    expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
   end
 
   it 'return a standard deviation of the number of items per merchant' do
@@ -72,17 +96,6 @@ RSpec.describe SalesAnalyst do
   expect(sales_analyst.standard_deviation([3,4,5],4)).to eq(1.0)
   end
 
-  it "calculates an average price for a merchant" do
-    sales_engine = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
-    sales_analyst = sales_engine.analyst
-    # sales_analyst.items.find_all_by_merchant_id(12334105)
-    expect(sales_analyst.items.find_all_by_merchant_id(12334105).count).to eq(3)
-    expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
-  end
   it "calculates the average average price per merchant (average of all merchants price)" do
      sales_engine = SalesEngine.from_csv({
        :items => "./data/items.csv",

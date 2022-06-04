@@ -11,48 +11,36 @@ class ItemRepository
   end
 
   def initialize(file_path)
-    @file_path = file_path
     @all = []
-    CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
        @all << Item.new({id: row[:id], name: row[:name], description: row[:description], unit_price: row[:unit_price], merchant_id: row[:merchant_id], created_at: row[:created_at], updated_at: row[:updated_at]})
     end
   end
 
-
   def find_by_id (input_id)
-    @all.find{|item| item.id == input_id}
+    @all.find {|item| item.id == input_id}
   end
 
   def find_all_by_price(price)
-    @all.find_all do |item|
-      item.unit_price == price
-    end
+    @all.find_all {|item| item.unit_price == price}
   end
 
   def find_all_by_price_in_range(range)
     items_range = []
-    @all.each do |item|
-      items_range << item if range.member?(item.unit_price)
-    end
+    @all.each {|item| items_range << item if range.member?(item.unit_price)}
     items_range
   end
 
   def find_by_name(name)
-    @all.find do |item|
-      item.name.downcase == name.downcase
-    end
+    @all.find {|item| item.name.downcase == name.downcase}
   end
 
-
   def find_all_by_merchant_id(input_id)
-    @all.find_all{|item| item.merchant_id == input_id}
-
+    @all.find_all {|item| item.merchant_id == input_id}
   end
 
   def find_all_with_description(description)
-    @all.find_all do |item|
-      item.description.downcase.include?(description.downcase)
-    end
+    @all.find_all {|item| item.description.downcase.include?(description.downcase)}
   end
 
   def create(attributes)
@@ -62,9 +50,7 @@ class ItemRepository
 
   def find_max_id
     id_max = []
-    @all.each do |item|
-      id_max << item.id
-    end
+    @all.each {|item| id_max << item.id}
     id_max.max
   end
 
@@ -84,5 +70,4 @@ class ItemRepository
   def delete(input_id)
     @all.delete(find_by_id(input_id))
   end
-
 end
