@@ -37,7 +37,7 @@ RSpec.describe Transaction do
     expect(@t.result).to eq("success")
   end
 
-  xit 'has a created_at Time' do
-
+  it 'has a created_at Time' do
+    expect(@t.created_at).to be_instance_of(Time)
   end
 end
