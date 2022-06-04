@@ -102,6 +102,11 @@ class SalesAnalyst
     mean = average_invoices_by_day_of_week
     weekdays_array.select {|day| invoices_by_day_of_week(day) - mean > std_dev}
   end
+
+  def invoice_status(status)
+    numerator_count = @invoice_repository.find_all_by_status(status).count
+    ((numerator_count.to_f / @invoice_repository.all.count.to_f) * 100).round(2)
+  end
 end
 
 # 741 - 712.14 > 18.07

@@ -104,15 +104,15 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
   end
 
-  xit 'returns percent of invoices pending' do
+  it 'returns percent of invoices pending' do
     expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
   end
 
-  xit 'returns percent of invoices shipped' do
+  it 'returns percent of invoices shipped' do
     expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
   end
 
-  xit 'returns percent of invoices returned' do
+  it 'returns percent of invoices returned' do
     expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 end
