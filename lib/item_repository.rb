@@ -1,9 +1,12 @@
 require 'time'
 require 'CSV'
 require_relative 'item'
+require_relative '../modules/findable'
+require_relative '../modules/deletable'
 
 class ItemRepository
-
+  include Findable
+  include Deletable
   attr_reader :all
 
   def inspect
@@ -17,42 +20,11 @@ class ItemRepository
     end
   end
 
-  def find_by_id (input_id)
-    @all.find {|item| item.id == input_id}
-  end
-
-  def find_all_by_price(price)
-    @all.find_all {|item| item.unit_price == price}
-  end
-
-  def find_all_by_price_in_range(range)
-    items_range = []
-    @all.each {|item| items_range << item if range.member?(item.unit_price)}
-    items_range
-  end
-
-  def find_by_name(name)
-    @all.find {|item| item.name.downcase == name.downcase}
-  end
-
-  def find_all_by_merchant_id(input_id)
-    @all.find_all {|item| item.merchant_id == input_id}
-  end
-
-  def find_all_with_description(description)
-    @all.find_all {|item| item.description.downcase.include?(description.downcase)}
-  end
-
   def create(attributes)
   attributes[:id]= find_max_id + 1
   @all << Item.new(attributes)
   end
 
-  def find_max_id
-    id_max = []
-    @all.each {|item| id_max << item.id}
-    id_max.max
-  end
 
   def update(input_id, attributes)
     attributes.each do |attribute, value|
@@ -67,7 +39,4 @@ class ItemRepository
     find_by_id(input_id).updated_at = Time.now if find_by_id(input_id).class == Item
   end
 
-  def delete(input_id)
-    @all.delete(find_by_id(input_id))
-  end
 end
