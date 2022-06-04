@@ -79,4 +79,10 @@ class SalesAnalyst
     numeric_weekday = Date.parse(day).wday
     @invoice_repository.all.count {|invoice| invoice_day_of_week_by_id(invoice.id) == numeric_weekday}
   end
+
+  def average_invoices_by_day_of_week
+    weekdays_array = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+
+    ((weekdays_array.sum {|day| invoices_by_day_of_week(day)}).to_f / 7).round(2)
+  end
 end
