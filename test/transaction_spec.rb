@@ -24,4 +24,8 @@ RSpec.describe Transaction do
   it 'has an invoice id' do
     expect(@t.invoice_id).to eq(8)
   end
+
+  it 'has a credit card number' do
+    expect(@t.credit_card_number).to eq(4242424242424242)
+  end
 end
