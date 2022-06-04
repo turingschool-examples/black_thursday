@@ -23,7 +23,6 @@ RSpec.describe SalesAnalyst do
 		sales_analyst = sales_engine.analyst
 
 		expect(sales_analyst.average_items_per_merchant).to eq(2.88)
-
 	end
 
 	it 'can return the standard deviation of average items per merchant' do
@@ -32,8 +31,20 @@ RSpec.describe SalesAnalyst do
       :merchants => "./data/merchants.csv"
     })
 		sales_analyst = sales_engine.analyst
-		
+
 		expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
+	end
+
+	it 'can display the merchants who have the most items for sale' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv"
+		})
+		sales_analyst = sales_engine.analyst
+
+		expect(sales_analyst.merchants_with_high_item_count).to be_a(Array)
+		# 52 was the length of our merchants_with_high_sales array
+		expect(sales_analyst.merchants_with_high_item_count.count).to eq(52)
 	end
 
 end
