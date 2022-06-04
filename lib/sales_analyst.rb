@@ -44,6 +44,8 @@ class SalesAnalyst
     items_per_merchant
   end
 
+
+
   def average_item_price_for_merchant(id)
 
   end
