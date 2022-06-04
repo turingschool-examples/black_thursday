@@ -5,7 +5,8 @@ require './lib/helper'
 RSpec.describe SalesAnalyst do
   let!(:sales_engine) {SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
   })}
   let!(:sales_analyst) {sales_engine.analyst
   }
@@ -43,7 +44,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_item_price).to eq(25105.51)
   end
 
-  it 'returns standard deviation of item price' do
+  xit 'returns standard deviation of item price' do
     expect(sales_analyst.item_price_standard_deviation).to eq(290099)
   end
 
@@ -68,6 +69,10 @@ RSpec.describe SalesAnalyst do
 
   xit 'returns bottom merchants by invoice count' do
     #array of merchants more than two standard deviations BELOW the mean
+  end
+
+  it 'returns date created for given invoice' do
+    expect(sales_analyst.invoice_repository.find_by_id(1).created_at).to eq("2009-02-07")
   end
 
   it 'returns day of week a given invoice is created' do
