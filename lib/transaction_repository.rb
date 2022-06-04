@@ -28,4 +28,10 @@ class TransactionRepository
     @all.find_all { |transaction| transaction.result == result }
   end
 
+  def create(attributes)
+    attributes[:id] = @all.max_by { |transaction| transaction.id }.id + 1
+    @all << Transaction.new(attributes)
+    @all.last
+  end
+
 end
