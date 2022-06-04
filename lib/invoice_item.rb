@@ -24,4 +24,10 @@ class InvoiceItem
     @unit_price.to_f
   end
 
+  def update(attributes)
+    @quantity = attributes[:quantity] unless attributes[:quantity].nil?
+    @unit_price = BigDecimal(attributes[:unit_price], 4) unless attributes[:unit_price].nil?
+    @updated_at = Time.now
+  end
+
 end
