@@ -22,4 +22,12 @@ class SalesAnalyst
       (y.sum / x.count).round(2)
   end
 
+  def average_items_per_merchant_standard_deviation
+    # x is a hash - merchants are assigned to keys and the values are arrays of their items
+    x = @item_repository.all.group_by {|item| item.merchant_id}
+    y = x.flat_map {|_,value|value.count}
+    z = y.map {|item_count|((item_count - average_items_per_merchant)**2)}
+    Math.sqrt(((z.sum) / (z.count - 1)).to_f.round(2)).round(2)
+  end
+
 end
