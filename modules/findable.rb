@@ -41,5 +41,14 @@ module Findable
     items_range
   end
 
+  #invoice methods
+  def find_all_by_customer_id(id)
+    @all.find_all {|invoice| invoice.customer_id == id}
+  end
+
+  def find_all_by_status(status)
+    @all.find_all {|invoice| invoice.status == status}
+  end
+
 
 end
