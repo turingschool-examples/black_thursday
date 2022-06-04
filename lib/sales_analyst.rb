@@ -51,4 +51,13 @@ class SalesAnalyst
 		(items_sum / find_merchant.count).to_d(3)
 	end
 
+	def average_average_price_per_merchant
+		merchant_price_sums = []
+		merchant_ids = items.all.map {|item| item.merchant_id.to_i}
+		merchant_ids.each do |id|
+			merchant_price_sums	<< average_item_price_for_merchant(id).to_f
+		end
+		(merchant_price_sums.sum / merchant_price_sums.size).to_d(3)
+	end
+
 end

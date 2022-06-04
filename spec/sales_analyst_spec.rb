@@ -58,4 +58,15 @@ RSpec.describe SalesAnalyst do
 		expect(sales_analyst.average_item_price_for_merchant(12334159)).to eq(3150.0)
 	end
 
+	it 'can return average of the average price per merchant' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv"
+		})
+		sales_analyst = sales_engine.analyst
+
+		expect(sales_analyst.average_average_price_per_merchant).to be_a(BigDecimal)
+		expect(sales_analyst.average_average_price_per_merchant).to eq(0.251e5) #(25108.91441111924)
+	end
+
 end
