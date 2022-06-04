@@ -1,10 +1,17 @@
 require './lib/sales_analyst'
 require './lib/sales_engine'
+require './lib/sales_analyst'
+require 'BigDecimal'
 
 RSpec.describe SalesAnalyst do
+  it 'exists' do
+    sales_engine = SalesEngine.from_csv({
+      :item => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+      sales_analyst = sales_engine.analyst
+    end 
 
-  sales_analyst = sales_engine.analyst
-  
   it 'exists' do
     expect(sales_analyst).to be_a(SalesAnalyst)
   end
