@@ -60,5 +60,4 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.find_by_id(12337412)).to be_nil
     expect(@merchant_repository.find_by_name("Something Store")).to be_nil
   end
-
 end
