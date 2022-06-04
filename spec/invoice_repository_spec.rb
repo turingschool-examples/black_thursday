@@ -1,9 +1,11 @@
 require './lib/invoice_repository'
-require './lib/invoice'
 
 RSpec.describe InvoiceRepository do
+
   before :each do
+
     @invoice_repository = InvoiceRepository.new('./data/invoices.csv')
+
     @i = Invoice.new({
       :id          => 6,
       :customer_id => 7,
@@ -12,6 +14,7 @@ RSpec.describe InvoiceRepository do
       :created_at  => Time.now,
       :updated_at  => Time.now,
     })
+    
     @pizza_invoice = ({
       :id          => 6,
       :customer_id => 7,
@@ -49,7 +52,7 @@ RSpec.describe InvoiceRepository do
   end
 
   it "can find_all_by_customer_id" do
-    # expect(@invoice_repository.find_all_by_customer_id(000)).to eq([])
+    expect(@invoice_repository.find_all_by_customer_id(000)).to eq([])
     expect(@invoice_repository.find_all_by_customer_id(1)).to be_a(Array)
     expect(@invoice_repository.find_all_by_customer_id(1).first).to be_a(Invoice)
     expect(@invoice_repository.find_all_by_customer_id(1).length).to eq(8)
@@ -68,32 +71,24 @@ RSpec.describe InvoiceRepository do
 
   it "can create new invoices" do
     expect(@invoice_repository.find_by_id(4986)).to be_nil
-      # require 'pry'; binding.pry
+    @invoice_repository.create(@pizza_invoice)
+    expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
+  end
 
-      @invoice_repository.create(@pizza_invoice)
+  it "can update the invoice instance" do
+    @invoice_repository.create(@pizza_invoice)
+    expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
+    @invoice_repository.update(4986, @update)
+    expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
+    expect(@invoice_repository.find_by_id(4986).customer_id).to eq(7)
+    expect(@invoice_repository.find_by_id(4986).status).to eq("shipped")
+  end
 
-      expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
-    end
-
-    it "can update the invoice instance" do
-      @invoice_repository.create(@pizza_invoice)
-      expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
-      # require "pry"; binding.pry
-        @invoice_repository.update(4986, @update)
-
-      expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
-      expect(@invoice_repository.find_by_id(4986).customer_id).to eq(7)
-      expect(@invoice_repository.find_by_id(4986).status).to eq("shipped")
-    end
-
-    it "can delete invoices" do
-      @invoice_repository.create(@pizza_invoice)
-
-      expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
-
-      @invoice_repository.delete(4986)
-
-      expect(@invoice_repository.find_by_id(4986)).to be_nil
-    end
+  it "can delete invoices" do
+    @invoice_repository.create(@pizza_invoice)
+    expect(@invoice_repository.find_by_id(4986)).to be_a(Invoice)
+    @invoice_repository.delete(4986)
+    expect(@invoice_repository.find_by_id(4986)).to be_nil
+  end
 
 end

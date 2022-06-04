@@ -6,36 +6,26 @@ class ItemRepository
 
   def initialize(filepath)
     @filepath = filepath
-    @all =
-      item_objects = []
-      CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
-        item_objects << Item.new(row)
-      end
-      item_objects
+    @all = []
+    CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
+      @all << Item.new(row)
     end
+  end
 
   def find_by_id(id)
-    @all.find do |item|
-      item.id == id
-    end
+    @all.find { |item| item.id == id }
   end
 
   def find_by_name(name)
-    @all.find do |item|
-      item.name.downcase == name.downcase
-    end
+    @all.find { |item| item.name.downcase == name.downcase }
   end
 
   def find_all_with_description(description)
-    @all.find_all do |item|
-      item.description.downcase == description.downcase
-    end
+    @all.find_all { |item| item.description.downcase.include?(description.downcase) }
   end
 
   def find_all_by_price(price)
-    @all.find_all do |item|
-      item.unit_price == price
-    end
+    @all.find_all { |item| item.unit_price == price }
   end
 
   def find_all_by_price_in_range(range)
@@ -49,27 +39,26 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @all.find_all do |item|
-      item.merchant_id == merchant_id
-    end
+    @all.find_all { |item| item.merchant_id == merchant_id }
   end
 
   def create(attributes)
-    new_id = @all.max_by { |item| item.id }.id + 1
-    attributes[:id] = new_id
+    attributes[:id] = @all.max_by { |item| item.id }.id + 1
     @all << Item.new(attributes)
-    return @all.last
+    @all.last
   end
 
-  def update(id, attr)
-    if find_by_id(id) != nil
-      find_by_id(id).update(attr)
+  def update(id, attributes)
+    if find_by_id(id)
+      find_by_id(id).update(attributes)
     end
   end
 
  def delete(id)
-   @all.delete_if do |item|
-     item.id == id
-   end
+   @all.delete_if { |item| item.id == id }
  end
+
+ def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

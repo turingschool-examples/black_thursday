@@ -23,10 +23,10 @@ class Item
     @unit_price.to_f
   end
 
-  def update(attr)
-    @name = attr[:name] unless attr[:name] == nil
-    @description = attr[:description] unless attr[:description] == nil
-    @unit_price = BigDecimal(attr[:unit_price], 4) unless attr[:unit_price] == nil
+  def update(attributes)
+    @name = attributes[:name] unless attributes[:name].nil?
+    @description = attributes[:description] unless attributes[:description].nil?
+    @unit_price = BigDecimal(attributes[:unit_price], 4) unless attributes[:unit_price].nil?
     @updated_at = Time.now
   end
 end

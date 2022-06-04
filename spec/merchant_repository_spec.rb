@@ -40,25 +40,24 @@ RSpec.describe MerchantRepository do
 
   it "can create new Merchant instance" do
     expect(@merchant_repository.find_by_id(12337412)).to be_nil
-    @merchant_repository.create("Something Store")
+    @merchant_repository.create({name: "Something Store"})
     expect(@merchant_repository.find_by_id(12337412)).to be_a(Merchant)
     expect(@merchant_repository.find_by_id(12337412).name).to eq("Something Store")
   end
 
   it "can update instances" do
-    @merchant_repository.create("Something Store")
+    @merchant_repository.create({name: "Something Store"})
     expect(@merchant_repository.find_by_id(12337412).name).to eq("Something Store")
-    @merchant_repository.update(12337412, "Something Else Store")
+    @merchant_repository.update(12337412, {name: "Something Else Store"})
     expect(@merchant_repository.find_by_id(12337412).name).to eq("Something Else Store")
     expect(@merchant_repository.update(999, "Nonexistent Store")).to be_nil
   end
 
   it "can delete instances" do
-    @merchant_repository.create("Something Store")
+    @merchant_repository.create({name: "Something Store"})
     expect(@merchant_repository.find_by_id(12337412)).to be_a(Merchant)
     @merchant_repository.delete(12337412)
     expect(@merchant_repository.find_by_id(12337412)).to be_nil
     expect(@merchant_repository.find_by_name("Something Store")).to be_nil
   end
-
 end

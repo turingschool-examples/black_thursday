@@ -8,50 +8,40 @@ class MerchantRepository
   def initialize(filepath)
     @filepath = filepath
     @all = []
-
     CSV.foreach(@filepath, headers: true, header_converters: :symbol) do |row|
-      @all << Merchant.new({id: row[:id], name: row[:name]})
+      @all << Merchant.new(row)
     end
   end
 
   def find_by_id(id)
-    @all.find do |merchant|
-      merchant.id == id
-    end
+    @all.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
-    @all.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
+    @all.find { |merchant| merchant.name.downcase == name.downcase }
   end
 
   def find_all_by_name(name)
-    @all.find_all do |merchant|
-      merchant.name.downcase.include?(name.downcase)
-    end
+    @all.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
   end
 
-  def create(name)
-    new_id = @all.sort_by do |merchant|
-      merchant.id
-    end.last.id
-    @all << Merchant.new({id: new_id + 1, name: name})
+  def create(attributes)
+    attributes[:id] = @all.max_by {|merchant| merchant.id }.id + 1
+    @all << Merchant.new(attributes)
+    @all.last
   end
 
-  def update(id, name)
-    if find_by_id(id) != nil
-      @all.delete_if do |merchant|
-        merchant.id == id
-      end
-      @all << Merchant.new({id: id, name: name})
-      # does this need to have both merchant attributes as the second argument?
+  def update(id, attributes)
+    if find_by_id(id)
+      find_by_id(id).update(attributes)
     end
   end
 
   def delete(id)
-    @all.delete_if do |merchant|
-      merchant.id == id
-    end
+    @all.delete_if { |merchant| merchant.id == id }
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
