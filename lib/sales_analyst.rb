@@ -20,8 +20,7 @@ class SalesAnalyst
     mean = average_items_per_merchant
     sum = items_per_merchant.values.sum(0.0) {|item| (item - mean) ** 2}
     variance = (sum / (items_per_merchant.size - 1)).to_f
-    # binding.pry
-    standard_deviation = Math.sqrt(variance)
+    standard_deviation = Math.sqrt(variance).round(2)
   end
 
   def merchants_with_high_item_count
@@ -45,11 +44,16 @@ class SalesAnalyst
     merchant_items
   end
   def average_item_price_for_merchant(id)
-    # sum price for all items per merchant
-    # divide price by items per merchant
     merchant_items = @item_repository.find_all_by_merchant_id(id)
-# binding.pry
-    # price_sum = merchant_items
-    #   sum_per_merchant / items_per_merchant[:id]
+    price_sum = merchant_items.sum(0.0) {|item| item.unit_price}
+    (price_sum / merchant_items.count).round(0)
+  end
+  def average_average_price_per_merchant
+    merchant_averages =[]
+    @merchant_repository.all.each do |merchant|
+      merchant_averages << average_item_price_for_merchant(merchant.id)
+    end
+    binding.pry
+    merchant_averages.sum(0.0) / merchant_averages.count
   end
 end
