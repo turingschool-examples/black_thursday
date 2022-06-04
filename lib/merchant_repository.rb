@@ -4,12 +4,13 @@ class MerchantRepository
   attr_reader :all
 
   def initialize(file_path)
-    @file_path = file_path
-    @all = []
+    @all = make_repo(file_path)
+  end
 
-    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @all << Merchant.new(row)
-    end
+  def make_repo(file_path)
+    repo = Array.new
+    CSV.foreach(file_path, headers: true, header_converters: :symbol){|row| repo << Merchant.new(row)}
+    repo
   end
 
   def find_by_id(id_number)
@@ -29,10 +30,10 @@ class MerchantRepository
   end
 
   def create(name)
-    @all << Merchant.new({
+    @all.push(Merchant.new({
       :id => max_id + 1,
       :name => name
-      })
+      }))
   end
 
   def update(id,new_name)

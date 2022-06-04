@@ -1,9 +1,12 @@
 require 'helper'
 
-class Invoice
+class InvoiceItem
   attr_reader :id,
-              :customer_id,
-              :merchant_id,
+              :item_id,
+              :invoice_id,
+              :quantity,
+              :unit_price
+
               :created_at
 
   attr_accessor :status,
