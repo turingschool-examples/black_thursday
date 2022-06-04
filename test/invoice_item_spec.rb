@@ -37,4 +37,8 @@ RSpec.describe InvoiceItem do
     expect(@ii.unit_price).to eq(BigDecimal(10.99, 4))
   end
 
+  it 'returns a Time for when ii was first created' do
+    expect(@ii.created_at).to be_instance_of(Time)
+  end
+
 end
