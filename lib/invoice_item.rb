@@ -16,4 +16,8 @@ class InvoiceItem
     @created_at = data_hash[:created_at]
     @updated_at = data_hash[:updated_at]
   end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
 end
