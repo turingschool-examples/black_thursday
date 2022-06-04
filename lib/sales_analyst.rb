@@ -95,4 +95,13 @@ class SalesAnalyst
     variance = sum / 6
     standard_deviation = Math.sqrt(variance).round(2)
   end
+
+  def top_days_by_invoice_count
+    weekdays_array = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    std_dev = average_invoices_by_day_of_week_standard_deviation
+    mean = average_invoices_by_day_of_week
+    weekdays_array.select {|day| invoices_by_day_of_week(day) - mean > std_dev}
+  end
 end
+
+# 741 - 712.14 > 18.07
