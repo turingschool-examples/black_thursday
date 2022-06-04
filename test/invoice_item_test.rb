@@ -47,6 +47,6 @@ RSpec.describe InvoiceItem do
   end
 
   xit "can return the unit price converted to dollars" do
-    expect(invoice_item.unit_price_to_dollars).to eq(23.48)
+    expect(invoice_item.unit_price_to_dollars).to eq(10.99)
   end
 end
