@@ -36,7 +36,7 @@ RSpec.describe ItemRepository do
     expect(@item_repository.all.last.id).to eq(263567475)
   end
 
-  it "can can update item instances "do
+  it "can can update item instances " do
     @item_repository.update(263395237, "test")
     expect(@item_repository.find_by_id(263395237).name).to eq("test")
   end
