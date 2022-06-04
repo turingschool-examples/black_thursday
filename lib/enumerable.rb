@@ -34,4 +34,8 @@ module Enumerable
     end
     find_by_id(id).updated_at = Time.now
   end
+
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all {|row| row.merchant_id == merchant_id}
+  end
 end

@@ -22,4 +22,9 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.find_all_by_customer_id(1000)).to eq([])
     expect(@invoice_repository.find_all_by_customer_id(300).length).to eq(10)
   end
+
+  it 'returns either an empty [] or one or more matches with matching merchant id' do
+    expect(@invoice_repository.find_all_by_merchant_id(1000)).to eq([])
+    expect(@invoice_repository.find_all_by_merchant_id(12335080).length).to eq(7)
+  end
 end

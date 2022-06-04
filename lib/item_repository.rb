@@ -28,9 +28,7 @@ class ItemRepository
     @all.find_all {|row| range.include?(row.unit_price)}
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    @all.find_all {|row| row.merchant_id == merchant_id}
-  end
+
 
   def create(item)
     i = Item.new({
