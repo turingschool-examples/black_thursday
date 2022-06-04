@@ -6,7 +6,6 @@ class SalesEngine
     @merchant_repository = MerchantRepository.new(merchants_path)
     @analyst = SalesAnalyst.new(@item_repository, @merchant_repository)
     @invoice_repository = InvoiceRepository.new(invoice_path)
-    binding.pry 
   end
 
   def self.from_csv(data)

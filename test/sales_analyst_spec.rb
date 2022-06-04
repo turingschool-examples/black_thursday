@@ -4,7 +4,8 @@ RSpec.describe SalesAnalyst do
   before :each do
     sales_engine = SalesEngine.from_csv({
      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoice => "./data/invoices.csv"
     })
     @sales_analyst = sales_engine.analyst
   end
@@ -39,7 +40,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can find the average price of a merchants items' do
-    expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66) 
+    expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
     expect(@sales_analyst.average_item_price_for_merchant(12334105).class).to eq(Float)
   end
 

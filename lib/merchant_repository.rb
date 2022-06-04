@@ -23,4 +23,12 @@ class MerchantRepository
     new_id = last_id + 1
     @all <<  Merchant.new({:id => new_id,:name => new_merchant_name})
   end
+
+  def change(id, key, value)
+    if key == :name
+      find_by_id(id).name = value
+    else
+      return nil
+    end
+  end
 end
