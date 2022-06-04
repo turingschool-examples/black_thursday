@@ -16,4 +16,8 @@ RSpec.describe Transaction do
   it 'is an instance of Transaction' do
     expect(@t).to be_instance_of(Transaction)
   end
+
+  it 'has an id' do
+    expect(@t.id).to eq(6)
+  end
 end

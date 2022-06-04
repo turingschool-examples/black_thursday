@@ -410,14 +410,16 @@
       "/Users/mayutakeda/turing/1mod/projects/black_thursday/lib/transaction.rb": {
         "lines": [
           1,
+          1,
           null,
           1,
+          2,
           null,
           null
         ]
       }
     },
-    "timestamp": 1654380882
+    "timestamp": 1654380967
   },
   "RSpec": {
     "coverage": {
