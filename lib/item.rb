@@ -8,7 +8,7 @@ attr_accessor :id,
             :merchant_id
 
   def initialize(data_hash)
-    @id = data_hash[:id]
+    @id = data_hash[:id].to_i
     @name = data_hash[:name]
     @description = data_hash[:description]
     @created_at = data_hash[:created_at]

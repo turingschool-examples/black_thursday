@@ -22,9 +22,10 @@ RSpec.describe ItemRepository do
     end
 
   it 'can find all merchants by merchant id' do
-    merchant_id = @item_repository.find_all_by_merchant_id("263395237")
+    merchant_id = @item_repository.find_all_by_merchant_id(12334105)
     expect(merchant_id).to be_a(Array)
-    expect(merchant_id.first.id).to eq("263395237")
+    expect(merchant_id.first.id).to eq(12334105)
+    expect(merchant_id.count).to eq(3)
   end
 
   it "can create a new instance" do
