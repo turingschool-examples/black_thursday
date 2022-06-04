@@ -8,6 +8,10 @@ module RepositoryMethods
     self.all.find {|element| element.name.downcase == name.downcase.strip}
   end
 
+  def find_all_by_merchant_id(id)
+    self.all.select {|element| element.merchant_id == id}
+  end
+
   def max_id
     (self.all.max_by {|element| element.id}).id
   end
