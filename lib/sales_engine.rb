@@ -11,7 +11,7 @@ class SalesEngine
   end
 
 	def analyst
-		return SalesAnalyst.new
+		return SalesAnalyst.new(items, merchants)
 	end
 
 end
