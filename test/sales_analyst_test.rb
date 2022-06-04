@@ -96,7 +96,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'returns standard deviation of average invoices per week' do
-    expect(sales_analyst.averaaverage_invoices_by_day_of_week_standard_deviation).to eq(18.06)
+    expect(sales_analyst.average_invoices_by_day_of_week_standard_deviation).to eq(18.07)
   end
 
   xit 'returns days of the week where invoices are created at more than one standard deviation above the mean' do
