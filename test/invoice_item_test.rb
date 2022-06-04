@@ -22,7 +22,7 @@ RSpec.describe InvoiceItem do
     expect(invoice_item.id).to eq(6)
   end
 
-  xit 'returns name' do
-    expect(invoice_item.name).to eq("Turing School")
+  it 'returns item id' do
+    expect(invoice_item.item_id).to eq(7)
   end
 end
