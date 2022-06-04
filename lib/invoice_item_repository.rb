@@ -25,4 +25,18 @@ class InvoiceItemRepository
     @all.find_all {|row| row.invoice_id == inv_id}
   end
 
+  def add_new(new_id, attributes)
+    ii = InvoiceItem.new({
+      id: new_id,
+      :item_id => attributes[:item_id],
+      :invoice_id => attributes[:invoice_id],
+      :quantity => attributes[:quantity],
+      :unit_price => attributes[:unit_price],
+      :created_at => attributes[:created_at],
+      :updated_at => attributes[:updated_at]
+      })
+    @all.append(ii)
+    ii
+  end
+
 end

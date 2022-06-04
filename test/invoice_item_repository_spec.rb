@@ -31,4 +31,17 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_engine.invoice_items.find_all_by_invoice_id(100).length).to eq(3)
   end
 
+  it 'creates a new invoice item instance' do
+    attributes = {
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+    @sales_engine.invoice_items.create(attributes)
+    expect(@sales_engine.invoice_items.find_by_id(21831).item_id).to eq(7)
+  end
+
 end
