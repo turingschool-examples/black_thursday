@@ -18,8 +18,8 @@ RSpec.describe InvoiceItem do
     expect(invoice_item).to be_instance_of InvoiceItem
   end
 
-  xit 'returns id' do
-    expect(invoice_item.id).to eq(5)
+  it 'returns id' do
+    expect(invoice_item.id).to eq(6)
   end
 
   xit 'returns name' do
