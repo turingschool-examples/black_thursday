@@ -5,10 +5,11 @@ require "bigdecimal"
 require "bigdecimal/util"
 
 class SalesAnalyst
-	attr_reader :items, :merchants
-	def initialize(items, merchants)
+	attr_reader :items, :merchants, :invoices
+	def initialize(items, merchants, invoices)
 		@items = items
 		@merchants = merchants
+		@invoices = invoices
 	end
 
 	def average_items_per_merchant
