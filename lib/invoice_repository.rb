@@ -13,15 +13,19 @@ class InvoiceRepository
     repo
   end
 
-  def find_by_id(id_number)
+  def find_all_by_id(id_number)
     @all.find {|invoice| invoice.id == id_number}
   end
 
-  def find_by_customer_id(id_number)
+  def find_all_by_customer_id(id_number)
     @all.select {|invoice| invoice.customer_id == id_number}
   end
 
-  def find_by_merchant_id(id_number)
+  def find_all_by_merchant_id(id_number)
     @all.select {|invoice| invoice.merchant_id == id_number}
+  end
+
+  def find_all_by_status(status)
+    @all.select {|invoice| invoice.status == status}
   end
 end
