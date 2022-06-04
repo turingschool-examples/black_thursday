@@ -1,3 +1,4 @@
+require 'BigDecimal'
 require './lib/invoice_item'
 
 RSpec.describe InvoiceItem do
