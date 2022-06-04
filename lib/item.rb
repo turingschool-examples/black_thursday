@@ -15,18 +15,4 @@ class Item
   def unit_price_to_dollars
     (@unit_price.to_f)
   end
-
-  # def change(key, value)
-  #   if key == :unit_price
-  #     @unit_price = value
-  #   elsif key == :description
-  #     @description = value
-  #   elsif key == :name
-  #     @name = value
-  #   else
-  #     return nil
-  #   end
-  #   @updated_at = Time.now
-  # end
-
 end

@@ -8,6 +8,7 @@ class SalesAnalyst
 
   def average_items_per_merchant
     (@item_repository.all.length.to_f / @merchant_repository.all.length).round(2)
+    #round(2) rounds it to the second decimal place (2.88 vs 2.8842)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -30,7 +31,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     sd = average_items_per_merchant_standard_deviation
     high_sellers = merchant_ids.find_all do |id|
-      @item_repository.find_all_by_merchant_id(id).count > sd * 2
+      @item_repository.find_all_by_merchant_id(id).count > (sd + average_items_per_merchant)
     end
     high_seller_merchants = high_sellers.map {|seller| @merchant_repository.find_by_id(seller)}
   end
@@ -47,7 +48,8 @@ class SalesAnalyst
   end
 
   def golden_items
-    @item_repository.all.find_all {|item| item.unit_price_to_dollars > sd_prices * 2}
+    prices = @item_repository.all.map {|item| item.unit_price_to_dollars}
+    @item_repository.all.find_all {|item| item.unit_price_to_dollars > (prices.sum / prices.size + sd_prices * 2)}
   end
 
   def sd_prices

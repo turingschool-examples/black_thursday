@@ -18,7 +18,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can tell you the standard deviation of average items per merchant' do
-    expect(@sales_analyst.average_items_per_merchant_standard_deviation).to be_instance_of(Float) #change to 3.26 if population sd
+    expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26) #change to 3.26 if population sd
   end
 
   it 'can find Merchant ids to be used to calculate standard deviation' do
@@ -39,7 +39,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can find the average price of a merchants items' do
-    expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
+    expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66) 
     expect(@sales_analyst.average_item_price_for_merchant(12334105).class).to eq(Float)
   end
 
