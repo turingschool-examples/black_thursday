@@ -69,6 +69,8 @@ class SalesAnalyst
     @item_repository.all.select {|item| item.unit_price_to_dollars > (average_item_price + (standard_dev * 2))}
   end
 
+  # will likely want to break below into a TimeAnalyst class or something for organizing purposes
+
   def invoice_day_of_week_by_id(invoice_id)
     created_at_array = (@invoice_repository.find_by_id(invoice_id).created_at).split("-")
     date = Date.new(created_at_array[0].to_i,created_at_array[1].to_i,created_at_array[2].to_i)
@@ -84,5 +86,13 @@ class SalesAnalyst
     weekdays_array = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 
     ((weekdays_array.sum {|day| invoices_by_day_of_week(day)}).to_f / 7).round(2)
+  end
+
+  def average_invoices_by_day_of_week_standard_deviation
+    weekdays_array = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    mean = average_invoices_by_day_of_week
+    sum = weekdays_array.sum {|day| (invoices_by_day_of_week(day) - mean) ** 2}
+    variance = sum / 6
+    standard_deviation = Math.sqrt(variance).round(2)
   end
 end
