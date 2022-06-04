@@ -29,4 +29,9 @@ RSpec.describe TransactionRepository do
     expect(@tr.find_all_by_credit_card_number("4068631943231473").length).to eq(1)
   end
 
+  it "can find_all_by_result" do
+    expect(@tr.find_all_by_result("success")).to be_a(Array)
+    expect(@tr.find_all_by_result("success").length).to eq(4158)
+  end
+
 end
