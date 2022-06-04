@@ -40,4 +40,8 @@ class TransactionRepository
     end
   end
 
+  def delete(id)
+    @all.delete_if { |invoiceitem| invoiceitem.id == id }
+  end
+
 end
