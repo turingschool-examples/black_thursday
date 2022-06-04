@@ -4,7 +4,8 @@ RSpec.describe SalesAnalyst do
   before :each do
     sales_engine = SalesEngine.from_csv({
      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :merchants => "./data/merchants.csv",
+      :invoice => "./data/invoices.csv"
     })
     @sales_analyst = sales_engine.analyst
   end
@@ -18,7 +19,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can tell you the standard deviation of average items per merchant' do
-    expect(@sales_analyst.average_items_per_merchant_standard_deviation).to be_instance_of(Float) #change to 3.26 if population sd
+    expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26) #change to 3.26 if population sd
   end
 
   it 'can find Merchant ids to be used to calculate standard deviation' do
