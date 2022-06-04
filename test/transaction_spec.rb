@@ -33,5 +33,11 @@ RSpec.describe Transaction do
     expect(@t.credit_card_expiration_date).to eq("0220")
   end
 
-  
+  it 'has a Transaction result' do
+    expect(@t.result).to eq("success")
+  end
+
+  xit 'has a created_at Time' do
+
+  end
 end
