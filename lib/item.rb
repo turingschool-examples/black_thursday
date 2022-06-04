@@ -14,7 +14,7 @@ attr_accessor :id,
     @created_at = data_hash[:created_at]
     @updated_at = data_hash[:updated_at]
     @unit_price = data_hash[:unit_price]
-    @merchant_id = data_hash[:merchant_id]
+    @merchant_id = data_hash[:merchant_id].to_i
   end
 
   def unit_price_to_dollars

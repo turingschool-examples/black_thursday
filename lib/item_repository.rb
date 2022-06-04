@@ -46,8 +46,7 @@ class ItemRepository
 
 
   def find_all_by_merchant_id(merchant_id)
-    @all.find_all {|merchant| merchant.id == merchant_id}
-    binding.pry
+    @all.find_all {|item| merchant_id == item.merchant_id }
   end
 
   def create(name)
