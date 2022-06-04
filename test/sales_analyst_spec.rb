@@ -112,7 +112,45 @@ RSpec.describe SalesAnalyst do
        :invoices => "./data/invoices.csv"
      })
 
-       sales_analyst = sales_engine.analyst
-       expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
-       end
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
+  end
+
+#Business intelligence tests start here
+  it 'can calculate average_invoices_per_merchant'do
+  sales_engine = SalesEngine.from_csv({
+    :items => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
+  })
+
+  sales_analyst = sales_engine.analyst
+
+  expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
+  end
+
+  it 'can calculate average_invoices_per_merchant' do
+  sales_engine = SalesEngine.from_csv({
+    :items => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
+  })
+
+  sales_analyst = sales_engine.analyst
+
+  expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
+  end
+
+  it 'can calculate average_invoices_per_merchant_standard_deviation' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.29)
+  end
+
 end
