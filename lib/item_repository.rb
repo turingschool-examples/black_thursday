@@ -28,21 +28,30 @@ class ItemRepository
     @all.find_all {|row| range.include?(row.unit_price)}
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    @all.find_all {|row| row.merchant_id == merchant_id}
-  end
-
-  def create(item)
+  def add_new(new_id, attributes)
     i = Item.new({
-      id: @all.last.id + 1,
-      name: item[:name],
-      description: item[:description],
-      unit_price: item[:unit_price],
-      created_at: item[:created_at],
-      updated_at: item[:updated_at],
-      merchant_id: item[:merchant_id]
+      id: new_id,
+      name: attributes[:name],
+      description: attributes[:description],
+      unit_price: attributes[:unit_price],
+      created_at: attributes[:created_at],
+      updated_at: attributes[:updated_at],
+      merchant_id: attributes[:merchant_id]
       })
     @all.append(i)
     i
+  end
+
+  def change(id, key, value)
+    if key == :unit_price
+      find_by_id(id).unit_price = value
+    elsif key == :description
+      find_by_id(id).description = value
+    elsif key == :name
+      find_by_id(id).name = value
+    else
+      return nil
+    end
+    find_by_id(id).updated_at = Time.now
   end
 end

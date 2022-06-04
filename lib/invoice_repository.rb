@@ -19,4 +19,25 @@ class InvoiceRepository
         })
     end
   end
+
+  def find_all_by_customer_id(cust_id)
+    @all.find_all {|row| row.customer_id == cust_id}
+  end
+
+  def find_all_by_status(condition)
+    @all.find_all {|row| row.status == condition}
+  end
+
+  def add_new(new_id, attributes)
+    i = Invoice.new({
+                    id: new_id,
+                    customer_id: attributes[:customer_id],
+                    merchant_id: attributes[:merchant_id],
+                    status: attributes[:status],
+                    created_at: Time.now,
+                    updated_at: Time.now
+                    })
+    @all.append(i)
+    i
+  end
 end

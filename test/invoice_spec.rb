@@ -29,7 +29,7 @@ RSpec.describe Invoice do
   end
 
   it 'has a status' do
-    expect(@i.status).to eq("pending")
+    expect(@i.status).to eq(:pending)
   end
 
   it 'has a created at time stamp' do
