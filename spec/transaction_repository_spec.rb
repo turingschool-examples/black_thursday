@@ -26,7 +26,7 @@ RSpec.describe TransactionRepository do
 
   it "can find_by_id" do
     expect(@tr.find_by_id(1)).to be_a(Transaction)
-    expect(@tr.find_by_id(4987)).to be_nil
+    expect(@tr.find_by_id(4986)).to be_nil
   end
 
   it "can find_all_by_invoice_id" do
@@ -48,6 +48,20 @@ RSpec.describe TransactionRepository do
     expect(@tr.find_by_id(4986)).to be_nil
     @tr.create(@test_transaction)
     expect(@tr.find_by_id(4986)).to be_a(Transaction)
+    expect(@tr.find_by_id(4986).invoice_id).to eq(8)
+  end
+
+  it "can update transactions" do
+    @tr.create(@test_transaction)
+    expect(@tr.find_by_id(4986)).to be_a(Transaction)
+    expect(@tr.find_by_id(4986).credit_card_number).to eq("4242424242424242")
+    expect(@tr.find_by_id(4986).credit_card_expiration_date).to eq("0220")
+    expect(@tr.find_by_id(4986).result).to eq("success")
+    @tr.update(4986, {credit_card_number: "4242424242424243", credit_card_expiration_date: "0221", result: "failed"})
+    expect(@tr.find_by_id(4986)).to be_a(Transaction)
+    expect(@tr.find_by_id(4986).credit_card_number).to eq("4242424242424243")
+    expect(@tr.find_by_id(4986).credit_card_expiration_date).to eq("0221")
+    expect(@tr.find_by_id(4986).result).to eq("failed")
   end
 
 end
