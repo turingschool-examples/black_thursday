@@ -9,4 +9,9 @@ RSpec.describe TransactionRepository do
     expect(@tr).to be_a(TransactionRepository)
   end
 
+  it "has all" do
+    expect(@tr.all).to be_a(Array)
+    expect(@tr.all).to include(Transaction)
+  end
+
 end
