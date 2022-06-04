@@ -1,5 +1,5 @@
 require 'CSV'
-require './lib/item'
+require './lib/invoice_item'
 require 'BigDecimal'
 require 'pry'
 
@@ -17,7 +17,7 @@ RSpec.describe InvoiceItem do
         :updated_at => Time.now
         })
       end
-      
+
   it 'exists' do
     expect(@ii).to be_a InvoiceItem
   end
