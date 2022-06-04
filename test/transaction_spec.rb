@@ -40,4 +40,8 @@ RSpec.describe Transaction do
   it 'has a created_at Time' do
     expect(@t.created_at).to be_instance_of(Time)
   end
+
+  it 'has an updated_at Time' do
+    expect(@t.updated_at).to be_instance_of(Time)
+  end
 end
