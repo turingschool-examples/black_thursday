@@ -10,4 +10,8 @@ class SalesEngine
     return SalesEngine.new(data[:items], data[:merchants])
   end
 
+	def analyst
+		return SalesAnalyst.new(items, merchants)
+	end
+
 end

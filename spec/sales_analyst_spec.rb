@@ -1,42 +1,39 @@
-require './lib/sales_analyst'
-require './lib/sales_engine'
-require './lib/sales_analyst'
-require 'BigDecimal'
+require "./lib/sales_engine"
+require "./lib/item_repository"
+require "./lib/merchant_repository"
+require "./lib/sales_analyst"
 
 RSpec.describe SalesAnalyst do
-  it 'exists' do
-    sales_engine = SalesEngine.from_csv({
-      :item => "./data/items.csv",
+	it 'exists' do
+		sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
       :merchants => "./data/merchants.csv"
-      })
-      sales_analyst = sales_engine.analyst
-    end 
+    })
+		sales_analyst = sales_engine.analyst
 
-  it 'exists' do
-    expect(sales_analyst).to be_a(SalesAnalyst)
-  end
+		expect(sales_analyst).to be_an_instance_of(SalesAnalyst)
+	end
 
-  it 'is able to find average items per merchant' do
-    expect(sales_analyst.average_items_per_merchant).to eq(2.88)
-  end
+	it 'can return the average items per merchant' do
+		#total items divided by total merchants
+		sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+		sales_analyst = sales_engine.analyst
 
-  it 'is able to find the standard deviation' do
-    expect (sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
-  end
+		expect(sales_analyst.average_items_per_merchant).to eq(2.88)
 
-  it 'is able to find merchants with high item counts' do
-    expect(sales_analyst.merchants_with_high_item_count).to eq(Merchant)
-  end
+	end
 
-  it 'is able to find average price of merchant items' do
-    expect(sales_analyst.average_item_price_for_merchant(12334159)).to eq(BigDecimal)
-  end
+	it 'can return the standard deviation of average items per merchant' do
+		sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+		sales_analyst = sales_engine.analyst
 
-  it 'is able to find average of average price per merchants' do
-    expect(sales_analyst.average_average_price_per_merchant).to eq(BigDecimal)
-  end
+		expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
+	end
 
-  it 'is able to find Golden items of merchants' do
-    expect(sales_analyst.golden_items). to eq(Item)
-  end
 end
