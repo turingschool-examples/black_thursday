@@ -5,6 +5,14 @@ require './lib/helper'
 RSpec.describe InvoiceRepository do
   let!(:sales_engine) {SalesEngine.from_csv({:invoices => "./data/invoices.csv"})}
   let!(:invoice_repo) {sales_engine.invoices}
+  let(:new_invoice) {invoice_repo.create({
+    :id          => 6,
+    :customer_id => 7,
+    :merchant_id => 8,
+    :status      => "pending",
+    :created_at  => Time.now,
+    :updated_at  => Time.now,
+  })}
 
   it "exists" do
     expect(invoice_repo).to be_instance_of InvoiceRepository
@@ -35,5 +43,11 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo.find_all_by_status("delivered")).to eq([])
     expect(invoice_repo.find_all_by_status("shipped")[0]).to be_instance_of Invoice
     expect(invoice_repo.find_all_by_status("shipped").count).to eq(2839)
+  end
+
+  it "can create a new invoice" do
+    expect(invoice_repo.find_all_by_merchant_id(8)).to eq([])
+    new_invoice
+    expect(invoice_repo.find_all_by_merchant_id(8)[0]).to be_instance_of Invoice
   end
 end
