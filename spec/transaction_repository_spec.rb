@@ -20,8 +20,13 @@ RSpec.describe TransactionRepository do
   end
 
   it "can find_all_by_invoice_id" do
-    expect(@tr.find_all_by_item_id(2179)).to be_a(Array)
-    expect(@tr.find_all_by_item_id(2179).length).to eq(164)
+    expect(@tr.find_all_by_invoice_id(2179)).to be_a(Array)
+    expect(@tr.find_all_by_invoice_id(2179).length).to eq(2)
+  end
+
+  it "can find_all_by_credit_card_number" do
+    expect(@tr.find_all_by_credit_card_number("4068631943231473")).to be_a(Array)
+    expect(@tr.find_all_by_credit_card_number("4068631943231473").length).to eq(1)
   end
 
 end
