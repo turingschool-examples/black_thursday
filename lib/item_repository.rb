@@ -1,24 +1,12 @@
 require 'helper'
+require './lib/repository_methods_module'
 
 class ItemRepository
+  include RepositoryMethods
   attr_reader :all
 
   def initialize(file_path)
     @all = make_repo(file_path)
-  end
-
-  def make_repo(file_path)
-    repo = Array.new
-    CSV.foreach(file_path, headers: true, header_converters: :symbol){|row| repo.push(Item.new(row))}
-    repo
-  end
-
-  def find_by_id(id_number)
-    @all.find {|item| item.id == id_number}
-  end
-
-  def find_by_name(name)
-    @all.find {|item| item.name.downcase == name.downcase.strip}
   end
 
   def find_all_with_description(input)
@@ -37,13 +25,9 @@ class ItemRepository
     @all.select {|item| item.merchant_id == merchant_id}
   end
 
-  def max_item_id
-    (@all.max_by {|item| item.id}).id
-  end
-
   def create(name,description,price,merchantID)
     @all << Item.new({
-      :id => max_item_id + 1,
+      :id => max_id + 1,
       :name => name,
       :description => description,
       :unit_price => price,
@@ -58,11 +42,6 @@ class ItemRepository
     to_be_updated.name = new_name
     to_be_updated.description = new_description
     to_be_updated.unit_price = new_price
-  end
-
-  def delete(id)
-    to_be_dropped = find_by_id(id)
-    @all.delete(to_be_dropped)
   end
 
 end

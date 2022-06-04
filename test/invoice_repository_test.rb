@@ -41,8 +41,8 @@ RSpec.describe InvoiceRepository do
 
   it "can find invoices by status" do
     expect(invoice_repo.find_all_by_status("delivered")).to eq([])
-    expect(invoice_repo.find_all_by_status("shipped")[0]).to be_instance_of Invoice
-    expect(invoice_repo.find_all_by_status("shipped").count).to eq(2839)
+    expect(invoice_repo.find_all_by_status(:shipped)[0]).to be_instance_of Invoice
+    expect(invoice_repo.find_all_by_status(:shipped).count).to eq(2839)
   end
 
   it "can create a new invoice" do
@@ -54,16 +54,16 @@ RSpec.describe InvoiceRepository do
   it "can update an invoice" do
     time = Time.now
     expect(invoice_repo.find_by_id(1)).to be_instance_of Invoice
-    expect(invoice_repo.find_by_id(1).status).to eq("pending")
+    expect(invoice_repo.find_by_id(1).status).to eq(:pending)
     expect(invoice_repo.find_by_id(1).updated_at).to eq("2014-03-15")
-    invoice_repo.update(1, "shipped")
-    expect(invoice_repo.find_by_id(1).status).to eq("shipped")
+    invoice_repo.update(1, :shipped)
+    expect(invoice_repo.find_by_id(1).status).to eq(:shipped)
     expect(invoice_repo.find_by_id(1).updated_at).to eq(time.strftime("%Y-%m-%d %H:%M"))
   end
 
   it "can delete an invoice" do
     expect(invoice_repo.find_by_id(1)).to be_instance_of Invoice
-    expect(invoice_repo.find_by_id(1).status).to eq("pending")
+    expect(invoice_repo.find_by_id(1).status).to eq(:pending)
     expect(invoice_repo.find_by_id(1).updated_at).to eq("2014-03-15")
     invoicerepository = double()
     allow(invoicerepository).to receive(:delete).and_return("Deletion complete!")

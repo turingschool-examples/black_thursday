@@ -1,20 +1,13 @@
 require 'helper'
+require './lib/repository_methods_module'
+require 'pry'
 
 class InvoiceRepository
+  include RepositoryMethods
   attr_reader :all
 
   def initialize(file_path)
     @all = make_repo(file_path)
-  end
-
-  def make_repo(file_path)
-    repo = Array.new
-    CSV.foreach(file_path, headers: true, header_converters: :symbol){|row| repo.push(Invoice.new(row))}
-    repo
-  end
-
-  def find_by_id(id_number)
-    @all.find {|invoice| invoice.id == id_number}
   end
 
   def find_all_by_customer_id(id_number)
@@ -27,10 +20,6 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     @all.select {|invoice| invoice.status == status}
-  end
-
-  def max_id
-    (@all.max_by {|invoice| invoice.id}).id
   end
 
   def create(invoice_attributes)
@@ -50,9 +39,4 @@ class InvoiceRepository
     to_be_updated.updated_at = (Time.now).strftime("%Y-%m-%d %H:%M")
   end
 
-  def delete(id)
-    to_be_dropped = find_by_id(id)
-    @all.delete(to_be_dropped)
-    @all.find_by_id(id) == nil ? 'Deletion complete!' : '...something went wrong'
-  end
 end
