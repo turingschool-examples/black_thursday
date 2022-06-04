@@ -1,4 +1,7 @@
-require 'CSV'
+require './lib/entry'
+require_relative 'entry'
+require './lib/item_repository.rb'
+
 class SalesAnalyst
   attr_accessor :item_repository, :merchant_repository
 
@@ -9,6 +12,14 @@ class SalesAnalyst
 
   def average_items_per_merchant
     (@item_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    x = @item_repository.all.find_all { |item| item.merchant_id == merchant_id }
+    y = x.map do |item|
+      item.unit_price
+    end
+      (y.sum / x.count).round(2)
   end
 
 end
