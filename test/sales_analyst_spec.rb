@@ -153,4 +153,27 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.29)
   end
 
+  it 'can find top_merchants_by_invoice_count' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
+  end
+
+  it 'can find bottom_merchants_by_invoice_count' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
+  end
 end
