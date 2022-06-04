@@ -1,7 +1,6 @@
 require 'CSV'
 require './lib/invoice_item'
 require 'BigDecimal'
-require 'pry'
 
 
 RSpec.describe InvoiceItem do
@@ -33,4 +32,9 @@ RSpec.describe InvoiceItem do
     expect(@ii.created_at).to eq @x
     expect(@ii.updated_at).to eq @x
   end
+
+  it "returns the price of the invoice item in dollars as Float" do
+    expect(@ii.unit_price_to_dollars).to eq(10.99)
+  end
+  
 end
