@@ -9,7 +9,7 @@ class SalesEngine
   end
 
   def self.from_csv(data)
-    SalesEngine.new(data[:items],data[:merchants])
+    SalesEngine.new(data[:items],data[:merchants], data[:invoice])
   end
 
 
