@@ -14,4 +14,9 @@ RSpec.describe TransactionRepository do
     expect(@tr.all).to include(Transaction)
   end
 
+  it "can find_by_id" do
+    expect(@tr.find_by_id(1)).to be_a(Transaction)
+    expect(@tr.find_by_id(4987)).to be_nil
+  end
+
 end
