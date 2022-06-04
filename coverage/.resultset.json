@@ -260,18 +260,29 @@
           1,
           null,
           1,
-          7,
-          7,
-          7,
-          7,
-          7,
-          7,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/mayutakeda/turing/1mod/projects/black_thursday/lib/invoice_repository.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
           null,
           null
         ]
       }
     },
-    "timestamp": 1654304731
+    "timestamp": 1654306217
   },
   "RSpec": {
     "coverage": {
