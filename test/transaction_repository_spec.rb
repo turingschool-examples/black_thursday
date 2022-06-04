@@ -23,4 +23,16 @@ RSpec.describe TransactionRepository do
   it 'is an instance of TransactionRepository' do
     expect(@sales_engine.transactions).to be_instance_of(TransactionRepository)
   end
+
+  it 'has an array of Transactions' do
+    expect(@sales_engine.transactions.all[0].class).to eq(Transaction)
+    expect(@sales_engine.transactions.all.class).to eq(Array)
+    expect(@sales_engine.transactions.all.count).to eq(4985)
+
+  end
+
+  xit 'can find by id' do
+    expect(@sales_engine.transactions.find_by_id(2).class).to eq(Transaction)
+    binding.pry
+  end
 end

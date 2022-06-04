@@ -1,4 +1,9 @@
+require_relative './enumerable'
+
 class TransactionRepository
+  include Enumerable
+  attr_reader :all
+
   def initialize(file_path)
     @all = []
 
