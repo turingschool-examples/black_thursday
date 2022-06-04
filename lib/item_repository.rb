@@ -1,6 +1,6 @@
 require 'CSV'
 require "BigDecimal"
-require './lib/item.rb'
+require_relative'./item.rb'
 
 class ItemRepository
 	attr_reader :all
