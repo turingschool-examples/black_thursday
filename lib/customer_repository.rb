@@ -15,4 +15,8 @@ class CustomerRepository
   def find_by_id(id)
     @all.find { |customer| customer.id == id }
   end
+
+  def find_all_by_first_name(first_name)
+    @all.find_all { |customer| customer.first_name == first_name }
+  end
 end
