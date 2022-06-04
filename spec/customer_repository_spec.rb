@@ -10,10 +10,19 @@ RSpec.describe CustomerRepository do
     expect(@customer_repository).to be_a CustomerRepository
   end
 
-  it "can find a customer by id and return nil if no customer is found" do
+  it 'can find a customer by id and return nil if no customer is found' do
     expect(@customer_repository.find_by_id(0)).to eq nil
     expect(@customer_repository.find_by_id(1)).to be_a(Customer)
     expect(@customer_repository.find_by_id(1000)).to be_a(Customer)
+  end
+
+  it 'can find all customers by first name' do
+    result_1 = @customer_repository.find_all_by_first_name("Samara")
+    result_2 = @customer_repository.find_all_by_first_name("NO")
+    expect(result_1).to be_a(Array)
+    expect(result_1[0].first_name).to eq("Samara")
+    expect(result_2).to be_a(Array)
+    expect(result_2.count).to eq(21)
   end
 
 end
