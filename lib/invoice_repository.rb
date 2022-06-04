@@ -53,5 +53,6 @@ class InvoiceRepository
   def delete(id)
     to_be_dropped = find_by_id(id)
     @all.delete(to_be_dropped)
+    @all.find_by_id(id) == nil ? 'Deletion complete!' : '...something went wrong'
   end
 end
