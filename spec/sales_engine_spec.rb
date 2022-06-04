@@ -12,6 +12,7 @@ RSpec.describe SalesEngine do
       }
     )
   end
+
   it "exists" do
     expect(@sales_engine).to be_instance_of SalesEngine
   end

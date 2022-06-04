@@ -3,15 +3,17 @@ require './lib/invoice'
 
 RSpec.describe Invoice do
   it "exists and has attributes" do
-    invoice = Invoice.new({
+    invoice = Invoice.new(
+    {
     :id          => 6,
     :customer_id => 7,
     :merchant_id => 8,
     :status      => "pending",
     :created_at  => Time.now,
     :updated_at  => Time.now,
-    })
-
+    }
+  )
+  
     expect(invoice).to be_a Invoice
     expect(invoice.id).to eq(6)
     expect(invoice.customer_id).to eq(7)

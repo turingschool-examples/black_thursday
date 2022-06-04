@@ -16,6 +16,7 @@ RSpec.describe SalesAnalyst do
     )
     @sales_analyst = @sales_engine.analyst
   end
+
    it "exist" do
      expect(@sales_analyst).to be_a SalesAnalyst
    end
@@ -23,5 +24,4 @@ RSpec.describe SalesAnalyst do
    it "can calculate avg item per merchants" do
      expect(@sales_analyst.average_items_per_merchant).to eq(2.88)
    end
-
 end
