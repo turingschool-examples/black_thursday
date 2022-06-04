@@ -49,5 +49,4 @@ RSpec.describe InvoiceItem do
     expect(@ii.unit_price_to_dollars).to be_instance_of(Float)
     expect(@ii.unit_price_to_dollars).to eq(10.99)
   end
-
 end
