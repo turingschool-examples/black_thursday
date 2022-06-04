@@ -34,7 +34,7 @@ RSpec.describe InvoiceItem do
     expect(invoice_item.quantity).to eq(1)
   end
 
-  xit 'returns unit price' do
-    expect(invoice_item.invoice_id).to eq(8)
+  it 'returns unit price' do
+    expect(invoice_item.unit_price).to eq(10.99)
   end
 end
