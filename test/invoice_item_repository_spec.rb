@@ -19,12 +19,12 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_engine.invoice_items.all.class).to eq(Array)
     expect(@sales_engine.invoice_items.all.count).to eq(21830)
     expect(@sales_engine.invoice_items.all[0].class).to eq(InvoiceItem)
-    binding.pry
   end
 
-  xit 'returns an instance of invoice item by id' do
-    expect(@sales_engine.invoice_items.find_by_id(6)).to eq(@invoice_item)
-    binding.pry
+  it 'returns an instance of invoice item by id' do
+    expect(@sales_engine.invoice_items.find_by_id(10).item_id).to eq(263523644)
+    expect(@sales_engine.invoice_items.find_by_id(10).invoice_id).to eq(2)
+    expect(@sales_engine.invoice_items.find_by_id(200000)).to eq(nil)
   end
 
 end
