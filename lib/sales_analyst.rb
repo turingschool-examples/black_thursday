@@ -108,5 +108,3 @@ class SalesAnalyst
     ((numerator_count.to_f / @invoice_repository.all.count.to_f) * 100).round(2)
   end
 end
-
-# 741 - 712.14 > 18.07
