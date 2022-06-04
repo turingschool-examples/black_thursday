@@ -70,6 +70,12 @@ RSpec.describe SalesAnalyst do
     #array of merchants more than two standard deviations BELOW the mean
   end
 
+  it 'returns day of week a given invoice is created' do
+    expect(sales_analyst.invoice_day_of_week(1)).to eq("Saturday")
+    expect(sales_analyst.invoice_day_of_week(2)).to eq("Friday")
+    expect(sales_analyst.invoice_day_of_week(4985)).to eq("Monday")
+  end
+
   xit 'returns days of the week where invoices are created at more than one standard deviation above the mean' do
     expect(sales_analyst.top_days_by_invoice_count).to eq(["Sunday, Saturday"])
   end
