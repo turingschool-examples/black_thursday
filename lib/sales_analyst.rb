@@ -2,6 +2,7 @@ require "./lib/sales_engine"
 require "./lib/item_repository"
 require "./lib/merchant_repository"
 require "bigdecimal"
+require "bigdecimal/util"
 
 class SalesAnalyst
 	attr_reader :items, :merchants
@@ -40,6 +41,14 @@ class SalesAnalyst
 			merchants_with_high_sales << merchant if items > mean_and_standard_dev
 		end
 		return merchants_with_high_sales
+	end
+
+	def average_item_price_for_merchant(merchant_id)
+		find_merchant = @items.find_all_by_merchant_id(merchant_id)
+		items_sum = find_merchant.sum do |item|
+			item.unit_price.to_f
+		end
+		(items_sum / find_merchant.count).to_d(3)
 	end
 
 end
