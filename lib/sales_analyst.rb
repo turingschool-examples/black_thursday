@@ -24,7 +24,6 @@ class SalesAnalyst
 		return items_per_merchant
 	end
 
-
 	def average_items_per_merchant_standard_deviation
 		set = items_by_merchant.values
 		mean = average_items_per_merchant
@@ -33,6 +32,14 @@ class SalesAnalyst
     std_dev.round(2)
 	end
 
-
+	def merchants_with_high_item_count
+		standard_deviation = average_items_per_merchant_standard_deviation
+		mean_and_standard_dev = standard_deviation + average_items_per_merchant
+		merchants_with_high_sales = []
+		items_by_merchant.each_pair do |merchant, items|
+			merchants_with_high_sales << merchant if items > mean_and_standard_dev
+		end
+		return merchants_with_high_sales
+	end
 
 end
