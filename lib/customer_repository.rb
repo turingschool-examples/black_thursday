@@ -1,5 +1,5 @@
 
-require 'CSV'
+require 'csv'
 require_relative 'customer'
 class CustomerRepository
   attr_reader :file_path
@@ -9,12 +9,16 @@ class CustomerRepository
     @all = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Customer.new({
-        :id => 6,
-        :first_name => "Joan",
-        :last_name => "Clarke",
-        :created_at => Time.now,
-        :updated_at => Time.now
+        :id => row[:id],
+        :first_name => row[:first_name],
+        :last_name => row[:last_name],
+        :created_at => row[:created_at],
+        :updated_at => row[:updated_at]
         })
       end
+   end
+
+   def find_by_id(customer_id)
+      @all.find { |customer| customer.id.to_i == customer_id}
    end
 end
