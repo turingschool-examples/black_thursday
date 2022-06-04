@@ -69,6 +69,15 @@ RSpec.describe SalesAnalyst do
 		expect(sales_analyst.average_average_price_per_merchant).to eq(0.251e5) #(25108.91441111924)
 	end
 
+	it "can return a standard deviation" do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv"
+		})
+		sales_analyst = sales_engine.analyst
+		expect(sales_analyst.standard_deviation([1, 2 ,3], 2)).to eq(1)
+	end
+
 	it 'can return the golden items' do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
