@@ -17,7 +17,7 @@ RSpec.describe InvoiceItem do
         :updated_at => Time.now
         })
       end
-
+      
   it 'exists' do
     expect(@ii).to be_a InvoiceItem
   end
