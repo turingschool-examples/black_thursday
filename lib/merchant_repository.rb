@@ -1,8 +1,11 @@
 require 'CSV'
 require_relative "merchant"
+require_relative '../modules/findable'
+require_relative '../modules/deletable'
 
 class MerchantRepository
-
+include Findable
+include Deletable
   attr_accessor :merchants,
               :all,
               :name
@@ -16,22 +19,10 @@ class MerchantRepository
     @all = []
     CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
       @all << Merchant.new(row)
-      # require "pry"; binding.pry
     end
     @all
   end
 
-  def find_by_id(id)
-    @all.find {|merchant| merchant.id == id}
-  end
-
-  def find_by_name(name)
-    @all.find {|merchant| merchant.name.downcase == name.downcase}
-  end
-
-  def find_all_by_name(name)
-    @all.find_all {|names| names.name.downcase.include?(name.downcase)}
-  end
 
   def create(attributes)
     attributes[:id] = (@all.max {|merchant| merchant.id}).id + 1
@@ -49,8 +40,5 @@ class MerchantRepository
     end
   end
 
-  def delete(id)
-    merchant = find_by_id(id)
-    @all.delete(merchant)
-  end
+
 end
