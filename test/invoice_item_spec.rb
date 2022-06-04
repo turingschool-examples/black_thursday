@@ -29,4 +29,8 @@ RSpec.describe InvoiceItem do
     expect(@ii.invoice_id).to eq(8)
   end
 
+  it 'returns the quantity' do
+    expect(@ii.quantity).to eq(1)
+  end
+
 end
