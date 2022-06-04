@@ -68,12 +68,16 @@ class SalesAnalyst < SalesEngine
   BigDecimal((all_merchants.sum / unique_merchants).round(2).to_s)
   end
 
+# Business intelligence starts here
   def average_invoices_per_merchant
-    #10.49
+    (@invoices.all.count / @merchants.all.count.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    #3.29
+    invoice_count = @merchants.all.map do |merchant|
+      @invoices.find_all_by_merchant_id(merchant.id).length
+    end
+    standard_deviation(invoice_count, average_invoices_per_merchant)
   end
 
   def top_merchants_by_invoice_count

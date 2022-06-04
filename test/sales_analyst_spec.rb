@@ -117,18 +117,6 @@ RSpec.describe SalesAnalyst do
   end
 
 #Business intelligence tests start here
-  it 'can calculate average_invoices_per_merchant'do
-  sales_engine = SalesEngine.from_csv({
-    :items => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoices => "./data/invoices.csv"
-  })
-
-  sales_analyst = sales_engine.analyst
-
-  expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
-  end
-
   it 'can calculate average_invoices_per_merchant' do
   sales_engine = SalesEngine.from_csv({
     :items => "./data/items.csv",
@@ -190,7 +178,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
   end
 
-  it 'can find top_days_by_invoice_count' do
+  it 'can calculate invoice status' do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
