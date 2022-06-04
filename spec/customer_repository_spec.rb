@@ -25,4 +25,13 @@ RSpec.describe CustomerRepository do
     expect(result_2.count).to eq(21)
   end
 
+  it 'can find all customers by last name' do
+    result_1 = @customer_repository.find_all_by_last_name("Hyatt")
+    result_2 = @customer_repository.find_all_by_last_name("JO")
+    expect(result_1).to be_a(Array)
+    expect(result_1[0].last_name).to eq("Hyatt")
+    expect(result_2).to be_a(Array)
+    expect(result_2.count).to eq(5)
+  end
+
 end
