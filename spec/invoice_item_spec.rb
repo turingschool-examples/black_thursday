@@ -13,12 +13,24 @@ RSpec.describe InvoiceItem do
         :invoice_id => 8,
         :quantity => 1,
         :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
+        :created_at => @x,
+        :updated_at => @x
         })
       end
 
   it 'exists' do
     expect(@ii).to be_a InvoiceItem
+  end
+
+  it 'has attributes' do
+    expect(@ii.id).to eq(6)
+    expect(@ii.item_id).to eq(7)
+    expect(@ii.invoice_id).to eq(8)
+    expect(@ii.quantity).to eq(1)
+    expect(@ii.unit_price).to eq BigDecimal(10.99,4)
+    expect(@ii.created_at).to be_a Time
+    expect(@ii.updated_at).to be_a Time
+    expect(@ii.created_at).to eq @x
+    expect(@ii.updated_at).to eq @x
   end
 end
