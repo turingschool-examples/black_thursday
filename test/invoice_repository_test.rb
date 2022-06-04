@@ -62,18 +62,10 @@ RSpec.describe InvoiceRepository do
   end
 
   it "can delete an invoice" do
-    # expect(invoice_repo.find_by_id(1)).to exist
     expect(invoice_repo.find_by_id(1)).to be_instance_of Invoice
     expect(invoice_repo.find_by_id(1).status).to eq("pending")
     expect(invoice_repo.find_by_id(1).updated_at).to eq("2014-03-15")
     invoicerepository = double()
     allow(invoicerepository).to receive(:delete).and_return("Deletion complete!")
-    # invoicerepository = double()
-    # expect(invoicerepository).to receive(:delete(1)).with("Deletion complete!")
-
-    # expect(invoice_repo.find_all_by_merchant_id(8)[0]).to be_instance_of Invoice
-    # repo = invoice_repo.find_all_by_merchant_id(8)[0]
-    # invoice_repo.delete(6)
-    # expect(invoice_repo.find_all_by_merchant_id(8)[0]).to be_instance_of Invoice
   end
 end
