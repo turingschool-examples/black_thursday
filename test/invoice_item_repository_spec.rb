@@ -27,4 +27,8 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_engine.invoice_items.find_by_id(200000)).to eq(nil)
   end
 
+  it 'returns an instance by invoice id' do
+    expect(@sales_engine.invoice_items.find_all_by_invoice_id(100).length).to eq(3)
+  end
+
 end

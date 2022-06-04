@@ -21,4 +21,8 @@ class InvoiceItemRepository
     end
   end
 
+  def find_all_by_invoice_id(inv_id)
+    @all.find_all {|row| row.invoice_id == inv_id}
+  end
+
 end
