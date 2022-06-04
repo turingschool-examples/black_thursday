@@ -19,4 +19,9 @@ class InvoiceRepository
         })
     end
   end
+
+  def find_all_by_customer_id(cust_id)
+    @all.find_all {|row| row.customer_id == cust_id}
+  end
+
 end
