@@ -23,8 +23,8 @@ RSpec.describe InvoiceRepository do
   end
 
   it "can find invoices by their id" do
-    expect(invoice_repo.find_all_by_id(10)).to be_instance_of Invoice
-    expect(invoice_repo.find_all_by_id(10).customer_id).to eq(2)
+    expect(invoice_repo.find_by_id(10)).to be_instance_of Invoice
+    expect(invoice_repo.find_by_id(10).customer_id).to eq(2)
   end
 
   it "can find invoices by their customer_id" do
@@ -49,5 +49,17 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo.find_all_by_merchant_id(8)).to eq([])
     new_invoice
     expect(invoice_repo.find_all_by_merchant_id(8)[0]).to be_instance_of Invoice
+  end
+
+  it "can update an invoice" do
+    new_invoice
+    time = Time.now
+    expect(invoice_repo.find_by_id(1)).to be_instance_of Invoice
+    expect(invoice_repo.find_by_id(1).status).to eq("pending")
+    expect(invoice_repo.find_by_id(1).updated_at).to eq("2014-03-15")
+    invoice_repo.update(1, "shipped")
+
+    expect(invoice_repo.find_by_id(1).status).to eq("shipped")
+    expect(invoice_repo.find_by_id(1).updated_at).to eq(time.strftime("%Y-%m-%d %H:%M"))
   end
 end

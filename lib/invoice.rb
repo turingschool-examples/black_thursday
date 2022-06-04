@@ -3,10 +3,11 @@ require 'helper'
 class Invoice
   attr_reader :id,
               :customer_id,
-              :status,
               :merchant_id,
-              :created_at,
-              :updated_at
+              :created_at
+
+  attr_accessor :status,
+                :updated_at
 
   def initialize(input)
     @id = input[:id].to_i
