@@ -25,7 +25,7 @@ RSpec.describe InvoiceItem do
     expect(@ii.item_id).to eq(7)
   end
 
-  xit 'returns the invoice id' do
+  it 'returns the invoice id' do
     expect(@ii.invoice_id).to eq(8)
   end
 
