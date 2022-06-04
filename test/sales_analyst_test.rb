@@ -76,9 +76,9 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'returns day of week a given invoice is created' do
-    expect(sales_analyst.invoice_day_of_week(1)).to eq("Saturday")
-    expect(sales_analyst.invoice_day_of_week(2)).to eq("Friday")
-    expect(sales_analyst.invoice_day_of_week(4985)).to eq("Monday")
+    expect(sales_analyst.invoice_day_of_week_by_id(1)).to eq(6)
+    expect(sales_analyst.invoice_day_of_week_by_id(2)).to eq(5)
+    expect(sales_analyst.invoice_day_of_week_by_id(4985)).to eq(1)
   end
 
   xit 'returns days of the week where invoices are created at more than one standard deviation above the mean' do
