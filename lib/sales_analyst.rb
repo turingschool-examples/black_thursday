@@ -81,15 +81,23 @@ class SalesAnalyst < SalesEngine
   end
 
   def top_merchants_by_invoice_count
-    #Which merchants are more than two standard deviations above the mean? return array
+    invoice_count = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
+    @merchants.all.find_all {|merchant| @invoices.find_all_by_merchant_id(merchant.id).length > (invoice_count * 2)}
   end
 
   def bottom_merchants_by_invoice_count
-    #Which merchants are more than two standard deviations below the mean?
+    invoice_count = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
+    @merchants.all.find_all {|merchant| @invoices.find_all_by_merchant_id(merchant.id).length > (invoice_count - (invoice_count * 2))} #we are very unsure about this line- For this method we need to find two standard deviations below the mean _ and we are not sure this accomplishes that
+  end
+
+  def date_formatter
+    date = Date.new(invoices.created_at)
+    date.strftime("%A")
   end
 
   def top_days_by_invoice_count
-    #On which days are invoices created at more than one standard deviation above the mean?
+    invoice_count = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
+    #need to finish out this method using the date_formatter
   end
 
   def invoice_status(tracking)
