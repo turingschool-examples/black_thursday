@@ -16,4 +16,7 @@ class TransactionRepository
     @all.find { |transaction| transaction.id == id }
   end
 
+  def find_all_by_invoice_id(invoice_id)
+      @all.find_all { |transaction| transaction.invoice_id == invoice_id }
+    end
 end
