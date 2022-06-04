@@ -60,4 +60,18 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_engine.invoice_items.find_by_id(21831).item_id).to eq 7
     expect(@sales_engine.invoice_items.find_by_id(21831).updated_at).to be > original_time
   end
+
+  it 'can delete an InvoiceItem' do
+    attributes = {
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+    @sales_engine.invoice_items.create(attributes)
+    @sales_engine.invoice_items.delete(21831)
+    expect(@sales_engine.invoice_items.find_by_id(21831)).to eq(nil)
+  end
 end
