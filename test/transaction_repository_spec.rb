@@ -28,11 +28,9 @@ RSpec.describe TransactionRepository do
     expect(@sales_engine.transactions.all[0].class).to eq(Transaction)
     expect(@sales_engine.transactions.all.class).to eq(Array)
     expect(@sales_engine.transactions.all.count).to eq(4985)
-
   end
 
-  xit 'can find by id' do
+  it 'can find by id' do
     expect(@sales_engine.transactions.find_by_id(2).class).to eq(Transaction)
-    binding.pry
   end
 end
