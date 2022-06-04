@@ -19,4 +19,8 @@ class InvoiceItem
     @updated_at = details[:updated_at]
   end
 
+  def unit_price_to_dollars
+    @unit_price.round(2)
+  end
+
 end
