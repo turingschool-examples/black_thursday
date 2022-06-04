@@ -24,9 +24,9 @@ class Item
   end
 
   def update(attributes)
-    @name = attributes[:name] unless attributes[:name] == nil
-    @description = attributes[:description] unless attributes[:description] == nil
-    @unit_price = BigDecimal(attributes[:unit_price], 4) unless attributes[:unit_price] == nil
+    @name = attributes[:name] unless attributes[:name].nil?
+    @description = attributes[:description] unless attributes[:description].nil?
+    @unit_price = BigDecimal(attributes[:unit_price], 4) unless attributes[:unit_price].nil?
     @updated_at = Time.now
   end
 end

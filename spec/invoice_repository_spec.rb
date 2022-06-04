@@ -5,6 +5,7 @@ RSpec.describe InvoiceRepository do
   before :each do
 
     @invoice_repository = InvoiceRepository.new('./data/invoices.csv')
+
     @i = Invoice.new({
       :id          => 6,
       :customer_id => 7,
@@ -13,6 +14,7 @@ RSpec.describe InvoiceRepository do
       :created_at  => Time.now,
       :updated_at  => Time.now,
     })
+    
     @pizza_invoice = ({
       :id          => 6,
       :customer_id => 7,
@@ -88,4 +90,5 @@ RSpec.describe InvoiceRepository do
     @invoice_repository.delete(4986)
     expect(@invoice_repository.find_by_id(4986)).to be_nil
   end
+
 end
