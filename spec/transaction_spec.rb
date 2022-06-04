@@ -13,5 +13,8 @@ RSpec.describe Transaction do
     })
   end
 
+  it "exists" do
+    expect(@t).to be_a(Transaction)
+  end
 
 end
