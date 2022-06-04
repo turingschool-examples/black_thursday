@@ -1,5 +1,6 @@
 require 'csv'
 require 'bigdecimal'
+require 'date'
 require 'merchant'
 require 'merchant_repository'
 require 'item'

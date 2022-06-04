@@ -1,6 +1,10 @@
+require 'helper'
+require 'pry'
+
 class SalesAnalyst
   attr_accessor :item_repository,
-                :merchant_repository
+                :merchant_repository,
+                :invoice_repository
 
   def initialize(item_repository, merchant_repository,invoice_repository)
     @item_repository = item_repository
@@ -63,5 +67,11 @@ class SalesAnalyst
   def golden_items
     standard_dev = item_price_standard_deviation
     @item_repository.all.select {|item| item.unit_price_to_dollars > (average_item_price + (standard_dev * 2))}
+  end
+
+  def invoice_day_of_week_by_id(invoice_id)
+    created_at_array = (@invoice_repository.find_by_id(invoice_id).created_at).split("-")
+    date = Date.new(created_at_array[0].to_i,created_at_array[1].to_i,created_at_array[2].to_i)
+    date.wday
   end
 end
