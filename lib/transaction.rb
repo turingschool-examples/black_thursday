@@ -22,6 +22,6 @@ class Transaction
     @credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
     @result = attributes[:result] unless attributes[:result].nil?
     @updated_at = Time.now
-    end
-
   end
+
+end
