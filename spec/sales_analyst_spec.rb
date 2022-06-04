@@ -23,5 +23,19 @@ RSpec.describe SalesAnalyst do
    it "can calculate avg item per merchants" do
      expect(@sales_analyst.average_items_per_merchant).to eq(2.88)
    end
+   it "can calculate average item per merchant standard deviation" do
+     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
+   end
+   it "can return the merchants more than one standard deviation from average products sold" do
+     expect(@sales_analyst.merchants_with_high_item_count).to be_a Array
+     expect(@sales_analyst.merchants_with_high_item_count[0]).to be_a Merchant
+   end
 
+   it "can find the average price of a merchant’s items" do
+     expect(sales_analyst.average_item_price_for_merchant(12334105))
+   end
+
+   it "can find sum all of the averages and find the average price across all merchants" do
+    expect(sales_analyst.average_average_price_per_merchant)
+   end
 end
