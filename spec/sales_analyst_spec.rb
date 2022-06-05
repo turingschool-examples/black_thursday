@@ -66,7 +66,11 @@ RSpec.describe SalesAnalyst do
   it 'returns the invoice count for each day' do
     expect(@sales_analyst.invoice_count_by_day.count).to eq(7)
   end
-  
+
+  it 'returns the average invoices per day standard deviation' do
+    expect(@sales_analyst.average_invoices_per_day_std_dev).to be_a(Float)
+  end
+
   it 'returns the top days by invoice count' do
     expect(@sales_analyst.top_days_by_invoice_count).to eq(["Sunday", "Saturday"])
   end

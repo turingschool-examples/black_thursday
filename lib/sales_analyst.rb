@@ -113,6 +113,15 @@ class SalesAnalyst
     days_count
   end
 
+  def average_invoices_per_day_std_dev
+    average = invoice_count_by_day.values.sum / 7
+    diff_squared = invoice_count_by_day.values.map do |invoice_count|
+      (invoice_count-average)**2
+    end
+    std_dev = (diff_squared.sum / (diff_squared.count.to_f - 1))**0.5
+    std_dev.round(2)
+  end
+
   def top_days_by_invoice_count
 
     require "pry"; binding.pry
