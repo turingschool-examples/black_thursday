@@ -4,12 +4,12 @@ require './lib/helper'
 
 RSpec.describe InvoiceItem do
   let!(:time) {Time.now}
-  let!(:invoice_item) {InvoiceItem.new({
+  let!(:invoice_item) {InvoiceItem.new(({
     :id => 6,
-    :item_id => 7,
     :invoice_id => 8,
-    :quantity => 1,
-    :unit_price => BigDecimal(10.99, 4),
+    :credit_card_number => "4242424242424242",
+    :credit_card_expiration_date => "0220",
+    :result => "success",
     :created_at => Time.now,
     :updated_at => Time.now
   })}

@@ -6,13 +6,13 @@ RSpec.describe TransactionRepository do
   let!(:sales_engine) {SalesEngine.from_csv({:transaction => "./data/transaction.csv"})}
   let!(:transaction_repo) {sales_engine.transaction}
   let(:new_transaction) {transaction_repo.make_transaction({
-    :id => 0,
-    :item_id => 7,
+    :id => 6,
     :invoice_id => 8,
-    :quantity => 1,
-    :unit_price => "17.99",
-    :created_at => "2011-09-10",
-    :updated_at => "2012-05-08"
+    :credit_card_number => "4242424242424242",
+    :credit_card_expiration_date => "0220",
+    :result => "success",
+    :created_at => Time.now,
+    :updated_at => Time.now
   })}
 
   it "exists" do

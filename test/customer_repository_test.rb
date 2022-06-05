@@ -6,13 +6,11 @@ RSpec.describe CustomerRepository do
   let!(:sales_engine) {SalesEngine.from_csv({:customer => "./data/customer.csv"})}
   let!(:customer_repo) {sales_engine.customer}
   let(:new_customer) {customer_repo.make_customer({
-    :id => 0,
-    :item_id => 7,
-    :invoice_id => 8,
-    :quantity => 1,
-    :unit_price => "17.99",
-    :created_at => "2011-09-10",
-    :updated_at => "2012-05-08"
+    :id => 6,
+    :first_name => "Joan",
+    :last_name => "Clarke",
+    :created_at => Time.now,
+    :updated_at => Time.now
   })}
 
   it "exists" do
