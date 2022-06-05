@@ -27,11 +27,17 @@ class CustomerRepository
     end
   end
 
-  def find_all_by_first_name(id)
+  def find_all_by_first_name(fragment)
     @all.find_all do |customer|
-      customer.id.to_i == id.to_i
+      customer.first_name.include?(fragment)
     end
   end
+
+  # def find_all_by_last_name(id)
+  #   @all.find_all do |customer|
+  #     customer.id.to_i == id.to_i
+  #   end
+  # end
   #
   # def find_all_by_credit_card_number(card_number)
   #   @all.find_all do |customer|

@@ -21,17 +21,18 @@ RSpec.describe CustomerRepository do
     expect(@sales_engine.find_by_id(1)).to be_a(Customer)
   end
 
-  it "can find ALL by first name" do
-    expect(@sales_engine.find_all_by_first_name(1).count).to eq 1
-    expect(@sales_engine.find_all_by_first_name(9002)).to eq([])
-    expect(@sales_engine.find_all_by_first_name(1)).to be_a Array
+  it "can find ALL by first name fragment" do
+    fragment = "oe"
+    expect(@sales_engine.find_all_by_first_name(fragment).count).to eq 8
+    expect(@sales_engine.find_all_by_first_name("CHEESE")).to eq([])
+    expect(@sales_engine.find_all_by_first_name(fragment)).to be_a Array
   end
 
-  it "can find ALL by last name" do
-    expect(@sales_engine.find_all_by_last_name(1).count).to eq 0
-    expect(@sales_engine.find_all_by_last_name(9002)).to eq([])
-    expect(@sales_engine.find_all_by_last_name(1)).to be_a Array
-  end
+  # it "can find ALL by last name" do
+  #   expect(@sales_engine.find_all_by_last_name(1).count).to eq 0
+  #   expect(@sales_engine.find_all_by_last_name(9002)).to eq([])
+  #   expect(@sales_engine.find_all_by_last_name(1)).to be_a Array
+  # end
 # #
 #   it "can find all by credit_card_number" do
 #     expect(@sales_engine.find_all_by_credit_card_number(4068631943231473).count).to eq 1
