@@ -45,23 +45,26 @@ RSpec.describe InvoiceItemRepository do
       :unit_price => 23,
       :created_at => x,
       :updated_at => x
-    }
-    # require 'pry'; binding.pry
+      }
     expect(@sales_engine.create(attributes).last.id).to eq(21831)
     expect(@sales_engine.all.last).to be_a(InvoiceItem)
     expect(@sales_engine.all.count).to eq(21831)
   end
 #
-#   it "can update(id, attributes) an merchant instance" do
-#     attributes = {
-#       name: "BryceGems"
-#     }
-#
-#     @merchant_repository.update(12334105, attributes)
-#
-#     expect(@merchant_repository.find_by_id(12334105).name).to eq("BryceGems")
-#     expect(@merchant_repository.find_by_name("Shopin1901")).to eq(nil)
-#   end
+  it "can update(id, attribute) on a invoice item instance" do
+    x = Time.now
+    attributes = {
+      :quantity => 99999999,
+      :unit_price => 23,
+      :updated_at => x
+      }
+
+    @sales_engine.update(1, attributes)
+
+    expect(@sales_engine.find_by_id(1).quantity).to eq(99999999)
+    expect(@sales_engine.find_by_id(1).unit_price).to eq(23)
+    expect(@sales_engine.find_by_id(1).updated_at).to eq(x)
+  end
 #
 #   it "can delete a merchant instance" do
 #
