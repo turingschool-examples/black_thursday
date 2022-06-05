@@ -85,4 +85,12 @@ class SalesAnalyst
     high_invoice_merchants = high_merchants.map {|merchant| @merchant_repository.find_by_id(merchant)}
   end
 
+  def bottom_merchants_by_invoice_count
+    sd = average_invoices_per_merchant_standard_deviation
+    low_merchants = merchant_ids.find_all do |id|
+      @invoice_repository.find_all_by_merchant_id(id).count < ((sd * -2) + average_invoices_per_merchant)
+    end
+    low_invoice_merchants = low_merchants.map {|merchant| @merchant_repository.find_by_id(merchant)}
+  end
+
 end
