@@ -1,6 +1,6 @@
-
 require 'csv'
 require_relative 'customer'
+
 class CustomerRepository
   attr_reader :file_path
   attr_accessor :all, :first_name, :last_name
