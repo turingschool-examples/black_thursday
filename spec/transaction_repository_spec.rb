@@ -12,7 +12,7 @@ RSpec.describe TransactionRepository do
 
   it "returns all known Transaction instances" do
     expect(@sales_engine.all).to be_a Array
-    expect(@sales_engine.all.count).to eq(0)
+    expect(@sales_engine.all.count).to eq(4985)
   end
 # #
 #   it "can find by id" do
