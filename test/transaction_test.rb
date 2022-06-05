@@ -2,9 +2,9 @@ require 'simplecov'
 SimpleCov.start
 require './lib/helper'
 
-RSpec.describe InvoiceItem do
+RSpec.describe Transaction do
   let!(:time) {Time.now}
-  let!(:invoice_item) {InvoiceItem.new(({
+  let!(:transaction) {Transaction.new({
     :id => 6,
     :invoice_id => 8,
     :credit_card_number => "4242424242424242",
@@ -15,38 +15,34 @@ RSpec.describe InvoiceItem do
   })}
 
   it "exists" do
-    expect(invoice_item).to be_instance_of InvoiceItem
+    expect(transaction).to be_instance_of Transaction
   end
 
   it 'returns id' do
-    expect(invoice_item.id).to eq(6)
-  end
-
-  it 'returns item id' do
-    expect(invoice_item.item_id).to eq(7)
+    expect(transaction.id).to eq(6)
   end
 
   it 'returns invoice id' do
-    expect(invoice_item.invoice_id).to eq(8)
+    expect(transaction.invoice_id).to eq(8)
   end
 
-  it 'returns quantity' do
-    expect(invoice_item.quantity).to eq(1)
+  it 'returns result' do
+    expect(transaction.result).to eq("success")
   end
 
-  it 'returns unit price' do
-    expect(invoice_item.unit_price).to eq(10.99)
+  it 'returns credit_card_number' do
+    expect(transaction.credit_card_number).to eq("4242424242424242")
   end
 
-  it "can return the time the invoice_item was created" do
-    expect(invoice_item.created_at.strftime("%Y-%m-%d %H:%M")).to eq(time.strftime("%Y-%m-%d %H:%M"))
+  it 'returns credit card expiration date' do
+    expect(transaction.credit_card_expiration_date).to eq("0220")
+  end
+
+  it "can return the time the transaction was created" do
+    expect(transaction.created_at.strftime("%Y-%m-%d %H:%M")).to eq(time.strftime("%Y-%m-%d %H:%M"))
   end
 
   it "can return the time the object was updated" do
-    expect(invoice_item.updated_at.strftime("%Y-%m-%d %H:%M")).to eq(time.strftime("%Y-%m-%d %H:%M"))
-  end
-
-  xit "can return the unit price converted to dollars" do
-    expect(invoice_item.unit_price_to_dollars).to eq(10.99)
+    expect(transaction.updated_at.strftime("%Y-%m-%d %H:%M")).to eq(time.strftime("%Y-%m-%d %H:%M"))
   end
 end
