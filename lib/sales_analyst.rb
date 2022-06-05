@@ -80,12 +80,9 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-
-require "pry"; binding.pry
-
-
-    merchant_invoices = merchant_invoices.map {|item| item.unit_price}
-    diff_squared = merchant_items_hash.values.map {|item_count| (item_count-average_invoices_per_merchant)**2}
+    diff_squared = invoices_per_merchant.values.map do |item_count|
+      (item_count-average_invoices_per_merchant)**2
+    end
     std_dev = (diff_squared.sum / (diff_squared.count.to_f - 1))**0.5
     std_dev.round(2)
   end
