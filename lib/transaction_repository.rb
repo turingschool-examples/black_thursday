@@ -29,12 +29,12 @@ class TransactionRepository
       transaction.id == id
     end
   end
-  #
-  # def find_all_by_item_id(item_id)
-  #   @all.find_all do |invoice_item|
-  #     invoice_item.item_id.to_i == item_id.to_i
-  #   end
-  # end
+
+  def find_all_by_invoice_id(invoice_id)
+    @all.find_all do |transaction|
+      transaction.invoice_id.to_i == invoice_id.to_i
+    end
+  end
   #
   # def find_all_by_invoice_id(item_id)
   #   @all.find_all do |invoice_item|
