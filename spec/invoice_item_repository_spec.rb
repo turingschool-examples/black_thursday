@@ -22,22 +22,19 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_engine.find_by_id(1)).to be_a(InvoiceItem)
   end
 
-  it "can find by item id" do
-    expect(@sales_engine.find_by_item_id(263519844)).to eq(@sales_engine.all.first)
-    expect(@sales_engine.find_by_item_id(8675309)).to eq(nil)
-    expect(@sales_engine.find_by_item_id(263519844)).to be_a(InvoiceItem)
+  it "can find ALL by item id" do
+    expect(@sales_engine.find_all_by_item_id(263519844)).to eq(@sales_engine.all.first)
+    expect(@sales_engine.find_all_by_item_id(8675309)).to eq(nil)
+    expect(@sales_engine.find_all_by_item_id(263519844)).to be_a(InvoiceItem)
   end
-#
 
-#
-#   it 'can find_all_by_name(name)' do
-#     test = @merchant_repository.find_all_by_name("handmade")
-#
-#     expect(@merchant_repository.find_all_by_name("handmade").count).to eq(6)
-#     expect(@merchant_repository.find_all_by_name("handmade")).to be_a(Array)
-#     expect(test.map(&:name).include?("SLHandmades")).to eq true
-#     expect(test.map(&:id).include?(12334303)).to eq true
-#   end
+  # it "can find all by invoice id" do
+  #   expect(@sales_engine.find_by_item_id(263519844)).to eq(@sales_engine.all.first)
+  #   expect(@sales_engine.find_by_item_id(8675309)).to eq(nil)
+  #   expect(@sales_engine.find_by_item_id(263519844)).to be_a(InvoiceItem)
+  # end
+
+
 #
 #   it 'can create_attributes' do
 #     attributes = {
