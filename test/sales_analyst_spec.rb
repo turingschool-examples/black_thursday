@@ -165,6 +165,33 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
   end
 
+  it 'can calculate the number of invoices per weekday' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.invoices_per_weekday).to be_a(Hash)
+    expect(sales_analyst.invoices_per_weekday.length).to eq(7)
+    expect(sales_analyst.invoices_per_weekday.values[0]).to eq(696)
+  end
+
+  it 'can calculate the average invoices per weekday' do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.average_invoices_per_weekday).to be_a(Integer)
+    expect(sales_analyst.average_invoices_per_weekday).to eq(712)
+  end
+
   it 'can find top_days_by_invoice_count' do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
@@ -191,5 +218,4 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
     expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
-
 end
