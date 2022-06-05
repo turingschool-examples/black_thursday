@@ -3,9 +3,12 @@ require "./lib/sales_analyst"
 RSpec.describe SalesAnalyst do
   before :each do
     @sales_engine = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoices => "./data/invoices.csv"
+    :items          => "./data/items.csv",
+    :merchants      => "./data/merchants.csv",
+    :invoices       => "./data/invoices.csv",
+    :invoice_items  => "./data/invoice_items.csv",
+    :transactions   => "./data/transactions.csv",
+    :customers      => "./data/customers.csv"
     })
     @sales_analyst = @sales_engine.analyst
   end
@@ -79,5 +82,13 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.invoice_status(:pending)).to eq(29.55)
     expect(@sales_analyst.invoice_status(:shipped)).to eq(56.95)
     expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
+  end
+
+  it 'returns if invoice is paid in full' do
+    expect(@sales_analyst.invoice_paid_in_full?(1752)).to eq(true)  
+  end
+
+  it 'returns the total dollar amount of the invoice' do
+    expect(@sales_analyst.invoice_total(4898)).to be_a(BigDecimal)
   end
 end

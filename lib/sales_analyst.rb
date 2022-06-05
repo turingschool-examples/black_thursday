@@ -1,12 +1,14 @@
-require './lib/sales_engine'
+require_relative './sales_engine'
 class SalesAnalyst
-  attr_reader :item_repository, :merchant_repository, :invoice_repository
+  attr_reader :item_repository, :merchant_repository, :invoice_repository, :invoice_item_repository
 
-  def initialize(item_repository, merchant_repository, invoice_repository)
-    #delete merchant_repository from this and sales engine if we end up not using
+  def initialize(item_repository, merchant_repository, invoice_repository, invoice_item_repository, transaction_repository, customer_repository)
     @item_repository = item_repository
     @merchant_repository = merchant_repository
     @invoice_repository = invoice_repository
+    @invoice_item_repository = invoice_item_repository
+    @transaction_repository = transaction_repository
+    @customer_repository = customer_repository
     @merchant_invoices = {}
   end
 
@@ -135,5 +137,15 @@ class SalesAnalyst
     end.count
     percentage = status_count.to_f / @invoice_repository.all.count
     (percentage * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transaction_repository.find_all_by_invoice_id(invoice_id)
+    transactions.any? {|transaction| transaction.result == "success"}
+  end
+
+  def invoice_total(invoice_id)
+    invoice = @invoice_item_repository.find_all_by_invoice_id(invoice_id)
+    total = invoice.first.quantity * invoice.first.unit_price
   end
 end
