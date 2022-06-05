@@ -8,10 +8,10 @@ class InvoiceItem
               :updated_at
 
   def initialize(data_hash)
-    @id = data_hash[:id]
+    @id = data_hash[:id].to_i
     @item_id = data_hash[:item_id]
-    @invoice_id = data_hash[:invoice_id]
-    @quantity = data_hash[:quantity]
+    @invoice_id = data_hash[:invoice_id].to_i
+    @quantity = data_hash[:quantity].to_i
     @unit_price = data_hash[:unit_price]
     @created_at = data_hash[:created_at]
     @updated_at = data_hash[:updated_at]
