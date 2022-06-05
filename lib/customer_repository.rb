@@ -41,27 +41,16 @@ class CustomerRepository
        })
    end
 
-
-   # def update(id, attribute)
-   #   find_by_id(id).attribute = attribute
-   #   find_by_id(id).updated_at = Time.now
-   # end
-
    def update(id, attribute)
-     require "pry";
-     @all.find { |customer| customer.first_name.concat(" ", customer.last_name) == attribute && customer.id + id}
-     binding.pry
+     @all.each do |customer|
+       if customer.id == id
+         customer.name = attribute
+       end
+     end
    end
-
 
    def delete(id)
      @all.delete(find_by_id(id))
    end
-
-
-
-
-
-
 
 end
