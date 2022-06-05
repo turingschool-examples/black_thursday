@@ -65,4 +65,16 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.find_by_id(4986).merchant_id).to eq(8)
   end
 
+  it 'can delete the invoice with the corresponding ID' do
+    attributes = {
+                  :customer_id => 7,
+                  :merchant_id => 8,
+                  :status      => "pending",
+                  :created_at  => Time.now ,
+                  :updated_at  => Time.now
+                  }
+    @invoice_repository.create(attributes)
+    @invoice_repository.delete(4986)
+    expect(@invoice_repository.find_by_id(4986)).to eq(nil)
+  end
 end
