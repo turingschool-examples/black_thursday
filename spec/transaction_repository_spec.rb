@@ -27,11 +27,11 @@ RSpec.describe TransactionRepository do
     expect(@sales_engine.find_all_by_invoice_id(2179)).to be_a Array
   end
 #
-#   it "can find all by invoice id" do
-#     expect(@sales_engine.find_all_by_invoice_id(1).count).to eq 0
-#     expect(@sales_engine.find_all_by_invoice_id(8675309)).to eq([])
-#     expect(@sales_engine.find_all_by_invoice_id(1)).to be_a Array
-#   end
+  it "can find all by credit_card_number" do
+    expect(@sales_engine.find_all_by_credit_card_number(4068631943231473).count).to eq 0
+    expect(@sales_engine.find_all_by_credit_card_number(8675309)).to eq([])
+    expect(@sales_engine.find_all_by_credit_card_number(4068631943231473)).to be_a Array
+  end
 #
 #   it 'can create Invoice Item instance' do
 #     x = Time.now
