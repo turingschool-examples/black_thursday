@@ -28,4 +28,16 @@ RSpec.describe Invoice do
   it "has a merchant id" do
     expect(@i.merchant_id).to eq(8)
   end
+
+  it "has a status" do
+    expect(@i.status).to eq("pending")
+  end
+
+  it "has created_at" do
+    expect(@i.created_at).to be_a Time
+  end
+
+  it "has updated_at" do
+    expect(@i.updated_at).to be_a Time
+  end
 end
