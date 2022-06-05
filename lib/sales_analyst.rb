@@ -6,12 +6,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    sum = array_of_sums.inject do |sum, element|
-       sum + element
-     end
-     mean = sum.to_f / array_of_sums.count
-     mean.round(2)
-
+    mean = array_of_sums.reduce(:+).to_f / array_of_sums.count
+    mean.round(2)
   end
 
   def group_by_merchant_id
