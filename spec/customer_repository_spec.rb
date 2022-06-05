@@ -42,10 +42,10 @@ RSpec.describe CustomerRepository do
   end
 
   it 'can update the customer instance with corresponding id' do
-    @customer_repository.update(1000, "Bryan")
-    # require "pry"; binding.pry
+    @customer_repository.update(1000, {:first_name => "test_1", :last_name => "test_2"})
     expect(@customer_repository.all.last.id.to_i).to eq(1000)
-    expect(@customer_repository.all.last.first_name).to eq("Bryan")
+    expect(@customer_repository.find_by_id(1000).first_name).to eq("test_1")
+    expect(@customer_repository.find_by_id(1000).last_name).to eq("test_2")
   end
 
   it 'can delete the customer by id' do
