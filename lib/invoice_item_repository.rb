@@ -14,16 +14,24 @@ class InvoiceItemRepository
  end
 
  def find_by_id(invoice_item_id)
-   @all.find { |invoice| invoice.id == invoice_item_id}
+   @all.find { |invoice_item| invoice_item.id == invoice_item_id}
  end
 
  def find_all_by_invoice_id(invoice_id)
-   @all.find_all {|invoice| invoice.invoice_id == invoice_id}
+   @all.find_all {|invoice_item| invoice_item.invoice_id == invoice_id}
  end
 
  def create(attributes)
-   id = (@all.last.id + 1)
-   attributes[:id] = id
+   #using sort_by in case they are ever out of order
+   id = @all.sort_by { |invoice_item| invoice_item.id }.last.id
+   attributes[:id] = id + 1
    @all << InvoiceItem.new(attributes)
+ end
+
+ def update(invoice_item_id, attributes)
+   invoice_item = find_by_id(invoice_item_id)
+   invoice_item.quantity = attributes[:quantity]
+   invoice_item.unit_price = attributes[:unit_price]
+   invoice_item.updated_at = Time.now
  end
 end
