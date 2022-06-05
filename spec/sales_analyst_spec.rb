@@ -55,7 +55,7 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.invoices_per_merchant.keys).to include(12334105)
   end
 
-  xit 'returns the top performing merchants' do
+  it 'returns the top performing merchants' do
     expect(@sales_analyst.top_merchants_by_invoice_count).to include(Merchant)
   end
 

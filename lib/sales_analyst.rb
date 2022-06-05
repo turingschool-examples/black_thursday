@@ -87,4 +87,12 @@ class SalesAnalyst
     std_dev.round(2)
   end
 
+  def top_merchants_by_invoice_count
+    sorted_merchants = invoices_per_merchant.sort_by{|keys,values| -values}.to_h
+    two_std_dev = average_invoices_per_merchant + 2 * average_invoices_per_merchant_standard_deviation
+    top_merchants = sorted_merchants.find_all {|keys, values| values > two_std_dev}
+    top_merchant_array = top_merchants.map do |merchant|
+      @merchant_repository.find_by_id(merchant[0])
+    end
+  end
 end
