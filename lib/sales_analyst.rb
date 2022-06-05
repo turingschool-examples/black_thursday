@@ -1,3 +1,5 @@
+require_relative "../lib/sales_engine"
+
 class SalesAnalyst
   attr_reader :items_path, :merchants_path
   def initialize(items_path, merchants_path)
@@ -24,7 +26,7 @@ class SalesAnalyst
   end
 
   def step_1
-    bunny = array_of_sums.map do |sum|
+    array_of_sums.map do |sum|
       (sum - average_items_per_merchant)**2
     end.sum
   end
@@ -32,5 +34,16 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     variance = step_1 / (array_of_sums.count - 1)
     standard_deviation = Math.sqrt(variance).round(2)
+  end
+
+  def merchants_with_high_item_count
+    high_count = []
+  bunny = group_by_merchant_id.select do |merchant, items|
+      if items.count > (average_items_per_merchant_standard_deviation + 1)
+        high_count << @merchants_path.find_by_id(merchant)
+      end
+    end
+    require "pry"; binding.pry
+    puts bunny
   end
 end
