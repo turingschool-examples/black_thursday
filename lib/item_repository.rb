@@ -31,18 +31,15 @@ class ItemRepository
     @all.find_all do |item|
       item.unit_price == item_price
     end
-
   end
 
   def find_all_by_price_in_range(range)
       min = range.min
       max = range.max
-
-      @all.find_all do |item|
-        item.unit_price.to_i.between?(min, max)
-      end
+    @all.find_all do |item|
+      item.unit_price.to_i.between?(min, max)
     end
-
+  end
 
   def find_all_by_merchant_id(merchant_id)
     @all.find_all {|merchant| merchant.id == merchant_id}
@@ -51,7 +48,6 @@ class ItemRepository
   def create(name)
     id = (@all.last.id.to_i + 1).to_s
     @all << Item.new({:id => id, :name => name})
-
   end
 
   def update(id, attributes)

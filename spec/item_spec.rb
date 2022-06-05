@@ -1,4 +1,3 @@
-require 'pry'
 require 'BigDecimal'
 require './lib/item'
 

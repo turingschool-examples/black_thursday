@@ -5,7 +5,6 @@ class InvoiceRepository
   attr_reader :file_path
   attr_accessor :all
 
-
   def initialize(file_path)
     @file_path = file_path
     @all = []
@@ -47,7 +46,7 @@ class InvoiceRepository
       :updated_at => data_hash[:updated_at]
       })
   end
-  
+
   def update(id, status)
     find_by_id(id).status = status
     find_by_id(id).updated_at = Time.now
