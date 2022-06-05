@@ -30,7 +30,7 @@ RSpec.describe CustomerRepository do
 
   it "can find ALL by last name" do
     fragment = "On"
-    expect(@sales_engine.find_all_by_last_name(fragment).count).to eq 0
+    expect(@sales_engine.find_all_by_last_name(fragment).length).to eq 85
     expect(@sales_engine.find_all_by_last_name("CHEESE")).to eq([])
     expect(@sales_engine.find_all_by_last_name(fragment)).to be_a Array
   end
