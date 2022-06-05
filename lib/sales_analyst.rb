@@ -64,4 +64,19 @@ class SalesAnalyst
     (@invoice_repository.all.length.to_f / @merchant_repository.all.length).round(2)
   end
 
+  def invoices_count_list
+    invoices_list = @merch_ids.map {|id| @invoice_repository.find_all_by_merchant_id(id).count}
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    merchant_ids
+    invoices_count_list
+    list = invoices_count_list
+    mean = list.sum.to_f / list.size
+    sum = list.sum {|num| (num - mean)**2}
+    sd = (Math.sqrt(sum / (list.size - 1))).round(2)
+  end
+
+
+
 end
