@@ -74,4 +74,11 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo.find_by_id(4986).updated_at).to be_instance_of(Time)
   end
 
+  it 'can delete an invoice' do
+    invoice_repo = InvoiceRepository.new('./data/invoices.csv')
+    expect(invoice_repo.find_by_id(4985)).to be_a(Invoice)
+    invoice_repo.delete(4985)
+    expect(invoice_repo.find_by_id(4985)).to eq(nil)
+  end
+
 end
