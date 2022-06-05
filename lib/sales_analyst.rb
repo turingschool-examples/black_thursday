@@ -47,4 +47,12 @@ class SalesAnalyst
     (x / @merchant_repository.all.count).round(2)
   end
 
+  def golden_items
+    x = average_average_price_per_merchant
+    y = average_items_per_merchant_standard_deviation
+    @item_repository.all.select do |item|
+      item.unit_price > (x + y * 2)
+    end
+  end
+
 end
