@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 require_relative 'invoice'
 
 class InvoiceRepository
@@ -47,7 +47,7 @@ class InvoiceRepository
       :updated_at => data_hash[:updated_at]
       })
   end
-  
+
   def update(id, status)
     find_by_id(id).status = status
     find_by_id(id).updated_at = Time.now
