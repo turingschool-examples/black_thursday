@@ -3,7 +3,6 @@ class SalesAnalyst
   attr_reader :item_repository, :merchant_repository, :invoice_repository, :invoice_item_repository
 
   def initialize(item_repository, merchant_repository, invoice_repository, invoice_item_repository, transaction_repository, customer_repository)
-    #delete merchant_repository from this and sales engine if we end up not using
     @item_repository = item_repository
     @merchant_repository = merchant_repository
     @invoice_repository = invoice_repository

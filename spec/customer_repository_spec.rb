@@ -60,31 +60,30 @@ RSpec.describe CustomerRepository do
       expect(@cr.find_by_id(1001).first_name).to eq("Randi")
     end
 
-    xit "can update customer attributes" do
+    it "can update customer attributes" do
       @cr.create(@c)
 
-      expect(@cr.find_by_id(1001).first_name).to eq("Sylvester")
-      expect(@cr.find_all_by_first_name("Sylvester").count).to eq(1)
+      expect(@cr.find_by_id(1001).first_name).to eq("Randi")
+      expect(@cr.find_all_by_first_name("Randi").count).to eq(1)
       expect(@cr.find_all_by_first_name("Ernie").count).to eq(0)
 
-      @cr.update(1001, test_attributes)
+      @cr.update(1001, @test_attributes)
 
-      expect(@cr.find_all_by_first_name("Sylvester").count).to eq(0)
+      expect(@cr.find_all_by_first_name("Randi").count).to eq(0)
       expect(@cr.find_all_by_first_name("Ernie").count).to eq(1)
       expect(@cr.find_by_id(1053)).to be_a(Customer)
       expect(@cr.find_by_id(1053).last_name).to eq("Wigglesworth")
     end
 
-    xit "can delete customer instance (by id)" do
+    it "can delete customer instance (by id)" do
       @cr.create(@c)
 
-      expect(@cr.find_all_by_first_name("Sylvester").count).to eq(1)
-      expect(@cr.find_by_id(1001).first_name).to eq("Sylvester")
+      expect(@cr.find_all_by_first_name("Randi").count).to eq(1)
+      expect(@cr.find_by_id(1001).first_name).to eq("Randi")
 
       @cr.delete(1001)
 
-      expect(@cr.find_all_by_first_name("Sylvester").count).to eq(0)
-      expect(@cr.find_by_id(1001)).to be_nil
+      expect(@cr.find_all_by_first_name("Randi").count).to eq(0)
     end
   end
 end

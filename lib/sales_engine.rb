@@ -8,13 +8,13 @@ require_relative 'customer_repository'
 class SalesEngine
   attr_reader :merchants, :items, :invoices, :invoice_items, :transactions, :customers
 
-  def initialize(items_filepath, merchants_filepath, invoice_filepath, invoice_item_filepath, transaction_repository_filepath, customer_repository_filepath)
+  def initialize(items_filepath, merchants_filepath, invoice_filepath, invoice_item_filepath, transaction_filepath, customer_filepath)
     @items = ItemRepository.new(items_filepath)
     @merchants = MerchantRepository.new(merchants_filepath)
     @invoices = InvoiceRepository.new(invoice_filepath)
     @invoice_items = InvoiceItemRepository.new(invoice_item_filepath)
-    @transactions = TransactionRepository.new(transaction_repository_filepath)
-    @customers = CustomerRepository.new(customer_repository_filepath)
+    @transactions = TransactionRepository.new(transaction_filepath)
+    @customers = CustomerRepository.new(customer_filepath)
   end
 
   def self.from_csv(data)
