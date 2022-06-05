@@ -24,4 +24,10 @@ class InvoiceRepository
       invoice.id.to_i == id
     end
   end
+
+  def find_all_by_customer_id(customer_id)
+    @all.find_all do |invoice|
+      customer_id.to_i == invoice.customer_id.to_i
+    end
+  end
 end

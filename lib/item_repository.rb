@@ -55,7 +55,6 @@ class ItemRepository
 			merchant_id.to_i == item.merchant_id.to_i
 		end
 	end
-	#Ask instructor if only adding a name for a new item is okay...Ran out of time lol.
 
 	def create(attributes)
 		new_id = @all.last.id.to_i + 1

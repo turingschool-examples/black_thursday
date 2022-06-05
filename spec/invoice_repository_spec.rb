@@ -28,7 +28,7 @@ RSpec.describe InvoiceRepository do
     item_repo = ItemRepository.new('./data/items.csv')
     merchant_repo = MerchantRepository.new('./data/merchants.csv')
     expect(invoice_repo.find_all_by_customer_id(1)).to be_instance_of(Array)
-    expect(invoice_repo.find_all_by_customer_id(1).length).to eq(3)
+    expect(invoice_repo.find_all_by_customer_id(1).length).to eq(8)
     expect(invoice_repo.find_all_by_customer_id(12345678910112)).to eq([])
   end
 end
