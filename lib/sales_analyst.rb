@@ -65,20 +65,26 @@ class SalesAnalyst
   end
 
   def golden_items
-    standard_dev = item_price_standard_deviation #might be able to merge with line from average_invoices_per_merchant_standard_deviation
+    standard_dev = item_price_standard_deviation
     @item_repository.all.select {|item| item.unit_price_to_dollars > (average_item_price + (standard_dev * 2))}
   end
   # => first portion in case we want to split in half
 
 
   def average_invoices_per_merchant # => 10.49
-
-    (@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2) # total num invoices divided by total num merchants
+    (@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end
 
-  def average_invoices_per_merchant_standard_deviation
-    standard_dev = item_price_standard_deviation #might be able to initialize class with a global standard_dev to call on
-  end
+  def average_invoices_per_merchant_standard_deviation # => expect 3.29
+    counts = []
+    @invoice_repository.all.each do |invoice|
+      counts <<  @invoice_repository.find_all_by_customer_id(invoice.id).count
+    end
+    total = counts.sum {|difference| (difference - average_invoices_per_merchant) ** 2}
+    Math.sqrt(total / (counts.length - 1)).round(2)
+
+    require 'pry' ; binding.pry
+  end # => currently outputting 9.8
 
 
   # will likely want to break below into a TimeAnalyst class or something for organizing purposes
