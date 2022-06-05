@@ -54,4 +54,8 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.golden_items.length).to eq(5)
     expect(@sales_analyst.golden_items.first.class).to eq(Item)
   end
+
+  it 'finds the average invoices per merchant' do
+    expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
+  end
 end
