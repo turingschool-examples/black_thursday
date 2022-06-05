@@ -44,4 +44,14 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo.find_all_by_status("pending")).to be_a(Array)
     expect(invoice_repo.find_all_by_status("super cool status")).to eq([])
   end
+
+  it 'can create an invoice instance with provided attributes' do
+    invoice_repo = InvoiceRepository.new('./data/invoices.csv')
+    new_invoice_attributes = {:customer_id => "1000",
+    :merchant_id => "12334372"}
+    new_invoice = (invoice_repo.create(new_invoice_attributes))
+    expect(new_invoice.customer_id).to eq("1000")
+    expect(new_invoice.merchant_id).to eq("12334372")
+    expect(invoice_repo.find_all_by_merchant_id(12334372)).to be_a(Array)
+  end
 end
