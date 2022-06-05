@@ -46,21 +46,21 @@ RSpec.describe InvoiceRepository do
     expect(@invoice.find_all_by_status("pending")).to be_instance_of Array
   end
  #
-  # it "can create new invoices" do
-  #   attributes =   {
-  #       :id => 77,
-  #       :customer_id => 7,
-  #       :merchant_id => 12335550,
-  #       :status => "pending",
-  #       :created_at => Time.now,
-  #       :updated_at => 12334105
-  # }
-  #
-  #    expect(@invoice.create(attributes)).to be_a Array
-  #    expect(@invoice.all.last).to be_a Invoice
-  #    expect(@invoice.all.last.id).to eq(77)
-  #    expect(@invoice.all.last.customer_id).to eq(7)
-  # end
+  it "can create new invoices" do
+    attributes =   {
+        :id => 77,
+        :customer_id => 7,
+        :merchant_id => 12335550,
+        :status => "pending",
+        :created_at => Time.now,
+        :updated_at => 12334105
+  }
+
+     expect(@invoice.create(attributes)).to be_a Array
+     expect(@invoice.all.last).to be_a Invoice
+     expect(@invoice.all.last.id).to eq(4986)
+     expect(@invoice.all.last.customer_id).to eq(7)
+  end
  #
  #  it "update the Merchant instance with the corresponding id with the provided attributes" do
  #
