@@ -24,4 +24,10 @@ RSpec.describe InvoiceItemRepository do
     expect(@invoice_item_repository.find_by_id(72)).to be_a(InvoiceItem)
     expect(@invoice_item_repository.find_by_id(4345)).to be_a(InvoiceItem)
   end
+
+  it "can find an invoice by id and return an array or or one or more matches" do
+    expect(@invoice_item_repository.find_all_by_invoice_id(1)).to be_a(Array)
+    expect(@invoice_item_repository.find_all_by_invoice_id(576)).to be_a(Array)
+    expect(@invoice_item_repository.find_all_by_invoice_id(12210)).to be_a(Array)
+  end
 end
