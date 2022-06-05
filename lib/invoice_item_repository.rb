@@ -33,6 +33,12 @@ class InvoiceItemRepository
     end
   end
 
+  def find_by_item_id(item_id)
+    @all.find do |invoice_item|
+      invoice_item.item_id.to_i == item_id.to_i
+    end
+  end
+
 end
 
 
