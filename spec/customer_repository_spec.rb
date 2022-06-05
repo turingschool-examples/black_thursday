@@ -39,7 +39,16 @@ RSpec.describe CustomerRepository do
     expect(@customer_repository.all.last).to be_a(Customer)
     expect(@customer_repository.all.length).to eq(1001)
     expect(@customer_repository.all.last.id).to eq(1001)
-    # expect(@customer_repository.all.last.status).to eq("pending")
+  end
+
+  xit 'can update the customer instance with corresponding id' do
+    @customer_repository.update(1001, "Bryan Shears")
+    expect(@customer_repository.all.last.id).to eq(1001)
+  end
+
+  it 'can delete the customer by id' do
+    @customer_repository.delete(1)
+    expect(@customer_repository.all.first.id).to eq("2")
   end
 
 end
