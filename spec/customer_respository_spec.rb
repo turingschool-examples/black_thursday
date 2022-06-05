@@ -10,10 +10,10 @@ RSpec.describe CustomerRepository do
     expect(@sales_engine).to be_a(CustomerRepository)
   end
 
-#   it "returns all known Customer instances" do
-#     expect(@sales_engine.all).to be_a Array
-#     expect(@sales_engine.all.count).to eq(4985)
-#   end
+  it "returns all known Customer instances" do
+    expect(@sales_engine.all).to be_a Array
+    expect(@sales_engine.all.count).to eq(1000)
+  end
 #
 #   it "can find by id" do
 #     expect(@sales_engine.find_by_id(1)).to eq(@sales_engine.all.first)
