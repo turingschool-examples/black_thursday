@@ -55,19 +55,20 @@ RSpec.describe TransactionRepository do
     expect(@sales_engine.all.last).to be_a(Transaction)
     expect(@sales_engine.all.count).to eq(4986)
   end
-# #
-#   it "can update(id, attribute) on a invoice item instance" do
-#     attributes = {
-#       :quantity => 99999999,
-#       :unit_price => 23,
-#       }
-#
-#     @sales_engine.update(1, attributes)
-#
-#     expect(@sales_engine.find_by_id(1).quantity).to eq(99999999)
-#     expect(@sales_engine.find_by_id(1).unit_price).to eq(23)
-#     expect(@sales_engine.find_by_id(1).updated_at).to be_a Time
-#   end
+
+  it "can update(id, attribute) on a Transaction instance" do
+    attributes = {
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      }
+
+    @sales_engine.update(1, attributes)
+
+    expect(@sales_engine.find_by_id(1).credit_card_number).to eq("4242424242424242")
+    expect(@sales_engine.find_by_id(1).credit_card_expiration_date).to eq("0220")
+    expect(@sales_engine.find_by_id(1).updated_at).to be_a Time
+  end
 #
 #   it "can delete a invoice item instance" do
 #     expect(@sales_engine.find_by_id(1)).to be_a(InvoiceItem)
