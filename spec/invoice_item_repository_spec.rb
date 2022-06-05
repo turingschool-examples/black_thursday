@@ -34,7 +34,7 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_engine.find_all_by_invoice_id(1)).to be_a Array
   end
 
-  it 'can create_attributes' do
+  it 'can create Invoice Item instance' do
     x = Time.now
     last_id_number_in_csv = @sales_engine.all.last.id.to_i
     attributes = {
