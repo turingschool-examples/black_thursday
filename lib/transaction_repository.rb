@@ -35,12 +35,12 @@ class TransactionRepository
       transaction.invoice_id.to_i == invoice_id.to_i
     end
   end
-  #
-  # def find_all_by_invoice_id(item_id)
-  #   @all.find_all do |invoice_item|
-  #     invoice_item.invoice_id.to_i == invoice_id.to_i
-  #   end
-  # end
+
+  def find_all_by_credit_card_number(card_number)
+    @all.find_all do |transaction|
+      transaction.credit_card_number.to_i == card_number.to_i
+    end
+  end
   #
   # def create(attributes)
   #   x = (@all.last.id + 1)
