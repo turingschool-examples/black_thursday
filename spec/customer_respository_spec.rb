@@ -34,35 +34,19 @@ RSpec.describe CustomerRepository do
     expect(@sales_engine.find_all_by_last_name("CHEESE")).to eq([])
     expect(@sales_engine.find_all_by_last_name(fragment)).to be_a Array
   end
-# #
-#   it "can find all by credit_card_number" do
-#     expect(@sales_engine.find_all_by_credit_card_number(4068631943231473).count).to eq 1
-#     expect(@sales_engine.find_all_by_credit_card_number(8675309)).to eq([])
-#     expect(@sales_engine.find_all_by_credit_card_number(4068631943231473)).to be_a Array
-#   end
-#
-#   it "can find all by result" do
-#     expect(@sales_engine.find_all_by_result("success").count).to eq 4158
-#     expect(@sales_engine.find_all_by_result("cheese")).to eq([])
-#     expect(@sales_engine.find_all_by_result("success")).to be_a Array
-#   end
-# #
-#   it 'can create Customer instance' do
-#     x = Time.now
-#     last_id_number_in_csv = @sales_engine.all.last.id.to_i
-#     attributes = {
-#       :id => 6,
-#       :invoice_id => 8,
-#       :credit_card_number => "4242424242424242",
-#       :credit_card_expiration_date => "0220",
-#       :result => "success",
-#       :created_at => x,
-#       :updated_at => x
-#       }
-#     expect(@sales_engine.create(attributes).last.id).to eq(4986)
-#     expect(@sales_engine.all.last).to be_a(Customer)
-#     expect(@sales_engine.all.count).to eq(4986)
-#   end
+
+  it 'can create Customer instance' do
+    x = Time.now
+    last_id_number_in_csv = @sales_engine.all.last.id.to_i
+    attributes = {
+      :id => 6,
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      }
+    expect(@sales_engine.create(attributes).last.id).to eq(1001)
+    expect(@sales_engine.all.last).to be_a(Customer)
+    expect(@sales_engine.all.count).to eq(1001)
+  end
 #
 #   it "can update(id, attribute) on a Customer instance" do
 #     attributes = {
