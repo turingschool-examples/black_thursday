@@ -14,12 +14,12 @@ RSpec.describe TransactionRepository do
     expect(@sales_engine.all).to be_a Array
     expect(@sales_engine.all.count).to eq(4985)
   end
-# #
-#   it "can find by id" do
-#     expect(@sales_engine.find_by_id(1)).to eq(@sales_engine.all.first)
-#     expect(@sales_engine.find_by_id(8675309)).to eq(nil)
-#     expect(@sales_engine.find_by_id(1)).to be_a(InvoiceItem)
-#   end
+
+  it "can find by id" do
+    expect(@sales_engine.find_by_id(1)).to eq(@sales_engine.all.first)
+    expect(@sales_engine.find_by_id(8675309)).to eq(nil)
+    expect(@sales_engine.find_by_id(1)).to be_a(Transaction)
+  end
 #
 #   it "can find ALL by item id" do
 #     expect(@sales_engine.find_all_by_item_id(263519844).count).to eq 164
