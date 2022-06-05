@@ -20,4 +20,10 @@ class InvoiceItemRepository
  def find_all_by_invoice_id(invoice_id)
    @all.find_all {|invoice| invoice.invoice_id == invoice_id}
  end
+
+ def create(attributes)
+   id = (@all.last.id + 1)
+   attributes[:id] = id
+   @all << InvoiceItem.new(attributes)
+ end
 end
