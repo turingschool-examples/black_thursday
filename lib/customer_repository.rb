@@ -1,27 +1,24 @@
 require 'entry'
 class CustomerRepository
 
-  # attr_reader :id, :invoice_id, :created_at, :all
-  #
-  # attr_accessor :credit_card_number,
-  #               :credit_card_expiration_date,
-  #               :result,
-  #               :updated_at
+  attr_reader :id, :created_at, :all
+
+  attr_accessor :first_name,
+                :last_name,
+                :updated_at
 
   def initialize(file_path)
     @file_path = file_path
-    # @all = []
-    # CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-    #   @all << Transaction.new(
-    #     :id => row[:id].to_i,
-    #     :invoice_id => row[:invoice_id],
-    #     :credit_card_number => row[:credit_card_number],
-    #     :credit_card_expiration_date => row[:credit_card_expiration_date],
-    #     :result => row[:result],
-    #     :created_at => row[:created_at],
-    #     :updated_at => row[:updated_at]
-    #     )
-    #   end
+    @all = []
+    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+      @all << Customer.new(
+        :id => row[:id],
+        :first_name => row[:first_name],
+        :last_name => row[:last_name],
+        :created_at => row[:created_at],
+        :updated_at => row[:updated_at]
+      )
+      end
   end
 
   # def find_by_id(id)
