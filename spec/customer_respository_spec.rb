@@ -45,8 +45,9 @@ RSpec.describe CustomerRepository do
       :created_at => x,
       :updated_at => x
       }
+
     expect(@sales_engine.create(attributes).last.id).to eq(1001)
-    expect(@sales_engine.create(attributes).last.first_name).to eq("Joan")
+    expect(@sales_engine.all.last.first_name).to eq("Joan")
     expect(@sales_engine.all.last).to be_a(Customer)
     expect(@sales_engine.all.count).to eq(1001)
   end
