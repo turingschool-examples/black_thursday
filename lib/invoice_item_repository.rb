@@ -45,25 +45,22 @@ class InvoiceItemRepository
     end
   end
 
+  def create(attributes)
+    x = (@all.last.id + 1)
+    @all << InvoiceItem.new({
+      :id => x,
+      :item_id => attributes[:item_id],
+      :invoice_id => attributes[:invoice_id],
+      :quantity => attributes[:quantity],
+      :unit_price => attributes[:unit_price],
+      :created_at => attributes[:created_at],
+      :updated_at => attributes[:updated_at]
+      })
+  end
+
 end
 
 
-
-
-#
-# def find_all_by_name(name_fragment)
-#   @all.find_all do |merchant|
-#     merchant.name.upcase.include?(name_fragment.upcase)
-#   end
-# end
-#
-# def create(attributes)
-#   x = (@all.last.id + 1)
-#   @all << Merchant.new({
-#     :id => x,
-#     :name => attributes[:name]
-#     })
-# end
 #
 # def update(id, attributes)
 #   x = find_by_id(id)
