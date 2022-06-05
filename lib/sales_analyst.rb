@@ -74,12 +74,14 @@ class SalesAnalyst
 	end
 
 	def average_item_price_per_merchant_standard_deviation
-		array_of_all_prices = @items.all.map {|item| item.unit_price.to_i}
-		set = array_of_all_prices
-		mean = array_of_all_prices.sum / array_of_all_prices.size
-		sums = set.sum { |num| (num - mean)**2 }
-		std_dev = Math.sqrt(sums / (set.length - 1).to_f)
-		std_dev.round(2)
+	#	array_of_all_prices = @items.all.map {|item| item.unit_price.to_i}
+	#	set = array_of_all_prices
+  #	mean = array_of_all_prices.sum / array_of_all_prices.size
+	#	sums = set.sum { |num| (num - mean)**2 }
+	#	std_dev = Math.sqrt(sums / (set.length - 1).to_f)
+	#	std_dev.round(2)
+
+  
 	end
 
 end
