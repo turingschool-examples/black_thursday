@@ -39,19 +39,17 @@ class InvoiceItemRepository
     end
   end
 
+  def find_all_by_invoice_id(item_id)
+    @all.find_all do |invoice_item|
+      invoice_item.invoice_id.to_i == invoice_id.to_i
+    end
+  end
+
 end
 
 
 
 
-
-
-#
-# def find_by_name(name)
-#   @all.find do |merchant|
-#     merchant.name.upcase == name.upcase
-#   end
-# end
 #
 # def find_all_by_name(name_fragment)
 #   @all.find_all do |merchant|
