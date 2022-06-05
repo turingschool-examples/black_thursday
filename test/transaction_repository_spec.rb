@@ -76,5 +76,8 @@ RSpec.describe TransactionRepository do
     expect(@sales_engine.transactions.find_by_id(4986).result).to eq(:failed)
     expect(@sales_engine.transactions.find_by_id(4986).credit_card_expiration_date).to eq("0220")
     expect(@sales_engine.transactions.find_by_id(4986).updated_at).to be > original_time
+
+    update_fail = {invoice_id: 10}
+    expect(@sales_engine.transactions.update(4986, update_fail)).to eq(nil)
   end
 end
