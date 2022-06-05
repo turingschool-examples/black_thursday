@@ -41,6 +41,7 @@ class SalesAnalyst
   bunny = group_by_merchant_id.select do |merchant, items|
       if items.count > (average_items_per_merchant_standard_deviation + 1)
         high_count << @merchants_path.find_by_id(merchant)
+        # high_count.push(@merchants_path.find_by_id(merchant))
       end
     end
     require "pry"; binding.pry
