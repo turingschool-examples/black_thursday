@@ -49,14 +49,13 @@ class CustomerRepository
       :updated_at => attributes[:updated_at]
       })
   end
-  #
-  # def update(id, attributes)
-  #   x = find_by_id(id)
-  #   x.credit_card_number = attributes[:credit_card_number]
-  #   x.credit_card_expiration_date = attributes[:credit_card_expiration_date]
-  #   x.result = attributes[:result]
-  #   x.updated_at = Time.now
-  # end
+
+  def update(id, attributes)
+    x = find_by_id(id)
+    x.first_name = attributes[:first_name]
+    x.last_name = attributes[:last_name]
+    x.updated_at = Time.now
+  end
   #
   # def delete(id)
   #   x = find_by_id(id)
