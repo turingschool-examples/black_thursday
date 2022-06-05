@@ -39,4 +39,8 @@ class InvoiceItemRepository
   def delete(id)
     @all.delete_if { |invoiceitem| invoiceitem.id == id }
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
