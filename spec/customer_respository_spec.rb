@@ -70,8 +70,4 @@ RSpec.describe CustomerRepository do
     @sales_engine.delete(1)
     expect(@sales_engine.find_by_id(1)).to eq(nil)
   end
-
-  it "can check if invoice is paid in full" do
-    expect(@sales_engine.invoice_paid_in_full?(1)).to eq true
-  end
 end
