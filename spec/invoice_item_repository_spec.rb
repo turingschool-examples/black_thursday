@@ -46,4 +46,18 @@ RSpec.describe InvoiceItemRepository do
     expect(@invoice_item_repository.all.last.id).to eq(21831)
     expect(@invoice_item_repository.all.last.invoice_id).to eq(4986)
   end
+
+  it "can update the invoice item instance" do
+    id = 183
+    expect(@invoice_item_repository.find_by_id(id).quantity).to eq(3)
+
+    attributes = {
+        :quantity => 15,
+        :unit_price => BigDecimal(15.99, 4),
+      }
+
+    @invoice_item_repository.update(id, attributes)
+    expect(@invoice_item_repository.find_by_id(id).quantity).to eq(15)
+    expect(@invoice_item_repository.find_by_id(id).unit_price).to eq(15.99)
+  end
 end
