@@ -64,6 +64,8 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'finds the top merchants by invoice count' do
-    expect(@sales_engine.top_merchants_by_invoice_count.length).to eq (12)
+    expect(@sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
   end
+
+
 end
