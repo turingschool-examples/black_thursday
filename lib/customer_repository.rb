@@ -27,11 +27,11 @@ class CustomerRepository
     end
   end
 
-  # def find_all_by_invoice_id(invoice_id)
-  #   @all.find_all do |transaction|
-  #     customer.invoice_id.to_i == invoice_id.to_i
-  #   end
-  # end
+  def find_all_by_first_name(id)
+    @all.find_all do |customer|
+      customer.id.to_i == id.to_i
+    end
+  end
   #
   # def find_all_by_credit_card_number(card_number)
   #   @all.find_all do |customer|
