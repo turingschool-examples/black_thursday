@@ -68,10 +68,10 @@ class TransactionRepository
     x.result = attributes[:result]
     x.updated_at = Time.now
   end
-  #
-  # def delete(id)
-  #   x = find_by_id(id)
-  #   @all.delete(x)
-  # end
+
+  def delete(id)
+    x = find_by_id(id)
+    @all.delete(x)
+  end
 
 end
