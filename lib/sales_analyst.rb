@@ -7,6 +7,7 @@ class SalesAnalyst
     @item_repository = item_repository
     @merchant_repository = merchant_repository
     @invoice_repository = invoice_repository
+    @merchant_invoices = {}
   end
 
   def merchant_items_hash
@@ -66,11 +67,27 @@ class SalesAnalyst
     total_number_of_invoices = @invoice_repository.all.count
     average = (total_number_of_invoices.to_f / number_of_merchants)
     average.round(2)
-    require "pry"; binding.pry
+  end
+
+  def invoices_per_merchant
+    @merchant_repository.all.map do |merchant|
+      invoices = @invoice_repository.all.find_all do |invoice|
+        invoice.merchant_id == merchant.id
+      end
+      @merchant_invoices[merchant.id] = invoices.count
+    end
+    @merchant_invoices
   end
 
   def average_invoices_per_merchant_standard_deviation
 
+require "pry"; binding.pry
+
+
+    merchant_invoices = merchant_invoices.map {|item| item.unit_price}
+    diff_squared = merchant_items_hash.values.map {|item_count| (item_count-average_invoices_per_merchant)**2}
+    std_dev = (diff_squared.sum / (diff_squared.count.to_f - 1))**0.5
+    std_dev.round(2)
   end
 
 end
