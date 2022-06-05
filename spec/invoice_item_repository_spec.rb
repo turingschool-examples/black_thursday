@@ -16,18 +16,19 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_engine.all.count).to eq(21830)
   end
 #
-  it "can find_by_id" do
+  it "can find by id" do
     expect(@sales_engine.find_by_id(1)).to eq(@sales_engine.all.first)
     expect(@sales_engine.find_by_id(8675309)).to eq(nil)
     expect(@sales_engine.find_by_id(1)).to be_a(InvoiceItem)
   end
+
+  it "can find by item id" do
+    expect(@sales_engine.find_by_item_id(263519844)).to eq(@sales_engine.all.first)
+    expect(@sales_engine.find_by_item_id(8675309)).to eq(nil)
+    expect(@sales_engine.find_by_item_id(263519844)).to be_a(InvoiceItem)
+  end
 #
-#   it "can find_by_name" do
-#
-#     expect(@merchant_repository.find_by_name("Shopin1901")).to eq(@merchant_repository.all.first)
-#     expect(@merchant_repository.find_by_name("XYZ")).to eq(nil)
-#     expect(@merchant_repository.find_by_name("Shopin1901")).to be_a(Merchant)
-#   end
+
 #
 #   it 'can find_all_by_name(name)' do
 #     test = @merchant_repository.find_all_by_name("handmade")
