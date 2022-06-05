@@ -15,7 +15,13 @@ RSpec.describe InvoiceItemRepository do
     expect(@invoice_item_repository.all).to be_a(Array)
     expect(@invoice_item_repository.all.length).to eq(21830)
     expect(@invoice_item_repository.all.first).to be_a(InvoiceItem)
-    expect(@invoice_item_repository.all.first.id).to eq("1")
-    expect(@invoice_item_repository.all.first.quantity).to eq("5")
+    expect(@invoice_item_repository.all.first.id).to eq(1)
+    expect(@invoice_item_repository.all.first.quantity).to eq(5)
+  end
+
+  it "returns nil or an instance of invoice item with a matching id" do
+    expect(@invoice_item_repository.find_by_id(0)).to eq nil
+    expect(@invoice_item_repository.find_by_id(72)).to be_a(InvoiceItem)
+    expect(@invoice_item_repository.find_by_id(4345)).to be_a(InvoiceItem)
   end
 end
