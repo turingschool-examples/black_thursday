@@ -17,9 +17,9 @@ RSpec.describe InvoiceItemRepository do
   end
 #
   it "can find_by_id" do
-    expect(@sales_engine.find_by_id(263519844)).to eq(@sales_engine.all.first)
+    expect(@sales_engine.find_by_id(1)).to eq(@sales_engine.all.first)
     expect(@sales_engine.find_by_id(8675309)).to eq(nil)
-    expect(@sales_engine.find_by_id(263519844)).to be_a(InvoiceItem)
+    expect(@sales_engine.find_by_id(1)).to be_a(InvoiceItem)
   end
 #
 #   it "can find_by_name" do
