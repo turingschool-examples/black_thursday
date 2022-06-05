@@ -9,7 +9,7 @@ class MerchantRepository
     @file_path = file_path
     @all =[]
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @all << Merchant.new({:id =>row[:id], :name => row[:name]})
+      @all << Merchant.new({:id => row[:id], :name => row[:name]})
     end
   end
 
@@ -26,7 +26,7 @@ class MerchantRepository
   end
 
   def create(name)
-    id = (@all.last.id.to_i + 1).to_s
+    id = (@all.last.id.to_i + 1)
     @all << Merchant.new({:id => id, :name => name})
   end
 

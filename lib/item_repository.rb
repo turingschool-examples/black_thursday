@@ -1,3 +1,4 @@
+require 'pry'
 require 'CSV'
 require_relative 'item'
 
@@ -42,11 +43,11 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @all.find_all {|merchant| merchant.id == merchant_id}
+    @all.find_all {|item| merchant_id == item.merchant_id }
   end
 
   def create(name)
-    id = (@all.last.id.to_i + 1).to_s
+    id = (@all.last.id.to_i + 1)
     @all << Item.new({:id => id, :name => name})
   end
 
