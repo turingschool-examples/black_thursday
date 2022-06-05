@@ -10,10 +10,10 @@ RSpec.describe TransactionRepository do
     expect(@sales_engine).to be_a(TransactionRepository)
   end
 
-#   it "returns all known Invoice Item instances" do
-#     expect(@sales_engine.all).to be_a Array
-#     expect(@sales_engine.all.count).to eq(21830)
-#   end
+  it "returns all known Transaction instances" do
+    expect(@sales_engine.all).to be_a Array
+    expect(@sales_engine.all.count).to eq(0)
+  end
 # #
 #   it "can find by id" do
 #     expect(@sales_engine.find_by_id(1)).to eq(@sales_engine.all.first)
