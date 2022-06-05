@@ -1,7 +1,7 @@
 require 'entry'
 class TransactionRepository
 
-  attr_reader :id, :invoice_id, :created_at
+  attr_reader :id, :invoice_id, :created_at, :all
 
   attr_accessor :credit_card_number,
                 :credit_card_expiration_date,
