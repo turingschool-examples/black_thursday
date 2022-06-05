@@ -70,9 +70,9 @@ RSpec.describe TransactionRepository do
     expect(@sales_engine.find_by_id(1).updated_at).to be_a Time
   end
 #
-#   it "can delete a invoice item instance" do
-#     expect(@sales_engine.find_by_id(1)).to be_a(InvoiceItem)
-#     @sales_engine.delete(1)
-#     expect(@sales_engine.find_by_id(1)).to eq(nil)
-#   end
+  it "can delete a transaction instance" do
+    expect(@sales_engine.find_by_id(1)).to be_a(Transaction)
+    @sales_engine.delete(1)
+    expect(@sales_engine.find_by_id(1)).to eq(nil)
+  end
 end
