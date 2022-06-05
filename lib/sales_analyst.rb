@@ -1,12 +1,12 @@
-require_relative 'sales_engine'
-
+require './lib/sales_engine'
 class SalesAnalyst
-  attr_reader :item_repository, :merchant_repository
+  attr_reader :item_repository, :merchant_repository, :invoice_repository
 
-  def initialize(item_repository, merchant_repository)
+  def initialize(item_repository, merchant_repository, invoice_repository)
     #delete merchant_repository from this and sales engine if we end up not using
     @item_repository = item_repository
     @merchant_repository = merchant_repository
+    @invoice_repository = invoice_repository
   end
 
   def merchant_items_hash
@@ -60,4 +60,17 @@ class SalesAnalyst
     top_items = @item_repository.all.find_all {|item| item.unit_price > average_price_plus_two_standard_deviations}
     top_items
   end
+
+  def average_invoices_per_merchant
+    number_of_merchants = merchant_items_hash.keys.count
+    total_number_of_invoices = @invoice_repository.all.count
+    average = (total_number_of_invoices.to_f / number_of_merchants)
+    average.round(2)
+    require "pry"; binding.pry
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+
+  end
+
 end
