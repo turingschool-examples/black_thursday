@@ -30,4 +30,10 @@ class CustomerRepository
     @all << Customer.new(attributes)
     @all.last
   end
+
+  def update(id, attributes)
+    if find_by_id(id)
+      find_by_id(id).update(attributes)
+    end
+  end
 end
