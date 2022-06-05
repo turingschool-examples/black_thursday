@@ -93,4 +93,12 @@ class SalesAnalyst
     low_invoice_merchants = low_merchants.map {|merchant| @merchant_repository.find_by_id(merchant)}
   end
 
+  # def top_days_by_invoice_count
+  #
+  # end
+
+  def invoice_status(status)
+    ((@invoice_repository.find_all_by_status(status).count / @invoice_repository.all.count.to_f) * 100).round(2)
+  end
+
 end
