@@ -16,4 +16,8 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_items_per_merchant).to eq 2.88
   end
 
+  it "can check if invoice is paid in full" do
+    expect(@sales_engine.invoice_paid_in_full?(1)).to eq true
+  end
+
 end
