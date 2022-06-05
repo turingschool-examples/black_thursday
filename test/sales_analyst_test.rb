@@ -24,7 +24,7 @@ RSpec.describe SalesAnalyst do
   end
 
   #takes a while to test but passes as an array
-  it "can determine which merchant sold the most items?" do
+  xit "can determine which merchant sold the most items?" do
     expect(sales_analyst.merchants_with_high_item_count).to be_instance_of(Array)
   end
 
@@ -55,7 +55,7 @@ RSpec.describe SalesAnalyst do
 
   end
 
-  xit 'returns average invoices per merchant' do
+  it 'returns average invoices per merchant' do
     expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
   end
 
@@ -79,13 +79,13 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_repository.find_by_id(1).created_at).to eq("2009-02-07")
   end
 
-  it 'returns day of week a given invoice is created' do
+  xit 'returns day of week a given invoice is created' do
     expect(sales_analyst.invoice_day_of_week_by_id(1)).to eq(6)
     expect(sales_analyst.invoice_day_of_week_by_id(2)).to eq(5)
     expect(sales_analyst.invoice_day_of_week_by_id(4985)).to eq(1)
   end
 
-  it 'returns total number of items sold by day of week' do
+  xit 'returns total number of items sold by day of week' do
     expect(sales_analyst.invoices_by_day_of_week("Monday")).to eq(696)
     expect(sales_analyst.invoices_by_day_of_week("Tuesday")).to eq(692)
     expect(sales_analyst.invoices_by_day_of_week("Wednesday")).to eq(741)
@@ -95,28 +95,28 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoices_by_day_of_week("Sunday")).to eq(708)
   end
 
-  it 'returns average invoices by day of week' do
+  xit 'returns average invoices by day of week' do
     expect(sales_analyst.average_invoices_by_day_of_week).to eq(712.14)
   end
 
-  it 'returns standard deviation of average invoices per week' do
+  xit 'returns standard deviation of average invoices per week' do
     expect(sales_analyst.average_invoices_by_day_of_week_standard_deviation).to eq(18.07)
   end
 
-  it 'returns days of the week where invoices are created at more than one standard deviation above the mean' do
+  xit 'returns days of the week where invoices are created at more than one standard deviation above the mean' do
     expect(sales_analyst.top_days_by_invoice_count.length).to eq(1)
     expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
   end
 
-  it 'returns percent of invoices pending' do
+  xit 'returns percent of invoices pending' do
     expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
   end
 
-  it 'returns percent of invoices shipped' do
+  xit 'returns percent of invoices shipped' do
     expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
   end
 
-  it 'returns percent of invoices returned' do
+  xit 'returns percent of invoices returned' do
     expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 end
