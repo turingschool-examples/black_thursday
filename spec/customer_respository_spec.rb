@@ -15,11 +15,11 @@ RSpec.describe CustomerRepository do
     expect(@sales_engine.all.count).to eq(1000)
   end
 #
-#   it "can find by id" do
-#     expect(@sales_engine.find_by_id(1)).to eq(@sales_engine.all.first)
-#     expect(@sales_engine.find_by_id(8675309)).to eq(nil)
-#     expect(@sales_engine.find_by_id(1)).to be_a(Customer)
-#   end
+  it "can find by id" do
+    expect(@sales_engine.find_by_id(1)).to eq(@sales_engine.all.first)
+    expect(@sales_engine.find_by_id(8675309)).to eq(nil)
+    expect(@sales_engine.find_by_id(1)).to be_a(Customer)
+  end
 #
 #   it "can find ALL by invoice id" do
 #     expect(@sales_engine.find_all_by_invoice_id(2179).count).to eq 2
