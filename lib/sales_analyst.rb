@@ -68,6 +68,9 @@ class SalesAnalyst
     standard_dev = item_price_standard_deviation
     @item_repository.all.select {|item| item.unit_price_to_dollars > (average_item_price + (standard_dev * 2))}
   end
+  # => first portion in case we want to split in half
+
+
 
   # will likely want to break below into a TimeAnalyst class or something for organizing purposes
 

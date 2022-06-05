@@ -65,10 +65,14 @@ RSpec.describe SalesAnalyst do
 
   xit 'returns top merchants by invoice count' do
     #array of merchants more than two standard deviations ABOVE the mean
+    expect(sales_analyst.top_merchants_by_invoice_count).to be_instance_of(Array)
+    # => [merchant, merchant, merchant], include test for values once generating array
   end
 
   xit 'returns bottom merchants by invoice count' do
     #array of merchants more than two standard deviations BELOW the mean
+    expect(sales_analyst.bottom_merchants_by_invoice_count).to be_instance_of(Array)
+    # => [merchant, merchant, merchant], include test for values once generating array
   end
 
   it 'returns date created for given invoice' do
