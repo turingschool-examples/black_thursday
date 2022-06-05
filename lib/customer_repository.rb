@@ -39,32 +39,16 @@ class CustomerRepository
     end
   end
 
-
-  #
-  # def find_all_by_credit_card_number(card_number)
-  #   @all.find_all do |customer|
-  #     customer.credit_card_number.to_i == card_number.to_i
-  #   end
-  # end
-  #
-  # def find_all_by_result(result)
-  #   @all.find_all do |customer|
-  #     customer.result == result
-  #   end
-  # end
-  #
-  # def create(attributes)
-  #   x = (@all.last.id + 1)
-  #   @all << Transaction.new({
-  #     :id => x,
-  #     :invoice_id => attributes[:invoice_id],
-  #     :credit_card_number => attributes[:credit_card_number],
-  #     :credit_card_expiration_date => attributes[:credit_card_expiration_date],
-  #     :result => attributes[:result],
-  #     :created_at => attributes[:created_at],
-  #     :updated_at => attributes[:updated_at]
-  #     })
-  # end
+  def create(attributes)
+    x = (@all.last.id.to_i + 1)
+    @all << Customer.new({
+      :id => x,
+      :first_name => attributes[:first_name],
+      :last_name => attributes[:last_name],
+      :created_at => attributes[:created_at],
+      :updated_at => attributes[:updated_at]
+      })
+  end
   #
   # def update(id, attributes)
   #   x = find_by_id(id)
