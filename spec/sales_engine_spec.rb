@@ -43,6 +43,14 @@ RSpec.describe SalesEngine do
     expect(sales_engine.item_repository.find_by_name("Vogue Paris Original Givenchy 2307")).to be_a Item
   end
 
+  it "has a sales analyst" do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    
+    expect(sales_engine.analyst).to be_a SalesAnalyst
 
+  end
 
 end
