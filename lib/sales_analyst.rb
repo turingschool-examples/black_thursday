@@ -24,14 +24,11 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    high_count =[]
-    @merchant_repository.all.each do |merchant|
-      item_count = @item_repository.find_all_by_merchant_id(merchant.id).count
-      if item_count > (average_items_per_merchant +  average_items_per_merchant_standard_deviation)
-        high_count << merchant
-      end
+    std_dev = average_items_per_merchant_standard_deviation
+    avg_items = average_items_per_merchant
+    @merchant_repository.all.find_all do |merchant|
+      @item_repository.find_all_by_merchant_id(merchant.id).count > (avg_items +  std_dev)
     end
-    high_count
   end
 
   def items_per_merchant
@@ -71,13 +68,12 @@ class SalesAnalyst
     end
     merchant_price_averages
   end
+  
   def golden_items
-    high_price =[]
-    @item_repository.all.each do |item|
-      if item.unit_price > (average_average_price_per_merchant +  (average_price_per_merchant_standard_deviation * 2))
-        high_price << item
-      end
+    avg_avg_price = average_average_price_per_merchant
+    std_dev = average_price_per_merchant_standard_deviation
+    @item_repository.all.find_all do |item|
+      item.unit_price > (avg_avg_price + (std_dev * 2))
     end
-    high_price
   end
 end
