@@ -61,7 +61,7 @@ RSpec.describe InvoiceItemRepository do
     expect(@invoice_item_repository.find_by_id(id).unit_price).to eq(15.99)
   end
 
-  it "can delete the invoice item instance with a corresponding id " do
+  it "can delete the invoice item instance with a corresponding id" do
     id = 487
     expect(@invoice_item_repository.find_by_id(id)).to be_a(InvoiceItem)
     expect(@invoice_item_repository.delete(id))
