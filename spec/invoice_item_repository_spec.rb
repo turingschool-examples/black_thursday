@@ -1,20 +1,21 @@
 require'./lib/invoice_item_repository'
+require'./lib/invoice_item'
 # require'BigDecimal'
 
 RSpec.describe InvoiceItemRepository do
   before :each do
 
-    @sales_engine = InvoiceItemRepository.new(:invoice_items => "./data/invoice_items.csv")
+    @sales_engine = InvoiceItemRepository.new("./data/invoice_items.csv")
   end
 
   it 'exists' do
-    expect(@sales_engine).to be_a InvoiceItemRepository
+    expect(@sales_engine).to be_a(InvoiceItemRepository)
   end
 
   it "returns all known Invoice Item instances" do
 
     expect(@sales_engine.all).to be_a Array
-    expect(@sales_engine.all.count).to eq(475)
+    expect(@sales_engine.all.count).to eq(21830)
   end
 #
 #   it "can find_by_id" do
