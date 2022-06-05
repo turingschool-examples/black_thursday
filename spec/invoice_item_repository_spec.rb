@@ -34,17 +34,23 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_engine.find_all_by_invoice_id(1)).to be_a Array
   end
 
+  it 'can create_attributes' do
+    x = Time.now
+    last_id_number_in_csv = @sales_engine.all.last.id.to_i
+    attributes = {
+      :id => last_id_number_in_csv + 1,
+      :item_id => 0356,
+      :invoice_id => 067,
+      :quantity => 99999999,
+      :unit_price => 23,
+      :created_at => x,
+      :updated_at => x
+    }
 
-#
-#   it 'can create_attributes' do
-#     attributes = {
-#       name: "BryceGems"
-#     }
-#
-#     expect(@merchant_repository.create(attributes).last.id).to eq(12337412)
-#     expect(@merchant_repository.all.last).to be_a(Merchant)
-#     expect(@merchant_repository.all.count).to eq(476)
-#   end
+    expect(@sales_engine.create(attributes).id).to eq(21831)
+    expect(@sales_engine.all.last).to be_a(InvoiceItem)
+    expect(@sales_engine.all.count).to eq(0)
+  end
 #
 #   it "can update(id, attributes) an merchant instance" do
 #     attributes = {
