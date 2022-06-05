@@ -80,4 +80,19 @@ RSpec.describe TransactionRepository do
     update_fail = {invoice_id: 10}
     expect(@sales_engine.transactions.update(4986, update_fail)).to eq(nil)
   end
+
+  it 'can delete an instance of a Transaction' do
+    attributes = {
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+    @sales_engine.transactions.create(attributes)
+
+    @sales_engine.transactions.delete(4986)
+    expect(@sales_engine.transactions.find_by_id(4986)).to eq(nil)
+  end
 end
