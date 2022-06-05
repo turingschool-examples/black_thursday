@@ -50,10 +50,11 @@ class InvoiceRepository
       end
     end
   end
-  
-#   def create(name)
-#     @all << Merchant.new({:id => new_id, :name => name})
-#   end
+
+  # def create(attributes)
+  #   new_id = attributes[:id] = @all.last.id + 1
+  #   @all << Invoice.new({:id => row[:id].to_i, :customer_id => row[:customer_id].to_i, :merchant_id => row[:merchant_id].to_i, :status => row[:status].to_s, :created_at => row[:created_at], :updated_at => row[:updated_at]})
+  # end
 #
 #
 #   def update(id, attributes)
