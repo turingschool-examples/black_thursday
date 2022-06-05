@@ -20,20 +20,12 @@ RSpec.describe Customer do
     expect(customer.id).to eq(6)
   end
 
-  it 'returns item id' do
-    expect(customer.item_id).to eq(7)
+  it "returns first name" do
+    expect(customer.first_name).to eq("Joan")
   end
 
-  it 'returns invoice id' do
-    expect(customer.invoice_id).to eq(8)
-  end
-
-  it 'returns quantity' do
-    expect(customer.quantity).to eq(1)
-  end
-
-  it 'returns unit price' do
-    expect(customer.unit_price).to eq(10.99)
+  it "returns last name" do
+    expect(customer.last_name).to eq("Clarke")
   end
 
   it "can return the time the customer was created" do
@@ -42,9 +34,5 @@ RSpec.describe Customer do
 
   it "can return the time the object was updated" do
     expect(customer.updated_at.strftime("%Y-%m-%d %H:%M")).to eq(time.strftime("%Y-%m-%d %H:%M"))
-  end
-
-  xit "can return the unit price converted to dollars" do
-    expect(customer.unit_price_to_dollars).to eq(10.99)
   end
 end
