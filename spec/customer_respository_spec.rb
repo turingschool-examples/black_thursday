@@ -39,9 +39,11 @@ RSpec.describe CustomerRepository do
     x = Time.now
     last_id_number_in_csv = @sales_engine.all.last.id.to_i
     attributes = {
-      :id => 6,
+      :id => nil,
       :first_name => "Joan",
       :last_name => "Clarke",
+      :created_at => x,
+      :updated_at => x
       }
     expect(@sales_engine.create(attributes).last.id).to eq(1001)
     expect(@sales_engine.all.last).to be_a(Customer)
