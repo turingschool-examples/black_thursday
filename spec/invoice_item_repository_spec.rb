@@ -66,6 +66,6 @@ RSpec.describe InvoiceItemRepository do
   it "can delete a invoice item instance" do
     expect(@sales_engine.find_by_id(1)).to be_a(InvoiceItem)
     @sales_engine.delete(1)
-    expect(@sales_engine.find_by_name(1)).to eq(nil)
+    expect(@sales_engine.find_by_id(1)).to eq(nil)
   end
 end
