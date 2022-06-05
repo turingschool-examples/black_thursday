@@ -56,19 +56,25 @@ RSpec.describe TransactionRepository do
         :created_at => Time.now,
         :updated_at => Time.now
       }
-      @sales_engine.transactions.create(attributes)
-      expect(@sales_engine.transactions.find_by_id(4986).invoice_id).to eq(8)
+    @sales_engine.transactions.create(attributes)
+    expect(@sales_engine.transactions.find_by_id(4986).invoice_id).to eq(8)
   end
 
-  xit 'can create new attributes for a Transaction' do
-    original_time = engine.transactions.find_by_id(4986).updated_at
-      attributes = {
-        result: :failed
+  it 'can create new attributes for a Transaction' do
+    attributes = {
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => Time.now,
+        :updated_at => Time.now
       }
-      engine.transactions.update(4986, attributes)
-      expected = engine.transactions.find_by_id(4986)
-      expect(expected.result).to eq :failed
-      expect(expected.credit_card_expiration_date).to eq "0220"
-      expect(expected.updated_at).to be > original_time
+    @sales_engine.transactions.create(attributes)
+    original_time = @sales_engine.transactions.find_by_id(4986).updated_at
+    updates = {result: :failed}
+    @sales_engine.transactions.update(4986, updates)
+    expect(@sales_engine.transactions.find_by_id(4986).result).to eq(:failed)
+    expect(@sales_engine.transactions.find_by_id(4986).credit_card_expiration_date).to eq("0220")
+    expect(@sales_engine.transactions.find_by_id(4986).updated_at).to be > original_time
   end
 end
