@@ -1,9 +1,10 @@
 class SalesAnalyst
-  attr_reader :item_repository, :merchant_repository
+  attr_reader :item_repository, :merchant_repository, :invoice_repository
 
-  def initialize(item_repo, merchant_repo)
+  def initialize(item_repo, merchant_repo, invoice_repo)
     @item_repository = item_repo
     @merchant_repository = merchant_repo
+    @invoice_repository = invoice_repo
   end
 
   def average_items_per_merchant
@@ -58,4 +59,9 @@ class SalesAnalyst
     sum = prices.sum {|num| (num - mean)**2}
     price_sd = (Math.sqrt(sum / (prices.size - 1))).round(2)
   end
+
+  def average_invoices_per_merchant
+    (@invoice_repository.all.length.to_f / @merchant_repository.all.length).round(2)
+  end
+
 end
