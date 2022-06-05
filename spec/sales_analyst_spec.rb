@@ -44,4 +44,27 @@ RSpec.describe SalesAnalyst do
   it 'returns the golden items' do
     expect(@sales_analyst.golden_items).to include(Item)
   end
+
+  it 'returns the average invoices per merchant and standard deviation' do
+    expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+  end
+
+  it 'returns the top performing merchants' do
+    expect(sales_analyst.top_merchants_by_invoice_count).to include(Merchant)
+  end
+
+  it 'returns the lowest performing merchants' do
+    expect(sales_analyst.bottom_merchants_by_invoice_count).to include(Merchant)
+  end
+
+  it 'returns the top days by invoice count' do
+    expect(sales_analyst.top_days_by_invoice_count).to eq(["Sunday", "Saturday"])
+  end
+
+  it 'returns the percent of invoices that are shipped, pending, and returned' do
+    expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
+    expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
+    expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
+  end
 end
