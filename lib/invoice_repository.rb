@@ -50,4 +50,10 @@ class InvoiceRepository
     new_attribute[:merchant_id], :status => "pending", :created_at => Time.now, :updated_at => Time.now)
     return @all.last
   end
+
+  def update(id, attributes)
+    updated_item = find_by_id(id)
+    updated_item.status = attributes[:status]
+    updated_item.updated_at = Time.now
+  end
 end
