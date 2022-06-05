@@ -42,4 +42,12 @@ class InvoiceRepository
       status == invoice.status
     end
   end
+
+  def create(new_invoice_attributes)
+    new_id = @all.last.id.to_i + 1
+    new_attribute = new_invoice_attributes
+    @all << Invoice.new(:id => new_id.to_s, :customer_id => new_attribute[:customer_id], :merchant_id =>
+    new_attribute[:merchant_id], :status => "pending", :created_at => Time.now, :updated_at => Time.now)
+    return @all.last
+  end
 end
