@@ -145,5 +145,8 @@ class SalesAnalyst
     transactions.any? {|transaction| transaction.result == "success"}
   end
 
-  
+  def invoice_total(invoice_id)
+    invoice = @invoice_item_repository.find_all_by_invoice_id(invoice_id)
+    total = invoice.first.quantity * invoice.first.unit_price
+  end
 end
