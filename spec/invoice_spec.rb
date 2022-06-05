@@ -20,4 +20,12 @@ RSpec.describe Invoice do
   it "has an id" do
     expect(@i.id).to eq(6)
   end
+
+  it "has a customer id" do
+    expect(@i.customer_id).to eq(7)
+    end
+
+  it "has a merchant id" do
+    expect(@i.merchant_id).to eq(8)
+  end
 end
