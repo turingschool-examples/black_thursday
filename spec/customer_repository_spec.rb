@@ -41,14 +41,16 @@ RSpec.describe CustomerRepository do
     expect(@customer_repository.all.last.id).to eq(1001)
   end
 
-  xit 'can update the customer instance with corresponding id' do
-    @customer_repository.update(1001, "Bryan Shears")
-    expect(@customer_repository.all.last.id).to eq(1001)
+  it 'can update the customer instance with corresponding id' do
+    @customer_repository.update(1000, "Bryan")
+    # require "pry"; binding.pry
+    expect(@customer_repository.all.last.id.to_i).to eq(1000)
+    expect(@customer_repository.all.last.first_name).to eq("Bryan")
   end
 
   it 'can delete the customer by id' do
     @customer_repository.delete(1)
-    expect(@customer_repository.all.first.id).to eq("2")
+    expect(@customer_repository.all.first.id.to_i).to eq(2)
   end
 
 end
