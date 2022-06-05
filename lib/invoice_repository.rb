@@ -35,5 +35,11 @@ class InvoiceRepository
     @all.find_all do |invoice|
       merchant_id.to_i == invoice.merchant_id.to_i
     end
-  end 
+  end
+
+  def find_all_by_status(status)
+    @all.find_all do |invoice|
+      status == invoice.status
+    end
+  end
 end
