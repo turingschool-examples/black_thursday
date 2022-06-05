@@ -4,11 +4,11 @@ class InvoiceItem
   attr_reader :id,
               :item_id,
               :invoice_id,
-              :quantity,
-              :unit_price,
               :created_at
 
-  attr_accessor :updated_at
+  attr_accessor :quantity,
+                :unit_price
+                :updated_at
 
   def initialize(input)
     @id = input[:id].to_i

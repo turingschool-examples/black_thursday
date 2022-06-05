@@ -17,15 +17,7 @@ module Existable
       return Transaction
     end
   end
-  #
-  # def make_new_repo(file_path)
-  #   repo = Array.new
-  #   make_new = Proc.new {|row| repo << evaluate.new(row)}
-  #   parse_csv = lambda {CSV.foreach(file_path, headers: true, header_converters: :symbol)}
-  #   parse_csv.call(&make_new)
-  #   repo
-  # end
-  #
+
   def max_id
     (@all.max_by {|thing| thing.id}).id
   end
@@ -74,11 +66,11 @@ module Existable
 
   def make_transaction(attributes)
     @all.push(Transaction.new({
-      :id => 6,
-      :invoice_id => 8,
-      :credit_card_number => "4242424242424242",
-      :credit_card_expiration_date => "0220",
-      :result => "success",
+      :id => max_id + 1,
+      :invoice_id => attributes[:invoice_id],
+      :credit_card_number => attributes[:icredit_card_number],
+      :credit_card_expiration_date => attributes[:credit_card_expiration_date],
+      :result => attributes[:result],
       :created_at => Time.now,
       :updated_at => Time.now
     }))
@@ -86,29 +78,39 @@ module Existable
 
   def  make_customer(attributes)
     @all.push(Customer.new({
-      :id => 6,
-      :first_name => "Joan",
-      :last_name => "Clarke",
+      :id => max_id + 1,
+      :first_name => attributes[:first_name],
+      :last_name => attributes[:last_name],
       :created_at => Time.now,
       :updated_at => Time.now
     }))
   end
-  #
-  # def update_thing(id, attributes)
-  #   to_be_updated = find_by_id(id)
-  #   to_be_updated.updated_at = (Time.now).strftime("%Y-%m-%d %H:%M")
-  #   case self.class
-  #   when MerchantRepository || ItemRepository
-  #     to_be_updated.name = attributes
-  #   when ItemRepository
-  #     to_be_updated.description = attributes[:description]
-  #     to_be_updated.unit_price = attributes[:unit_price]
-  #   when InvoiceRepository
-  #     to_be_updated.status = attributes
-  #   else
-  #     return
-  #   end
-  # end
+
+  def update(id, attributes)
+    to_be_updated = find_by_id(id)
+    require "pry"; binding.pry
+    to_be_updated.updated_at = (Time.now).strftime("%Y-%m-%d %H:%M")
+    if evaluate == MerchantRepository
+      to_be_updated.name = attributes
+    elsif evaluate == ItemRepository
+      to_be_updated.name = attributes
+      to_be_updated.description = attributes[:description]
+      to_be_updated.unit_price = attributes[:unit_price]
+    elsif evaluate == InvoiceRepository
+      to_be_updated.status = attributes
+    elsif evaluate == InvoiceItemRepository
+      to_be_updated.quantity = attributes[:quantity]
+      to_be_updated.unit_price = attributes[:unit_price]
+    elsif evaluate == Transaction
+      to_be_updated.credit_card_number = attributes[:credit_card_number]
+      to_be_updated.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+    elsif evaluate == Customer
+      to_be_updated.first_name = attributes[:first_name]
+      to_be_updated.last_name = attributes[:last_name]
+    else
+      return
+    end
+  end
 
   def delete(id)
     to_be_dropped = find_by_id(id)
