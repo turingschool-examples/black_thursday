@@ -37,6 +37,10 @@ module Findable
     @all.select {|transaction| transaction.result == result}
   end
 
+  def find_all_by_credit_card_number(number)
+    @all.select {|transaction| transaction.credit_card_number == number}
+  end
+
   def find_all_with_description(input)
     @all.select {|item| item.name.downcase.include?(input.downcase.strip)}
   end

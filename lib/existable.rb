@@ -68,7 +68,7 @@ module Existable
     @all.push(Transaction.new({
       :id => max_id + 1,
       :invoice_id => attributes[:invoice_id],
-      :credit_card_number => attributes[:icredit_card_number],
+      :credit_card_number => attributes[:credit_card_number],
       :credit_card_expiration_date => attributes[:credit_card_expiration_date],
       :result => attributes[:result],
       :created_at => Time.now,

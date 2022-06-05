@@ -40,10 +40,10 @@ RSpec.describe TransactionRepository do
     expect(transaction_repo.find_all_by_result("success").first.id).to eq(1)
   end
 
-  xit "can find all transactions by credit card number" do
+  it "can find all transactions by credit card number" do
     new_transaction
     expect(transaction_repo.find_all_by_credit_card_number("4242424242424242").first).to be_instance_of Transaction
-    expect(transaction_repo.find_all_by_credit_card_number("4242424242424242").first.id).to eq(6)
+    expect(transaction_repo.find_all_by_credit_card_number("4242424242424242").first.id).to eq(4986)
   end
 
   xit "can update an transaction" do
@@ -62,10 +62,10 @@ RSpec.describe TransactionRepository do
     # expect(transaction_repo.find_by_id(1).updated_at).not_to eq(transaction_repo.find_by_id(21831).created_at)
   end
 
-  xit "can delete an invoice" do
+  it "can delete an transaction" do
     new_transaction
-    expect(transaction_repo.find_by_id(21831)).to be_instance_of Transaction
-    expect(transaction_repo.find_by_id(21831).quantity).to eq(1)
+    expect(transaction_repo.find_by_id(4986)).to be_instance_of Transaction
+    expect(transaction_repo.find_by_id(4986).invoice_id).to eq(8)
     # expect(transaction_repo.find_by_id(1).updated_at).to eq("2014-03-15")
     invoicerepository = double()
     allow(invoicerepository).to receive(:delete).and_return("Deletion complete!")
