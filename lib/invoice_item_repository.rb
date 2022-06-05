@@ -58,14 +58,18 @@ class InvoiceItemRepository
       })
   end
 
+  def update(id, attributes)
+    x = find_by_id(id)
+    x.quantity = attributes[:quantity]
+    x.unit_price = attributes[:unit_price]
+    x.updated_at = Time.now
+  end
+
 end
 
 
 #
-# def update(id, attributes)
-#   x = find_by_id(id)
-#   x.name = attributes[:name]
-# end
+
 #
 # def delete(id)
 #   x = find_by_id(id)
