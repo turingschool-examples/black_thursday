@@ -34,16 +34,16 @@ RSpec.describe TransactionRepository do
     expect(transaction_repo.find_all_by_invoice_id(4966).first.id).to eq(6)
   end
 
-  xit "can find all transactions by result" do
+  it "can find all transactions by result" do
     new_transaction
-    expect(transaction_repo.find_all_by_item_id(263519844).first).to be_instance_of Transaction
-    expect(transaction_repo.find_all_by_item_id(263519844).first.id).to eq(1)
+    expect(transaction_repo.find_all_by_result("success").first).to be_instance_of Transaction
+    expect(transaction_repo.find_all_by_result("success").first.id).to eq(1)
   end
 
   xit "can find all transactions by credit card number" do
     new_transaction
-    expect(transaction_repo.find_all_by_item_id("4242424242424242").first).to be_instance_of Transaction
-    expect(transaction_repo.find_all_by_item_id("4242424242424242").first.id).to eq(6)
+    expect(transaction_repo.find_all_by_credit_card_number("4242424242424242").first).to be_instance_of Transaction
+    expect(transaction_repo.find_all_by_credit_card_number("4242424242424242").first.id).to eq(6)
   end
 
   xit "can update an transaction" do

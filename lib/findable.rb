@@ -33,6 +33,10 @@ module Findable
     @all.select {|invoice| invoice.status == status}
   end
 
+  def find_all_by_result(result)
+    @all.select {|transaction| transaction.result == result}
+  end
+
   def find_all_with_description(input)
     @all.select {|item| item.name.downcase.include?(input.downcase.strip)}
   end
