@@ -22,7 +22,7 @@ RSpec.describe TransactionRepository do
   end
 
   it "can find ALL by invoice id" do
-    expect(@sales_engine.find_all_by_invoice_id(2179).count).to eq 0
+    expect(@sales_engine.find_all_by_invoice_id(2179).count).to eq 2
     expect(@sales_engine.find_all_by_invoice_id(8675309)).to eq([])
     expect(@sales_engine.find_all_by_invoice_id(2179)).to be_a Array
   end
