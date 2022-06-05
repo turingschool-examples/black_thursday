@@ -8,7 +8,9 @@ class Transaction
               :result,
               :created_at
 
-  attr_accessor :updated_at
+  attr_accessor :credit_card_number,
+                :credit_card_expiration_date,
+                :updated_at
 
   def initialize(input)
     @id = input[:id].to_i
