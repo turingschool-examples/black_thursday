@@ -62,16 +62,14 @@ RSpec.describe InvoiceRepository do
      expect(@invoice.all.last.customer_id).to eq(7)
   end
  #
- #  it "update the Merchant instance with the corresponding id with the provided attributes" do
- #
- #    attributes = {name: "Update"}
- #
- #    @merchant_repository.update(12334105, attributes)
- #
- #    expect(@merchant_repository.find_by_id(12334105).name).to eq("Update")
- #      # expect(@merchant_repository.update(id, attributes)).to eq("Update")
- #
- # end
+  it " can update the invoice " do
+
+    attributes = {status: "shipped"}
+    @invoice.update(1, attributes)
+    expect(@invoice).to eq("Update")
+      # expect(@merchant_repository.update(id, attributes)).to eq("Update")
+
+ end
  #
  # it "can delete a Merchant" do
  #   @merchant_repository.delete(12334105)

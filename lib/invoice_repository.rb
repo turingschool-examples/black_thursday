@@ -2,9 +2,9 @@ require 'csv'
 require_relative '../lib/invoice'
 require_relative '../lib/merchant'
 require 'pry'
-
+    attr_reader :all, :file_path
+    attr_accessor :status
 class InvoiceRepository
-  attr_reader :all, :file_path
 
   def initialize(file_path)
     @file_path = file_path
@@ -57,11 +57,11 @@ class InvoiceRepository
   end
 #
 #
-#   def update(id, attributes)
-#     merchant = find_by_id(id)
-#     merchant.name = attributes[:name]
-#
-#   end
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    invoice.id = attributes[:status]
+
+  end
 #
 #   def delete(id)
 #     merchant = find_by_id(id)
