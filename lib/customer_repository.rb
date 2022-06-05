@@ -3,7 +3,7 @@ require 'csv'
 require_relative 'customer'
 class CustomerRepository
   attr_reader :file_path
-  attr_accessor :all
+  attr_accessor :all, :first_name, :last_name
   def initialize(file_path)
     @file_path = file_path
     @all = []
@@ -42,12 +42,14 @@ class CustomerRepository
    end
 
    def update(id, attribute)
-     @all.each do |customer|
-       if customer.id == id
-         customer.name = attribute
-       end
-     end
+        find_by_id(id).first_name = attribute[:first_name]
+        find_by_id(id).last_name = attribute[:last_name]
+        find_by_id(id).updated_at = Time.now
    end
+
+
+
+
 
    def delete(id)
      @all.delete(find_by_id(id))
