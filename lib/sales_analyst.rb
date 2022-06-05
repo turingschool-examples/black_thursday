@@ -119,11 +119,13 @@ class SalesAnalyst
       (invoice_count-average)**2
     end
     std_dev = (diff_squared.sum / (diff_squared.count.to_f - 1))**0.5
-    std_dev.round(2)
+    std_dev.round(2) + average
   end
 
   def top_days_by_invoice_count
-
-    require "pry"; binding.pry
+    top_days = invoice_count_by_day.find_all do |keys, values|
+      values > average_invoices_per_day_std_dev
+    end.to_h
+    top_days.keys
   end
 end
