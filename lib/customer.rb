@@ -1,4 +1,5 @@
 require 'csv'
+
 class Customer
   attr_accessor :id,
               :first_name,

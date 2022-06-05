@@ -43,17 +43,41 @@ class SalesAnalyst
     end
     merchant_items
   end
+  #The average of one merchant's prices
   def average_item_price_for_merchant(id)
     merchant_items = @item_repository.find_all_by_merchant_id(id)
     price_sum = merchant_items.sum(0.0) {|item| item.unit_price}
     (price_sum / merchant_items.count).round(0)
   end
+  #The average price per item across all merchants
   def average_average_price_per_merchant
     merchant_averages =[]
     @merchant_repository.all.each do |merchant|
       merchant_averages << average_item_price_for_merchant(merchant.id)
     end
-    binding.pry
     merchant_averages.sum(0.0) / merchant_averages.count
+  end
+  def average_price_per_merchant_standard_deviation
+    mean = average_average_price_per_merchant
+    sum = price_averages_per_merchant.values.sum(0.0) {|price| (price - mean) ** 2}
+    variance = (sum / (price_averages_per_merchant.size - 1)).to_f
+    standard_deviation = Math.sqrt(variance).round(2)
+  end
+  #hash holding each merchant's average price/item
+  def price_averages_per_merchant
+    merchant_price_averages = Hash.new
+    @merchant_repository.all.each do |merchant|
+      merchant_price_averages[merchant.id] = average_item_price_for_merchant(merchant.id)
+    end
+    merchant_price_averages
+  end
+  def golden_items
+    high_price =[]
+    @item_repository.all.each do |item|
+      if item.unit_price > (average_average_price_per_merchant +  (average_price_per_merchant_standard_deviation * 2))
+        high_price << item
+      end
+    end
+    high_price
   end
 end
