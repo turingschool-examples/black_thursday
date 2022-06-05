@@ -47,19 +47,19 @@ class TransactionRepository
       transaction.result == result
     end
   end
-  #
-  # def create(attributes)
-  #   x = (@all.last.id + 1)
-  #   @all << InvoiceItem.new({
-  #     :id => x,
-  #     :item_id => attributes[:item_id],
-  #     :invoice_id => attributes[:invoice_id],
-  #     :quantity => attributes[:quantity],
-  #     :unit_price => attributes[:unit_price],
-  #     :created_at => attributes[:created_at],
-  #     :updated_at => attributes[:updated_at]
-  #     })
-  # end
+
+  def create(attributes)
+    x = (@all.last.id + 1)
+    @all << Transaction.new({
+      :id => x,
+      :invoice_id => attributes[:invoice_id],
+      :credit_card_number => attributes[:credit_card_number],
+      :credit_card_expiration_date => attributes[:credit_card_expiration_date],
+      :result => attributes[:result],
+      :created_at => attributes[:created_at],
+      :updated_at => attributes[:updated_at]
+      })
+  end
   #
   # def update(id, attributes)
   #   x = find_by_id(id)
