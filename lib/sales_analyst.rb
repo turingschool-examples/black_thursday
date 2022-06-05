@@ -82,7 +82,6 @@ class SalesAnalyst
     end
     total = counts.sum {|difference| (difference - average_invoices_per_merchant) ** 2}
     Math.sqrt(total / (counts.length - 1)).round(2)
-    # require 'pry' ; binding.pry
   end # => currently outputting 9.8 -- METHOD NOT WORKING YET
 
   def top_merchants_by_invoice_count
@@ -93,9 +92,18 @@ class SalesAnalyst
       end
     end
     top_merch_array
-    require 'pry' ; binding.pry
   end
 
+  def bottom_merchants_by_invoice_count
+    bot_merch_array = []
+    @merchant_repository.all.each do |merchant|
+      if (@item_repository.find_all_by_merchant_id(merchant.id).count < average_items_per_merchant_standard_deviation * 2)
+        bot_merch_array << merchant
+      end
+    end
+    bot_merch_array
+    # require 'pry' ; binding.pry
+  end
 
   # will likely want to break below into a TimeAnalyst class or something for organizing purposes
 
