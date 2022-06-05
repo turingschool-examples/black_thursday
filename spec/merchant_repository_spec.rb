@@ -49,7 +49,7 @@ describe MerchantRepository do
   expect(@merchant_repository.find_by_id(12334105).name).to eq("test")
   end
 
-  it "can delete the merchant instace" do
+  it "can delete the merchant instance" do
     @merchant_repository.delete(12334105)
     expect(@merchant_repository.all.first.id).to eq(12334112)
   end

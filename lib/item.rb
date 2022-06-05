@@ -1,12 +1,12 @@
 require 'bigdecimal'
 class Item
 attr_accessor :id,
-            :name,
-            :description,
-            :created_at,
-            :updated_at,
-            :unit_price,
-            :merchant_id
+              :name,
+              :description,
+              :created_at,
+              :updated_at,
+              :unit_price,
+              :merchant_id
 
   def initialize(data_hash)
     @id = data_hash[:id].to_i

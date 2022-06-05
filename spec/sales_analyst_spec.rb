@@ -3,8 +3,8 @@ require './lib/sales_engine'
 require './lib/item_repository'
 require './lib/invoice_repository'
 require './lib/merchant_repository'
+require './lib/customer_repository'
 require 'csv'
-
 
 RSpec.describe SalesAnalyst do
   before :each do
@@ -12,11 +12,13 @@ RSpec.describe SalesAnalyst do
       {
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :invoices => "./data/invoices.csv",
+      :customers => "./data/customers.csv"
       }
     )
     @sales_analyst = @sales_engine.analyst
   end
+
    it "exist" do
      expect(@sales_analyst).to be_a SalesAnalyst
    end
@@ -62,4 +64,5 @@ RSpec.describe SalesAnalyst do
      expect(@sales_analyst.golden_items.first).not_to eq([])
      expect(@sales_analyst.golden_items.first.unit_price).to be > (@sales_analyst.average_price_per_merchant_standard_deviation * 2)
    end
+
 end
