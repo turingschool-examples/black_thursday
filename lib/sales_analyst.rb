@@ -66,10 +66,18 @@ class SalesAnalyst
   #hash holding each merchant's average price/item
   def price_averages_per_merchant
     merchant_price_averages = Hash.new
-    price_sum = 0
     @merchant_repository.all.each do |merchant|
       merchant_price_averages[merchant.id] = average_item_price_for_merchant(merchant.id)
     end
     merchant_price_averages
+  end
+  def golden_items
+    high_price =[]
+    @item_repository.all.each do |item|
+      if item.unit_price > (average_average_price_per_merchant +  (average_price_per_merchant_standard_deviation * 2))
+        high_price << item
+      end
+    end
+    high_price
   end
 end
