@@ -33,7 +33,6 @@ class SalesAnalyst
       invoice_instance.unit_price
     end
     #z should have an array of all unit prices from the same invoice id
-
     z.sum
     #looking at spec harness, they want the sum for the test to be 21067.77.
     #Looking at the unit price in the invoice items csv,
