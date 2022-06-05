@@ -30,6 +30,19 @@ class CustomerRepository
      @all.find_all { |customer| customer.last_name.downcase.include?(name.downcase)}
    end
 
+   def create(data_hash)
+     id = (@all.last.id.to_i + 1)
+     @all << Customer.new({
+       :id => data_hash[:id],
+       :first_name => data_hash[:first_name],
+       :last_name => data_hash[:last_name],
+       :created_at => data_hash[:created_at],
+       :updated_at => data_hash[:updated_at]
+       })
+   end
+
+
+
 
 
 
