@@ -70,7 +70,7 @@ class SalesAnalyst
   end
   # => first portion in case we want to split in half
 
-
+require 'pry' ; binding.pry
 
   # will likely want to break below into a TimeAnalyst class or something for organizing purposes
 

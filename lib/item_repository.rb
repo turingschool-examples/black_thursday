@@ -11,6 +11,7 @@ class ItemRepository
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Item.new(row)
+    end
   end
 
   def find_all_with_description(input)
