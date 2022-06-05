@@ -138,7 +138,7 @@ RSpec.describe SalesAnalyst do
 
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.29)
+    expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
 
   it 'can find top_merchants_by_invoice_count' do

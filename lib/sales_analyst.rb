@@ -113,6 +113,7 @@ class SalesAnalyst < SalesEngine
   end
 
   def invoice_status(tracking)
-    #What percentage of invoices are shipped vs pending vs returned? (takes symbol as argument)
+    total_invoices = @invoices.all.length
+    (@invoices.find_all_by_status(tracking).length * 100.0 / total_invoices).round(2)
   end
 end
