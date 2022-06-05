@@ -128,4 +128,12 @@ class SalesAnalyst
     end.to_h
     top_days.keys
   end
+
+  def invoice_status(status)
+    status_count = @invoice_repository.all.find_all do |invoice|
+     status.to_s == invoice.status
+    end.count
+    percentage = status_count.to_f / @invoice_repository.all.count
+    (percentage * 100).round(2)
+  end
 end
