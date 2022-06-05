@@ -59,7 +59,7 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.top_merchants_by_invoice_count).to include(Merchant)
   end
 
-  xit 'returns the lowest performing merchants' do
+  it 'returns the lowest performing merchants' do
     expect(@sales_analyst.bottom_merchants_by_invoice_count).to include(Merchant)
   end
 

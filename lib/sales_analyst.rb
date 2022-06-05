@@ -95,4 +95,13 @@ class SalesAnalyst
       @merchant_repository.find_by_id(merchant[0])
     end
   end
+
+  def bottom_merchants_by_invoice_count
+    sorted_merchants = invoices_per_merchant.sort_by{|keys,values| -values}.to_h
+    two_std_dev = average_invoices_per_merchant - 2 * average_invoices_per_merchant_standard_deviation
+    bottom_merchants = sorted_merchants.find_all {|keys, values| values < two_std_dev}
+    bottom_merchant_array = bottom_merchants.map do |merchant|
+      @merchant_repository.find_by_id(merchant[0])
+    end
+  end
 end
