@@ -23,9 +23,9 @@ RSpec.describe InvoiceItemRepository do
   end
 
   it "can find ALL by item id" do
-    expect(@sales_engine.find_all_by_item_id(263519844)).to eq(@sales_engine.all.first)
-    expect(@sales_engine.find_all_by_item_id(8675309)).to eq(nil)
-    expect(@sales_engine.find_all_by_item_id(263519844)).to be_a(InvoiceItem)
+    expect(@sales_engine.find_all_by_item_id(263519844).count).to eq 164
+    expect(@sales_engine.find_all_by_item_id(8675309)).to eq([])
+    expect(@sales_engine.find_all_by_item_id(263519844)).to be_a Array
   end
 
   # it "can find all by invoice id" do
