@@ -39,22 +39,22 @@ RSpec.describe TransactionRepository do
     expect(@sales_engine.find_all_by_result("success")).to be_a Array
   end
 #
-#   it 'can create Invoice Item instance' do
-#     x = Time.now
-#     last_id_number_in_csv = @sales_engine.all.last.id.to_i
-#     attributes = {
-#       :id => nil,
-#       :item_id => 0356,
-#       :invoice_id => 067,
-#       :quantity => 99999999,
-#       :unit_price => 23,
-#       :created_at => x,
-#       :updated_at => x
-#       }
-#     expect(@sales_engine.create(attributes).last.id).to eq(21831)
-#     expect(@sales_engine.all.last).to be_a(InvoiceItem)
-#     expect(@sales_engine.all.count).to eq(21831)
-#   end
+  it 'can create Transaction instance' do
+    x = Time.now
+    last_id_number_in_csv = @sales_engine.all.last.id.to_i
+    attributes = {
+      :id => 6,
+      :invoice_id => 8,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      :created_at => x,
+      :updated_at => x
+      }
+    expect(@sales_engine.create(attributes).last.id).to eq(4986)
+    expect(@sales_engine.all.last).to be_a(Transaction)
+    expect(@sales_engine.all.count).to eq(4986)
+  end
 # #
 #   it "can update(id, attribute) on a invoice item instance" do
 #     attributes = {
