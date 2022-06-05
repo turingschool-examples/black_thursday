@@ -71,9 +71,10 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
   end
 
-  # it 'finds the top days of the week by invoice count' do
-  #   expect(@sales_analyst.top_days_by_invoice_count.legth).to eq(1)
-  # end
+  it 'finds the top days of the week by invoice count' do
+    expect(@sales_analyst.top_days_by_invoice_count.length).to eq(1)
+    # expect(@sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
+  end
 
   it 'returns the invoice status percentage of if invoices with given status' do
     expect(@sales_analyst.invoice_status(:pending)).to eq(29.55)
