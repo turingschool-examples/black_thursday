@@ -119,4 +119,28 @@ RSpec.describe SalesAnalyst do
 		expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
 	end
 
+	it 'can calculate zscore for a merchant' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv"
+		})
+		sales_analyst = sales_engine.analyst
+
+		expect(sales_analyst.z_score(4)).to eq(-1.97)
+	end
+
+	it 'can return the top performing merchants by invoice count' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv"
+		})
+		sales_analyst = sales_engine.analyst
+
+		expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
+	end
+
+
+
 end
