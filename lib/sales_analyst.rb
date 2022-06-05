@@ -68,6 +68,7 @@ class SalesAnalyst
     end
     merchant_price_averages
   end
+  
   def golden_items
     avg_avg_price = average_average_price_per_merchant
     std_dev = average_price_per_merchant_standard_deviation
