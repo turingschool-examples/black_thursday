@@ -41,6 +41,12 @@ class TransactionRepository
       transaction.credit_card_number.to_i == card_number.to_i
     end
   end
+
+  def find_all_by_result(result)
+    @all.find_all do |transaction|
+      transaction.result == result
+    end
+  end
   #
   # def create(attributes)
   #   x = (@all.last.id + 1)
