@@ -3,12 +3,13 @@ require_relative './spec_helper'
 RSpec.describe InvoiceItemRepository do
   before :each do
     @sales_engine = SalesEngine.from_csv({
-     :items => "./data/items.csv",
+      :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoice => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv"
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv"
     })
-    @invoice_item = @sales_engine.invoice_items.find_by_id(6)
+    # @invoice_item = @sales_engine.invoice_items.find_by_id(6)
   end
 
   it 'is an InvoiceItemRepository' do
