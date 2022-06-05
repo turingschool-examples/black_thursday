@@ -45,8 +45,15 @@ RSpec.describe SalesAnalyst do
     sales_engine = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_average_price_per_merchant).to be_a Float
-   expect(sales_analyst.average_average_price_per_merchant).to eq(35029.47)
+    expect(sales_analyst.average_average_price_per_merchant).to eq(35029.47)
   end
 
+  it "can return items 2 standard deviations above average" do
+    sales_engine = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.golden_items).to be_a Array
+    expect(sales_analyst.golden_items.first.class).to eq Item
+    expect(sales_analyst.golden_items.length).to eq 114
+  end
 
 end
