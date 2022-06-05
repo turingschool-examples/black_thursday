@@ -1,4 +1,5 @@
 require 'csv'
+require 'BigDecimal'
 require 'invoice_item'
 require 'invoice_item_repository'
 
@@ -29,5 +30,20 @@ RSpec.describe InvoiceItemRepository do
     expect(@invoice_item_repository.find_all_by_invoice_id(1)).to be_a(Array)
     expect(@invoice_item_repository.find_all_by_invoice_id(576)).to be_a(Array)
     expect(@invoice_item_repository.find_all_by_invoice_id(12210)).to be_a(Array)
+  end
+
+  it "can create a new invoice item" do
+    attributes = {
+        :item_id => 7,
+        :invoice_id => 4986,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+      }
+    @invoice_item_repository.create(attributes)
+    expect(@invoice_item_repository.all.last).to be_a(InvoiceItem)
+    expect(@invoice_item_repository.all.last.id).to eq(21831)
+    expect(@invoice_item_repository.all.last.invoice_id).to eq(4986)
   end
 end
