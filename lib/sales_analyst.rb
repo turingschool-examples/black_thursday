@@ -23,11 +23,21 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    # x is a hash - merchants are assigned to keys and the values are arrays of their items
+    # x is a hash - merchant id's are assigned to keys and the values are arrays of their items
     x = @item_repository.all.group_by {|item| item.merchant_id}
     y = x.flat_map {|_,value|value.count}
     z = y.map {|item_count|((item_count - average_items_per_merchant)**2)}
     Math.sqrt(((z.sum) / (z.count - 1)).to_f.round(2)).round(2)
+  end
+
+  def merchants_with_high_item_count
+    std_dev = average_items_per_merchant_standard_deviation
+    x = @item_repository.all.group_by {|item| item.merchant_id}
+    merchant_id_array = x.keys.find_all do |id|
+      @item_repository.find_all_by_merchant_id(id).count > (std_dev + average_items_per_merchant)
+    end
+    merchant_array = merchant_id_array.map {|merchant_id|@merchant_repository.find_by_id(merchant_id)}
+      # require "pry"; binding.pry
   end
 
 end
