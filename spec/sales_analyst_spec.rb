@@ -32,6 +32,7 @@ RSpec.describe SalesAnalyst do
    it "can calculate average item per merchant standard deviation" do
      expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
    end
+   #skipped, test takes a long time
    xit "can return the merchants more than one standard deviation from average products sold" do
      expect(@sales_analyst.merchants_with_high_item_count).to be_a Array
      expect(@sales_analyst.merchants_with_high_item_count[0]).to be_a Merchant
@@ -51,9 +52,14 @@ RSpec.describe SalesAnalyst do
    end
    it "can find the average price across merchants standard deviation" do
      expect(@sales_analyst.average_price_per_merchant_standard_deviation).to be_a(Float)
-
    end
-   it "can return the items with price more than 2 standard deviations from average price(golden items)" do
+   #test takes a long time
+   xit "can return the items with price more than 2 standard deviations from average price(golden items)" do
+     expect(@sales_analyst.golden_items).to be_a(Array)
+     expect(@sales_analyst.golden_items.first).to be_a(Item)
+     expect(@sales_analyst.golden_items.first).not_to eq([])
+
+     expect(@sales_analyst.golden_items.first.unit_price).to be > (@sales_analyst.average_price_per_merchant_standard_deviation * 2)
 
    end
 end
