@@ -76,4 +76,23 @@ class SalesAnalyst
 		items.all.find_all{ |item| item.unit_price.to_i > minimum_golden_price }
 	end
 
+	def average_invoices_per_merchant
+		(@invoices.all.size / @merchants.all.size.to_f).round(2)
+	end
+
+	def average_invoices_per_merchant_standard_deviation
+		set = invoices_by_merchant.values
+		avg = average_invoices_per_merchant
+		standard_deviation(set, avg)
+	end
+
+	def invoices_by_merchant
+		invoices_per_merchant = Hash.new(0)
+		merchant_ids = invoices.all.map {|invoice| invoice.merchant_id}
+		merchant_ids.each do |id|
+			invoices_per_merchant[id] += 1
+		end
+		return invoices_per_merchant
+	end
+
 end

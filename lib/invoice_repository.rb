@@ -35,5 +35,30 @@ class InvoiceRepository
     @all.find_all do |invoice|
       merchant_id.to_i == invoice.merchant_id.to_i
     end
-  end 
+  end
+
+  def find_all_by_status(status)
+    @all.find_all do |invoice|
+      status == invoice.status
+    end
+  end
+
+  def create(new_invoice_attributes)
+    new_id = @all.last.id.to_i + 1
+    new_attribute = new_invoice_attributes
+    @all << Invoice.new(:id => new_id.to_s, :customer_id => new_attribute[:customer_id], :merchant_id =>
+    new_attribute[:merchant_id], :status => "pending", :created_at => Time.now, :updated_at => Time.now)
+    return @all.last
+  end
+
+  def update(id, attributes)
+    updated_item = find_by_id(id)
+    updated_item.status = attributes[:status]
+    updated_item.updated_at = Time.now
+  end
+
+  def delete(id)
+    removed_item = find_by_id(id)
+    @all.delete(removed_item)
+  end
 end
