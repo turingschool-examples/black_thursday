@@ -34,7 +34,7 @@ RSpec.describe TransactionRepository do
   end
 
   it "can find all by result" do
-    expect(@sales_engine.find_all_by_result("success").count).to eq 0
+    expect(@sales_engine.find_all_by_result("success").count).to eq 4158
     expect(@sales_engine.find_all_by_result("cheese")).to eq([])
     expect(@sales_engine.find_all_by_result("success")).to be_a Array
   end
