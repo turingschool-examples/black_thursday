@@ -34,4 +34,12 @@ RSpec.describe CustomerRepository do
     expect(result_2.count).to eq(5)
   end
 
+  it 'can create new customers' do
+    @customer_repository.create({:id => 1001, :first_name => "Bryan", :last_name => "Shears", :created_at => Time.now, :updated_at => Time.now})
+    expect(@customer_repository.all.last).to be_a(Customer)
+    expect(@customer_repository.all.length).to eq(1001)
+    expect(@customer_repository.all.last.id).to eq(1001)
+    # expect(@customer_repository.all.last.status).to eq("pending")
+  end
+
 end
