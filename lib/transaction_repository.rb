@@ -27,4 +27,22 @@ class TransactionRepository
   def find_all_by_credit_card_number(cc_number)
     @all.find_all {|row| row.credit_card_number == cc_number.to_i}
   end
+
+  def find_all_by_result(rslt)
+    @all.find_all {|row| row.result == rslt}
+  end
+
+  def add_new(new_id, attributes)
+    t = Transaction.new({
+      id: new_id,
+      invoice_id: attributes[:invoice_id],
+      credit_card_number: attributes[:credit_card_number],
+      credit_card_expiration_date: attributes[:credit_card_expiration_date],
+      result: attributes[:result],
+      created_at: attributes[:created_at],
+      updated_at: attributes[:updated_at]
+      })
+    @all.append(t)
+    t
+  end
 end
