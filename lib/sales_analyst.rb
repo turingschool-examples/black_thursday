@@ -37,7 +37,14 @@ class SalesAnalyst
       @item_repository.find_all_by_merchant_id(id).count > (std_dev + average_items_per_merchant)
     end
     merchant_array = merchant_id_array.map {|merchant_id|@merchant_repository.find_by_id(merchant_id)}
-      # require "pry"; binding.pry
+  end
+
+  def average_average_price_per_merchant
+    x = 0
+    @merchant_repository.all.map do |merchant|
+      x += average_item_price_for_merchant(merchant.id)
+    end
+    (x / @merchant_repository.all.count).round(2)
   end
 
 end
