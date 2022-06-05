@@ -27,17 +27,20 @@ RSpec.describe InvoiceRepository do
   it "can find merchant by ID" do
     expect(@invoice.find_by_id(234234234)).to eq(nil)
     expect(@invoice.find_by_id(1)).to be_instance_of Invoice
+    expect(@invoice.find_by_id(1).status).to eq("pending")
   end
  #
   it "can find all by customer id" do
-    expect(@invoice.find_all_by_customer_id(4)).to be_a Array
-    expect(@invoice.find_all_by_customer_id(1)).to be_instance_of Invoice
+    expect(@invoice.find_all_by_customer_id(1)).to be_a Array
+    expect(@invoice.find_all_by_customer_id(1).first).to be_instance_of Invoice
+    expect(@invoice.find_all_by_customer_id(1).length).to eq(8)
   end
  #
   it "can find all by merchant id" do
 
     expect(@invoice.find_all_by_merchant_id(99999999)).to eq([])
     expect(@invoice.find_all_by_merchant_id(12334269)).to be_instance_of Array
+    expect(@invoice.find_all_by_merchant_id(12334269).length).to eq(1)
     expect(@invoice.find_all_by_merchant_id(12334269).first).to be_instance_of Invoice
   end
 
@@ -62,19 +65,23 @@ RSpec.describe InvoiceRepository do
      expect(@invoice.all.last.customer_id).to eq(7)
   end
  #
-  it " can update the invoice " do
+  it " can only update the status on the invoice " do
 
     attributes = {status: "shipped"}
+
+    expect(@invoice.all.first.status).to eq("pending")
     @invoice.update(1, attributes)
-    expect(@invoice).to eq("Update")
-      # expect(@merchant_repository.update(id, attributes)).to eq("Update")
 
+    expect(@invoice.all.first.status).to eq("shipped")
  end
- #
- # it "can delete a Merchant" do
- #   @merchant_repository.delete(12334105)
- #
- #   expect(@merchant_repository.find_by_id(12334105)).to eq(nil)
- # end
 
+ it "can delete an invoice" do
+
+   expect(@invoice.all.count).to eq(4985)
+
+   @invoice.delete(1)
+
+   expect(@invoice.find_by_id(1)).to be_nil
+   expect(@invoice.all.count).to eq(4984)
+ end
 end

@@ -2,9 +2,10 @@ require 'csv'
 require_relative '../lib/invoice'
 require_relative '../lib/merchant'
 require 'pry'
-    attr_reader :all, :file_path
-    attr_accessor :status
 class InvoiceRepository
+
+  attr_reader :all, :file_path
+
 
   def initialize(file_path)
     @file_path = file_path
@@ -25,9 +26,7 @@ class InvoiceRepository
 
   def find_all_by_customer_id(id)
     @all.find_all do |customer|
-      if customer.customer_id == id
-        return customer
-      end
+      customer.customer_id == id
     end
   end
 #
@@ -42,12 +41,8 @@ class InvoiceRepository
   end
 #
   def find_all_by_status(status)
-    status_array = []
     @all.find_all do |invoice|
-      if invoice.status == status
-        status_array << invoice
-        return status_array
-      end
+      invoice.status == status
     end
   end
 
@@ -59,13 +54,15 @@ class InvoiceRepository
 #
   def update(id, attributes)
     invoice = find_by_id(id)
-    invoice.id = attributes[:status]
+    if attributes[:status] == "shipped".downcase  || "pending".downcase || "returned".downcase
+    invoice.status = attributes[:status]
+    end
 
   end
 #
-#   def delete(id)
-#     merchant = find_by_id(id)
-#     @all.delete(merchant)
-#
-#   end
+  def delete(id)
+    invoice = find_by_id(id)
+    @all.delete(invoice)
+
+  end
 end
