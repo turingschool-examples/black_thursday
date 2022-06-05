@@ -95,9 +95,21 @@ class SalesAnalyst < SalesEngine
     date.strftime("%A")
   end
 
+  def invoices_per_weekday
+    invoice_count = {'Monday' => 0,'Tuesday' => 0,'Wednesday' => 0,'Thursday' => 0,'Friday' => 0,'Saturday' => 0,'Sunday' => 0,}
+   @invoices.all.each do |invoice|
+      invoice_count[invoice.created_at.strftime("%A")] += 1
+    end
+    invoice_count
+  end
+
+  def average_invoices_per_weekday
+    (invoices_per_weekday.values.sum) / 7
+  end
+
   def top_days_by_invoice_count
-    invoice_count = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
-    #need to finish out this method using the date_formatter
+    invoice_count = average_invoices_per_weekday + standard_deviation(invoices_per_weekday.values, average_invoices_per_weekday)
+    top_days = invoices_per_weekday.find_all{|weekday, count| count > invoice_count}.map{|days| days[0]}
   end
 
   def invoice_status(tracking)
