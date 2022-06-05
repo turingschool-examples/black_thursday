@@ -5,6 +5,7 @@ RSpec.describe SalesAnalyst do
     @sales_engine = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
     })
     @sales_analyst = @sales_engine.analyst
   end
@@ -41,7 +42,42 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_price_plus_two_standard_deviations).to be_a(BigDecimal)
   end
 
-  it 'returns the golden items' do
+  xit 'returns the golden items' do
     expect(@sales_analyst.golden_items).to include(Item)
+  end
+
+  it 'returns the average invoices per merchant and standard deviation' do
+    expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+  end
+
+  it 'returns a hash of merchants and their number of invoices' do
+    expect(@sales_analyst.invoices_per_merchant.keys).to include(12334105)
+  end
+
+  it 'returns the top performing merchants' do
+    expect(@sales_analyst.top_merchants_by_invoice_count).to include(Merchant)
+  end
+
+  it 'returns the lowest performing merchants' do
+    expect(@sales_analyst.bottom_merchants_by_invoice_count).to include(Merchant)
+  end
+
+  it 'returns the invoice count for each day' do
+    expect(@sales_analyst.invoice_count_by_day.count).to eq(7)
+  end
+
+  it 'returns the average invoices per day standard deviation' do
+    expect(@sales_analyst.average_invoices_per_day_std_dev).to be_a(Float)
+  end
+
+  it 'returns the top days by invoice count' do
+    expect(@sales_analyst.top_days_by_invoice_count).to be_a(Array)
+  end
+
+  it 'returns the percent of invoices that are shipped, pending, and returned' do
+    expect(@sales_analyst.invoice_status(:pending)).to eq(29.55)
+    expect(@sales_analyst.invoice_status(:shipped)).to eq(56.95)
+    expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 end

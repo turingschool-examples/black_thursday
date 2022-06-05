@@ -1,12 +1,13 @@
-require_relative 'sales_engine'
-
+require './lib/sales_engine'
 class SalesAnalyst
-  attr_reader :item_repository, :merchant_repository
+  attr_reader :item_repository, :merchant_repository, :invoice_repository
 
-  def initialize(item_repository, merchant_repository)
+  def initialize(item_repository, merchant_repository, invoice_repository)
     #delete merchant_repository from this and sales engine if we end up not using
     @item_repository = item_repository
     @merchant_repository = merchant_repository
+    @invoice_repository = invoice_repository
+    @merchant_invoices = {}
   end
 
   def merchant_items_hash
@@ -59,5 +60,80 @@ class SalesAnalyst
   def golden_items
     top_items = @item_repository.all.find_all {|item| item.unit_price > average_price_plus_two_standard_deviations}
     top_items
+  end
+
+  def average_invoices_per_merchant
+    number_of_merchants = merchant_items_hash.keys.count
+    total_number_of_invoices = @invoice_repository.all.count
+    average = (total_number_of_invoices.to_f / number_of_merchants)
+    average.round(2)
+  end
+
+  def invoices_per_merchant
+    @merchant_repository.all.map do |merchant|
+      invoices = @invoice_repository.all.find_all do |invoice|
+        invoice.merchant_id == merchant.id
+      end
+      @merchant_invoices[merchant.id] = invoices.count
+    end
+    @merchant_invoices
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    diff_squared = invoices_per_merchant.values.map do |item_count|
+      (item_count-average_invoices_per_merchant)**2
+    end
+    std_dev = (diff_squared.sum / (diff_squared.count.to_f - 1))**0.5
+    std_dev.round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    sorted_merchants = invoices_per_merchant.sort_by{|keys,values| -values}.to_h
+    two_std_dev = average_invoices_per_merchant + 2 * average_invoices_per_merchant_standard_deviation
+    top_merchants = sorted_merchants.find_all {|keys, values| values > two_std_dev}
+    top_merchant_array = top_merchants.map do |merchant|
+      @merchant_repository.find_by_id(merchant[0])
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    sorted_merchants = invoices_per_merchant.sort_by{|keys,values| -values}.to_h
+    two_std_dev = average_invoices_per_merchant - 2 * average_invoices_per_merchant_standard_deviation
+    bottom_merchants = sorted_merchants.find_all {|keys, values| values < two_std_dev}
+    bottom_merchant_array = bottom_merchants.map do |merchant|
+      @merchant_repository.find_by_id(merchant[0])
+    end
+  end
+
+  def invoice_count_by_day
+    dates = @invoice_repository.all.map {|invoice| invoice.created_at}
+    days = dates.map {|date| Date.parse(date).strftime("%A")}
+    days_count = Hash.new(0)
+    days.each {|day| days_count[day] += 1}
+    days_count
+  end
+
+  def average_invoices_per_day_std_dev
+    average = invoice_count_by_day.values.sum / 7
+    diff_squared = invoice_count_by_day.values.map do |invoice_count|
+      (invoice_count-average)**2
+    end
+    std_dev = (diff_squared.sum / (diff_squared.count.to_f - 1))**0.5
+    std_dev.round(2) + average
+  end
+
+  def top_days_by_invoice_count
+    top_days = invoice_count_by_day.find_all do |keys, values|
+      values > average_invoices_per_day_std_dev
+    end.to_h
+    top_days.keys
+  end
+
+  def invoice_status(status)
+    status_count = @invoice_repository.all.find_all do |invoice|
+     status.to_s == invoice.status
+    end.count
+    percentage = status_count.to_f / @invoice_repository.all.count
+    (percentage * 100).round(2)
   end
 end
