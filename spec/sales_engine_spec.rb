@@ -3,9 +3,12 @@ require "./lib/sales_engine"
 RSpec.describe SalesEngine do
   it "exists" do
     sales_engine = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :items          => "./data/items.csv",
+      :merchants      => "./data/merchants.csv",
+      :invoices       => "./data/invoices.csv",
+      :invoice_items  => "./data/invoice_items.csv",
+      :transactions   => "./data/transactions.csv",
+      :customers      => "./data/customers.csv"
     })
     expect(sales_engine).to be_instance_of SalesEngine
   end
@@ -14,7 +17,10 @@ RSpec.describe SalesEngine do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :invoices => "./data/invoices.csv",
+      :invoice_items  => "./data/invoice_items.csv",
+      :transactions   => "./data/transactions.csv",
+      :customers      => "./data/customers.csv"
     })
     expect(sales_engine.items).to be_instance_of ItemRepository
   end
@@ -23,7 +29,10 @@ RSpec.describe SalesEngine do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :invoices => "./data/invoices.csv",
+      :invoice_items  => "./data/invoice_items.csv",
+      :transactions   => "./data/transactions.csv",
+      :customers      => "./data/customers.csv"
     })
     expect(sales_engine.merchants).to be_instance_of MerchantRepository
   end
@@ -32,7 +41,10 @@ RSpec.describe SalesEngine do
     sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :invoices => "./data/invoices.csv",
+      :invoice_items  => "./data/invoice_items.csv",
+      :transactions   => "./data/transactions.csv",
+      :customers      => "./data/customers.csv"
     })
     expect(sales_engine.invoices).to be_instance_of InvoiceRepository
   end

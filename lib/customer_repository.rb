@@ -40,4 +40,8 @@ class CustomerRepository
   def delete(id)
     @all.delete_if { |customer| customer.id == id }
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
