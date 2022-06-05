@@ -76,4 +76,8 @@ class SalesAnalyst
 		items.all.find_all{ |item| item.unit_price.to_i > minimum_golden_price }
 	end
 
+	def average_invoices_per_merchant
+		(@invoices.all.size / @merchants.all.size.to_f).round(2)
+	end
+
 end
