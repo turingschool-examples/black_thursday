@@ -104,4 +104,17 @@ class SalesAnalyst
       @merchant_repository.find_by_id(merchant[0])
     end
   end
+
+  def invoice_count_by_day
+    dates = @invoice_repository.all.map {|invoice| invoice.created_at}
+    days = dates.map {|date| Date.parse(date).strftime("%A")}
+    days_count = Hash.new(0)
+    days.each {|day| days_count[day] += 1}
+    days_count
+  end
+
+  def top_days_by_invoice_count
+
+    require "pry"; binding.pry
+  end
 end

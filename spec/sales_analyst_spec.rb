@@ -63,7 +63,11 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.bottom_merchants_by_invoice_count).to include(Merchant)
   end
 
-  xit 'returns the top days by invoice count' do
+  it 'returns the invoice count for each day' do
+    expect(@sales_analyst.invoice_count_by_day.count).to eq(7)
+  end
+  
+  it 'returns the top days by invoice count' do
     expect(@sales_analyst.top_days_by_invoice_count).to eq(["Sunday", "Saturday"])
   end
 
