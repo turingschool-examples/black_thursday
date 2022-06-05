@@ -20,4 +20,8 @@ RSpec.describe SalesAnalyst do
     expect(@sales_engine.invoice_paid_in_full?(1)).to eq true
   end
 
+  it "returns the total #$ amount of the invoice with matching id" do
+    expect(@sales_engine.invoice_total(1)).to eq 21067.77
+  end
+
 end
