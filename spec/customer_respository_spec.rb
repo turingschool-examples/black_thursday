@@ -52,19 +52,18 @@ RSpec.describe CustomerRepository do
     expect(@sales_engine.all.count).to eq(1001)
   end
 #
-#   it "can update(id, attribute) on a Customer instance" do
-#     attributes = {
-#       :credit_card_number => "4242424242424242",
-#       :credit_card_expiration_date => "0220",
-#       :result => "success",
-#       }
-#
-#     @sales_engine.update(1, attributes)
-#
-#     expect(@sales_engine.find_by_id(1).credit_card_number).to eq("4242424242424242")
-#     expect(@sales_engine.find_by_id(1).credit_card_expiration_date).to eq("0220")
-#     expect(@sales_engine.find_by_id(1).updated_at).to be_a Time
-#   end
+  it "can update(id, attribute) on a Customer instance" do
+    attributes = {
+      :first_name => "Joan",
+      :last_name => "Clarke"
+      }
+
+    @sales_engine.update(1, attributes)
+
+    expect(@sales_engine.find_by_id(1).first_name).to eq("Joan")
+    expect(@sales_engine.find_by_id(1).last_name).to eq("Clarke")
+    expect(@sales_engine.find_by_id(1).updated_at).to be_a Time
+  end
 # #
 #   it "can delete a transaction instance" do
 #     expect(@sales_engine.find_by_id(1)).to be_a(Customer)
