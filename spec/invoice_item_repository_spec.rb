@@ -52,18 +52,16 @@ RSpec.describe InvoiceItemRepository do
   end
 #
   it "can update(id, attribute) on a invoice item instance" do
-    x = Time.now
     attributes = {
       :quantity => 99999999,
       :unit_price => 23,
-      :updated_at => x
       }
 
     @sales_engine.update(1, attributes)
 
     expect(@sales_engine.find_by_id(1).quantity).to eq(99999999)
     expect(@sales_engine.find_by_id(1).unit_price).to eq(23)
-    expect(@sales_engine.find_by_id(1).updated_at).to eq(x)
+    expect(@sales_engine.find_by_id(1).updated_at).to be_a Time
   end
 #
 #   it "can delete a merchant instance" do
