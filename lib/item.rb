@@ -14,7 +14,7 @@ class Item
     @id = details[:id]
     @name = details[:name]
     @description = details[:description]
-    @unit_price = details[:unit_price]
+    @unit_price = details[:unit_price].to_f
     @created_at = details[:created_at]
     @updated_at = details[:updated_at]
     @merchant_id = details[:merchant_id]
