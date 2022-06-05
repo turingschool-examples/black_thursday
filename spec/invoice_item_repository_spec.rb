@@ -38,7 +38,7 @@ RSpec.describe InvoiceItemRepository do
     x = Time.now
     last_id_number_in_csv = @sales_engine.all.last.id.to_i
     attributes = {
-      :id => last_id_number_in_csv + 1,
+      :id => nil,
       :item_id => 0356,
       :invoice_id => 067,
       :quantity => 99999999,
@@ -46,10 +46,10 @@ RSpec.describe InvoiceItemRepository do
       :created_at => x,
       :updated_at => x
     }
-
-    expect(@sales_engine.create(attributes).id).to eq(21831)
+    # require 'pry'; binding.pry
+    expect(@sales_engine.create(attributes).last.id).to eq(21831)
     expect(@sales_engine.all.last).to be_a(InvoiceItem)
-    expect(@sales_engine.all.count).to eq(0)
+    expect(@sales_engine.all.count).to eq(21831)
   end
 #
 #   it "can update(id, attributes) an merchant instance" do
