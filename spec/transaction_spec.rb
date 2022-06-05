@@ -2,11 +2,20 @@ require'./lib/transaction'
 
 RSpec.describe Transaction do
   before :each do
-    @sales_engine = Transaction.new("./data/transactions.csv")
-  end
+    @x = Time.now
+    @t = Transaction.new({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => @x,
+        :updated_at => @x
+        })
+      end
 
-  it 'exists' do
-    expect(@sales_engine).to be_a(Transaction)
+  it "exists" do
+    expect(@t).to be_a Transaction
   end
 
 #   it "returns all known Invoice Item instances" do
