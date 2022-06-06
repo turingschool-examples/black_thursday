@@ -11,7 +11,9 @@ class MerchantRepository
     @all = []
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @all << Merchant.new({:id => row[:id], :name => row[:name]})
+      @all << Merchant.new({
+        :id => row[:id],
+        :name => row[:name]})
     end
   end
 
@@ -23,13 +25,13 @@ class MerchantRepository
   #   end
   # end
 
-  def find_by_name(name)
-    @all.find do |merchant|
-      if merchant.name.downcase == name.downcase
-        return merchant
-      end
-    end
-  end
+  # def find_by_name(name)
+  #   @all.find do |merchant|
+  #     if merchant.name.downcase == name.downcase
+  #       return merchant
+  #     end
+  #   end
+  # end
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
@@ -56,8 +58,8 @@ class MerchantRepository
     merchant.name = attributes[:name]
   end
 
-  def delete(id)
-    merchant = find_by_id(id)
-    @all.delete(merchant)
-  end
+  # def delete(id)
+  #   merchant = find_by_id(id)
+  #   @all.delete(merchant)
+  # end
 end
