@@ -8,12 +8,21 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst).to be_a SalesAnalyst
   end
-  it "calculates average_items_per_merchant" do
+
+  it "shows average items per merchant" do
     sales_engine = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.average_items_per_merchant).to be_a Float
+    expect(sales_analyst.average_items_per_merchant.class).to eq Float
     expect(sales_analyst.average_items_per_merchant).to eq 2.88
+  end
+
+  it "can check if invoice is paid in full" do
+    expect(@sales_engine.invoice_paid_in_full?(1)).to eq true
+  end
+
+  it "returns the total #$ amount of the invoice with matching id" do
+    expect(@sales_engine.invoice_total(1)).to eq 21067.77
   end
 
   it "calculates average_item_price_for_merchant" do
@@ -40,10 +49,5 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_high_item_count.first).to be_a Merchant
     expect(sales_analyst.merchants_with_high_item_count.first.id).to eq(12334195)
   end
-
-
-
-
-
 
 end

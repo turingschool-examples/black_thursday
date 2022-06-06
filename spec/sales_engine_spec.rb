@@ -3,6 +3,7 @@ require './lib/merchant'
 require './lib/item_repository'
 require './lib/item'
 require './lib/sales_engine'
+require './lib/sales_analyst'
 require 'CSV'
 
 RSpec.describe SalesEngine do
@@ -15,6 +16,7 @@ RSpec.describe SalesEngine do
 
   it "exists" do
     expect(@salesengine).to be_a(SalesEngine)
+    expect(@salesengine.analyst).to be_a(SalesAnalyst)
   end
 
   it "can return an array of all items" do
