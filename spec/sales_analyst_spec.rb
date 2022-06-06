@@ -139,7 +139,8 @@ RSpec.describe SalesAnalyst do
 		sales_analyst = sales_engine.analyst
 
 		expect(sales_analyst.merchants_by_zscore.keys.include?("12334753")).to eq(true)
-		expect(sales_analyst.merchants_by_zscore.values.include?(1.07)).to eq(true)
+		expect(sales_analyst.merchants_by_zscore.values.include?(1.37)).to eq(true)
+		expect(sales_analyst.merchants_by_zscore["12334753"]).to eq(1.37)
 	end
 
 	it 'can return the top performing merchants by invoice count' do
@@ -238,7 +239,6 @@ end
 			:invoices => "./data/invoices.csv"
 		})
 		sales_analyst = sales_engine.analyst
-
 
 		expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
 		expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
