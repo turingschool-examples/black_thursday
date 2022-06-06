@@ -20,14 +20,15 @@ RSpec.describe SalesAnalyst do
     # expect(@sales_analyst.items_path).to be_a Array
   end
 
-  it "can group by merchant id" do
+  it "can group all items by merchant id" do
 
-    expect(@sales_analyst.group_by_merchant_id).to be_a Hash
+    expect(@sales_analyst.all_items_by_merchant).to be_a Hash
   end
 
-  it "can return an array of sums" do
+  it "can return an array of the number of items per merchant" do
 
-    expect(@sales_analyst.array_of_sums).to be_a Array
+    expect(@sales_analyst.items_per_merchant).to be_a Array
+    expect(@sales_analyst.items_per_merchant.length).to eq 475
   end
 
   it "can calculate the average number of items per merchant" do
@@ -42,10 +43,10 @@ RSpec.describe SalesAnalyst do
 
   it "can find the difference of each number" do
 
-    expect(@sales_analyst.step_1).to be_a Float
+    expect(@sales_analyst.difference_squared).to be_a Float
   end
 
-  xit "can find find merchants with highest item count" do
+  it "can find find merchants with highest item count" do
     @sales_analyst.merchants_with_high_item_count
 expect(@sales_analyst.merchants_with_high_item_count).to be_a Array
     expect(@sales_analyst.merchants_with_high_item_count.first).to be_a Merchant
