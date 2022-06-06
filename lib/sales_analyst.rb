@@ -1,6 +1,6 @@
 require 'bigdecimal'
 require 'pry'
-require './lib/item_repository'
+require_relative '../lib/item_repository'
 class SalesAnalyst
   attr_reader :item_repository,
               :merchant_repository,
