@@ -4,12 +4,18 @@ require 'pry'
 class SalesAnalyst
   attr_accessor :item_repository,
                 :merchant_repository,
-                :invoice_repository
+                :invoice_repository,
+                :invoice_item_repository,
+                :transaction_repository,
+                :customer_repository
 
-  def initialize(item_repository, merchant_repository,invoice_repository)
+  def initialize(item_repository, merchant_repository,invoice_repository,invoice_item_repository,transaction_repository,customer_repository)
     @item_repository = item_repository
     @merchant_repository = merchant_repository
     @invoice_repository = invoice_repository
+    @invoice_item_repository = invoice_item_repository
+    @transaction_repository = transaction_repository
+    @customer_repository = customer_repository
   end
 
   def average_items_per_merchant #2.88
@@ -85,7 +91,7 @@ class SalesAnalyst
     variance = sum / (@merchant_repository.all.count - 1).to_f
     # binding.pry
     Math.sqrt(variance).round(2)
-  end 
+  end
 
   def top_merchants_by_invoice_count
     top_merch_array = []
