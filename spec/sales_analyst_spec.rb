@@ -85,10 +85,14 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'returns if invoice is paid in full' do
-    expect(@sales_analyst.invoice_paid_in_full?(1752)).to eq(true)  
+    expect(@sales_analyst.invoice_paid_in_full?(1752)).to eq(true)
   end
 
   it 'returns the total dollar amount of the invoice' do
     expect(@sales_analyst.invoice_total(4898)).to be_a(BigDecimal)
+  end
+
+  it 'finds the total revenue for a given date' do
+    expect(sales_analyst.total_revenue_by_date(date)).to be_a(Float)
   end
 end
