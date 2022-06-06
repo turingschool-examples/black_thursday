@@ -50,4 +50,8 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.merchants_with_high_item_count).to be_a Array
     expect(@sales_analyst.merchants_with_high_item_count.first).to be_a Merchant
   end
+
+  it 'can find the average item price per merchant' do
+    expect(@sales_analyst.merchants_with_high_item_count(12334159)).to be_a BigDecimal
+  end
 end

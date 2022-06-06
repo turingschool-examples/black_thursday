@@ -40,11 +40,9 @@ class SalesAnalyst
     high_count = []
     goal = (average_items_per_merchant_standard_deviation + 1)
     all_items_by_merchant.select do |merchant, items|
-        if items.count > goal
-          high_count << @merchants_path.find_by_id(merchant)
-        end
-      end
-      high_count
+      high_count << @merchants_path.find_by_id(merchant) if items.count > goal
+    end
+    high_count
   end 
 
 end
