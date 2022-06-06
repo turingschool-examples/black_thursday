@@ -1,5 +1,5 @@
 require 'CSV'
-require './lib/merchant.rb'
+require_relative './merchant.rb'
 class MerchantRepository
   attr_reader :all
   def initialize(file_path)

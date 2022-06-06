@@ -1,17 +1,18 @@
 class SalesEngine
-  attr_reader :items, :merchants
+  attr_reader :items,
+              :merchants,
+              :invoices,
+              :analyst
 
-  def initialize(items_path, merchants_path)
-    @items = ItemRepository.new(items_path)
-    @merchants = MerchantRepository.new(merchants_path)
+  def initialize(items_path, merchants_path, invoice_path)
+    @items      = ItemRepository.new(items_path)
+    @merchants  = MerchantRepository.new(merchants_path)
+    @invoices   = InvoiceRepository.new(invoice_path)
+    @analyst    = SalesAnalyst.new(items, merchants, invoices)
   end
 
   def self.from_csv(data)
-    return SalesEngine.new(data[:items], data[:merchants])
+    return SalesEngine.new(data[:items], data[:merchants], data[:invoices])
   end
-
-	def analyst
-		return SalesAnalyst.new(items, merchants)
-	end
 
 end

@@ -58,7 +58,6 @@ RSpec.describe ItemRepository do
     expect(item_repo.find_all_by_merchant_id(12345678910112)).to eq([])
   end
 
-  #Ask instructor if only adding a name for a new item is okay...Ran out of time lol.
   it "can create a new item with provided attributes" do
     item_repo = ItemRepository.new('./data/items.csv')
     new_item_attributes = {:name => "Oreos", :description => "a sandwich cookie",
