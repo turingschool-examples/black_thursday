@@ -1,4 +1,4 @@
-require 'entry'
+require_relative 'entry'
 class TransactionRepository
 
   attr_reader :id, :invoice_id, :created_at, :all
@@ -22,6 +22,10 @@ class TransactionRepository
         :updated_at => row[:updated_at]
         )
       end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def find_by_id(id)
