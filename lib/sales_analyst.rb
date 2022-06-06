@@ -1,6 +1,6 @@
 require 'bigdecimal'
 require 'pry'
-require_relative '../lib/item_repository'
+
 class SalesAnalyst
   attr_reader :item_repository,
               :merchant_repository,
@@ -80,8 +80,10 @@ class SalesAnalyst
       item.unit_price > (avg_avg_price + (std_dev * 2))
     end
   end
-  #The average invoices per merchant 
+  #The average invoices per merchant
   def average_invoices_per_merchant
-    @invoice_repository.sum(0.0) / @merchant_repository.count
+    invoices = @invoice_repository.all.count.to_f
+    merchants = @merchant_repository.all.count.to_f
+    (invoices / merchants).round(2)
   end
 end
