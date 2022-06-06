@@ -81,6 +81,9 @@ RSpec.describe SalesAnalyst do
    it "can calculate Which merchants are more than two standard deviations above the mean for invoices" do
      expect(@sales_analyst.top_merchants_by_invoice_count).to be_a Array
      expect(@sales_analyst.top_merchants_by_invoice_count.first).to be_a Merchant
-
+   end
+   it "can return merchants with invoice counts 2 below standard deviation" do
+     expect(@sales_analyst.bottom_merchants_by_invoice_count).to be_a Array
+     expect(@sales_analyst.bottom_merchants_by_invoice_count.first).to be_a Merchant
    end
 end
