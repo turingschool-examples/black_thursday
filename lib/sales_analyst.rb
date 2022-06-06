@@ -87,6 +87,16 @@ class SalesAnalyst
     !results.include?("failed")
   end
 
+  def invoice_total(invoice_id)
+    if invoice_paid_in_full?(invoice_id) == false
+      return false
+    end
+
+    invoice_items = @invoice_item_repository.find_all_by_invoice_id(invoice_id)
+
+    invoice_items.sum {|invoice| invoice.quantity * invoice.unit_price_to_dollars}
+  end
+
   def average_invoices_per_merchant # => 10.49, method + test working
     (@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end
