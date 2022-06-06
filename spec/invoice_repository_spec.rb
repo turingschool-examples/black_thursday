@@ -24,6 +24,14 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.find_by_id(1)).to be_a(Invoice)
   end
 
+  it 'find all by customer id' do
+    test = @item_repository.find_all_by_customer_id(12334185)
+
+    expect(test).to be_a(Array)
+    expect(test.count).to eq 8
+    expect(test.first.id).to eq 1
+  end
+
 
 
 end
