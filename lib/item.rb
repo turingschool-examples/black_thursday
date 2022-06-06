@@ -9,7 +9,6 @@ class Item
                 :unit_price,
                 :updated_at
 
-
   def initialize(details)
     @id = details[:id]
     @name = details[:name]
