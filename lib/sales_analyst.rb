@@ -1,3 +1,4 @@
+require 'entry'
 require './lib/entry'
 require_relative 'entry'
 require './lib/item_repository.rb'
@@ -51,7 +52,7 @@ class SalesAnalyst
     x = average_average_price_per_merchant
     y = average_items_per_merchant_standard_deviation
     @item_repository.all.select do |item|
-      item.unit_price > (x + y * 2)
+      item.unit_price > (x + (y * 2))
     end
   end
 
