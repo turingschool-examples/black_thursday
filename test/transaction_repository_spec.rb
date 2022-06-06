@@ -58,4 +58,44 @@ describe InvoiceRepository do
     expect(transaction.find_all_by_credit_card_number("4271805778010747").first).to eq(transactionexample)
   end
 
+  it 'can find_all_by_result' do
+    transactionexample = transaction.all.find_by_id(9)
+
+    expect(transaction.find_all_by_result(:whatever)).to eq([])
+    expect(transaction.find_all_by_result(:success).length).to eq(4158)
+    expect(transaction.find_all_by_result(:failed).length).to eq(827)
+    expect(transaction.find_all_by_result(:failed).first).to eq(transactionexample)
+  end
+
+  it 'can create a new transaction' do
+    attributes = {
+      :invoice_id => 8,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
+    expect(transaction.all.length).to eq(4985)
+    transaction.create(attributes)
+    expect(transaction.all.length).to eq(4986)
+  end
+
+  it 'can update a transaction' do
+    attributes = {
+      result: :failed
+    }
+    expect(transaction.find_by_id(1).result).to eq(:success)
+    transaction.update(1, attributes)
+    expect(transaction.find_by_id(1).result).to eq(:failed)
+  end
+
+  it 'can delete a transaction' do
+    expect(transaction.all.length).to eq(4985)
+    transaction.delete(3)
+    expect(transaction.all.length).to eq(4984)
+    transaction.delete(10000000)
+    expect(transaction.all.length).to eq(4984)
+  end
+
 end
