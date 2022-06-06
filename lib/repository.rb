@@ -1,6 +1,6 @@
 require 'helper'
-require 'findable'
 require 'existable'
+require 'findable'
 
 class Repository
   include Existable

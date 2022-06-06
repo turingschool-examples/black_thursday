@@ -4,12 +4,18 @@ require 'pry'
 class SalesAnalyst
   attr_accessor :item_repository,
                 :merchant_repository,
-                :invoice_repository
+                :invoice_repository,
+                :invoice_item_repository,
+                :transaction_repository,
+                :customer_repository
 
-  def initialize(item_repository, merchant_repository,invoice_repository)
+  def initialize(item_repository, merchant_repository,invoice_repository,invoice_item_repository,transaction_repository,customer_repository)
     @item_repository = item_repository
     @merchant_repository = merchant_repository
     @invoice_repository = invoice_repository
+    @invoice_item_repository = invoice_item_repository
+    @transaction_repository = transaction_repository
+    @customer_repository = customer_repository
   end
 
   def average_items_per_merchant #2.88
@@ -70,22 +76,42 @@ class SalesAnalyst
   end
   # => first portion in case we want to split in half
 
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transaction_repository.find_all_by_invoice_id(invoice_id)
 
-  def average_invoices_per_merchant # => 10.49, method + test working
+    if transactions.length == 0
+      return false
+    end
+
+    results = transactions.map {|transaction| transaction.result}
+
+    !results.include?("failed")
+  end
+
+  def invoice_total(invoice_id)
+    if invoice_paid_in_full?(invoice_id) == false
+      return false
+    end
+
+    invoice_items = @invoice_item_repository.find_all_by_invoice_id(invoice_id)
+
+    invoice_items.sum {|invoice| invoice.quantity * invoice.unit_price_to_dollars}
+  end
+
+  def average_invoices_per_merchant
     (@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end
 
   def number_of_invoices_by_merchant_id(merchantid)
-     @invoice_repository.all.count {|invoice| invoice.merchant_id == merchantid}
-   end
+    @invoice_repository.all.count {|invoice| invoice.merchant_id == merchantid}
+  end
 
-  def average_invoices_per_merchant_standard_deviation # => 3.29
+  def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
     sum = @merchant_repository.all.sum {|merchant| (number_of_invoices_by_merchant_id(merchant.id) - mean) ** 2}
     variance = sum / (@merchant_repository.all.count - 1).to_f
-    # binding.pry
     Math.sqrt(variance).round(2)
-  end 
+  end
 
   def top_merchants_by_invoice_count
     top_merch_array = []
@@ -105,7 +131,6 @@ class SalesAnalyst
       end
     end
     bot_merch_array
-    # require 'pry' ; binding.pry
   end
 
   # will likely want to break below into a TimeAnalyst class or something for organizing purposes
