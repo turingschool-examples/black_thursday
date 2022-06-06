@@ -1,7 +1,6 @@
 require 'simplecov'
 SimpleCov.start
-require './lib/merchant'
-require 'rspec'
+require './lib/helper'
 
 RSpec.describe Merchant do
 

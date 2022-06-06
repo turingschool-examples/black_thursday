@@ -44,7 +44,7 @@ RSpec.describe Invoice do
     expect(invoice.created_at.strftime("%Y-%m-%d %H:%M")).to eq(time.strftime("%Y-%m-%d %H:%M"))
   end
 
-  xit "can return the time the object was updated" do
+  it "can return the time the object was updated" do
     invoice.update
     expect(invoice.updated_at.strftime("%Y-%m-%d %H:%M")).to eq(time.strftime("%Y-%m-%d %H:%M"))
   end

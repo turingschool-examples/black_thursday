@@ -1,8 +1,6 @@
 require 'simplecov'
 SimpleCov.start
-require './lib/item'
-require 'rspec'
-require 'bigdecimal'
+require './lib/helper'
 
 RSpec.describe Item do
 
