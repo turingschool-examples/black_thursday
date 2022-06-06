@@ -83,6 +83,5 @@ describe CustomerRepository do
   it 'can delete by id' do
     invoice.delete(300)
     expect(invoice.all.length).to eq(999)
-    expect(invoice.find_by_id(5000)).to eq(nil)
   end
 end
