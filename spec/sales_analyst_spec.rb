@@ -139,7 +139,8 @@ RSpec.describe SalesAnalyst do
 		sales_analyst = sales_engine.analyst
 
 		expect(sales_analyst.merchants_by_zscore.keys.include?("12334753")).to eq(true)
-		expect(sales_analyst.merchants_by_zscore.values.include?(1.07)).to eq(true)
+		expect(sales_analyst.merchants_by_zscore.values.include?(1.37)).to eq(true)
+		expect(sales_analyst.merchants_by_zscore["12334753"]).to eq(1.37)
 	end
 
 	it 'can return the top performing merchants by invoice count' do
@@ -225,10 +226,24 @@ end
 			:invoices => "./data/invoices.csv"
 		})
 		sales_analyst = sales_engine.analyst
-	
+
 
 		expect(sales_analyst.weekday_by_zscore.keys.include?("Saturday")).to eq(true)
 		expect(sales_analyst.weekday_by_zscore.values[0].class).to eq(Float)
 	end
+
+	it 'can return the percentage of invoices by status' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv"
+		})
+		sales_analyst = sales_engine.analyst
+
+		expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
+		expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
+		expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
+	end
+
 
 end
