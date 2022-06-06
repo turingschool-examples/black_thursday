@@ -111,4 +111,14 @@ class SalesAnalyst
     end
     top_merchants
   end
+  def bottom_merchants_by_invoice_count
+    bottom_merchants = []
+    avg_invoices = average_invoices_per_merchant
+    std_dev_2 = average_invoices_per_merchant_standard_deviation * 2
+    invoice_items = invoices_per_merchant.find_all {|count| count[1] < (avg_invoices + std_dev_2)}
+    invoice_items.each do | merchant_id |
+      bottom_merchants << @merchant_repository.find_by_id(merchant_id[0])
+    end
+    bottom_merchants
+  end
 end
