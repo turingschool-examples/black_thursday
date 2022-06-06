@@ -62,5 +62,4 @@ RSpec.describe Item do
     expect(@i.unit_price_to_dollars).to be_a(Float)
     expect(@i.unit_price_to_dollars).to eq(10.99)
   end
-
 end

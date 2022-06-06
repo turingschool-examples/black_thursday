@@ -4,7 +4,8 @@ require_relative 'invoice_repository'
 require_relative 'item'
 require_relative 'merchant'
 require_relative 'invoice'
- # require_relative 'sales_analyst'
+require_relative 'invoice_repository'
+
 class SalesEngine
 
   attr_reader :merchants, :items, :invoices
@@ -24,6 +25,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@items_path,@merchants_path, @invoice_path)
+    SalesAnalyst.new(@items_path,@merchants_path,@invoice_path)
   end
 end

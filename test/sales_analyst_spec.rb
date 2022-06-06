@@ -1,6 +1,8 @@
 require "./lib/sales_engine"
 require "./lib/sales_analyst"
 require "./lib/merchant_repository"
+require "./lib/invoice_repository"
+require "./lib/item_repository"
 
 
 RSpec.describe SalesAnalyst do
@@ -50,7 +52,6 @@ RSpec.describe SalesAnalyst do
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
     })
-
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
   end
@@ -61,7 +62,6 @@ RSpec.describe SalesAnalyst do
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
     })
-
     sales_analyst = sales_engine.analyst
 
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
@@ -73,7 +73,6 @@ RSpec.describe SalesAnalyst do
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
     })
-
     sales_analyst = sales_engine.analyst
 
     expect(sales_analyst.merchants_with_high_item_count).to be_a(Array)
@@ -86,7 +85,6 @@ RSpec.describe SalesAnalyst do
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
     })
-
     sales_analyst = sales_engine.analyst
 
     expect(sales_analyst.golden_items).to be_a(Array)
@@ -99,18 +97,17 @@ RSpec.describe SalesAnalyst do
     :merchants => "./data/merchants.csv",
     :invoices => "./data/invoices.csv"
   })
-
   sales_analyst = sales_engine.analyst
 
   expect(sales_analyst.standard_deviation([3,4,5],4)).to eq(1.0)
   end
 
   it "calculates the average average price per merchant (average of all merchants price)" do
-     sales_engine = SalesEngine.from_csv({
-       :items => "./data/items.csv",
-       :merchants => "./data/merchants.csv",
-       :invoices => "./data/invoices.csv"
-     })
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
 
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)

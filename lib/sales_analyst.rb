@@ -1,13 +1,15 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require_relative 'invoice_repository'
 require_relative 'item'
 require_relative 'merchant'
+require_relative 'invoice'
 require_relative 'sales_engine'
 require 'bigdecimal'
 require 'pry'
 class SalesAnalyst < SalesEngine
 
-  def initialize(items_path, merchants_path, invoice_path)
+  def initialize(items_path,merchants_path, invoice_path)
     super
   end
 
