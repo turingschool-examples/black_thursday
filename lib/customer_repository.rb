@@ -1,4 +1,4 @@
-require 'entry'
+require_relative 'entry'
 class CustomerRepository
 
   attr_reader :id, :created_at, :all
@@ -25,6 +25,10 @@ class CustomerRepository
     @all.find do |customer|
       customer.id.to_i == id.to_i
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def find_all_by_first_name(fragment)
