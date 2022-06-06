@@ -1,4 +1,4 @@
-require './lib/entry'
+require_relative 'entry'
 class ItemRepository
   attr_reader :all
 
@@ -16,6 +16,10 @@ class ItemRepository
         :merchant_id => row[:merchant_id].to_i
         )
       end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def find_by_id(id)
