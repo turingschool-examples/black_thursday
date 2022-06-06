@@ -26,7 +26,7 @@ RSpec.describe Invoice do
     expect(@invoice.id).to eq(2)
     expect(@invoice.customer_id).to eq(1)
     expect(@invoice.merchant_id).to eq(12334753)
-    expect(@invoice.status).to eq("shipped")
+    expect(@invoice.status).to eq(:shipped)
     expect(@invoice.created_at).to eq(Time.parse("2012-11-23"))
     expect(@invoice.updated_at).to eq(Time.parse("2013-04-14"))
   end

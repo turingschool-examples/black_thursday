@@ -7,8 +7,9 @@ require './lib/sales_engine'
 RSpec.describe MerchantRepository do
 
   let(:sales_engine) {SalesEngine.from_csv({
-     :items     => "./data/items.csv",
-     :merchants => "./data/merchants.csv"
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
      })}
  let(:merchant) {sales_engine.merchants}
 
