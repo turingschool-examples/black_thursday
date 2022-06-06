@@ -47,7 +47,7 @@ class InvoiceRepository
   def create(attributes)
     new_id = 0
     @all.each do |invoice|
-      if invoice.id.to_i > new_id
+      if invoice.id.to_i >= new_id
         new_id = invoice.id.to_i + 1
       end
     end
@@ -63,9 +63,10 @@ class InvoiceRepository
 
   def update(invoice_id_search, status_update)
     @all.find do |invoice|
-      invoice.id == invoice_id_search
-      invoice.status = status_update
-      invoice.updated_at = Time.now
+      if invoice.id == invoice_id_search
+        invoice.status = status_update
+        invoice.updated_at = Time.now
+      end
     end
   end
 

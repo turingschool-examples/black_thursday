@@ -34,7 +34,7 @@ class MerchantRepository
   def create(new_merchant)
     new_id = 0
     @all.each do |merchant|
-      if merchant.id.to_i > new_id
+      if merchant.id.to_i >= new_id
         new_id = merchant.id.to_i + 1
       end
     end
