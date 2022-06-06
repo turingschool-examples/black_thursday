@@ -1,8 +1,9 @@
+require 'pry'
 require 'csv'
 require_relative '../lib/invoice'
 require_relative '../lib/merchant'
 require './repositable'
-require 'pry'
+
 class InvoiceRepository
   include Repositable
   attr_reader :all, :file_path

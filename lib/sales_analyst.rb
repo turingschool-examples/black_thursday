@@ -1,4 +1,4 @@
-require_relative "../lib/sales_engine"
+require_relative '../lib/sales_engine'
 
 class SalesAnalyst
   attr_reader :items_path, :merchants_path

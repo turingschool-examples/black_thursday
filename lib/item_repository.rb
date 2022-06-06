@@ -2,6 +2,7 @@ require 'pry'
 require 'csv'
 require_relative '../lib/item'
 require './repositable'
+
 class ItemRepository
   include Repositable
   attr_reader :all
@@ -11,10 +12,14 @@ class ItemRepository
     @all = []
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-        @all << Item.new({
-          :id => row[:id],
-          :name => row[:name],
-          :description => row[:description], :unit_price => row[:unit_price], :created_at => row[:created_at], :updated_at => row[:updated_at], :merchant_id => row[:merchant_id]})
+      @all << Item.new({
+        :id => row[:id],
+        :name => row[:name],
+        :description => row[:description],
+        :unit_price => row[:unit_price],
+        :created_at => row[:created_at],
+        :updated_at => row[:updated_at],
+        :merchant_id => row[:merchant_id]})
     end
   end
 
