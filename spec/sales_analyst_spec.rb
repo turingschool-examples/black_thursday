@@ -164,6 +164,16 @@ RSpec.describe SalesAnalyst do
 	expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(463)
 end
 
+it 'can return the days of the week that see the most sales' do
+	sales_engine = SalesEngine.from_csv({
+		:items => "./data/items.csv",
+		:merchants => "./data/merchants.csv",
+		:invoices => "./data/invoices.csv"
+	})
+	sales_analyst = sales_engine.analyst
+
+	expect (sales_analyst.top_days_by_invoice_count).to eq(["Sunday", "Saturday"])
+end
 
 
 end
