@@ -46,9 +46,8 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.difference_squared).to be_a Float
   end
 
-  it "can find find merchants with highest item count" do
-    @sales_analyst.merchants_with_high_item_count
-expect(@sales_analyst.merchants_with_high_item_count).to be_a Array
+  it "can find find merchants with highest item count" do    
+    expect(@sales_analyst.merchants_with_high_item_count).to be_a Array
     expect(@sales_analyst.merchants_with_high_item_count.first).to be_a Merchant
   end
 end
