@@ -4,6 +4,10 @@ require_relative 'merchant'
 class MerchantRepository
   attr_reader :all
 
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+
   def initialize(file_path)
     @file_path = file_path
     @all = []
@@ -16,25 +20,20 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @all.find do |merchant|
-      merchant.id == id
-    end
+    @all.find {|merchant| merchant.id == id}
   end
 
   def find_by_name(name)
-    @all.find do |merchant|
-      merchant.name.upcase == name.upcase
-    end
+    @all.find {|merchant| merchant.name.upcase == name.upcase}
   end
 
   def find_all_by_name(name_fragment)
-    @all.find_all do |merchant|
-      merchant.name.upcase.include?(name_fragment.upcase)
-    end
+    @all.find_all {|merchant| merchant.name.upcase.include?(name_fragment.upcase)}
   end
 
   def create(attributes)
     x = (@all.last.id + 1)
+    binding.pry
     @all << Merchant.new({
       :id => x,
       :name => attributes[:name]
