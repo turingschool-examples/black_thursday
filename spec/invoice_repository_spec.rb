@@ -33,11 +33,11 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'find all by merchant id' do
-    test = @invoice_repository.find_all_by_merchant_id(12335080)
+    test = @invoice_repository.find_all_by_merchant_id(12335938)
 
     expect(test).to be_a(Array)
     expect(test.count).to eq 16
-    expect(test.first.id).to eq 12335938
+    expect(test.first.id).to eq 1
   end
 
 
