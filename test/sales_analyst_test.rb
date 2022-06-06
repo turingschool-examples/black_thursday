@@ -59,23 +59,27 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
   end
 
-  xit 'returns average invoices per mechant standard deviation' do
-    expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
-  end ##NOT WORKING YET, currently outputting 9.8
+  it 'returns number of invoices for given merchant' do
+     expect(sales_analyst.number_of_invoices_by_merchant_id(12335938)).to eq(16)
+   end
 
-  it 'returns top merchants by invoice count' do
+  it 'returns average invoices per mechant standard deviation' do
+    expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+  end 
+
+  xit 'returns top merchants by invoice count' do
     #array of merchants more than two standard deviations ABOVE the mean
     expect(sales_analyst.top_merchants_by_invoice_count).to be_instance_of(Array)
     # => [merchant, merchant, merchant], include test for values once generating array
   end
 
-  it 'returns bottom merchants by invoice count' do
+  xit 'returns bottom merchants by invoice count' do
     #array of merchants more than two standard deviations BELOW the mean
     expect(sales_analyst.bottom_merchants_by_invoice_count).to be_instance_of(Array)
     # => [merchant, merchant, merchant], include test for values once generating array
   end
 
-  it 'returns date created for given invoice' do
+  xit 'returns date created for given invoice' do
     expect(sales_analyst.invoice_repository.find_by_id(1).created_at).to eq("2009-02-07")
   end
 
