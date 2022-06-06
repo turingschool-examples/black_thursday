@@ -1,4 +1,3 @@
-
 class Item
   attr_reader :id,
               :created_at,
@@ -8,7 +7,6 @@ class Item
                 :description,
                 :unit_price,
                 :updated_at
-
 
   def initialize(details)
     @id = details[:id]
