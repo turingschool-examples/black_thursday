@@ -101,4 +101,14 @@ class SalesAnalyst
     variance = (sum / (invoices_per_merchant.size - 1)).to_f
     standard_deviation = Math.sqrt(variance).round(2)
   end
+  def top_merchants_by_invoice_count
+    top_merchants = []
+    avg_invoices = average_invoices_per_merchant
+    std_dev_2 = average_invoices_per_merchant_standard_deviation * 2
+    invoice_items = invoices_per_merchant.find_all {|count| count[1] > (avg_invoices + std_dev_2)}
+    invoice_items.each do | merchant_id |
+      top_merchants << @merchant_repository.find_by_id(merchant_id[0])
+    end
+    top_merchants
+  end
 end
