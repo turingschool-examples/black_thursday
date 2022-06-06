@@ -127,7 +127,7 @@ RSpec.describe SalesAnalyst do
 		})
 		sales_analyst = sales_engine.analyst
 
-		expect(sales_analyst.z_score(4)).to eq(-1.97)
+		expect(sales_analyst.merchant_z_score(4)).to eq(-1.97)
 	end
 
 	it 'can create a hash of merchants by zscore' do
@@ -164,58 +164,71 @@ RSpec.describe SalesAnalyst do
 	expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(463)
 end
 
-it 'can return the days of the week that see the most sales' do
-	sales_engine = SalesEngine.from_csv({
-		:items => "./data/items.csv",
-		:merchants => "./data/merchants.csv",
-		:invoices => "./data/invoices.csv"
-	})
-	sales_analyst = sales_engine.analyst
+	it 'can return the days of the week that see the most sales' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv"
+		})
+		sales_analyst = sales_engine.analyst
 
-	expect (sales_analyst.top_days_by_invoice_count).to eq(["Sunday", "Saturday"])
-end
+		expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
+	end
 
-it 'can return the day of the week' do
-	sales_engine = SalesEngine.from_csv({
-		:items => "./data/items.csv",
-		:merchants => "./data/merchants.csv",
-		:invoices => "./data/invoices.csv"
-	})
-	sales_analyst = sales_engine.analyst
-	expect(sales_analyst.date_to_day("2009-02-07")).to eq("Saturday")
-end
+	it 'can return the day of the week' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv"
+		})
+		sales_analyst = sales_engine.analyst
+		expect(sales_analyst.date_to_day("2009-02-07")).to eq("Saturday")
+	end
 
-it 'can return the invoices by day of the week' do
-	sales_engine = SalesEngine.from_csv({
-		:items => "./data/items.csv",
-		:merchants => "./data/merchants.csv",
-		:invoices => "./data/invoices.csv"
-	})
-	sales_analyst = sales_engine.analyst
+	it 'can return the invoices by day of the week' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv"
+		})
+		sales_analyst = sales_engine.analyst
 
-	expect(sales_analyst.invoices_by_day.values.count).to eq(7)
-end
+		expect(sales_analyst.invoices_by_day.values.count).to eq(7)
+	end
 
-it 'can return the average invoices per day' do
-	sales_engine = SalesEngine.from_csv({
-		:items => "./data/items.csv",
-		:merchants => "./data/merchants.csv",
-		:invoices => "./data/invoices.csv"
-	})
-	sales_analyst = sales_engine.analyst
+	it 'can return the average invoices per day' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv"
+		})
+		sales_analyst = sales_engine.analyst
 
-	expect(sales_analyst.average_invoices_per_day).to eq(712)
-end
+		expect(sales_analyst.average_invoices_per_day).to eq(712)
+	end
 
-it 'can return the average invoices per day standard deviation' do
-	sales_engine = SalesEngine.from_csv({
-		:items => "./data/items.csv",
-		:merchants => "./data/merchants.csv",
-		:invoices => "./data/invoices.csv"
-	})
-	sales_analyst = sales_engine.analyst
+	it 'can return the average invoices per day standard deviation' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv"
+		})
+		sales_analyst = sales_engine.analyst
 
-	expect(sales_analyst.average_invoices_per_day_standard_deviation).to eq(18.07)
+		expect(sales_analyst.average_invoices_per_day_standard_deviation).to eq(18.07)
+	end
 
+	it 'can calculate z score for a day of the week' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv"
+		})
+		sales_analyst = sales_engine.analyst
+	
+
+		expect(sales_analyst.weekday_by_zscore.keys.include?("Saturday")).to eq(true)
+		expect(sales_analyst.weekday_by_zscore.values[0].class).to eq(Float)
+	end
 
 end

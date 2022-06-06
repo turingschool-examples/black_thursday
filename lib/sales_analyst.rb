@@ -3,6 +3,7 @@ require_relative "./item_repository"
 require_relative "./merchant_repository"
 require "bigdecimal"
 require "bigdecimal/util"
+require "date"
 
 class SalesAnalyst
 	attr_reader :items, :merchants, :invoices
@@ -95,7 +96,7 @@ class SalesAnalyst
 		return invoices_per_merchant
 	end
 
-	def z_score(invoice_count)
+	def merchant_z_score(invoice_count)
 		mean = average_invoices_per_merchant
 		std_dev = average_invoices_per_merchant_standard_deviation
 		z_score = (invoice_count - mean) / std_dev
@@ -105,7 +106,7 @@ class SalesAnalyst
 	def merchants_by_zscore
 		merchant_by_z_score = Hash.new
 		invoices_by_merchant.each do |merchant, invoice_count|
-			merchant_by_z_score[merchant] = z_score(invoice_count)
+			merchant_by_z_score[merchant] = merchant_z_score(invoice_count)
 		end
 		return merchant_by_z_score
 	end
@@ -123,9 +124,56 @@ class SalesAnalyst
 		merchants_by_zscore.each do |merchants, zscore|
 		bottom_merchants	<< merchants if zscore < 2
 		end
-		return top_merchants
+		return bottom_merchants
 	end
 
+	def top_days_by_invoice_count
+		top_days = []
+		weekday_by_zscore.each do |day, zscore|
+		top_days	<< day if zscore > 1
+		end
+		return top_days
+	end
 
+	def date_to_day(date)
+		weekday = Date.parse(date)
+		weekday_num = weekday.wday
+		weekday_name = Date::DAYNAMES[weekday_num]
+		return weekday_name
+	end
+
+	def invoices_by_day
+		invoices_per_day = Hash.new(0)
+		invoice_dates = invoices.all.map {|invoice| invoice.created_at}
+		invoice_dates.each do |date|
+			invoices_per_day[date_to_day(date)] += 1
+		end
+		return invoices_per_day
+	end
+
+	def average_invoices_per_day
+	 invoices_by_day.values.sum / invoices_by_day.count
+	end
+
+	def average_invoices_per_day_standard_deviation
+		set = invoices_by_day.values
+		avg = average_invoices_per_day
+		standard_deviation(set, avg)
+	end
+
+	def weekday_by_zscore
+		day_by_z_score = Hash.new
+		invoices_by_day.each do |day, invoice_count|
+			day_by_z_score[day] = weekday_z_score(invoice_count)
+		end
+		return day_by_z_score
+	end
+
+	def weekday_z_score(invoice_count)
+		mean = average_invoices_per_day
+		std_dev = average_invoices_per_day_standard_deviation
+		z_score = (invoice_count - mean) / std_dev
+		return z_score.round(2)
+	end
 
 end
