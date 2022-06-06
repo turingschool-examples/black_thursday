@@ -39,6 +39,19 @@ class InvoiceRepository
     @all.find_all { |invoice| invoice.status == status }
   end
 
+  def create(attributes)
+    x = (@all.last.id + 1)
+    @all << Invoice.new(
+      :id => attributes[:id],
+      :customer_id => attributes[:customer_id].to_i,
+      :merchant_id => attributes[:merchant_id].to_i,
+      :status => attributes[:status],
+      :created_at => attributes[:created_at],
+      :updated_at => attributes[:updated_at]
+      )
+
+  end
+
 
 
 end
