@@ -4,12 +4,16 @@ require './lib/item_repository'
 class SalesAnalyst
   attr_reader :item_repository,
               :merchant_repository,
-              :invoice_repository
+              :invoice_repository,
+              :invoice_item_repository,
+              :customer_repository
 
-  def initialize(item_repository, merchant_repository, invoice_repository)
+  def initialize(item_repository, merchant_repository, invoice_repository, invoice_item_repository, customer_repository)
     @item_repository = item_repository
     @merchant_repository = merchant_repository
     @invoice_repository = invoice_repository
+    @invoice_item_repository = invoice_item_repository
+    @customer_repository = customer_repository
   end
 
   def average_items_per_merchant
@@ -68,7 +72,7 @@ class SalesAnalyst
     end
     merchant_price_averages
   end
-  
+
   def golden_items
     avg_avg_price = average_average_price_per_merchant
     std_dev = average_price_per_merchant_standard_deviation
