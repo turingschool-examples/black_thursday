@@ -78,8 +78,11 @@ RSpec.describe InvoiceRepository do
    expect(@invoice_repository.find_by_id(1).updated_at).to be > x
  end
 
-
-
+ it "can delete invoices" do
+    expect(@invoice_repository.find_by_id(1)).to be_a(Invoice)
+    @invoice_repository.delete(1)
+    expect(@invoice_repository.find_by_id(1)).to eq(nil)
+  end
 
 
 end

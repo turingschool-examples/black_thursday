@@ -104,6 +104,7 @@ RSpec.describe ItemRepository do
     @item_repository.delete(263567474)
     expect(@item_repository.find_by_name("Minty Green Knit Crochet Infinity Scarf")).to eq(nil)
   end
+  
 
 
 end
