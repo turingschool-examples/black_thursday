@@ -6,7 +6,6 @@ class InvoiceRepository
 
   attr_reader :all, :file_path
 
-
   def initialize(file_path)
     @file_path = file_path
     @all = []

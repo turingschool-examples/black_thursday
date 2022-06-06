@@ -4,10 +4,9 @@ require_relative '../lib/item'
 
 class ItemRepository
 
-    attr_reader :all
-    attr_accessor
+  attr_reader :all
 
-    def initialize(file_path)
+  def initialize(file_path)
     @file_path = file_path
     @all = []
 
