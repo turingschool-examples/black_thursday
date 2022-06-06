@@ -24,10 +24,40 @@ class TransactionRepository
   def find_all_by_invoice_id(id)
     @all.find_all {|invoice| invoice.invoice_id == id}
   end
+
+  def find_all_by_credit_card_number(num)
+    @all.find_all {|number| number.credit_card_number == num}
+  end
+
+  def find_all_by_result(data)
+    @all.find_all {|x| x.result == data}
+  end
+
+  def create(attributes)
+    attributes[:id] = (@all.max {|transaction| transaction.id}).id + 1
+      new_transaction = Transaction.new(attributes)
+        @all << new_transaction
+          new_transaction
+  end
+
+  def update(id, attributes)
+    transaction = find_by_id(id)
+    if transaction == nil
+      exit
+    else
+      transaction.updated_at = Time.now
+      attributes.each do |key, value|
+        if attribute.to_sym == :credit_card_number
+          transaction.credit_card_number = attributes[:credit_card_number]
+        elsif attribute.to_sym == :credit_card_expiration_date
+          transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+        elsif attribute.to_sym == :result
+          transaction.result = attributes[:result]
+        end
+      end
+    end
+  end
+
 end
 
-# find_all_by_credit_card_number - returns either [] or one or more matches which have a matching credit card number
-# find_all_by_result - returns either [] or one or more matches which have a matching status
-# create(attributes) - create a new Transaction instance with the provided attributes. The new Transaction’s id should be the current highest Transaction id plus 1.
 # update(id, attribute) - update the Transaction instance with the corresponding id with the provided attributes. Only the transaction’s credit_card_number, credit_card_expiration_date, and result can be updated. This method will also change the transaction’s updated_at attribute to the current time.
-# delete(id) - delete the Transaction instance with the corresponding id
