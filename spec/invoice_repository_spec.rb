@@ -25,12 +25,21 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'find all by customer id' do
-    test = @item_repository.find_all_by_customer_id(12334185)
+    test = @invoice_repository.find_all_by_customer_id(1)
 
     expect(test).to be_a(Array)
     expect(test.count).to eq 8
     expect(test.first.id).to eq 1
   end
+
+  it 'find all by merchant id' do
+    test = @invoice_repository.find_all_by_merchant_id(12335080)
+
+    expect(test).to be_a(Array)
+    expect(test.count).to eq 16
+    expect(test.first.id).to eq 12335938
+  end
+
 
 
 
