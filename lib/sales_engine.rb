@@ -19,19 +19,19 @@ class SalesEngine
   end
 
   def self.from_csv(data)
-    SalesEngine.new(data[:items], data[:merchants], data[:invoices])
+    SalesEngine.new(data)
   end
 
-  def merchants
-    @merchant_repository
+  def check_items(data)
+    return ItemRepository.new(data[:items]) if data.keys.include?(:items) == true
   end
 
-  def items
-    @item_repository
+  def check_merchants(data)
+    return MerchantRepository.new(data[:merchants]) if data.keys.include?(:merchants) == true
   end
 
-  def invoices
-    @invoice_repository
+  def check_invoices(data)
+    return InvoiceRepository.new(data[:invoices]) if data.keys.include?(:invoices) == true
   end
 
   def check_invoice_items(data)
@@ -47,7 +47,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@item_repository,@merchant_repository,@invoice_repository)
+    SalesAnalyst.new(@items, @merchants, @invoices)
   end
-
 end
