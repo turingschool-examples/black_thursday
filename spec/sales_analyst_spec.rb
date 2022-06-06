@@ -21,7 +21,7 @@ RSpec.describe SalesAnalyst do
     @sales_analyst = @sales_engine.analyst
   end
 
-   it "exist" do
+   it "exists" do
      expect(@sales_analyst).to be_a SalesAnalyst
    end
 
@@ -69,5 +69,13 @@ RSpec.describe SalesAnalyst do
 
    it "can return the average invoice number per merchant" do
      expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
+   end
+   it "can return a hash with each merchants invoice totals, helper method" do
+     expect(@sales_analyst.invoices_per_merchant).to be_a Hash
+     expect(@sales_analyst.invoices_per_merchant[12335938]).to eq(16)
+
+   end
+   it "can calculate the average invoice per merchant standard deviation" do
+     expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
    end
 end
