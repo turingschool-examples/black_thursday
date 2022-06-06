@@ -68,14 +68,14 @@ RSpec.describe InvoiceRepository do
         :id => 1,
         :customer_id => 1,
         :merchant_id => 12335938,
-        :status => "pending",
-        :created_at => x,
+        :status => "shipped",
         :updated_at => x
   }
+
    expect(@invoice_repository.find_by_id(1).status).to eq("pending")
-   @invoice_repository.update(1, "shipped")
+   @invoice_repository.update(1, attributes)
    expect(@invoice_repository.find_by_id(1).status).to eq("shipped")
-   expect(@invoice_repository.find_by_id(4985).updated_at).to be > x
+   expect(@invoice_repository.find_by_id(1).updated_at).to be > x
  end
 
 

@@ -1,10 +1,13 @@
 require 'CSV'
 require_relative 'invoice'
+require_relative 'merchant'
+require_relative 'merchant_repository'
+
+require 'pry'
 
 class InvoiceRepository
 
   attr_reader :all
-
 
   def initialize(file_path)
     @file_path = file_path
@@ -51,6 +54,15 @@ class InvoiceRepository
       )
 
   end
+
+  def update(id, attributes)
+    x = find_by_id(id)
+    x.status = attributes[:status]
+    x.updated_at = Time.now
+
+
+  end
+
 
 
 
