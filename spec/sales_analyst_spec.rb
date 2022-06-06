@@ -67,4 +67,7 @@ RSpec.describe SalesAnalyst do
      expect(@sales_analyst.golden_items.first.unit_price).to be > (@sales_analyst.average_price_per_merchant_standard_deviation * 2)
    end
 
+   it "can return the average invoice number per merchant" do
+     expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
+   end
 end

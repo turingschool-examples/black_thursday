@@ -80,4 +80,8 @@ class SalesAnalyst
       item.unit_price > (avg_avg_price + (std_dev * 2))
     end
   end
+  #The average invoices per merchant 
+  def average_invoices_per_merchant
+    @invoice_repository.sum(0.0) / @merchant_repository.count
+  end
 end
