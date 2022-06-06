@@ -22,7 +22,6 @@ class SalesAnalyst
   def items_per_merchant
     all_items_by_merchant.map do |id, items|
       items.count
-
     end
   end
 
@@ -34,22 +33,16 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     variance = difference_squared / (items_per_merchant.count - 1)
-    standard_deviation = Math.sqrt(variance).round(2)
+    return standard_deviation = Math.sqrt(variance).round(2)
   end
 
   def merchants_with_high_item_count
-    items_per_merchant.find_all do |sum|
-      sum > (average_items_per_merchant_standard_deviation + 1)
-      end
+    high_count = []
+    goal = (average_items_per_merchant_standard_deviation + 1)
+    all_items_by_merchant.select do |merchant, items|
+      high_count << @merchants_path.find_by_id(merchant) if items.count > goal
+    end
+    high_count
   end 
-  #   high_count = []
-  # bunny = all_items_by_merchant.select do |merchant, items|
-  #     if items.count > (average_items_per_merchant_standard_deviation + 1)
-  #       high_count << @merchants_path.find_by_id(merchant)
-  #       # high_count.push(@merchants_path.find_by_id(merchant))
-  #     end
-  #   end
-  #   require "pry"; binding.pry
-  #   puts bunny
-  # end
+
 end

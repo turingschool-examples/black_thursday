@@ -24,7 +24,7 @@ class MerchantRepository
 
   def find_by_name(name)
     @all.find do |merchant|
-      if merchant.name == name.capitalize
+      if merchant.name.downcase == name.downcase
         return merchant
       end
     end
@@ -32,7 +32,7 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
-      if merchant.name == name.capitalize
+      if merchant.name.downcase == name.downcase
         merchant
       end
     end
