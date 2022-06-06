@@ -130,6 +130,18 @@ RSpec.describe SalesAnalyst do
 		expect(sales_analyst.z_score(4)).to eq(-1.97)
 	end
 
+	it 'can create a hash of merchants by zscore' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv"
+		})
+		sales_analyst = sales_engine.analyst
+
+		expect(sales_analyst.merchants_by_zscore.keys.include?("12334753")).to eq(true)
+		expect(sales_analyst.merchants_by_zscore.values.include?(1.07)).to eq(true)
+	end
+
 	it 'can return the top performing merchants by invoice count' do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
