@@ -1,4 +1,4 @@
-require 'entry'
+require_relative 'entry'
 class Transaction
   attr_reader :id, :invoice_id, :created_at
 
@@ -16,4 +16,4 @@ class Transaction
     @created_at = details[:created_at]
     @updated_at = details[:updated_at]
   end
-end 
+end

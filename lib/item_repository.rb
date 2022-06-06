@@ -1,13 +1,6 @@
-require 'CSV'
-require_relative 'item'
-require_relative 'merchant'
-require_relative 'merchant_repository'
-
-require 'pry'
-
+require_relative 'entry'
 class ItemRepository
   attr_reader :all
-
 
   def initialize(file_path)
     @file_path = file_path
@@ -25,16 +18,16 @@ class ItemRepository
       end
   end
 
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+
   def find_by_id(id)
-    @all.find do |item|
-      item.id == id
-    end
+    @all.find {|item| item.id == id}
   end
 
   def find_by_name(name)
-    @all.find do |item|
-      item.name.upcase == name.upcase
-    end
+    @all.find {|item| item.name.upcase == name.upcase}
   end
 
   def find_all_with_description(description_fragment)
@@ -44,25 +37,24 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    @all.find_all { |item| item.unit_price == price }
+    @all.find_all {|item| item.unit_price == price }
 
   end
 
   def find_all_by_price_in_range(price_range)
-    @all.find_all { |item| item.unit_price.between? price_range.first, price_range.last}
-    # @all.select do |item|
-    #   item.unit_price >= x && item.unit_price <= y
-    # end
+    @all.find_all do |item|
+      item.unit_price.between? price_range.first, price_range.last
+    end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @all.find_all { |item| item.merchant_id == merchant_id }
+    @all.find_all {|item| item.merchant_id == merchant_id }
   end
 
   def create(attributes)
-    x = (@all.last.id + 1)
+    create_item = (@all.last.id + 1)
     @all << Item.new({
-      :id => x,
+      :id => create_item,
       :name => attributes[:name],
       :description => attributes[:description],
       :unit_price => attributes[:unit_price],
@@ -70,23 +62,19 @@ class ItemRepository
       :updated_at => attributes[:updated_at],
       :merchant_id => attributes[:merchant_id]
       })
-
   end
 
   def update(id, attributes)
-    x = find_by_id(id)
-    x.name = attributes[:name]
-    x.description = attributes[:description]
-    x.unit_price = attributes[:unit_price]
-    x.updated_at = Time.now
-
-
+    update_item = find_by_id(id)
+    update_item.name = attributes[:name]
+    update_item.description = attributes[:description]
+    update_item.unit_price = attributes[:unit_price]
+    update_item.updated_at = Time.now
   end
 
   def delete(id)
-    x = find_by_id(id)
-    @all.delete(x)
+    delete_item = find_by_id(id)
+    @all.delete(delete_item)
   end
-
 
 end

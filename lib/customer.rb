@@ -1,4 +1,4 @@
-require 'entry'
+require_relative 'entry'
 class Customer
   attr_reader :id, :created_at
 
