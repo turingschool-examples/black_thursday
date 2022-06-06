@@ -95,4 +95,35 @@ class SalesAnalyst
 		return invoices_per_merchant
 	end
 
+	def z_score(invoice_count)
+		mean = average_invoices_per_merchant
+		std_dev = average_invoices_per_merchant_standard_deviation
+		z_score = (invoice_count - mean) / std_dev
+		return z_score.round(2)
+	end
+
+	def merchants_by_zscore
+		merchant_by_z_score = Hash.new
+		invoices_by_merchant.each do |merchant, invoice_count|
+			merchant_by_z_score[merchant] = z_score(invoice_count)
+		end
+		return merchant_by_z_score
+	end
+
+	def top_merchants_by_invoice_count
+		top_merchants = []
+		merchants_by_zscore.each do |merchants, zscore|
+		top_merchants	<< merchants if zscore > 2
+		end
+		return top_merchants
+	end
+
+	def bottom_merchants_by_invoice_count
+		bottom_merchants = []
+		merchants_by_zscore.each do |merchants, zscore|
+		bottom_merchants	<< merchants if zscore < 2
+		end
+		return top_merchants
+	end
+
 end
