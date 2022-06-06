@@ -87,7 +87,6 @@ RSpec.describe ItemRepository do
       name: "BryceGems",
       description: "Any colour gems",
       unit_price: BigDecimal(420.00, 5),
-      created_at: x,
       updated_at: x,
       merchant_id: 25
     }
