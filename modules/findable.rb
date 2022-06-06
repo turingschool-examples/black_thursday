@@ -50,5 +50,13 @@ module Findable
     @all.find_all {|invoice| invoice.status == status}
   end
 
+  #invoice_item_methods
+  def find_all_by_item_id(id)
+    @all.find_all {|invoice| invoice.item_id == id}
+  end
+
+  def find_all_by_invoice_id(id)
+    @all.find_all {|invoice| invoice.invoice_id == id}
+  end
 
 end
