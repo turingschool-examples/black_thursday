@@ -207,5 +207,15 @@ it 'can return the average invoices per day' do
 	expect(sales_analyst.average_invoices_per_day).to eq(712)
 end
 
+it 'can return the average invoices per day standard deviation' do
+	sales_engine = SalesEngine.from_csv({
+		:items => "./data/items.csv",
+		:merchants => "./data/merchants.csv",
+		:invoices => "./data/invoices.csv"
+	})
+	sales_analyst = sales_engine.analyst
+
+	expect(sales_analyst.average_invoices_per_day_standard_deviation).to eq(18.07)
+
 
 end
