@@ -192,7 +192,19 @@ it 'can return the invoices by day of the week' do
 		:invoices => "./data/invoices.csv"
 	})
 	sales_analyst = sales_engine.analyst
-	expect(sales_analyst.invoices_by_day).to be_a Hash
+
+	expect(sales_analyst.invoices_by_day.values.count).to eq(7)
+end
+
+it 'can return the average invoices per day' do
+	sales_engine = SalesEngine.from_csv({
+		:items => "./data/items.csv",
+		:merchants => "./data/merchants.csv",
+		:invoices => "./data/invoices.csv"
+	})
+	sales_analyst = sales_engine.analyst
+
+	expect(sales_analyst.average_invoices_per_day).to eq(712)
 end
 
 
