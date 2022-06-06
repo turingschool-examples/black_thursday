@@ -75,6 +75,7 @@ class SalesAnalyst
     @item_repository.all.select {|item| item.unit_price_to_dollars > (average_item_price + (standard_dev * 2))}
   end
   # => first portion in case we want to split in half
+
   def invoice_paid_in_full?(invoice_id)
     transactions = @transaction_repository.find_all_by_invoice_id(invoice_id)
 
@@ -97,7 +98,7 @@ class SalesAnalyst
     invoice_items.sum {|invoice| invoice.quantity * invoice.unit_price_to_dollars}
   end
 
-  def average_invoices_per_merchant # => 10.49, method + test working
+  def average_invoices_per_merchant
     (@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end
 
@@ -105,11 +106,10 @@ class SalesAnalyst
     @invoice_repository.all.count {|invoice| invoice.merchant_id == merchantid}
   end
 
-  def average_invoices_per_merchant_standard_deviation # => 3.29
+  def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
     sum = @merchant_repository.all.sum {|merchant| (number_of_invoices_by_merchant_id(merchant.id) - mean) ** 2}
     variance = sum / (@merchant_repository.all.count - 1).to_f
-    # binding.pry
     Math.sqrt(variance).round(2)
   end
 
@@ -131,7 +131,6 @@ class SalesAnalyst
       end
     end
     bot_merch_array
-    # require 'pry' ; binding.pry
   end
 
   # will likely want to break below into a TimeAnalyst class or something for organizing purposes
