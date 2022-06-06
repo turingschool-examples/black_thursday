@@ -171,7 +171,7 @@ it 'can return the days of the week that see the most sales' do
 		:invoices => "./data/invoices.csv"
 	})
 	sales_analyst = sales_engine.analyst
-	
+
 	expect (sales_analyst.top_days_by_invoice_count).to eq(["Sunday", "Saturday"])
 end
 
@@ -183,6 +183,16 @@ it 'can return the day of the week' do
 	})
 	sales_analyst = sales_engine.analyst
 	expect(sales_analyst.date_to_day("2009-02-07")).to eq("Saturday")
+end
+
+it 'can return the invoices by day of the week' do
+	sales_engine = SalesEngine.from_csv({
+		:items => "./data/items.csv",
+		:merchants => "./data/merchants.csv",
+		:invoices => "./data/invoices.csv"
+	})
+	sales_analyst = sales_engine.analyst
+	expect(sales_analyst.invoices_by_day).to be_a Hash
 end
 
 
