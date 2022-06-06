@@ -102,4 +102,9 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_paid_in_full?(203)).to be false
     expect(sales_analyst.invoice_paid_in_full?(204)).to be false
   end
+
+  it 'Sums the total invoice cost' do
+    expect(sales_analyst.invoice_total(1)).to eq(21067.77)
+    expect(sales_analyst.class).to eq BigDecimal
+  end
 end
