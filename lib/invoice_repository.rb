@@ -21,12 +21,11 @@ class InvoiceRepository
       end
   end
 
-
-
-
-
-
-
+  def find_by_id(id)
+    @all.find do |invoice|
+      invoice.id == id
+    end
+  end
 
 
 

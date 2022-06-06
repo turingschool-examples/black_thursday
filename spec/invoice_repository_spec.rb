@@ -1,5 +1,6 @@
 require './lib/invoice_repository'
 require './lib/invoice'
+require 'pry'
 
 
 RSpec.describe InvoiceRepository do
@@ -18,9 +19,9 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'can find by id' do
-    expect(@invoice_repository.find_by_id(263395237)).to eq(@invoice_repository.all.first)
-    expect(@invoice_repository.find_by_id(1233)).to eq(nil)
-    expect(@invoice_repository.find_by_id(263395237)).to be_a(Invoice)
+    expect(@invoice_repository.find_by_id(1)).to eq(@invoice_repository.all.first)
+    expect(@invoice_repository.find_by_id(4986)).to eq(nil)
+    expect(@invoice_repository.find_by_id(1)).to be_a(Invoice)
   end
 
 
