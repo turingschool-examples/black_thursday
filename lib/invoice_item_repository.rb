@@ -1,4 +1,4 @@
-require 'entry'
+require_relative 'entry'
 class InvoiceItemRepository
 
   attr_reader :id,
@@ -27,6 +27,10 @@ class InvoiceItemRepository
       end
   end
 
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+  
   def find_by_id(id)
     @all.find do |invoice_item|
       invoice_item.id == id
