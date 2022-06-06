@@ -4,6 +4,7 @@ require'BigDecimal'
 
 RSpec.describe ItemRepository do
   before :each do
+    @time = Time.now
     @item_repository = ItemRepository.new("./data/items.csv")
   end
 
@@ -23,7 +24,6 @@ RSpec.describe ItemRepository do
   end
 
   it "can find_by_name" do
-
     expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to eq(@item_repository.all.first)
     expect(@item_repository.find_by_name("XYZ")).to eq(nil)
     expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to be_a(Item)
@@ -41,7 +41,7 @@ RSpec.describe ItemRepository do
 
   it 'finds item by price' do
     test = @item_repository.find_all_by_price(1200.00)
-#binding.pry
+
     expect(test.first).to eq(test.first)
     expect(test).to be_a(Array)
     expect(test.count).to eq 41
@@ -61,7 +61,6 @@ RSpec.describe ItemRepository do
     expect(test).to be_a(Array)
     expect(test.count).to eq 6
     expect(test.first.id).to eq 263395617
-
   end
 
   it "creates attributes" do
@@ -69,12 +68,10 @@ RSpec.describe ItemRepository do
       name: "BryceGems",
       description: "Any colour gems",
       unit_price: BigDecimal(420.00, 5),
-      created_at: Time.now,
-      updated_at: Time.now,
+      created_at: @time,
+      updated_at: @time,
       merchant_id: 25
     }
-
-
 
     expect(@item_repository.create(attributes).last.id).to eq(263567475)
     expect(@item_repository.all.last).to be_a(Item)
@@ -82,13 +79,12 @@ RSpec.describe ItemRepository do
   end
 
   it "can update(id, attributes)" do
-    x = Time.now
     attributes = {
       name: "BryceGems",
       description: "Any colour gems",
       unit_price: BigDecimal(420.00, 5),
-      created_at: x,
-      updated_at: x,
+      created_at: @time,
+      updated_at: @time,
       merchant_id: 25
     }
 
@@ -96,15 +92,13 @@ RSpec.describe ItemRepository do
 
     expect(@item_repository.find_by_id(263567474).name).to eq("BryceGems")
     expect(@item_repository.find_by_name("Minty Green Knit Crochet Infinity Scarf")).to eq(nil)
-    expect(@item_repository.find_by_id(263567474).updated_at).to be > x
+    expect(@item_repository.find_by_id(263567474).updated_at).to be > @time
   end
 
   it "can delete a item instance" do
-
     expect(@item_repository.find_by_name("Minty Green Knit Crochet Infinity Scarf")).to be_a(Item)
     @item_repository.delete(263567474)
     expect(@item_repository.find_by_name("Minty Green Knit Crochet Infinity Scarf")).to eq(nil)
   end
-
 
 end
