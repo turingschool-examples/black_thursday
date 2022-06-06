@@ -69,4 +69,53 @@ class SalesAnalyst < SalesEngine
   all_merchants.map! {|merchant_id| average_item_price_for_merchant(merchant_id)}
   BigDecimal((all_merchants.sum / unique_merchants).round(2).to_s)
   end
+
+# Business intelligence starts here
+  def average_invoices_per_merchant
+    (@invoices.all.count / @merchants.all.count.to_f).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    invoice_count = @merchants.all.map do |merchant|
+      @invoices.find_all_by_merchant_id(merchant.id).length
+    end
+    standard_deviation(invoice_count, average_invoices_per_merchant)
+  end
+
+  def top_merchants_by_invoice_count
+    invoice_count = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    @merchants.all.find_all {|merchant| @invoices.find_all_by_merchant_id(merchant.id).length > invoice_count}
+  end
+
+  def bottom_merchants_by_invoice_count
+    invoice_count = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    @merchants.all.find_all {|merchant| @invoices.find_all_by_merchant_id(merchant.id).length < invoice_count} #we are very unsure about this line- For this method we need to find two standard deviations below the mean _ and we are not sure this accomplishes that
+  end
+
+  def date_formatter
+    date = Date.new(invoices.created_at)
+    date.strftime("%A")
+  end
+
+  def invoices_per_weekday
+    invoice_count = {'Monday' => 0,'Tuesday' => 0,'Wednesday' => 0,'Thursday' => 0,'Friday' => 0,'Saturday' => 0,'Sunday' => 0,}
+   @invoices.all.each do |invoice|
+      invoice_count[invoice.created_at.strftime("%A")] += 1
+    end
+    invoice_count
+  end
+
+  def average_invoices_per_weekday
+    (invoices_per_weekday.values.sum) / 7
+  end
+
+  def top_days_by_invoice_count
+    invoice_count = average_invoices_per_weekday + standard_deviation(invoices_per_weekday.values, average_invoices_per_weekday)
+    top_days = invoices_per_weekday.find_all{|weekday, count| count > invoice_count}.map{|days| days[0]}
+  end
+
+  def invoice_status(tracking)
+    total_invoices = @invoices.all.length
+    (@invoices.find_all_by_status(tracking).length * 100.0 / total_invoices).round(2)
+  end
 end
