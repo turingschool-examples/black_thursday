@@ -40,6 +40,12 @@ RSpec.describe InvoiceRepository do
     expect(test.first.id).to eq 1
   end
 
+  it "can find all by status" do
+    expect(@invoice_repository.find_by_id(1)).to eq(@invoice_repository.all.first)
+    expect(@invoice_repository.find_all_by_status("pending")).to be_a(Array)
+    expect(@invoice_repository.find_all_by_status("pending").first).to be_a(Invoice)
+ end
+
 
 
 
