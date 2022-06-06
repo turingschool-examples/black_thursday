@@ -75,15 +75,25 @@ class SalesAnalyst
     @item_repository.all.select {|item| item.unit_price_to_dollars > (average_item_price + (standard_dev * 2))}
   end
   # => first portion in case we want to split in half
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transaction_repository.find_all_by_invoice_id(invoice_id)
 
+    if transactions.length == 0
+      return false
+    end
+
+    results = transactions.map {|transaction| transaction.result}
+
+    !results.include?("failed")
+  end
 
   def average_invoices_per_merchant # => 10.49, method + test working
     (@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
   end
 
   def number_of_invoices_by_merchant_id(merchantid)
-     @invoice_repository.all.count {|invoice| invoice.merchant_id == merchantid}
-   end
+    @invoice_repository.all.count {|invoice| invoice.merchant_id == merchantid}
+  end
 
   def average_invoices_per_merchant_standard_deviation # => 3.29
     mean = average_invoices_per_merchant
