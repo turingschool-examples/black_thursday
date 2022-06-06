@@ -1,11 +1,11 @@
 require 'CSV'
 require_relative "merchant"
 require_relative '../modules/findable'
-require_relative '../modules/deletable'
+require_relative '../modules/changeable'
 
 class MerchantRepository
-include Findable
-include Deletable
+  include Findable
+  include Changeable
   attr_accessor :merchants,
               :all,
               :name

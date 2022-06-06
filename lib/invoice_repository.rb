@@ -4,11 +4,12 @@ require_relative "merchant"
 require_relative "invoice"
 require_relative "item"
 require_relative '../modules/findable'
-require_relative '../modules/deletable'
+require_relative '../modules/changeable'
+
 
 class InvoiceRepository
   include Findable
-  include Deletable
+  include Changeable
 
   attr_reader :all
 

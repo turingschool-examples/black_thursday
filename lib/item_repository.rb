@@ -2,11 +2,11 @@ require 'time'
 require 'CSV'
 require_relative 'item'
 require_relative '../modules/findable'
-require_relative '../modules/deletable'
+require_relative '../modules/changeable'
 
 class ItemRepository
   include Findable
-  include Deletable
+  include Changeable
   attr_reader :all
 
   def inspect
