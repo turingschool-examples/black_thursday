@@ -22,4 +22,10 @@ RSpec.describe(SalesEngine) do
     expect(sales_engine.merchant_repository.all).to be_instance_of Array
     expect(sales_engine.merchant_repository.all.length).to eq 475
   end
+
+  it "can create an instance of salesanalyst" do
+    sales_engine = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst).to be_a(SalesAnalyst)
+  end
 end

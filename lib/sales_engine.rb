@@ -2,6 +2,7 @@ require_relative("./item")
 require_relative("./item_repository")
 require_relative("./merchant")
 require_relative("./merchant_repository")
+require_relative("./sales_analyst.rb")
 
 class SalesEngine
   attr_reader :item_repository, :merchant_repository
@@ -13,5 +14,9 @@ class SalesEngine
 
   def self.from_csv(data)
     SalesEngine.new(data[:items], data[:merchants])
+  end
+
+  def analyst
+    SalesAnalyst.new(@item_repository, @merchant_repository)
   end
 end
