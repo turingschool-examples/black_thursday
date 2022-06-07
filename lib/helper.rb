@@ -1,3 +1,4 @@
+require 'simplecov'
 require 'csv'
 require 'bigdecimal'
 require 'date'

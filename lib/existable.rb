@@ -3,19 +3,12 @@ require 'helper'
 module Existable
 
   def evaluate
-    if self.class == MerchantRepository
-      return Merchant
-    elsif self.class == ItemRepository
-      return Item
-    elsif self.class == InvoiceRepository
-      return Invoice
-    elsif self.class == InvoiceItemRepository
-      return InvoiceItem
-    elsif self.class == CustomerRepository
-      return Customer
-    else self.class == TransactionRepository
-      return Transaction
-    end
+    return Merchant if self.class == MerchantRepository
+    return Item self.class == ItemRepository
+    return Invoice self.class == InvoiceRepository
+    return InvoiceItem self.class == InvoiceItemRepository
+    return Customer self.class == CustomerRepository
+    return Transaction self.class == TransactionRepository
   end
 
   def max_id
@@ -88,28 +81,46 @@ module Existable
 
   def update(id, attributes)
     to_be_updated = find_by_id(id)
-    require "pry"; binding.pry
     to_be_updated.updated_at = (Time.now).strftime("%Y-%m-%d %H:%M")
-    if evaluate == MerchantRepository
-      to_be_updated.name = attributes
-    elsif evaluate == ItemRepository
-      to_be_updated.name = attributes
-      to_be_updated.description = attributes[:description]
-      to_be_updated.unit_price = attributes[:unit_price]
-    elsif evaluate == InvoiceRepository
+    update_where(to_be_updated)
+  end
+
+  def update_where(to_be_updated)
+    return update_merchant(to_be_updated) if evaluate == Merchant
+    return update_item(to_be_updated) if evaluate == Item
+    return update_invoice(to_be_updated) if evaluate == Invoice
+    return update_invoice_item(to_be_updated) if evaluate == InvoiceItem
+    return update_transaction(to_be_updated) if evaluate == Transaction
+    return update_customer(to_be_updated) if evaluate == Customer
+  end
+
+  def update_merchant(to_be_updated)
+    to_be_updated.name = attributes
+  end
+
+  def update_item(to_be_updated)
+    to_be_updated.name = attributes
+    to_be_updated.description = attributes[:description]
+    to_be_updated.unit_price = attributes[:unit_price]
+  end
+
+  def update_invoice(to_be_updated)
       to_be_updated.status = attributes
-    elsif evaluate == InvoiceItemRepository
-      to_be_updated.quantity = attributes[:quantity]
-      to_be_updated.unit_price = attributes[:unit_price]
-    elsif evaluate == Transaction
-      to_be_updated.credit_card_number = attributes[:credit_card_number]
-      to_be_updated.credit_card_expiration_date = attributes[:credit_card_expiration_date]
-    elsif evaluate == Customer
-      to_be_updated.first_name = attributes[:first_name]
-      to_be_updated.last_name = attributes[:last_name]
-    else
-      return
-    end
+  end
+
+  def update_invoice_item(to_be_updated)
+    to_be_updated.quantity = attributes[:quantity]
+    to_be_updated.unit_price = attributes[:unit_price]
+  end
+
+  def update_transaction(to_be_updated)
+    to_be_updated.credit_card_number = attributes[:credit_card_number]
+    to_be_updated.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+  end
+
+  def update_customer(to_be_updated)
+    to_be_updated.first_name = attributes[:first_name]
+    to_be_updated.last_name = attributes[:last_name]
   end
 
   def delete(id)

@@ -1,7 +1,5 @@
-require 'simplecov'
-SimpleCov.start
 require './lib/helper'
-require 'pry'
+SimpleCov.start
 
 RSpec.describe SalesAnalyst do
   let!(:sales_engine) {SalesEngine.from_csv({
