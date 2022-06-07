@@ -1,6 +1,6 @@
-require './lib/item'
-require './lib/sales_engine'
-require './lib/item_repository'
+require_relative '../lib/item'
+require_relative '../lib/sales_engine'
+require_relative '../lib/item_repository'
 
 RSpec.describe ItemRepository do
   before :each do

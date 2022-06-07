@@ -1,7 +1,7 @@
 require 'RSpec'
-require './lib/sales_engine'
-require './lib/item_repository'
-require './lib/merchant_repository'
+require_relative '../lib/sales_engine'
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
 
 describe MerchantRepository do
   before :each do

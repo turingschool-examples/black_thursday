@@ -1,8 +1,9 @@
-require "./lib/sales_engine"
-require "./lib/item_repository"
-require "./lib/merchant_repository"
-require "./lib/invoice_repository"
-require "./lib/customer_repository"
+require_relative './lib/sales_engine'
+require_relative './lib/item_repository'
+require_relative './lib/merchant_repository'
+require_relative './lib/invoice_repository'
+require_relative './lib/invoice_item_repository'
+require_relative './lib/customer_repository'
 
 RSpec.describe SalesEngine do
   before :each do
@@ -11,6 +12,7 @@ RSpec.describe SalesEngine do
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
       :customers => "./data/customers.csv"
       }
     )

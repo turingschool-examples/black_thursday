@@ -1,4 +1,5 @@
 require 'csv'
+require 'time'
 
 class Transaction
   attr_accessor :id,
@@ -15,7 +16,7 @@ class Transaction
     @credit_card_number = data_hash[:credit_card_number]
     @credit_card_expiration_date = data_hash[:credit_card_expiration_date]
     @result = data_hash[:result]
-    @created_at = data_hash[:created_at]
-    @updated_at = data_hash[:updated_at]
+    @created_at = Time.parse(data_hash[:created_at])
+    @updated_at = Time.parse(data_hash[:updated_at])
   end
 end

@@ -1,5 +1,5 @@
 require 'RSpec'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 describe Merchant do
 

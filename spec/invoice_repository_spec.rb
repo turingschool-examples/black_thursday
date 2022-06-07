@@ -1,6 +1,6 @@
 require 'csv'
-require 'invoice'
-require 'invoice_repository'
+require_relative '../lib/invoice'
+require_relative '../lib/invoice_repository'
 
 RSpec.describe InvoiceRepository do
   before :each do

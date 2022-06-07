@@ -1,5 +1,10 @@
 require 'csv'
+<<<<<<< HEAD
 require './lib/customer'
+=======
+require 'pry'
+require_relative '../lib/customer'
+>>>>>>> master
 
 RSpec.describe Customer do
   before :each do
