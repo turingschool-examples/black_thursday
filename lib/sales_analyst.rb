@@ -195,4 +195,8 @@ class SalesAnalyst
     total.round(2)
   end
 
+  def top_revenue_earners(number_to_rank = 20)
+    @merchant_repository.all.max_by(number_to_rank) {|merchant| total_revenue_by_merchant(merchant.id)}
+  end #work in progress
+
 end

@@ -159,11 +159,17 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'returns sorted array of merchants by revenue' do
-    expect(sales_analyst.merchants_ranked_by_revenue.first.class).to eq(Merchant)
+    expected = sales_analyst.top_revenue_earners(10)
+    first = expected.first
+    last = expected.last
+    binding.pry
+    expect(expected.length).to eq(10)
 
-    expect(sales_analyst.merchants_ranked_by_revenue.first.id).to eq(12334634)
+    expect(first.class).to eq(Merchant)
+    expect(first.id).to eq(12334634)
 
-    expect(sales_analyst.merchants_ranked_by_revenue.last.id).to eq(12336175)
+    expect(last.class).to eq(Merchant)
+    expect(last.id).to eq(12335747)
   end
 
 end
