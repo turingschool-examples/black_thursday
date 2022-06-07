@@ -68,11 +68,11 @@ class SalesAnalyst < SalesEngine
   end
 
   def average_average_price_per_merchant
-    x = 0
+    counter = 0
     @merchant_repository.all.map do |merchant|
-      x += average_item_price_for_merchant(merchant.id)
+      counter += average_item_price_for_merchant(merchant.id)
     end
-    (x / @merchant_repository.all.count).floor(2)
+    (counter / @merchant_repository.all.count).floor(2)
   end
 
   def price_std_dev
