@@ -10,8 +10,8 @@ RSpec.describe ItemRepository do
   end
 
   it "can find items by their id" do
-    expect(@items.find_by_id("263395237").name).to eq("510+ RealPush Icon Set")
-    expect(@items.find_by_id("0")).to eq(nil)
+    expect(@items.find_by_id(263395237).name).to eq("510+ RealPush Icon Set")
+    expect(@items.find_by_id(0)).to eq(nil)
   end
 
   it "can find items by their name" do
@@ -36,7 +36,7 @@ RSpec.describe ItemRepository do
 
   it "can list items by merchant id" do
     expect(@items.find_all_by_merchant_id(0)).to eq([])
-    expect(@items.find_all_by_merchant_id("12334871").length).to eq(4)
+    expect(@items.find_all_by_merchant_id(12334871).length).to eq(4)
   end
 
   it "can make a new item" do
@@ -61,7 +61,7 @@ RSpec.describe ItemRepository do
       :updated_at  => '2016-01-11 11:30:35 UTC',
       :merchant_id => 2
     })
-    expect(@items.find_by_id("263567475").name).to eq("Pencil")
+    expect(@items.find_by_id(263567475).name).to eq("Pencil")
   end
 
   it "has a price" do
@@ -73,25 +73,25 @@ RSpec.describe ItemRepository do
       :updated_at  => '2016-01-11 11:30:35 UTC',
       :merchant_id => 2
     })
-    expect(@items.find_by_id("263567475").unit_price).to eq(10.99)
+    expect(@items.find_by_id(263567475).unit_price).to eq(10.99)
   end
 
   it "can update the item's attributes" do
-    @items.update("263395237", {
+    @items.update(263395237, {
       :name => "test name change",
       :description => "test update",
       :unit_price => 1299,
       :updated_at => 'dummy data'}
     )
-    expect(@items.find_by_id("263395237").name).to eq('test name change')
-    expect(@items.find_by_id("263395237").description).to eq('test update')
-    expect(@items.find_by_id("263395237").unit_price).to eq(1299)
-    expect(@items.find_by_id("263395237").updated_at).not_to eq '2007-06-04 21:35:10 UTC'
+    expect(@items.find_by_id(263395237).name).to eq('test name change')
+    expect(@items.find_by_id(263395237).description).to eq('test update')
+    expect(@items.find_by_id(263395237).unit_price).to eq(1299)
+    expect(@items.find_by_id(263395237).updated_at).not_to eq '2007-06-04 21:35:10 UTC'
   end
 
   it 'can delete items' do
-    expect(@items.find_by_id("263395237")).to be_a Item
-    @items.delete('263395237')
-    expect(@items.find_by_id("263395237")).to be nil
+    expect(@items.find_by_id(263395237)).to be_a Item
+    @items.delete(263395237)
+    expect(@items.find_by_id(263395237)).to be nil
   end
 end
