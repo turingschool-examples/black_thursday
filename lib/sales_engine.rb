@@ -2,14 +2,14 @@ class SalesEngine
   attr_reader :item_repository,
               :merchant_repository,
               :invoice_repository,
-              :invoice_items_repository,
+              :invoice_item_repository,
               :customer_repository
 
   def initialize(items_path, merchants_path, invoices_path, invoice_items_path, customers_path)
     @item_repository = ItemRepository.new(items_path)
     @merchant_repository = MerchantRepository.new(merchants_path)
     @invoice_repository = InvoiceRepository.new(invoices_path)
-    @invoice_items_repository = InvoiceItemRepository.new(invoice_items_path)
+    @invoice_item_repository = InvoiceItemRepository.new(invoice_items_path)
     @customer_repository = CustomerRepository.new(customers_path)
   end
 
@@ -18,6 +18,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@item_repository, @merchant_repository, @invoice_repository, @invoice_items_repository, @customer_repository)
+    SalesAnalyst.new(@item_repository, @merchant_repository, @invoice_repository, @invoice_item_repository, @customer_repository)
   end
 end
