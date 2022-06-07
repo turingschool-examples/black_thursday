@@ -86,4 +86,8 @@ RSpec.describe SalesAnalyst do
      expect(@sales_analyst.bottom_merchants_by_invoice_count).to be_a Array
      expect(@sales_analyst.bottom_merchants_by_invoice_count.first).to be_a Merchant
    end
+   it "can return a hash with invoices by day of the week, key is number, Sunday is zero" do
+     expect(@sales_analyst.invoices_by_weekday).to be_a Hash
+     expect(@sales_analyst.invoices_by_weekday.length).to eq(7)
+   end
 end
