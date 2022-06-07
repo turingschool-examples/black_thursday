@@ -73,23 +73,29 @@ RSpec.describe TransactionRepository do
     expect(@transaction.all.last.invoice_id).to eq(666)
   end
   #
-  # it 'can only update the status on the invoice ' do
+  it 'can update the credit_card_number, credit_card_expiration_date, and result on the transaction' do
+
+    attributes = {result: 'failed'}
+   ## NOTE: this needs to be included in attributes above:
+   ##credit_card_number: 8888888888888888, credit_card_expiration_date: 1110
+    expect(@transaction.all.first.result).to eq('success')
+    # expect(@transaction.all.first.credit_card_number).to eq(4068631943231473)
+    # expect(@transaction.all.first.credit_card_expiration_date).to eq(0217)
+    @transaction.update(1, attributes)
+
+    expect(@transaction.all.first.result).to eq('failed')
+    # expect(@transaction.all.first.credit_card_number).to eq(8888888888888888)
+    # expect(@transaction.all.first.credit_card_expiration_date).to eq(1110)
+  end
+
   #
-  #   attributes = {status: 'shipped'}
-  #
-  #   expect(@invoice.all.first.status).to eq('pending')
-  #   @invoice.update(1, attributes)
-  #
-  #   expect(@invoice.all.first.status).to eq('shipped')
-  # end
-  #
-  # it 'can delete an invoice' do
-  #
-  #   expect(@invoice.all.count).to eq(4985)
-  #
-  #   @invoice.delete(1)
-  #
-  #   expect(@invoice.find_by_id(1)).to be_nil
-  #   expect(@invoice.all.count).to eq(4984)
-  # end
+  xit 'can delete a transaction' do
+
+    expect(@transaction.all.count).to eq(4985)
+
+    @transaction.delete(1)
+
+    expect(@transaction.find_by_id(1)).to be_nil
+    expect(@transction.all.count).to eq(4984)
+  end
 end

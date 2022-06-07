@@ -45,4 +45,11 @@ class TransactionRepository
     new_id = attributes[:id] = @all.last.id + 1
     @all << Transaction.new({:id => new_id, :invoice_id => attributes[:invoice_id], :credit_card_number => attributes[:credit_card_number], :credit_card_expiration_date => attributes[:credit_card_expiration_date], :result => attributes[:result], :created_at => attributes[:created_at], :updated_at => attributes[:updated_at]})
   end
+
+  def update(id, attributes)
+    transaction = find_by_id(id)
+    if attributes[:result] == "success".downcase  || "failed".downcase
+    transaction.result = attributes[:result]
+    end
+  end
 end
