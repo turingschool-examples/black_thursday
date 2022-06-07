@@ -1,6 +1,6 @@
 require 'bigdecimal'
-require 'pry'
 require './lib/item_repository'
+
 class SalesAnalyst
   attr_reader :item_repository,
               :merchant_repository,
@@ -54,6 +54,7 @@ class SalesAnalyst
     end
     merchant_averages.sum(0.0) / merchant_averages.count
   end
+  
   def average_price_per_merchant_standard_deviation
     mean = average_average_price_per_merchant
     sum = price_averages_per_merchant.values.sum(0.0) {|price| (price - mean) ** 2}
@@ -68,7 +69,7 @@ class SalesAnalyst
     end
     merchant_price_averages
   end
-  
+
   def golden_items
     avg_avg_price = average_average_price_per_merchant
     std_dev = average_price_per_merchant_standard_deviation

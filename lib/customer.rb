@@ -2,10 +2,10 @@ require 'csv'
 
 class Customer
   attr_accessor :id,
-              :first_name,
-              :last_name,
-              :created_at,
-              :updated_at
+                :first_name,
+                :last_name,
+                :created_at,
+                :updated_at
 
   def initialize(data_hash)
     @id = data_hash[:id]
@@ -14,9 +14,4 @@ class Customer
     @created_at = data_hash[:created_at]
     @updated_at = data_hash[:updated_at]
   end
-
-
-
-
-
 end

@@ -1,4 +1,5 @@
 require 'csv'
+
 class Invoice
   attr_reader :id,
               :customer_id,

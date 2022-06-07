@@ -3,6 +3,7 @@ require_relative 'invoice'
 
 class InvoiceRepository
   attr_reader :file_path
+  
   attr_accessor :all
 
   def initialize(file_path)

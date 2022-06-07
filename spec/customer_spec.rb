@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require './lib/customer'
 
 RSpec.describe Customer do

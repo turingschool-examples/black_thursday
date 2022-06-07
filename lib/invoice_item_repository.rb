@@ -22,7 +22,6 @@ class InvoiceItemRepository
  end
 
  def create(attributes)
-   #using sort_by in case they are ever out of order
    id = @all.sort_by { |invoice_item| invoice_item.id }.last.id
    attributes[:id] = id + 1
    @all << InvoiceItem.new(attributes)

@@ -1,4 +1,3 @@
-require 'pry'
 require 'CSV'
 require_relative 'item'
 

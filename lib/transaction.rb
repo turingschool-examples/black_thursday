@@ -18,5 +18,4 @@ class Transaction
     @created_at = data_hash[:created_at]
     @updated_at = data_hash[:updated_at]
   end
-
 end
