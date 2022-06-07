@@ -1,9 +1,9 @@
 require 'csv'
 require_relative 'merchant'
-require_relative 'invoice_method_module'
+require_relative 'methodable'
 
 class MerchantRepository
-  include InvoiceMethod
+  include Methodable
   attr_reader :all
 
   def initialize(filepath)
