@@ -50,7 +50,7 @@ RSpec.describe InvoiceRepository do
 
   describe '#find_all_by_merchant_id' do
     it 'returns an empty array if no invoices have matching merchant id' do
-      expect(@collection.find_all_by_merchant_id('2813308004')).to eq []
+      expect(@collection.find_all_by_merchant_id(2813308004)).to eq []
     end
 
     it 'returns an array if invoices have matching merchant id' do
