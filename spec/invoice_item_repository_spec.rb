@@ -80,6 +80,13 @@ RSpec.describe InvoiceItemRepository do
 
   end
 
+    it 'can delete the InvoiceItem instance with the corresponding id' do
+      invoice_items = './data/invoice_items.csv'
+      ii_repo = InvoiceItemRepository.new(invoice_items)
 
+      expect(ii_repo.find_by_id(10)).to be_a(InvoiceItem)
+      item_repo.delete(10)
+      expect(ii_repo.find_by_id(10)).to eq(nil)
+    end
 
 end
