@@ -1,7 +1,7 @@
 require 'csv'
 require 'BigDecimal'
-require 'invoice_item'
-require 'invoice_item_repository'
+require_relative '../lib/invoice_item'
+require_relative '../lib/invoice_item_repository'
 
 RSpec.describe InvoiceItemRepository do
   before :each do

@@ -1,5 +1,5 @@
 require 'BigDecimal'
-require './lib/item'
+require_relative '../lib/item'
 
 describe Item do
   before :each do

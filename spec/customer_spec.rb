@@ -1,6 +1,6 @@
 require 'csv'
 require 'pry'
-require './lib/customer'
+require_relative '../lib/customer'
 
 RSpec.describe Customer do
   before :each do

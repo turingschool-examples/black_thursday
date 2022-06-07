@@ -1,5 +1,5 @@
 require 'csv'
-require_relative 'customer'
+require_relative '../lib/customer'
 
 class CustomerRepository
   attr_reader :file_path

@@ -1,5 +1,5 @@
 require 'csv'
-require_relative 'transaction'
+require_relative '../lib/transaction'
 
 class TransactionRepository
   attr_reader :file_path

@@ -1,5 +1,5 @@
 require 'BigDecimal'
-require './lib/invoice_item'
+require_relative '../lib/invoice_item'
 
 RSpec.describe InvoiceItem do
   before :each do
