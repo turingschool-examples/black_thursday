@@ -93,4 +93,10 @@ class SalesAnalyst < SalesEngine
       item.unit_price > (aappm + (psd * 2))
     end
   end
+
+  def average_invoices_per_merchant
+  ((@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2))
+  end
+
+
 end
