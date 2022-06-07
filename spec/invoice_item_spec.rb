@@ -5,7 +5,7 @@ RSpec.describe InvoiceItem do
 
   it 'exists' do
     ii = InvoiceItem.new({
-      :id => 6,
+      :id => 263519844,
       :item_id => 7,
       :invoice_id => 8,
       :quantity => 1,
@@ -128,4 +128,4 @@ RSpec.describe InvoiceItem do
 
     expect(ii.unit_price_to_dollars).to eq(10.99)
   end
-end 
+end
