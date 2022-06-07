@@ -71,4 +71,9 @@ describe SalesAnalyst do
   # it 'can return the standard deviation of average invoices per merchant' do
   #   expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq 3.29
   # end
+
+  it "can tell you if an invoice has been paid" do
+    expect(@analyst.invoice_paid_in_full?).to eq(False)
+    expect(@analyst.invoice_paid_in_full?).to eq(True)
+  end
 end
