@@ -27,6 +27,8 @@ class SalesAnalyst < SalesEngine
 
 
   def invoice_total(invoice_id)
+    # invoice = @invoice_item_repository.find_all_by_invoice_id(invoice_id)
+    # total = invoice.first.quantity * invoice.first.unit_price
     x = @invoice_item_repository.all
     y = x.find_all do |invoice_item|
           invoice_item.invoice_id == invoice_id
@@ -41,7 +43,7 @@ class SalesAnalyst < SalesEngine
     #looking at spec harness, they want the sum for the test to be 21067.77.
     #Looking at the unit price in the invoice items csv,
     #there are no decimals. So I am confused.... :(
-  end
+
   def average_item_price_for_merchant(merchant_id)
     x = @item_repository.all.find_all { |item| item.merchant_id == merchant_id }
     y = x.map do |item|
@@ -85,7 +87,7 @@ class SalesAnalyst < SalesEngine
   end
 
   def golden_items
-    aappm = average_average_price_per_merchant 
+    aappm = average_average_price_per_merchant
     psd = price_std_dev
     @item_repository.all.select do |item|
       item.unit_price > (aappm + (psd * 2))
