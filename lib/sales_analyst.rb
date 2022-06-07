@@ -101,5 +101,14 @@ class SalesAnalyst
     end
   end
 
-  def 
+  def invoice_total(invoice_id)
+    total = 0
+    @invoice_items.all.each do |item|
+      if item.invoice_id == invoice_id
+        # require 'pry' ; binding.pry
+        total += (item.unit_price_to_dollars * item.quantity.to_i)
+      end
+    end
+    total
+  end
 end

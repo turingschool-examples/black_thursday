@@ -76,4 +76,8 @@ describe SalesAnalyst do
     expect(@analyst.invoice_paid_in_full?(3560)).to eq(false)
     expect(@analyst.invoice_paid_in_full?(2179)).to eq(true)
   end
+
+  it "can tell you the total dollar amount of an invoice" do
+    expect(@analyst.invoice_total(4)).to eq(1964.05)
+  end
 end
