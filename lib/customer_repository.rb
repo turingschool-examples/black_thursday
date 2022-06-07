@@ -21,11 +21,11 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(name)
-    @all.find_all {|first_names| first_names.first_name.downcase == name.downcase}
+    @all.find_all {|first_names| first_names.first_name.downcase.include?(name.downcase)}
   end
 
   def find_all_by_last_name(name)
-    @all.find_all {|last_names| last_names.last_name.downcase == name.downcase}
+    @all.find_all {|last_names| last_names.last_name.downcase.include?(name.downcase)}
   end
 
 
@@ -40,11 +40,14 @@ class CustomerRepository
       exit
     else
       customer.updated_at = Time.now
-      attributes[:first_name] == nil ? customer.last_name = attributes[:last_name] : customer.first_name = attributes[:first_name]
-      attributes[:last_name] == nil ? customer.first_name = attributes[:first_name] : customer.last_name = attributes[:last_name]
+      attributes.each do |key, value|
+        if key.to_sym == :first_name
+          customer.first_name = attributes[:first_name]
+        elsif key.to_sym == :last_name
+          customer.last_name = attributes[:last_name]
+        end
+      end
     end
   end
 
 end
-
-#require 'pry'; binding.pry
