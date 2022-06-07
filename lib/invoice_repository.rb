@@ -39,15 +39,11 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_merchant_id(id)
-    matching_id = []
-    @all.find_all do |merchant|
-      if merchant.merchant_id == id
-        matching_id << merchant
-        return matching_id
-      end
-    end
-  end
+  # def find_all_by_merchant_id(merchant_id)
+  #   @all.find_all do |item|
+  #     item.merchant_id == merchant_id
+  #   end
+  # end
 
   def find_all_by_status(status)
     @all.find_all do |invoice|
@@ -57,7 +53,14 @@ class InvoiceRepository
 
   def create(attributes)
     new_id = attributes[:id] = @all.last.id + 1
-    @all << Invoice.new({:id => new_id, :customer_id => attributes[:customer_id].to_i, :merchant_id => attributes[:merchant_id].to_i, :status => attributes[:status].to_s, :created_at => attributes[:created_at], :updated_at => attributes[:updated_at]})
+    @all << Invoice.new({
+      :id => new_id,
+      :customer_id => attributes[:customer_id].to_i,
+      :merchant_id => attributes[:merchant_id].to_i,
+      :status => attributes[:status].to_s,
+      :created_at => attributes[:created_at],
+      :updated_at => attributes[:updated_at]
+      })
   end
 
   def update(id, attributes)
