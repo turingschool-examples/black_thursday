@@ -34,4 +34,15 @@ class TransactionRepository
       end
     end
   end
+
+  def find_all_by_result(result)
+    @all.find_all do |transaction|
+      transaction.result == result
+    end
+  end
+
+  def create(attributes)
+    new_id = attributes[:id] = @all.last.id + 1
+    @all << Transaction.new({:id => new_id, :invoice_id => attributes[:invoice_id], :credit_card_number => attributes[:credit_card_number], :credit_card_expiration_date => attributes[:credit_card_expiration_date], :result => attributes[:result], :created_at => attributes[:created_at], :updated_at => attributes[:updated_at]})
+  end
 end
