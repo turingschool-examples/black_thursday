@@ -52,5 +52,11 @@ class SalesAnalyst
     average_price = (total_price / items_to_avg.count)
   end
 
-
+  def average_average_price_per_merchant
+    average_price_array = []
+    @merchant_path.all.each do |merchant|
+      average_price_array << average_item_price_for_merchant(merchant.id)
+    end
+    average_average_price = (average_price_array.sum / average_price_array.count)
+  end
 end
