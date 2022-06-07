@@ -13,5 +13,4 @@ class Customer
     @created_at = customer[:created_at]
     @updated_at = customer[:updated_at]
   end
-
 end

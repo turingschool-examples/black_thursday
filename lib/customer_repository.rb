@@ -69,4 +69,8 @@ class CustomerRepository
       @all.delete(customer)
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

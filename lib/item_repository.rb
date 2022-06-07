@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/item'
+require 'item'
 require 'pry'
 require 'BigDecimal'
 
@@ -96,4 +96,9 @@ class ItemRepository
       @all.delete(item)
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 end
