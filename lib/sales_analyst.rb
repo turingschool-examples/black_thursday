@@ -49,11 +49,6 @@ class SalesAnalyst
     items_to_avg.each do |item|
       total_price += item.unit_price
     end
-    # For test:
-    # merchant_id = 12334105
-    # expect(@items_path.find_all_by_merchant_id('12334105').count).to eq 3
-    # expect(@items_path.average_items_per_merchant('12334105')).to be_a BigDecimal
-    # expect(@items_path.average_items_per_merchant('12334105')).to eq 0.4997e2
     average_price = (total_price / items_to_avg.count)
   end
 
