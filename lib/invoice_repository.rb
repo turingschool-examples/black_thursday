@@ -10,9 +10,9 @@ class InvoiceRepository
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Invoice.new({
-        :id => row[:id],
-        :customer_id => row[:customer_id],
-        :merchant_id => row[:merchant_id],
+        :id => row[:id].to_i,
+        :customer_id => row[:customer_id].to_i,
+        :merchant_id => row[:merchant_id].to_i,
         :status => row[:status],
         :created_at => row[:created_at],
         :updated_at => row[:updated_at]
@@ -52,9 +52,9 @@ class InvoiceRepository
       end
     end
     @all << Invoice.new( {
-      :id => new_id.to_s,
-      :customer_id => attributes[:customer_id],
-      :merchant_id => attributes[:merchant_id],
+      :id => new_id.to_i,
+      :customer_id => attributes[:customer_id].to_i,
+      :merchant_id => attributes[:merchant_id].to_i,
       :status => attributes[:status],
       :created_at => attributes[:created_at],
       :updated_at => attributes[:updated_at]
