@@ -1,6 +1,7 @@
 require './lib/sales_analyst'
 require './lib/sales_engine'
 require 'pry'
+require 'BigDecimal'
 
 RSpec.describe SalesAnalyst do
   it "exists" do
@@ -30,7 +31,7 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
 
     expect(sales_analyst.average_item_price_for_merchant(12334105)).to be_a Float
-    expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq 1665.67
+    expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq 16.66
   end
 
   it "calculates standard dev" do
@@ -54,7 +55,14 @@ RSpec.describe SalesAnalyst do
     sales_engine = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_average_price_per_merchant).to be_a Float
-    expect(sales_analyst.average_average_price_per_merchant).to eq(35029.47)
+    expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
+  end
+
+  it "can calculate standard_deviation of item_price" do
+    sales_engine = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.price_std_dev).to eq(290099.0)
   end
 
   it "can return items 2 standard deviations above average" do
@@ -62,7 +70,7 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.golden_items).to be_a Array
     expect(sales_analyst.golden_items.first.class).to eq Item
-    expect(sales_analyst.golden_items.length).to eq 114
+    expect(sales_analyst.golden_items.length).to eq 5
   end
 
 end
