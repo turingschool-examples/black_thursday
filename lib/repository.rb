@@ -1,6 +1,6 @@
-require 'helper'
-require 'existable'
-require 'findable'
+require_relative 'helper'
+require_relative 'existable'
+require_relative 'findable'
 
 class Repository
   include Existable
@@ -17,5 +17,9 @@ class Repository
     repo = Array.new
     CSV.foreach(file_path, headers: true, header_converters: :symbol){|row| repo.push(thing.new(row))}
     repo
+  end
+
+  def inspect #for SpecHarness
+  "#<#{self.class} #{@merchants.size} rows>"
   end
 end
