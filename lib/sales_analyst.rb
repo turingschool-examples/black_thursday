@@ -176,6 +176,26 @@ class SalesAnalyst
 		return z_score.round(2)
 	end
 
-  
-  end
+	def invoice_status(status)
+		status_percentage = ((invoice_by_status_count[(status)].to_f / invoice_by_status_count.values.sum.to_f)*100)
+		return status_percentage.round(2)
+	end
+
+	def invoice_by_status
+		invoices_per_status = Hash.new
+		invoices.all.each do |invoice|
+			invoices_per_status[invoice.id] = invoice.status
+		end
+		return invoices_per_status
+	end
+
+	def invoice_by_status_count
+		status_count = Hash.new(0)
+		invoice_by_status.each do |id, status|
+			status_count[status.to_sym] += 1
+		end
+		return status_count
+	end
+
+
 end
