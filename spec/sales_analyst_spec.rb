@@ -28,6 +28,11 @@ describe SalesAnalyst do
   end
 
   it "can give us all the merchants with a high item count" do
+    array = @analyst.merchants_with_high_item_count
+    expect(array).to be_a Array
+    if array.count > 0
+      expect(array[0]).to be_a Merchant
+    end
   end
 
   it "can give us the average item price for a merchant" do
