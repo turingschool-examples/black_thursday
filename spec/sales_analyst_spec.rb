@@ -96,7 +96,17 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.total_revenue_by_date("2009-02-07")).to be_a(BigDecimal)
   end
 
+  it 'has merchants with only one item' do
+    expect(@sales_analyst.merchants_with_only_one_item).to be_a(Array)
+    expect(@sales_analyst.merchants_with_only_one_item.length).to eq(243)
+    expect(@sales_analyst.merchants_with_only_one_item.first).to be_a(Merchant)
+  end
+
+  it 'has merchants with only one item registered in month' do
+    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("June").length).to eq(18)   expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("April").first).to be_a(Merchant)
+  end
+
   it 'finds the total revenue for a single merchant' do
-    expect(sales_analyst.revenue_by_merchant(12334194)).to be_a(BigDecimal)
+    expect(@sales_analyst.revenue_by_merchant(12334194)).to be_a(BigDecimal)
   end
 end
