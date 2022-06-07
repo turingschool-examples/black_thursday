@@ -55,7 +55,9 @@ class ItemRepository
                       :merchant_id => data_hash[:merchant_id]
                       })
   end
-
+  def inspect
+      "#<#{self.class} #{@all.size} rows>"
+  end
   def update(id, attributes)
     find_by_id(id).name = attributes[:name]
     find_by_id(id).description = attributes[:description]
