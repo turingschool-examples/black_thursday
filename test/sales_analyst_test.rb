@@ -1,6 +1,7 @@
 require 'simplecov'
 SimpleCov.start
 require './lib/helper'
+require 'pry'
 
 RSpec.describe SalesAnalyst do
   let!(:sales_engine) {SalesEngine.from_csv({
@@ -141,8 +142,10 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
   end
 
-  it 'returns all transactions for a given date' do
-    expect(sales_analyst.transactions_on_date("2009-02-07")).to be_instance_of(Array)
+  it 'returns array of transactions for a given date' do
+    expect(sales_analyst.invoices_by_date("2016-01-06")).to be_instance_of(Array)
+
+    expect(sales_analyst.invoices_by_date("2016-01-06").length).to eq(3)
   end
 
   xit 'returns total revenue for a given date' do #in progress

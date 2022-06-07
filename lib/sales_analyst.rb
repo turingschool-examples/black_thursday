@@ -2,6 +2,9 @@ require 'helper'
 require 'pry'
 
 class SalesAnalyst
+  include Findable
+  include Existable
+
   attr_accessor :item_repository,
                 :merchant_repository,
                 :invoice_repository,
@@ -171,4 +174,9 @@ class SalesAnalyst
     numerator_count = @invoice_repository.find_all_by_status(status).count
     ((numerator_count.to_f / @invoice_repository.all.count.to_f) * 100).round(2)
   end
+
+  def invoices_by_date(date)
+    @invoice_repository.find_all_by_transaction_date(date)
+  end
+
 end
