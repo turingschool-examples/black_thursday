@@ -50,6 +50,7 @@ class TransactionRepository
   def update(id, attributes)
     transaction = find_by_id(id)
     if attributes[:result] == "success".downcase  || "failed".downcase
+      # require "pry"; binding.pry
     transaction.result = attributes[:result]
     end
   end
