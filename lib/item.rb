@@ -1,4 +1,3 @@
-
 class Item
   attr_reader :id,
               :created_at,
