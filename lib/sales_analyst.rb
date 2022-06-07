@@ -58,4 +58,26 @@ class SalesAnalyst
     end
     average_average_price = (average_price_array.sum / average_price_array.count)
   end
+
+  def average_price_per_item
+    all_prices = []
+    @items_path.all.each do |item|
+      all_prices << item.unit_price
+    end
+    average_price = all_prices.sum / all_prices.count
+  end
+
+  def average_price_per_item_standard_deviation
+    average_price = average_price_per_item
+    squared_differences = 0.0
+    @items_path.all.each do |item|
+      squared_differences += (item.unit_price - average_price)**2
+    end
+    total_items = @items_path.all.count
+    stdev = (squared_differences / (total_items - 1))**0.5
+  end
+
+  # def golden_items
+  #
+  # end
 end
