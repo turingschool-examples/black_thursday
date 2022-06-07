@@ -105,6 +105,6 @@ RSpec.describe SalesAnalyst do
 
   it 'Sums the total invoice cost' do
     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
-    expect(sales_analyst.class).to eq BigDecimal
+    expect(sales_analyst.invoice_total(1).class).to eq BigDecimal
   end
 end
