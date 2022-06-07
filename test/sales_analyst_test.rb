@@ -158,7 +158,12 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.total_revenue_by_merchant(12334634)).to eq(192528.87)
   end
 
-  xit 'returns hash of merchant IDs and total revenue' do
+  it 'returns sorted array of merchants by revenue' do
+    expect(sales_analyst.merchants_ranked_by_revenue.first.class).to eq(Merchant)
 
+    expect(sales_analyst.merchants_ranked_by_revenue.first.id).to eq(12334634)
+
+    expect(sales_analyst.merchants_ranked_by_revenue.last.id).to eq(12336175)
   end
+
 end
