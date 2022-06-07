@@ -2,15 +2,6 @@ require 'helper'
 
 module Existable
 
-  def evaluate
-    return Merchant if self.class == MerchantRepository
-    return Item self.class == ItemRepository
-    return Invoice self.class == InvoiceRepository
-    return InvoiceItem self.class == InvoiceItemRepository
-    return Customer self.class == CustomerRepository
-    return Transaction self.class == TransactionRepository
-  end
-
   def max_id
     (@all.max_by {|thing| thing.id}).id
   end
@@ -79,46 +70,55 @@ module Existable
     }))
   end
 
+  def evaluate
+    return Merchant if self.class == MerchantRepository
+    return Item self.class == ItemRepository
+    return Invoice self.class == InvoiceRepository
+    return InvoiceItem self.class == InvoiceItemRepository
+    return Customer self.class == CustomerRepository
+    return Transaction self.class == TransactionRepository
+  end
+
   def update(id, attributes)
     to_be_updated = find_by_id(id)
     to_be_updated.updated_at = (Time.now).strftime("%Y-%m-%d %H:%M")
-    update_where(to_be_updated)
+    update_what(to_be_updated, attributes)
   end
 
-  def update_where(to_be_updated)
-    return update_merchant(to_be_updated) if evaluate == Merchant
-    return update_item(to_be_updated) if evaluate == Item
-    return update_invoice(to_be_updated) if evaluate == Invoice
-    return update_invoice_item(to_be_updated) if evaluate == InvoiceItem
-    return update_transaction(to_be_updated) if evaluate == Transaction
-    return update_customer(to_be_updated) if evaluate == Customer
+  def update_what(to_be_updated, attributes)
+    return update_merchant(to_be_updated, attributes) if evaluate == Merchant
+    return update_item(to_be_updated, attributes) if evaluate == Item
+    return update_invoice(to_be_updated, attributes) if evaluate == Invoice
+    return update_invoice_item(to_be_updated, attributes) if evaluate == InvoiceItem
+    return update_transaction(to_be_updated, attributes) if evaluate == Transaction
+    return update_customer(to_be_updated, attributes) if evaluate == Customer
   end
 
-  def update_merchant(to_be_updated)
+  def update_merchant(to_be_updated, attributes)
     to_be_updated.name = attributes
   end
 
-  def update_item(to_be_updated)
+  def update_item(to_be_updated, attributes)
     to_be_updated.name = attributes
     to_be_updated.description = attributes[:description]
     to_be_updated.unit_price = attributes[:unit_price]
   end
 
-  def update_invoice(to_be_updated)
+  def update_invoice(to_be_updated, attributes)
       to_be_updated.status = attributes
   end
 
-  def update_invoice_item(to_be_updated)
+  def update_invoice_item(to_be_updated, attributes)
     to_be_updated.quantity = attributes[:quantity]
     to_be_updated.unit_price = attributes[:unit_price]
   end
 
-  def update_transaction(to_be_updated)
+  def update_transaction(to_be_updated, attributes)
     to_be_updated.credit_card_number = attributes[:credit_card_number]
     to_be_updated.credit_card_expiration_date = attributes[:credit_card_expiration_date]
   end
 
-  def update_customer(to_be_updated)
+  def update_customer(to_be_updated, attributes)
     to_be_updated.first_name = attributes[:first_name]
     to_be_updated.last_name = attributes[:last_name]
   end
