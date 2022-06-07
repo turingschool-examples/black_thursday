@@ -3,6 +3,7 @@ class SalesAnalyst
   attr_reader :item_repository, :merchant_repository, :invoice_repository, :invoice_item_repository
 
   def initialize(item_repository, merchant_repository, invoice_repository, invoice_item_repository, transaction_repository, customer_repository)
+    #delete merchant_repository from this and sales engine if we end up not using
     @item_repository = item_repository
     @merchant_repository = merchant_repository
     @invoice_repository = invoice_repository
@@ -148,4 +149,41 @@ class SalesAnalyst
     invoice = @invoice_item_repository.find_all_by_invoice_id(invoice_id)
     total = invoice.first.quantity * invoice.first.unit_price
   end
+
+  def total_revenue_by_date(date)
+    invoices_on_date = @invoice_repository.all.find_all {|invoice| invoice.created_at.include?(date)}
+    invoices_on_date = invoices_on_date.map {|invoice| invoice.id}
+    transactions_on_date = invoices_on_date.flat_map {|invoice_id| @transaction_repository.find_all_by_invoice_id(invoice_id)}.flatten
+    successful = transactions_on_date.select {|transaction| transaction.result == "success"}
+    invoice_ids = successful.map {|transaction| transaction.invoice_id}.uniq
+    invoices = invoice_ids.flat_map {|id| @invoice_item_repository.find_all_by_invoice_id(id)}
+    total_rev = invoices.map {|item| item.unit_price_to_dollars * item.quantity}
+    BigDecimal(total_rev.sum, 4)
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = @invoice_repository.find_all_by_merchant_id(merchant_id)
+    ids = invoices.map {|invoice| invoice.id}
+    transactions = ids.flat_map {|id| @transaction_repository.find_all_by_invoice_id(id)}
+    successful = transactions.select {|transaction| transaction.result == "success"}
+    invoice_ids = successful.map {|transaction| transaction.invoice_id}.uniq
+    invoices = invoice_ids.flat_map {|id| @invoice_item_repository.find_all_by_invoice_id(id)}
+    total_rev = invoices.map {|item| item.unit_price_to_dollars * item.quantity}
+    BigDecimal(total_rev.sum, 4)
+  end
+
+  def merchants_with_only_one_item
+    merchant_items = @item_repository.all.group_by { |item| item.merchant_id }
+    one_item_merchants = merchant_items.find_all do |merchant, items|
+      items.count == 1
+    end
+    one_item_merchants.flat_map {|merchant, item| @merchant_repository.find_by_id(merchant) }
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      Date.parse(merchant.created_at).strftime('%B') == month
+    end
+  end
+
 end

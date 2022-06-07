@@ -45,7 +45,7 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_price_plus_two_standard_deviations).to be_a(BigDecimal)
   end
 
-  xit 'returns the golden items' do
+  it 'returns the golden items' do
     expect(@sales_analyst.golden_items).to include(Item)
   end
 
@@ -85,10 +85,29 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'returns if invoice is paid in full' do
-    expect(@sales_analyst.invoice_paid_in_full?(1752)).to eq(true)  
+    expect(@sales_analyst.invoice_paid_in_full?(1752)).to eq(true)
   end
 
   it 'returns the total dollar amount of the invoice' do
     expect(@sales_analyst.invoice_total(4898)).to be_a(BigDecimal)
+  end
+
+  it 'finds the total revenue for a given date' do
+    expect(@sales_analyst.total_revenue_by_date("2009-02-07")).to be_a(BigDecimal)
+  end
+
+  it 'has merchants with only one item' do
+    expect(@sales_analyst.merchants_with_only_one_item).to be_a(Array)
+    expect(@sales_analyst.merchants_with_only_one_item.length).to eq(243)
+    expect(@sales_analyst.merchants_with_only_one_item.first).to be_a(Merchant)
+  end
+
+  it 'has merchants with only one item registered in month' do
+    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("June").length).to eq(18)
+    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("April").first).to be_a(Merchant)
+  end
+
+  it 'finds the total revenue for a single merchant' do
+    expect(@sales_analyst.revenue_by_merchant(12334194)).to be_a(BigDecimal)
   end
 end
