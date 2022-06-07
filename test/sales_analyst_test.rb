@@ -148,7 +148,17 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoices_by_date("2016-01-06").length).to eq(3)
   end
 
-  it 'returns total revenue for a given date' do #in progress
+  it 'returns total revenue for a given date' do
     expect(sales_analyst.total_revenue_by_date("2009-02-07")).to eq(21067.77)
+  end
+
+  it 'returns total revenue for a given merchant' do
+    expect(sales_analyst.total_revenue_by_merchant(12336175)).to eq(0)
+
+    expect(sales_analyst.total_revenue_by_merchant(12334634)).to eq(192528.87)
+  end
+
+  xit 'returns hash of merchant IDs and total revenue' do
+
   end
 end
