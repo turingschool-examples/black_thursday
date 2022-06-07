@@ -6,7 +6,7 @@ class Item
     @id = info[:id]
     @name = info[:name]
     @description = info[:description]
-    @unit_price = BigDecimal(info[:unit_price ])/100
+    @unit_price = BigDecimal(info[:unit_price])/100
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
     @merchant_id = info[:merchant_id]
