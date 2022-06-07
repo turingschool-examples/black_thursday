@@ -45,7 +45,7 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq 16.66
   end
 
-  it "calculates standard dev" do
+  it "calculates items per merchant standard dev" do
     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to be_a Float
     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq 3.26
   end
@@ -72,7 +72,11 @@ RSpec.describe SalesAnalyst do
   end
 
   it "can calculate average invoices per merchant" do
-    expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
+  end
+
+  it "can calculate average_invoices_per_merchant_standard_deviation" do
+    expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
 
 end
