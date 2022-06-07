@@ -20,8 +20,8 @@ class SalesAnalyst
   def average_items_per_merchant
     merchants = merchant_hash.keys.count
     items = merchant_hash.values.sum.to_f
-    average_per = (items.to_f / merchants.to_f).round(2)
-    average_per
+    average_per = (items.to_f / merchants.to_f)
+    average_per.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -34,13 +34,12 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    high_rollers = []
-    merchant_hash.each do |key, value|
-      if value >= average_items_per_merchant_standard_deviation + 1
-        high_rollers << key
-      end
-      high_rollers
+    average_items = average_items_per_merchant
+    stdev = average_items_per_merchant_standard_deviation
+    one_above_stdev_merchants = merchant_hash.find_all do |key, value|
+      value >= (average_items + stdev)
     end
+    one_above_stdev_merchants.map {|id, _| @merchant_path.find_by_id(id)}
   end
 
   def average_item_price_for_merchant(merchant_id_search)
