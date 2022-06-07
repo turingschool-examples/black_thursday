@@ -158,5 +158,18 @@ class SalesAnalyst
     invoice_ids = successful.map {|transaction| transaction.invoice_id}.uniq
     invoices = invoice_ids.flat_map {|id| @invoice_item_repository.find_all_by_invoice_id(id)}
     total_rev = invoices.map {|item| item.unit_price_to_dollars * item.quantity}
+    BigDecimal(total_rev.sum, 4)
   end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = @invoice_repository.find_all_by_merchant_id(merchant_id)
+    ids = invoices.map {|invoice| invoice.id}
+    transactions = ids.flat_map {|id| @transaction_repository.find_all_by_invoice_id(id)}
+    successful = transactions.select {|transaction| transaction.result == "success"}
+    invoice_ids = successful.map {|transaction| transaction.invoice_id}.uniq
+    invoices = invoice_ids.flat_map {|id| @invoice_item_repository.find_all_by_invoice_id(id)}
+    total_rev = invoices.map {|item| item.unit_price_to_dollars * item.quantity}
+    BigDecimal(total_rev.sum, 4)
+  end
+
 end
