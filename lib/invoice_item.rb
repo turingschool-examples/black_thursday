@@ -1,10 +1,9 @@
-
 class InvoiceItem
   attr_reader :id, :item_id, :invoice_id, :quantity,
               :unit_price, :created_at, :updated_at
   def initialize(info)
     # binding.pry
-    @id = info[:id]
+    @id = info[:id].to_i
     @item_id = info[:item_id]
     @invoice_id = info[:invoice_id]
     @quantity = info[:quantity]

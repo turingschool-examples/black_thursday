@@ -12,7 +12,6 @@ class SalesEngine
               :invoice_items
 
   def initialize(file_paths)
-
     @item_repository = ItemRepository.new(file_paths[:items])
     @merchant_repository = MerchantRepository.new(file_paths[:merchants])
     @invoices = InvoiceRepository.new(file_paths[:invoices])

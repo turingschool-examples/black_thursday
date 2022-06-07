@@ -20,4 +20,10 @@ module Repositable
     source = find_by_id(id)
     @all.delete(source)
   end
+
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all do |source|
+      source.merchant_id == merchant_id
+    end
+  end
 end

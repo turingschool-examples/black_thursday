@@ -43,7 +43,7 @@ RSpec.describe InvoiceRepository do
 
     expect(@invoice.find_all_by_merchant_id(99999999)).to eq([])
     expect(@invoice.find_all_by_merchant_id(12334269)).to be_instance_of Array
-    expect(@invoice.find_all_by_merchant_id(12334269).length).to eq(1)
+    expect(@invoice.find_all_by_merchant_id(12334269).length).to eq(11)
     expect(@invoice.find_all_by_merchant_id(12334269).first).to be_instance_of Invoice
   end
 
