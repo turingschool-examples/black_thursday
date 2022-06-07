@@ -36,8 +36,8 @@ describe SalesAnalyst do
   end
 
   it "can give us the average item price for a merchant" do
-    expect(@items.find_all_by_merchant_id('12334105').count).to eq 3
-    expect(@analyst.average_item_price_for_merchant('12334105')).to be_a BigDecimal
+    expect(@items.find_all_by_merchant_id(12334105).count).to eq 3
+    expect(@analyst.average_item_price_for_merchant(12334105)).to be_a BigDecimal
   end
 
   it 'can give us the average average item price for a merchant' do
