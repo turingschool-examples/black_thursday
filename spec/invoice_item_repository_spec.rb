@@ -38,6 +38,13 @@ RSpec.describe InvoiceItemRepository do
       expect(ii_repo.find_all_by_item_id(999991)).to eq([])
     end
 
-  
+    it 'can find all by invoice_id' do
+    invoice_items = './data/invoice_items.csv'
+    ii_repo = InvoiceItemRepository.new(invoice_items)
+
+    expect(ii_repo.find_all_by_invoice_id(1)).to be_instance_of(Array)
+    expect(ii_repo.find_all_by_invoice_id(999991)).to eq([])
+    expect(ii_repo.find_all_by_invoice_id(1).size).to eq(8)
+  end
 
 end
