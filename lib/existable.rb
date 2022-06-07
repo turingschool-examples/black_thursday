@@ -89,8 +89,11 @@ module Existable
 
   def update(id, attributes)
     to_be_updated = find_by_id(id)
-    to_be_updated.updated_at = (Time.now).strftime("%Y-%m-%d %H:%M")
     update_what(to_be_updated, attributes)
+  end
+
+  def updated_time
+    self.updated_at = (Time.now).strftime("%Y-%m-%d %H:%M")
   end
 
   def update_what(to_be_updated, attributes)
@@ -107,26 +110,31 @@ module Existable
   end
 
   def update_item(to_be_updated, attributes)
+    updated_time
     to_be_updated.name = attributes
     to_be_updated.description = attributes[:description]
     to_be_updated.unit_price = attributes[:unit_price]
   end
 
   def update_invoice(to_be_updated, attributes)
+    updated_time
       to_be_updated.status = attributes
   end
 
   def update_invoice_item(to_be_updated, attributes)
+    updated_time
     to_be_updated.quantity = attributes[:quantity]
     to_be_updated.unit_price = attributes[:unit_price]
   end
 
   def update_transaction(to_be_updated, attributes)
+    updated_time
     to_be_updated.credit_card_number = attributes[:credit_card_number]
     to_be_updated.credit_card_expiration_date = attributes[:credit_card_expiration_date]
   end
 
   def update_customer(to_be_updated, attributes)
+    updated_time
     to_be_updated.first_name = attributes[:first_name]
     to_be_updated.last_name = attributes[:last_name]
   end
