@@ -149,4 +149,10 @@ class SalesAnalyst < SalesEngine
     merchant_invoices = merchant_invoices.uniq
     merchant_invoices.map {|merchant_id| @merchants.find_by_id(merchant_id)}
   end
+
+  def best_item_for_merchant(id)
+    invoice_ids = @invoices.find_all_by_merchant_id(id).map{|invoice| invoice.id}
+    invoice_items_by_merchant = invoice_ids.flat_map {|invoice_id| @invoice_items.find_all_by_invoice_id(invoice_id)}
+    items.find_by_id(invoice_items_by_merchant.max {|a,b| a.unit_price * a.quantity <=> b.unit_price * b.quantity}.item_id)
+  end
 end
