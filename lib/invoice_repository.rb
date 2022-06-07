@@ -3,7 +3,7 @@ require_relative '../lib/invoice'
 
 class InvoiceRepository
   attr_reader :file_path
-  
+
   attr_accessor :all
 
   def initialize(file_path)
@@ -20,9 +20,7 @@ class InvoiceRepository
         })
     end
   end
-  def inspect
-      "#<#{self.class} #{@all.size} rows>"
-  end
+
   def find_by_id(invoice_id)
     @all.find { |invoice| invoice.id.to_i == invoice_id}
   end
@@ -57,5 +55,9 @@ class InvoiceRepository
 
   def delete(id)
     @all.delete(find_by_id(id))
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 end

@@ -12,9 +12,7 @@ class MerchantRepository
       @all << Merchant.new({:id => row[:id], :name => row[:name]})
     end
   end
-  def inspect
-      "#<#{self.class} #{@all.size} rows>"
-  end
+
   def find_by_id(merchant_id)
     @all.find {|merchant| merchant.id == merchant_id}
   end
@@ -39,7 +37,7 @@ class MerchantRepository
       end
     end
   end
-#refactor delete
+
   def delete(id)
     array = []
       @all.each do |merchant|
@@ -48,5 +46,9 @@ class MerchantRepository
         end
       @all = array
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 end

@@ -4,7 +4,9 @@ require_relative '../lib/customer'
 class CustomerRepository
   attr_reader :file_path
 
-  attr_accessor :all, :first_name, :last_name
+  attr_accessor :all,
+                :first_name,
+                :last_name
 
   def initialize(file_path)
     @file_path = file_path
@@ -18,10 +20,8 @@ class CustomerRepository
         :updated_at => row[:updated_at]
       })
       end
-   end
-  def inspect
-      "#<#{self.class} #{@all.size} rows>"
   end
+
    def find_by_id(customer_id)
       @all.find { |customer| customer.id.to_i == customer_id}
    end
@@ -53,5 +53,9 @@ class CustomerRepository
 
    def delete(id)
      @all.delete(find_by_id(id))
+   end
+
+   def inspect
+     "#<#{self.class} #{@all.size} rows>"
    end
 end
