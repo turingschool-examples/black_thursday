@@ -19,7 +19,9 @@ class InvoiceRepository
         })
     end
   end
-
+  def inspect
+      "#<#{self.class} #{@all.size} rows>"
+  end
   def find_by_id(invoice_id)
     @all.find { |invoice| invoice.id.to_i == invoice_id}
   end
