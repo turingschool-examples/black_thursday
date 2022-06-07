@@ -47,23 +47,62 @@ class ItemRepository
     end
   end
 
-  def find_all_by_price(price)
-    @all.find_all do |item|
-      item.unit_price == price
-    end
-  end
 
-  def find_all_by_price_in_range(range)
-    @all.find_all do |item|
-      item.unit_price.between?(range.first, range.last)
-    end
-  end
+    def find_all_by_price(price)
+       @all.find_all do |item|
+          BigDecimal(item.unit_price, Float::DIG) == price
+        end
+
+      #Old code
+#   def find_all_by_price(price)
+#     @all.find_all do |item|
+#       item.unit_price == price
+
+#     end
+#   end
+
+
+    # def find_all_by_price_2000(price)
+    #     @all.find_all do |item|
+    #        BigDecimal(item.unit_price, Float::DIG) == price
+    #      end
+    #  end
+
+    def find_all_by_price_in_range(range)
+        @all.find_all do |item|
+            # binding.pry
+            item.unit_price.between?(range.first + 1, range.last - 1)
+        end
+#old code
+#   def find_all_by_price_in_range(range)
+#     @all.find_all do |item|
+#       item.unit_price.between?(range.first, range.last)
+
+#     end
+#   end
 
     # def find_all_by_merchant_id(merchant_id)
     #   @all.find_all do |item|
     #     item.merchant_id == merchant_id
     #   end
     # end
+
+    def update(id,attributes)
+        item = find_by_id(id)
+        item.name = attributes[:name] if attributes[:name] != nil
+        item.description = attributes[:description] if attributes[:description] != nil
+        item.unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
+        #attributes[:updated_at] = Time.now
+    end
+
+    def delete(id)
+        item = find_by_id(id)
+        @all.delete(item)
+    end
+
+    def inspect
+        "#<#{self.class} #{@merchants.size} rows>"
+    end
 
   def create(attributes)
     new_id = attributes[:id] = @all.last.id + 1
@@ -78,12 +117,6 @@ class ItemRepository
       })
   end
 
-  def update(id,attributes)
-    item = find_by_id(id)
-    item.name = attributes[:name] if attributes[:name] != nil
-    item.description = attributes[:description] if attributes[:description] != nil
-    item.unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
-  end
 
 end
     # def delete(id)

@@ -1,5 +1,5 @@
 require 'pry'
-require './lib/item'
+require_relative '../lib/item'
 require 'BigDecimal'
 
 

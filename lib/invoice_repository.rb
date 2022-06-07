@@ -71,8 +71,15 @@ class InvoiceRepository
 
   end
 
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   # def delete(id)
   #   invoice = find_by_id(id)
   #   @all.delete(invoice)
   # end
+
 end
