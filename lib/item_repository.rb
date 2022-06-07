@@ -3,8 +3,7 @@ require 'CSV'
 require_relative '../lib/item'
 
 class ItemRepository
-  attr_reader :file_path,
-              :all
+  attr_reader :all
 
   def initialize(file_path)
     @file_path = file_path
@@ -46,26 +45,33 @@ class ItemRepository
     @all.find_all {|item| merchant_id == item.merchant_id }
   end
 
-  def create(name)
-    id = (@all.last.id.to_i + 1)
-    @all << Item.new({:id => id, :name => name})
+  def create(data_hash)
+    id = (@all.last.id. + 1)
+    @all << Item.new({:id => id,
+                      :name => data_hash[:name],
+                      :description => data_hash[:description],
+                      :unit_price => data_hash[:unit_price],
+                      :created_at => Time.now,
+                      :updated_at => Time.now,
+                      :merchant_id => data_hash[:merchant_id]
+                      })
   end
 
   def update(id, attributes)
-    @all.each do |item|
-      if item.id == id
-        item.name = attributes
-      end
-    end
+    find_by_id(id).name = attributes[:name]
+    find_by_id(id).description = attributes[:description]
+    find_by_id(id).unit_price = BigDecimal(attributes[:unit_price])
+    find_by_id(id).updated_at = Time.now
   end
 
   def delete(id)
-    array = []
-      @all.each do |item|
-        if item.id != id
-          array << item
-        end
-      @all = array
-    end
+    @all.delete(find_by_id(id))
+    # array = []
+    #   @all.each do |item|
+    #     if item.id != id
+    #       array << item
+    #     end
+    #   @all = array
+    # end
   end
 end
