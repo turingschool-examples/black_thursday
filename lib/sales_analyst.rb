@@ -172,4 +172,18 @@ class SalesAnalyst
     BigDecimal(total_rev.sum, 4)
   end
 
+  def merchants_with_only_one_item
+    merchant_items = @item_repository.all.group_by { |item| item.merchant_id }
+    one_item_merchants = merchant_items.find_all do |merchant, items|
+      items.count == 1
+    end
+    one_item_merchants.flat_map {|merchant, item| @merchant_repository.find_by_id(merchant) }
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      Date.parse(merchant.created_at).strftime('%B') == month
+    end
+  end
+
 end
