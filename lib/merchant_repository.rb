@@ -1,5 +1,5 @@
 require 'CSV'
-require_relative 'merchant'
+require_relative '../lib/merchant'
 
 class MerchantRepository
   attr_accessor :file_path,

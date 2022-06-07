@@ -1,4 +1,4 @@
-require './lib/invoice'
+require_relative '../lib/invoice'
 
 RSpec.describe Invoice do
   it "exists and has attributes" do
