@@ -5,12 +5,12 @@ RSpec.describe MerchantRepository do
     @merchant_repository = MerchantRepository.new('./data/merchants.csv')
   end
 
-  it "exists" do
+  it 'exists' do
 
     expect(@merchant_repository).to be_instance_of MerchantRepository
   end
 
-  it "can return an array of all Merchant instances" do
+  it 'can return an array of all Merchant instances' do
 
     expect(@merchant_repository.all).to be_instance_of Array
     expect(@merchant_repository.all.length).to eq(475)
@@ -18,49 +18,49 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.all.first.id).to eq(12334105)
   end
 
-  it "can find merchant by ID" do
+  it 'can find merchant by ID' do
 
     expect(@merchant_repository.find_by_id(12334105)).to be_instance_of Merchant
   end
 
-  it "can find a merchant by name" do
+  it 'can find a merchant by name' do
 
     expect(@merchant_repository.find_by_name('Shopin1901')).to be_instance_of Merchant
   end
 
-  it "can find all merchants by name" do
+  it 'can find all merchants by name' do
 
     expect(@merchant_repository.find_all_by_name('YouWontFindMe')).to eq([])
     expect(@merchant_repository.find_all_by_name('Shopin1901')).to be_instance_of Array
     expect(@merchant_repository.find_all_by_name('Shopin1901').first).to be_instance_of Merchant
   end
 
-  it "can create new merchant IDs" do
+  it 'can create new merchant IDs' do
 
     expect(@merchant_repository.new_id).to be_a Integer
   end
 
-  it "can create new merchants" do
+  it 'can create new merchants' do
 
     expect(@merchant_repository.create('Ducky')).to be_a Array
     expect(@merchant_repository.all.last.name).to eq('Ducky')
   end
 
-  it "update the Merchant instance with the corresponding id with the provided attributes" do
+  it 'update the Merchant instance with the corresponding id with the provided attributes' do
 
-    attributes = {name: "Update"}
+    attributes = {name: 'Update'}
 
     @merchant_repository.update(12334105, attributes)
 
-    expect(@merchant_repository.find_by_id(12334105).name).to eq("Update")
-      # expect(@merchant_repository.update(id, attributes)).to eq("Update")
-
+    expect(@merchant_repository.find_by_id(12334105).name).to eq('Update')
+  # expect(@merchant_repository.update(id, attributes)).to eq('Update')
  end
 
- it "can delete a Merchant" do
+ it 'can delete a Merchant' do
+
    @merchant_repository.delete(12334105)
 
    expect(@merchant_repository.find_by_id(12334105)).to eq(nil)
  end
- 
+
 end

@@ -1,8 +1,9 @@
 require 'csv'
 require_relative 'merchant'
-require 'pry'
+require './repositable'
 
 class MerchantRepository
+  include Repositable
   attr_reader :all
 
   def initialize(file_path)
@@ -16,21 +17,21 @@ class MerchantRepository
     end
   end
 
-  def find_by_id(id)
-    @all.find do |merchant|
-      if merchant.id == id
-        return merchant
-      end
-    end
-  end
+  # def find_by_id(id)
+  #   @all.find do |merchant|
+  #     if merchant.id == id
+  #       return merchant
+  #     end
+  #   end
+  # end
 
-  def find_by_name(name)
-    @all.find do |merchant|
-      if merchant.name.downcase == name.downcase
-        return merchant
-      end
-    end
-  end
+  # def find_by_name(name)
+  #   @all.find do |merchant|
+  #     if merchant.name.downcase == name.downcase
+  #       return merchant
+  #     end
+  #   end
+  # end
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
@@ -52,16 +53,13 @@ class MerchantRepository
     @all << Merchant.new({:id => new_id, :name => name})
   end
 
-
   def update(id, attributes)
     merchant = find_by_id(id)
     merchant.name = attributes[:name]
-
   end
 
-  def delete(id)
-    merchant = find_by_id(id)
-    @all.delete(merchant)
-
-  end
+  # def delete(id)
+  #   merchant = find_by_id(id)
+  #   @all.delete(merchant)
+  # end
 end
