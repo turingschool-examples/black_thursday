@@ -51,7 +51,7 @@ RSpec.describe InvoiceItemRepository do
     invoice_items = './data/invoice_items.csv'
     ii_repo = InvoiceItemRepository.new(invoice_items)
     new_item_attributes = {:item_id => "2635999123", :invoice_id => "4986",
-    :unit_price => "99999",:quantity => 9}
+    :unit_price => "99999",:quantity => "9"}
 
     new_item = (ii_repo.create(new_item_attributes))
 
@@ -59,9 +59,27 @@ RSpec.describe InvoiceItemRepository do
     expect(new_item.item_id).to eq("2635999123")
     expect(new_item.invoice_id).to eq("4986")
     expect(new_item.unit_price).to eq("99999")
+    expect(new_item.quantity).to eq("9")
     expect(new_item.created_at).to be_an_instance_of(Time)
     expect(ii_repo.find_by_id(21831)).to be_an_instance_of(InvoiceItem)
   end
+
+  it 'can update Invoice items with attributes' do
+    invoice_items = './data/invoice_items.csv'
+    ii_repo = InvoiceItemRepository.new(invoice_items)
+
+    expect(ii_repo.find_by_id(10).quantity).to eq("4")
+    expect(ii_repo.find_by_id(10).unit_price).to eq("1859")
+
+    new_test_attributes = {:quantity => "99", :unit_price => "2000", :updated_at => "1"}
+    ii_repo.update(10, new_test_attributes)
+
+    expect(ii_repo.find_by_id(10).quantity).to eq("99")
+    expect(ii_repo.find_by_id(10).unit_price).to eq("2000")
+    expect(ii_repo.find_by_id(10).updated_at).to be_an_instance_of(Time)
+
+  end
+
 
 
 end
