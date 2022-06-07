@@ -1,19 +1,27 @@
 require 'helper'
 
 module Existable
+  def create(attribute)
+    return make_merchant(attribute) if self.class == MerchantRepository
+    return make_item(attribute) if self.class == ItemRepository
+    return make_invoice(attribute) if self.class == InvoiceRepository
+    return make_invoice_item(attribute) if self.class == InvoiceItemRepository
+    return make_transaction(attribute) if self.class == TransactionRepository
+    return make_customer(attribute) if self.class == CustomerRepository
+  end
 
   def max_id
     (@all.max_by {|thing| thing.id}).id
   end
 
-  def make_merchant(name)
+  def make_merchant(attribute)
     @all.push(Merchant.new({
       :id => max_id + 1,
-      :name => name
+      :name => attribute
     }))
   end
 
-  def  make_item(attributes)
+  def  make_item(attribute)
      @all.push(Item.new({
       :id => max_item_id + 1,
       :name => name,
@@ -25,7 +33,7 @@ module Existable
     }))
   end
 
-  def  make_invoice(attributes)
+  def  make_invoice(attribute)
     self.all.push(Invoice.new({
       :id          => max_id + 1,
       :customer_id => attributes[:customer_id],
@@ -36,7 +44,7 @@ module Existable
     }))
   end
 
-  def make_invoice_item(attributes)
+  def make_invoice_item(attribute)
     self.all.push(InvoiceItem.new({
       :id => max_id + 1,
       :item_id => attributes[:item_id],
@@ -48,7 +56,7 @@ module Existable
     }))
   end
 
-  def make_transaction(attributes)
+  def make_transaction(attribute)
     @all.push(Transaction.new({
       :id => max_id + 1,
       :invoice_id => attributes[:invoice_id],
@@ -60,7 +68,7 @@ module Existable
     }))
   end
 
-  def  make_customer(attributes)
+  def  make_customer(attribute)
     @all.push(Customer.new({
       :id => max_id + 1,
       :first_name => attributes[:first_name],
@@ -75,8 +83,8 @@ module Existable
     return Item self.class == ItemRepository
     return Invoice self.class == InvoiceRepository
     return InvoiceItem self.class == InvoiceItemRepository
-    return Customer self.class == CustomerRepository
     return Transaction self.class == TransactionRepository
+    return Customer self.class == CustomerRepository
   end
 
   def update(id, attributes)
