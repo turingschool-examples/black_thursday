@@ -1,6 +1,6 @@
-require './lib/invoice_repository'
-require './lib/transaction_repository'
-require './lib/sales_engine'
+require '../lib/invoice_repository'
+require '../lib/transaction_repository'
+require '../lib/sales_engine'
 
 RSpec.describe TransactionRepository do
   before :each do

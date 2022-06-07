@@ -1,6 +1,6 @@
-require './merchant_repository'
-require './item_repository'
-require './invoice_repository'
+require_relative 'merchant_repository'
+require_relative 'item_repository'
+require_relative 'invoice_repository'
 
 merchant_repository = MerchantRepository.new
 item_repository = ItemRepository.new

@@ -1,7 +1,7 @@
 require 'pry'
 require 'csv'
-require_relative '../lib/item'
-require './repositable'
+require_relative 'item'
+require_relative 'repositable'
 
 class ItemRepository
   include Repositable

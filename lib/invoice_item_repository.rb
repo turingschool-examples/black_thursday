@@ -1,6 +1,6 @@
 require 'csv'
-require_relative '../lib/invoice_item'
-require './repositable'
+require_relative 'invoice_item'
+require_relative 'repositable'
 
 class InvoiceItemRepository
   include Repositable

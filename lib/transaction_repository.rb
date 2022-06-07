@@ -1,8 +1,8 @@
 require 'pry'
 require 'csv'
-require_relative '../lib/invoice'
-require_relative '../lib/transaction'
-require './repositable'
+require_relative 'invoice'
+require_relative 'transaction'
+require 'repositable'
 
 class TransactionRepository
   include Repositable

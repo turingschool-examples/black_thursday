@@ -1,6 +1,6 @@
 require 'csv'
 require_relative 'merchant'
-require './repositable'
+require_relative 'repositable'
 
 class MerchantRepository
   include Repositable
