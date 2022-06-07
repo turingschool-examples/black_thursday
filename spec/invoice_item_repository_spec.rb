@@ -22,7 +22,7 @@ RSpec.describe InvoiceItemRepository do
       expect(ii_repo.all.count).to eq(21830)
     end
 
-    it '' do
+    xit '' do
       invoice_items = './data/invoice_items.csv'
       ii_repo = InvoiceItemRepository.new(invoice_items)
       expect()
