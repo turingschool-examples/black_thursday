@@ -1,7 +1,7 @@
-require_relative 'simplecov'
+require 'simplecov'
 SimpleCov.start
-require_relative './lib/helper'
-require_relative 'rspec'
+require './lib/helper'
+require 'rspec'
 
 RSpec.describe SalesEngine do
 

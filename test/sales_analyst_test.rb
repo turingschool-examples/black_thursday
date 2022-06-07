@@ -1,7 +1,7 @@
-require_relative 'simplecov'
+require 'simplecov'
 SimpleCov.start
-require_relative './lib/helper'
-require_relative 'pry'
+require './lib/helper'
+require 'pry'
 
 RSpec.describe SalesAnalyst do
   let!(:sales_engine) {SalesEngine.from_csv({
@@ -162,7 +162,7 @@ RSpec.describe SalesAnalyst do
     expected = sales_analyst.top_revenue_earners(10)
     first = expected.first
     last = expected.last
-    binding.pry
+    # binding.pry
     expect(expected.length).to eq(10)
 
     expect(first.class).to eq(Merchant)

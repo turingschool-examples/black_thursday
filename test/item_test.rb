@@ -1,6 +1,6 @@
-require_relative 'simplecov'
+require 'simplecov'
 SimpleCov.start
-require_relative './lib/helper'
+require './lib/helper'
 
 RSpec.describe Item do
 
