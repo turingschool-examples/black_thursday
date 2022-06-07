@@ -103,7 +103,8 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'has merchants with only one item registered in month' do
-    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("June").length).to eq(18)   expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("April").first).to be_a(Merchant)
+    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("June").length).to eq(18)
+    expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("April").first).to be_a(Merchant)
   end
 
   it 'finds the total revenue for a single merchant' do
