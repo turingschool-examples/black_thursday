@@ -1,6 +1,8 @@
 require 'helper'
+require 'findable'
 
 module Existable
+
   def create(attribute)
     return make_merchant(attribute) if self.class == MerchantRepository
     return make_item(attribute) if self.class == ItemRepository
@@ -140,8 +142,8 @@ module Existable
   end
 
   def delete(id)
-    to_be_dropped = find_by_id(id)
+    to_be_dropped = @all.find {|thing| thing.id == id}
     @all.delete(to_be_dropped)
-    @all.find_by_id(id) == nil ? 'Deletion complete!' : '...something went wrong'
+    to_be_dropped == nil ? 'Deletion complete!' : '...something went wrong'
   end
 end

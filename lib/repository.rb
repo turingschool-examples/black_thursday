@@ -1,10 +1,10 @@
 require 'helper'
-require 'existable'
 require 'findable'
+require 'existable'
 
 class Repository
-  include Existable
   include Findable
+  include Existable
 
   attr_accessor :all
 
