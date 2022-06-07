@@ -1,7 +1,9 @@
 require 'csv'
 require_relative 'invoice_item'
+require_relative 'methodable'
 
 class InvoiceItemRepository
+  include Methodable
   attr_reader :all
 
   def initialize(filepath)
@@ -12,9 +14,9 @@ class InvoiceItemRepository
     end
   end
 
-  def find_by_id(id)
-    @all.find { |invoiceitem| invoiceitem.id == id }
-  end
+  # def find_by_id(id)
+  #   @all.find { |invoiceitem| invoiceitem.id == id }
+  # end
 
   def find_all_by_item_id(item_id)
     @all.find_all { |invoiceitem| invoiceitem.item_id == item_id }
@@ -30,17 +32,17 @@ class InvoiceItemRepository
     @all.last
   end
 
-  def update(id, attributes)
-    if find_by_id(id)
-      find_by_id(id).update(attributes)
-    end
-  end
+  # def update(id, attributes)
+  #   if find_by_id(id)
+  #     find_by_id(id).update(attributes)
+  #   end
+  # end
 
   def delete(id)
     @all.delete_if { |invoiceitem| invoiceitem.id == id }
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@merchants.size} rows>"
+  # end
 end

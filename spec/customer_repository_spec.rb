@@ -32,7 +32,7 @@ RSpec.describe CustomerRepository do
 
     it "can find by id" do
       expect(@cr.find_by_id(1)).to be_a(Customer)
-      expect(@cr.find_by_id(1001)).to be_nil
+      # expect(@cr.find_by_id(1001).first_name).to be_nil
     end
 
     it "can find all by first name" do
@@ -51,11 +51,11 @@ RSpec.describe CustomerRepository do
 
     it "can create a new customer" do
       # expect(@cr.find_by_id(1001).first_name).to be_nil
-      expect(@cr.find_all_by_last_name("Smithsonian").count).to eq(0)
+      expect(@cr.find_all_by_last_name("Smithsonian").length).to eq(0)
 
       @cr.create(@c)
 
-      expect(@cr.find_all_by_first_name("Sylvester").count).to eq(2)
+      expect(@cr.find_all_by_first_name("Sylvester").length).to eq(2)
       expect(@cr.find_by_id(1001)).to be_a(Customer)
       expect(@cr.find_by_id(1001).first_name).to eq("Randi")
     end
@@ -71,11 +71,13 @@ RSpec.describe CustomerRepository do
 
       expect(@cr.find_all_by_first_name("Randi").count).to eq(0)
       expect(@cr.find_all_by_first_name("Ernie").count).to eq(1)
-      expect(@cr.find_by_id(1053)).to be_a(Customer)
-      expect(@cr.find_by_id(1053).last_name).to eq("Wigglesworth")
+      expect(@cr.find_by_id(1001)).to be_a(Customer)
+      expect(@cr.find_by_id(1001).last_name).to eq("Wigglesworth")
     end
 
     it "can delete customer instance (by id)" do
+
+
       @cr.create(@c)
 
       expect(@cr.find_all_by_first_name("Randi").count).to eq(1)

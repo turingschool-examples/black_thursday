@@ -1,8 +1,9 @@
 require 'csv'
 require_relative 'merchant'
+require_relative 'invoice_method_module'
 
 class MerchantRepository
-
+  include InvoiceMethod
   attr_reader :all
 
   def initialize(filepath)
@@ -31,11 +32,11 @@ class MerchantRepository
     @all.last
   end
 
-  def update(id, attributes)
-    if find_by_id(id)
-      find_by_id(id).update(attributes)
-    end
-  end
+  # def update(id, attributes)
+  #   if find_by_id(id)
+  #     find_by_id(id).update(attributes)
+  #   end
+  # end
 
   def delete(id)
     @all.delete_if { |merchant| merchant.id == id }
