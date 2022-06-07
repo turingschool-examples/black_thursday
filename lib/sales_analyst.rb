@@ -135,4 +135,11 @@ class SalesAnalyst < SalesEngine
     invoice_paid_in_full?(id) ? total = @invoice_items.find_all_by_invoice_id(id).sum {|invoice_item| invoice_item.unit_price * invoice_item.quantity} : total = 0
     total
   end
+
+
+  def revenue_by_merchant(merchant_id)
+    invoice_ids = @invoices.find_all_by_merchant_id(merchant_id).map{|invoice| invoice.id}
+    invoice_items_by_merchant = invoice_ids.map {|invoice_id| @invoice_items.find_all_by_invoice_id(invoice_id)}.flatten
+    invoice_items_by_merchant.sum {|line_item| line_item.unit_price * line_item.quantity}
+  end
 end

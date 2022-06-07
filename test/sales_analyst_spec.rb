@@ -109,7 +109,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'Finds the total revenue for a single merchant' do
-    expect(sales_analyst.revenue_by_merchant(12334194)).to eq(0)
-    expect(sales_analyst.revenue_by_merchant(12334194).class).to be_a(BigDecimal)
+    expect(sales_analyst.revenue_by_merchant(12334194)).to eq(97979.37)
+    expect(sales_analyst.revenue_by_merchant(12334194)).to be_a(BigDecimal)
   end
 end
