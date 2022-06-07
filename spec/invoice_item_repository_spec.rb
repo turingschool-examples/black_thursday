@@ -22,13 +22,13 @@ RSpec.describe InvoiceItemRepository do
       expect(ii_repo.all.count).to eq(21830)
     end
 
-    xit 'can find all by id' do
+    it 'can find all by id' do
       invoice_items = './data/invoice_items.csv'
       ii_repo = InvoiceItemRepository.new(invoice_items)
 
       expect(ii_repo.find_by_id(1)).to be_an_instance_of(InvoiceItem)
       expect(ii_repo.find_by_id(999991)).to eq(nil)
     end
-    
+
 
 end
