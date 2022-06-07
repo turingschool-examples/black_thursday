@@ -141,6 +141,10 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
   end
 
+  it 'returns all transactions for a given date' do
+    expect(sales_analyst.transactions_on_date("2009-02-07")).to be_instance_of(Array)
+  end
+
   xit 'returns total revenue for a given date' do #in progress
     date = Time.parse("2009-02-07")
 
