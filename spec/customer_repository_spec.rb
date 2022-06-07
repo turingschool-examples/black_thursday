@@ -50,8 +50,8 @@ RSpec.describe CustomerRepository do
     end
 
     it "can create a new customer" do
-      # expect(@cr.find_by_id(1001).first_name).to be_nil
-      expect(@cr.find_all_by_last_name("Smithsonian").length).to eq(0)
+      expect(@cr.find_by_id(1001)).to be_nil
+      expect(@cr.find_all_by_last_name("Smithsonian").count).to eq(0)
 
       @cr.create(@c)
 
