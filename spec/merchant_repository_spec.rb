@@ -1,5 +1,6 @@
 require './lib/merchant_repository'
 require './lib/merchant'
+require 'pry'
 
 RSpec.describe MerchantRepository do
   before :each do

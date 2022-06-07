@@ -1,5 +1,4 @@
 require './lib/item'
-require 'BigDecimal'
 
 RSpec.describe Item do
   before :each do

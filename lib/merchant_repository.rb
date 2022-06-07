@@ -10,7 +10,11 @@ class MerchantRepository
         :id   => row[:id].to_i,
         :name => row[:name]
         )
-      end
+    end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def inspect
@@ -30,21 +34,22 @@ class MerchantRepository
   end
 
   def create(attributes)
-    create_merchant = (@all.last.id + 1)
+
+    create_id = (@all.last.id + 1)
     @all << Merchant.new({
-      :id   => create_merchant,
+      :id => create_id,
       :name => attributes[:name]
       })
   end
 
   def update(id, attributes)
-    update_merchant = find_by_id(id)
-    update_merchant.name = attributes[:name]
+    update_id = find_by_id(id)
+    update_id.name = attributes[:name]
   end
 
   def delete(id)
-    delete_merchant = find_by_id(id)
-    @all.delete(delete_merchant)
+    delete_id = find_by_id(id)
+    @all.delete(delete_id)
   end
 
 end

@@ -4,6 +4,11 @@ require './lib/item_repository'
 require './lib/item'
 require './lib/sales_engine'
 require './lib/sales_analyst'
+require './lib/invoice_repository'
+require './lib/invoice'
+require './lib/invoice_item_repository'
+require './lib/transaction_repository'
+require './lib/customer_repository'
 require 'CSV'
 
 RSpec.describe SalesEngine do

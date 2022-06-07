@@ -1,7 +1,4 @@
-require 'CSV'
-require_relative 'invoice'
-require_relative 'merchant'
-require_relative 'merchant_repository'
+require_relative 'entry'
 
 require 'pry'
 

@@ -60,7 +60,6 @@ RSpec.describe ItemRepository do
     expect(test).to be_a(Array)
     expect(test.count).to eq 6
     expect(test.first.id).to eq 263395617
-
   end
 
   it "creates attributes" do
@@ -83,6 +82,7 @@ RSpec.describe ItemRepository do
       name: "BryceGems",
       description: "Any colour gems",
       unit_price: BigDecimal(420.00, 5),
+      created_at: @time,
       updated_at: @time,
       merchant_id: 25
     }

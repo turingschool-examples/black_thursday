@@ -1,27 +1,30 @@
-require 'bigdecimal'
-class SalesAnalyst
-  attr_accessor :item_repository, :merchant_repository
+require_relative 'entry'
 
-  def initialize(item_repository, merchant_repository)
-    @item_repository = item_repository
-    @merchant_repository = merchant_repository
-  end
+class SalesAnalyst < SalesEngine
+  attr_reader :item_repository,
+              :merchant_repository,
+              :invoice_repository,
+              :invoice_item_repository,
+              :transaction_repository,
+              :customer_repository
 
   def average_items_per_merchant
     ((@item_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2))
   end
-
   #need to edit the SalesAnalyst parameters to get this to work. may also need to edit the tests too after.
   #need to add Transaction repo and invoice repo
   def invoice_paid_in_full?(invoice_id)
-    x = @transactions_repository.all
+    x = @transaction_repository.all
     y = x.find do |transaction|
-          transaction.invoice_id == invoice_id
+          invoice_id == transaction.invoice_id.to_i
+        end
       if y.result == "success"
-        true
+        return true
+      else
+        return false
       end
     end
-  end
+
 
   def invoice_total(invoice_id)
     x = @invoice_item_repository.all
@@ -38,7 +41,7 @@ class SalesAnalyst
     #looking at spec harness, they want the sum for the test to be 21067.77.
     #Looking at the unit price in the invoice items csv,
     #there are no decimals. So I am confused.... :(
-
+  end
   def average_item_price_for_merchant(merchant_id)
     x = @item_repository.all.find_all { |item| item.merchant_id == merchant_id }
     y = x.map do |item|
@@ -82,12 +85,10 @@ class SalesAnalyst
   end
 
   def golden_items
-    x = average_average_price_per_merchant
-    y = price_std_dev
+    aappm = average_average_price_per_merchant 
+    psd = price_std_dev
     @item_repository.all.select do |item|
-      item.unit_price > (x + (y * 2))
-      require "pry"; binding.pry
+      item.unit_price > (aappm + (psd * 2))
     end
   end
-
 end
