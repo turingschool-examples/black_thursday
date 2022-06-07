@@ -9,6 +9,7 @@ RSpec.describe SalesEngine do
       :merchants => './data/merchants.csv',
       :invoices => './data/invoices.csv'
     })
+
     expect(sales_engine).to be_instance_of SalesEngine
   end
 
@@ -43,7 +44,6 @@ RSpec.describe SalesEngine do
     })
 
     expect(sales_engine.merchant_repository.find_by_name('Shopin1901')).to be_a Merchant
-
     expect(sales_engine.item_repository.find_by_name('Vogue Paris Original Givenchy 2307')).to be_a Item
   end
 
@@ -57,5 +57,4 @@ RSpec.describe SalesEngine do
     expect(sales_engine.analyst).to be_a SalesAnalyst
 
   end
-
 end

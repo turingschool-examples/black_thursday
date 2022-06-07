@@ -16,7 +16,7 @@ RSpec.describe SalesAnalyst do
   it 'exists' do
 
     expect(@sales_analyst).to be_instance_of SalesAnalyst
-    # expect(@sales_analyst.items_path).to be_a Array
+  # expect(@sales_analyst.items_path).to be_a Array
   end
 
   it 'can group all items by merchant id' do

@@ -5,7 +5,11 @@ require_relative "invoice_repository"
 require_relative "invoice_item_repository"
 
 class SalesEngine
-  attr_reader :item_repository, :merchant_repository, :invoices, :analyst, :invoice_items
+  attr_reader :item_repository,
+              :merchant_repository,
+              :invoices,
+              :analyst,
+              :invoice_items
 
   def initialize(file_paths)
 
