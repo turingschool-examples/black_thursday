@@ -1,4 +1,5 @@
 require_relative './transaction'
+require 'CSV'
 class TransactionRepository
   attr_reader :transaction_path,
               :all,
@@ -18,6 +19,12 @@ class TransactionRepository
       @result => row[:result],
       @created_at => row[:created_at],
       @updated_at => row[:updated_at]})
+    end
+  end
+
+  def find_by_id(id)
+    @all.find do |transaction|
+      transaction.id.to_i == id
     end
   end
 end
