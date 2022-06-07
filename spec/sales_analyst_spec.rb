@@ -7,7 +7,11 @@ describe SalesAnalyst do
   before(:each) do
     @merchants = MerchantRepository.new('./data/merchants.csv')
     @items = ItemRepository.new('./data/items.csv')
-    @analyst = SalesAnalyst.new(@items, @merchants)
+    @invoices = InvoiceRepository.new('./data/invoices.csv')
+    @invoice_items = InvoiceItemRepository.new('./data/invoice_items.csv')
+    @transactions = TransactionRepository.new('./data/transactions.csv')
+    @customers = CustomerRepository.new('./data/customers.csv')
+    @analyst = SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @transactions, @customers)
   end
 
   it "is an instance of SalesAnalyst" do
@@ -59,4 +63,12 @@ describe SalesAnalyst do
       expect(array[0]).to be_a Item
     end
   end
+
+  # it 'can return the average invoices per merchant' do
+  #   expect(@analyst.average_invoices_per_merchant).to eq 10.49
+  # end
+  #
+  # it 'can return the standard deviation of average invoices per merchant' do
+  #   expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq 3.29
+  # end
 end

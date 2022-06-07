@@ -2,13 +2,17 @@ require_relative 'sales_engine'
 require 'BigDecimal'
 
 class SalesAnalyst
-  def initialize(items_path, merchant_path)
-    @items_path = items_path
-    @merchant_path = merchant_path
+  def initialize(items_path, merchants_path, invoices_path, invoice_items_path, transactions_path, customers_path)
+    @items = items_path
+    @merchants = merchants_path
+    @invoices = invoices_path
+    @invoice_items = invoice_items_path
+    @transactions = transactions_path
+    @customers = customers_path
   end
 
   def merchant_hash
-    merchants_items_hash = @items_path.all.group_by do |item|
+    merchants_items_hash = @items.all.group_by do |item|
       item.merchant_id
     end
     merchants_items_hash.map do |keys, values|
@@ -39,11 +43,11 @@ class SalesAnalyst
     one_above_stdev_merchants = merchant_hash.find_all do |key, value|
       value >= (average_items + stdev)
     end
-    one_above_stdev_merchants.map {|id, _| @merchant_path.find_by_id(id)}
+    one_above_stdev_merchants.map {|id, _| @merchants.find_by_id(id)}
   end
 
   def average_item_price_for_merchant(merchant_id_search)
-    items_to_avg = @items_path.find_all_by_merchant_id(merchant_id_search)
+    items_to_avg = @items.find_all_by_merchant_id(merchant_id_search)
     total_price = BigDecimal("0")
     items_to_avg.each do |item|
       total_price += item.unit_price
@@ -53,7 +57,7 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     average_price_array = []
-    @merchant_path.all.each do |merchant|
+    @merchants.all.each do |merchant|
       average_price_array << average_item_price_for_merchant(merchant.id)
     end
     average_average_price = (average_price_array.sum / average_price_array.count).round(2)
@@ -61,7 +65,7 @@ class SalesAnalyst
 
   def average_price_per_item
     all_prices = []
-    @items_path.all.each do |item|
+    @items.all.each do |item|
       all_prices << item.unit_price
     end
     average_price = all_prices.sum / all_prices.count
@@ -70,17 +74,17 @@ class SalesAnalyst
   def average_price_per_item_standard_deviation
     average_price = average_price_per_item
     squared_differences = 0.0
-    @items_path.all.each do |item|
+    @items.all.each do |item|
       squared_differences += (item.unit_price - average_price)**2
     end
-    total_items = @items_path.all.count
+    total_items = @items.all.count
     stdev = (squared_differences / (total_items - 1))**0.5
   end
 
   def golden_items
     average_price = average_price_per_item
     stdev = average_price_per_item_standard_deviation
-    golden_items = @items_path.all.find_all do |item|
+    golden_items = @items.all.find_all do |item|
       item.unit_price >= (average_price + (stdev * 2))
     end
     golden_items
