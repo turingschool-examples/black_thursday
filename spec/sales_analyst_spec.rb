@@ -73,7 +73,7 @@ describe SalesAnalyst do
   # end
 
   it "can tell you if an invoice has been paid" do
-    expect(@analyst.invoice_paid_in_full?).to eq(False)
-    expect(@analyst.invoice_paid_in_full?).to eq(True)
+    expect(@analyst.invoice_paid_in_full?(3560)).to eq(false)
+    expect(@analyst.invoice_paid_in_full?(2179)).to eq(true)
   end
 end

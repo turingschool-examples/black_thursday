@@ -89,4 +89,17 @@ class SalesAnalyst
     end
     golden_items
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    x = @transactions.find_all_by_invoice_id(invoice_id)
+    x.each do|invoice|
+      if invoice.result == "success"
+        return true
+      else
+        return false
+      end
+    end
+  end
+
+  def 
 end
