@@ -1,5 +1,4 @@
-require 'helper'
-require 'findable'
+require_relative 'helper'
 
 module Existable
 

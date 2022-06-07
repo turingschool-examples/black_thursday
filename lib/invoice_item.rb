@@ -1,4 +1,4 @@
-require 'helper'
+require_relative 'helper'
 
 class InvoiceItem
   attr_reader :id,
