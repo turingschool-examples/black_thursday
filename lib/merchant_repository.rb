@@ -12,22 +12,24 @@ class MerchantRepository
       @all << Merchant.new({:id => row[:id], :name => row[:name]})
     end
   end
-
+  def inspect
+      "#<#{self.class} #{@all.size} rows>"
+  end
   def find_by_id(merchant_id)
     @all.find {|merchant| merchant.id == merchant_id}
   end
 
   def find_by_name(name)
-    @all.find {|merchant| merchant.name == name}
+    @all.find {|merchant| merchant.name.downcase == name.downcase}
   end
 
   def find_all_by_name(name)
-    @all.find_all {|merchant| merchant.name == name}
+    @all.find_all {|merchant| merchant.name.downcase.include?(name.downcase)}
   end
 
-  def create(name)
+  def create(hash)
     id = (@all.last.id.to_i + 1)
-    @all << Merchant.new({:id => id, :name => name})
+    @all << Merchant.new({:id => id, :name => hash[:name]})
   end
 
   def update(id, attributes)
