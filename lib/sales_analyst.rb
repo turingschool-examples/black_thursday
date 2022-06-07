@@ -3,6 +3,7 @@ class SalesAnalyst
   attr_reader :item_repository, :merchant_repository, :invoice_repository, :invoice_item_repository
 
   def initialize(item_repository, merchant_repository, invoice_repository, invoice_item_repository, transaction_repository, customer_repository)
+    #delete merchant_repository from this and sales engine if we end up not using
     @item_repository = item_repository
     @merchant_repository = merchant_repository
     @invoice_repository = invoice_repository
@@ -147,5 +148,15 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     invoice = @invoice_item_repository.find_all_by_invoice_id(invoice_id)
     total = invoice.first.quantity * invoice.first.unit_price
+  end
+
+  def total_revenue_by_date(date)
+    invoices_on_date = @invoice_repository.all.find_all {|invoice| invoice.created_at.include?(date)}
+    invoices_on_date = invoices_on_date.map {|invoice| invoice.id}
+    transactions_on_date = invoices_on_date.flat_map {|invoice_id| @transaction_repository.find_all_by_invoice_id(invoice_id)}.flatten
+    successful = transactions_on_date.select {|transaction| transaction.result == "success"}
+    invoice_ids = successful.map {|transaction| transaction.invoice_id}.uniq
+    invoices = invoice_ids.flat_map {|id| @invoice_item_repository.find_all_by_invoice_id(id)}
+    total_rev = invoices.map {|item| item.unit_price_to_dollars * item.quantity}
   end
 end
