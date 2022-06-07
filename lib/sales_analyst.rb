@@ -1,4 +1,4 @@
-require_relative "../lib/sales_engine"
+require_relative "sales_engine"
 require "BigDecimal"
 
 
@@ -61,5 +61,9 @@ class SalesAnalyst
     items_with_same_merchant.sum do |item|
       item.unit_price
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

@@ -1,8 +1,8 @@
 require 'pry'
 require 'csv'
-require_relative '../lib/invoice'
-require_relative '../lib/merchant'
-require './repositable'
+require_relative 'invoice'
+require_relative 'merchant'
+require_relative 'repositable'
 
 class InvoiceRepository
   include Repositable
@@ -12,17 +12,15 @@ class InvoiceRepository
     @file_path = file_path
     @all = []
 
-    if @file_path
         CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
-        @all << Invoice.new({
-          :id => row[:id].to_i,
-          :customer_id => row[:customer_id].to_i,
-          :merchant_id => row[:merchant_id].to_i,
-          :status => row[:status],
-          :created_at => row[:created_at],
-          :updated_at => row[:updated_at]})
-      end
-    end
+          @all << Invoice.new({
+            :id => row[:id].to_i,
+            :customer_id => row[:customer_id].to_i,
+            :merchant_id => row[:merchant_id].to_i,
+            :status => row[:status],
+            :created_at => row[:created_at],
+            :updated_at => row[:updated_at]})
+          end
   end
 
   # def find_by_id(id)
@@ -66,10 +64,8 @@ class InvoiceRepository
   def update(id, attributes)
     invoice = find_by_id(id)
     if attributes[:status] == "shipped".downcase  || "pending".downcase || "returned".downcase
-    invoice.status = attributes[:status]
+      invoice.status = attributes[:status]
     end
-
-  end
 
   end
 

@@ -20,4 +20,8 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

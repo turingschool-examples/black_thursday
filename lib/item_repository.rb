@@ -1,7 +1,7 @@
 require 'pry'
 require 'csv'
-require_relative '../lib/item'
-require './repositable'
+require_relative 'item'
+require_relative 'repositable'
 
 class ItemRepository
   include Repositable
@@ -52,6 +52,7 @@ class ItemRepository
        @all.find_all do |item|
           BigDecimal(item.unit_price, Float::DIG) == price
         end
+    end
 
       #Old code
 #   def find_all_by_price(price)
@@ -73,6 +74,7 @@ class ItemRepository
             # binding.pry
             item.unit_price.between?(range.first + 1, range.last - 1)
         end
+    end
 #old code
 #   def find_all_by_price_in_range(range)
 #     @all.find_all do |item|
@@ -101,7 +103,7 @@ class ItemRepository
     end
 
     def inspect
-        "#<#{self.class} #{@merchants.size} rows>"
+        "#<#{self.class} #{@all.size} rows>"
     end
 
   def create(attributes)
@@ -116,9 +118,6 @@ class ItemRepository
       :merchant_id => attributes[:merchant_id]
       })
   end
-
-
-end
     # def delete(id)
     #     item = find_by_id(id)
     #     @all.delete(item)

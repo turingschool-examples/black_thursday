@@ -1,8 +1,8 @@
 require 'pry'
 require 'csv'
-require_relative '../lib/invoice'
-require_relative '../lib/transaction'
-require './repositable'
+require_relative 'invoice'
+require_relative 'transaction'
+require_relative 'repositable'
 
 class TransactionRepository
   include Repositable
@@ -51,5 +51,9 @@ class TransactionRepository
     if attributes[:result] == "success".downcase  || "failed".downcase
     transaction.result = attributes[:result]
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

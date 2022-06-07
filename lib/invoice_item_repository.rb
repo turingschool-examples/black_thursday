@@ -1,6 +1,6 @@
 require 'csv'
-require_relative '../lib/invoice_item'
-require './repositable'
+require_relative 'invoice_item'
+require_relative 'repositable'
 
 class InvoiceItemRepository
   include Repositable
@@ -49,4 +49,9 @@ class InvoiceItemRepository
       :updated_at => attributes[:updated_at]
       })
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 end
