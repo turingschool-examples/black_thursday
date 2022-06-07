@@ -5,7 +5,6 @@ require_relative '../lib/invoice_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_item_repository'
 require_relative '../lib/customer_repository'
-require 'csv'
 
 RSpec.describe SalesAnalyst do
   before :each do
@@ -89,5 +88,17 @@ RSpec.describe SalesAnalyst do
    it "can return a hash with invoices by day of the week, key is number, Sunday is zero" do
      expect(@sales_analyst.invoices_by_weekday).to be_a Hash
      expect(@sales_analyst.invoices_by_weekday.length).to eq(7)
+   end
+   it "can calculate average invoices per day of the weak (helper)" do
+     expect(@sales_analyst.avg_invoices_per_day_of_week).to be_a Float
+     expect(@sales_analyst.avg_invoices_per_day_of_week).to eq(712.14)
+   end
+   it "can calculate invoice by day of week standard deviation" do
+     expect(@sales_analyst.invoice_per_day_of_week_standard_deviation).to be_a Float
+   end
+   xit "can calculate day of the week invoices above 1 standard deviation" do
+     expect(@sales_analyst.top_days_by_invoice_count).to be_a Array
+     expect(@sales_analyst.top_days_by_invoice_count.to_include?("Sunday")).to eq(true)
+     expect(@sales_analyst.top_days_by_invoice_count.include?("Saturday")).to eq(true)
    end
 end
