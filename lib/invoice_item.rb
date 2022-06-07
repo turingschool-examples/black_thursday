@@ -4,8 +4,8 @@ class InvoiceItem
 
   def initialize(info)
     @id = info[:id]
-    @item_id = info[:item_id]
-    @invoice_id = info[:invoice_id]
+    @item_id = info[:item_id].to_i
+    @invoice_id = info[:invoice_id].to_i
     @quantity = info[:quantity]
     @unit_price = BigDecimal(info[:unit_price ])/100
     @created_at = info[:created_at]

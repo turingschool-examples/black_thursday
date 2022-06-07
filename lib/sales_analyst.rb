@@ -48,7 +48,7 @@ class SalesAnalyst
     items_to_avg.each do |item|
       total_price += item.unit_price
     end
-    average_price = (total_price / items_to_avg.count)
+    average_price = (total_price / items_to_avg.count).round(2)
   end
 
   def average_average_price_per_merchant

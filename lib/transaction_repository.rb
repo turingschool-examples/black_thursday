@@ -10,8 +10,8 @@ class TransactionRepository
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Transaction.new({
-        :id => row[:id],
-        :invoice_id => row[:invoice_id],
+        :id => row[:id].to_i,
+        :invoice_id => row[:invoice_id].to_i,
         :credit_card_number => row[:credit_card_number],
         :credit_card_expiration_date => row[:credit_card_expiration_date],
         :result => row[:result],

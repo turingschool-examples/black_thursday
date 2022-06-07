@@ -9,8 +9,8 @@ class Transaction
                 :updated_at
 
   def initialize(transaction)
-    @id = transaction[:id]
-    @invoice_id = transaction[:invoice_id]
+    @id = transaction[:id].to_i
+    @invoice_id = transaction[:invoice_id].to_i
     @credit_card_number = transaction[:credit_card_number]
     @credit_card_expiration_date = transaction[:credit_card_expiration_date]
     @result = transaction[:result]
