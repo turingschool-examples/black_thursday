@@ -1,4 +1,5 @@
 require 'csv'
+require 'time'
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -13,7 +14,7 @@ class Invoice
     @customer_id = data_hash[:customer_id].to_i
     @merchant_id = data_hash[:merchant_id].to_i
     @status = data_hash[:status]
-    @created_at = data_hash[:created_at]
-    @updated_at = data_hash[:updated_at]
+    @created_at = Time.parse(data_hash[:created_at])
+    @updated_at = Time.parse(data_hash[:updated_at])
   end
 end
