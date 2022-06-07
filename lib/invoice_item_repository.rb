@@ -11,9 +11,9 @@ class InvoiceItemRepository
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << InvoiceItem.new({
-        :id => row[:id],
-        :item_id => row[:item_id],
-        :invoice_id => row[:invoice_id],
+        :id => row[:id].to_i,
+        :item_id => row[:item_id].to_i,
+        :invoice_id => row[:invoice_id].to_i,
         :quantity => row[:quantity],
         :unit_price => row[:unit_price],
         :created_at => row[:created_at],
@@ -48,9 +48,9 @@ class InvoiceItemRepository
       end
     end
     @all << InvoiceItem.new({
-      :id => new_id.to_s,
-      :item_id => attributes[:item_id],
-      :invoice_id => attributes[:invoice_id],
+      :id => new_id.to_i,
+      :item_id => attributes[:item_id].to_i,
+      :invoice_id => attributes[:invoice_id].to_i,
       :quantity => attributes[:quantity],
       :unit_price => attributes[:unit_price],
       :created_at => attributes[:created_at],
