@@ -19,9 +19,10 @@ describe SalesAnalyst do
   end
 
   it "creates a hash with the correct amount of keys" do
-    expect(@analyst.merchant_hash.keys.count).to eq(475)
+    expect(@analyst.merchant_items_hash.keys.count).to eq(475)
+    expect(@analyst.merchant_items_hash.first.key).to be_a Integer
+    expect(@analyst.merchant_items_hash.first.value).to be_a Integer
   end
-
 
   it "can give us the average items per merchant" do
     expect(@analyst.average_items_per_merchant).to eq(2.88)
@@ -64,11 +65,44 @@ describe SalesAnalyst do
     end
   end
 
-  # it 'can return the average invoices per merchant' do
-  #   expect(@analyst.average_invoices_per_merchant).to eq 10.49
-  # end
-  #
-  # it 'can return the standard deviation of average invoices per merchant' do
-  #   expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq 3.29
-  # end
+  it 'can return a hash of merchants ids and count of invoices as integers' do
+    expect(@analyst.merchant_invoices_hash.first.key).to be_a Integer
+    expect(@analyst.merchant_invoices_hash.first.value).to be_a Integer
+  end
+
+  it 'can return the average invoices per merchant' do
+    expect(@analyst.average_invoices_per_merchant).to eq 10.49
+  end
+
+  it 'can return the standard deviation of average invoices per merchant' do
+    expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq 3.29
+  end
+
+  it 'can return an array of merchants for top_merchants_by_invoice_count' do
+    array = @analyst.top_merchants_by_invoice_count
+    expect(array).to be_a Array
+    if array.count > 0
+      expect(array[0]).to be_a Merchant
+    end
+  end
+
+  it 'can return an array of merchants for bottom_merchants_by_invoice_count' do
+    array = @analyst.bottom_merchants_by_invoice_count
+    expect(array).to be_a Array
+    if array.count > 0
+      expect(array[0]).to be_a Merchant
+    end
+  end
+
+  it 'can return '
+
+  xit 'can return an array of top_days_by_invoice_count' do
+    expect(sales_analyst.top_days_by_invoice_count).to eq ["Sunday", "Saturday"]
+  end
+
+  it 'can return precent of invoices by status' do
+    expect(@analyst.invoice_status(:pending)).to eq 29.55
+    expect(@analyst.invoice_status(:shipped)).to eq 56.95
+    expect(@analyst.invoice_status(:returned)).to eq 13.5
+  end
 end
