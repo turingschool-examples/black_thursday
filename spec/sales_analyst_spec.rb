@@ -43,4 +43,12 @@ describe SalesAnalyst do
   it 'can give us the average average item price for a merchant' do
     expect(@analyst.average_average_price_per_merchant).to be_a BigDecimal
   end
+
+  it 'can return an array of golden items' do
+    array = @analyst.golden_items
+    expect(array).to be_a Array
+    if array.count > 0
+      expect(array[0]).to be_a Item
+    end
+  end
 end
