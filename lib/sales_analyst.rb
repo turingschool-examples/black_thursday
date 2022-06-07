@@ -87,6 +87,7 @@ class SalesAnalyst
     merchants = @merchant_repository.all.count.to_f
     (invoices / merchants).round(2)
   end
+
   def invoices_per_merchant
     invoice_items = Hash.new
     invoice_count = 0
@@ -96,12 +97,14 @@ class SalesAnalyst
     end
     invoice_items
   end
+
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
     sum = invoices_per_merchant.values.sum(0.0) {|item| (item - mean) ** 2}
     variance = (sum / (invoices_per_merchant.size - 1)).to_f
     standard_deviation = Math.sqrt(variance).round(2)
   end
+
   def top_merchants_by_invoice_count
     top_merchants = []
     avg_invoices = average_invoices_per_merchant
@@ -112,6 +115,7 @@ class SalesAnalyst
     end
     top_merchants
   end
+
   def bottom_merchants_by_invoice_count
     bottom_merchants = []
     avg_invoices = average_invoices_per_merchant
@@ -122,6 +126,7 @@ class SalesAnalyst
     end
     bottom_merchants
   end
+
   def invoices_by_weekday
     inv_count = {"Sunday" => 0, "Monday" => 0, "Tuesday" => 0, "Wednesday" => 0, "Thursday" => 0, "Friday" => 0, "Saturday" => 0 }
     @invoice_repository.all.each do |invoice|
@@ -129,15 +134,18 @@ class SalesAnalyst
     end
     inv_count
   end
+
   def invoice_per_day_of_week_standard_deviation
     mean = avg_invoices_per_day_of_week
     sum = invoices_by_weekday.values.sum(0.0) {|day| (day - mean) ** 2}
     variance = (sum / (invoices_by_weekday.size - 1)).to_f
     standard_deviation = Math.sqrt(variance).round(2)
   end
+
   def avg_invoices_per_day_of_week
     (@invoice_repository.all.count / 7.0).round(2)
   end
+
   def top_days_by_invoice_count
     inv_count = invoices_by_weekday
     avg_invoices = avg_invoices_per_day_of_week
@@ -150,6 +158,7 @@ class SalesAnalyst
     end
     best_days
   end
+  
   def invoice_status(status)
     status_count = @invoice_repository.find_all_by_status(status)
     ((status_count.size.to_f / @invoice_repository.all.size.to_f)* 100).round(2)
