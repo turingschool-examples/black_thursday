@@ -199,4 +199,5 @@ class SalesAnalyst
     @merchant_repository.all.max_by(number_to_rank) {|merchant| total_revenue_by_merchant(merchant.id)}
   end #work in progress
 
+
 end

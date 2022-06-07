@@ -88,7 +88,7 @@ module Existable
 
   def update(id, attributes)
     to_be_updated = find_by_id(id)
-    require "pry"; binding.pry
+    # require "pry"; binding.pry
     to_be_updated.updated_at = (Time.now).strftime("%Y-%m-%d %H:%M")
     if evaluate == MerchantRepository
       to_be_updated.name = attributes

@@ -18,4 +18,8 @@ class Repository
     CSV.foreach(file_path, headers: true, header_converters: :symbol){|row| repo.push(thing.new(row))}
     repo
   end
+
+  def inspect #for SpecHarness
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

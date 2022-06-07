@@ -172,4 +172,12 @@ RSpec.describe SalesAnalyst do
     expect(last.id).to eq(12335747)
   end
 
+  it 'returns most sold item, if it is a tie then it returns an array of items' do
+    expect(sales_analyst.most_sold_item_for_merchant(12334634)).to eq(Item)
+  end
+
+  it 'returns most sold item, if it is a tie then it returns an array of items' do
+    expect(sales_analyst.best_item_for_merchant(12334634)).to eq(Item)
+  end
+
 end
