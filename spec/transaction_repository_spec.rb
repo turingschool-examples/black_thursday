@@ -76,17 +76,18 @@ RSpec.describe TransactionRepository do
   #
   it 'can update the credit_card_number, credit_card_expiration_date, and result on the transaction' do
 
-    attributes = {result: 'failed'}
+    attributes = {result: 'failed', credit_card_number: 8888888888888888, credit_card_expiration_date: 1110}
    ## NOTE: this needs to be included in attributes above:
-   ##credit_card_number: 8888888888888888, credit_card_expiration_date: 1110
+   # credit_card_number: 8888888888888888, credit_card_expiration_date: 1110
     expect(@transaction.all.first.result).to eq('success')
-    # expect(@transaction.all.first.credit_card_number).to eq(4068631943231473)
-    # expect(@transaction.all.first.credit_card_expiration_date).to eq(0217)
+    expect(@transaction.all.first.credit_card_number).to eq(4068631943231473)
+    expect(@transaction.all.first.credit_card_expiration_date).to eq(0217)
+
     @transaction.update(1, attributes)
 
     expect(@transaction.all.first.result).to eq('failed')
-    # expect(@transaction.all.first.credit_card_number).to eq(8888888888888888)
-    # expect(@transaction.all.first.credit_card_expiration_date).to eq(1110)
+    expect(@transaction.all.first.credit_card_number).to eq(8888888888888888)
+    expect(@transaction.all.first.credit_card_expiration_date).to eq(1110)
   end
 
   #
