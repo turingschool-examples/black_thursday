@@ -1,4 +1,4 @@
-require './lib/sales_engine'
+require_relative 'sales_engine'
 require 'BigDecimal'
 
 class SalesAnalyst
@@ -77,7 +77,12 @@ class SalesAnalyst
     stdev = (squared_differences / (total_items - 1))**0.5
   end
 
-  # def golden_items
-  #
-  # end
+  def golden_items
+    average_price = average_price_per_item
+    stdev = average_price_per_item_standard_deviation
+    golden_items = @items_path.all.find_all do |item|
+      item.unit_price >= (average_price + (stdev * 2))
+    end
+    golden_items
+  end
 end
