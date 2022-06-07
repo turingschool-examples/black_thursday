@@ -4,6 +4,7 @@ require_relative 'invoice'
 require_relative 'transaction'
 require_relative 'repositable'
 
+
 class TransactionRepository
   include Repositable
   attr_reader :all, :file_path
