@@ -107,4 +107,10 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
     expect(sales_analyst.invoice_total(1).class).to eq BigDecimal
   end
+
+  it "finds #merchants_with_pending_invoices returns merchants with pending invoices" do
+    expected = sales_analyst.merchants_with_pending_invoices
+    expect(expected.length).to eq 448
+    expect(expected.first.class).to eq Merchant
+  end
 end

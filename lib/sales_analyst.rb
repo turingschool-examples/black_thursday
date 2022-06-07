@@ -135,4 +135,13 @@ class SalesAnalyst < SalesEngine
     invoice_paid_in_full?(id) ? total = @invoice_items.find_all_by_invoice_id(id).sum {|invoice_item| invoice_item.unit_price * invoice_item.quantity} : total = 0
     total
   end
+
+  def merchants_with_pending_invoices
+    all_pending_invoices = @invoices.find_all_by_status(:pending)
+    merchant_invoices = []
+    all_pending_invoices.each {|invoice| merchant_invoices << invoice.merchant_id}
+    merchant_invoices = merchant_invoices.uniq
+    merchant_invoices.map {|merchant_id| @merchants.find_by_id(merchant_id)}
+  end
+
 end
