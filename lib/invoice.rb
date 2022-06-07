@@ -13,7 +13,7 @@ class Invoice
     @id = data_hash[:id].to_i
     @customer_id = data_hash[:customer_id].to_i
     @merchant_id = data_hash[:merchant_id].to_i
-    @status = data_hash[:status]
+    @status = data_hash[:status].to_sym
     @created_at = Time.parse(data_hash[:created_at])
     @updated_at = Time.parse(data_hash[:updated_at])
   end
