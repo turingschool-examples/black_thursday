@@ -136,10 +136,17 @@ class SalesAnalyst < SalesEngine
     total
   end
 
-
   def revenue_by_merchant(merchant_id)
     invoice_ids = @invoices.find_all_by_merchant_id(merchant_id).map{|invoice| invoice.id}
     invoice_items_by_merchant = invoice_ids.map {|invoice_id| @invoice_items.find_all_by_invoice_id(invoice_id)}.flatten
     invoice_items_by_merchant.sum {|line_item| line_item.unit_price * line_item.quantity}
+  end
+
+  def merchants_with_pending_invoices
+    all_pending_invoices = @invoices.find_all_by_status(:pending)
+    merchant_invoices = []
+    all_pending_invoices.each {|invoice| merchant_invoices << invoice.merchant_id}
+    merchant_invoices = merchant_invoices.uniq
+    merchant_invoices.map {|merchant_id| @merchants.find_by_id(merchant_id)}
   end
 end
