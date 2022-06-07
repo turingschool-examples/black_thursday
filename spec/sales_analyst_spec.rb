@@ -1,6 +1,6 @@
-require_relative 'sales_analyst'
-require_relative 'merchant_repository'
-require_relative 'item_repository'
+require './lib/sales_analyst'
+require './lib/merchant_repository'
+require './lib/item_repository'
 require 'pry'
 
 describe SalesAnalyst do

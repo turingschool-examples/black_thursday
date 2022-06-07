@@ -1,4 +1,4 @@
-require_relative "merchant"
+require "./lib/merchant"
 require "spec_helper"
 
 

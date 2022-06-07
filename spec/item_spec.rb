@@ -1,4 +1,4 @@
-require_relative 'item'
+require './lib/item'
 require 'BigDecimal'
 
 RSpec.describe Item do

@@ -1,4 +1,4 @@
-require_relative 'invoice'
+require './lib/invoice'
 
 RSpec.describe Invoice do
   before :each do

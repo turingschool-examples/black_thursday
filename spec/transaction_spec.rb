@@ -1,4 +1,4 @@
-require_relative 'transaction'
+require './lib/transaction'
 
 RSpec.describe Transaction do
   before :each do
