@@ -184,4 +184,15 @@ class SalesAnalyst
     invoices.sum {|invoice| invoice_total(invoice.id)}
   end
 
+  def total_revenue_by_merchant(merchant_id)
+    invoices = @invoice_repository.find_all_by_merchant_id(merchant_id)
+    total = 0
+    invoices.each do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        total += invoice_total(invoice.id)
+      end
+    end
+    total.round(2)
+  end
+
 end
