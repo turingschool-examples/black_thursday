@@ -179,4 +179,9 @@ class SalesAnalyst
     @invoice_repository.find_all_by_transaction_date(date)
   end
 
+  def total_revenue_by_date(date)
+    invoices = invoices_by_date(date)
+    invoices.sum {|invoice| invoice_total(invoice.id)}
+  end
+
 end

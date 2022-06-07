@@ -148,9 +148,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoices_by_date("2016-01-06").length).to eq(3)
   end
 
-  xit 'returns total revenue for a given date' do #in progress
-    date = Time.parse("2009-02-07")
-
-    expect(sales_analyst.total_revenue_by_date(date)).to eq(21067.77)
+  it 'returns total revenue for a given date' do #in progress
+    expect(sales_analyst.total_revenue_by_date("2009-02-07")).to eq(21067.77)
   end
 end
