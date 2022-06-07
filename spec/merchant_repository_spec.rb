@@ -46,7 +46,7 @@ RSpec.describe MerchantRepository do
     expect(@merchant_repository.all.last.name).to eq('Ducky')
   end
 
-  it 'update the Merchant instance with the corresponding id with the provided attributes' do
+  it 'update the Merchant instance with the corresponding ID with the provided attributes' do
 
     attributes = {name: 'Update'}
 
