@@ -12,7 +12,7 @@ let(:sales_engine) {SalesEngine.from_csv({
    :transactions => "./data/transactions.csv",
    :customers => "./data/customers.csv"
    })}
-let(:invoice_item) {sales_engine.invoice_item}
+let(:invoice_item) {sales_engine.invoice_items}
 
   it "exists" do
     expect(invoice_item).to be_an(InvoiceItemRepository)
@@ -20,18 +20,18 @@ let(:invoice_item) {sales_engine.invoice_item}
 
   it "has attributes" do
     expect(invoice_item.all).to be_an(Array)
-    expect(invoice_item.all.count).to eq()
+    expect(invoice_item.all.count).to eq(21830)
   end
 
   it "can find by id" do
     expect(invoice_item.find_by_id(6).quantity).to eq(5)
-    expect(invoice_item.find_by_id(6).unit_price).to eq(52100)
+    expect(invoice_item.find_by_id(6).unit_price).to eq(521)
     expect(invoice_item.find_by_id(123123123123123)).to eq(nil)
   end
 
   it "can find ALL by item id" do
     expect(invoice_item.find_all_by_item_id(263523644)).to be_an(Array)
-    expect(invoice_item.find_all_by_item_id(263523644).count).to eq()
+    expect(invoice_item.find_all_by_item_id(263523644).count).to eq(19)
     expect(invoice_item.find_all_by_item_id(0)).to eq([])
   end
 
@@ -53,7 +53,7 @@ let(:invoice_item) {sales_engine.invoice_item}
         :updated_at => Time.now
       }
       expect(invoice_item.all.count).to eq(21830)
-      invoice_id.create(attributes)
+      invoice_item.create(attributes)
       expect(invoice_item.find_by_id(21831).item_id).to eq(7)
       expect(invoice_item.all.count).to eq(21831)
   end
@@ -63,17 +63,16 @@ let(:invoice_item) {sales_engine.invoice_item}
       :quantity => 10,
       :unit_price => BigDecimal(10.99, 4),
     }
-    expect(invoice_item.find_by_id(21831).quantity).to eq(1)
-    invoice_items.update(21831, attributes)
-    expect(invoice_item.find_by_id(21831).quantity).to eq(10)
+    expect(invoice_item.find_by_id(21830).quantity).to eq(4)
+    invoice_item.update(21830, attributes)
+    expect(invoice_item.find_by_id(21829).quantity).to eq(10)
     expect(invoice_item.find_by_id(10000000000)).to eq(nil)
   end
 
   it "can delete an instance of invoice item" do
-    expect(invoice_item.all.count).to eq(21831)
-    invoice_item.delete(21831)
     expect(invoice_item.all.count).to eq(21830)
-    expect(invoice_item.find_by_id(21831)).to eq(nil)
+    invoice_item.delete(21830)
+    expect(invoice_item.all.count).to eq(21829)
+    expect(invoice_item.find_by_id(21830)).to eq(nil)
   end
-
 end
