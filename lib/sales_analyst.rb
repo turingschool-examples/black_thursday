@@ -80,12 +80,12 @@ class SalesAnalyst < SalesEngine
     all_items_count = @item_repository.all.count
     avg_item_price = (all_item_prices.sum/all_items_count)
     std_dev_difs = @item_repository.all.flat_map{|item|((item.unit_price - avg_item_price)**2)}
-    x = Math.sqrt(((std_dev_difs.sum) / (all_items_count - 1)).to_f)
-    std_dev_price = x.round(2)
+    sq_rt = Math.sqrt(((std_dev_difs.sum) / (all_items_count - 1)).to_f)
+    std_dev_price = sq_rt.round(2)
   end
 
   def golden_items
-    aappm = average_average_price_per_merchant 
+    aappm = average_average_price_per_merchant
     psd = price_std_dev
     @item_repository.all.select do |item|
       item.unit_price > (aappm + (psd * 2))
