@@ -117,4 +117,9 @@ RSpec.describe SalesAnalyst do
     expect(expected.length).to eq 448
     expect(expected.first.class).to eq Merchant
   end
+
+  it 'returns a merchants best item by revenue' do
+    expect(sales_analyst.best_item_for_merchant(12334194).class).to eq(Item)
+
+  end
 end
