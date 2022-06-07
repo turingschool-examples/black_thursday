@@ -1,4 +1,5 @@
 require_relative "../lib/sales_engine"
+require "BigDecimal"
 
 class SalesAnalyst
   attr_reader :items_path, :merchants_path
@@ -45,4 +46,18 @@ class SalesAnalyst
     high_count
   end 
 
+  def average_item_price_for_merchant(id)
+    items_with_same_merchant = @items_path.find_all_by_merchant_id(id)
+    sum = sum_of_of_item_price(id)
+    total_items = items_with_same_merchant.count
+    average_price = sum / total_items
+    # binding.pry
+  end
+
+  def sum_of_of_item_price(id)
+    items_with_same_merchant = @items_path.find_all_by_merchant_id(id)
+    items_with_same_merchant.sum do |item|
+      item.unit_price
+    end
+  end
 end

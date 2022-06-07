@@ -24,17 +24,13 @@ class MerchantRepository
 
   def find_by_name(name)
     @all.find do |merchant|
-      if merchant.name.downcase == name.downcase
-        return merchant
-      end
+      merchant.name.downcase == name.downcase
     end
   end
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
-      if merchant.name.downcase == name.downcase
-        merchant
-      end
+      merchant.name.downcase.include?(name.downcase)
     end
   end
 
@@ -47,19 +43,23 @@ class MerchantRepository
   end
 
   def create(name)
-    @all << Merchant.new({:id => new_id, :name => name})
-  end
+    merchant = Merchant.new({:id => new_id, :name => name[:name]})
 
+   @all << merchant
+  end
 
   def update(id, attributes)
     merchant = find_by_id(id)
-    merchant.name = attributes[:name]
-
+    merchant.name = attributes[:name] if merchant != nil
   end
 
   def delete(id)
     merchant = find_by_id(id)
     @all.delete(merchant)
-
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.all} rows>"
+  end
+
 end

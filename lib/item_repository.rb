@@ -39,14 +39,21 @@ class ItemRepository
     end
 
     def find_all_by_price(price)
-        @all.find_all do |item|
-            item.unit_price == price
+       @all.find_all do |item|
+          BigDecimal(item.unit_price, Float::DIG) == price
         end
     end
 
+    # def find_all_by_price_2000(price)
+    #     @all.find_all do |item|
+    #        BigDecimal(item.unit_price, Float::DIG) == price
+    #      end
+    #  end
+
     def find_all_by_price_in_range(range)
         @all.find_all do |item|
-            item.unit_price.between?(range.first, range.last)
+            # binding.pry
+            item.unit_price.between?(range.first + 1, range.last - 1)
         end
     end
 
@@ -68,6 +75,7 @@ class ItemRepository
         item.name = attributes[:name] if attributes[:name] != nil
         item.description = attributes[:description] if attributes[:description] != nil
         item.unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
+        #attributes[:updated_at] = Time.now
     end
 
     def delete(id)
@@ -75,5 +83,8 @@ class ItemRepository
         @all.delete(item)
     end
 
+    def inspect
+        "#<#{self.class} #{@merchants.size} rows>"
+    end
 
 end
