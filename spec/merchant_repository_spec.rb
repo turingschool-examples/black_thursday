@@ -1,4 +1,4 @@
-require './lib/merchant_repository'
+require_relative 'merchant_repository'
 
 RSpec.describe MerchantRepository do
   before :each do

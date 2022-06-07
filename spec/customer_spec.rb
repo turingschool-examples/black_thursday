@@ -1,4 +1,4 @@
-require './lib/customer'
+require_relative 'customer'
 
 RSpec.describe Customer do
   before :each do
