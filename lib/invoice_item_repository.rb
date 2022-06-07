@@ -20,9 +20,9 @@ class InvoiceItemRepository
       :unit_price => row[:unit_price]
       })
 		end
-    require 'pry';binding.pry
 
   end
+
 
 
 
