@@ -4,7 +4,7 @@ SimpleCov.start
 require_relative 'customer_repository_spec.rb'
 require_relative 'customer_spec.rb'
 require_relative 'invoice_item_repository_spec.rb'
-require_relative 'invoice_item__spec.rb'
+require_relative 'invoice_item_spec.rb'
 require_relative 'invoice_repository_spec.rb'
 require_relative 'invoice_spec.rb'
 require_relative 'item_repository_spec.rb'
