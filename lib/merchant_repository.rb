@@ -32,22 +32,21 @@ class MerchantRepository
   end
 
   def create(attributes)
-    x = (@all.last.id + 1)
-    binding.pry
+    create_merchant = (@all.last.id + 1)
     @all << Merchant.new({
-      :id => x,
+      :id => create_merchant,
       :name => attributes[:name]
       })
   end
 
   def update(id, attributes)
-    x = find_by_id(id)
-    x.name = attributes[:name]
+    update_merchant = find_by_id(id)
+    update_merchant.name = attributes[:name]
   end
 
   def delete(id)
-    x = find_by_id(id)
-    @all.delete(x)
+    delete_merchant = find_by_id(id)
+    @all.delete(delete_merchant)
   end
 
 end
