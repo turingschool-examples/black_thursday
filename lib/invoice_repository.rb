@@ -1,4 +1,5 @@
 require_relative 'entry'
+
 require 'pry'
 
 class InvoiceRepository

@@ -7,12 +7,12 @@ class ItemRepository
     @all = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Item.new(
-        :id => row[:id].to_i,
-        :name => row[:name],
+        :id          => row[:id].to_i,
+        :name        => row[:name],
         :description => row[:description].delete("\n"),
-        :unit_price => row[:unit_price].to_f,
-        :created_at => row[:created_at],
-        :updated_at => row[:updated_at],
+        :unit_price  => row[:unit_price].to_f,
+        :created_at  => row[:created_at],
+        :updated_at  => row[:updated_at],
         :merchant_id => row[:merchant_id].to_i
         )
     end
@@ -53,12 +53,12 @@ class ItemRepository
   def create(attributes)
     create_item = (@all.last.id + 1)
     @all << Item.new({
-      :id => create_item,
-      :name => attributes[:name],
+      :id          => create_item,
+      :name        => attributes[:name],
       :description => attributes[:description],
-      :unit_price => attributes[:unit_price],
-      :created_at => attributes[:created_at],
-      :updated_at => attributes[:updated_at],
+      :unit_price  => attributes[:unit_price],
+      :created_at  => attributes[:created_at],
+      :updated_at  => attributes[:updated_at],
       :merchant_id => attributes[:merchant_id]
       })
   end

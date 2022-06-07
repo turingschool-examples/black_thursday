@@ -1,5 +1,4 @@
 require './lib/item'
-require 'BigDecimal'
 
 RSpec.describe Item do
   before :each do
@@ -13,7 +12,7 @@ RSpec.describe Item do
       :updated_at  => @time,
       :merchant_id => 2
     })
-end
+  end
 
   it 'exists and has attributes' do
     expect(@item).to be_a Item
@@ -31,4 +30,5 @@ end
   it 'has unit price to dollars' do
     expect(@item.unit_price_to_dollars).to eq 10.99
   end
+  
 end

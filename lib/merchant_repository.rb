@@ -7,10 +7,14 @@ class MerchantRepository
     @all = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Merchant.new(
-        :id => row[:id].to_i,
+        :id   => row[:id].to_i,
         :name => row[:name]
         )
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def inspect
@@ -30,6 +34,7 @@ class MerchantRepository
   end
 
   def create(attributes)
+
     create_id = (@all.last.id + 1)
     @all << Merchant.new({
       :id => create_id,

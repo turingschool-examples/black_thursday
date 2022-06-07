@@ -1,4 +1,3 @@
-require 'pry'
 require_relative 'entry'
 
 class SalesAnalyst < SalesEngine
@@ -8,12 +7,9 @@ class SalesAnalyst < SalesEngine
               :invoice_item_repository,
               :transaction_repository,
               :customer_repository
-  # def initialize(item_repository, merchant_repository)
-  #   @item_repository = item_repository
-  #   @merchant_repository = merchant_repository
-  # end
+
   def average_items_per_merchant
-    (@item_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2)
+    ((@item_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2))
   end
   #need to edit the SalesAnalyst parameters to get this to work. may also need to edit the tests too after.
   #need to add Transaction repo and invoice repo
@@ -41,6 +37,7 @@ class SalesAnalyst < SalesEngine
     end
     #z should have an array of all unit prices from the same invoice id
     z.sum
+  end
     #looking at spec harness, they want the sum for the test to be 21067.77.
     #Looking at the unit price in the invoice items csv,
     #there are no decimals. So I am confused.... :(
@@ -50,15 +47,15 @@ class SalesAnalyst < SalesEngine
     y = x.map do |item|
       item.unit_price
     end
-      (y.sum / x.count).round(2)
+      ((y.sum / x.count)/100).ceil(2)
   end
 
   def average_items_per_merchant_standard_deviation
     # x is a hash - merchant id's are assigned to keys and the values are arrays of their items
-    x = @item_repository.all.group_by {|item| item.merchant_id}
-    y = x.flat_map {|_,value|value.count}
-    z = y.map {|item_count|((item_count - average_items_per_merchant)**2)}
-    Math.sqrt(((z.sum) / (z.count - 1)).to_f.round(2)).round(2)
+    merchant_ids = @item_repository.all.group_by {|item| item.merchant_id}
+    merch_array = merchant_ids.flat_map {|_,value|value.count}
+    merch_item_count = merch_array.map {|item_count|((item_count - average_items_per_merchant)**2)}
+    Math.sqrt(((merch_item_count.sum) / (merch_item_count.count - 1)).to_f.round(2)).round(2)
   end
 
   def merchants_with_high_item_count
@@ -75,14 +72,23 @@ class SalesAnalyst < SalesEngine
     @merchant_repository.all.map do |merchant|
       x += average_item_price_for_merchant(merchant.id)
     end
-    (x / @merchant_repository.all.count).round(2)
+    (x / @merchant_repository.all.count).floor(2)
+  end
+
+  def price_std_dev
+    all_item_prices = @item_repository.all.map {|item| item.unit_price}
+    all_items_count = @item_repository.all.count
+    avg_item_price = (all_item_prices.sum/all_items_count)
+    std_dev_difs = @item_repository.all.flat_map{|item|((item.unit_price - avg_item_price)**2)}
+    x = Math.sqrt(((std_dev_difs.sum) / (all_items_count - 1)).to_f)
+    std_dev_price = x.round(2)
   end
 
   def golden_items
-    x = average_average_price_per_merchant
-    y = average_items_per_merchant_standard_deviation
+    aappm = average_average_price_per_merchant 
+    psd = price_std_dev
     @item_repository.all.select do |item|
-      item.unit_price > (x + (y * 2))
+      item.unit_price > (aappm + (psd * 2))
     end
   end
 end

@@ -53,13 +53,11 @@ RSpec.describe MerchantRepository do
     }
 
     @merchant_repository.update(12334105, attributes)
-
     expect(@merchant_repository.find_by_id(12334105).name).to eq("BryceGems")
     expect(@merchant_repository.find_by_name("Shopin1901")).to eq(nil)
   end
 
   it "can delete a merchant instance" do
-
     expect(@merchant_repository.find_by_name("Shopin1901")).to be_a(Merchant)
     @merchant_repository.delete(12334105)
     expect(@merchant_repository.find_by_name("Shopin1901")).to eq(nil)

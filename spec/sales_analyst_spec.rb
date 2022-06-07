@@ -9,7 +9,7 @@ require './lib/invoice'
 require './lib/invoice_item_repository'
 require './lib/transaction_repository'
 require './lib/customer_repository'
-require 'CSV'
+
 
 RSpec.describe SalesAnalyst do
   before :each do
@@ -40,9 +40,12 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.invoice_total(1)).to eq 21067.77
   end
 
-  xit "calculates average_item_price_for_merchant" do
-    expect(@sales_analyst.average_item_price_for_merchant(12334105)).to be_a Float
-    expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq 1665.67
+  it "calculates average_item_price_for_merchant" do
+    sales_engine = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.average_item_price_for_merchant(12334105)).to be_a Float
+    expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq 16.66
   end
 
   xit "calculates standard dev" do
@@ -66,7 +69,14 @@ RSpec.describe SalesAnalyst do
     sales_engine = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_average_price_per_merchant).to be_a Float
-    expect(sales_analyst.average_average_price_per_merchant).to eq(35029.47)
+    expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
+  end
+
+  it "can calculate standard_deviation of item_price" do
+    sales_engine = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.price_std_dev).to eq(290099.0)
   end
 
   xit "can return items 2 standard deviations above average" do
@@ -74,7 +84,6 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.golden_items).to be_a Array
     expect(sales_analyst.golden_items.first.class).to eq Item
-    expect(sales_analyst.golden_items.length).to eq 114
+    expect(sales_analyst.golden_items.length).to eq 5
   end
-
 end

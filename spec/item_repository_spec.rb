@@ -35,7 +35,6 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_all_with_description("Any colour glitter").count).to eq(4)
     expect(@item_repository.find_all_with_description("Any colour glitter")).to be_a(Array)
     expect(@item_repository.find_all_with_description("aNy CoLoUr GlItTeR").first.id).to eq 263395617
-
     expect(test.map(&:id).include?(263395721)).to eq true
   end
 

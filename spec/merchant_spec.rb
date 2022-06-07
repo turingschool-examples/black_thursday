@@ -17,5 +17,4 @@ RSpec.describe Merchant do
     expect(@merchant.name).to eq("Turing School")
   end
 
-
 end
