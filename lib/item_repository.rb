@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/item'
+require_relative 'item'
 require 'pry'
 require 'BigDecimal'
 
