@@ -85,10 +85,10 @@ class ItemRepository
     item.unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
   end
 
-  # def delete(id)
-  #     item = find_by_id(id)
-  #     @all.delete(item)
-  # end
-
-
 end
+    # def delete(id)
+    #     item = find_by_id(id)
+    #     @all.delete(item)
+    # end
+end 
+
