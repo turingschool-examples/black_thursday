@@ -49,7 +49,6 @@ RSpec.describe InvoiceRepository do
 
  it 'can create attributes' do
    attributes =   {
-        :id => 77,
         :customer_id => 7,
         :merchant_id => 12335542,
         :status => "pending",
@@ -57,7 +56,7 @@ RSpec.describe InvoiceRepository do
         :updated_at => Time.now
   }
 
-   expect(@invoice_repository.create(attributes).last.id).to eq(77)
+   expect(@invoice_repository.create(attributes).last.id).to eq(4986)
    expect(@invoice_repository.all.count).to eq(4986)
    expect(@invoice_repository.all.last).to be_a(Invoice)
  end
