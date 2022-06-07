@@ -45,7 +45,7 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_price_plus_two_standard_deviations).to be_a(BigDecimal)
   end
 
-  xit 'returns the golden items' do
+  it 'returns the golden items' do
     expect(@sales_analyst.golden_items).to include(Item)
   end
 
@@ -93,6 +93,6 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'finds the total revenue for a given date' do
-    expect(sales_analyst.total_revenue_by_date(date)).to be_a(Float)
+    expect(@sales_analyst.total_revenue_by_date("2009-02-07")).to eq(21067.77)
   end
 end
