@@ -47,4 +47,21 @@ RSpec.describe InvoiceItemRepository do
     expect(ii_repo.find_all_by_invoice_id(1).size).to eq(8)
   end
 
+  it 'can create attributes' do
+    invoice_items = './data/invoice_items.csv'
+    ii_repo = InvoiceItemRepository.new(invoice_items)
+    new_item_attributes = {:item_id => "2635999123", :invoice_id => "4986",
+    :unit_price => "99999",:quantity => 9}
+
+    new_item = (ii_repo.create(new_item_attributes))
+
+    expect(new_item.id).to eq("21831")
+    expect(new_item.item_id).to eq("2635999123")
+    expect(new_item.invoice_id).to eq("4986")
+    expect(new_item.unit_price).to eq("99999")
+    expect(new_item.created_at).to be_an_instance_of(Time)
+    expect(new_item.find_by_id("21831")).to be_an_instance_of(InvoiceItem)
+  end
+
+
 end
