@@ -41,7 +41,14 @@ class InvoiceItemRepository
 		end
 	end
 
+  def create(new_invoice_attributes)
+    new_id = @all.last.id.to_i + 1
+    new_attribute = new_invoice_attributes
+    @all << InvoiceItem.new(:id => new_id.to_s, :item_id => new_attribute[:item_id], :invoice_id =>
+    new_attribute[:invoice_id], :unit_price => new_attribute[:unit_price], :created_at => Time.now, :updated_at => Time.now)
+    return @all.last
 
+  end
 
 
 

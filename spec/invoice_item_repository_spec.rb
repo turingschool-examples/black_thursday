@@ -60,7 +60,7 @@ RSpec.describe InvoiceItemRepository do
     expect(new_item.invoice_id).to eq("4986")
     expect(new_item.unit_price).to eq("99999")
     expect(new_item.created_at).to be_an_instance_of(Time)
-    expect(new_item.find_by_id("21831")).to be_an_instance_of(InvoiceItem)
+    expect(ii_repo.find_by_id(21831)).to be_an_instance_of(InvoiceItem)
   end
 
 
