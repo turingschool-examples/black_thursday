@@ -1,6 +1,6 @@
-require 'simplecov'
+require_relative 'simplecov'
 SimpleCov.start
-require './lib/helper'
+require_relative './lib/helper'
 
 RSpec.describe CustomerRepository do
   let!(:sales_engine) {SalesEngine.from_csv({:customer => "./data/customer.csv"})}

@@ -1,6 +1,6 @@
-require 'simplecov'
+require_relative 'simplecov'
 SimpleCov.start
-require './lib/helper'
+require_relative './lib/helper'
 
 RSpec.describe InvoiceRepository do
   let!(:sales_engine) {SalesEngine.from_csv({:invoices => "./data/invoices.csv"})}

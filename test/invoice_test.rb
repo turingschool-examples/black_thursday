@@ -1,6 +1,6 @@
-require 'simplecov'
+require_relative 'simplecov'
 SimpleCov.start
-require './lib/helper'
+require_relative './lib/helper'
 
 RSpec.describe Invoice do
   let!(:time) {Time.now}
