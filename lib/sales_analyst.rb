@@ -1,8 +1,10 @@
 require_relative "../lib/sales_engine"
 require "BigDecimal"
 
+
 class SalesAnalyst
   attr_reader :items_path, :merchants_path
+
   def initialize(items_path, merchants_path)
     @items_path = items_path
     @merchants_path = merchants_path
@@ -40,11 +42,11 @@ class SalesAnalyst
   def merchants_with_high_item_count
     high_count = []
     goal = (average_items_per_merchant_standard_deviation + 1)
-    all_items_by_merchant.select do |merchant, items|
-      high_count << @merchants_path.find_by_id(merchant) if items.count > goal
+    all_items_by_merchant.select do |id, items|
+      high_count << @merchants_path.find_by_id(id) if items.count > goal
     end
     high_count
-  end 
+  end
 
   def average_item_price_for_merchant(id)
     items_with_same_merchant = @items_path.find_all_by_merchant_id(id)

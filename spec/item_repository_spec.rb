@@ -1,39 +1,45 @@
+
 require_relative '../lib/item_repository'
 require_relative '../lib/item'
 require 'pry'
 
+
 RSpec.describe ItemRepository do
   before :each do
-      @item_repository = ItemRepository.new('./data/items.csv')
+    @item_repository = ItemRepository.new('./data/items.csv')
   end
 
   it 'exists' do
+
     expect(@item_repository).to be_a ItemRepository
   end
 
-  it "has items" do
+  it 'has items' do
+
     expect(@item_repository.all.first.id).to eq(263395237)
     expect(@item_repository.all.first).to be_instance_of Item
     expect(@item_repository.all).to be_a Array
   end
 
-  it "can find by id" do
+  it 'can find by id' do
+
     expect(@item_repository.find_by_id(263395237)).to be_a Item
-    expect(@item_repository.find_by_id(263395237).name).to eq("510+ RealPush Icon Set")
+    expect(@item_repository.find_by_id(263395237).name).to eq('510+ RealPush Icon Set')
   end
 
-  it "can find an item by name" do
+  it 'can find an item by name' do
 
-    expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to be_instance_of Item
+    expect(@item_repository.find_by_name('510+ RealPush Icon Set')).to be_instance_of Item
   end
 
-  it "can find all items with the same description" do
-   description = "- Chunky knit infinity scarf
-   - Soft mixture of 97% Acrylic and 3% Viscose
-   - Beautiful, Warm, and Stylish
-   - Very easy to care for
+  it 'can find all items with the same description' do
 
-   Hand wash with cold water and lay flat to dry"
+    description = "- Chunky knit infinity scarf
+    - Soft mixture of 97% Acrylic and 3% Viscose
+    - Beautiful, Warm, and Stylish
+    - Very easy to care for
+
+    Hand wash with cold water and lay flat to dry"
 
     expect(@item_repository.find_all_with_description(description)).to be_a Array
     expect(@item_repository.find_all_with_description(description).first).to be_nil
@@ -43,102 +49,103 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_all_with_description(description_2)).to be_a Array
     expect(@item_repository.find_all_with_description(description_2).length).to eq 1
     expect(@item_repository.find_all_with_description(description_2).first.id).to eq 263395237
-
   end
 
-  it " can find all by price" do
-      expect(@item_repository.find_all_by_price(1200)).to be_a Array
-      expect(@item_repository.find_all_by_price(1200).length).to eq 41
-      expect(@item_repository.find_all_by_price(1200).first.id).to eq 263395237
+  it 'can find all by price' do
+
+    expect(@item_repository.find_all_by_price(1200)).to be_a Array
+    expect(@item_repository.find_all_by_price(1200).length).to eq 41
+    expect(@item_repository.find_all_by_price(1200).first.id).to eq 263395237
   end
 
   it 'is verifing passed in range is within item unit_price range of instantiated items' do
-      expect(@item_repository.find_all_by_price_in_range(0..1200)).to be_a Array
-      expect(@item_repository.find_all_by_price_in_range(0..1200).length).to eq 350
+
+    expect(@item_repository.find_all_by_price_in_range(0..1200)).to be_a Array
+    expect(@item_repository.find_all_by_price_in_range(0..1200).length).to eq 350
   end
 
   it 'can find all by merchant id' do
-      expect(@item_repository.find_all_by_merchant_id(12334105).first).to be_a Item
-      expect(@item_repository.find_all_by_merchant_id(12334105).length).to eq 3
-      expect(@item_repository.find_all_by_merchant_id(12334105)).to be_a Array
-      expect(@item_repository.find_all_by_merchant_id(00000000).length).to eq 0
+
+    expect(@item_repository.find_all_by_merchant_id(12334105).first).to be_a Item
+    expect(@item_repository.find_all_by_merchant_id(12334105).length).to eq 3
+    expect(@item_repository.find_all_by_merchant_id(12334105)).to be_a Array
+    expect(@item_repository.find_all_by_merchant_id(00000000).length).to eq 0
   end
 
   it 'can create a new item instance' do
+
     attributes =   {
-        :name => "Candace",
-        :description => "Clean Queen Frog",
-        :unit_price => 20,
-        :created_at => Time.now,
-        :updated_at => Time.now,
-        :merchant_id => 12334105
-  }
+      :name => 'Candace',
+      :description => 'Clean Queen Frog',
+      :unit_price => 20,
+      :created_at => Time.now,
+      :updated_at => Time.now,
+      :merchant_id => 12334105
+    }
 
      expect(@item_repository.create(attributes)).to be_a Array
      expect(@item_repository.all.last).to be_a Item
-     expect(@item_repository.all.last.name).to eq "Candace"
+     expect(@item_repository.all.last.name).to eq 'Candace'
      expect(@item_repository.all.last.id).to eq 263567475
   end
 
-  it ' can update the name, description, and unit price' do
+  it 'can update the name, description, and unit price' do
+
     attributes0 =   {
-        :name => "Candace",
-        :description => "Clean Queen Frog",
-        :unit_price => 20,
-        :created_at => Time.now,
-        :updated_at => Time.now,
-        :merchant_id => 12334105
-  }
+      :name => 'Candace',
+      :description => 'Clean Queen Frog',
+      :unit_price => 20,
+      :created_at => Time.now,
+      :updated_at => Time.now,
+      :merchant_id => 12334105
+    }
 
     @item_repository.create(attributes0)
 
     attributes = {
-        :name => "Tyler",
-        :description => "Toad Master",
-        :unit_price => 35
+      :name => 'Tyler',
+      :description => 'Toad Master',
+      :unit_price => 35
     }
 
     @item_repository.update(263567475,attributes)
 
-      expect(@item_repository.all.last.name).to eq "Tyler"
-      expect(@item_repository.all.last.description).to eq "Toad Master"
-      expect(@item_repository.all.last.unit_price).to eq 35
+    expect(@item_repository.all.last.name).to eq 'Tyler'
+    expect(@item_repository.all.last.description).to eq 'Toad Master'
+    expect(@item_repository.all.last.unit_price).to eq 35
 
-
-      attributes1 = {
-          :name => "Sterling",
-          :unit_price => 35
-        }
+    attributes1 = {
+      :name => 'Sterling',
+      :unit_price => 35
+    }
 
     @item_repository.update(263567475,attributes1)
 
-    expect(@item_repository.all.last.name).to eq "Sterling"
-    expect(@item_repository.all.last.description).to eq "Toad Master"
+    expect(@item_repository.all.last.name).to eq 'Sterling'
+    expect(@item_repository.all.last.description).to eq 'Toad Master'
     expect(@item_repository.all.last.unit_price).to eq 35
   end
 
   it 'can delete items' do
-        attributes =   {
-            :name => "Candace",
-            :description => "Clean Queen Frog",
-            :unit_price => 20,
-            :created_at => Time.now,
-            :updated_at => Time.now,
-            :merchant_id => 12334105
-        }
 
-        expect(@item_repository.all.count).to eq 1367
+    attributes =   {
+      :name => 'Candace',
+      :description => 'Clean Queen Frog',
+      :unit_price => 20,
+      :created_at => Time.now,
+      :updated_at => Time.now,
+      :merchant_id => 12334105
+    }
 
-        @item_repository.create(attributes)
+    expect(@item_repository.all.count).to eq 1367
 
-        expect(@item_repository.all.count).to eq 1368
+    @item_repository.create(attributes)
 
-        @item_repository.delete(263567475)
+    expect(@item_repository.all.count).to eq 1368
 
-        expect(@item_repository.all.count).to eq 1367
-        expect(@item_repository.find_by_id(263567475)).to be_nil
+    @item_repository.delete(263567475)
+
+    expect(@item_repository.all.count).to eq 1367
+    expect(@item_repository.find_by_id(263567475)).to be_nil
    end
-
-
-
 end

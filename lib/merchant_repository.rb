@@ -1,32 +1,37 @@
 require 'csv'
 require_relative 'merchant'
-require 'pry'
+require './repositable'
 
 class MerchantRepository
+  include Repositable
   attr_reader :all
 
   def initialize(file_path)
     @file_path = file_path
     @all = []
 
-    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @all << Merchant.new({:id => row[:id], :name => row[:name]})
-    end
-  end
-
-  def find_by_id(id)
-    @all.find do |merchant|
-      if merchant.id == id
-        return merchant
+    if @file_path
+        CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+        @all << Merchant.new({:id => row[:id], :name => row[:name]})
       end
     end
   end
 
-  def find_by_name(name)
-    @all.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
-  end
+#   def find_by_name(name)
+#     @all.find do |merchant|
+#       merchant.name.downcase == name.downcase
+#     end
+#   end
+
+  # def find_by_id(id)
+  #   @all.find do |merchant|
+  #     if merchant.id == id
+  #       return merchant
+  #     end
+  #   end
+  # end
+
+
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
@@ -44,7 +49,6 @@ class MerchantRepository
 
   def create(name)
     merchant = Merchant.new({:id => new_id, :name => name[:name]})
-
    @all << merchant
   end
 
@@ -53,13 +57,14 @@ class MerchantRepository
     merchant.name = attributes[:name] if merchant != nil
   end
 
-  def delete(id)
-    merchant = find_by_id(id)
-    @all.delete(merchant)
-  end
+#   def delete(id)
+#     merchant = find_by_id(id)
+#     @all.delete(merchant)
+#   end
 
   def inspect
     "#<#{self.class} #{@merchants.all} rows>"
   end
+
 
 end
