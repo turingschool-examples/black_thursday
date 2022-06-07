@@ -93,6 +93,10 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'finds the total revenue for a given date' do
-    expect(@sales_analyst.total_revenue_by_date("2009-02-07")).to eq(21067.77)
+    expect(@sales_analyst.total_revenue_by_date("2009-02-07")).to be_a(BigDecimal)
+  end
+
+  it 'finds the total revenue for a single merchant' do
+    expect(sales_analyst.revenue_by_merchant(12334194)).to be_a(BigDecimal)
   end
 end
