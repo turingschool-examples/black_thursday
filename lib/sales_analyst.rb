@@ -122,9 +122,9 @@ class SalesAnalyst
     bottom_merchants
   end
   def invoices_by_weekday
-    inv_count = {0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0 }
+    inv_count = {"Sunday" => 0, "Monday" => 0, "Tuesday" => 0, "Wednesday" => 0, "Thursday" => 0, "Friday" => 0, "Saturday" => 0 }
     @invoice_repository.all.each do |invoice|
-      inv_count[invoice.created_at.wday] += 1
+      inv_count[invoice.created_at.strftime('%A')] += 1
     end
     inv_count
   end
@@ -138,6 +138,15 @@ class SalesAnalyst
     (@invoice_repository.all.count / 7.0).round(2)
   end
   def top_days_by_invoice_count
-
+    inv_count = invoices_by_weekday
+    avg_invoices = avg_invoices_per_day_of_week
+    std_dev = invoice_per_day_of_week_standard_deviation
+    best_days = []
+    inv_count.each do |day, count|
+      if count > (avg_invoices + std_dev)
+        best_days << day
+      end
+    end
+    inv_count
   end
 end
