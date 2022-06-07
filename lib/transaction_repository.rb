@@ -21,6 +21,10 @@ class TransactionRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@transaction.size} rows>"
+  end
+
   def find_all_by_invoice_id(id)
     @all.find_all {|invoice| invoice.invoice_id == id}
   end
@@ -47,11 +51,11 @@ class TransactionRepository
     else
       transaction.updated_at = Time.now
       attributes.each do |key, value|
-        if attribute.to_sym == :credit_card_number
+        if key.to_sym == :credit_card_number
           transaction.credit_card_number = attributes[:credit_card_number]
-        elsif attribute.to_sym == :credit_card_expiration_date
+        elsif key.to_sym == :credit_card_expiration_date
           transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date]
-        elsif attribute.to_sym == :result
+        elsif key.to_sym == :result
           transaction.result = attributes[:result]
         end
       end

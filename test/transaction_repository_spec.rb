@@ -27,23 +27,23 @@ describe InvoiceRepository do
     expect(transaction.all).to be_an(Array)
     expect(transaction.all.first.id).to eq(1)
     expect(transaction.all.first.invoice_id).to eq(2179)
-    expect(transaction.all.first.credit_card_number).to eq(4068631943231473)
-    expect(transaction.all.first.credit_card_expiration_date).to eq(0217)
-    expect(transaction.all.first.created_at).to eq("2012-02-26 20:56:56 UTC")
-    expect(transaction.all.first.updated_at).to eq("2012-02-26 20:56:56 UTC")
+    expect(transaction.all.first.credit_card_number).to eq("4068631943231473")
+    expect(transaction.all.first.credit_card_expiration_date).to eq("0217")
+    expect(transaction.all.first.created_at).to eq(Time.parse("2012-02-26 20:56:56 UTC"))
+    expect(transaction.all.first.updated_at).to eq(Time.parse("2012-02-26 20:56:56 UTC"))
     expect(transaction.all.first.result).to eq(:success)
     expect(transaction.all.length).to eq(4985)
   end
 
   it 'can find by id' do
-    transactionexample = transaction.all.first.id
+    transactionexample = transaction.all.first
 
     expect(transaction.find_by_id(1)).to eq(transactionexample)
     expect(transaction.find_by_id(100000)).to eq(nil)
   end
 
   it 'can find_all_by_invoice_id' do
-    transactionexample = transaction.all.find_by_id(3)
+    transactionexample = transaction.find_by_id(3)
 
     expect(transaction.find_all_by_invoice_id(1000000)).to eq([])
     expect(transaction.find_all_by_invoice_id(2179).length).to eq(2)
@@ -51,7 +51,7 @@ describe InvoiceRepository do
   end
 
   it 'can find_all_by_credit_card_number' do
-    transactionexample = transaction.all.find_by_id(3)
+    transactionexample = transaction.find_by_id(3)
 
     expect(transaction.find_all_by_credit_card_number(1000000)).to eq([])
     expect(transaction.find_all_by_credit_card_number("4848466917766329").length).to eq(1)
@@ -59,7 +59,7 @@ describe InvoiceRepository do
   end
 
   it 'can find_all_by_result' do
-    transactionexample = transaction.all.find_by_id(9)
+    transactionexample = transaction.find_by_id(9)
 
     expect(transaction.find_all_by_result(:whatever)).to eq([])
     expect(transaction.find_all_by_result(:success).length).to eq(4158)
