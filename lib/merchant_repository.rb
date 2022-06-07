@@ -1,22 +1,20 @@
-require 'CSV'
-require_relative 'merchant'
-
+require_relative 'entry'
 class MerchantRepository
   attr_reader :all
-
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
 
   def initialize(file_path)
     @file_path = file_path
     @all = []
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Merchant.new(
-        :id => row[:id].to_i,
+        :id   => row[:id].to_i,
         :name => row[:name]
         )
       end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def find_by_id(id)
@@ -32,22 +30,21 @@ class MerchantRepository
   end
 
   def create(attributes)
-    x = (@all.last.id + 1)
-    binding.pry
+    create_merchant = (@all.last.id + 1)
     @all << Merchant.new({
-      :id => x,
+      :id   => create_merchant,
       :name => attributes[:name]
       })
   end
 
   def update(id, attributes)
-    x = find_by_id(id)
-    x.name = attributes[:name]
+    update_merchant = find_by_id(id)
+    update_merchant.name = attributes[:name]
   end
 
   def delete(id)
-    x = find_by_id(id)
-    @all.delete(x)
+    delete_merchant = find_by_id(id)
+    @all.delete(delete_merchant)
   end
 
 end
