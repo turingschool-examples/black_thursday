@@ -1,4 +1,5 @@
 require 'time'
+
 class InvoiceItem
   attr_reader :id,
               :item_id,

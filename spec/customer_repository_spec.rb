@@ -1,13 +1,9 @@
 require 'csv'
-<<<<<<< HEAD
 require 'customer'
 require 'customer_repository'
-
-=======
-require 'pry'
 require_relative '../lib/customer'
 require_relative '../lib/customer_repository'
->>>>>>> master
+
 RSpec.describe CustomerRepository do
   before :each do
     @customer_repository = CustomerRepository.new("./data/customers.csv")

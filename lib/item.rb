@@ -1,9 +1,6 @@
 require 'bigdecimal'
-<<<<<<< HEAD
-
-=======
 require 'time'
->>>>>>> master
+
 class Item
 attr_accessor :id,
               :name,

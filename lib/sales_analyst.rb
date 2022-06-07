@@ -1,9 +1,5 @@
 require 'bigdecimal'
-<<<<<<< HEAD
 require './lib/item_repository'
-=======
-require 'pry'
->>>>>>> master
 
 class SalesAnalyst
   attr_reader :item_repository,
@@ -62,7 +58,7 @@ class SalesAnalyst
     end
     merchant_averages.sum(0.0) / merchant_averages.count
   end
-  
+
   def average_price_per_merchant_standard_deviation
     mean = average_average_price_per_merchant
     sum = price_averages_per_merchant.values.sum(0.0) {|price| (price - mean) ** 2}

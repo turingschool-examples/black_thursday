@@ -1,9 +1,6 @@
 require 'csv'
-<<<<<<< HEAD
-
-=======
 require 'time'
->>>>>>> master
+
 class Invoice
   attr_reader :id,
               :customer_id,
