@@ -128,4 +128,16 @@ class SalesAnalyst
     end
     inv_count
   end
+  def invoice_per_day_of_week_standard_deviation
+    mean = avg_invoices_per_day_of_week
+    sum = invoices_by_weekday.values.sum(0.0) {|day| (day - mean) ** 2}
+    variance = (sum / (invoices_by_weekday.size - 1)).to_f
+    standard_deviation = Math.sqrt(variance).round(2)
+  end
+  def avg_invoices_per_day_of_week
+    (@invoice_repository.all.count / 7.0).round(2)
+  end
+  def top_days_by_invoice_count
+
+  end
 end
