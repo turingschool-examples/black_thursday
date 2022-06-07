@@ -147,6 +147,10 @@ class SalesAnalyst
         best_days << day
       end
     end
-    inv_count
+    best_days
+  end
+  def invoice_status(status)
+    status_count = @invoice_repository.find_all_by_status(status)
+    ((status_count.size.to_f / @invoice_repository.all.size.to_f)* 100).round(2)
   end
 end
