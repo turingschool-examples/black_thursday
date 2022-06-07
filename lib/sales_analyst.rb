@@ -121,4 +121,11 @@ class SalesAnalyst
     end
     bottom_merchants
   end
+  def invoices_by_weekday
+    inv_count = {0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0 }
+    @invoice_repository.all.each do |invoice|
+      inv_count[invoice.created_at.wday] += 1
+    end
+    inv_count
+  end
 end
