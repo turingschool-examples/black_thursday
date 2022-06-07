@@ -19,7 +19,6 @@ RSpec.describe Item do
 
   end
   it "exists" do
-
       expect(@i).to be_a(Item)
   end
 

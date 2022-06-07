@@ -13,6 +13,7 @@ require_relative 'customer_repository'
 require_relative 'sales_engine'
 require 'bigdecimal'
 require 'pry'
+
 class SalesAnalyst < SalesEngine
 
   def initialize(items_path, merchants_path, invoice_path, invoice_item_path, transaction_path, customer_path)
