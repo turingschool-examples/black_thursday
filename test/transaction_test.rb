@@ -1,6 +1,5 @@
-require 'simplecov'
-SimpleCov.start
 require './lib/helper'
+SimpleCov.start
 
 RSpec.describe Transaction do
   let!(:time) {Time.now}
