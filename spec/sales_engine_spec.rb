@@ -76,4 +76,41 @@ RSpec.describe(SalesEngine) do
     })
     expect(sales_engine.invoices).to(be_instance_of(InvoiceRepository))
   end
+
+  it("can create an instance of invoice_item repository") do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv",
+    })
+    expect(sales_engine.invoice_items).to(be_instance_of(InvoiceItemRepository))
+  end
+
+  it("can create an instance of transactions") do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv",
+    })
+    expect(sales_engine.transactions).to(be_instance_of(TransactionRepository))
+  end
+
+  it("can create an instance of customer_repository") do
+    sales_engine = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv",
+    })
+    expect(sales_engine.customers).to(be_instance_of(CustomerRepository))
+  end
+
 end

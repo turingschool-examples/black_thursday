@@ -14,7 +14,7 @@ require_relative("sales_analyst")
 
 class SalesEngine
   attr_reader :items, :merchants, :invoice,
-  :invoices, :invoice_item, :transactions, :customers
+  :invoices, :invoice_items, :transactions, :customers
 
   def initialize(
     items_path,
