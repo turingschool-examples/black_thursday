@@ -15,7 +15,7 @@ RSpec.describe Merchant do
 
   it 'returns id' do
     merchant = Merchant.new({
-      :id => "5",
+      :id => 5,
       :name => "Turing School"
       })
 
