@@ -1,6 +1,11 @@
 require_relative 'helper'
+require_relative 'existable'
+require_relative 'findable'
 
 class Item
+  include Existable
+  include Findable
+
   attr_reader :id,
               :created_at,
               :updated_at,
@@ -8,6 +13,7 @@ class Item
 
   attr_accessor :name,
                 :description,
+                :updated_at,
                 :unit_price
 
   def initialize(input)

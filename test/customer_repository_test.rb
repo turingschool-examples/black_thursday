@@ -44,14 +44,14 @@ RSpec.describe CustomerRepository do
     expect(customer_repo.find_by_id(21831)).to be_instance_of Customer
     expect(customer_repo.find_by_id(21831).item_id).to eq(7)
     expect(customer_repo.find_by_id(21831).quantity).to eq(1)
-    # expect(customer_repo.find_by_id(21831).updated_at.strftime("%Y-%m-%d %H:%M")).to eq(customer_repo.find_by_id(21831).created_at.strftime("%Y-%m-%d %H:%M"))
+    expect(customer_repo.find_by_id(21831).updated_at).to eq(customer_repo.find_by_id(21831).created_at)
 
     customer_repo.update(21831, {:quantity => 200, :unit_price => "14.99"})
     expect(customer_repo.find_by_id(21831).item_id).to eq(7)
     expect(customer_repo.find_by_id(21831).quantity).to eq(2)
     expect(customer_repo.find_by_id(21831).unit_price).to eq("14.99")
-    # expect(customer_repo.find_by_id(21831).updated_at).to eq(time.strftime("%Y-%m-%d %H:%M"))
-    # expect(customer_repo.find_by_id(1).updated_at).not_to eq(customer_repo.find_by_id(21831).created_at)
+    expect(customer_repo.find_by_id(21831).updated_at).to eq(time.strftime("%Y-%m-%d %H:%M"))
+    expect(customer_repo.find_by_id(1).updated_at).not_to eq(customer_repo.find_by_id(21831).created_at)
   end
 
   xit "can delete an invoice" do
