@@ -62,7 +62,6 @@ RSpec.describe ItemRepository do
 
   it 'can create new item instances' do
     expect(item_repository.max_id).to eq(263567474)
-
     item_repository.create({
       :id          => 0,
       :name        => "Pencil",
@@ -74,16 +73,36 @@ RSpec.describe ItemRepository do
     })
 
     expect(item_repository.max_id).to eq(263567475)
-
     expect(item_repository.find_by_name("Pencil").id).to eq(263567475)
   end
 
   it 'can update item instances' do
-    expect(item_repository.find_by_id(263438579).name).to eq("Air Jordan Coloring Book")
+    item_repository.create({
+      :id          => 0,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+      })
+    expect(item_repository.find_by_id(263567475).name).to eq("Pencil")
+    expect(item_repository.find_by_id(263567475).description).to eq("You can use it to write things")
+    # expect(item_repository.find_by_id(263567475).unit_price.to_f).to eq(10.99)
 
-    item_repository.update(263438579,"Scare Jordan Haunted Halloween Book","A very spooky basketball novelization",600)
-
-    expect(item_repository.find_by_id(263438579).name).to eq("Scare Jordan Haunted Halloween Book")
+    item_repository.update(263567475, {
+      :name        => "Pen",
+      :description => "Make your mark",
+      :unit_price  => BigDecimal(14.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    })
+    expect(item_repository.find_by_id(263567475).name).to eq("Pen")
+    expect(item_repository.find_by_id(263567475).description).to eq("Make your mark")
+    # expect(item_repository.find_by_id(263567475).unit_price.to_f).to eq(14.99)
+    expect(item_repository.find_by_id(263567475).updated_at).to eq(Time.now..strftime("%Y-%m-%d %H:%M"))
+    expect(item_repository.find_by_id(263567475).updated_at).not_to eq(item_repository.find_by_id(263567475).created_at)
   end
 
   it 'can delete item instances' do
