@@ -19,16 +19,10 @@ class SalesAnalyst < SalesEngine
   end
 
   def invoice_paid_in_full?(invoice_id)
-    x = @transaction_repository.all
-    y = x.find do |transaction|
-          invoice_id == transaction.invoice_id.to_i
-        end
-      if y.result == "success"
-        return true
-      else
-        return false
-      end
-    end
+    y = @transaction_repository.all.find {|transaction|invoice_id == transaction.invoice_id.to_i}
+    return true if y.result == "success"
+    return false if y.result != "success"
+  end
 
   def invoice_total(invoice_id)
     array_matching_invoice_ids = @invoice_item_repository.all.find_all do |invoice_item|
