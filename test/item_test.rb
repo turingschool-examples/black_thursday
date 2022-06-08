@@ -7,7 +7,7 @@ RSpec.describe Item do
     :name => "Pencil",
     :description => "You can use it to write things",
     :unit_price => BigDecimal(10.99,4),
-    :created_at => Time.now,
+    :created_at => Time.now.strftime("%Y-%m-%d %H:%M"),
     :updated_at => Time.now,
     :merchant_id => 2
   })}
@@ -33,13 +33,15 @@ RSpec.describe Item do
   end
 
   it 'returns time created' do
-    expect(item.created_at).to eq(Time.now)
+    expect(item.created_at).to eq(Time.now.strftime("%Y-%m-%d %H:%M"))
     #this doesn't pass because the expect is called slightlllllly after the object is inialized
   end
 
-  xit 'returns time updated' do
-    item.update(___)
-    expect(item.updated_at).to eq(Time.now)
+  it 'returns time updated' do
+    expect(item.unit_price_to_dollars).to eq(10.99)
+    item.update(1, {description: 'Ink pen', unit_price: BigDecimal(17.99,4)})
+    expect(item.updated_at).to eq(Time.now.strftime("%Y-%m-%d %H:%M"))
+    expect(item.unit_price_to_dollars).to eq(17.99)
     #this doesn't pass because the expect is called slightlllllly after the object is inialized
   end
 
