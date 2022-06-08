@@ -1,7 +1,9 @@
 require 'csv'
 require_relative '../lib/invoice_item'
+require_relative 'repoable'
 
 class InvoiceItemRepository
+  include Repoable
   attr_reader :file_path,
               :all
 
@@ -11,12 +13,6 @@ class InvoiceItemRepository
    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
      @all << InvoiceItem.new({:id => row[:id], :item_id => row[:item_id], :invoice_id => row[:invoice_id], :quantity => row[:quantity], :unit_price => row[:unit_price], :created_at => row[:created_at], :updated_at => row[:updated_at]})
    end
- end
- def inspect
-     "#<#{self.class} #{@all.size} rows>"
- end
- def find_by_id(invoice_item_id)
-   @all.find { |invoice_item| invoice_item.id == invoice_item_id}
  end
 
  def find_all_by_invoice_id(invoice_id)

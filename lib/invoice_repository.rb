@@ -1,7 +1,9 @@
 require 'csv'
 require_relative '../lib/invoice'
+require_relative 'repoable'
 
 class InvoiceRepository
+  include Repoable
   attr_reader :file_path
   attr_accessor :all
 
@@ -18,12 +20,6 @@ class InvoiceRepository
         :updated_at => row[:updated_at]
         })
     end
-  end
-  def inspect
-      "#<#{self.class} #{@all.size} rows>"
-  end
-  def find_by_id(invoice_id)
-    @all.find { |invoice| invoice.id.to_i == invoice_id}
   end
 
   def find_all_by_customer_id(cust_id)

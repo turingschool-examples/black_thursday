@@ -1,7 +1,9 @@
 require 'CSV'
 require_relative '../lib/merchant'
+require_relative 'repoable'
 
 class MerchantRepository
+  include Repoable
   attr_accessor :file_path,
                 :all
 
@@ -11,12 +13,6 @@ class MerchantRepository
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @all << Merchant.new({:id => row[:id], :name => row[:name]})
     end
-  end
-  def inspect
-      "#<#{self.class} #{@all.size} rows>"
-  end
-  def find_by_id(merchant_id)
-    @all.find {|merchant| merchant.id == merchant_id}
   end
 
   def find_by_name(name)
