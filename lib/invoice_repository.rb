@@ -40,11 +40,11 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    x = (@all.last.id + 1)
+    new_id = (@all.last.id + 1)
     @all << Invoice.new(
-      :id => attributes[:id],
-      :customer_id => attributes[:customer_id].to_i,
-      :merchant_id => attributes[:merchant_id].to_i,
+      :id => new_id,
+      :customer_id => attributes[:customer_id],
+      :merchant_id => attributes[:merchant_id],
       :status => attributes[:status],
       :created_at => attributes[:created_at],
       :updated_at => attributes[:updated_at]
@@ -53,14 +53,14 @@ class InvoiceRepository
   end
 
   def update(id, attributes)
-    x = find_by_id(id)
-    x.status = attributes[:status]
-    x.updated_at = Time.now
+    invoice = find_by_id(id)
+    invoice.status = attributes[:status]
+    invoice.updated_at = Time.now
   end
 
   def delete(id)
-    x = find_by_id(id)
-    @all.delete(x)
+    invoice = find_by_id(id)
+    @all.delete(invoice)
   end
 
 
