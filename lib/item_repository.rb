@@ -28,13 +28,9 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    items = []
-    @all.each do |item|
-      if item.description.include?(description) == true
-        items << item
-      end
+    @all.find_all do |item|
+      item.description.downcase.include?(description.downcase)
     end
-    items
   end
 
   def find_all_with_price(price)
