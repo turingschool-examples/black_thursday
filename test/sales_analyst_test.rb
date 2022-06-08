@@ -162,6 +162,7 @@ RSpec.describe SalesAnalyst do
     expected = sales_analyst.top_revenue_earners(10)
     first = expected.first
     last = expected.last
+    # binding.pry
     expect(expected.length).to eq(10)
 
     expect(first.class).to eq(Merchant)
@@ -178,4 +179,5 @@ RSpec.describe SalesAnalyst do
   it 'returns most sold item, if it is a tie then it returns an array of items' do
     expect(sales_analyst.best_item_for_merchant(12334634)).to eq([])
   end
+
 end
