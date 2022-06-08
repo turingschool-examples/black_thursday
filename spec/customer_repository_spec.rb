@@ -3,8 +3,8 @@ SimpleCov.start
 require './lib/helper'
 
 RSpec.describe CustomerRepository do
-  let!(:sales_engine) {SalesEngine.from_csv({:customer => "./data/customer.csv"})}
-  let!(:customer_repo) {sales_engine.customer}
+  let!(:sales_engine) {SalesEngine.from_csv({:customers => "./data/customer.csv"})}
+  let!(:customer_repo) {sales_engine.customers}
   let(:new_customer) {customer_repo.make_customer({
     :id => 6,
     :first_name => "Joan",
