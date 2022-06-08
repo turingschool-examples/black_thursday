@@ -27,15 +27,15 @@ describe MerchantRepository do
   end
 
   it "can find merchant by name(case insensitive) and return nil if not found " do
+    expect(@merchant_repository.find_all_by_name("MotankiDarena").first.id).to eq(12334146)
+    expect(@merchant_repository.find_all_by_name("dojdeo")).to eq([])
+  end
+
+  it "can find all that will have the same name fragment" do
     expect(@merchant_repository.find_by_name("Cand")).to be_a Array
     expect(@merchant_repository.find_by_name("Cand").length).to eq(5)
     expect(@merchant_repository.find_by_name("Cand").first.id).to eq(12334112)
     expect(@merchant_repository.find_by_name("jake")).to eq(nil)
-  end
-
-  it "can find all that will have the same name fragment" do
-    expect(@merchant_repository.find_all_by_name("MotankiDarena").first.id).to eq(12334146)
-    expect(@merchant_repository.find_all_by_name("dojdeo")).to eq([])
   end
 
   it "can create new merchants" do
@@ -47,7 +47,7 @@ describe MerchantRepository do
   end
 
   it "can can update merchants instances "do
-  @merchant_repository.update(12334105, "test")
+  @merchant_repository.update(12334105, {:name => "test"})
   expect(@merchant_repository.find_by_id(12334105).name).to eq("test")
   end
 
