@@ -5,7 +5,7 @@ require './lib/helper'
 RSpec.describe Customer do
   let!(:time) {Time.now}
   let!(:customer) {Customer.new({
-    :id => 6,
+    :id => "6",
     :first_name => "Joan",
     :last_name => "Clarke",
     :created_at => Time.now,

@@ -28,7 +28,7 @@ RSpec.describe SalesAnalyst do
   end
 
   #takes a while to test but passes as an array
-  xit "can determine which merchant sold the most items?" do
+  it "can determine which merchant sold the most items?" do
     expect(sales_analyst.merchants_with_high_item_count).to be_instance_of(Array)
   end
 
@@ -48,7 +48,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_item_price).to eq(25105.51)
   end
 
-  xit 'returns standard deviation of item price' do
+  it 'returns standard deviation of item price' do
     expect(sales_analyst.item_price_standard_deviation).to eq(290099)
   end
 
@@ -71,29 +71,29 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
 
-  xit 'returns top merchants by invoice count' do
+  it 'returns top merchants by invoice count' do
     #array of merchants more than two standard deviations ABOVE the mean
     expect(sales_analyst.top_merchants_by_invoice_count).to be_instance_of(Array)
     # => [merchant, merchant, merchant], include test for values once generating array
   end
 
-  xit 'returns bottom merchants by invoice count' do
+  it 'returns bottom merchants by invoice count' do
     #array of merchants more than two standard deviations BELOW the mean
     expect(sales_analyst.bottom_merchants_by_invoice_count).to be_instance_of(Array)
     # => [merchant, merchant, merchant], include test for values once generating array
   end
 
-  xit 'returns date created for given invoice' do
+  it 'returns date created for given invoice' do
     expect(sales_analyst.invoice_repository.find_by_id(1).created_at).to eq("2009-02-07")
   end
 
-  xit 'returns day of week a given invoice is created' do
+  it 'returns day of week a given invoice is created' do
     expect(sales_analyst.invoice_day_of_week_by_id(1)).to eq(6)
     expect(sales_analyst.invoice_day_of_week_by_id(2)).to eq(5)
     expect(sales_analyst.invoice_day_of_week_by_id(4985)).to eq(1)
   end
 
-  xit 'returns total number of items sold by day of week' do
+  it 'returns total number of items sold by day of week' do
     expect(sales_analyst.invoices_by_day_of_week("Monday")).to eq(696)
     expect(sales_analyst.invoices_by_day_of_week("Tuesday")).to eq(692)
     expect(sales_analyst.invoices_by_day_of_week("Wednesday")).to eq(741)
@@ -103,28 +103,28 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoices_by_day_of_week("Sunday")).to eq(708)
   end
 
-  xit 'returns average invoices by day of week' do
+  it 'returns average invoices by day of week' do
     expect(sales_analyst.average_invoices_by_day_of_week).to eq(712.14)
   end
 
-  xit 'returns standard deviation of average invoices per week' do
+  it 'returns standard deviation of average invoices per week' do
     expect(sales_analyst.average_invoices_by_day_of_week_standard_deviation).to eq(18.07)
   end
 
-  xit 'returns days of the week where invoices are created at more than one standard deviation above the mean' do
+  it 'returns days of the week where invoices are created at more than one standard deviation above the mean' do
     expect(sales_analyst.top_days_by_invoice_count.length).to eq(1)
     expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
   end
 
-  xit 'returns percent of invoices pending' do
+  it 'returns percent of invoices pending' do
     expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
   end
 
-  xit 'returns percent of invoices shipped' do
+  it 'returns percent of invoices shipped' do
     expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
   end
 
-  xit 'returns percent of invoices returned' do
+  it 'returns percent of invoices returned' do
     expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 
@@ -165,16 +165,16 @@ RSpec.describe SalesAnalyst do
     expect(expected.length).to eq(10)
 
     expect(first.class).to eq(Merchant)
-    expect(first.id).to eq(12334634)
+    expect(first.id).to eq(12334634) #problem
 
     expect(last.class).to eq(Merchant)
     expect(last.id).to eq(12335747)
   end
-
+  #Problem below me
   it 'returns most sold item, if it is a tie then it returns an array of items' do
     expect(sales_analyst.most_sold_item_for_merchant(12334634)).to eq([])
   end #need more accurate test
-
+  #Problem below me
   it 'returns most sold item, if it is a tie then it returns an array of items' do
     expect(sales_analyst.best_item_for_merchant(12334634)).to eq([])
   end
