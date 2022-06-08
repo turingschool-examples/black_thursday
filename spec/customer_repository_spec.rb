@@ -75,8 +75,8 @@ RSpec.describe CustomerRepository do
     it 'can update the result of an customer' do
       expect(@collection.find_by_id(498).first_name).to eq 'Yadira'
       attributes = {
-        :first_name 'Billy',
-        :last_name 'Bob'
+        first_name: 'Billy',
+        last_name: 'Bob'
       }
       @collection.update(498, attributes)
       expect(@collection.find_by_id(498).first_name).to eq 'Billy'
