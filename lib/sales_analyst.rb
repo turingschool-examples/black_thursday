@@ -199,38 +199,52 @@ class SalesAnalyst
   end #work in progress
 
   def most_sold_item_for_merchant(merchant_id)
-    #item(s) that have sold the highest quanitity
-    # invoice_holder = @invoice_repository.find_all_by_merchant_id(merchant_id)
-    # most_sold = []
-    # invoice_holder.each do |invoice|
-    #   if most_sold.count == 0 #if its the first input into the array, set top price
-    #     most_sold << invoice
-    #   else #if it is not the first input, compare if greater than or equal to
-    #     if item.unit_price > most_sold[0]
-    #       most_sold[0] = item #set as top sold
-    #     elsif item.unit_price == most_sold[0]
-    #       most_sold << item  #push in as array
-    #     end
-    #   end
-    #   most_sold
-    # end
-  end #in progress -sm
+
+    invoice_holder = @invoice_repository.find_all_by_merchant_id(merchant_id)
+    item_holder = []
+    invoice_holder.each do |invoice|
+      item_holder << @invoice_item_repository.find_all_by_invoice_id(invoice.id)
+    end
+    most_sold = []
+    highest_quantity = 0
+    item_holder.each do |array|
+      array.each do |item|
+        if most_sold.length == 0
+          most_sold = @item_repository.find_by_id(item.item_id).name
+          highest_quantity = item.quantity
+        elsif highest_quantity == item.quantity
+          most_sold << @item_repository.find_by_id(item.item_id).name
+        elsif item.quantity > highest_quantity
+          most_sold = [@item_repository.find_by_id(item.item_id).name]
+          highest_quantity = item.quantity
+        end
+      end
+    end
+    most_sold
+  end
+
 
   def best_item_for_merchant(merchant_id)
     #item that has made the most revenue
-    item_holder = @item_repository.find_by_id(merchant_id)
+    invoice_holder = @invoice_repository.find_all_by_merchant_id(merchant_id) #find all the invoices under a given merchant
     item_most_profitable = []
-    item_holder.each do |item|
-      if item_most_profitable.count == 0 #if its the first input into the array, set top price
-        item_most_profitable << item
-      else #if it is not the first input, compare if greater than or equal to
-        if item.unit_price > item_most_profitable[0]
-          item_most_profitable[0] = item #set as top sold
-        elsif item.unit_price == item_most_profitable[0]
-          item_most_profitable << item  #push in as array
-        end
-      end
-      item_most_profitable
+    item_holder = [] #holder for comparing items
+
+    invoice_holder.each do |invoice| # iterates throughout invoice array to pull out all the item IDs
+      item_holder << @invoice_item_repository.find_all_by_invoice_id(invoice.id) #find all the invoice items for each invoice
     end
-  end #in progress -sm, might need to return a single item and note possible array
+
+    item_holder.each do |item|
+      if item_most_profitable.count == 0 #if the array is empty
+
+        item_most_profitable << @item_repository.find_by_id(item.id).name #set as first highest profitable
+      elsif @item_repository.find_by_id(item).unit_price.to_i > item_most_profitable[0] #if more profitable than previous most pofitable
+        item_most_profitable = @item_repository.find_by_id(item.id).unit_price.to_i #sets new most profitable
+      elsif @item_repository.find_by_id(item).unit_price.to_i == item_most_profitable[0] #if they're equal
+        item_most_profitable << @item_repository.find_by_id(item).name
+      end
+    end
+    item_most_profitable
+  end
+
 end
