@@ -1,4 +1,5 @@
 class Invoice
+
   attr_accessor :id,
                 :customer_id,
                 :merchant_id,
@@ -13,8 +14,6 @@ class Invoice
     @status = details[:status]
     @created_at = details[:created_at]
     @updated_at = details[:updated_at]
-
   end
-  
 
 end
