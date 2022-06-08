@@ -25,4 +25,5 @@ RSpec.describe Customer do
     expect(@cutomer.created_at).to eq @time
     expect(@cutomer.updated_at).to eq @time
   end
+  
 end
