@@ -1,8 +1,6 @@
 require_relative 'entry'
 class CustomerRepository
-
   attr_reader :id, :created_at, :all
-
   attr_accessor :first_name,
                 :last_name,
                 :updated_at

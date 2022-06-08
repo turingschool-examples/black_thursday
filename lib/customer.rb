@@ -1,7 +1,6 @@
 require_relative 'entry'
 class Customer
   attr_reader :id, :created_at
-
   attr_accessor :first_name,
                 :last_name,
                 :updated_at

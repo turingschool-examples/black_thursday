@@ -30,7 +30,6 @@ class MerchantRepository
   end
 
   def create(attributes)
-
     create_id = (@all.last.id + 1)
     @all << Merchant.new({
       :id => create_id,
