@@ -1,6 +1,5 @@
 require_relative 'item'
 require 'csv'
-require 'pry'
 require 'BigDecimal'
 require_relative 'inspector'
 
@@ -12,17 +11,7 @@ class ItemRepository
     @all = []
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @all << Item.new(
-        {
-        :id => row[:id].to_i,
-        :name => row[:name],
-        :description => row[:description],
-        :unit_price => row[:unit_price],
-        :created_at => row[:created_at],
-        :updated_at => row[:updated_at],
-        :merchant_id => row[:merchant_id].to_i
-        }
-      )
+      @all << Item.new(row)
     end
   end
 
@@ -80,10 +69,10 @@ class ItemRepository
 
   def create(attributes)
     highest_id = []
-    @all.each do |item|
-      highest_id << item.id.to_i
+    @all.max do |item|
+      highest_id = item.id.to_i
     end
-    attributes[:id] = (highest_id.max + 1).to_s
+    attributes[:id] = highest_id.id + 1
     @all << Item.new(attributes)
   end
 
