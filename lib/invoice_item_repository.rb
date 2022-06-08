@@ -50,6 +50,13 @@ class InvoiceItemRepository
       })
   end
 
+  def update(id, attributes)
+    invoice_item = find_by_id(id)
+    if attributes[:status] == "shipped".downcase  || "pending".downcase || "returned".downcase
+      invoice.status = attributes[:status]
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

@@ -3,7 +3,7 @@ require_relative "../lib/sales_engine"
 require_relative "../lib/item_repository"
 require_relative "../lib/merchant_repository"
 require_relative "../lib/sales_analyst"
-
+require_relative "../lib/invoice_item_repository"
 
 RSpec.describe SalesAnalyst do
   before :each do
@@ -53,13 +53,21 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.merchants_with_high_item_count.first).to be_a Merchant
   end
 
-
   it 'can find the sum of a merchants items' do
+
     expect(@sales_analyst.sum_of_of_item_price(12334159)).to eq 31500.0
   end
 
-  xit 'can find the average item price per merchant' do
+  it 'can find the average item price per merchant' do
 
-    expect(@sales_analyst.merchants_with_high_item_count(12334159)).to be_a BigDecimal
+    expect(@sales_analyst.average_item_price_for_merchant(12334159)).to be_a BigDecimal
+    expect(@sales_analyst.average_item_price_for_merchant(12334159)).to eq(0.315e4)
   end
+
+  it 'can find the average of average prices per merchant' do
+
+    expect(@sales_analyst.average_average_price_per_merchant).to be_a BigDecimal
+  end
+
+  it 'can'
 end

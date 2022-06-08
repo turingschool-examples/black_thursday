@@ -12,8 +12,7 @@ class SalesAnalyst
 
   def average_items_per_merchant
     # (@items_path.all.count.to_f / @merchants_path.all.count).round(2)
-    mean = items_per_merchant.reduce(:+).to_f / items_per_merchant.count
-    mean.round(2)
+    (items_per_merchant.reduce(:+).to_f / items_per_merchant.count).round(2)
   end
 
   def all_items_by_merchant
@@ -49,11 +48,12 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    items_with_same_merchant = @items_path.find_all_by_merchant_id(id)
-    sum = sum_of_of_item_price(id)
-    total_items = items_with_same_merchant.count
-    average_price = sum / total_items
-    # binding.pry
+    items = @items_path.find_all_by_merchant_id(id)
+    items.sum { |item| item.unit_price } / BigDecimal(items.count, 2)
+    # items_with_same_merchant = @items_path.find_all_by_merchant_id(id)
+    # sum = sum_of_of_item_price(id)
+    # total_items = items_with_same_merchant.count
+    # average_price = sum / total_items
   end
 
   def sum_of_of_item_price(id)
@@ -62,6 +62,28 @@ class SalesAnalyst
       item.unit_price
     end
   end
+
+  def average_average_price_per_merchant
+    price_of_all_items = @items_path.all.collect { |item| item.unit_price }
+    (price_of_all_items.reduce(:+) / BigDecimal(@merchants_path.all.count, 2)
+  end
+
+  def average_item_price_standard_deviation
+
+  end
+
+  def average_item_price
+    avg_price = @items_path.all.collect { |item| item.unit_price }
+    (price_of_all_items.reduce(:+) / @items_path.all.count)
+    require "pry"; binding.pry
+  end
+
+  def price_difference_squared
+    items_per_merchant.map do |sum|
+      (sum - average_items_per_merchant)**2
+    end.sum
+  end
+
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
