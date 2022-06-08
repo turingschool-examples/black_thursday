@@ -1,7 +1,9 @@
 require 'CSV'
 require_relative '../lib/merchant'
+require_relative 'repoable'
 
 class MerchantRepository
+  include Repoable
   attr_accessor :file_path,
                 :all
 
@@ -12,19 +14,10 @@ class MerchantRepository
       @all << Merchant.new({:id => row[:id], :name => row[:name]})
     end
   end
-  def inspect
-      "#<#{self.class} #{@all.size} rows>"
-  end
-  def find_by_id(merchant_id)
-    @all.find {|merchant| merchant.id == merchant_id}
-  end
-
-  def find_by_name(name)
-    @all.find {|merchant| merchant.name.downcase == name.downcase}
-  end
 
   def find_all_by_name(name)
     @all.find_all {|merchant| merchant.name.downcase.include?(name.downcase)}
+    # binding.pry
   end
 
   def create(hash)
@@ -33,20 +26,10 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    @all.each do |merchant|
-      if merchant.id == id
-        merchant.name = attributes
-      end
+    if find_by_id(id) != nil
+      @all.find {|merchant| merchant.id == id}.name = attributes[:name]
+    else
     end
   end
-#refactor delete
-  def delete(id)
-    array = []
-      @all.each do |merchant|
-        if merchant.id != id
-          array << merchant
-        end
-      @all = array
-    end
-  end
+
 end
