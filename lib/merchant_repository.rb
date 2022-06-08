@@ -26,12 +26,4 @@ class MerchantRepository
       merchant.name.downcase.include?("#{name_fragment_search.downcase}")
     end
   end
-
-  def update(merchant_id_search, new_name)
-    @all.each do |merchant|
-      if merchant.id == merchant_id_search
-        merchant.name = new_name[:name]
-      end
-    end
-  end
 end

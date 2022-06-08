@@ -86,15 +86,6 @@ RSpec.describe TransactionRepository do
     end
   end
 
-  it 'has a helper method to help assign attributes' do
-    attributes = {
-      credit_card_number: '1234567890',
-    }
-    transaction = @collection.find_by_id(4980)
-    @collection.assign_attributes(transaction, attributes)
-    expect(transaction.credit_card_number).to eq '1234567890'
-  end
-
   describe '#update' do
     it 'can update the result of an transaction' do
       expect(@collection.find_by_id(4980).result).to eq :failed

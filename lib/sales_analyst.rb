@@ -191,4 +191,18 @@ class SalesAnalyst
     end
     total
   end
+
+  def merchants_with_pending_invoices
+    pending = @invoices.find_all_by_status(:pending)
+    merchs = pending.map do |invoice|
+      @merchants.find_by_id(invoice.merchant_id)
+    end
+    merchs.uniq
+  end
+
+  def merchants_with_only_one_item
+    merchs_items = merchant_items_hash
+    one_item_merchs = merchs_items.find_all {|merch, count| count == 1}
+    one_item_merchs.map {|merch| @merchants.find_by_id(merch[0])}
+  end
 end

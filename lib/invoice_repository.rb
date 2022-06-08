@@ -32,13 +32,4 @@ class InvoiceRepository
       invoice.status == status_search
     end
   end
-
-  def update(invoice_id_search, status_update)
-    @all.each do |invoice|
-      if invoice.id == invoice_id_search
-        invoice.status = status_update[:status]
-        invoice.updated_at = Time.now
-      end
-    end
-  end
 end

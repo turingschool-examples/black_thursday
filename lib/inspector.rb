@@ -20,4 +20,31 @@ module Inspector
       item.id == id
     end
   end
+
+  def update(id, attributes)
+    @all.find do |item|
+      if item.id == id
+        item.first_name = attributes[:first_name] unless attributes[:first_name].nil?
+        item.last_name = attributes[:last_name] unless attributes[:last_name].nil?
+        item.status = attributes[:status] unless attributes[:status].nil?
+        item.quantity = attributes[:quantity] unless attributes[:quantity].nil?
+        item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+        item.name = attributes[:name] unless attributes[:name].nil?
+        item.description = attributes[:description] unless attributes[:description].nil?
+        item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+        item.credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
+        item.credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
+        item.result = attributes[:result] unless attributes[:result].nil?
+        time_updater(item)
+      end
+    end
+  end
+
+  def time_updater(item)
+    if item.class == Merchant
+      return
+    else
+      item.updated_at = Time.now
+    end
+  end
 end

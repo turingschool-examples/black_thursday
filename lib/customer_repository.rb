@@ -26,14 +26,4 @@ class CustomerRepository
       customer.last_name.downcase.include?(last_name_search.downcase)
     end
   end
-
-  def update(customer_id_search, attributes)
-    @all.find do |customer|
-      if customer.id == customer_id_search
-        customer.first_name = attributes[:first_name] unless attributes[:first_name].nil?
-        customer.last_name = attributes[:last_name] unless attributes[:last_name].nil?
-        customer.updated_at = Time.now
-      end
-    end
-  end
 end

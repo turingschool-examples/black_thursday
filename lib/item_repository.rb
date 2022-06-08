@@ -62,20 +62,4 @@ class ItemRepository
     end
     items
   end
-
-  def assign_attributes(item, attributes)
-    item.name = attributes[:name] unless attributes[:name].nil?
-    item.description = attributes[:description] unless attributes[:description].nil?
-    item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
-    item.updated_at = Time.now
-    item
-  end
-
-  def update (id, attributes)
-    @all.each do |item|
-      if item.id == id
-        assign_attributes(item, attributes)
-      end
-    end
-  end
 end
