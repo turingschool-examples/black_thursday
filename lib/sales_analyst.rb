@@ -9,6 +9,11 @@ class SalesAnalyst < SalesEngine
               :transaction_repository,
               :customer_repository
 
+  def initialize
+    @invoice_day_of_week = []
+    super
+  end
+
   def average_items_per_merchant
     ((@item_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2))
   end
@@ -101,7 +106,6 @@ class SalesAnalyst < SalesEngine
     aipmsd = average_invoices_per_merchant_standard_deviation
     @merchant_repository.all.select do |merchant|
       @invoice_repository.find_all_by_merchant_id(merchant.id).length > (aipm + (aipmsd * 2))
-      # item.unit_price > (aappm + (psd * 2))
     end
   end
 
@@ -133,13 +137,69 @@ class SalesAnalyst < SalesEngine
     end
   end
 
+  def date_to_day
+    # @invoice_repository.all.each do |invoice_instance|
+    #   invoice_instance.created_at = Date.parse(invoice_instance.created_at).strftime("%A")
+    #   @invoice_day_of_week << invoice_instance
+    # end
+    # @invoice_day_of_week
+
+    invoice_days = @invoice_repository.all.map do |invoice|
+      invoice.created_at = Date.parse(invoice.created_at).strftime("%A")
+    end
+  end
+
+  def sunday_inv
+    date_to_day.find_all{|day| day.include?("Sunday")}
+  end
+
+  def monday_inv
+    date_to_day.find_all{|day| day.include?("Monday")}
+  end
+
+  def tuesday_inv
+    date_to_day.find_all{|day| day.include?("Tuesday")}
+  end
+
+  def wednesday_inv
+    date_to_day.find_all{|day| day.include?("Wednesday")}
+  end
+
+  def thursday_inv
+    date_to_day.find_all{|day| day.include?("Thursday")}
+  end
+
+  def friday_inv
+    date_to_day.find_all{|day| day.include?("Friday")}
+  end
+
+  def saturday_inv
+    date_to_day.find_all{|day| day.include?("Saturday")}
+  end
 
 
-  # def date_to_day
-  # dow = @invoice_repository.all.map do |invoice_instance|
-  #     invoice_instance.created_at = Date.parse(invoice_instance.created_at).strftime("%a")
-  #   end
-  #   return dow
-  # end
 
+
+  def days_of_the_week
+    days_of_the_week_array = []
+    days_of_the_week_array.push(sunday_inv, monday_inv,tuesday_inv,wednesday_inv,thursday_inv,friday_inv, saturday_inv)
+    days_of_the_week_array
+  end
+
+  def standard_deviation_invoices_per_day
+    days_of_the_week
+
+    avg_invoice_perday = @invoice_repository.all.count / 7
+    squares_diffs = days_of_the_week.map {|day|((day.count - avg_invoice_perday)**2)}
+    Math.sqrt((squares_diffs.sum/6).to_f.round(2)).round(2)
+  end
+
+  def top_days_by_invoice_count
+    avg_invoice_perday = @invoice_repository.all.count / 7
+    sdipd = standard_deviation_invoices_per_day
+    y = days_of_the_week.select do |invoice|
+      invoice.count > (avg_invoice_perday + (sdipd * 2))
+    end
+    y.uniq
+  end
 end
