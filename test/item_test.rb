@@ -34,7 +34,6 @@ RSpec.describe Item do
 
   it 'returns time created' do
     expect(item.created_at).to eq(Time.now.strftime("%Y-%m-%d %H:%M"))
-    #this doesn't pass because the expect is called slightlllllly after the object is inialized
   end
 
   it 'returns time updated' do
@@ -42,7 +41,6 @@ RSpec.describe Item do
     item.update(1, {description: 'Ink pen', unit_price: BigDecimal(17.99,4)})
     expect(item.updated_at).to eq(Time.now.strftime("%Y-%m-%d %H:%M"))
     expect(item.unit_price_to_dollars).to eq(17.99)
-    #this doesn't pass because the expect is called slightlllllly after the object is inialized
   end
 
   it 'returns merchant id' do
