@@ -81,7 +81,7 @@ RSpec.describe TransactionRepository do
 
     expect(@transaction.all.first.result).to eq('success')
     expect(@transaction.all.first.credit_card_number).to eq(4068631943231473)
-    expect(@transaction.all.first.credit_card_expiration_date).to eq(0217)
+    expect(@transaction.all.first.credit_card_expiration_date).to eq(217)
 
     @transaction.update(1, @attributes)
 
