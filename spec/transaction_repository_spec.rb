@@ -9,7 +9,7 @@ RSpec.describe TransactionRepository do
       :invoice_id => 8,
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0220",
-      :result => "success",
+      :result => :success,
       :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
       :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
     }
@@ -67,8 +67,8 @@ RSpec.describe TransactionRepository do
     end
 
     it 'returns an array if transactions have matching result' do
-      expect(@collection.find_all_by_result('success').count).to eq 4158
-      expect(@collection.find_all_by_result('failed').count).to eq 827
+      expect(@collection.find_all_by_result(:success).count).to eq 4158
+      expect(@collection.find_all_by_result(:failed).count).to eq 827
     end
   end
 
@@ -80,7 +80,7 @@ RSpec.describe TransactionRepository do
       expect(@collection.find_by_id(4986).invoice_id).to eq 8
       expect(@collection.find_by_id(4986).credit_card_number).to eq '4242424242424242'
       expect(@collection.find_by_id(4986).credit_card_expiration_date).to eq '0220'
-      expect(@collection.find_by_id(4986).result).to eq 'success'
+      expect(@collection.find_by_id(4986).result).to eq :success
       expect(@collection.find_by_id(4986).created_at).to eq Time.parse('1994-05-07 23:38:43 UTC')
       expect(@collection.find_by_id(4986).updated_at).to eq Time.parse('2016-01-11 11:30:35 UTC')
     end
@@ -88,18 +88,23 @@ RSpec.describe TransactionRepository do
 
   describe '#update' do
     it 'can update the result of an transaction' do
-      expect(@collection.find_by_id(4980).result).to eq 'failed'
-      @collection.update(4980, '1234567890', '0923', 'success')
+      expect(@collection.find_by_id(4980).result).to eq :failed
+      attributes = {
+        credit_card_number: '1234567890',
+        credit_card_expiration_date: '0923',
+        result: :success
+      }
+      @collection.update(4980, attributes)
       expect(@collection.find_by_id(4980).credit_card_number).to eq '1234567890'
       expect(@collection.find_by_id(4980).credit_card_expiration_date).to eq '0923'
-      expect(@collection.find_by_id(4980).result).to eq 'success'
+      expect(@collection.find_by_id(4980).result).to eq :success
       expect(@collection.find_by_id(4980).updated_at).not_to eq Time.parse('2014-03-15')
     end
   end
 
   describe '#delete' do
     it 'can delete an transaction based on id' do
-      expect(@collection.find_by_id(1).result).to eq 'success'
+      expect(@collection.find_by_id(1).result).to eq :success
       @collection.delete(1)
       expect(@collection.find_by_id(1)).to eq nil
     end

@@ -33,12 +33,12 @@ class TransactionRepository
     end
   end
 
-  def update(transaction_id_search, new_credit_card_number, new_credit_card_expiration_date, new_result)
+  def update(transaction_id_search, attributes)
     @all.find do |transaction|
       if transaction.id == transaction_id_search
-        transaction.credit_card_number = new_credit_card_number
-        transaction.credit_card_expiration_date = new_credit_card_expiration_date
-        transaction.result = new_result
+        transaction.credit_card_number = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
+        transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
+        transaction.result = attributes[:result] unless attributes[:result].nil?
         transaction.updated_at = Time.now
       end
     end
