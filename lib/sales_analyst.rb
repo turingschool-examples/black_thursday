@@ -135,11 +135,13 @@ class SalesAnalyst < SalesEngine
 
 
 
-  # def date_to_day
-  # dow = @invoice_repository.all.map do |invoice_instance|
-  #     invoice_instance.created_at = Date.parse(invoice_instance.created_at).strftime("%a")
-  #   end
-  #   return dow
-  # end
+  def date_to_day
+    invoice_instances_with_day_of_week = []
+    @invoice_repository.all.each do |invoice_instance|
+      invoice_instance.created_at = Date.parse(invoice_instance.created_at).strftime("%A")
+      invoice_instances_with_day_of_week << invoice_instance
+    end
+    return invoice_instances_with_day_of_week
+  end
 
 end
