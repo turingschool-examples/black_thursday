@@ -26,4 +26,25 @@ class SalesEngine
   def merchants
     @merchant_repository
   end
+
+  def items
+    @items_repository
+  end
+
+  def invoices
+    @invoice_repository
+  end
+
+  def invoice_items
+    @invoice_item_repository
+  end
+
+  def transactions
+    @transaction_repository
+  end
+
+  def customers
+    @customer_repository
+  end
+
 end
