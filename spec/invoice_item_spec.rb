@@ -9,8 +9,8 @@ RSpec.describe InvoiceItem do
       :invoice_id => 8,
       :quantity => 1,
       :unit_price => 1099,
-      :created_at => '1994-05-07 23:38:43 UTC',
-      :updated_at => '2016-01-11 11:30:35 UTC'
+      :created_at => Time.parse('1994-05-07 23:38:43 UTC'),
+      :updated_at => Time.parse('2016-01-11 11:30:35 UTC')
     })
   end
 
@@ -40,11 +40,11 @@ RSpec.describe InvoiceItem do
     end
 
     it "has a created time" do
-      expect(@invoice_item.created_at).to eq '1994-05-07 23:38:43 UTC'
+      expect(@invoice_item.created_at).to eq Time.parse('1994-05-07 23:38:43 UTC')
     end
 
     it "has an updated time" do
-      expect(@invoice_item.updated_at).to eq '2016-01-11 11:30:35 UTC'
+      expect(@invoice_item.updated_at).to eq Time.parse('2016-01-11 11:30:35 UTC')
     end
   end
 
