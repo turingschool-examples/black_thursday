@@ -1,9 +1,9 @@
+require 'Time'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/customer_repository'
 require_relative '../lib/invoice_item_repository'
-require_relative '../lib/customer_repository'
 require_relative '../lib/transaction_repository'
 class SalesEngine
   attr_reader :items,

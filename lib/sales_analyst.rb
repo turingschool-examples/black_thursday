@@ -84,9 +84,9 @@ class SalesAnalyst
   end
   #The average invoices per merchant
   def average_invoices_per_merchant
-    invoices = @invoice_repository.all.count.to_f
-    merchants = @merchant_repository.all.count.to_f
-    (invoices / merchants).round(2)
+    invoices = @invoice_repository.all.count
+    merchants = @merchant_repository.all.count
+    (invoices.to_f / merchants.to_f).round(2)
   end
   def invoices_per_merchant
     invoice_items = Hash.new
@@ -117,7 +117,7 @@ class SalesAnalyst
     bottom_merchants = []
     avg_invoices = average_invoices_per_merchant
     std_dev_2 = average_invoices_per_merchant_standard_deviation * 2
-    invoice_items = invoices_per_merchant.find_all {|count| count[1] < (avg_invoices + std_dev_2)}
+    invoice_items = invoices_per_merchant.find_all {|count| count[1] < (avg_invoices - std_dev_2)}
     invoice_items.each do | merchant_id |
       bottom_merchants << @merchant_repository.find_by_id(merchant_id[0])
     end

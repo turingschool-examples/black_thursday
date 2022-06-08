@@ -11,8 +11,8 @@ class Transaction
               :updated_at
 
   def initialize(data_hash)
-    @id = data_hash[:id]
-    @invoice_id = data_hash[:invoice_id]
+    @id = data_hash[:id].to_i
+    @invoice_id = data_hash[:invoice_id].to_i
     @credit_card_number = data_hash[:credit_card_number]
     @credit_card_expiration_date = data_hash[:credit_card_expiration_date]
     @result = data_hash[:result]
