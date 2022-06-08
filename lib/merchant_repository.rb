@@ -24,10 +24,8 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    result = []
-    result = @all.find_all {|merchant| merchant.name.downcase.include?(name.downcase)}
+    @all.find_all {|merchant| merchant.name.downcase.include?(name.downcase)}
     # binding.pry
-    result
   end
 
   def create(hash)
