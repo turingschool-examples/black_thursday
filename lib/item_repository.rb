@@ -1,5 +1,5 @@
+require_relative 'item'
 require 'csv'
-require 'item'
 require 'pry'
 require 'BigDecimal'
 require_relative 'inspector'

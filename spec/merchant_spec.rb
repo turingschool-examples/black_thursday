@@ -1,6 +1,4 @@
-require "./lib/merchant"
-require "spec_helper"
-
+require './lib/merchant'
 
 RSpec.describe(Merchant) do
   let(:merchant) { Merchant.new({:id => 5, :name => "Turing School"}) }

@@ -1,7 +1,4 @@
 require './lib/sales_analyst'
-require './lib/merchant_repository'
-require './lib/item_repository'
-require 'pry'
 
 describe SalesAnalyst do
   before(:each) do
