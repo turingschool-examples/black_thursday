@@ -98,5 +98,13 @@ class SalesAnalyst < SalesEngine
   ((@invoice_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2))
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    merchant_ids = @invoice_repository.all.group_by {|invoice| invoice.merchant_id}
+    merch_array = merchant_ids.flat_map {|_,value|value.count}
+    merch_invoice_count = merch_array.map {|invoice_count|((invoice_count - average_invoices_per_merchant)**2)}
+    Math.sqrt(((merch_invoice_count.sum) / (merch_invoice_count.count - 1)).to_f.round(2)).round(2)
+  end
+  # find_all_by_merchant_id(id).count
+
 
 end
