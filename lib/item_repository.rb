@@ -69,14 +69,6 @@ class ItemRepository
     items
   end
 
-  def create(attributes)
-    highest_id = @all.max do |item|
-      highest_id = item.id.to_i
-    end
-    attributes[:id] = highest_id.id + 1
-    @all << Item.new(attributes)
-  end
-
   def assign_attributes(item, attributes)
     item.name = attributes[:name] unless attributes[:name].nil?
     item.description = attributes[:description] unless attributes[:description].nil?

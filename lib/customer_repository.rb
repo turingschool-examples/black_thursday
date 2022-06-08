@@ -39,22 +39,6 @@ class CustomerRepository
     end
   end
 
-  def create(attributes)
-    new_id = 0
-    @all.each do |customer|
-      if customer.id.to_i >= new_id
-        new_id = customer.id.to_i + 1
-      end
-    end
-    @all << Customer.new( {
-      :id => new_id.to_s,
-      :first_name => attributes[:first_name],
-      :last_name => attributes[:last_name],
-      :created_at => attributes[:created_at],
-      :updated_at => attributes[:updated_at]
-      } )
-  end
-
   def update(customer_id_search, new_first_name, new_last_name)
     @all.find do |customer|
       if customer.id == customer_id_search

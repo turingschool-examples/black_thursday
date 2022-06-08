@@ -47,24 +47,6 @@ class TransactionRepository
     end
   end
 
-  def create(attributes)
-    new_id = 0
-    @all.each do |transaction|
-      if transaction.id.to_i >= new_id
-        new_id = transaction.id.to_i + 1
-      end
-    end
-    @all << Transaction.new( {
-      :id => new_id.to_s,
-      :invoice_id => attributes[:invoice_id],
-      :credit_card_number => attributes[:credit_card_number],
-      :credit_card_expiration_date => attributes[:credit_card_expiration_date],
-      :result => attributes[:result],
-      :created_at => attributes[:created_at],
-      :updated_at => attributes[:updated_at]
-      } )
-  end
-
   def update(transaction_id_search, new_credit_card_number, new_credit_card_expiration_date, new_result)
     @all.find do |transaction|
       if transaction.id == transaction_id_search

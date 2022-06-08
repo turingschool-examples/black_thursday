@@ -10,4 +10,9 @@ module Inspector
     end
   end
 
+  def create(attributes)
+    attributes[:id] = @all.max{|item| item.id.to_i}.id + 1   
+    @all << (@all.first.class).new(attributes)
+  end
+
 end

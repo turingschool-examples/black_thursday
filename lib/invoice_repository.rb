@@ -39,15 +39,6 @@ class InvoiceRepository
     end
   end
 
-  def create(attributes)
-    attributes[:id] = 0
-    max_id = @all.max do |invoice|
-      invoice.id.to_i
-    end
-    attributes[:id] = max_id.id + 1
-    @all << Invoice.new(attributes)
-  end
-
   def update(invoice_id_search, status_update)
     @all.each do |invoice|
       if invoice.id == invoice_id_search

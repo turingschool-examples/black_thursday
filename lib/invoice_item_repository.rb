@@ -42,24 +42,6 @@ class InvoiceItemRepository
     end
   end
 
-  def create(attributes)
-    new_id = 0
-    @all.each do |invoice_item|
-      if invoice_item.id.to_i >= new_id
-        new_id = invoice_item.id.to_i + 1
-      end
-    end
-    @all << InvoiceItem.new({
-      :id => new_id.to_i,
-      :item_id => attributes[:item_id].to_i,
-      :invoice_id => attributes[:invoice_id].to_i,
-      :quantity => attributes[:quantity],
-      :unit_price => attributes[:unit_price],
-      :created_at => attributes[:created_at],
-      :updated_at => attributes[:updated_at]
-      })
-  end
-
   def update(invoice_item_id_search, new_quantity, new_price)
     @all.find do |invoice_item|
       if invoice_item.id == invoice_item_id_search
