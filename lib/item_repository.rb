@@ -68,8 +68,7 @@ class ItemRepository
   end
 
   def create(attributes)
-    highest_id = []
-    @all.max do |item|
+    highest_id = @all.max do |item|
       highest_id = item.id.to_i
     end
     attributes[:id] = highest_id.id + 1
