@@ -10,7 +10,6 @@ require './lib/invoice_item_repository'
 require './lib/transaction_repository'
 require './lib/customer_repository'
 
-
 RSpec.describe SalesAnalyst do
   before :each do
     @sales_engine = SalesEngine.from_csv({
@@ -78,6 +77,7 @@ RSpec.describe SalesAnalyst do
   it "can calculate average_invoices_per_merchant_standard_deviation" do
     expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
+
 
   it "can calculate top_merchants_by_invoice_count" do
     expect(@sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
