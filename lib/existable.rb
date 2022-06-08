@@ -5,23 +5,30 @@ module Existable
     Time.now.strftime("%Y-%m-%d %H:%M")
   end
 
-  def create(attribute)
-    return make_merchant(attribute) if self.class == MerchantRepository
-    return make_item(attribute) if self.class == ItemRepository
-    return make_invoice(attribute) if self.class == InvoiceRepository
-    return make_invoice_item(attribute) if self.class == InvoiceItemRepository
-    return make_transaction(attribute) if self.class == TransactionRepository
-    return make_customer(attribute) if self.class == CustomerRepository
+  def evaluate
+    if self.class == MerchantRepository
+      return Merchant
+    elsif self.class == ItemRepository
+      return Item
+    elsif self.class == InvoiceRepository
+      return Invoice
+    elsif self.class == InvoiceItemRepository
+      return InvoiceItem
+    elsif self.class == CustomerRepository
+      return Customer
+    else self.class == TransactionRepository
+      return Transaction
+    end
   end
 
   def max_id
     (@all.max_by {|thing| thing.id}).id
   end
 
-  def make_merchant(attribute)
+  def make_merchant(name)
     @all.push(Merchant.new({
       :id => max_id + 1,
-      :name => attribute
+      :name => name
     }))
   end
 
@@ -144,8 +151,8 @@ module Existable
   end
 
   def delete(id)
-    to_be_dropped = @all.find {|thing| thing.id == id}
+    to_be_dropped = find_by_id(id)
     @all.delete(to_be_dropped)
-    to_be_dropped == nil ? 'Deletion complete!' : '...something went wrong'
+    @all.find_by_id(id) == nil ? 'Deletion complete!' : '...something went wrong'
   end
 end

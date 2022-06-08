@@ -1,3 +1,4 @@
+require 'simplecov'
 require './lib/helper'
 
 RSpec.describe Invoice do
