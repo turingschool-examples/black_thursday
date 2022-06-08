@@ -41,7 +41,7 @@ module Findable
   end
 
   def find_all_by_status(status)
-    @all.select {|invoice| invoice.status == status}
+    @all.select {|invoice| invoice.status == status.to_s}
   end
 
   def find_all_by_result(result)

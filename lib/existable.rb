@@ -127,7 +127,7 @@ module Existable
   end
 
   def update_invoice(to_be_updated, attributes)
-    to_be_updated.status = attributes[:status]
+    to_be_updated.status = attributes
     updated_time(to_be_updated)
   end
 
