@@ -7,7 +7,7 @@ class InvoiceItem
               :created_at
 
   attr_accessor :quantity,
-                :unit_price
+                :unit_price,
                 :updated_at
 
   def initialize(input)
@@ -21,6 +21,6 @@ class InvoiceItem
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f / 100
+    @unit_price.to_f #/ 100
   end
 end
