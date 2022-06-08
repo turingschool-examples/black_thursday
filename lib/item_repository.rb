@@ -1,7 +1,9 @@
 require 'CSV'
 require_relative '../lib/item'
+require_relative 'repoable'
 
 class ItemRepository
+  include Repoable
   attr_reader :all
 
   def initialize(file_path)
@@ -12,12 +14,8 @@ class ItemRepository
     end
   end
 
-  def find_by_id(item_id)
-    @all.find { |item| item.id == item_id}
-  end
-
-  def find_by_name(item_name)
-    @all.find {|item| item.name.downcase == item_name.downcase}
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def find_all_with_description(item_description)
@@ -40,34 +38,21 @@ class ItemRepository
     end
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    @all.find_all {|item| merchant_id == item.merchant_id }
-  end
-
   def create(data_hash)
     id = (@all.last.id. + 1)
     @all << Item.new({:id => id,
                       :name => data_hash[:name],
                       :description => data_hash[:description],
                       :unit_price => data_hash[:unit_price],
-                      :created_at => Time.now,
-                      :updated_at => Time.now,
+                      :created_at => Time.now.to_s,
+                      :updated_at => Time.now.to_s,
                       :merchant_id => data_hash[:merchant_id]
                       })
   end
-
   def update(id, attributes)
     find_by_id(id).name = attributes[:name]
     find_by_id(id).description = attributes[:description]
     find_by_id(id).unit_price = BigDecimal(attributes[:unit_price])
     find_by_id(id).updated_at = Time.now
-  end
-
-  def delete(id)
-    @all.delete(find_by_id(id))
-  end
-
-  def inspect
-      "#<#{self.class} #{@all.size} rows>"
   end
 end

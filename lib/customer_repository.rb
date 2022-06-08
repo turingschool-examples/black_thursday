@@ -1,7 +1,9 @@
 require 'csv'
 require_relative '../lib/customer'
+require_relative 'repoable'
 
 class CustomerRepository
+  include Repoable
   attr_reader :file_path
 
   attr_accessor :all,
@@ -20,10 +22,6 @@ class CustomerRepository
         :updated_at => row[:updated_at]
       })
       end
-  end
-
-   def find_by_id(customer_id)
-      @all.find { |customer| customer.id.to_i == customer_id}
    end
 
    def find_all_by_first_name(name)
@@ -50,6 +48,7 @@ class CustomerRepository
     find_by_id(id).last_name = attribute[:last_name]
     find_by_id(id).updated_at = Time.now
    end
+<<<<<<< HEAD
 
    def delete(id)
      @all.delete(find_by_id(id))
@@ -58,4 +57,6 @@ class CustomerRepository
    def inspect
      "#<#{self.class} #{@all.size} rows>"
    end
+=======
+>>>>>>> master
 end

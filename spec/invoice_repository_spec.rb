@@ -15,8 +15,8 @@ RSpec.describe InvoiceRepository do
     expect(@invoice_repository.all).to be_a Array
     expect(@invoice_repository.all.length).to eq(4985)
     expect(@invoice_repository.all.first).to be_a Invoice
-    expect(@invoice_repository.all.first.id).to eq("1")
-    expect(@invoice_repository.all.first.merchant_id).to eq("12335938")
+    expect(@invoice_repository.all.first.id).to eq(1)
+    expect(@invoice_repository.all.first.merchant_id).to eq(12335938)
   end
 
   it "can find an invoice by id and return nil if not found" do
@@ -59,6 +59,6 @@ RSpec.describe InvoiceRepository do
 
   it "can delete the invoice instance" do
     @invoice_repository.delete(1)
-    expect(@invoice_repository.all.first.id).to eq("2")
+    expect(@invoice_repository.all.first.id).to eq(2)
   end
 end

@@ -6,14 +6,16 @@ class SalesAnalyst
               :merchant_repository,
               :invoice_repository,
               :invoice_item_repository,
-              :customer_repository
+              :customer_repository,
+              :transaction_repository
 
-  def initialize(item_repository, merchant_repository, invoice_repository, invoice_item_repository, customer_repository)
+  def initialize(item_repository, merchant_repository, invoice_repository, invoice_item_repository, customer_repository, transaction_repository)
     @item_repository = item_repository
     @merchant_repository = merchant_repository
     @invoice_repository = invoice_repository
     @invoice_item_repository = invoice_item_repository
     @customer_repository = customer_repository
+    @transaction_repository  = transaction_repository
   end
 
   def average_items_per_merchant
@@ -48,7 +50,7 @@ class SalesAnalyst
   def average_item_price_for_merchant(id)
     merchant_items = @item_repository.find_all_by_merchant_id(id)
     price_sum = merchant_items.sum(0.0) {|item| item.unit_price}
-    (price_sum / merchant_items.count).round(0)
+    (price_sum / merchant_items.count).round(2)
   end
   #The average price per item across all merchants
   def average_average_price_per_merchant
@@ -56,7 +58,7 @@ class SalesAnalyst
     @merchant_repository.all.each do |merchant|
       merchant_averages << average_item_price_for_merchant(merchant.id)
     end
-    merchant_averages.sum(0.0) / merchant_averages.count
+    (merchant_averages.sum(0.0) / merchant_averages.count).round(2)
   end
 
   def average_price_per_merchant_standard_deviation
@@ -162,5 +164,17 @@ class SalesAnalyst
   def invoice_status(status)
     status_count = @invoice_repository.find_all_by_status(status)
     ((status_count.size.to_f / @invoice_repository.all.size.to_f)* 100).round(2)
+  end
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transaction_repository.find_all_by_invoice_id(invoice_id)
+    status = []
+    transactions.map  { |t| status << t.result }
+    status.include?('success')
+  end
+  def invoice_total(id)
+    inv_items = @invoice_item_repository.find_all_by_invoice_id(id)
+    total = 0
+    inv_items.map { |item| total += item.quantity * item.unit_price }
+    total.to_f
   end
 end

@@ -1,7 +1,9 @@
 require 'csv'
 require_relative '../lib/invoice'
+require_relative 'repoable'
 
 class InvoiceRepository
+  include Repoable
   attr_reader :file_path
 
   attr_accessor :all
@@ -21,16 +23,8 @@ class InvoiceRepository
     end
   end
 
-  def find_by_id(invoice_id)
-    @all.find { |invoice| invoice.id.to_i == invoice_id}
-  end
-
   def find_all_by_customer_id(cust_id)
     @all.find_all {|invoice| invoice.customer_id.to_i == cust_id}
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    @all.find_all {|invoice| invoice.merchant_id == merchant_id}
   end
 
   def find_all_by_status(status)
@@ -52,6 +46,7 @@ class InvoiceRepository
     find_by_id(id).status = status
     find_by_id(id).updated_at = Time.now
   end
+<<<<<<< HEAD
 
   def delete(id)
     @all.delete(find_by_id(id))
@@ -60,4 +55,6 @@ class InvoiceRepository
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
+=======
+>>>>>>> master
 end
