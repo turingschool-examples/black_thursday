@@ -89,4 +89,16 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.bottom_merchants_by_invoice_count.first.class).to eq Merchant
   end
 
+  it "calculates percentage of invoices that are shipped/ pending/returned? (takes symbol as argument)" do
+    expect(@sales_analyst.invoice_status(:pending)).to eq(29.55)
+    expect(@sales_analyst.invoice_status(:shipped)).to eq(56.95)
+    expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
+  end
+
+
+
+  # it "gets days of week" do
+  #   expect(@sales_analyst.date_to_day).to eq("cheese")
+  # end
+
 end
