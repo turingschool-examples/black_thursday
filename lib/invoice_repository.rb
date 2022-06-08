@@ -11,7 +11,7 @@ class InvoiceRepository
   def initialize(file_path)
     @file_path = file_path
     @all = []
-
+      if @file_path
         CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
           @all << Invoice.new({
             :id => row[:id].to_i,
@@ -21,6 +21,7 @@ class InvoiceRepository
             :created_at => row[:created_at],
             :updated_at => row[:updated_at]})
           end
+        end
   end
 
   # def find_by_id(id)

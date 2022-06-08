@@ -48,8 +48,8 @@ class MerchantRepository
   end
 
   def create(name)
-    merchant = Merchant.new({:id => new_id, :name => name[:name]})
-   @all << merchant
+    merchant = Merchant.new({:id => new_id, :name => name})
+    @all << merchant
   end
 
   def update(id, attributes)

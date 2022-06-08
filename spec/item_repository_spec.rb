@@ -60,7 +60,7 @@ RSpec.describe ItemRepository do
   it 'is verifing passed in range is within item unit_price range of instantiated items' do
 
     expect(@item_repository.find_all_by_price_in_range(0..1200)).to be_a Array
-    expect(@item_repository.find_all_by_price_in_range(0..1200).length).to eq 350
+    expect(@item_repository.find_all_by_price_in_range(0..1200).length).to eq 309
   end
 
   it 'can find all by merchant id' do
@@ -147,4 +147,5 @@ RSpec.describe ItemRepository do
     expect(@item_repository.all.count).to eq 1367
     expect(@item_repository.find_by_id(263567475)).to be_nil
    end
+
 end

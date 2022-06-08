@@ -1,6 +1,6 @@
 require 'csv'
-
 require_relative '../lib/invoice_item_repository'
+require_relative '../lib/invoice_item'
 require_relative '../lib/sales_engine'
 
 
@@ -11,8 +11,7 @@ RSpec.describe InvoiceItemRepository do
   end
 
   it 'exists' do
-
-    expect(@invoice_item).to be_a InvoiceItem
+    expect(@sales_engine.invoice_items).to be_a InvoiceItemRepository
   end
 
   it 'can return all invoice items' do
