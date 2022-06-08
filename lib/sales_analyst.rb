@@ -1,4 +1,5 @@
 require_relative 'helper'
+require 'pry'
 
 class SalesAnalyst
   include Findable
@@ -233,4 +234,5 @@ class SalesAnalyst
       item_most_profitable
     end
   end #in progress -sm, might need to return a single item and note possible array
+
 end
