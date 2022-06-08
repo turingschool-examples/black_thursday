@@ -32,9 +32,7 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(fragment)
-    @all.find_all do |customer|
-      customer.first_name.include?(fragment)
-    end
+    @all.find_all {|customer| customer.first_name.include?(fragment)}
   end
 
   def find_all_by_last_name(fragment)
