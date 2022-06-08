@@ -3,7 +3,7 @@ SimpleCov.start
 require './lib/helper'
 
 RSpec.describe CustomerRepository do
-  let!(:sales_engine) {SalesEngine.from_csv({:customers => "./data/customer.csv"})}
+  let!(:sales_engine) {SalesEngine.from_csv({:customers => "./data/customers.csv"})}
   let!(:customer_repo) {sales_engine.customers}
   let(:new_customer) {customer_repo.make_customer({
     :id => 6,
@@ -59,7 +59,7 @@ RSpec.describe CustomerRepository do
     expect(customer_repo.find_by_id(21831)).to be_instance_of Customer
     expect(customer_repo.find_by_id(21831).quantity).to eq(1)
     # expect(customer_repo.find_by_id(1).updated_at).to eq("2014-03-15")
-    invoicerepository = double()
-    allow(invoicerepository).to receive(:delete).and_return("Deletion complete!")
+    customerrepository = double()
+    allow(customerrepository).to receive(:delete).and_return("Deletion complete!")
   end
 end
