@@ -49,9 +49,10 @@ class ItemRepository
 
 
     def find_all_by_price(price)
-       @all.find_all do |item|
-          BigDecimal(item.unit_price, Float::DIG) == price
-        end
+       frog = @all.find_all do |item|
+        BigDecimal(item.unit_price, 2) == price
+        # BigDecimal(item.unit_price, Float::DIG) == price
+      end
     end
 
       #Old code
@@ -71,7 +72,6 @@ class ItemRepository
 
     def find_all_by_price_in_range(range)
         @all.find_all do |item|
-            binding.pry
             item.unit_price.between?(range.first + 1, range.last - 1)
         end
     end
