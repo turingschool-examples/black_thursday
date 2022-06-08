@@ -5,6 +5,7 @@ require_relative '../lib/invoice_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_item_repository'
 require_relative '../lib/customer_repository'
+require_relative '../lib/transaction_repository'
 
 RSpec.describe SalesAnalyst do
   before :each do
@@ -14,7 +15,8 @@ RSpec.describe SalesAnalyst do
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
       :invoice_items => "./data/invoice_items.csv",
-      :customers => "./data/customers.csv"
+      :customers => "./data/customers.csv",
+      :transactions => "./data/transactions.csv"
       }
     )
     @sales_analyst = @sales_engine.analyst
@@ -43,7 +45,7 @@ RSpec.describe SalesAnalyst do
    end
 
    it "can find the average price of a merchant’s items" do
-     expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq(1666)
+     expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq(BigDecimal(16.66,4))
    end
 
    it "can find sum all of the averages and find the average price across all merchants" do
@@ -104,5 +106,12 @@ RSpec.describe SalesAnalyst do
      expect(@sales_analyst.invoice_status(:pending)).to eq(29.55)
      expect(@sales_analyst.invoice_status(:shipped)).to eq(56.95)
      expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
+   end
+   it "can return true if invoice with ID was paid in full" do
+     expect(@sales_analyst.invoice_paid_in_full?(4126)).to eq(true)
+     expect(@sales_analyst.invoice_paid_in_full?(1840)).to eq(false)
+   end
+   it "can return the total $ amt of invoice with ID" do
+     expect(@sales_analyst.invoice_total(4)).to eq(1963.90)
    end
 end
