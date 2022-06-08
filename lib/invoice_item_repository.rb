@@ -30,29 +30,23 @@ class InvoiceItemRepository
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
-  
+
   def find_by_id(id)
-    @all.find do |invoice_item|
-      invoice_item.id == id
-    end
+    @all.find {|invoice_item| invoice_item.id == id}
   end
 
   def find_all_by_item_id(item_id)
-    @all.find_all do |invoice_item|
-      invoice_item.item_id.to_i == item_id.to_i
-    end
+    @all.find_all {|invoice_item| invoice_item.item_id.to_i == item_id.to_i}
   end
 
   def find_all_by_invoice_id(item_id)
-    @all.find_all do |invoice_item|
-      invoice_item.invoice_id.to_i == invoice_id.to_i
-    end
+    @all.find_all {|invoice_item| invoice_item.invoice_id.to_i == invoice_id.to_i}
   end
 
   def create(attributes)
-    x = (@all.last.id + 1)
+    create_id = (@all.last.id + 1)
     @all << InvoiceItem.new({
-      :id => x,
+      :id => create_id,
       :item_id => attributes[:item_id],
       :invoice_id => attributes[:invoice_id],
       :quantity => attributes[:quantity],
@@ -63,15 +57,15 @@ class InvoiceItemRepository
   end
 
   def update(id, attributes)
-    x = find_by_id(id)
-    x.quantity = attributes[:quantity]
-    x.unit_price = attributes[:unit_price]
-    x.updated_at = Time.now
+    update_invoice = find_by_id(id)
+    update_invoice.quantity = attributes[:quantity]
+    update_invoice.unit_price = attributes[:unit_price]
+    update_invoice.updated_at = Time.now
   end
 
   def delete(id)
-    x = find_by_id(id)
-    @all.delete(x)
+    delete_invoice = find_by_id(id)
+    @all.delete(delete_invoice)
   end
 
 end
