@@ -1,4 +1,6 @@
 require_relative 'entry'
+require 'date'
+
 class SalesAnalyst < SalesEngine
   attr_reader :item_repository,
               :merchant_repository,
@@ -43,7 +45,6 @@ class SalesAnalyst < SalesEngine
   end
 
   def average_items_per_merchant_standard_deviation
-    # x is a hash - merchant id's are assigned to keys and the values are arrays of their items
     merchant_ids = @item_repository.all.group_by {|item| item.merchant_id}
     merch_array = merchant_ids.flat_map {|_,value|value.count}
     merch_item_count = merch_array.map {|item_count|((item_count - average_items_per_merchant)**2)}
@@ -111,5 +112,34 @@ class SalesAnalyst < SalesEngine
       @invoice_repository.find_all_by_merchant_id(merchant.id).length < (aipm - (aipmsd * 2))
     end
   end
+
+  def invoice_status(symbol)
+    shipped = @invoice_repository.find_all_by_status("shipped")
+    pending = @invoice_repository.find_all_by_status("pending")
+    returned = @invoice_repository.find_all_by_status("returned")
+
+    ship_perc = (((shipped.count.to_f / @invoice_repository.all.count).to_f) * 100).round(2)
+    pending_perc = (((pending.count.to_f / @invoice_repository.all.count).to_f) * 100).round(2)
+    returned_perc = (((returned.count.to_f / @invoice_repository.all.count).to_f) * 100).round(2)
+
+    if symbol.to_s == "shipped"
+      ship_perc
+    elsif symbol.to_s == "pending"
+      pending_perc
+    elsif symbol.to_s == "returned"
+      returned_perc
+    else
+      puts "Eat a bag of chips :)"
+    end
+  end
+
+
+
+  # def date_to_day
+  # dow = @invoice_repository.all.map do |invoice_instance|
+  #     invoice_instance.created_at = Date.parse(invoice_instance.created_at).strftime("%a")
+  #   end
+  #   return dow
+  # end
 
 end
