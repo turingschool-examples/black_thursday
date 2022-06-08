@@ -104,7 +104,23 @@ class SalesAnalyst < SalesEngine
     merch_invoice_count = merch_array.map {|invoice_count|((invoice_count - average_invoices_per_merchant)**2)}
     Math.sqrt(((merch_invoice_count.sum) / (merch_invoice_count.count - 1)).to_f.round(2)).round(2)
   end
-  # find_all_by_merchant_id(id).count
+
+  def top_merchants_by_invoice_count
+    aipm = average_invoices_per_merchant
+    aipmsd = average_invoices_per_merchant_standard_deviation
+    @merchant_repository.all.select do |merchant|
+      @invoice_repository.find_all_by_merchant_id(merchant.id).length > (aipm + (aipmsd * 2))
+      # item.unit_price > (aappm + (psd * 2))
+    end
+  end
+  # def top_merchants_by_invoice_count
+  #   aipm = average_invoices_per_merchant
+  #   aipmsd = average_invoices_per_merchant_standard_deviation
+  #   @merchant_repository.all.select do |merchant|
+  #     @invocie_repository.find_all_by_merchant_id(merchant.id)
+  #     item.unit_price < (aappm - (psd * 2))
+  #   end
+  # end
 
 
 end
