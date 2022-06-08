@@ -1,6 +1,6 @@
 require_relative 'entry'
 class InvoiceRepository
-  
+
   attr_reader :all
 
   def initialize(file_path)
@@ -15,7 +15,7 @@ class InvoiceRepository
         :created_at => row[:created_at],
         :updated_at => row[:updated_at]
         )
-      end
+    end
   end
 
   def inspect
