@@ -61,8 +61,6 @@ class SalesAnalyst < SalesEngine
   end
 
   def price_std_dev
-    # all_item_prices = @item_repository.all.sum {|item| item.unit_price}
-    # all_items_count = @item_repository.all.count
     avg_item_price = (@item_repository.all.sum {|item| item.unit_price}/@item_repository.all.count)
     std_dev_difs = @item_repository.all.flat_map{|item|((item.unit_price - avg_item_price)**2)}
     sq_rt = Math.sqrt(((std_dev_difs.sum) / (@item_repository.all.count - 1)).to_f)
