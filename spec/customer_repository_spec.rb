@@ -51,7 +51,7 @@ RSpec.describe CustomerRepository do
   end
 
   #
-  it 'can create new transactions' do
+  it 'can create new customers' do
     @attributes =   {
       :id => 1001,
       :first_name => 'Gauri',
@@ -65,29 +65,27 @@ RSpec.describe CustomerRepository do
     expect(@customer.all.last.id).to eq(1001)
   end
   # #
-  # it 'can update the credit_card_number, credit_card_expiration_date, and result on the transaction' do
+  it 'can update the first and last name' do
   #
-  #   @attributes = {result: 'failed', credit_card_number: 8888888888888888, credit_card_expiration_date: 1110}
+    @attributes = {first_name: 'Wonder', last_name: 'Woman'}
   #
-  #   expect(@transaction.all.first.result).to eq('success')
-  #   expect(@transaction.all.first.credit_card_number).to eq(4068631943231473)
-  #   expect(@transaction.all.first.credit_card_expiration_date).to eq(217)
+    expect(@customer.all.first.first_name).to eq('Joey')
+    expect(@customer.all.first.last_name).to eq('Ondricka')
+
+    @customer.update(1, @attributes)
   #
-  #   @transaction.update(1, @attributes)
-  #
-  #   expect(@transaction.all.first.result).to eq('failed')
-  #   expect(@transaction.all.first.credit_card_number).to eq(8888888888888888)
-  #   expect(@transaction.all.first.credit_card_expiration_date).to eq(1110)
-  # end
+    expect(@customer.all.first.first_name).to eq('Wonder')
+    expect(@customer.all.first.last_name).to eq('Woman')
+  end
   #
   # #
-  # it 'can delete a transaction' do
-  #
-  #   expect(@transaction.all.count).to eq(4985)
-  #
-  #   @transaction.delete(1)
-  #
-  #   expect(@transaction.find_by_id(1)).to be_nil
-  #   expect(@transaction.all.count).to eq(4984)
-  # end
+  it 'can delete a Customer' do
+
+    expect(@customer.all.count).to eq(1000)
+
+    @customer.delete(1)
+
+    expect(@customer.find_by_id(1)).to be_nil
+    expect(@customer.all.count).to eq(999)
+  end
 end

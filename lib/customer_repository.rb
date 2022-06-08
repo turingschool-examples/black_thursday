@@ -36,18 +36,15 @@ class CustomerRepository
   #
   def create(attributes)
     new_id = attributes[:id] = @all.last.id + 1
-    @all << Customer.new({:id => new_id, :first_name => attributes[:first_name], :last_name => attributes[:last_name], :created_at => attributes[:created_at], :updated_at => attributes[:updated_at]})
+    @all << Customer.new({:id => new_id, :first_name => attributes[:first_name].upcase, :last_name => attributes[:last_name].upcase, :created_at => attributes[:created_at], :updated_at => attributes[:updated_at]})
   end
   #
-  # def update(id, attributes)
-  #   transaction = find_by_id(id)
-  #   if attributes[:result] == "success".downcase  || "failed".downcase
-  #     # require "pry"; binding.pry
-  #     transaction.result = attributes[:result]
-  #     transaction.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number] != nil
-  #     transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date] != nil
-  #   end
-  # end
+  def update(id, attributes)
+    customer = find_by_id(id)
+    customer.first_name = attributes[:first_name] if attributes[:first_name] !=nil
+    customer.last_name = attributes[:last_name] if attributes[:last_name] != nil
+
+  end
   #
   def inspect
     "#<#{self.class} #{@customers.all} rows>"
