@@ -1,7 +1,9 @@
 require 'csv'
 require_relative '../lib/transaction'
+require_relative 'repoable'
 
 class TransactionRepository
+  include Repoable
   attr_reader :file_path
   attr_accessor :all
 
@@ -19,16 +21,6 @@ class TransactionRepository
         :updated_at => row[:updated_at]
         })
     end
-  end
-  def inspect
-      "#<#{self.class} #{@all.size} rows>"
-  end
-  def find_by_id(id)
-    @all.find { |transaction| transaction.id.to_i == id}
-  end
-
-  def find_all_by_invoice_id(id)
-    @all.find_all { |transaction| transaction.invoice_id.to_i == id}
   end
 
   def find_all_by_credit_card_number(cc)
@@ -54,9 +46,4 @@ class TransactionRepository
    find_by_id(id).credit_card_expiration_date = attribute[:credit_card_expiration_date]
    find_by_id(id).updated_at = Time.now
   end
-
-  def delete(id)
-    @all.delete(find_by_id(id))
-  end
-
 end

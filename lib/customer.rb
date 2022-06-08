@@ -16,8 +16,4 @@ class Customer
     @updated_at = Time.parse(data_hash[:updated_at])
   end
 
-
-
-
-
 end
