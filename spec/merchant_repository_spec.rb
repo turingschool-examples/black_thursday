@@ -47,7 +47,8 @@ RSpec.describe MerchantRepository do
   describe '#create' do
     it 'can create a new Merchant with provided attributes' do
       expect(@collection.find_by_id(12337412)).to eq nil
-      @collection.create('created shop')
+      new_merchant = {name: 'created shop'}
+      @collection.create(new_merchant)
       expect(@collection.find_by_id(12337412).name).to eq 'created shop'
     end
   end
