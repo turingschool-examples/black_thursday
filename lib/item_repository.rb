@@ -71,7 +71,7 @@ class ItemRepository
 
     def find_all_by_price_in_range(range)
         @all.find_all do |item|
-            # binding.pry
+            binding.pry
             item.unit_price.between?(range.first + 1, range.last - 1)
         end
     end
@@ -103,7 +103,7 @@ class ItemRepository
     end
 
     def inspect
-        "#<#{self.class} #{@all.size} rows>"
+        "#<#{self.class} #{@items.all} rows>"
     end
 
   def create(attributes)
