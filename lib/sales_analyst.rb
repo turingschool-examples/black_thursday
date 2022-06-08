@@ -47,10 +47,8 @@ class SalesAnalyst < SalesEngine
 
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
-    x = @item_repository.all.group_by {|item| item.merchant_id}
-    merchant_id_array = x.keys.find_all do |id|
-      @item_repository.find_all_by_merchant_id(id).count > (std_dev + average_items_per_merchant)
-    end
+    item_hash = @item_repository.all.group_by {|item| item.merchant_id}
+    merchant_id_array = item_hash.keys.find_all {|id| @item_repository.find_all_by_merchant_id(id).count > (std_dev + average_items_per_merchant)}
     merchant_array = merchant_id_array.map {|merchant_id|@merchant_repository.find_by_id(merchant_id)}
   end
 
