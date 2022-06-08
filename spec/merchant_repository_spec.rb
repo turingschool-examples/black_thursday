@@ -56,7 +56,8 @@ RSpec.describe MerchantRepository do
   describe '#update' do
     it 'can update the name of a merchant' do
       expect(@collection.find_by_id(12334105).name).to eq 'Shopin1901'
-      @collection.update(12334105, 'my big fancy shop')
+      update_merchant = {name: 'my big fancy shop'}
+      @collection.update(12334105, update_merchant)
       expect(@collection.find_by_id(12334105).name).to eq 'my big fancy shop'
     end
   end
