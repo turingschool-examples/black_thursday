@@ -31,4 +31,13 @@ RSpec.describe SalesEngine do
   it "can return an array of all merchants" do
     expect(@salesengine.merchant_repository).to be_instance_of MerchantRepository
   end
+
+  it "can return merchants, items. invoices, transactions, and customers" do
+    expect(@salesengine.merchants).to be_instance_of MerchantRepository
+    expect(@salesengine.items).to be_instance_of ItemRepository
+    expect(@salesengine.invoices).to be_instance_of InvoiceRepository
+    expect(@salesengine.invoice_items).to be_instance_of InvoiceItemRepository
+    expect(@salesengine.transactions).to be_instance_of TransactionRepository
+    expect(@salesengine.customers).to be_instance_of CustomerRepository
+  end
 end
