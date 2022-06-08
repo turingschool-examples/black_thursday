@@ -27,15 +27,11 @@ class TransactionRepository
   end
 
   def find_by_id(id)
-    @all.find do |transaction|
-      transaction.id == id
-    end
+    @all.find {|transaction| transaction.id == id}
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @all.find_all do |transaction|
-      transaction.invoice_id.to_i == invoice_id.to_i
-    end
+    @all.find_all {|transaction| transaction.invoice_id.to_i == invoice_id.to_i}
   end
 
   def find_all_by_credit_card_number(card_number)
@@ -45,9 +41,7 @@ class TransactionRepository
   end
 
   def find_all_by_result(result)
-    @all.find_all do |transaction|
-      transaction.result == result
-    end
+    @all.find_all {|transaction| transaction.result == result}
   end
 
   def create(attributes)
