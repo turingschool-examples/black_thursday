@@ -179,9 +179,7 @@ class SalesAnalyst < SalesEngine
   def top_days_by_invoice_count
     avg_invoice_perday = @invoice_repository.all.count / 7
     sdipd = standard_deviation_invoices_per_day
-    high_invoice_days = days_of_the_week.select do |invoice|
-      invoice.count > (avg_invoice_perday + (sdipd * 1))
-    end
+    high_invoice_days = days_of_the_week.select {|invoice| invoice.count > (avg_invoice_perday + (sdipd * 1))}
     high_invoice_days.flatten.uniq
   end
 end
