@@ -138,6 +138,7 @@ module Existable
   end
 
   def update_transaction(to_be_updated, attributes)
+    to_be_updated.result = attributes[:result]
     to_be_updated.credit_card_number = attributes[:credit_card_number]
     to_be_updated.credit_card_expiration_date = attributes[:credit_card_expiration_date]
     updated_time(to_be_updated)

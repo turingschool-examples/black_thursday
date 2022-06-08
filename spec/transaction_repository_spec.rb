@@ -3,10 +3,12 @@ SimpleCov.start
 require './lib/helper'
 
 RSpec.describe TransactionRepository do
+  include Findable
+  include Existable
   let!(:sales_engine) {SalesEngine.from_csv({:transactions => "./data/transactions.csv"})}
   let!(:transaction_repo) {sales_engine.transactions}
-  let(:new_transaction) {transaction_repo.make_transaction({
-    :id => 6,
+  let(:new_transaction) {transaction_repo.create_transaction({
+    :id => 0,
     :invoice_id => 8,
     :credit_card_number => "4242424242424242",
     :credit_card_expiration_date => "0220",
@@ -46,20 +48,16 @@ RSpec.describe TransactionRepository do
     expect(transaction_repo.find_all_by_credit_card_number("4242424242424242").first.id).to eq(4986)
   end
 
-  xit "can update an transaction" do
+  it "can update an transaction" do
     time = Time.now
     new_transaction
-    expect(transaction_repo.find_by_id(21831)).to be_instance_of Transaction
-    expect(transaction_repo.find_by_id(21831).item_id).to eq(7)
-    expect(transaction_repo.find_by_id(21831).quantity).to eq(1)
-    # expect(transaction_repo.find_by_id(21831).updated_at.strftime("%Y-%m-%d %H:%M")).to eq(transaction_repo.find_by_id(21831).created_at.strftime("%Y-%m-%d %H:%M"))
+    expect(transaction_repo.find_by_id(4986)).to be_instance_of Transaction
+    expect(transaction_repo.find_by_id(4986).result).to eq("success")
+    expect(transaction_repo.find_by_id(4986).credit_card_number).to eq("4242424242424242")
 
-    transaction_repo.update(21831, {:quantity => 200, :unit_price => "14.99"})
-    expect(transaction_repo.find_by_id(21831).item_id).to eq(7)
-    expect(transaction_repo.find_by_id(21831).quantity).to eq(2)
-    expect(transaction_repo.find_by_id(21831).unit_price).to eq("14.99")
-    # expect(transaction_repo.find_by_id(21831).updated_at).to eq(time.strftime("%Y-%m-%d %H:%M"))
-    # expect(transaction_repo.find_by_id(1).updated_at).not_to eq(transaction_repo.find_by_id(21831).created_at)
+    transaction_repo.update(4986, {:result => "unsuccessful", :credit_card_number => "4242424242424242888"})
+    expect(transaction_repo.find_by_id(4986).result).to eq("unsuccessful")
+    expect(transaction_repo.find_by_id(4986).credit_card_number).to eq("4242424242424242888")
   end
 
   it "can delete an transaction" do

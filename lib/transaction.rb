@@ -3,11 +3,11 @@ require_relative 'helper'
 class Transaction
   attr_reader :id,
               :invoice_id,
-              :result,
               :created_at
 
   attr_accessor :credit_card_number,
                 :credit_card_expiration_date,
+                :result,
                 :updated_at
 
   def initialize(input)
@@ -20,7 +20,4 @@ class Transaction
     @updated_at = input[:updated_at]
   end
 
-  def credit_card_expiration_date_to_dollars
-    @credit_card_expiration_date.to_f
-  end
 end
