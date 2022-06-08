@@ -18,10 +18,13 @@ describe SalesAnalyst do
     expect(@analyst).to be_a(SalesAnalyst)
   end
 
-  it "creates a hash with the correct amount of keys" do
-    expect(@analyst.merchant_hash.keys.count).to eq(475)
+  it "creates a hash merchant ids (integers) as keys and counts of items (integer) as values" do
+    expect(@analyst.merchant_items_hash.keys.count).to eq(475)
+    expect(@analyst.merchant_items_hash).to be_a Hash
+    expect(@analyst.merchant_items_hash.first).to be_a Array
+    expect(@analyst.merchant_items_hash.first[0]).to be_a Integer
+    expect(@analyst.merchant_items_hash.first[1]).to be_a Integer
   end
-
 
   it "can give us the average items per merchant" do
     expect(@analyst.average_items_per_merchant).to eq(2.88)
@@ -64,13 +67,64 @@ describe SalesAnalyst do
     end
   end
 
-  # it 'can return the average invoices per merchant' do
-  #   expect(@analyst.average_invoices_per_merchant).to eq 10.49
-  # end
-  #
-  # it 'can return the standard deviation of average invoices per merchant' do
-  #   expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq 3.29
-  # end
+  it 'can return a hash of merchants ids (integers) as keys and count of invoices (integer) as values' do
+    expect(@analyst.merchant_invoices_hash).to be_a Hash
+    expect(@analyst.merchant_invoices_hash.first).to be_a Array
+    expect(@analyst.merchant_invoices_hash.first[0]).to be_a Integer
+    expect(@analyst.merchant_invoices_hash.first[1]).to be_a Integer
+  end
+
+  it 'can return the average invoices per merchant' do
+    expect(@analyst.average_invoices_per_merchant).to eq 10.49
+  end
+
+  it 'can return the standard deviation of average invoices per merchant' do
+    expect(@analyst.average_invoices_per_merchant_standard_deviation).to eq 3.29
+  end
+
+  it 'can return an array of merchants for top_merchants_by_invoice_count' do
+    array = @analyst.top_merchants_by_invoice_count
+    expect(array).to be_a Array
+    if array.count > 0
+      expect(array[0]).to be_a Merchant
+    end
+  end
+
+  it 'can return an array of merchants for bottom_merchants_by_invoice_count' do
+    array = @analyst.bottom_merchants_by_invoice_count
+    expect(array).to be_a Array
+    if array.count > 0
+      expect(array[0]).to be_a Merchant
+    end
+  end
+
+  it 'can return a hash of arrays of days as a string and count of invoices as integers' do
+    expect(@analyst.days_invoices_hash).to be_a Hash
+    expect(@analyst.days_invoices_hash.first).to be_a Array
+    expect(@analyst.days_invoices_hash.first[0]).to be_a String
+    expect(@analyst.days_invoices_hash.first[1]).to be_a Integer
+  end
+
+  it 'can return the count of average invoices per day' do
+    expect(@analyst.average_invoices_per_day).to be_a Float
+  end
+
+  it 'can return the standard deviation of average invoices per day' do
+    expect(@analyst.average_invoices_per_day_standard_deviation).to be_a Float
+  end
+
+  it 'can return an array of top_days_by_invoice_count' do
+    array = @analyst.top_days_by_invoice_count
+    expect(array).to be_a Array
+    if array.count > 0
+      expect(array[0]).to be_a String
+    end
+  end
+
+  it 'can return precent of invoices by status' do
+    expect(@analyst.invoice_status(:pending)).to eq 29.55
+    expect(@analyst.invoice_status(:shipped)).to eq 56.95
+    expect(@analyst.invoice_status(:returned)).to eq 13.5
 
   it "can tell you if an invoice has been paid" do
     expect(@analyst.invoice_paid_in_full?(3560)).to eq(false)

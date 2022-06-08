@@ -2,8 +2,10 @@ require 'csv'
 require 'item'
 require 'pry'
 require 'BigDecimal'
+require_relative 'inspector'
 
 class ItemRepository
+  include Inspector
   attr_reader :all
   def initialize(file_path)
     @file_path = file_path
@@ -102,9 +104,4 @@ class ItemRepository
       @all.delete(item)
     end
   end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
 end
