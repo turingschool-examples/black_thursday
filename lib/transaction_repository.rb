@@ -50,9 +50,4 @@ class TransactionRepository
    find_by_id(id).credit_card_expiration_date = attribute[:credit_card_expiration_date]
    find_by_id(id).updated_at = Time.now
   end
-
-  def delete(id)
-    @all.delete(find_by_id(id))
-  end
-
 end

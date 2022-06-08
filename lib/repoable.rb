@@ -1,8 +1,8 @@
 module Repoable
 
-  # def delete(id)
-  #   @all.delete(find_by_id(id))
-  # end
+  def delete(id)
+    @all.delete(find_by_id(id))
+  end
   #
   # def find_all_by_merchant_id(merchant_id)
   #   @all.find_all {|item| merchant_id == item.merchant_id }

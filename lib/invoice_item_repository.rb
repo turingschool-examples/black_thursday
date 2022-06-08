@@ -32,8 +32,4 @@ class InvoiceItemRepository
    invoice_item.unit_price = attributes[:unit_price]
    invoice_item.updated_at = Time.now
  end
-
-  def delete(invoice_item_id)
-    @all.delete_if { |invoice_item| invoice_item.id == invoice_item_id}
-  end
 end

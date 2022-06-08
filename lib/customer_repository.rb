@@ -44,13 +44,4 @@ class CustomerRepository
         find_by_id(id).last_name = attribute[:last_name]
         find_by_id(id).updated_at = Time.now
    end
-
-
-
-
-
-   def delete(id)
-     @all.delete(find_by_id(id))
-   end
-
 end

@@ -35,14 +35,5 @@ class MerchantRepository
       end
     end
   end
-#refactor delete
-  def delete(id)
-    array = []
-      @all.each do |merchant|
-        if merchant.id != id
-          array << merchant
-        end
-      @all = array
-    end
-  end
+
 end

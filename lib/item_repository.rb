@@ -54,24 +54,11 @@ class ItemRepository
                       :merchant_id => data_hash[:merchant_id]
                       })
   end
-  def inspect
-      "#<#{self.class} #{@all.size} rows>"
-  end
+
   def update(id, attributes)
     find_by_id(id).name = attributes[:name]
     find_by_id(id).description = attributes[:description]
     find_by_id(id).unit_price = BigDecimal(attributes[:unit_price])
     find_by_id(id).updated_at = Time.now
-  end
-
-  def delete(id)
-    @all.delete(find_by_id(id))
-    # array = []
-    #   @all.each do |item|
-    #     if item.id != id
-    #       array << item
-    #     end
-    #   @all = array
-    # end
   end
 end
