@@ -1,5 +1,5 @@
 require_relative '../lib/invoice'
-
+require 'time'
 RSpec.describe Invoice do
   it "exists and has attributes" do
     invoice = Invoice.new(
