@@ -60,8 +60,8 @@ RSpec.describe MerchantRepository do
       :updated_at  => Time.now,
     })
 
-    expect(merchant_repository.max_id).to eq(263567475)
-    expect(merchant_repository.find_by_name("Pencil").id).to eq(263567475)
+    expect(merchant_repository.max_id).to eq(12337412)
+    expect(merchant_repository.find_by_name("Pencil").id).to eq(12337412)
   end
 
   it 'can update name of existing merchant' do
