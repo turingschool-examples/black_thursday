@@ -4,6 +4,7 @@ require './lib/customer'
 RSpec.describe CustomerRepository do
   before :each do
     @sales_engine = CustomerRepository.new("./data/customers.csv")
+    @time = Time.now
   end
 
   it 'exists' do
@@ -14,7 +15,7 @@ RSpec.describe CustomerRepository do
     expect(@sales_engine.all).to be_a Array
     expect(@sales_engine.all.count).to eq(1000)
   end
-#
+
   it "can find by id" do
     expect(@sales_engine.find_by_id(1)).to eq(@sales_engine.all.first)
     expect(@sales_engine.find_by_id(8675309)).to eq(nil)
@@ -36,14 +37,13 @@ RSpec.describe CustomerRepository do
   end
 
   it 'can create Customer instance' do
-    x = Time.now
     last_id_number_in_csv = @sales_engine.all.last.id.to_i
     attributes = {
       :id => nil,
       :first_name => "Joan",
       :last_name => "Clarke",
-      :created_at => x,
-      :updated_at => x
+      :created_at => @time,
+      :updated_at => @time
       }
 
     expect(@sales_engine.create(attributes).last.id).to eq(1001)
@@ -51,7 +51,7 @@ RSpec.describe CustomerRepository do
     expect(@sales_engine.all.last).to be_a(Customer)
     expect(@sales_engine.all.count).to eq(1001)
   end
-#
+
   it "can update(id, attribute) on a Customer instance" do
     attributes = {
       :first_name => "Joan",
