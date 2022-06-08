@@ -15,12 +15,6 @@ class InvoiceRepository
     end
   end
 
-  # def find_by_id(id_search)
-  #   @all.find do |invoice|
-  #     invoice.id == id_search
-  #   end
-  # end
-
   def find_all_by_customer_id(customer_id_search)
     @all.find_all do |invoice|
       invoice.customer_id == customer_id_search

@@ -10,8 +10,8 @@ RSpec.describe TransactionRepository do
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0220",
       :result => "success",
-      :created_at  => '1994-05-07 23:38:43 UTC',
-      :updated_at  => '2016-01-11 11:30:35 UTC',
+      :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
+      :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
     }
   end
 
@@ -81,8 +81,8 @@ RSpec.describe TransactionRepository do
       expect(@collection.find_by_id(4986).credit_card_number).to eq '4242424242424242'
       expect(@collection.find_by_id(4986).credit_card_expiration_date).to eq '0220'
       expect(@collection.find_by_id(4986).result).to eq 'success'
-      expect(@collection.find_by_id(4986).created_at).to eq '1994-05-07 23:38:43 UTC'
-      expect(@collection.find_by_id(4986).updated_at).to eq '2016-01-11 11:30:35 UTC'
+      expect(@collection.find_by_id(4986).created_at).to eq Time.parse('1994-05-07 23:38:43 UTC')
+      expect(@collection.find_by_id(4986).updated_at).to eq Time.parse('2016-01-11 11:30:35 UTC')
     end
   end
 
@@ -93,7 +93,7 @@ RSpec.describe TransactionRepository do
       expect(@collection.find_by_id(4980).credit_card_number).to eq '1234567890'
       expect(@collection.find_by_id(4980).credit_card_expiration_date).to eq '0923'
       expect(@collection.find_by_id(4980).result).to eq 'success'
-      expect(@collection.find_by_id(4980).updated_at).not_to eq '2014-03-15'
+      expect(@collection.find_by_id(4980).updated_at).not_to eq Time.parse('2014-03-15')
     end
   end
 

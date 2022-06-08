@@ -1,15 +1,17 @@
+require 'time'
+
 class InvoiceItem
   attr_reader :id, :item_id, :invoice_id, :created_at
   attr_accessor :quantity, :unit_price, :updated_at
 
   def initialize(info)
-    @id = info[:id]
+    @id = info[:id].to_i
     @item_id = info[:item_id].to_i
     @invoice_id = info[:invoice_id].to_i
     @quantity = info[:quantity]
     @unit_price = BigDecimal(info[:unit_price ])/100
-    @created_at = info[:created_at]
-    @updated_at = info[:updated_at]
+    @created_at = Time.parse(info[:created_at].to_s)
+    @updated_at = Time.parse(info[:updated_at].to_s)
   end
 
   def unit_price_to_dollars

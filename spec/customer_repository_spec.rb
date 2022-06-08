@@ -8,8 +8,8 @@ RSpec.describe CustomerRepository do
       :id => 6,
       :first_name => "Joan",
       :last_name => "Clarke",
-      :created_at  => '1994-05-07 23:38:43 UTC',
-      :updated_at  => '2016-01-11 11:30:35 UTC',
+      :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
+      :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
       }
   end
 
@@ -66,8 +66,8 @@ RSpec.describe CustomerRepository do
       expect(@collection.find_by_id(1001)).to be_a Customer
       expect(@collection.find_by_id(1001).first_name).to eq "Joan"
       expect(@collection.find_by_id(1001).last_name).to eq "Clarke"
-      expect(@collection.find_by_id(1001).created_at).to eq '1994-05-07 23:38:43 UTC'
-      expect(@collection.find_by_id(1001).updated_at).to eq '2016-01-11 11:30:35 UTC'
+      expect(@collection.find_by_id(1001).created_at).to eq Time.parse('1994-05-07 23:38:43 UTC')
+      expect(@collection.find_by_id(1001).updated_at).to eq Time.parse('2016-01-11 11:30:35 UTC')
     end
   end
 
@@ -77,7 +77,7 @@ RSpec.describe CustomerRepository do
       @collection.update(498, 'Billy', 'Bob')
       expect(@collection.find_by_id(498).first_name).to eq 'Billy'
       expect(@collection.find_by_id(498).last_name).to eq 'Bob'
-      expect(@collection.find_by_id(498).updated_at).not_to eq '2012-03-27 14:56:08 UTC'
+      expect(@collection.find_by_id(498).updated_at).not_to eq Time.parse('2012-03-27 14:56:08 UTC')
     end
   end
 

@@ -11,23 +11,9 @@ class TransactionRepository
     @all = []
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @all << Transaction.new({
-        :id => row[:id].to_i,
-        :invoice_id => row[:invoice_id].to_i,
-        :credit_card_number => row[:credit_card_number],
-        :credit_card_expiration_date => row[:credit_card_expiration_date],
-        :result => row[:result],
-        :created_at => row[:created_at],
-        :updated_at => row[:updated_at]
-        })
+      @all << Transaction.new(row)
     end
   end
-
-  # def find_by_id(id_search)
-  #   @all.find do |transaction|
-  #     transaction.id == id_search
-  #   end
-  # end
 
   def find_all_by_invoice_id(invoice_id_search)
     @all.find_all do |transaction|
