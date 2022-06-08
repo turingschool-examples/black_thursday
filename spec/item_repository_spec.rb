@@ -20,7 +20,7 @@ RSpec.describe ItemRepository do
   end
 
   it "can list items by their description" do
-    expect(@items.find_all_with_description("Pleasant to touch...").length).to eq(1)
+    expect(@items.find_all_with_description("Pleasant to touch...").length).to eq(2)
     expect(@items.find_all_with_description("This doesn't exist!")).to eq([])
   end
 
