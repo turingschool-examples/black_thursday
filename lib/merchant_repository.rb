@@ -34,12 +34,19 @@ class MerchantRepository
   end
 
   def update(id, attributes)
+<<<<<<< Updated upstream
     @all.find {|merchant| merchant.id == id}.name = attributes[:name]
     # @all.each do |merchant|
     #   if merchant.id == id
     #     merchant.name = attributes
     #   end
     # end
+=======
+    if find_by_id(id) != nil
+      @all.find {|merchant| merchant.id == id}.name = attributes[:name]
+    else
+    end
+>>>>>>> Stashed changes
   end
 #refactor delete
   def delete(id)

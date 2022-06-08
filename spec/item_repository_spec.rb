@@ -37,8 +37,9 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_all_by_price(4000)).to eq([])
   end
   it "can return an instance of an Item within a price range or [] " do
-    price_in_range1 = @item_repository.find_all_by_price_in_range(0..5.00)
+    price_in_range1 = @item_repository.find_all_by_price_in_range(1000.00..1500.00)
     expect(price_in_range1).to be_a(Array)
+    expect(price_in_range1.length
     expect(price_in_range1.first.id).to eq(263397163)
     price_in_range2 = @item_repository.find_all_by_price_in_range(10000..11000)
     expect(price_in_range2).to eq([])

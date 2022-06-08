@@ -13,6 +13,9 @@ class ItemRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
   def find_by_id(item_id)
     @all.find { |item| item.id == item_id}
   end
@@ -56,14 +59,12 @@ class ItemRepository
                       :merchant_id => data_hash[:merchant_id]
                       })
   end
-  def inspect
-      "#<#{self.class} #{@all.size} rows>"
-  end
   def update(id, attributes)
     find_by_id(id).name = attributes[:name]
     find_by_id(id).description = attributes[:description]
     find_by_id(id).unit_price = BigDecimal(attributes[:unit_price])
     find_by_id(id).updated_at = Time.now
+    binding.pry
   end
 
   def delete(id)
