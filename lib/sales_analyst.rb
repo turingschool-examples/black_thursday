@@ -1,5 +1,4 @@
 require_relative 'entry'
-
 class SalesAnalyst < SalesEngine
   attr_reader :item_repository,
               :merchant_repository,

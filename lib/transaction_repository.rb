@@ -1,8 +1,6 @@
 require_relative 'entry'
 class TransactionRepository
-
   attr_reader :id, :invoice_id, :created_at, :all
-
   attr_accessor :credit_card_number,
                 :credit_card_expiration_date,
                 :result,
@@ -21,7 +19,7 @@ class TransactionRepository
         :created_at => row[:created_at],
         :updated_at => row[:updated_at]
         )
-      end
+    end
   end
 
   def inspect

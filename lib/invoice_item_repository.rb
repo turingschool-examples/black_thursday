@@ -1,12 +1,10 @@
 require_relative 'entry'
 class InvoiceItemRepository
-
   attr_reader :id,
               :item_id,
               :invoice_id,
               :created_at,
               :all
-
   attr_accessor :unit_price,
                 :updated_at,
                 :quantity
