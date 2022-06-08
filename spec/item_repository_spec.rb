@@ -8,6 +8,7 @@ RSpec.describe ItemRepository do
     :merchants => "./data/merchants.csv"
   })}
   let!(:item_repository) {sales_engine.items}
+  let!(:time) {Time.now}
 
   it "exists" do
     expect(item_repository).to be_instance_of ItemRepository
@@ -103,8 +104,7 @@ RSpec.describe ItemRepository do
     expect(item_repository.find_by_id(263567475).name).to eq("Pen")
     expect(item_repository.find_by_id(263567475).description).to eq("Make your mark")
     # expect(item_repository.find_by_id(263567475).unit_price.to_f).to eq(14.99)
-    expect(item_repository.find_by_id(263567475).updated_at).to eq(Time.now..strftime("%Y-%m-%d %H:%M"))
-    expect(item_repository.find_by_id(263567475).updated_at).not_to eq(item_repository.find_by_id(263567475).created_at)
+    expect(item_repository.find_by_id(263567475).updated_at).to eq(time.strftime("%Y-%m-%d %H:%M"))
   end
 
   it 'can delete item instances' do
