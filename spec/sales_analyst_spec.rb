@@ -5,6 +5,7 @@ require_relative '../lib/invoice_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_item_repository'
 require_relative '../lib/customer_repository'
+require_relative '../lib/transaction_repository'
 
 RSpec.describe SalesAnalyst do
   before :each do
@@ -14,7 +15,8 @@ RSpec.describe SalesAnalyst do
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
       :invoice_items => "./data/invoice_items.csv",
-      :customers => "./data/customers.csv"
+      :customers => "./data/customers.csv",
+      :transactions => "./data/transactions.csv"
       }
     )
     @sales_analyst = @sales_engine.analyst

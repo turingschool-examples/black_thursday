@@ -6,7 +6,8 @@ class SalesAnalyst
               :merchant_repository,
               :invoice_repository,
               :invoice_item_repository,
-              :customer_repository
+              :customer_repository,
+              :transaction_repository
 
   def initialize(item_repository, merchant_repository, invoice_repository, invoice_item_repository, customer_repository)
     @item_repository = item_repository
@@ -14,6 +15,7 @@ class SalesAnalyst
     @invoice_repository = invoice_repository
     @invoice_item_repository = invoice_item_repository
     @customer_repository = customer_repository
+    @transaction_repository  = transaction_repository
   end
 
   def average_items_per_merchant
