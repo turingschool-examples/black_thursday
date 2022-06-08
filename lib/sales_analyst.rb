@@ -25,14 +25,9 @@ class SalesAnalyst < SalesEngine
   end
 
   def invoice_total(invoice_id)
-    array_matching_invoice_ids = @invoice_item_repository.all.find_all do |invoice_item|
-          invoice_item.invoice_id.to_i == invoice_id.to_i
-        end
-    unit_price_times_quantity = []
-    array_matching_invoice_ids.each do |invoice_instance|
-      unit_price_times_quantity << invoice_instance.unit_price.to_i * invoice_instance.quantity.to_i
-    end
-   unit_price_times_quantity.sum * 0.01
+    matching_invoice_ids = @invoice_item_repository.all.find_all{|invoice| invoice.invoice_id.to_i == invoice_id.to_i}
+    unit_price_times_quantity = matching_invoice_ids.map {|invoice|invoice.unit_price.to_i * invoice.quantity.to_i}
+    unit_price_times_quantity.sum * 0.01
   end
 
   def average_item_price_for_merchant(merchant_id)
