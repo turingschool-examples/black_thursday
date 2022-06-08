@@ -1,0 +1,8 @@
+black_thursday_spec_harness/
+coverage/
+.DS_Store
+default.reek
+Gemfile
+Rakefile
+utility_scripts/
+Gemfile.lock
