@@ -15,12 +15,6 @@ class MerchantRepository
     end
   end
 
-  def find_by_id(merchant_id_search)
-    @all.find do |merchant|
-      merchant.id == merchant_id_search
-    end
-  end
-
   def find_by_name(merchant_name_search)
     @all.find do |merchant|
       merchant.name.downcase == merchant_name_search.downcase
@@ -30,30 +24,6 @@ class MerchantRepository
   def find_all_by_name(name_fragment_search)
     @all.find_all do |merchant|
       merchant.name.downcase.include?("#{name_fragment_search.downcase}")
-    end
-  end
-
-  def create(new_merchant)
-    max_id = @all.max do |merchant|
-      merchant.id
-    end
-    new_merchant[:id] = max_id.id + 1
-    @all << Merchant.new(new_merchant)
-  end
-
-  def update(merchant_id_search, new_name)
-    @all.each do |merchant|
-      if merchant.id == merchant_id_search
-        merchant.name = new_name[:name]
-      end
-    end
-  end
-
-  def delete(merchant_id_search)
-    @all.each do |merchant|
-      if merchant.id == merchant_id_search
-        @all.delete(merchant)
-      end
     end
   end
 end

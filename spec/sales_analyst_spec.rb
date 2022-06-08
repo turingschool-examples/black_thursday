@@ -139,4 +139,20 @@ describe SalesAnalyst do
   it "can tell you the total dollar amount of an invoice" do
     expect(@analyst.invoice_total(4)).to eq(1964.05)
   end
+
+  it 'returns an array of merchants with pending invoices' do
+    array = @analyst.merchants_with_pending_invoices
+    expect(array).to be_a Array
+    if array.count > 0
+      expect(array[0]).to be_a Merchant
+    end
+  end
+
+  it 'returns an array of merchants with only one item' do
+    array = @analyst.merchants_with_only_one_item
+    expect(array).to be_a Array
+    if array.count > 0
+      expect(array[0]).to be_a Merchant
+    end
+  end
 end

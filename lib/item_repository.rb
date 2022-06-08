@@ -15,12 +15,6 @@ class ItemRepository
     end
   end
 
-  def find_by_id(id)
-    @all.find do |item|
-      item.id ==  id
-    end
-  end
-
   def find_by_name(name)
     @all.find do |item|
       item.name.upcase == name.upcase
@@ -67,37 +61,5 @@ class ItemRepository
       end
     end
     items
-  end
-
-  def create(attributes)
-    highest_id = @all.max do |item|
-      highest_id = item.id.to_i
-    end
-    attributes[:id] = highest_id.id + 1
-    @all << Item.new(attributes)
-  end
-
-  def assign_attributes(item, attributes)
-    item.name = attributes[:name] unless attributes[:name].nil?
-    item.description = attributes[:description] unless attributes[:description].nil?
-    item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
-    item.updated_at = Time.now
-    item
-  end
-
-  def update (id, attributes)
-    @all.each do |item|
-      if item.id == id
-        assign_attributes(item, attributes)
-      end
-    end
-  end
-
-  def delete(id)
-    @all.each do |item|
-      if item.id == id
-        @all.delete(item)
-      end
-    end
   end
 end

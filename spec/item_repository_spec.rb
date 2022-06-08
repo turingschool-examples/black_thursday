@@ -84,15 +84,6 @@ RSpec.describe ItemRepository do
     expect(@items.find_by_id(263567475).unit_price).to eq(10.99)
   end
 
-  it 'has a helper method to help assign attributes' do
-    attributes = {
-      unit_price: BigDecimal(379.99, 5)
-    }
-    item = @items.find_by_id(263395237)
-    @items.assign_attributes(item, attributes)
-    expect(item.unit_price).to eq 379.99
-  end
-
   it "can update the item's attributes" do
     attributes = {
       unit_price: BigDecimal(379.99, 5)
