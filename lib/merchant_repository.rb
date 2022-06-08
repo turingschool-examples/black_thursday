@@ -17,6 +17,7 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @all.find_all {|merchant| merchant.name.downcase.include?(name.downcase)}
+    # binding.pry
   end
 
   def create(hash)
@@ -25,10 +26,9 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    @all.each do |merchant|
-      if merchant.id == id
-        merchant.name = attributes
-      end
+    if find_by_id(id) != nil
+      @all.find {|merchant| merchant.id == id}.name = attributes[:name]
+    else
     end
   end
 

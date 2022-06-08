@@ -15,6 +15,10 @@ class ItemRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+
   def find_all_with_description(item_description)
     @all.find_all do |item|
       item.description.downcase.include?(item_description.downcase)
@@ -41,16 +45,16 @@ class ItemRepository
                       :name => data_hash[:name],
                       :description => data_hash[:description],
                       :unit_price => data_hash[:unit_price],
-                      :created_at => Time.now,
-                      :updated_at => Time.now,
+                      :created_at => Time.now.to_s,
+                      :updated_at => Time.now.to_s,
                       :merchant_id => data_hash[:merchant_id]
                       })
   end
-
   def update(id, attributes)
     find_by_id(id).name = attributes[:name]
     find_by_id(id).description = attributes[:description]
     find_by_id(id).unit_price = BigDecimal(attributes[:unit_price])
     find_by_id(id).updated_at = Time.now
+    # binding.pry
   end
 end
