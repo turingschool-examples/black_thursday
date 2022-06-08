@@ -7,18 +7,18 @@ require_relative "transaction_repository"
 
 
 class SalesEngine
-  attr_reader :item_repository,
-              :merchant_repository,
+  attr_reader :items,
+              :merchants,
               :invoices,
               :analyst,
               :invoice_items,
               :transactions
 
   def initialize(file_paths)
-    @item_repository = ItemRepository.new(file_paths[:items])
-    @merchant_repository = MerchantRepository.new(file_paths[:merchants])
+    @items = ItemRepository.new(file_paths[:items])
+    @merchants = MerchantRepository.new(file_paths[:merchants])
     @invoices = InvoiceRepository.new(file_paths[:invoices])
-    @analyst = SalesAnalyst.new(@item_repository, @merchant_repository)
+    @analyst = SalesAnalyst.new(@items, @merchants)
     @invoice_items = InvoiceItemRepository.new(file_paths[:invoice_items])
     @transactions = TransactionRepository.new(file_paths[:transactions])
   end

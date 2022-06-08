@@ -70,7 +70,7 @@ class InvoiceRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@invoices.all} rows>"
   end
 
   # def delete(id)

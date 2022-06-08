@@ -63,7 +63,7 @@ class MerchantRepository
 #   end
 
   def inspect
-    "#<#{self.class} #{@merchants.all} rows>"
+    "#<#{self.class} #{@sales_engine.merchants.all} rows>"
   end
 
 
