@@ -63,11 +63,19 @@ RSpec.describe ItemRepository do
   it 'can create new item instances' do
     expect(item_repository.max_id).to eq(263567474)
 
-    item_repository.create("SNACK CHEST","A big treasure chest filled with snacks",30,9999)
+    item_repository.create({
+      :id          => 0,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    })
 
     expect(item_repository.max_id).to eq(263567475)
 
-    expect(item_repository.find_by_name("SNACK CHEST").id).to eq(263567475)
+    expect(item_repository.find_by_name("Pencil").id).to eq(263567475)
   end
 
   it 'can update item instances' do

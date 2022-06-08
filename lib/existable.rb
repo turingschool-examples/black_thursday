@@ -25,19 +25,19 @@ module Existable
     }))
   end
 
-  def  make_item(attribute)
+  def  make_item(attributes)
      @all.push(Item.new({
-      :id => max_item_id + 1,
-      :name => name,
-      :description => description,
-      :unit_price => price,
+      :id => max_id + 1,
+      :name => attributes[:name],
+      :description => attributes[:description],
+      :unit_price => attributes[:price],
       :created_at => get_time,
       :updated_at => get_time,
-      :merchant_id => merchantID
+      :merchant_id => attributes[:merchant_id]
     }))
   end
 
-  def  make_invoice(attribute)
+  def  make_invoice(attributes)
     self.all.push(Invoice.new({
       :id          => max_id + 1,
       :customer_id => attributes[:customer_id],
@@ -48,7 +48,7 @@ module Existable
     }))
   end
 
-  def make_invoice_item(attribute)
+  def make_invoice_item(attributes)
     self.all.push(InvoiceItem.new({
       :id => max_id + 1,
       :item_id => attributes[:item_id],
@@ -60,7 +60,7 @@ module Existable
     }))
   end
 
-  def make_transaction(attribute)
+  def make_transaction(attributes)
     @all.push(Transaction.new({
       :id => max_id + 1,
       :invoice_id => attributes[:invoice_id],
@@ -72,7 +72,7 @@ module Existable
     }))
   end
 
-  def  make_customer(attribute)
+  def  make_customer(attributes)
     @all.push(Customer.new({
       :id => max_id + 1,
       :first_name => attributes[:first_name],
