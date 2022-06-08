@@ -79,7 +79,8 @@ RSpec.describe InvoiceItemRepository do
     it 'can update the status of an invoice item' do
       expect(@collection.find_by_id(21830).quantity).to eq '4'
       expect(@collection.find_by_id(21830).unit_price).to eq 0.13635e3
-      @collection.update(21830, 3, 1199)
+      attributes = {quantity: 3, unit_price: 1199}
+      @collection.update(21830, attributes)
       expect(@collection.find_by_id(21830).quantity).to eq 3
       expect(@collection.find_by_id(21830).unit_price).to eq 1199
       expect(@collection.find_by_id(21830).updated_at).not_to eq Time.parse('2016-01-06')

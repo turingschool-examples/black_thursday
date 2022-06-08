@@ -28,11 +28,11 @@ class InvoiceItemRepository
     end
   end
 
-  def update(invoice_item_id_search, new_quantity, new_price)
+  def update(invoice_item_id_search, attributes)
     @all.find do |invoice_item|
       if invoice_item.id == invoice_item_id_search
-        invoice_item.quantity = new_quantity
-        invoice_item.unit_price = new_price
+        invoice_item.quantity = attributes[:quantity] unless attributes[:quantity].nil?
+        invoice_item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
         invoice_item.updated_at = Time.now
       end
     end
