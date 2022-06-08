@@ -1,6 +1,5 @@
 require_relative 'item'
 require 'csv'
-require 'pry'
 require 'BigDecimal'
 require_relative 'inspector'
 
@@ -12,17 +11,7 @@ class ItemRepository
     @all = []
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @all << Item.new(
-        {
-        :id => row[:id].to_i,
-        :name => row[:name],
-        :description => row[:description],
-        :unit_price => row[:unit_price],
-        :created_at => row[:created_at],
-        :updated_at => row[:updated_at],
-        :merchant_id => row[:merchant_id].to_i
-        }
-      )
+      @all << Item.new(row)
     end
   end
 
@@ -39,13 +28,15 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    items = []
-    @all.each do |item|
-      if item.description.include?(description) == true
-        items << item
-      end
+    @all.find_all do |item|
+      item.description.downcase.include?(description.downcase)
     end
-    items
+  end
+
+  def find_all_by_price(price)
+    @all.find_all do |item|
+      item.unit_price == price
+    end
   end
 
   def find_all_with_price(price)
@@ -79,29 +70,34 @@ class ItemRepository
   end
 
   def create(attributes)
-    highest_id = []
-    @all.each do |item|
-      highest_id << item.id.to_i
+    highest_id = @all.max do |item|
+      highest_id = item.id.to_i
     end
-    attributes[:id] = (highest_id.max + 1).to_s
+    attributes[:id] = highest_id.id + 1
     @all << Item.new(attributes)
+  end
+
+  def assign_attributes(item, attributes)
+    item.name = attributes[:name] unless attributes[:name].nil?
+    item.description = attributes[:description] unless attributes[:description].nil?
+    item.unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+    item.updated_at = Time.now
+    item
   end
 
   def update (id, attributes)
     @all.each do |item|
       if item.id == id
-        item.name = attributes[:name]
-        item.description = attributes[:description]
-        item.unit_price = attributes[:unit_price]
-        item.updated_at = Time.now
+        assign_attributes(item, attributes)
       end
     end
   end
 
   def delete(id)
-    @all.find do |item|
-      item.id == id
-      @all.delete(item)
+    @all.each do |item|
+      if item.id == id
+        @all.delete(item)
+      end
     end
   end
 end

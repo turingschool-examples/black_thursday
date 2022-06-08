@@ -11,7 +11,7 @@ class MerchantRepository
     @all = []
 
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      @all << Merchant.new({:id => row[:id].to_i, :name => row[:name]})
+      @all << Merchant.new(row)
     end
   end
 
@@ -34,26 +34,26 @@ class MerchantRepository
   end
 
   def create(new_merchant)
-    new_id = 0
-    @all.each do |merchant|
-      if merchant.id.to_i >= new_id
-        new_id = merchant.id.to_i + 1
-      end
+    max_id = @all.max do |merchant|
+      merchant.id
     end
-    @all << Merchant.new({:id => new_id.to_s, :name => new_merchant})
+    new_merchant[:id] = max_id.id + 1
+    @all << Merchant.new(new_merchant)
   end
 
   def update(merchant_id_search, new_name)
-    @all.find do |merchant|
-      merchant.id == merchant_id_search
-      merchant.name = new_name
+    @all.each do |merchant|
+      if merchant.id == merchant_id_search
+        merchant.name = new_name[:name]
+      end
     end
   end
 
   def delete(merchant_id_search)
-    @all.find do |merchant|
-      merchant.id == merchant_id_search
-      @all.delete(merchant)
+    @all.each do |merchant|
+      if merchant.id == merchant_id_search
+        @all.delete(merchant)
+      end
     end
   end
 end

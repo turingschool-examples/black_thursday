@@ -20,8 +20,14 @@ RSpec.describe ItemRepository do
   end
 
   it "can list items by their description" do
-    expect(@items.find_all_with_description("Pleasant to touch...").length).to eq(1)
+    expect(@items.find_all_with_description("Pleasant to touch...").length).to eq(2)
     expect(@items.find_all_with_description("This doesn't exist!")).to eq([])
+  end
+
+  it 'can find all items with a certain price' do
+    expect(@items.find_all_by_price(2131232132)).to eq []
+    price = BigDecimal(25)
+    expect(@items.find_all_by_price(price).count).to eq 79
   end
 
   it "list items by their price" do
@@ -40,53 +46,59 @@ RSpec.describe ItemRepository do
   end
 
   it "can make a new item" do
-    @items.create({
-      :id          => 0,
+    attributes = {
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 1099,
-      :created_at  => '1994-05-07 23:38:43 UTC',
-      :updated_at  => '2016-01-11 11:30:35 UTC',
+      :unit_price  => BigDecimal(1099, 5),
+      :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
+      :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
       :merchant_id => 2
-    })
+    }
+    @items.create(attributes)
     expect(@items.find_by_name("Pencil")).to be_a(Item)
   end
 
   it "has the largest id number" do
-    @items.create({
+    attributes = {
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 1099,
-      :created_at  => '1994-05-07 23:38:43 UTC',
-      :updated_at  => '2016-01-11 11:30:35 UTC',
+      :unit_price  => BigDecimal(1099, 5),
+      :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
+      :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
       :merchant_id => 2
-    })
+    }
+    @items.create(attributes)
     expect(@items.find_by_id(263567475).name).to eq("Pencil")
   end
 
   it "has a price" do
-    @items.create({
+    attributes = {
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 1099,
-      :created_at  => '1994-05-07 23:38:43 UTC',
-      :updated_at  => '2016-01-11 11:30:35 UTC',
+      :unit_price  => BigDecimal(1099, 5),
+      :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
+      :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
       :merchant_id => 2
-    })
+    }
+    @items.create(attributes)
     expect(@items.find_by_id(263567475).unit_price).to eq(10.99)
   end
 
+  it 'has a helper method to help assign attributes' do
+    attributes = {
+      unit_price: BigDecimal(379.99, 5)
+    }
+    item = @items.find_by_id(263395237)
+    @items.assign_attributes(item, attributes)
+    expect(item.unit_price).to eq 379.99
+  end
+
   it "can update the item's attributes" do
-    @items.update(263395237, {
-      :name => "test name change",
-      :description => "test update",
-      :unit_price => 1299,
-      :updated_at => 'dummy data'}
-    )
-    expect(@items.find_by_id(263395237).name).to eq('test name change')
-    expect(@items.find_by_id(263395237).description).to eq('test update')
-    expect(@items.find_by_id(263395237).unit_price).to eq(1299)
-    expect(@items.find_by_id(263395237).updated_at).not_to eq '2007-06-04 21:35:10 UTC'
+    attributes = {
+      unit_price: BigDecimal(379.99, 5)
+    }
+    @items.update(263395237, attributes)
+    expect(@items.find_by_id(263395237).unit_price).to eq(379.99)
   end
 
   it 'can delete items' do

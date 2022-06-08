@@ -36,11 +36,11 @@ RSpec.describe Item do
     end
 
     it "has a created time" do
-      expect(@pencil.created_at).to eq '1994-05-07 23:38:43 UTC'
+      expect(@pencil.created_at).to eq Time.parse('1994-05-07 23:38:43 UTC')
     end
 
     it "has an updated time" do
-      expect(@pencil.updated_at).to eq '2016-01-11 11:30:35 UTC'
+      expect(@pencil.updated_at).to eq Time.parse('2016-01-11 11:30:35 UTC')
     end
 
     it "has a merchant ID" do
