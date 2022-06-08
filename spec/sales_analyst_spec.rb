@@ -125,5 +125,13 @@ describe SalesAnalyst do
     expect(@analyst.invoice_status(:pending)).to eq 29.55
     expect(@analyst.invoice_status(:shipped)).to eq 56.95
     expect(@analyst.invoice_status(:returned)).to eq 13.5
+
+  it "can tell you if an invoice has been paid" do
+    expect(@analyst.invoice_paid_in_full?(3560)).to eq(false)
+    expect(@analyst.invoice_paid_in_full?(2179)).to eq(true)
+  end
+
+  it "can tell you the total dollar amount of an invoice" do
+    expect(@analyst.invoice_total(4)).to eq(1964.05)
   end
 end
