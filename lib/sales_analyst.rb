@@ -113,14 +113,13 @@ class SalesAnalyst < SalesEngine
       # item.unit_price > (aappm + (psd * 2))
     end
   end
-  # def top_merchants_by_invoice_count
-  #   aipm = average_invoices_per_merchant
-  #   aipmsd = average_invoices_per_merchant_standard_deviation
-  #   @merchant_repository.all.select do |merchant|
-  #     @invocie_repository.find_all_by_merchant_id(merchant.id)
-  #     item.unit_price < (aappm - (psd * 2))
-  #   end
-  # end
 
+  def bottom_merchants_by_invoice_count
+    aipm = average_invoices_per_merchant
+    aipmsd = average_invoices_per_merchant_standard_deviation
+    @merchant_repository.all.select do |merchant|
+      @invoice_repository.find_all_by_merchant_id(merchant.id).length < (aipm - (aipmsd * 2))
+    end
+  end
 
 end
