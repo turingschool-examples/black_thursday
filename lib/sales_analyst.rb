@@ -61,11 +61,11 @@ class SalesAnalyst < SalesEngine
   end
 
   def price_std_dev
-    all_item_prices = @item_repository.all.map {|item| item.unit_price}
-    all_items_count = @item_repository.all.count
-    avg_item_price = (all_item_prices.sum/all_items_count)
+    # all_item_prices = @item_repository.all.sum {|item| item.unit_price}
+    # all_items_count = @item_repository.all.count
+    avg_item_price = (@item_repository.all.sum {|item| item.unit_price}/@item_repository.all.count)
     std_dev_difs = @item_repository.all.flat_map{|item|((item.unit_price - avg_item_price)**2)}
-    sq_rt = Math.sqrt(((std_dev_difs.sum) / (all_items_count - 1)).to_f)
+    sq_rt = Math.sqrt(((std_dev_difs.sum) / (@item_repository.all.count - 1)).to_f)
     std_dev_price = sq_rt.round(2)
   end
 
