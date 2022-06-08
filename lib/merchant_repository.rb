@@ -48,12 +48,4 @@ class MerchantRepository
       end
     end
   end
-
-  def delete(merchant_id_search)
-    @all.each do |merchant|
-      if merchant.id == merchant_id_search
-        @all.delete(merchant)
-      end
-    end
-  end
 end

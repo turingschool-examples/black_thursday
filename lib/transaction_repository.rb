@@ -75,11 +75,4 @@ class TransactionRepository
       end
     end
   end
-
-  def delete(transaction_id_search)
-    @all.find do |transaction|
-      transaction.id == transaction_id_search
-      @all.delete(transaction)
-    end
-  end
 end

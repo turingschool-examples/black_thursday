@@ -64,11 +64,4 @@ class CustomerRepository
       end
     end
   end
-
-  def delete(customer_id_search)
-    @all.find do |customer|
-      customer.id == customer_id_search
-      @all.delete(customer)
-    end
-  end
 end

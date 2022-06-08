@@ -56,12 +56,4 @@ class InvoiceRepository
       end
     end
   end
-
-  def delete(invoice_id_search)
-    @all.each do |invoice|
-      if invoice.id == invoice_id_search
-        @all.delete(invoice)
-      end
-    end
-  end
 end
