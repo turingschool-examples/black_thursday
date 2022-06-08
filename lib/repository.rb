@@ -3,8 +3,8 @@ require_relative 'existable'
 require_relative 'findable'
 
 class Repository
-  include Findable
   include Existable
+  include Findable
 
   attr_accessor :all
 

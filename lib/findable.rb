@@ -5,23 +5,12 @@ module Findable
     @all.find {|thing| thing.id == id_number}
   end
 
-  def is_digit?(input)
-    code = input.ord
-    48 <= code && code <= 57
-  end
-
   def find_by_name(name)
     @all.find {|thing| thing.name.downcase == name.downcase.strip}
   end
 
   def find_all_by_name(input)
-    @all.select do |thing|
-      pieces = thing.name.chars.map do |piece|
-        is_digit?(piece) ? piece : piece.downcase
-      end
-      array = pieces.join('')
-      array.include?(input)
-    end
+    @all.select {|thing| thing.name.downcase.include?(thing.downcase.strip)}
   end
 
   def find_all_by_merchant_id(id_number)
