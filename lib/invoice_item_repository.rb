@@ -15,10 +15,6 @@ class InvoiceItemRepository
    end
  end
 
- def find_all_by_invoice_id(invoice_id)
-   @all.find_all { |invoice_item| invoice_item.invoice_id == invoice_id}
- end
-
  def create(attributes)
    #using sort_by in case they are ever out of order
    id = @all.sort_by { |invoice_item| invoice_item.id }.last.id
