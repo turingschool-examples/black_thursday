@@ -7,9 +7,9 @@ RSpec.describe InvoiceRepository do
     @attributes = {
       :customer_id => 1,
       :merchant_id => 12335938,
-      :status => 'pending',
-      :created_at => '2009-02-07',
-      :updated_at => '2014-03-15'
+      :status => :pending,
+      :created_at => Time.parse('2009-02-07'),
+      :updated_at => Time.parse('2014-03-15')
     }
   end
 
@@ -65,8 +65,8 @@ RSpec.describe InvoiceRepository do
     end
 
     it 'returns an array if invoices have matching status' do
-      expect(@collection.find_all_by_status('pending').count).to eq 1473
-      expect(@collection.find_all_by_status('shipped').count).to eq 2839
+      expect(@collection.find_all_by_status(:pending).count).to eq 1473
+      expect(@collection.find_all_by_status(:shipped).count).to eq 2839
     end
   end
 
@@ -77,24 +77,25 @@ RSpec.describe InvoiceRepository do
       expect(@collection.find_by_id(4986)).to be_a Invoice
       expect(@collection.find_by_id(4986).customer_id).to eq 1
       expect(@collection.find_by_id(4986).merchant_id).to eq 12335938
-      expect(@collection.find_by_id(4986).status).to eq 'pending'
-      expect(@collection.find_by_id(4986).created_at).to eq '2009-02-07'
-      expect(@collection.find_by_id(4986).updated_at).to eq '2014-03-15'
+      expect(@collection.find_by_id(4986).status).to eq :pending
+      expect(@collection.find_by_id(4986).created_at).to eq Time.parse('2009-02-07')
+      expect(@collection.find_by_id(4986).updated_at).to eq Time.parse('2014-03-15')
     end
   end
 
   describe '#update' do
     it 'can update the status of an invoice' do
-      expect(@collection.find_by_id(1).status).to eq 'pending'
-      @collection.update(1, 'shipped')
-      expect(@collection.find_by_id(1).status).to eq 'shipped'
-      expect(@collection.find_by_id(1).updated_at).not_to eq '2014-03-15'
+      expect(@collection.find_by_id(1).status).to eq :pending
+      attributes = {status: :shipped}
+      @collection.update(1, attributes)
+      expect(@collection.find_by_id(1).status).to eq :shipped
+      expect(@collection.find_by_id(1).updated_at).not_to eq Time.parse('2014-03-15')
     end
   end
 
   describe '#delete' do
     it 'can delete an Invoice based on id' do
-      expect(@collection.find_by_id(1).status).to eq 'pending'
+      expect(@collection.find_by_id(1).status).to eq :pending
       @collection.delete(1)
       expect(@collection.find_by_id(1)).to eq nil
     end

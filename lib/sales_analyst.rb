@@ -137,7 +137,7 @@ class SalesAnalyst
 
   def days_invoices_hash
     days_invoices = @invoices.all.group_by do |invoice|
-      (Date.parse(invoice.created_at)).strftime('%A')
+      invoice.created_at.strftime('%A')
     end
     days_invoices.map do |day, invoices|
       days_invoices[day] = invoices.count
@@ -168,7 +168,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    count_of_status = @invoices.find_all_by_status(status.to_s).count
+    count_of_status = @invoices.find_all_by_status(status).count
     percentage = (count_of_status.to_f / @invoices.all.count) * 100
     percentage.round(2)
   end
