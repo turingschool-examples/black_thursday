@@ -20,6 +20,6 @@ class Repository
   end
 
   def inspect #for SpecHarness
-  "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

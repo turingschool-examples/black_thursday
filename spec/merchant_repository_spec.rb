@@ -5,7 +5,13 @@ require './lib/helper'
 RSpec.describe MerchantRepository do
   let!(:sales_engine) {SalesEngine.from_csv({:merchants => "./data/merchants.csv"})}
   let!(:merchant_repository) {sales_engine.merchants}
-  let(:new_merchant) {merchant_repository.make_merchant({:id => 5, :name => "Turing School"})}
+  let!(:time) {Time.now.strftime("%Y-%m-%d %H:%M")}
+  let(:new_merchant) {merchant_repository.make_merchant({
+    :id => 5,
+    :name => "Turing School",
+    :created_at => time,
+    :updated_at => time
+    })}
 
   it 'exists' do
     expect(merchant_repository).to be_instance_of(MerchantRepository)
@@ -45,12 +51,17 @@ RSpec.describe MerchantRepository do
     expect(merchant_repository.max_id).to eq(12337411)
   end
 
-  it 'can create new Merchant instance' do
-    merchant_repository.create("AlexsSaucery")
-    merchant_repository.create("BBQRUS")
+  it 'can create new item instances' do
+    expect(merchant_repository.max_id).to eq(12337411)
+    merchant_repository.create({
+      :id          => 0,
+      :name        => "Pencil",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+    })
 
-    expect(merchant_repository.find_by_name("AlexsSaucery").id).to eq(12337412)
-    expect(merchant_repository.find_by_name("BBQRUS").id).to eq(12337413)
+    expect(merchant_repository.max_id).to eq(263567475)
+    expect(merchant_repository.find_by_name("Pencil").id).to eq(263567475)
   end
 
   it 'can update name of existing merchant' do
@@ -61,10 +72,11 @@ RSpec.describe MerchantRepository do
     expect(merchant_repository.find_by_name("GoldenRayPress")).to be nil
   end
 
-  it 'can delete merchant instance by id' do
-    merchant_repository.delete(12334135)
+  it 'can delete item instances' do
+    expect(merchant_repository.all.count).to eq(1367)
 
-    expect(merchant_repository.find_by_name("GoldenRayPress")).to be nil
+    merchant_repository.delete(263438579)
+
+    expect(merchant_repository.all.count).to eq(1366)
   end
-
 end

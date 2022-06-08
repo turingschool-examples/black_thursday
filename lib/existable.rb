@@ -33,15 +33,14 @@ module Existable
   end
 
   def  make_item(attributes)
-     @all.push(Item.new({
+    @all.push(Item.new({
       :id => max_id + 1,
       :name => attributes[:name],
       :description => attributes[:description],
       :unit_price => attributes[:price],
       :created_at => get_time,
       :updated_at => get_time,
-      :merchant_id => attributes[:merchant_id]
-    }))
+      :merchant_id => attributes[:merchant_id]}))
   end
 
   def  make_invoice(attributes)
