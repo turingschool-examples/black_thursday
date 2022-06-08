@@ -1,6 +1,8 @@
 require 'csv'
+require 'pry'
 require_relative '../lib/invoice'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/repoable'
 
 RSpec.describe InvoiceRepository do
   before :each do
@@ -48,17 +50,19 @@ RSpec.describe InvoiceRepository do
   end
 
   it "can create new invoices" do
-    @invoice_repository.create({:customer_id => 7, :merchant_id => 8, :status => "pending"})
+    attributes = {:customer_id => 7, :merchant_id => 8, :status => "pending"}
+    @invoice_repository.create(attributes)
     expect(@invoice_repository.all.last).to be_a Invoice
     expect(@invoice_repository.all.length).to eq(4986)
-    expect(@invoice_repository.all.last.customer_id).to eq(4986)
+    expect(@invoice_repository.all.last.customer_id).to eq(7)
     expect(@invoice_repository.all.last.merchant_id).to eq(8)
     expect(@invoice_repository.all.last.status).to eq(:pending)
   end
 
-  it "can can update invoice instances with new status and time "do
-    @invoice_repository.update(1, {:status => "shipped"})
-    expect(@invoice_repository.find_by_id(1).status).to eq("shipped")
+  it "can can update invoice instances with new status and time " do
+    @invoice_repository.create({:customer_id => 7, :merchant_id => 8, :status => "pending"})
+    @invoice_repository.update(4986, {:status => "shipped"})
+    expect(@invoice_repository.find_by_id(4986).status).to eq("shipped")
   end
 
   it "can delete the invoice instance" do

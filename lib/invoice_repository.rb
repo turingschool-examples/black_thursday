@@ -33,8 +33,9 @@ class InvoiceRepository
 
   def create(data_hash)
     id = (@all.last.id.to_i + 1)
-    @all << Invoice.new({
-      :customer_id => id,
+    @all <<  Invoice.new({
+      :id => id,
+      :customer_id => data_hash[:customer_id],
       :merchant_id => data_hash[:merchant_id],
       :status => data_hash[:status],
       :created_at => Time.now,
