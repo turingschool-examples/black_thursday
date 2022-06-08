@@ -43,36 +43,27 @@ RSpec.describe CustomerRepository do
     expect(@customer.find_all_by_first_name('Joey').length).to eq(1)
   end
   # #
-  # it 'can find all by credit card number' do
+  it 'can find all customers by last name' do
   #
-  #   expect(@transaction.find_all_by_credit_card_number(2222222222222222)).to eq([])
-  #   expect(@transaction.find_all_by_credit_card_number(4007233416896135)).to be_instance_of Array
-  #   expect(@transaction.find_all_by_credit_card_number(4007233416896135).length).to eq(1)
-  #   expect(@transaction.find_all_by_credit_card_number(4007233416896135).first).to be_instance_of Transaction
-  # end
-  # #
-  # it 'can find all by result' do
+    expect(@customer.find_all_by_last_name('Ondricka')).to be_a Array
+    expect(@customer.find_all_by_last_name('Ondricka').first).to be_instance_of Customer
+    expect(@customer.find_all_by_last_name('Ondricka').length).to eq(3)
+  end
+
   #
-  #   expect(@transaction.find_all_by_result('doesnotexist')).to eq([])
-  #   expect(@transaction.find_all_by_result('failed')).to be_instance_of Array
-  # end
-  # #
-  # it 'can create new transactions' do
-  #   @attributes =   {
-  #     :id => 4986,
-  #     :invoice_id => 666,
-  #     :credit_card_number => 17979797979797979,
-  #     :credit_card_expiration_date => 0431,
-  #     :result => 'success',
-  #     :created_at => Time.now,
-  #     :updated_at => 12334105
-  #   }
+  it 'can create new transactions' do
+    @attributes =   {
+      :id => 1001,
+      :first_name => 'Gauri',
+      :last_name => 'Joshi',
+      :created_at => Time.now,
+      :updated_at => 12334105
+    }
   #
-  #   expect(@transaction.create(@attributes)).to be_a Array
-  #   expect(@transaction.all.last).to be_a Transaction
-  #   expect(@transaction.all.last.id).to eq(4986)
-  #   expect(@transaction.all.last.invoice_id).to eq(666)
-  # end
+    expect(@customer.create(@attributes)).to be_a Array
+    expect(@customer.all.last).to be_a Customer
+    expect(@customer.all.last.id).to eq(1001)
+  end
   # #
   # it 'can update the credit_card_number, credit_card_expiration_date, and result on the transaction' do
   #
