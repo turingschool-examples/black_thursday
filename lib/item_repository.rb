@@ -33,6 +33,12 @@ class ItemRepository
     end
   end
 
+  def find_all_by_price(price)
+    @all.find_all do |item|
+      item.price == price
+    end
+  end
+
   def find_all_with_price(price)
     items = []
     @all.each do |item|
