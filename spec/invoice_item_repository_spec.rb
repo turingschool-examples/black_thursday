@@ -3,6 +3,7 @@ require'./lib/invoice_item'
 
 RSpec.describe InvoiceItemRepository do
   before :each do
+    @time = Time.now
     @sales_engine = InvoiceItemRepository.new("./data/invoice_items.csv")
   end
 
@@ -14,7 +15,7 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_engine.all).to be_a Array
     expect(@sales_engine.all.count).to eq(21830)
   end
-#
+
   it "can find by id" do
     expect(@sales_engine.find_by_id(1)).to eq(@sales_engine.all.first)
     expect(@sales_engine.find_by_id(8675309)).to eq(nil)
@@ -34,7 +35,6 @@ RSpec.describe InvoiceItemRepository do
   end
 
   it 'can create Invoice Item instance' do
-    x = Time.now
     last_id_number_in_csv = @sales_engine.all.last.id.to_i
     attributes = {
       :id => nil,
@@ -42,14 +42,14 @@ RSpec.describe InvoiceItemRepository do
       :invoice_id => 067,
       :quantity => 99999999,
       :unit_price => 23,
-      :created_at => x,
-      :updated_at => x
+      :created_at => @time,
+      :updated_at => @time
       }
     expect(@sales_engine.create(attributes).last.id).to eq(21831)
     expect(@sales_engine.all.last).to be_a(InvoiceItem)
     expect(@sales_engine.all.count).to eq(21831)
   end
-#
+
   it "can update(id, attribute) on a invoice item instance" do
     attributes = {
       :quantity => 99999999,
@@ -68,4 +68,5 @@ RSpec.describe InvoiceItemRepository do
     @sales_engine.delete(1)
     expect(@sales_engine.find_by_id(1)).to eq(nil)
   end
+  
 end
