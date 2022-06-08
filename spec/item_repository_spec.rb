@@ -39,8 +39,8 @@ RSpec.describe ItemRepository do
   it "can return an instance of an Item within a price range or [] " do
     price_in_range1 = @item_repository.find_all_by_price_in_range(1000.00..1500.00)
     expect(price_in_range1).to be_a(Array)
-    expect(price_in_range1.length
-    expect(price_in_range1.first.id).to eq(263397163)
+    expect(price_in_range1.length).to eq(19)
+    expect(price_in_range1.first.id).to eq(263416567)
     price_in_range2 = @item_repository.find_all_by_price_in_range(10000..11000)
     expect(price_in_range2).to eq([])
   end
@@ -53,10 +53,18 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_all_by_merchant_id(1)).to eq([])
   end
   it "can create a new instance of item and add to repo" do
-    @item_repository.create({:name => "Pencil", :description => "You can use it to write things", :unit_price => 1099, :merchant_id => 2})
+    attributes = {
+        name: "Capita Defenders of Awesome 2018",
+        description: "This board both rips and shreds",
+        unit_price: BigDecimal(399.99, 5),
+        created_at: Time.now,
+        updated_at: Time.now,
+        merchant_id: 25
+      }
+    @item_repository.create(attributes)
     expect(@item_repository.all.last).to be_a Item
-    expect(@item_repository.all.last.name).to eq("Pencil")
-    expect(@item_repository.all.last.description).to eq("You can use it to write things")
+    expect(@item_repository.all.last.name).to eq("Capita Defenders of Awesome 2018")
+    expect(@item_repository.all.last.description).to eq("This board both rips and shreds")
     expect(@item_repository.all.last.unit_price).to be_a BigDecimal
     expect(@item_repository.all.last.created_at).to be_a Time
     expect(@item_repository.all.last.updated_at).to be_a Time
