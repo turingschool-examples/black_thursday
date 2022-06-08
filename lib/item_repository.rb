@@ -87,9 +87,9 @@ class ItemRepository
   end
 
   def delete(id)
-    @all.each do |merchant|
-      if merchant.id == merchant_id_search
-        @all.delete(merchant)
+    @all.each do |item|
+      if item.id == id
+        @all.delete(item)
       end
     end
   end
