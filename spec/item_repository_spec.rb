@@ -45,8 +45,8 @@ RSpec.describe ItemRepository do
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => 1099,
-      :created_at  => '1994-05-07 23:38:43 UTC',
-      :updated_at  => '2016-01-11 11:30:35 UTC',
+      :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
+      :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
       :merchant_id => 2
     })
     expect(@items.find_by_name("Pencil")).to be_a(Item)
@@ -57,8 +57,8 @@ RSpec.describe ItemRepository do
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => 1099,
-      :created_at  => '1994-05-07 23:38:43 UTC',
-      :updated_at  => '2016-01-11 11:30:35 UTC',
+      :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
+      :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
       :merchant_id => 2
     })
     expect(@items.find_by_id(263567475).name).to eq("Pencil")
@@ -69,8 +69,8 @@ RSpec.describe ItemRepository do
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => 1099,
-      :created_at  => '1994-05-07 23:38:43 UTC',
-      :updated_at  => '2016-01-11 11:30:35 UTC',
+      :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
+      :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
       :merchant_id => 2
     })
     expect(@items.find_by_id(263567475).unit_price).to eq(10.99)
