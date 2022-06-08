@@ -32,9 +32,7 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(fragment)
-    @all.find_all do |customer|
-      customer.first_name.include?(fragment)
-    end
+    @all.find_all {|customer| customer.first_name.include?(fragment)}
   end
 
   def find_all_by_last_name(fragment)
@@ -44,9 +42,9 @@ class CustomerRepository
   end
 
   def create(attributes)
-    x = (@all.last.id.to_i + 1)
+    create_id = (@all.last.id.to_i + 1)
     @all << Customer.new({
-      :id => x,
+      :id => create_id,
       :first_name => attributes[:first_name],
       :last_name => attributes[:last_name],
       :created_at => attributes[:created_at],
@@ -55,15 +53,15 @@ class CustomerRepository
   end
 
   def update(id, attributes)
-    x = find_by_id(id)
-    x.first_name = attributes[:first_name]
-    x.last_name = attributes[:last_name]
-    x.updated_at = Time.now
+    customer = find_by_id(id)
+    customer.first_name = attributes[:first_name]
+    customer.last_name = attributes[:last_name]
+    customer.updated_at = Time.now
   end
 
   def delete(id)
-    x = find_by_id(id)
-    @all.delete(x)
+    customer = find_by_id(id)
+    @all.delete(customer)
   end
 
 end
