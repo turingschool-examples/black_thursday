@@ -16,17 +16,12 @@ module Repoable
     @all.find { |transaction| transaction.id.to_i == id}
   end
 
+  def find_by_name(item_name)
+    @all.find {|item| item.name.downcase == item_name.downcase}
+  end
 
   def inspect
       "#<#{self.class} #{@all.size} rows>"
   end
-
-
-
-
-
-
-
-
 
 end
