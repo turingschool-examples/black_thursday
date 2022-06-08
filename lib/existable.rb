@@ -34,7 +34,9 @@ module Existable
   def create_merchant(name)
     @all.push(Merchant.new({
       :id => max_id + 1,
-      :name => name
+      :name => name,
+      :created_at => get_time,
+      :updated_at => get_time
     }))
   end
 
@@ -113,7 +115,8 @@ module Existable
   end
 
   def update_merchant(to_be_updated, attributes)
-    to_be_updated.name = attributes[:name]
+    to_be_updated.name = attributes
+    to_be_updated.updated_at = get_time
   end
 
   def update_item(to_be_updated, attributes)
