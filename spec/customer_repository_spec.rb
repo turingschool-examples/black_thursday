@@ -74,7 +74,11 @@ RSpec.describe CustomerRepository do
   describe '#update' do
     it 'can update the result of an customer' do
       expect(@collection.find_by_id(498).first_name).to eq 'Yadira'
-      @collection.update(498, 'Billy', 'Bob')
+      attributes = {
+        :first_name 'Billy'
+        :last_name 'Bob'
+      }
+      @collection.update(498, attributes)
       expect(@collection.find_by_id(498).first_name).to eq 'Billy'
       expect(@collection.find_by_id(498).last_name).to eq 'Bob'
       expect(@collection.find_by_id(498).updated_at).not_to eq Time.parse('2012-03-27 14:56:08 UTC')
