@@ -13,23 +13,23 @@ class SalesAnalyst
   end
 
   def merchant_items_hash
-    merchants_items_hash = @items.all.group_by do |item|
+    merchants_items = @items.all.group_by do |item|
       item.merchant_id
     end
-    merchants_items_hash.map do |keys, values|
-      merchants_items_hash[keys] = values.count
+    merchants_items.map do |keys, values|
+      merchants_items[keys] = values.count
     end
-    merchants_items_hash
+    merchants_items
   end
 
   def merchant_invoices_hash
-    merchant_invoices_hash = @invoices.all.group_by do |invoice|
+    merchants_invoices = @invoices.all.group_by do |invoice|
       invoice.merchant_id
     end
-    merchant_invoices_hash.map do |keys, values|
-      merchant_invoices_hash[keys] = values.count
+    merchants_invoices.map do |keys, values|
+      merchants_invoices[keys] = values.count
     end
-    merchant_invoices_hash
+    merchants_invoices
   end
 
   def average_items_per_merchant
@@ -133,37 +133,38 @@ class SalesAnalyst
       invoices <= two_below_stdev
     end
     bot_merchs = bot_merchs.map { |merchant| @merchants.find_by_id(merchant[0])}
-    require 'pry'; binding.pry
   end
 
-
-  # On which days are invoices created at more than one standard deviation above the mean?
-  # sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
-
-  # Date.parse(day).strftime('%A')
-
-  def day_invoices_hash
-    day_invoices_hash = @invoices.all.group_by do |invoice|
-      invoice.created_at
+  def days_invoices_hash
+    days_invoices = @invoices.all.group_by do |invoice|
+      (Date.parse(invoice.created_at)).strftime('%A')
     end
-    day_invoices_hash.map do |day, invoices|
-      day_invoices_hash[keys] = invoices.count
+    days_invoices.map do |day, invoices|
+      days_invoices[day] = invoices.count
     end
-    day_invoices_hash
+    days_invoices
   end
 
   def average_invoices_per_day
-    #we need to get a count of invoices by day
+    days_invoices = days_invoices_hash
+    average_per = (days_invoices.values.sum.to_f / days_invoices.keys.count)
+    average_per.round(2)
   end
 
   def average_invoices_per_day_standard_deviation
-
+    squared_differences = 0.0
+    days_invoices_hash.each do |day, num|
+      squared_differences += (num - average_invoices_per_day)**2
+    end
+    stdev = (squared_differences / (days_invoices_hash.keys.count - 1))**0.5
+    stdev.round(2)
   end
 
   def top_days_by_invoice_count
     one_above_stdev = (average_invoices_per_day + average_invoices_per_day_standard_deviation)
-    # use that shit to get our output
-    #.strftime('%m/%d/%Y')
+    days_invoices = days_invoices_hash
+    top_days = days_invoices.find_all {|day, invoices| invoices >= one_above_stdev}
+    top_days.map {|day| day[0]}
   end
 
   def invoice_status(status)
@@ -171,5 +172,4 @@ class SalesAnalyst
     percentage = (count_of_status.to_f / @invoices.all.count) * 100
     percentage.round(2)
   end
-
 end
