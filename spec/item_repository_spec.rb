@@ -83,17 +83,21 @@ RSpec.describe ItemRepository do
     expect(@items.find_by_id(263567475).unit_price).to eq(10.99)
   end
 
+  it 'has a helper method to help assign attributes' do
+    attributes = {
+      unit_price: BigDecimal(379.99, 5)
+    }
+    item = @items.find_by_id(263395237)
+    @items.assign_attributes(item, attributes)
+    expect(item.unit_price).to eq 379.99
+  end
+
   it "can update the item's attributes" do
-    @items.update(263395237, {
-      :name => "test name change",
-      :description => "test update",
-      :unit_price => 1299,
-      :updated_at => 'dummy data'}
-    )
-    expect(@items.find_by_id(263395237).name).to eq('test name change')
-    expect(@items.find_by_id(263395237).description).to eq('test update')
-    expect(@items.find_by_id(263395237).unit_price).to eq(1299)
-    expect(@items.find_by_id(263395237).updated_at).not_to eq '2007-06-04 21:35:10 UTC'
+    attributes = {
+      unit_price: BigDecimal(379.99, 5)
+    }
+    @items.update(263395237, attributes)
+    expect(@items.find_by_id(263395237).unit_price).to eq(379.99)
   end
 
   it 'can delete items' do
