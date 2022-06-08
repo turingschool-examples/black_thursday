@@ -34,13 +34,11 @@ class MerchantRepository
   end
 
   def create(new_merchant)
-    new_id = 0
-    @all.each do |merchant|
-      if merchant.id.to_i >= new_id
-        new_id = merchant.id.to_i + 1
-      end
+    max_id = @all.max do |merchant|
+      merchant.id
     end
-    @all << Merchant.new({:id => new_id.to_s, :name => new_merchant})
+    new_merchant[:id] = max_id.id + 1
+    @all << Merchant.new(new_merchant)
   end
 
   def update(merchant_id_search, new_name)
@@ -51,9 +49,10 @@ class MerchantRepository
   end
 
   def delete(merchant_id_search)
-    @all.find do |merchant|
-      merchant.id == merchant_id_search
-      @all.delete(merchant)
+    @all.each do |merchant|
+      if merchant.id == merchant_id_search
+        @all.delete(merchant)
+      end
     end
   end
 end
