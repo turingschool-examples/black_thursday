@@ -1,7 +1,9 @@
 require 'csv'
 require_relative 'invoice'
+require_relative 'inspector'
 
 class InvoiceRepository
+  include Inspector
   attr_reader :all
 
   def initialize(file_path)
@@ -75,9 +77,5 @@ class InvoiceRepository
       invoice.id == invoice_id_search
       @all.delete(invoice)
     end
-  end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

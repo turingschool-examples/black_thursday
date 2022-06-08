@@ -1,7 +1,9 @@
 require 'csv'
 require_relative 'merchant'
+require_relative 'inspector'
 
 class MerchantRepository
+  include Inspector
   attr_reader :all
 
   def initialize(file_path)
@@ -54,9 +56,4 @@ class MerchantRepository
       @all.delete(merchant)
     end
   end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
 end
