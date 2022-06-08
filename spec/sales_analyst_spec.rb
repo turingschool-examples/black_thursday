@@ -78,7 +78,6 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
 
-
   xit "can calculate top_merchants_by_invoice_count" do
     expect(@sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
     expect(@sales_analyst.top_merchants_by_invoice_count.first.class).to eq Merchant
@@ -95,8 +94,6 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 
-
-
   it "gets days of week array" do
     expect(@sales_analyst.date_to_day).to be_a(Array)
   end
@@ -104,4 +101,12 @@ RSpec.describe SalesAnalyst do
   it "date to day: gets all the instances of an invoice in its array" do
     expect(@sales_analyst.date_to_day.count).to eq(4985)
   end
+
+  it "shows which days are invoices created at more than one standard deviation above the mean" do
+    expect(@sales_analyst.top_days_by_invoice_count).to eq(["Sunday", "Saturday"])
+  end
+
+  # it "gets seperate days" do
+  #   expect(@sales_analyst.seperate_days).to be_a(Array)
+  # end
 end
