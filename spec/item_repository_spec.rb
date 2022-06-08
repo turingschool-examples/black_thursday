@@ -40,39 +40,41 @@ RSpec.describe ItemRepository do
   end
 
   it "can make a new item" do
-    @items.create({
-      :id          => 0,
+    attributes = {
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 1099,
+      :unit_price  => BigDecimal(1099, 5),
       :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
       :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
       :merchant_id => 2
-    })
+    }
+    @items.create(attributes)
     expect(@items.find_by_name("Pencil")).to be_a(Item)
   end
 
   it "has the largest id number" do
-    @items.create({
+    attributes = {
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 1099,
+      :unit_price  => BigDecimal(1099, 5),
       :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
       :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
       :merchant_id => 2
-    })
+    }
+    @items.create(attributes)
     expect(@items.find_by_id(263567475).name).to eq("Pencil")
   end
 
   it "has a price" do
-    @items.create({
+    attributes = {
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 1099,
+      :unit_price  => BigDecimal(1099, 5),
       :created_at  => Time.parse('1994-05-07 23:38:43 UTC'),
       :updated_at  => Time.parse('2016-01-11 11:30:35 UTC'),
       :merchant_id => 2
-    })
+    }
+    @items.create(attributes)
     expect(@items.find_by_id(263567475).unit_price).to eq(10.99)
   end
 
