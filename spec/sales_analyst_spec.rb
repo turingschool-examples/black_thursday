@@ -103,7 +103,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it "shows which days are invoices created at more than one standard deviation above the mean" do
-    expect(@sales_analyst.top_days_by_invoice_count).to eq(["Sunday", "Saturday"])
+    expect(@sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
   end
 
   # it "gets seperate days" do
