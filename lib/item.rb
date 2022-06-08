@@ -1,4 +1,4 @@
-require 'helper'
+require_relative 'helper'
 
 class Item
   attr_reader :id,

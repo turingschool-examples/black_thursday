@@ -1,8 +1,6 @@
-require 'helper'
-require 'findable'
+require_relative 'helper'
 
 module Existable
-
   def create(attribute)
     return make_merchant(attribute) if self.class == MerchantRepository
     return make_item(attribute) if self.class == ItemRepository

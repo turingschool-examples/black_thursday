@@ -1,5 +1,4 @@
-require 'helper'
-require 'pry'
+require_relative 'helper'
 
 class SalesAnalyst
   include Findable
@@ -184,4 +183,54 @@ class SalesAnalyst
     invoices.sum {|invoice| invoice_total(invoice.id)}
   end
 
+  def total_revenue_by_merchant(merchant_id)
+    invoices = @invoice_repository.find_all_by_merchant_id(merchant_id)
+    total = 0
+    invoices.each do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        total += invoice_total(invoice.id)
+      end
+    end
+    total.round(2)
+  end
+
+  def top_revenue_earners(number_to_rank = 20)
+    @merchant_repository.all.max_by(number_to_rank) {|merchant| total_revenue_by_merchant(merchant.id)}
+  end #work in progress
+
+  def most_sold_item_for_merchant(merchant_id)
+    #item(s) that have sold the highest quanitity
+    # invoice_holder = @invoice_repository.find_all_by_merchant_id(merchant_id)
+    # most_sold = []
+    # invoice_holder.each do |invoice|
+    #   if most_sold.count == 0 #if its the first input into the array, set top price
+    #     most_sold << invoice
+    #   else #if it is not the first input, compare if greater than or equal to
+    #     if item.unit_price > most_sold[0]
+    #       most_sold[0] = item #set as top sold
+    #     elsif item.unit_price == most_sold[0]
+    #       most_sold << item  #push in as array
+    #     end
+    #   end
+    #   most_sold
+    # end
+  end #in progress -sm
+
+  def best_item_for_merchant(merchant_id)
+    #item that has made the most revenue
+    item_holder = @item_repository.find_by_id(merchant_id)
+    item_most_profitable = []
+    item_holder.each do |item|
+      if item_most_profitable.count == 0 #if its the first input into the array, set top price
+        item_most_profitable << item
+      else #if it is not the first input, compare if greater than or equal to
+        if item.unit_price > item_most_profitable[0]
+          item_most_profitable[0] = item #set as top sold
+        elsif item.unit_price == item_most_profitable[0]
+          item_most_profitable << item  #push in as array
+        end
+      end
+      item_most_profitable
+    end
+  end #in progress -sm, might need to return a single item and note possible array
 end

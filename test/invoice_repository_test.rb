@@ -58,6 +58,7 @@ RSpec.describe InvoiceRepository do
     invoice_repo.update(1, :shipped)
     expect(invoice_repo.find_by_id(1).status).to eq(:shipped)
     expect(invoice_repo.find_by_id(1).updated_at).to eq(time.strftime("%Y-%m-%d %H:%M"))
+    expect(invoice_repo.find_by_id(1).created_at).not_to eq(invoice_repo.find_by_id(1).updated_at)
   end
 
   it "can delete an invoice" do

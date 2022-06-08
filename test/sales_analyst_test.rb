@@ -149,4 +149,31 @@ RSpec.describe SalesAnalyst do
   it 'returns total revenue for a given date' do #in progress
     expect(sales_analyst.total_revenue_by_date("2009-02-07")).to eq(21067.77)
   end
+
+  it 'returns total revenue for a given merchant' do
+    expect(sales_analyst.total_revenue_by_merchant(12336175)).to eq(0)
+
+    expect(sales_analyst.total_revenue_by_merchant(12334634)).to eq(192528.87)
+  end
+
+  it 'returns sorted array of merchants by revenue' do
+    expected = sales_analyst.top_revenue_earners(10)
+    first = expected.first
+    last = expected.last
+    expect(expected.length).to eq(10)
+
+    expect(first.class).to eq(Merchant)
+    expect(first.id).to eq(12334634)
+
+    expect(last.class).to eq(Merchant)
+    expect(last.id).to eq(12335747)
+  end
+
+  it 'returns most sold item, if it is a tie then it returns an array of items' do
+    expect(sales_analyst.most_sold_item_for_merchant(12334634)).to eq([])
+  end #need more accurate test
+
+  it 'returns most sold item, if it is a tie then it returns an array of items' do
+    expect(sales_analyst.best_item_for_merchant(12334634)).to eq([])
+  end
 end
