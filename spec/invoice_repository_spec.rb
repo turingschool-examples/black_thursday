@@ -1,10 +1,9 @@
 require './lib/invoice_repository'
 require './lib/invoice'
-require 'pry'
-
 
 RSpec.describe InvoiceRepository do
   before :each do
+    @time = Time.now
     @invoice_repository = InvoiceRepository.new("./data/invoices.csv")
   end
 
@@ -15,7 +14,6 @@ RSpec.describe InvoiceRepository do
   it 'returns an array of invoice instances' do
     expect(@invoice_repository.all).to be_a Array
     expect(@invoice_repository.all.count).to eq(4985)
-
   end
 
   it 'can find by id' do
@@ -62,19 +60,18 @@ RSpec.describe InvoiceRepository do
  end
 
  it "can update(id, attributes)" do
-   x = Time.now
    attributes =   {
         :id => 1,
         :customer_id => 1,
         :merchant_id => 12335938,
         :status => "shipped",
-        :updated_at => x
+        :updated_at => @time
   }
 
    expect(@invoice_repository.find_by_id(1).status).to eq("pending")
    @invoice_repository.update(1, attributes)
    expect(@invoice_repository.find_by_id(1).status).to eq("shipped")
-   expect(@invoice_repository.find_by_id(1).updated_at).to be > x
+   expect(@invoice_repository.find_by_id(1).updated_at).to be > @time
  end
 
  it "can delete invoices" do
@@ -82,6 +79,5 @@ RSpec.describe InvoiceRepository do
     @invoice_repository.delete(1)
     expect(@invoice_repository.find_by_id(1)).to eq(nil)
   end
-
 
 end
