@@ -21,11 +21,11 @@ class CustomerRepository
     end
   end
 
-  def find_by_id(id_search)
-    @all.find do |customer|
-      customer.id == id_search
-    end
-  end
+  # def find_by_id(id_search)
+  #   @all.find do |customer|
+  #     customer.id == id_search
+  #   end
+  # end
 
   def find_all_by_first_name(first_name_search)
     @all.find_all do |customer|
