@@ -117,33 +117,28 @@ class SalesAnalyst < SalesEngine
     end
   end
 
-  def invoice_status(symbol)
-    shipped = @invoice_repository.find_all_by_status("shipped")
-    pending = @invoice_repository.find_all_by_status("pending")
-    returned = @invoice_repository.find_all_by_status("returned")
+  def shipped
+    @invoice_repository.find_all_by_status("shipped")
+  end
 
+  def pending
+    @invoice_repository.find_all_by_status("pending")
+  end
+
+  def returned
+    @invoice_repository.find_all_by_status("returned")
+  end
+
+  def invoice_status(symbol)
     ship_perc = (((shipped.count.to_f / @invoice_repository.all.count).to_f) * 100).round(2)
     pending_perc = (((pending.count.to_f / @invoice_repository.all.count).to_f) * 100).round(2)
     returned_perc = (((returned.count.to_f / @invoice_repository.all.count).to_f) * 100).round(2)
-
-    if symbol.to_s == "shipped"
-      ship_perc
-    elsif symbol.to_s == "pending"
-      pending_perc
-    elsif symbol.to_s == "returned"
-      returned_perc
-    else
-      puts "Eat a bag of chips :)"
-    end
+    return ship_perc if symbol.to_s == "shipped"
+    return pending_perc if symbol.to_s == "pending"
+    return returned_perc if symbol.to_s == "returned"
   end
 
   def date_to_day
-    # @invoice_repository.all.each do |invoice_instance|
-    #   invoice_instance.created_at = Date.parse(invoice_instance.created_at).strftime("%A")
-    #   @invoice_day_of_week << invoice_instance
-    # end
-    # @invoice_day_of_week
-
     invoice_days = @invoice_repository.all.map do |invoice|
       invoice.created_at = Date.parse(invoice.created_at).strftime("%A")
     end
@@ -176,9 +171,6 @@ class SalesAnalyst < SalesEngine
   def saturday_inv
     date_to_day.find_all{|day| day.include?("Saturday")}
   end
-
-
-
 
   def days_of_the_week
     days_of_the_week_array = []
