@@ -44,10 +44,15 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_item_price_for_merchant(12334105)).to eq 16.66
   end
 
+  it "returns a hash of merchants id's and merchants" do
+    expect(@sales_analyst.merchant_ids).to be_a Hash
+  end
+
   it "calculates items per merchant standard dev" do
     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to be_a Float
     expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq 3.26
   end
+
   it "sorts merchants_with_high_item_count" do
     expect(@sales_analyst.merchants_with_high_item_count).to be_a Array
     expect(@sales_analyst.merchants_with_high_item_count.count).to eq(52)
