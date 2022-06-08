@@ -1,9 +1,6 @@
 require_relative 'entry'
-
-require 'pry'
-
 class InvoiceRepository
-
+  
   attr_reader :all
 
   def initialize(file_path)
@@ -20,15 +17,13 @@ class InvoiceRepository
         )
       end
   end
-  
+
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
 
   def find_by_id(id)
-    @all.find do |invoice|
-      invoice.id == id
-    end
+    @all.find {|invoice| invoice.id == id}
   end
 
   def find_all_by_customer_id(customer_id)
@@ -66,6 +61,5 @@ class InvoiceRepository
     invoice = find_by_id(id)
     @all.delete(invoice)
   end
-
 
 end
