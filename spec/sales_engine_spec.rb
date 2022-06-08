@@ -40,5 +40,4 @@ RSpec.describe SalesEngine do
   it "can return an array of all customers" do
     expect(@sales_engine.customer_repository).to be_instance_of CustomerRepository
   end
-
 end

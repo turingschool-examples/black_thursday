@@ -21,8 +21,8 @@ class CustomerRepository
         :created_at => row[:created_at],
         :updated_at => row[:updated_at]
       })
-      end
-   end
+    end
+  end
 
    def find_all_by_first_name(name)
      @all.find_all { |customer| customer.first_name.downcase.include?(name.downcase)}
@@ -48,7 +48,6 @@ class CustomerRepository
     find_by_id(id).last_name = attribute[:last_name]
     find_by_id(id).updated_at = Time.now
    end
-<<<<<<< HEAD
 
    def delete(id)
      @all.delete(find_by_id(id))
@@ -57,6 +56,4 @@ class CustomerRepository
    def inspect
      "#<#{self.class} #{@all.size} rows>"
    end
-=======
->>>>>>> master
 end

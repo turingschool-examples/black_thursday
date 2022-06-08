@@ -46,7 +46,6 @@ class InvoiceRepository
     find_by_id(id).status = status
     find_by_id(id).updated_at = Time.now
   end
-<<<<<<< HEAD
 
   def delete(id)
     @all.delete(find_by_id(id))
@@ -55,6 +54,4 @@ class InvoiceRepository
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
-=======
->>>>>>> master
 end

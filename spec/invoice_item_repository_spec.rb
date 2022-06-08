@@ -66,6 +66,5 @@ RSpec.describe InvoiceItemRepository do
     expect(@invoice_item_repository.find_by_id(id)).to be_a(InvoiceItem)
     expect(@invoice_item_repository.delete(id))
     expect(@invoice_item_repository.find_by_id(id)).to eq(nil)
-
   end
 end

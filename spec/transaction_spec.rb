@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require './lib/transaction'
 
 RSpec.describe Transaction do
@@ -14,7 +13,6 @@ RSpec.describe Transaction do
       :created_at => Time.now,
       :updated_at => Time.now
     })
-
   end
 
     it 'exists' do

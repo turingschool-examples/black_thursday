@@ -1,5 +1,4 @@
 require 'CSV'
-require 'pry'
 require 'transaction'
 require 'transaction_repository'
 
@@ -63,5 +62,4 @@ RSpec.describe TransactionRepository do
     expect(@transaction_repository.all.first.invoice_id).to eq("46")
     expect(@transaction_repository.all.last).to be_a Transaction
   end
-
 end

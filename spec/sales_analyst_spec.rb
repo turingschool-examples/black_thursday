@@ -71,6 +71,7 @@ RSpec.describe SalesAnalyst do
    it "can return the average invoice number per merchant" do
      expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
    end
+
    it "can return a hash with each merchants invoice totals, helper method" do
      expect(@sales_analyst.invoices_per_merchant).to be_a Hash
      expect(@sales_analyst.invoices_per_merchant[12335938]).to eq(16)
@@ -79,38 +80,47 @@ RSpec.describe SalesAnalyst do
    it "can calculate the average invoice per merchant standard deviation" do
      expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
    end
+
    it "can calculate Which merchants are more than two standard deviations above the mean for invoices" do
      expect(@sales_analyst.top_merchants_by_invoice_count).to be_a Array
      expect(@sales_analyst.top_merchants_by_invoice_count.first).to be_a Merchant
    end
+
    it "can return merchants with invoice counts 2 below standard deviation" do
      expect(@sales_analyst.bottom_merchants_by_invoice_count).to be_a Array
      expect(@sales_analyst.bottom_merchants_by_invoice_count.first).to be_a Merchant
    end
+
    it "can return a hash with invoices by day of the week, key is number, Sunday is zero" do
      expect(@sales_analyst.invoices_by_weekday).to be_a Hash
      expect(@sales_analyst.invoices_by_weekday.length).to eq(7)
    end
+
    it "can calculate average invoices per day of the weak (helper)" do
      expect(@sales_analyst.avg_invoices_per_day_of_week).to be_a Float
      expect(@sales_analyst.avg_invoices_per_day_of_week).to eq(712.14)
    end
+
    it "can calculate invoice by day of week standard deviation" do
      expect(@sales_analyst.invoice_per_day_of_week_standard_deviation).to be_a Float
    end
+
    it "can calculate day of the week invoices above 1 standard deviation" do
      expect(@sales_analyst.top_days_by_invoice_count).to be_a Array
      expect(@sales_analyst.top_days_by_invoice_count.include?("Wednesday")).to eq(true)
    end
+
    it "can return the percentage of invoices shipped/pending/returned" do
      expect(@sales_analyst.invoice_status(:pending)).to eq(29.55)
      expect(@sales_analyst.invoice_status(:shipped)).to eq(56.95)
      expect(@sales_analyst.invoice_status(:returned)).to eq(13.5)
    end
+
    it "can return true if invoice with ID was paid in full" do
      expect(@sales_analyst.invoice_paid_in_full?(4126)).to eq(true)
      expect(@sales_analyst.invoice_paid_in_full?(1840)).to eq(false)
    end
+   
    it "can return the total $ amt of invoice with ID" do
      expect(@sales_analyst.invoice_total(4)).to eq(1963.90)
    end
