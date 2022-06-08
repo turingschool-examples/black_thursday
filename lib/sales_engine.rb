@@ -6,7 +6,7 @@ class SalesEngine
               :invoice_item_repository,
               :transaction_repository,
               :customer_repository
-              
+
   def initialize
     @item_repository = ItemRepository.new("./data/items.csv")
     @merchant_repository = MerchantRepository.new("./data/merchants.csv")
@@ -29,7 +29,7 @@ class SalesEngine
   end
 
   def items
-    @items_repository
+    @item_repository
   end
 
   def invoices
