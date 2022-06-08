@@ -111,4 +111,7 @@ RSpec.describe SalesAnalyst do
      expect(@sales_analyst.invoice_paid_in_full?(4126)).to eq(true)
      expect(@sales_analyst.invoice_paid_in_full?(1840)).to eq(false)
    end
+   it "can return the total $ amt of invoice with ID" do
+     expect(@sales_analyst.invoice_total(4)).to eq(1963.90)
+   end
 end
