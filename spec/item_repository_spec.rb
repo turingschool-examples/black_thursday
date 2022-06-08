@@ -26,7 +26,8 @@ RSpec.describe ItemRepository do
 
   it 'can find all items with a certain price' do
     expect(@items.find_all_by_price(2131232132)).to eq []
-    expect(@items.find_all_by_price(100).count).to eq 4
+    price = BigDecimal(25)
+    expect(@items.find_all_by_price(price).count).to eq 79
   end
 
   it "list items by their price" do
