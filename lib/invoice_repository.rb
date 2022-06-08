@@ -20,6 +20,10 @@ class InvoiceRepository
         )
       end
   end
+  
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
 
   def find_by_id(id)
     @all.find do |invoice|
