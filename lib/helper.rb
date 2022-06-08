@@ -1,4 +1,5 @@
 require 'simplecov'
+SimpleCov.start
 require 'csv'
 require 'bigdecimal'
 require 'date'
