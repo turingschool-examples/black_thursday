@@ -58,7 +58,7 @@ class SalesAnalyst
     @merchant_repository.all.each do |merchant|
       merchant_averages << average_item_price_for_merchant(merchant.id)
     end
-    merchant_averages.sum(0.0) / merchant_averages.count
+    (merchant_averages.sum(0.0) / merchant_averages.count).round(2)
   end
   def average_price_per_merchant_standard_deviation
     mean = average_average_price_per_merchant
