@@ -50,7 +50,10 @@ class TransactionRepository
   def update(id, attributes)
     transaction = find_by_id(id)
     if attributes[:result] == "success".downcase  || "failed".downcase
-    transaction.result = attributes[:result]
+      # require "pry"; binding.pry
+      transaction.result = attributes[:result]
+      transaction.credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number] != nil
+      transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date] != nil
     end
   end
 

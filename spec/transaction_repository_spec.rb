@@ -1,6 +1,7 @@
 require_relative '../lib/invoice_repository'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/sales_engine'
+require 'pry'
 
 
 RSpec.describe TransactionRepository do
@@ -58,7 +59,7 @@ RSpec.describe TransactionRepository do
   end
   #
   it 'can create new transactions' do
-    attributes =   {
+    @attributes =   {
       :id => 4986,
       :invoice_id => 666,
       :credit_card_number => 17979797979797979,
@@ -68,7 +69,7 @@ RSpec.describe TransactionRepository do
       :updated_at => 12334105
     }
 
-    expect(@transaction.create(attributes)).to be_a Array
+    expect(@transaction.create(@attributes)).to be_a Array
     expect(@transaction.all.last).to be_a Transaction
     expect(@transaction.all.last.id).to eq(4986)
     expect(@transaction.all.last.invoice_id).to eq(666)
@@ -76,27 +77,27 @@ RSpec.describe TransactionRepository do
   #
   it 'can update the credit_card_number, credit_card_expiration_date, and result on the transaction' do
 
-    attributes = {result: 'failed'}
-   ## NOTE: this needs to be included in attributes above:
-   ##credit_card_number: 8888888888888888, credit_card_expiration_date: 1110
+    @attributes = {result: 'failed', credit_card_number: 8888888888888888, credit_card_expiration_date: 1110}
+
     expect(@transaction.all.first.result).to eq('success')
-    # expect(@transaction.all.first.credit_card_number).to eq(4068631943231473)
-    # expect(@transaction.all.first.credit_card_expiration_date).to eq(0217)
-    @transaction.update(1, attributes)
+    expect(@transaction.all.first.credit_card_number).to eq(4068631943231473)
+    expect(@transaction.all.first.credit_card_expiration_date).to eq(217)
+
+    @transaction.update(1, @attributes)
 
     expect(@transaction.all.first.result).to eq('failed')
-    # expect(@transaction.all.first.credit_card_number).to eq(8888888888888888)
-    # expect(@transaction.all.first.credit_card_expiration_date).to eq(1110)
+    expect(@transaction.all.first.credit_card_number).to eq(8888888888888888)
+    expect(@transaction.all.first.credit_card_expiration_date).to eq(1110)
   end
 
   #
-  xit 'can delete a transaction' do
+  it 'can delete a transaction' do
 
     expect(@transaction.all.count).to eq(4985)
 
     @transaction.delete(1)
 
     expect(@transaction.find_by_id(1)).to be_nil
-    expect(@transction.all.count).to eq(4984)
+    expect(@transaction.all.count).to eq(4984)
   end
 end
