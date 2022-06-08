@@ -40,7 +40,7 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.invoice_total(1)).to eq 21067.77
   end
 
-  it "calculates average_item_price_for_merchant" do
+  xit "calculates average_item_price_for_merchant" do
     sales_engine = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
     sales_analyst = sales_engine.analyst
 
@@ -72,7 +72,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
   end
 
-  it "can calculate standard_deviation of item_price" do
+  xit "can calculate standard_deviation of item_price" do
     sales_engine = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
     sales_analyst = sales_engine.analyst
 
