@@ -64,26 +64,33 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    price_of_all_items = @items_path.all.collect { |item| item.unit_price }
-    (price_of_all_items.reduce(:+) / BigDecimal(@merchants_path.all.count, 2)
-  end
-
-  def average_item_price_standard_deviation
-
+    all_prices = @items_path.all.collect { |item| item.unit_price }
+    (all_prices.reduce(:+) / BigDecimal(@merchants_path.all.count, 2))
   end
 
   def average_item_price
-    avg_price = @items_path.all.collect { |item| item.unit_price }
-    (price_of_all_items.reduce(:+) / @items_path.all.count)
-    require "pry"; binding.pry
+    all_prices = @items_path.all.collect { |item| item.unit_price }
+    (all_prices.reduce(:+) / BigDecimal(@items_path.all.count)).round(2)
   end
 
   def price_difference_squared
-    items_per_merchant.map do |sum|
-      (sum - average_items_per_merchant)**2
+    all_prices = @items_path.all.collect { |item| item.unit_price }
+    all_prices.map do |price|
+      (price - average_item_price)**2
     end.sum
   end
 
+  def golden_items
+    goal = average_item_price_standard_deviation + 2
+    @items_path.all.find_all do |item|
+      item if item.unit_price > goal
+    end
+  end
+
+  def average_item_price_standard_deviation
+    variance = price_difference_squared / BigDecimal(@items_path.all.count - 1)
+    return standard_deviation = Math.sqrt(variance).round(2)
+  end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"

@@ -69,5 +69,9 @@ RSpec.describe SalesAnalyst do
     expect(@sales_analyst.average_average_price_per_merchant).to be_a BigDecimal
   end
 
-  it 'can'
+  it 'can find items 2 standard deviations above average item price' do
+
+    expect(@sales_analyst.golden_items).to be_a Array
+    expect(@sales_analyst.golden_items.first).to be_a Item
+  end
 end
