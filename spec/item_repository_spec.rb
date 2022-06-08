@@ -24,6 +24,11 @@ RSpec.describe ItemRepository do
     expect(@items.find_all_with_description("This doesn't exist!")).to eq([])
   end
 
+  it 'can find all items with a certain price' do
+    expect(@items.find_all_by_price(2131232132)).to eq []
+    expect(@items.find_all_by_price(100).count).to eq 4
+  end
+
   it "list items by their price" do
     expect(@items.find_all_with_price(0)).to eq([])
     expect(@items.find_all_with_price(1300).length).to eq(8)
