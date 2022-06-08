@@ -1,21 +1,29 @@
-require_relative 'item'
-require_relative 'item_repository'
-require_relative 'merchant'
-require_relative 'merchant_repository'
-require_relative 'invoice'
-require_relative 'invoice_repository'
-require_relative 'invoice_item'
-require_relative 'invoice_item_repository'
-require_relative 'transaction'
-require_relative 'transaction_repository'
-require_relative 'customer'
-require_relative 'customer_repository'
-require_relative 'sales_analyst'
+require_relative("item")
+require_relative("item_repository")
+require_relative("merchant")
+require_relative("merchant_repository")
+require_relative("invoice")
+require_relative("invoice_repository")
+require_relative("invoice_item")
+require_relative("invoice_item_repository")
+require_relative("transaction")
+require_relative("transaction_repository")
+require_relative("customer")
+require_relative("customer_repository")
+require_relative("sales_analyst")
 
 class SalesEngine
-  attr_reader :items, :merchants
+  attr_reader :items, :merchants, :invoice,
+  :invoices, :invoice_items, :transactions, :customers
 
-  def initialize(items_path, merchant_path, invoices_path, invoice_item_path, transaction_path, customer_path)
+  def initialize(
+    items_path,
+    merchant_path,
+    invoices_path,
+    invoice_item_path,
+    transaction_path,
+    customer_path
+  )
     @items = ItemRepository.new(items_path)
     @merchants = MerchantRepository.new(merchant_path)
     @invoices = InvoiceRepository.new(invoices_path)
