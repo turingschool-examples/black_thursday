@@ -171,6 +171,7 @@ class SalesAnalyst
     count_of_status = @invoices.find_all_by_status(status.to_s).count
     percentage = (count_of_status.to_f / @invoices.all.count) * 100
     percentage.round(2)
+  end
 
   def invoice_paid_in_full?(invoice_id)
     x = @transactions.find_all_by_invoice_id(invoice_id)
@@ -187,7 +188,6 @@ class SalesAnalyst
     total = 0
     @invoice_items.all.each do |item|
       if item.invoice_id == invoice_id
-        # require 'pry' ; binding.pry
         total += (item.unit_price_to_dollars * item.quantity.to_i)
       end
     end

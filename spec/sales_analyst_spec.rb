@@ -11,7 +11,14 @@ describe SalesAnalyst do
     @invoice_items = InvoiceItemRepository.new('./data/invoice_items.csv')
     @transactions = TransactionRepository.new('./data/transactions.csv')
     @customers = CustomerRepository.new('./data/customers.csv')
-    @analyst = SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @transactions, @customers)
+    @analyst = SalesAnalyst.new(
+      @items,
+      @merchants,
+      @invoices,
+      @invoice_items,
+      @transactions,
+      @customers
+    )
   end
 
   it "is an instance of SalesAnalyst" do
@@ -125,6 +132,7 @@ describe SalesAnalyst do
     expect(@analyst.invoice_status(:pending)).to eq 29.55
     expect(@analyst.invoice_status(:shipped)).to eq 56.95
     expect(@analyst.invoice_status(:returned)).to eq 13.5
+  end
 
   it "can tell you if an invoice has been paid" do
     expect(@analyst.invoice_paid_in_full?(3560)).to eq(false)
