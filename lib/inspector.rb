@@ -5,10 +5,8 @@ module Inspector
   end
 
   def delete(id)
-    @all.each do |item|
-      if item.id == id
-        @all.delete(item)
-      end
+    @all.delete_if do |item|
+      item.id == id
     end
   end
 
