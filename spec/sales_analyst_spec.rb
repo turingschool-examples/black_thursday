@@ -97,9 +97,11 @@ RSpec.describe SalesAnalyst do
 
 
 
-  it "gets days of week" do
+  it "gets days of week array" do
     expect(@sales_analyst.date_to_day).to be_a(Array)
-    expect(@sales_analyst.date_to_day.count).to eq(0)
   end
 
+  it "date to day: gets all the instances of an invoice in its array" do
+    expect(@sales_analyst.date_to_day.count).to eq(4985)
+  end
 end

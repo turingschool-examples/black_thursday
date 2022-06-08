@@ -9,6 +9,11 @@ class SalesAnalyst < SalesEngine
               :transaction_repository,
               :customer_repository
 
+  def initialize
+    @invoice_instances_with_day_of_week = []
+    super
+  end
+
   def average_items_per_merchant
     ((@item_repository.all.count.to_f / @merchant_repository.all.count.to_f).round(2))
   end
@@ -101,7 +106,6 @@ class SalesAnalyst < SalesEngine
     aipmsd = average_invoices_per_merchant_standard_deviation
     @merchant_repository.all.select do |merchant|
       @invoice_repository.find_all_by_merchant_id(merchant.id).length > (aipm + (aipmsd * 2))
-      # item.unit_price > (aappm + (psd * 2))
     end
   end
 
@@ -136,12 +140,11 @@ class SalesAnalyst < SalesEngine
 
 
   def date_to_day
-    invoice_instances_with_day_of_week = []
     @invoice_repository.all.each do |invoice_instance|
       invoice_instance.created_at = Date.parse(invoice_instance.created_at).strftime("%A")
-      invoice_instances_with_day_of_week << invoice_instance
+      @invoice_instances_with_day_of_week << invoice_instance
     end
-    return invoice_instances_with_day_of_week
+    @invoice_instances_with_day_of_week
   end
 
 end
