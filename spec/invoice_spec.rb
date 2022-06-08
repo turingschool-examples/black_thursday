@@ -1,6 +1,5 @@
 require './lib/invoice'
 
-
 RSpec.describe Invoice do
   before :each do
     @invoice = Invoice.new({
@@ -22,4 +21,5 @@ RSpec.describe Invoice do
     expect(@invoice.created_at).to be_a Time
     expect(@invoice.updated_at).to be_a Time
   end
+  
 end
