@@ -42,6 +42,17 @@ RSpec.describe MerchantRepository do
     mr.add(m)
     mr.add(m2)
 
-    expect(mr.find_by_name("Porsche")).to eq(m2)
+    expect(mr.find_by_name("porsche")).to eq(m2)
+  end
+
+  it 'can find a all merchants that have the input as part of their name' do
+    mr = MerchantRepository.new
+    m = Merchant.new({id: 5, name: "Turing School"})
+    m2 = Merchant.new({id: 4, name: "Porsche"})
+    m3 = Merchant.new({id: 4, name: "Porsche AG"})
+    mr.add(m)
+    mr.add(m2)
+
+    expect(mr.find_all_by_name("porsche")).to eq([m2, m3])
   end
 end
