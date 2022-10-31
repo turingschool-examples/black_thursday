@@ -1,8 +1,14 @@
 require 'pry'
+require 'bigdecimal'
 
 class Item
+  attr_reader :id, :name, :description
 
-  def initialize
+  def initialize(item_info)
+    @id = item_info[:id]
+    @name = item_info[:name]
+    @description = item_info[:description]
+
   end
 end
 
@@ -19,3 +25,13 @@ end
 # It also offers the following method:
 
 # unit_price_to_dollars - returns the price of the item in dollars formatted as a Float
+
+# item = Item.new({
+#   :id          => 1,
+#   :name        => "Pencil",
+#   :description => "You can use it to write things",
+#   :unit_price  => BigDecimal(10.99,4),
+#   :created_at  => Time.now,
+#   :updated_at  => Time.now,
+#   :merchant_id => 2
+# })
