@@ -19,4 +19,10 @@ describe Item do
   it 'exists' do
     expect(item).to be_instance_of(Item)
   end
+
+  describe '#getters' do
+    it 'returns item id' do
+      expect(item.id).to eq(1)
+    end
+  end
 end
