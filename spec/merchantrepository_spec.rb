@@ -52,5 +52,17 @@ RSpec.describe Merchant_Repository do
     expect(merchant_repository.all[1].name).to eq("Denver Biscuits")
   end
 
+  it 'has a method to update the NAME only of a merchant' do
+    merchant_repository.create("Denver Biscuits")
+    merchant_repository.create("Seattle Muffins")
+    merchant_repository.update(2, "Seattle Super Muffins")
+
+    expect(merchant_repository.find_by_name("Seattle Super Muffins")).to eq(merchant_repository[1])
+    expect(merchant_repository.find_all_by_name("super")).to eq([merchant_repository[1]])
+  end
+
+  
+
+
 
 end
