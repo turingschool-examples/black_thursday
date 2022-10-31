@@ -28,5 +28,15 @@ class Merchant_Repository
     end
   end
 
-  
+  def create(merchant_name)
+    merchants << Merchant.new({:name => merchant_name, :id => next_id})
+  end
+
+  def next_id
+    if merchants.empty?
+      1
+    else
+      merchants.last.id += 1
+    end
+  end
 end
