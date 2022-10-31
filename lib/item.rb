@@ -18,4 +18,8 @@ class Item
     @updated_at = item[:updated_at]
     @merchant_id = item[:merchant_id]
   end
+
+  def unit_price_to_dollars
+    @unit_price.round(2).to_f
+  end
 end

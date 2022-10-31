@@ -22,14 +22,13 @@ RSpec.describe Item do
     expect(i.id).to eq(1)
     expect(i.name).to eq("Pencil")
     expect(i.description).to eq("You can use it to write things")
-    expect(i.unit_price).to eq(10.99)
+    expect(i.unit_price).to eq(BigDecimal(10.99,4))
     expect(i.created_at).to eq(time_now)
     expect(i.updated_at).to eq(time_now)
     expect(i.merchant_id).to eq(2)
   end
 
-  xit 'can convert unit price to a dollar formatted float' do
-    # expect(i.unit_price_to_dollars).to eq 23.48
+  it 'can convert unit price to a dollar formatted float' do
+    expect(i.unit_price_to_dollars).to eq(10.99)
   end
-  
 end
