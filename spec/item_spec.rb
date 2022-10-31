@@ -84,6 +84,6 @@ RSpec.describe do
       :merchant_id => 2
     })
 
-    expect(item.created_at). to eq(Time.now)
+    expect(item.created_at).to be_a(Time)
   end
 end
