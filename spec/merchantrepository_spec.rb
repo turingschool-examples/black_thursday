@@ -61,7 +61,15 @@ RSpec.describe Merchant_Repository do
     expect(merchant_repository.find_all_by_name("super")).to eq([merchant_repository[1]])
   end
 
-  
+  it 'has a method to delete a merchant from the list using its ID' do
+    merchant_repository.create("Denver Biscuits")
+    merchant_repository.create("Seattle Muffins")
+    merchant_repository.delete(1)
+
+    expect(merchant_repository.all[0]).to eq(merchant_repository.find_by_id(2))
+    expect(merchant_repository.find_by_id(1)).to eq(nil)
+    expect(merchant_repository.find_by_name("Denver Biscuits")).to eq(nil)
+  end
 
 
 
