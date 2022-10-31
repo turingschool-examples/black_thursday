@@ -40,4 +40,17 @@ RSpec.describe MerchantRepository do
       expect(merchant_repository.find_by_id(1)).to eq(merchant_1)
     end
   end
+
+  describe '#find_by_name' do
+    it 'finds a merchant object with a case insensitve name search' do
+      merchant_1 = Merchant.new({:id => 1,
+                                 :name => "Nike"})
+      merchant_2 = Merchant.new({:id => 2,
+                                 :name => "Addidas"})
+      merchants = [merchant_1, merchant_2]
+      merchant_repository = MerchantRepository.new(merchants)
+
+      expect(merchant_repository.find_by_name("NIKE")).to eq(merchant_1)
+    end
+  end
 end
