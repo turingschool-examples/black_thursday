@@ -22,11 +22,11 @@ module Find
   def find_by_name(name)
     if @merchants != [] && @merchants != nil
       merchants.find do |merchant|
-        merchant.name.downcase == name.downcase
+        merchant.name.casecmp?(name)
       end
     else
       items.find do |item|
-        item.name.downcase == name.downcase
+        item.name.casecmp?(name)
       end
     end
   end
