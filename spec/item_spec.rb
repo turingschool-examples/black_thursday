@@ -13,16 +13,20 @@ describe Item do
       :merchant_id => 2
     }
 
-    @item = Item.new(item_list)
+    @item = Item.new(@item_list)
   end
 
   it 'exists' do
-    expect(item).to be_instance_of(Item)
+    expect(@item).to be_instance_of(Item)
   end
 
   describe '#getters' do
     it 'returns item id' do
-      expect(item.id).to eq(1)
+      expect(@item.id).to eq(1)
+    end
+
+    it 'returns item name' do
+      expect(@item.name).to eq("Pencil")
     end
   end
 end
