@@ -38,7 +38,7 @@ RSpec.describe Item do
   end
 
   it 'has a date of update' do
-
+    expect(i.updated_at).to eq(Time.now)
   end
 
   it 'has a merchant id' do
