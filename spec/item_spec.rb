@@ -40,5 +40,9 @@ describe Item do
     it 'returns item creation date' do
       expect(@item.created_at).to be_instance_of(Time)
     end
+
+    it 'returns item updated date' do
+      expect(@item.updated_at).to be_instance_of(Time)
+    end
   end
 end

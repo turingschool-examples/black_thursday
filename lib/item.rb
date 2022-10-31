@@ -26,4 +26,8 @@ class Item
   def created_at
     @stats[:created_at]
   end
+
+  def updated_at
+    @stats[:updated_at]
+  end
 end
