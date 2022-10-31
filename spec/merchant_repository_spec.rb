@@ -24,4 +24,14 @@ RSpec.describe MerchantRepository do
 
     expect(mr.all).to eq([m, m2])
   end
+
+  it 'can find a specific merchant by id' do
+    mr = MerchantRepository.new
+    m = Merchant.new({id: 5, name: "Turing School"})
+    m2 = Merchant.new({id: 4, name: "Porsche"})
+    mr.add(m)
+    mr.add(m2)
+
+    expect(mr.find_by_id(4)).to eq(m2)
+  end
 end
