@@ -51,7 +51,7 @@ RSpec.describe ItemRepository do
     end
   end
 
-  describe '#find_all_by_id' do
+  describe '#find_by_id' do
     it 'returns nil or an instance of item with matching id' do
       item_1 = Item.new({:id => 1,
                        :name => "Shoes",
