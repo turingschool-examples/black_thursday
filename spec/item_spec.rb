@@ -18,7 +18,7 @@ RSpec.describe Item do
   end
 
   it 'has id' do
-  
+    expect(i).to eq(1)
   end
 
   it 'has a name' do
