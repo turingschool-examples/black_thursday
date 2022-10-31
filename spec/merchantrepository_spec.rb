@@ -40,6 +40,7 @@ RSpec.describe MerchantRepository do
   end
 
   it 'can update a merchant (by id) with new attributes *aka name updates*' do
+    # use id to reference object, change attributes, give timestamp that it was updated
 
   end
 
