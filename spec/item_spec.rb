@@ -44,8 +44,8 @@ RSpec.describe Item do
   it 'has a merchant id' do
     expect(i.merchant_id).to eq(2)
   end
+
+  it 'can convert unit price to dollars' do
+    expect(i.unit_price_to_dollars).to eq(23.48)
+  end
 end
-
-
-i.unit_price_to_dollars
-# => 23.48
