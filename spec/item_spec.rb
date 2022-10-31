@@ -14,11 +14,11 @@ RSpec.describe Item do
   end
 
   it '#initialize' do
-    
+    expect(i).to be_an_instance_of(Item)
   end
 
   it 'has id' do
-
+  
   end
 
   it 'has a name' do
