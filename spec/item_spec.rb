@@ -32,5 +32,9 @@ describe Item do
     it 'returns item description' do
       expect(@item.description).to eq("You can use it to write things")
     end
+
+    it 'returns item unit price' do
+      expect(@item.unit_price).to eq(BigDecimal(10.99,4))
+    end
   end
 end

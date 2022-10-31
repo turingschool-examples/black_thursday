@@ -14,4 +14,12 @@ class Item
   def description
     @stats[:description]
   end
+
+  def description
+    @stats[:description]
+  end
+
+  def unit_price
+    @stats[:unit_price]
+  end
 end
