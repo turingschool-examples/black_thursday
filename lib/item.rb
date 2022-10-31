@@ -10,4 +10,8 @@ class Item
   def name
     @stats[:name]
   end
+  
+  def description
+    @stats[:description]
+  end
 end

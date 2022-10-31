@@ -28,5 +28,9 @@ describe Item do
     it 'returns item name' do
       expect(@item.name).to eq("Pencil")
     end
+
+    it 'returns item description' do
+      expect(@item.description).to eq("You can use it to write things")
+    end
   end
 end
