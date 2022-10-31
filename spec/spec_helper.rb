@@ -1,4 +1,5 @@
 require 'simplecov'
 SimpleCov.start
 
-# spec files go here
+require './merchant_spec'
+require './merchantrepository_spec'
