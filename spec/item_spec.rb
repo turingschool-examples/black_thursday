@@ -48,5 +48,9 @@ describe Item do
     it 'returns item merchant id' do
       expect(@item.merchant_id).to eq(2)
     end
+
+    it 'returns item unit price converted to money format' do
+      expect(@item.unit_price_to_dollars).to eq(10.99)
+    end
   end
 end

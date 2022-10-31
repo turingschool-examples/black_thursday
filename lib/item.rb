@@ -34,4 +34,8 @@ class Item
   def merchant_id
     @stats[:merchant_id]
   end
+
+  def unit_price_to_dollars
+    @stats[:unit_price].to_f
+  end
 end
