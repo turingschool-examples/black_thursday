@@ -26,7 +26,7 @@ RSpec.describe Item do
   end
 
   it 'has a description' do
-
+    expect(i.description).to eq("You can use it to write things")
   end
 
   it 'has a unit price' do
