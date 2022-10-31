@@ -44,5 +44,9 @@ describe Item do
     it 'returns item updated date' do
       expect(@item.updated_at).to be_instance_of(Time)
     end
+
+    it 'returns item merchant id' do
+      expect(@item.merchant_id).to eq(2)
+    end
   end
 end

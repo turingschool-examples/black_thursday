@@ -30,4 +30,8 @@ class Item
   def updated_at
     @stats[:updated_at]
   end
+
+  def merchant_id
+    @stats[:merchant_id]
+  end
 end
