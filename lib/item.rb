@@ -22,4 +22,8 @@ class Item
   def unit_price
     @stats[:unit_price]
   end
+
+  def created_at
+    @stats[:created_at]
+  end
 end

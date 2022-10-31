@@ -36,5 +36,9 @@ describe Item do
     it 'returns item unit price' do
       expect(@item.unit_price).to eq(BigDecimal(10.99,4))
     end
+
+    it 'returns item creation date' do
+      expect(@item.created_at).to be_instance_of(Time)
+    end
   end
 end
