@@ -1,2 +1,7 @@
 require 'simplecov'
-SimpleCov.start
+
+# SimpleCov.start
+
+require 'pry'
+require './lib/merchant'
+
