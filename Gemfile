@@ -1,4 +1,3 @@
-require 'simplecov'
 
 gem 'simplecov', require: false, group: :test
 
