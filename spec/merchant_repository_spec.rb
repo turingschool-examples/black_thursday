@@ -52,6 +52,7 @@ RSpec.describe MerchantRepository do
     m3 = Merchant.new({id: 4, name: "Porsche AG"})
     mr.add(m)
     mr.add(m2)
+    mr.add(m3)
 
     expect(mr.find_all_by_name("porsche")).to eq([m2, m3])
   end
