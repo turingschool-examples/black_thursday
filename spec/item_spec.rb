@@ -34,7 +34,7 @@ RSpec.describe Item do
   end
 
   it 'has a date of creation' do
-
+    expect(i.created_at).to eq(Time.now)
   end
 
   it 'has a date of update' do
