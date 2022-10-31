@@ -15,4 +15,8 @@ RSpec.describe Merchant do
     expect(m.name).to eq "Turing School"
   end
   
+  it 'includes these attributes within a hash' do
+
+  end
+
 end
