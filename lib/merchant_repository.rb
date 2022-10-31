@@ -3,5 +3,8 @@ class MerchantRepository
   def initialize
     @merchants = []
   end
-  
+
+  def add(merchant)
+    @merchants << merchant
+  end
 end
