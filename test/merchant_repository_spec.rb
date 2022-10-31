@@ -61,8 +61,8 @@ RSpec.describe MerchantRepository do
       merchant_2 = Merchant.new({:id => 2,
                                  :name => "Addidas"})
       merchant_3 = Merchant.new({:id => 3,
-                                 :name => "AddidAs"})
-      merchants = [merchant_1, merchant_2]
+                                 :name => "Addidas"})
+      merchants = [merchant_1, merchant_2, merchant_3]
       merchant_repository = MerchantRepository.new(merchants)
 
       expect(merchant_repository.find_all_by_name("AdDiDas")).to eq([merchant_2, merchant_3])
