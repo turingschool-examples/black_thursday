@@ -4,7 +4,7 @@ RSpec. describe Merchant do
   it 'exists' do
     merchant = Merchant.new({:id => 5, :name => "Turing School"})
 
-    expect(merchant).to eq(merchant)
+    expect(merchant).to be_a(Merchant)
   end
 
   it 'has an id' do
