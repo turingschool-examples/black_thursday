@@ -1,6 +1,6 @@
 require './lib/salesengine'
 require './lib/merchantrepository'
-require './lib/itemrepository'
+# require './lib/itemrepository'
 require './lib/merchant'
 require 'csv'
 

@@ -4,10 +4,9 @@ require './lib/merchantrepository'
 
 class SalesEngine
   attr_reader :items, :merchants
-  
-  def initialize.from_csv(input)
-    @items = input(:items)
-    @merchants = input(:merchants)
+
+  def self.from_csv(data)
+    @merchants = Merchant_Repository.new
   end
 
 
