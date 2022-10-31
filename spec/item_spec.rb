@@ -42,7 +42,7 @@ RSpec.describe Item do
   end
 
   it 'has a merchant id' do
-
+    expect(i.merchant_id).to eq(2)
   end
 end
 
