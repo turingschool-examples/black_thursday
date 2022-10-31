@@ -30,7 +30,7 @@ RSpec.describe Item do
   end
 
   it 'has a unit price' do
-
+    expect(i.unit_price).to eq(BigDecimal(10.99,4))
   end
 
   it 'has a date of creation' do
