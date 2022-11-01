@@ -9,5 +9,14 @@ RSpec.describe MerchantRepository do
     expect(mr.all).to eq([])
   end
 
+  describe '#add_merchant' do
+    it 'adds merchant instances to all array' do
+      mr = MerchantRepository.new
+      m = Merchant.new({:id => 5, :name => "Turing School"})
+      mr.add_merchant(m)
+
+      expect(mr.all).to eq([m])
+    end
+  end
 
 end
