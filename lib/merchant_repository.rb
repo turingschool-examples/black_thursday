@@ -33,4 +33,8 @@ class MerchantRepository
     updated_merchant.update_name(attributes[:name])
     updated_merchant
   end
+
+  def delete(id)
+    @merchants.delete(find_by_id(id))
+  end
 end
