@@ -28,7 +28,7 @@ RSpec.describe ItemRepository do
     :unit_price  => BigDecimal(20.99,4),
     :created_at  => Time.now,
     :updated_at  => Time.now,
-    :merchant_id => 2
+    :merchant_id => 3
   })}
   let(:item4) {Item.new({
     :id          => 4,
@@ -37,7 +37,7 @@ RSpec.describe ItemRepository do
     :unit_price  => BigDecimal(22.99,4),
     :created_at  => Time.now,
     :updated_at  => Time.now,
-    :merchant_id => 2
+    :merchant_id => 3
   })}
 
   it 'exists' do
@@ -81,6 +81,15 @@ RSpec.describe ItemRepository do
       expect(item_repo.find_all_by_price_in_range(0..10)).to eq []
       expect(item_repo.find_all_by_price_in_range(10..21)).to eq [item1,item2,item3]
       expect(item_repo.find_all_by_price_in_range(20..30)).to eq [item3,item4]
+    end
+  end
+
+  describe '#find_all_by_merchant_id' do
+    it 'returns items with specified merchant id' do
+      item_repo = ItemRepository.new([item1,item2,item3,item4])
+
+      expect(item_repo.find_all_by_merchant_id(2)).to eq [item1,item2]
+      expect(item_repo.find_all_by_merchant_id(3)).to eq [item3,item4]
     end
   end
 end
