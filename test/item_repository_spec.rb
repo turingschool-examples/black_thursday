@@ -2,11 +2,11 @@ require './lib/item'
 require './lib/item_repository'
 
 RSpec.describe ItemRepository do
-#   it 'exists' do
-#     # ir = ItemRepository.new
-#     # expect(ir).to be_instance_of(ItemRepository)
+  it 'exists' do
+    item_repo = ItemRepository.new
+    expect(item_repo).to be_instance_of(ItemRepository)
 
-#   end
+  end
     it 'holds Item instances' do
 
     end
@@ -15,7 +15,9 @@ RSpec.describe ItemRepository do
     end
 
     it 'returns all known item instances' do
-        expect(ItemRepository.all).to eq([])
+  id     item_repo = ItemRepository.new
+
+        expect(item_repo.all).to eq([])
 
         i = Item.new({
             id: 1,
@@ -26,6 +28,6 @@ RSpec.describe ItemRepository do
             updated_at: Time.now,
             merchant_id: 2
           })
-          expect(ItemRepository.all).to eq([i])
+          expect(item_repo.all[0]).to be_instance_of(Item)
     end
 end
