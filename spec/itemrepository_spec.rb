@@ -25,6 +25,5 @@ RSpec.describe ItemRepository do
 
       expect(item_repo.find_by_name("Pencil")).to eq item
     end
-
   end
 end
