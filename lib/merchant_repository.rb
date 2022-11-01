@@ -27,4 +27,10 @@ class MerchantRepository
     @merchants.push(new_merchant)
     new_merchant
   end
+
+  def update(attributes)
+    updated_merchant = find_by_id(attributes[:id])
+    updated_merchant.update_name(attributes[:name])
+    updated_merchant
+  end
 end
