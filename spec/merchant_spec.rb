@@ -26,4 +26,13 @@ describe Merchant do
       expect(merchant.id).to eq(10)
     end
   end
+
+  describe '#update' do
+    it 'changes the @name of the Merchant' do
+      m = Merchant.new({:id => 5, :name => "Turing School"})
+      m.update("Test")
+
+      expect(m.name).to eq("Test")
+    end
+  end
 end
