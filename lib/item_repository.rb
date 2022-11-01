@@ -33,8 +33,24 @@ class ItemRepository
 
   def self.find_by_name(name)
     self.all.find do |item|
-      item.name == name
+      item.name == name.downcase
     # require 'pry'; binding.pry
+    end
+  end
+
+  def self.find_all_with_description(description)
+    #  require 'pry'; binding.pry
+     
+     self.all.find_all do |item|
+      item.description == description.downcase
+    end
+    # require 'pry'; binding.pry
+
+  end
+
+  def self.find_all_by_price(price)
+    self.all.find_all do |item|
+      item.unit_price == price
     end
   end
 

@@ -16,8 +16,8 @@ RSpec.describe Item do
   it 'exists and has attributes' do
     expect(i).to be_instance_of(Item)
     expect(i.id).to eq(1)
-    expect(i.name).to eq('Pencil')
-    expect(i.description).to eq('You can use it to write things')
+    expect(i.name).to eq('pencil')
+    expect(i.description).to eq('you can use it to write things')
     expect(i.unit_price).to eq(10.99)
     expect(i.created_at).to be_instance_of(Time)
     expect(i.updated_at).to be_instance_of(Time)
