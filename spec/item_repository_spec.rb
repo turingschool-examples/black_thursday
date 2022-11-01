@@ -1,4 +1,5 @@
 require "./lib/item_repository"
+require './lib/item'
 require "pry"
 
 RSpec.describe ItemRepository do
@@ -19,7 +20,7 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_by_id(263567474)).to eq(@item_repository.items.last)
     expect(@item_repository.find_by_id(263395617)).to eq(@item_repository.items[1])
     expect(@item_repository.find_by_id(999999999)).to eq(nil)
-    # expect(@item_repository.find_by_id(263395237)).to be_a(Item)
+    expect(@item_repository.find_by_id(263395237)).to be_a(Item)
   end
 
   it 'finds by name (case insensitive), returns nil otherwise' do
@@ -28,7 +29,7 @@ RSpec.describe ItemRepository do
     expect(@item_repository.find_by_name("Glitter scrabble frames")).to eq(@item_repository.items[1])
     expect(@item_repository.find_by_name("GLITter SCRAbbLe fraMES")).to eq(@item_repository.items[1])
     expect(@item_repository.find_by_name("XXXXXXXXXX")).to eq(nil)
-    # expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to be_a(Item)
+    expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to be_a(Item)
   end
 
   it 'finds all instances given a description (case insensitive), returns empty array otherwise' do
@@ -51,7 +52,7 @@ RSpec.describe ItemRepository do
     item3 = @item_repository.find_all_by_price(9999)
 
     expect(item1.count).to eq(8)
-    expect(item2.first.id).to eq(263395617)
+    expect(item2.first.id).to eq(263395721)
     expect(item3).to eq([])
     expect(item1).to be_a(Array)
   end
@@ -62,7 +63,7 @@ RSpec.describe ItemRepository do
 
     expect(item1.count).to eq(9)
     expect(item1.first.id).to eq(263395617)
-    expect(item1.last.id).to eq(263395721)
+    expect(item1[7].id).to eq(263546142)
     expect(item2).to eq([])
     expect(item1).to be_a(Array)
   end
