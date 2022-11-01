@@ -1,3 +1,4 @@
+require 'pry'
 require 'rspec'
 require './lib/merchant'
 require './lib/merchant_repository'
@@ -64,4 +65,23 @@ describe MerchantRepository do
       expect(merchant_repository.find_all_by_name("Safeway")).to eq([])
     end
   end
+
+  describe '#create' do 
+    it 'can create a new merchant instance' do 
+      merchant_1 = Merchant.new({:id => 6, :name => "Amazon Fresh"})
+
+      merchant_repository.add_merchant_to_repo(merchant_1)
+      
+      merchant_2 = merchant_repository.create("Walmart")
+      merchant_3 = merchant_repository.create("Target")
+      
+      expect(merchant_2).to be_a Merchant
+      expect(merchant_2.name).to eq("Walmart")
+      expect(merchant_2.id).to eq(7)
+      expect(merchant_1.id).to eq(6)
+      expect(merchant_3.id).to eq(8)
+      expect(merchant_repository.all).to eq([merchant_1, merchant_2, merchant_3])
+    end
+  end
+
 end

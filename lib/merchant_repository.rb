@@ -1,3 +1,6 @@
+require 'pry'
+require './lib/merchant'
+
 class MerchantRepository
   attr_reader :all
 
@@ -25,6 +28,19 @@ class MerchantRepository
     @all.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
+  end
+
+  def create(merchant_name)
+    merchant = Merchant.new({:id => max_id, :name => merchant_name})
+    add_merchant_to_repo(merchant)
+    merchant
+  end
+
+  def max_id 
+    max = @all.max_by do |merchant|
+      merchant.id
+    end
+    new_max = max.id + 1
   end
   
 end
