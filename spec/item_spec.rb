@@ -67,9 +67,9 @@ RSpec.describe Item do
       expect(item.description).to eq("taper candle")
     end
     
-    # it 'can update the item unit price' do
-    #   item.update_unit_price(11.99, 4)
-    #   expect(item.unit_price).to eq(11.99, 4)
-    # end
+    it 'can update the item unit price' do
+      item.update_unit_price(11.99, 4)
+      expect(item.unit_price).to eq(0.1199e2)
+    end
   end
 end 
