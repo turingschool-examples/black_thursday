@@ -46,4 +46,10 @@ describe ItemRepository do
       expect(@ir.find_by_id(2)).to eq(@item2)
     end
   end
+
+  describe '#find_by_name' do
+    it 'searches for specific name and returns item' do
+      expect(@ir.find_by_name("Book")).to eq(@item2)
+    end
+  end
 end

@@ -8,6 +8,10 @@ class ItemRepository
   end
 
   def find_by_id(num)
-    @list.find {|item| item.id == 2}
+    @list.find {|item| item.id == num}
+  end
+
+  def find_by_name(name)
+    @list.find {|item| item.name == name}
   end
 end
