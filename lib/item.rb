@@ -39,5 +39,6 @@ class Item
     @stats[:name] = attributes[:name] if !attributes[:name].nil?
     @stats[:description] = attributes[:description] if !attributes[:description].nil?
     @stats[:unit_price] = attributes[:unit_price] if !attributes[:unit_price].nil?
+    @stats[:updated_at] = Time.now
   end
 end
