@@ -20,10 +20,10 @@ class MerchantRepository
     @merchants.find_all { |merchant| merchant.name.upcase == name.upcase}
   end
 
-  def create(info)
+  def create(attributes)
     ids = @merchants.map { |merchant| merchant.id}
-    info[:id] = ids.max + 1
-    new_merchant = Merchant.new(info)
+    attributes[:id] = ids.max + 1
+    new_merchant = Merchant.new(attributes)
     @merchants.push(new_merchant)
     new_merchant
   end

@@ -84,4 +84,18 @@ RSpec.describe MerchantRepository do
       expect(merchant_repository.find_by_id(3)).to eq(merchant_3)
     end
   end
+
+  describe '#update' do
+    it 'updates the name of a merchant with the given id' do
+      merchant_1 = Merchant.new({:id => 1,
+                                 :name => "Nike"})
+      merchant_2 = Merchant.new({:id => 2,
+                                 :name => "Addidas"})
+      merchants = [merchant_1, merchant_2]
+      merchant_repository = MerchantRepository.new(merchants)
+      merchant_repository.update({:id => 1, :name => "Facebook"})
+
+      expect(merchant_repository.find_by_id(1).name).to eq("Facebook")
+    end
+  end
 end
