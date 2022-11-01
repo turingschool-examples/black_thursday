@@ -100,4 +100,11 @@ describe ItemRepository do
       expect(@item1.unit_price_to_dollars).to eq(1200)
     end
   end
+
+  describe '#delete' do
+    it 'deletes the item at the specified id index' do
+      @ir.delete(263395237)
+      expect(@ir.all).to eq([@item2, @item3, @item4, @item5])
+    end
+  end
 end

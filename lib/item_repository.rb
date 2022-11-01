@@ -46,4 +46,8 @@ class ItemRepository
   def update(id, attributes)
     find_by_id(id).update(attributes)
   end
+
+  def delete(id)
+    @items.delete(find_by_id(id))
+  end
 end
