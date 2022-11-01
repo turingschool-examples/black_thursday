@@ -1,42 +1,18 @@
 require './lib/item'
 require './lib/item_repository'
 require 'bigdecimal'
+require 'CSV'
 
 describe ItemRepository do
   before(:each) do
-    @stats1 = {
-      :id          => 1,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 2
-    }
-    @stats2 = {
-      :id          => 2,
-      :name        => "Book",
-      :description => "You write things in this",
-      :unit_price  => BigDecimal(14.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 5
-    }
-    @stats3 = {
-      :id          => 3,
-      :name        => "Pen",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 7
-    }
-
-    @item1 = Item.new(@stats1)
-    @item2 = Item.new(@stats2)
-    @item3 = Item.new(@stats3)
-
-    @ir = ItemRepository.new([@item1, @item2, @item3])
+    @stats = CSV.readlines('./data/items.csv', headers: true, header_converters: :symbol)
+    @stats = @stats[0..4]
+    @ir = ItemRepository.new(@stats)
+    @item1 = @ir.all[0]
+    @item2 = @ir.all[1]
+    @item3 = @ir.all[2]
+    @item4 = @ir.all[3]
+    @item5 = @ir.all[4]
   end
 
   describe '#initialization' do
@@ -47,43 +23,57 @@ describe ItemRepository do
 
   describe '#all' do
     it 'returns list of all added items' do
-      expect(@ir.all).to eq([@item1, @item2, @item3])
+      expect(@ir.all).to eq([@item1, @item2, @item3, @item4, @item5])
     end
   end
 
   describe '#find_by_id' do
-    it 'searches for specific item id and returns item' do
-      expect(@ir.find_by_id(2)).to eq(@item2)
+    it 'searches for specific item id and returns item or nil if empty' do
+      expect(@ir.find_by_id(263395237)).to eq(@item1)
+      expect(@ir.find_by_id(263395537)).to eq(nil)
     end
   end
 
   describe '#find_by_name' do
-    it 'searches for specific name and returns item' do
-      expect(@ir.find_by_name("Book")).to eq(@item2)
+    it 'searches for specific name and returns item or nil' do
+      expect(@ir.find_by_name("Glitter scrabble frames")).to eq(@item2)
+      expect(@ir.find_by_name("Glitter scrabble")).to eq(nil)
+    end
+  end
+
+  describe "#clean_description" do
+    it 'returns a string after removing spaces and newline characters' do
+      unclean = "Free standing wooden\n letters \n15cm Any colours\n"
+      cleaned = "freestandingwoodenletters15cmanycolours"
+      expect(@ir.clean_description(unclean)).to eq(cleaned)
     end
   end
 
   describe '#find_by_description' do
-    it 'searches for specific description and returns items found' do
-      expect(@ir.find_by_description("You can use it to write things")).to eq([@item1, @item3])
+    it 'searches for specific description and returns items found or empty array' do
+      expect(@ir.find_by_description("Free standing wooden\n letters \n15cm Any colours\n")).to eq([@item4])
+      expect(@ir.find_by_description("Free standing wooden\n letters")).to eq([])
     end
   end
 
   describe '#find_all_by_price' do
     it 'searches for specific price and returns items' do
-      expect(@ir.find_all_by_price(14.99)).to eq([@item2])
+      expect(@ir.find_all_by_price("1300.00")).to eq([@item2])
+      expect(@ir.find_all_by_price("1000.00")).to eq([])
     end
   end
 
   describe '#find_all_by_price_range' do
     it 'searches for specific price range and returns items' do
-      expect(@ir.find_all_by_price_range(10..14)).to eq([@item1, @item3])
+      expect(@ir.find_all_by_price_range(1000..1400)).to eq([@item1, @item2, @item3])
+      expect(@ir.find_all_by_price_range(10..100)).to eq([])
     end
   end
 
   describe '#find_all_by_merchant_id' do
     it 'searches for merchant id and returns items' do
-      expect(@ir.find_all_by_merchant_id(2)).to eq([@item1])
+      expect(@ir.find_all_by_merchant_id("12334141")).to eq([@item1])
+      expect(@ir.find_all_by_merchant_id("12334615")).to eq([])
     end
   end
 end

@@ -36,6 +36,6 @@ class Item
   end
 
   def unit_price_to_dollars
-    @stats[:unit_price].to_f
+    '%.2f' % @stats[:unit_price]
   end
 end

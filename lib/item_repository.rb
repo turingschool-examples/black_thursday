@@ -1,33 +1,45 @@
+require './lib/item'
+
 class ItemRepository
-  def initialize(list)
-    @list = list
+  def initialize(stats)
+    @items = []
+    stats.each {|stat| create(stat)}
+  end
+
+  def create(stat)
+    item = Item.new(stat)
+    @items.push(item)
   end
 
   def all
-    @list
+    @items
   end
 
   def find_by_id(num)
-    @list.find {|item| item.id == num}
+    @items.find {|item| item.id == num.to_s}
   end
 
   def find_by_name(name)
-    @list.find {|item| item.name.downcase == name.downcase}
+    @items.find {|item| item.name.downcase == name.downcase}
   end
 
   def find_by_description(description)
-    @list.select {|item| item.description.downcase == description.downcase}
+    @items.select {|item| clean_description(item.description) == clean_description(description)}
   end
 
   def find_all_by_price(price)
-    @list.select {|item| item.unit_price_to_dollars == price}
+    @items.select {|item| item.unit_price_to_dollars == price}
   end
 
   def find_all_by_price_range(range)
-    @list.select {|item| range.include?(item.unit_price_to_dollars)}
+    @items.select {|item| range.include?(item.unit_price.to_f)}
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @list.select {|item| item.merchant_id == merchant_id}
+    @items.select {|item| item.merchant_id == merchant_id}
+  end
+
+  def clean_description(desc)
+    desc.downcase.gsub(/\s+/, "").gsub(/\n+/, "")
   end
 end
