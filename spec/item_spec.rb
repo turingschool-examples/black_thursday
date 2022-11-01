@@ -15,41 +15,39 @@ RSpec.describe Item do
     })
   end
 
-  it '#initialize' do
-
-    expect(@i).to be_an_instance_of(Item)
+  it 'exists' do
+    expect(@item).to be_a(Item)
   end
 
-  it 'has id' do
-    expect(@i.id).to eq(1)
+  it 'has an id' do
+    expect(@item.id).to eq 1
   end
 
   it 'has a name' do
-    expect(@i.name).to eq("Pencil")
+    expect(@item.name).to eq("Pencil")
   end
 
   it 'has a description' do
-    expect(@i.description).to eq("You can use it to write things")
+    expect(@item.description).to eq("You can use it to write things")
   end
 
   it 'has a unit price' do
-    expect(@i.unit_price).to eq(BigDecimal(10.99,4))
-    require 'pry'; binding.pry
+    expect(@item.unit_price).to eq(BigDecimal(10.99,4))
   end
 
-  it 'has a date of creation' do
-    expect(@i.created_at).to eq(@time)
+  it 'has a time created at' do
+    expect(@item.created_at).to eq(@time)
   end
 
-  it 'has a date of update' do
-    expect(@i.updated_at).to eq(@time)
+  it 'has a time updated at' do
+    expect(@item.updated_at).to eq(@time)
   end
 
   it 'has a merchant id' do
-    expect(@i.merchant_id).to eq(2)
+    expect(@item.merchant_id).to eq 2
   end
 
-  xit 'can convert unit price to dollars' do
-    expect(@i.unit_price_to_dollars).to eq(23.48)
+  it 'knows the unit price to dollars' do
+    expect(@item.unit_price_to_dollars).to eq 10.99
   end
 end
