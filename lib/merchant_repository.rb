@@ -22,4 +22,8 @@ class MerchantRepository
   def find_by_name(name)
     select = merchants.select { |merchant| merchant.name.downcase == name.downcase }.first
   end
+
+  def find_all_by_name(name)
+    select = merchants.select { |merchant| merchant.name.downcase.include? "#{name.downcase}"}
+  end
 end
