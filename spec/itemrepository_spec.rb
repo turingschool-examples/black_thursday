@@ -76,9 +76,11 @@ RSpec.describe ItemRepository do
 
   describe '#find_all_by_price_in_range' do
     it 'returns an array of all items in price range' do
-      expect(item_repo.find_all_by_price(0..10)).to eq []
-      expect(item_repo.find_all_by_price(10..20)).to eq [item1,item2,item3]
-      expect(item_repo.find_all_by_price(20..30)).to eq [item3,item4]
+      item_repo = ItemRepository.new([item1,item2,item3,item4])
+
+      expect(item_repo.find_all_by_price_in_range(0..10)).to eq []
+      expect(item_repo.find_all_by_price_in_range(10..21)).to eq [item1,item2,item3]
+      expect(item_repo.find_all_by_price_in_range(20..30)).to eq [item3,item4]
     end
   end
 end

@@ -26,4 +26,10 @@ class ItemRepository
       item.unit_price == price
     end
   end
+
+  def find_all_by_price_in_range(range)
+    all.select do |item|
+      item.unit_price >= range.begin && item.unit_price <= range.end
+    end
+  end
 end
