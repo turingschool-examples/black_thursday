@@ -26,7 +26,7 @@ class ItemRepository
   end
 
   def find_by_description(description)
-    @repository.select { |item| clean_description(item.description) == clean_description(description) }
+    @repository.select { |item| clean_string(item.description).casecmp?(clean_string(description)) }
   end
 
   def find_all_by_price(price)
@@ -41,7 +41,7 @@ class ItemRepository
     @repository.select { |item| item.merchant_id == merchant_id.to_s }
   end
 
-  def clean_description(desc)
+  def clean_string(desc)
     desc.downcase.gsub(/\s+/, '').gsub(/\n+/, '')
   end
 
