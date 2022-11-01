@@ -151,8 +151,7 @@ RSpec.describe ItemRepository do
       item_repository.update(1, {:id => 1, :description => "shoes"})
       expect(item_repository.find_by_id(1).description).to eq("shoes")
       
-      # item_repository.update(1, {:id => 1, :unit_price => "Sneakers"})
-      # expect(item_repository.find_by_id(1).unit_price).to eq("Sneakers")
+      # ADD TEST TO UPDATE PRICE
     end
   end
 
