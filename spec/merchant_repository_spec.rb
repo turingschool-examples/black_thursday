@@ -80,4 +80,18 @@ RSpec.describe MerchantRepository do
     expect(m4.name).to eq("other other school")
   end
 
+  describe '#update' do
+    it 'updates only the name of the merchant object with the given id' do
+      mr = MerchantRepository.new
+      m = Merchant.new({:id => 5, :name => "Turing School"})
+      m2 = Merchant.new({:id => 7, :name => "Turing School"})
+      m3 = Merchant.new({:id => 2, :name => "Other School"})
+      mr.add_merchant(m)
+      mr.add_merchant(m2)
+      mr.add_merchant(m3)
+      mr.update(7, :name => "Cool School")
+
+      expect(m2.name).to eq("Cool School")
+    end
+
 end
