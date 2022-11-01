@@ -21,6 +21,22 @@ describe ItemRepository do
     end
   end
 
+  describe '#create' do
+    it 'creates an item based on the values passed in' do
+      @ir.create({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      })
+
+      expect(@ir.all.last.name).to eq("Pencil")
+    end
+  end
+
   describe '#all' do
     it 'returns list of all added items' do
       expect(@ir.all).to eq([@item1, @item2, @item3, @item4, @item5])
@@ -74,6 +90,14 @@ describe ItemRepository do
     it 'searches for merchant id and returns items' do
       expect(@ir.find_all_by_merchant_id(12334141)).to eq([@item1])
       expect(@ir.find_all_by_merchant_id(12334615)).to eq([])
+    end
+  end
+
+  describe '#update' do
+    it 'updates the values of the item at id with attributes passed in' do
+      @ir.update(263395237, {name: "Turkey Leg"})
+      expect(@item1.name).to eq("Turkey Leg")
+      expect(@item1.unit_price_to_dollars).to eq(1200)
     end
   end
 end

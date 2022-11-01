@@ -15,8 +15,8 @@ class ItemRepository
     @items
   end
 
-  def find_by_id(num)
-    @items.find {|item| item.id == num.to_s}
+  def find_by_id(id)
+    @items.find {|item| item.id == id.to_s}
   end
 
   def find_by_name(name)
@@ -41,5 +41,9 @@ class ItemRepository
 
   def clean_description(desc)
     desc.downcase.gsub(/\s+/, "").gsub(/\n+/, "")
+  end
+
+  def update(id, attributes)
+    find_by_id(id).update(attributes)
   end
 end
