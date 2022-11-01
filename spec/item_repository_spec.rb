@@ -33,7 +33,7 @@ describe ItemRepository do
         merchant_id: 2
       )
 
-      expect(@ir.all.last.name).to eq("Pencil")
+      expect(@ir.all.last.name).to eq('Pencil')
     end
   end
 
@@ -52,8 +52,8 @@ describe ItemRepository do
 
   describe '#find_by_name' do
     it 'searches for specific name and returns item or nil' do
-      expect(@ir.find_by_name("Glitter scrabble frames")).to eq(@item2)
-      expect(@ir.find_by_name("Glitter scrabble")).to eq(nil)
+      expect(@ir.find_by_name('Glitter scrabble frames')).to eq(@item2)
+      expect(@ir.find_by_name('Glitter scrabble')).to eq(nil)
     end
   end
 
@@ -95,8 +95,8 @@ describe ItemRepository do
 
   describe '#update' do
     it 'updates the values of the item at id with attributes passed in' do
-      @ir.update(263395237, {name: "Turkey Leg"})
-      expect(@item1.name).to eq("Turkey Leg")
+      @ir.update(263395237, {name: 'Turkey Leg'})
+      expect(@item1.name).to eq('Turkey Leg')
       expect(@item1.unit_price_to_dollars).to eq(1200)
     end
   end

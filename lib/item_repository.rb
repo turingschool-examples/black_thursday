@@ -3,7 +3,7 @@ require './lib/item'
 class ItemRepository
   def initialize(stats)
     @items = []
-    stats.each {|stat| create(stat)}
+    stats.each { |stat| create(stat) }
   end
 
   def create(stat)
