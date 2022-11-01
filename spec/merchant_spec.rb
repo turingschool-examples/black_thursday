@@ -1,7 +1,7 @@
 require './lib/merchant'
 
 RSpec.describe Merchant do
-  let!(m) {Merchant.new({:id =>5, :name => "Turing School"})}
+  let!(:m) {Merchant.new({:id =>5, :name => "Turing School"})}
   it 'is a merchant class' do
     expect(m).to be_a Merchant    
   end
@@ -13,9 +13,4 @@ RSpec.describe Merchant do
   it 'accepts the name of merchant' do
     expect(m.name).to eq "Turing School"
   end
-  
-  it 'includes these attributes within a hash' do
-
-  end
-
 end
