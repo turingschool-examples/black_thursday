@@ -4,4 +4,3 @@ require 'simplecov'
 
 require 'pry'
 require './lib/merchant'
-

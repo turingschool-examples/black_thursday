@@ -2,7 +2,7 @@ require './test/spec_helper'
 
 
 RSpec.describe Merchant do
-  describe 'iteration 0' do
+  describe '#initialize' do
     before :each do
       @m = Merchant.new({:id => 5, :name => "Turing School"})
     end
@@ -16,6 +16,15 @@ RSpec.describe Merchant do
 
       expect(@m.id).to eq(5)
       expect(@m.name).to eq("Turing School")
+    end
+  end
+
+  describe '#update_name' do
+    it 'updates a merchant objects name' do
+      @m = Merchant.new({:id => 5, :name => "Turing School"})
+      @m.update_name("Westpoint")
+
+      expect(@m.name).to eq("Westpoint")
     end
   end
 end

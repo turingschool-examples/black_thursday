@@ -1,5 +1,6 @@
 class ItemRepository
 
+
   def initialize(items)
     @items = items
   end
@@ -35,4 +36,5 @@ class ItemRepository
   def find_all_by_merchant_id(merch_id)
     @items.find_all {|item| item.merchant_id == merch_id}
   end
+
 end
