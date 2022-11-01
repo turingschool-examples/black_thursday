@@ -1,5 +1,5 @@
+require './spec_helper'
 require './lib/item_repository'
-require './lib/item'
 require 'bigdecimal/util'
 
 RSpec.describe ItemRepository do

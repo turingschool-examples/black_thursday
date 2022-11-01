@@ -1,4 +1,4 @@
-require './test/spec_helper'
+require './spec_helper'
 
 
 RSpec.describe Merchant do
