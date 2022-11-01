@@ -51,7 +51,17 @@ RSpec.describe MerchantRepository do
     merch_repo.create({:id => 6, :name => "Another School"})
     merch_repo.create({:id => 7, :name => "The Other School"})
 
-    expect(merch_repo.find_by_name("Turing School")).to be_a(Merchant)
+    expect(merch_repo.find_by_name("turing school")).to be_a(Merchant)
     expect(merch_repo.find_by_name("Bobby's World")).to be(NIL)
    end
+
+  it 'finds all by name' do
+    merch_repo = MerchantRepository.new
+    merch_repo.create({:id => 5, :name => "Turing School"})
+    merch_repo.create({:id => 6, :name => "Another School"})
+    merch_repo.create({:id => 7, :name => "The Other School"})
+
+    expect(merch_repo.find_all_by_name("school").count).to eq(3)
+    expect(merch_repo.find_all_by_name("Bobby's World")).to eq([])
+  end
 end
