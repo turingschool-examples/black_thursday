@@ -1,4 +1,5 @@
 require './lib/item.rb'
+require 'bigdecimal'
 
 RSpec.describe Item do
   let(:i) { Item.new({

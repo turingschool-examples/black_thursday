@@ -1,8 +1,15 @@
 # This is an item held within the ItemRepository class
 # All data is passed in through a single Hash
-
-def initialize()
-
+class Item
+  def initialize(item)
+    @id = item[:id]
+    @name = item[:name]
+    @description = item[:description]
+    @unit_price = item[:unit_price]
+    @created_at = item[:created_at]
+    @updated_at = item[:updated_at]
+    @merchant_id = item[:merchant_id]
+  end
 end
 # Each item has the following methods: 
 # 'id' 
