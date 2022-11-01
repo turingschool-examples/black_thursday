@@ -22,4 +22,12 @@ class Item
   def unit_price_to_dollars
     @unit_price.round(2).to_f
   end
+
+  def update(id, attributes)
+    @item
+    require 'pry'; binding.pry
+    if id == id
+    require 'pry'; binding.pry
+    end
+  end
 end

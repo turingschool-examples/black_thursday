@@ -31,4 +31,20 @@ RSpec.describe Item do
   it 'can convert unit price to a dollar formatted float' do
     expect(item.unit_price_to_dollars).to eq(10.99)
   end
+
+  it 'can update name, description, and price based off id' do
+    item.update(1, {
+      :name => "Mechanical Pencil",
+      :description => "You can use it to write things down",
+      :unit_price => 9.99
+      }
+    )
+
+    expect(item.name).to eq("Mechanical Pencil")
+    expect(item.description).to eq("You can use it to write things down")
+    expect(item.unit_price).to eq(9.99)
+
+    # expect(item.updated_at).to eq(time_now)
+    # expect(item.updated_at).to not_eq(created_at)
+  end
 end
