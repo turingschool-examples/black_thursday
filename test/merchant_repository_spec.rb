@@ -98,4 +98,18 @@ RSpec.describe MerchantRepository do
       expect(merchant_repository.find_by_id(1).name).to eq("Facebook")
     end
   end
+
+  describe '#delete' do
+    it 'deletes a specific merchant from the repository' do
+      merchant_1 = Merchant.new({:id => 1,
+                                 :name => "Nike"})
+      merchant_2 = Merchant.new({:id => 2,
+                                 :name => "Addidas"})
+      merchants = [merchant_1, merchant_2]
+      merchant_repository = MerchantRepository.new(merchants)
+      merchant_repository.delete(1)
+
+      expect(merchant_repository.all.include?(merchant_1)).to eq(false)
+    end
+  end
 end
