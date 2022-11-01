@@ -53,18 +53,18 @@ describe MerchantRepository do
     it 'returns nil or a Merchant instance that matches by name regardless of case' do
       data.each { |line| mr.create(line) }
       
-      expect(mr.find_by_name("shopin1901")).to eq(mr.merchants[0])
-      expect(mr.find_by_name("nadda")).to be nil
+      expect(mr.find_by_name('shopin1901')).to eq(mr.merchants[0])
+      expect(mr.find_by_name('nadda')).to be nil
     end
   end
 
   describe '#find_all_by_name' do
     it 'returns an array of all Merchant instances that include the argument' do
       data.each { |line| mr.create(line) }
-      
-      expect(mr.find_all_by_name("s")).to eq([mr.merchants[0], mr.merchants[1], mr.merchants[3]])
-      expect(mr.find_all_by_name("test")).to eq([])
-      expect(mr.find_all_by_name("SHOP")).to eq([mr.merchants[0]])
+
+      expect(mr.find_all_by_name('s')).to eq([mr.merchants[0], mr.merchants[1], mr.merchants[3]])
+      expect(mr.find_all_by_name('test')).to eq([])
+      expect(mr.find_all_by_name('SHOP')).to eq([mr.merchants[0]])
     end
   end
 

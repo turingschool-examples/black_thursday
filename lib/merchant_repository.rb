@@ -1,3 +1,6 @@
+# This is the MerchantRepository Class
+# frozen_string_literal: true.
+
 class MerchantRepository
   attr_reader :merchants
 
@@ -6,8 +9,8 @@ class MerchantRepository
   end
 
   def create(data)
-    data[:id] ||= 1 if merchants == [] 
-    data[:id] ||= (@merchants.last.id.to_i + 1).to_s 
+    data[:id] ||= 1 if merchants == []
+    data[:id] ||= (@merchants.last.id.to_i + 1).to_s
     @merchants << Merchant.new(data)
   end
 
@@ -16,15 +19,15 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    select = merchants.select { |merchant| merchant.id == id }.first 
+    merchants.select { |merchant| merchant.id == id }.first
   end
 
   def find_by_name(name)
-    select = merchants.select { |merchant| merchant.name.downcase == name.downcase }.first
+    merchants.select { |merchant| merchant.name.casecmp?(name) }.first
   end
 
   def find_all_by_name(name)
-    select = merchants.select { |merchant| merchant.name.downcase.include? "#{name.downcase}"}
+    merchants.select { |merchant| merchant.name.downcase.include? name.downcase }
   end
 
   def update(id, name)
