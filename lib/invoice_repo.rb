@@ -18,9 +18,7 @@ class InvoiceRepo
   end
 
   def find_by_id(id)
-    match = nil
-    @invoices.each{|invoice| match = invoice if invoice.id == id.to_s}
-    match
+    @invoices.find{|invoice| invoice.id == id.to_s}
   end
 
   def find_by_customer_id(id)
