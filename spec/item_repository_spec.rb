@@ -17,7 +17,7 @@ describe ItemRepository do
       :id          => 2,
       :name        => "Book",
       :description => "You write things in this",
-      :unit_price  => BigDecimal(10.99,4),
+      :unit_price  => BigDecimal(14.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 5
@@ -64,8 +64,14 @@ describe ItemRepository do
   end
 
   describe '#find_by_description' do
-    it 'searches for specific description and returns items as array' do
+    it 'searches for specific description and returns items found' do
       expect(@ir.find_by_description("You can use it to write things")).to eq([@item1, @item3])
+    end
+  end
+
+  describe '#find_all_by_price' do
+    it 'searches for specific price and returns items' do
+      expect(@ir.find_all_by_price(14.99)).to eq([@item2])
     end
   end
 end

@@ -18,4 +18,8 @@ class ItemRepository
   def find_by_description(description)
     @list.select {|item| item.description.downcase == description.downcase}
   end
+
+  def find_all_by_price(price)
+    @list.select {|item| item.unit_price_to_dollars == price}
+  end
 end
