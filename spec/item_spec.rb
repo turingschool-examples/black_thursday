@@ -16,5 +16,40 @@ RSpec.describe Item do
     it 'exists' do
       expect(i).to be_a(Item)
     end
-  end
+
+    it 'has an id' do 
+      expect(i.id).to eq(1)
+    end
+
+    it 'has a name' do 
+      expect(i.name).to eq("Pencil")
+    end
+
+    it 'has a description' do 
+      expect(i.description).to eq("You can use it to write things")
+    end
+
+    it 'has an unit price' do 
+      expect(i.unit_price).to eq(10.99)
+    end
+
+    it 'create at time' do 
+    # require 'pry'; binding.pry
+      expect(i.created_at).to be_a(Time)
+    end
+
+    it 'has an updated at time' do 
+      expect(i.updated_at).to be_a(Time)
+    end
+
+    it 'has a merchant id' do 
+      expect(i.merchant_id).to eq(2)
+    end
+  end  
+
+  describe '#unit_price_to_dollars' do
+    it 'returns price of item in dollars as float' do
+      expect(i.unit_price_to_dollars).to eq(10.99)
+    end
+  end  
 end
