@@ -39,7 +39,7 @@ class InvoiceRepo
   end
 
   def delete(id)
-    @invoices.delete_if{|invoice| invoice.id == id.to_s}
+    @invoices.delete(find_by_id(id))
   end
 
 end
