@@ -26,4 +26,9 @@ class MerchantRepository
   def find_all_by_name(name)
     select = merchants.select { |merchant| merchant.name.downcase.include? "#{name.downcase}"}
   end
+
+  def update(id, name)
+    merchant = find_by_id(id)
+    merchant.update(name)
+  end
 end
