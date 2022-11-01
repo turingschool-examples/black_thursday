@@ -31,4 +31,9 @@ class MerchantRepository
     merchant = find_by_id(id)
     merchant.update(name)
   end
+
+  def delete(id)
+    to_be_deleted = find_by_id(id)
+    @merchants.delete(to_be_deleted)
+  end
 end
