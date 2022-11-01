@@ -30,9 +30,9 @@ class MerchantRepository
 
   def create(attributes)
     new = Merchant.new(attributes)
-    require 'pry'; binding.pry
-    new.id = @all.map do |merchant|
-      # merchant.id.max_by
-    end
+    new.id = @all.max_by do |merchant|
+      merchant.id
+    end.id + 1
+    new
   end
 end

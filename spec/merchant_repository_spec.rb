@@ -75,10 +75,9 @@ RSpec.describe MerchantRepository do
     mr.add_merchant(m3)
 
     m4 = mr.create({:name => "other other school"})
-
+    #require 'pry'; binding.pry
     expect(m4.id).to eq(8)
+    expect(m4.name).to eq("other other school")
   end
-
-
 
 end
