@@ -49,11 +49,50 @@ RSpec.describe MerchantRepository do
     mr = MerchantRepository.new
     m = Merchant.new({id: 5, name: "Turing School"})
     m2 = Merchant.new({id: 4, name: "Porsche"})
-    m3 = Merchant.new({id: 4, name: "Porsche AG"})
+    m3 = Merchant.new({id: 3, name: "Porsche AG"})
     mr.add(m)
     mr.add(m2)
     mr.add(m3)
 
     expect(mr.find_all_by_name("porsche")).to eq([m2, m3])
+  end
+
+  it 'can create a new merchant' do
+    mr = MerchantRepository.new
+    m = Merchant.new({id: 5, name: "Turing School"})
+    m2 = Merchant.new({id: 4, name: "Porsche"})
+    m3 = Merchant.new({id: 3, name: "Porsche AG"})
+    mr.add(m)
+    mr.add(m2)
+    mr.add(m3)
+    mr.create("BMW AG")
+
+    expect(mr.merchants.last.name).to eq("BMW AG")
+  end
+
+  it 'can create a new merchant' do
+    mr = MerchantRepository.new
+    m = Merchant.new({id: 5, name: "Turing School"})
+    m2 = Merchant.new({id: 4, name: "Porsche"})
+    m3 = Merchant.new({id: 3, name: "Porsche AG"})
+    mr.add(m)
+    mr.add(m2)
+    mr.add(m3)
+    mr.update(5, "Turing School of Software and Design")
+
+    expect(mr.merchants.first.name).to eq("Turing School of Software and Design")
+  end
+
+  it 'can delete a merchant' do
+    mr = MerchantRepository.new
+    m = Merchant.new({id: 5, name: "Turing School"})
+    m2 = Merchant.new({id: 4, name: "Porsche"})
+    m3 = Merchant.new({id: 3, name: "Porsche AG"})
+    mr.add(m)
+    mr.add(m2)
+    mr.add(m3)
+    mr.delete(4)
+
+    expect(mr.find_by_id(4)).to eq(nil)
   end
 end

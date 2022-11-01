@@ -4,7 +4,7 @@ require 'bigdecimal'
 RSpec.describe Item do
   before(:each) do
     @time = Time.now
-    @i = Item.new({
+    @item = Item.new({
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
