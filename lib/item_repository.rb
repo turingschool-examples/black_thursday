@@ -2,13 +2,9 @@ require 'csv'
 require './lib/item'
 require 'objspace'
 class ItemRepository
-  attr_reader :item_repository
+  
 
-  def initialize
-    @repository = []
-  end
-
-  def all
+  def self.all
     # contents = CSV.open './data/items.csv', headers: true, header_converters: :symbol
     # contents.each do |row|
     #   id = row[:id] if row[:id].to_i != 0
