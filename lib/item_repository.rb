@@ -33,11 +33,11 @@ class ItemRepository
   end
 
   def find_all_by_price_range(range)
-    @items.select {|item| range.include?(item.unit_price.to_f)}
+    @items.select { |item| range.include?(item.unit_price.to_f) }
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @items.select {|item| item.merchant_id == merchant_id.to_s}
+    @items.select { |item| item.merchant_id == merchant_id.to_s }
   end
 
   def clean_description(desc)
