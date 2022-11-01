@@ -13,4 +13,11 @@ RSpec.describe MerchantRepository do
 
     expect(merch_repo.merchants).to eq([])
   end
+
+  it 'creates new Merchants' do 
+    merch_repo = MerchantRepository.new
+    merch_repo.create({:id => 5, :name => "Turing School"})
+
+    expect(merch_repo.merchants[0]).to be_a(Merchant)
+  end
 end

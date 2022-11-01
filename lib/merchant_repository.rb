@@ -3,4 +3,8 @@ class MerchantRepository
   def initialize
     @merchants = []
   end
+
+  def create(attributes)
+    @merchants << Merchant.new(attributes)
+  end
 end
