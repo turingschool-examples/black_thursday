@@ -18,4 +18,8 @@ class MerchantRepository
   def find_by_id(id)
     select = merchants.select { |merchant| merchant.id == id }.first 
   end
+
+  def find_by_name(name)
+    select = merchants.select { |merchant| merchant.name.downcase == name.downcase }.first
+  end
 end
