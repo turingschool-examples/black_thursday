@@ -291,7 +291,7 @@ describe ItemRepository do
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.25,4),
         :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :updated_at  => old_time = Time.now,
         :merchant_id => 2
       })
       ir.items << i1
@@ -305,7 +305,7 @@ describe ItemRepository do
       expect(i1.name).to eq "Apple"
       expect(i1.description).to eq "You can eat it"
       expect(i1.unit_price).to eq BigDecimal(20.25,4)
-      expect(i1.updated_at).to eq time
+      expect(i1.updated_at).not_to eq old_time
     end
   end
 end

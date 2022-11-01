@@ -54,4 +54,13 @@ class ItemRepository
     end.id + 1
     item
   end
+
+  def update(id, attributes)
+    # new_attributes = find_by_id(id).attributes.merge!(attributes)
+    updated = find_by_id(id)
+    updated.name = attributes[:name]
+    updated.description = attributes[:description]
+    updated.unit_price = attributes[:unit_price]
+    updated.updated_at = Time.now 
+  end
 end

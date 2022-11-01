@@ -1,12 +1,12 @@
 class Item
-  attr_reader :id,
-              :name,
-              :description,
-              :unit_price,
-              :created_at,
-              :updated_at,
-              :merchant_id
-  attr_writer :id
+  attr_reader :created_at,
+              :merchant_id,
+              :attributes
+  attr_accessor :id,
+                :name,
+                :description,
+                :unit_price,
+                :updated_at
 
   def initialize(attributes)
     @id = attributes[:id]
@@ -16,6 +16,7 @@ class Item
     @created_at = attributes[:created_at]
     @updated_at = attributes[:updated_at]
     @merchant_id = attributes[:merchant_id]
+    @attributes = attributes
   end
 
   def unit_price_to_dollars
