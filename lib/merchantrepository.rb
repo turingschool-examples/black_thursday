@@ -42,16 +42,21 @@ class Merchant_Repository
     end
   end
 
-  def update(id, new_name)
-    merchants.find do |merchant|
-       if merchant.id == id then merchant.name = new_name
-       end
-    end
-  end
+    # def update(id, new_name)
+  #   merchant = find_by_id(merchant_id)
+
+
+  #   # merchants.select do |merchant|
+  #   #    if merchant.id == id then merchant.name = new_name
+  #   #    end
+  #   # end
+  # end
 
   def delete(id)
-    merchants.find do |merchant|
-      merchants.delete(merchant) if merchant.id == id
-    end
+    merchant_to_delete = find_by_id(id)
+    @merchants.delete(merchant_to_delete)
+    
+    # merchants.find do |merchant|
+    #   merchants.delete(merchant) if merchant.id == id
   end
 end
