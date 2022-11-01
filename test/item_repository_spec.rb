@@ -16,6 +16,16 @@ RSpec.describe ItemRepository do
 
     it 'returns all known item instances' do
         expect(ItemRepository.all).to eq([])
-        
+
+        i = Item.new({
+            id: 1,
+            name: 'Pencil',
+            description: 'You can use it to write things',
+            unit_price: BigDecimal(10.99, 4),
+            created_at: Time.now,
+            updated_at: Time.now,
+            merchant_id: 2
+          })
+          expect(ItemRepository.all).to eq([i])
     end
 end
