@@ -26,4 +26,8 @@ class ItemRepository
   def find_all_by_price_range(range)
     @list.select {|item| range.include?(item.unit_price_to_dollars)}
   end
+
+  def find_all_by_merchant_id(merchant_id)
+    @list.select {|item| item.merchant_id == merchant_id}
+  end
 end

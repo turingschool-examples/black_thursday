@@ -76,8 +76,14 @@ describe ItemRepository do
   end
 
   describe '#find_all_by_price_range' do
-    it 'searches for specific price and returns items' do
+    it 'searches for specific price range and returns items' do
       expect(@ir.find_all_by_price_range(10..14)).to eq([@item1, @item3])
+    end
+  end
+
+  describe '#find_all_by_merchant_id' do
+    it 'searches for merchant id and returns items' do
+      expect(@ir.find_all_by_merchant_id(2)).to eq([@item1])
     end
   end
 end
