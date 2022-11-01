@@ -1,10 +1,12 @@
 require "csv"
 require "pry"
 require_relative "find"
+require_relative "modify"
 require_relative "item"
 
 class ItemRepository
 include Find
+include Modify
   attr_reader :items
 
   def initialize
