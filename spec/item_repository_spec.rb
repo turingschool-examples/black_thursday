@@ -147,4 +147,35 @@ describe ItemRepository do
       expect(ir.find_all_with_description("It is unbreakable")).to eq([])
     end
   end
+
+  describe '#find_all_by_price' do
+    it 'can find items by price' do
+      ir = ItemRepository.new
+      i1 = Item.new({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      })
+
+      i2 = Item.new({
+        :id          => 2,
+        :name        => "Pen",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 3
+      })
+
+      ir.items << i1
+      ir.items << i2
+
+      expect(ir.find_all_by_price(12.99)).to eq []
+      expect(ir.find_all_by_price(10.99)).to eq [i1, i2]
+    end
+  end
 end
