@@ -20,13 +20,15 @@ describe MerchantRepository do
   describe '#create' do
     it 'creates a Merchant and adds it to @merchants' do
       data.each { |line| mr.create(line) }
-
-      m1 = Merchant.new({:id => 12334105, :name => Shopin1901})
-      m2 = Merchant.new({:id => 12334112, :name => Candisart})
-      m3 = Merchant.new({:id => 12334113, :name => MiniatureBikez})
-      m4 = Merchant.new({:id => 12334115, :name => LolaMarleys})
-
-      expect(mr.merchants).to eq([m1, m2, m3, m4])
+      
+      expect(mr.merchants[0].id).to eq("12334105")
+      expect(mr.merchants[1].id).to eq("12334112")
+      expect(mr.merchants[2].id).to eq("12334113")
+      expect(mr.merchants[3].id).to eq("12334115")
+      expect(mr.merchants[0].name).to eq("Shopin1901")
+      expect(mr.merchants[1].name).to eq("Candisart")
+      expect(mr.merchants[2].name).to eq("MiniatureBikez")
+      expect(mr.merchants[3].name).to eq("LolaMarleys")
     end
   end
 end
