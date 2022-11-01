@@ -68,7 +68,7 @@ RSpec.describe Item do
     end
     
     it 'can update the item unit price' do
-      item.update_unit_price(11.99, 4)
+      item.update_unit_price(BigDecimal(11.99, 4))
       expect(item.unit_price).to eq(0.1199e2)
     end
   end

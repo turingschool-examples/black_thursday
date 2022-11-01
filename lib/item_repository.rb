@@ -49,7 +49,7 @@ class ItemRepository
     updated_item = find_by_id(attributes[:id])
     updated_item.update_name(attributes[:name])
     updated_item.update_description(attributes[:description])
-    # updated_item.update_unit_price(attributes[:unit_price])
+    updated_item.update_unit_price(attributes[:unit_price])
     updated_item
   end
   
