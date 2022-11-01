@@ -81,16 +81,16 @@ RSpec.describe ItemRepository do
   end
 
   it 'can create a new item' do
-    items_pre = @item_repository.items.length
+    items_pre = @ir.items.length
     attributes = {
       name: "Colorado Sweater",
       description: "Perfect sweater for Colorado weather",
       unit_price: 50,
       merchant_id: 3487283
     }
-    @item_repository.create(attributes)
-    expect(@item_repository.items.last.id).to eq(263567474 + 1)
-    expect(items_pre).to eq(@item_repository.items.length - 1)
+    @ir.create(attributes)
+    expect(@ir.items.last.id).to eq(263567474 + 1)
+    expect(items_pre).to eq(@ir.items.length - 1)
   end
 
   it 'can update an item' do
@@ -100,12 +100,12 @@ RSpec.describe ItemRepository do
       unit_price: 50,
       merchant_id: 3487283
     }
-    @item_repository.update(263395617, attributes)
-    expect(@item_repository.find_by_id(263395617).name).to eq("Colorado Sweater")
+    @ir.update(263395617, attributes)
+    expect(@ir.find_by_id(263395617).name).to eq("Colorado Sweater")
   end
 
   it 'can delete an item' do
-    @item_repository.delete(263395617)
-    expect(@item_repository.find_by_id(263395617)).to eq(nil)
+    @ir.delete(263395617)
+    expect(@ir.find_by_id(263395617)).to eq(nil)
   end
 end

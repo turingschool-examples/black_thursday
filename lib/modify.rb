@@ -22,7 +22,7 @@ module Modify
 
   def update(id, attributes)
     if @merchants != [] && @merchants != nil
-      updated_id = find_all_by_merchant_id(id)
+      updated_id = find_by_id(id)
       updated_id.name = attributes
     else
       update_item = find_by_id(id)
@@ -36,7 +36,7 @@ module Modify
 
   def delete(id)
     if @merchants != [] && @merchants != nil
-      delete_merchant = find_by_id
+      delete_merchant = find_by_id(id)
       @merchants.delete(delete_merchant)
     else
       delete_item = find_by_id(id)
