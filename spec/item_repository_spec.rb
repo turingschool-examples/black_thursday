@@ -281,4 +281,31 @@ describe ItemRepository do
       expect(new_item.id).to eq(3)
     end
   end
+
+  describe '#update' do
+    it 'can update an items name, description, and unit price' do
+      ir = ItemRepository.new
+      i1 = Item.new({
+        :id          => 1,
+        :name        => "Pen",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(15.25,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      })
+      ir.items << i1
+
+      ir.update(1,{
+                    name: "Apple",
+                    description: "You can eat it",
+                    unit_price: BigDecimal(20.25,4)
+                    }) && time = Time.now
+
+      expect(i1.name).to eq "Apple"
+      expect(i1.description).to eq "You can eat it"
+      expect(i1.unit_price).to eq BigDecimal(20.25,4)
+      expect(i1.updated_at).to eq time
+    end
+  end
 end
