@@ -3,4 +3,42 @@ class MerchantRepository
   def initialize
     @merchants = []
   end
+
+  def create(attributes)
+    # last_id = @mechants.sort_by {|merchant| merchant.id}
+    # new_id = last_id[-1].id
+    #new_merchant = Merchant.new({:id => new_id +1, attributes => attributes})
+    new_merchant = Merchant.new(attributes)
+    @merchants << new_merchant
+    new_merchant
+  end
+
+  def all
+    @merchants
+  end
+
+  def find_by_id(id)
+    merchants.find {|merchant| merchant.id == id}
+   end
+
+  def find_by_name(name)
+    merchants.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
+  end
+
+  def find_all_by_name(name)
+    merchants.select do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
+  end
+
+  def delete(id)
+    merchants.delete_if{|merchant| merchant.id. == id }
+  end
+
+  def update(id, attributes)
+    updated_merchant = find_by_id(id)
+    updated_merchant.name = attributes
+  end
 end
