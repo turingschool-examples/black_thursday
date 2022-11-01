@@ -1,4 +1,4 @@
-require './test/spec_helper'
+require './spec/spec_helper'
 require 'bigdecimal/util'
 
 RSpec.describe Item do 
