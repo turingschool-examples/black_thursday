@@ -1,27 +1,28 @@
 require './spec_helper'
 require 'bigdecimal/util'
+require './lib/item'
 
-RSpec.describe Item do 
+RSpec.describe Item do
   describe "#intialize" do
-    it 'exists' do 
+    it 'exists' do
       item = Item.new({:id => 1,
-                       :name => "item_name", 
+                       :name => "item_name",
                        :description => "item_description" ,
-                       :unit_price => BigDecimal(10.99,4), 
-                       :created_at => Time.now, 
+                       :unit_price => BigDecimal(10.99,4),
+                       :created_at => Time.now,
                        :updated_at => Time.now,
                        :merchant_id => 1})
 
     expect(item).to be_a(Item)
 
-    end 
+    end
 
-    it 'has attributes' do 
+    it 'has attributes' do
       item = Item.new({:id => 1,
-        :name => "item_name", 
+        :name => "item_name",
         :description => "item_description" ,
-        :unit_price => BigDecimal(10.99, 4), 
-        :created_at => "2022-10-31 15:57:01.540729000 -0600", 
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => "2022-10-31 15:57:01.540729000 -0600",
         :updated_at => "2022-10-31 15:57:01.540729000 -0600",
         :merchant_id => 1})
 
@@ -35,17 +36,17 @@ RSpec.describe Item do
     end
   end
 
-  describe '#unit_price_to_dollars' do 
+  describe '#unit_price_to_dollars' do
     it 'returns a formatted float' do
       item = Item.new({:id => 1,
-        :name => "item_name", 
+        :name => "item_name",
         :description => "item_description" ,
-        :unit_price => BigDecimal(10.99, 4), 
-        :created_at => "2022-10-31 15:57:01.540729000 -0600", 
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => "2022-10-31 15:57:01.540729000 -0600",
         :updated_at => "2022-10-31 15:57:01.540729000 -0600",
         :merchant_id => 1})
 
         expect(item.unit_price_to_dollars).to eq(10.99)
-      end 
+      end
     end
-end 
+end
