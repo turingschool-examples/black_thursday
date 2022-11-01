@@ -14,4 +14,10 @@ class ItemRepository
       item.name.downcase == name.downcase
     end
   end
+
+  def find_all_with_description(description)
+    all.select do |item|
+      item.description.include? description
+    end
+  end
 end

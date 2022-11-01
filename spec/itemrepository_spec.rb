@@ -58,10 +58,8 @@ RSpec.describe ItemRepository do
         :updated_at  => Time.now,
         :merchant_id => 2
       })
-      item_repo = ItemRepository.new([item1])
-      item_repo = ItemRepository.new([item2])
-      item_repo = ItemRepository.new([item3])
-
+      item_repo = ItemRepository.new([item1,item2,item3])
+      
       expect(item_repo.find_all_with_description("write")).to eq [item1,item3]
     end
   end
