@@ -45,13 +45,13 @@ describe Item do
         :id          => 1,
         :name        => "Pencil",
         :description => "You can use it to write things",
-        :unit_price  => BigDecimal(2, 4),
+        :unit_price  => BigDecimal(10.99, 4),
         :created_at  => created = Time.now,
         :updated_at  => updated = Time.now,
         :merchant_id => 2
       })
-      # require 'pry'; binding.pry
-      expect(i.unit_price_to_dollars).to eq(2.00)
+
+      expect(i.unit_price_to_dollars).to eq(10.99)
     end
   end
 end
