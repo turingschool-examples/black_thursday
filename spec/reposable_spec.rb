@@ -90,4 +90,35 @@ RSpec.describe Reposable do
       expect(item_repo.all).to eq []
     end
   end
+
+  # it 'has a method to create a new instance of a merchant with the supplied information' do
+  #   merchant_repository.create("Seattle Muffins")
+  #   expect(merchant_repository.all[0].id).to eq(1)
+  #   expect(merchant_repository.all[0].name).to eq("Seattle Muffins")
+
+  #   merchant_repository.create("Denver Biscuits")
+  #   expect(merchant_repository.all[1].id).to eq(2)
+  #   expect(merchant_repository.all[1].name).to eq("Denver Biscuits")
+  # end
+
+  # it 'has a method to update the NAME only of a merchant' do
+  #   merchant_repository.create("Denver Biscuits")
+  #   merchant_repository.create("Seattle Muffins")
+    
+  #   merchant_repository.update(2, "Seattle Super Muffins")
+   
+  #   expect(merchant_repository.find_by_name("Seattle Super Muffins")).to eq(merchant_repository.find_by_id(2))
+  #   expect(merchant_repository.find_all_by_name("super")).to eq([merchant_repository.merchants[1]])
+  # end
+
+  # it 'has a method to delete a merchant from the list using its ID' do
+  #   merchant_repository.create("Denver Biscuits")
+  #   merchant_repository.create("Seattle Muffins")
+    
+  #   merchant_repository.delete(2)
+    
+  #   expect(merchant_repository.all[0]).to eq(merchant_repository.find_by_id(2))
+  #   expect(merchant_repository.find_by_id(1)).to eq(nil)
+  #   expect(merchant_repository.find_by_name("Denver Biscuits")).to eq(nil)
+  # end
 end
