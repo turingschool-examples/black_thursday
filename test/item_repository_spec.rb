@@ -16,7 +16,7 @@ RSpec.describe ItemRepository do
     expect(ItemRepository.all[0]).to be_instance_of(Item)
   end
 
-  xit 'returns either nil or an instance of Item with a matching ID' do
+  it 'returns either nil or an instance of Item with a matching ID' do
     i = Item.new({
                    id: 1,
                    name: 'Pencil',
@@ -26,8 +26,7 @@ RSpec.describe ItemRepository do
                    updated_at: Time.now,
                    merchant_id: 2
                  })
-                 expect(ItemRepository.find_by_id(1)).to eq(i)
-                 expect(ItemRepository.find_by_id(45)).to eq(nil)
-
+    expect(ItemRepository.find_by_id(1)).to be_instance_of(Item)
+    expect(ItemRepository.find_by_id(45)).to eq(nil)
   end
 end

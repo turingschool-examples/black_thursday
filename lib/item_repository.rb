@@ -23,4 +23,11 @@ class ItemRepository
     # # stores every item instance
     ObjectSpace.each_object(Item).to_a
   end
+
+  def self.find_by_id(id)
+    self.all.find do |item|
+      item.id == id
+    # require 'pry'; binding.pry
+    end
+  end
 end
