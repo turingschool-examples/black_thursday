@@ -58,8 +58,8 @@ describe ItemRepository do
 
   describe '#find_all_by_price' do
     it 'searches for specific price and returns items' do
-      expect(@ir.find_all_by_price("1300.00")).to eq([@item2])
-      expect(@ir.find_all_by_price("1000.00")).to eq([])
+      expect(@ir.find_all_by_price(1300)).to eq([@item2])
+      expect(@ir.find_all_by_price(1000)).to eq([])
     end
   end
 
@@ -72,8 +72,8 @@ describe ItemRepository do
 
   describe '#find_all_by_merchant_id' do
     it 'searches for merchant id and returns items' do
-      expect(@ir.find_all_by_merchant_id("12334141")).to eq([@item1])
-      expect(@ir.find_all_by_merchant_id("12334615")).to eq([])
+      expect(@ir.find_all_by_merchant_id(12334141)).to eq([@item1])
+      expect(@ir.find_all_by_merchant_id(12334615)).to eq([])
     end
   end
 end

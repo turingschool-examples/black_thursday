@@ -15,12 +15,8 @@ class Item
     @stats[:description]
   end
 
-  def description
-    @stats[:description]
-  end
-
   def unit_price
-    @stats[:unit_price]
+    BigDecimal(@stats[:unit_price])
   end
 
   def created_at
@@ -36,6 +32,6 @@ class Item
   end
 
   def unit_price_to_dollars
-    '%.2f' % @stats[:unit_price]
+    unit_price.round(2, :half_up).to_f
   end
 end

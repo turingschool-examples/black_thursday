@@ -36,7 +36,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @items.select {|item| item.merchant_id == merchant_id}
+    @items.select {|item| item.merchant_id == merchant_id.to_s}
   end
 
   def clean_description(desc)
