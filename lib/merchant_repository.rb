@@ -35,4 +35,9 @@ class MerchantRepository
     end.id + 1
     new
   end
+
+  def update(id, attributes)
+     update_merchant = find_by_id(id)
+     update_merchant.name = attributes
+  end
 end
