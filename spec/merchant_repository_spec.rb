@@ -29,7 +29,9 @@ RSpec.describe MerchantRepository do
 
       expect(mr.find_by_id(5)).to eq(m)
       expect(mr.find_by_id(1)).to eq(nil)
-      
+      expect(mr.find_by_id(2)).to eq(m2)
+      expect(mr.find_by_id(7)).to eq(nil)
+
     end
   end
 
