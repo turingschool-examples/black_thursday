@@ -86,7 +86,6 @@ RSpec.describe ItemRepository do
                  })
     expect(ItemRepository.find_all_by_price_in_range((10..11))[0]).to be_instance_of(Item)
     expect(ItemRepository.find_all_by_price_in_range((0..3))).to eq([])
-    
   end
 
   it 'finds all by price in range' do
@@ -101,8 +100,28 @@ RSpec.describe ItemRepository do
                  })
     expect(ItemRepository.find_all_by_merchant_id(2)[0]).to be_instance_of(Item)
     expect(ItemRepository.find_all_by_merchant_id(87)).to eq([])
-    
   end
 
+  it 'creates new instance with attributes' do
+    i = Item.new({
+                   id: 1,
+                   name: 'Pencil',
+                   description: 'You can use it to write things',
+                   unit_price: BigDecimal(10.99, 4),
+                   created_at: Time.now,
+                   updated_at: Time.now,
+                   merchant_id: 2
+                 })
+    i2 = ItemRepository.create({
 
+                                 name: 'Pencil',
+                                 description: 'You can use it to write things',
+                                 unit_price: BigDecimal(10.99, 4),
+                                 created_at: Time.now,
+                                 updated_at: Time.now,
+                                 merchant_id: 2
+                               })
+    expect(i2).to be_instance_of(Item)
+    expect(i2.id).to eq(2)
+  end
 end
