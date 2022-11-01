@@ -10,4 +10,8 @@ class MerchantRepository
     data[:id] ||= (@merchants.last.id.to_i + 1).to_s 
     @merchants << Merchant.new(data)
   end
+
+  def all
+    @merchants
+  end
 end

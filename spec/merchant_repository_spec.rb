@@ -35,7 +35,7 @@ describe MerchantRepository do
     it 'returns an array of all known Merchant instances' do
       data.each { |line| mr.create(line) }
 
-      expect(mr.all).to be_a array
+      expect(mr.all).to be_a Array
       expect(mr.all).to eq(mr.merchants)
     end
   end
