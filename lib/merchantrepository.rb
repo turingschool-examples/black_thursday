@@ -1,9 +1,11 @@
-class Merchant_Repository
-  attr_reader   :merchants
+require './lib/merchant.rb'
 
-  def initialize
-    @merchant_repository
-    @merchants = []
+class Merchant_Repository
+  attr_accessor :merchants
+
+  def initialize(merchants = [])
+   
+    @merchants = merchants
   end
 
   def all
