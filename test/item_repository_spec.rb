@@ -229,4 +229,36 @@ RSpec.describe ItemRepository do
       expect(item_repository.find_all_by_merchant_id(5)).to eq([])
     end
   end
+
+  describe '#create' do
+    xit 'creates a new item instance with the attributes provided' do
+      item_1 = Item.new({:id => 1,
+                       :name => "Shoes",
+                       :description => "left shoe, right shoe",
+                       :unit_price => BigDecimal(78.54,4),
+                       :created_at => Time.now,
+                       :updated_at => Time.now,
+                       :merchant_id => 1})
+      item_2 = Item.new({:id => 2,
+                        :name => "Cool hat",
+                        :description => "black top hat",
+                        :unit_price => BigDecimal(22.24,4),
+                        :created_at => Time.now,
+                        :updated_at => Time.now,
+                        :merchant_id => 2})
+      item_3 = Item.new({:id => 3,
+                        :name => "More Expensive Cool hat",
+                        :description => "black top hat",
+                        :unit_price => BigDecimal(32.44,4),
+                        :created_at => Time.now,
+                        :updated_at => Time.now,
+                        :merchant_id => 2})
+
+      items = [item_1, item_2, item_3]
+      item_repository = ItemRepository.new(items)
+
+      expect(item_repository.create()).to eq
+      expect(item_repository.create()).to eq
+    end
+  end
 end
