@@ -54,5 +54,12 @@ class ItemRepository
     end
   end
 
+  def self.find_all_by_price_in_range(range)
+    self.all.find_all do |item|
+      # require 'pry'; binding.pry
+      range === item.unit_price
+    end
+  end
+
 
 end
