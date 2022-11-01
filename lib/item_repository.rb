@@ -22,4 +22,8 @@ class ItemRepository
   def find_all_by_price(price)
     @list.select {|item| item.unit_price_to_dollars == price}
   end
+
+  def find_all_by_price_range(range)
+    @list.select {|item| range.include?(item.unit_price_to_dollars)}
+  end
 end
