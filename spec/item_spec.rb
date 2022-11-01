@@ -16,8 +16,10 @@ describe Item do
     @item = Item.new(@item_list)
   end
 
-  it 'exists' do
-    expect(@item).to be_instance_of(Item)
+  describe 'initialization' do
+    it 'exists' do
+      expect(@item).to be_instance_of(Item)
+    end
   end
 
   describe '#getters' do

@@ -26,10 +26,18 @@ describe ItemRepository do
     @item1 = Item.new(@items1)
     @item2 = Item.new(@items2)
 
-    @ir = ItemRepository([@item1, @item2])
+    @ir = ItemRepository.new([@item1, @item2])
   end
 
-  it 'exists' do
-    expect(@ir).to be_instance_of(ItemRepository)
+  describe 'initialization' do
+    it 'exists' do
+      expect(@ir).to be_instance_of(ItemRepository)
+    end
+  end
+
+  describe 'all' do
+    it 'returns list of all added items' do
+      expect(@ir.all).to eq([@item1, @item2])
+    end
   end
 end
