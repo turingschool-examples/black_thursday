@@ -124,4 +124,24 @@ RSpec.describe ItemRepository do
     expect(i2).to be_instance_of(Item)
     expect(i2.id).to eq(2)
   end
+
+  it 'updates Item instance' do
+    i = Item.new({
+                   id: 1,
+                   name: 'Pencil',
+                   description: 'You can use it to write things',
+                   unit_price: BigDecimal(10.99, 4),
+                   created_at: Time.now,
+                   updated_at: Time.now,
+                   merchant_id: 2
+                 })
+    ItemRepository.update(1, {
+             name: 'Paint Brush',
+             description: 'You can use it to paint things',
+             unit_price: BigDecimal(12.99, 4)
+           })
+    expect(i.name).to eq('paint brush')
+    expect(i.description).to eq('you can use it to paint things')
+    expect(i.unit_price_to_dollars).to eq(12.99)
+  end
 end

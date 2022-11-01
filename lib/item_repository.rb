@@ -64,4 +64,15 @@ class ItemRepository
     end.id + 1
     Item.new(attributes)
   end
+
+  def self.update(id, attributes)
+    item = all.find do |item|
+      item.id == id
+    end
+    # require 'pry'; binding.pry
+    item.instance_variable_set(:@name, attributes[:name])
+    # require 'pry'; binding.pry
+    item.instance_variable_set(:@description, attributes[:description])
+    item.instance_variable_set(:@unit_price, attributes[:unit_price])
+  end
 end
