@@ -107,5 +107,5 @@ RSpec.describe MerchantRepository do
 
       expect(mr.all).to eq([m, m3])
     end
-
+  end
 end
