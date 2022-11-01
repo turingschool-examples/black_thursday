@@ -67,4 +67,13 @@ describe MerchantRepository do
       expect(mr.find_all_by_name("SHOP")).to eq([mr.merchants[0]])
     end
   end
+
+  describe '#update' do
+    it 'updates the Merchant instance that matches the id with the provided name' do
+      data.each { |line| mr.create(line) }
+      mr.update('12334115', 'UpdatedMarleys')
+
+      expect(mr.find_by_id('12334115').name).to eq('UpdatedMarleys')
+    end
+  end
 end
