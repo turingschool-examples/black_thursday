@@ -68,4 +68,20 @@ RSpec.describe MerchantRepository do
       expect(merchant_repository.find_all_by_name("AdDiDas")).to eq([merchant_2, merchant_3])
     end
   end
+
+  describe '#create' do
+    it 'creates a new merchant with attributes' do
+      merchant_1 = Merchant.new({:id => 1,
+                                 :name => "Nike"})
+      merchant_2 = Merchant.new({:id => 2,
+                                 :name => "Addidas"})
+      merchants = [merchant_1, merchant_2]
+      merchant_repository = MerchantRepository.new(merchants)
+      merchant_3 = merchant_repository.create({:name => "Puma"})
+
+      expect(merchant_3.name).to eq("Puma")
+      expect(merchant_3.id).to eq(3)
+      expect(merchant_repository.find_by_id(3)).to eq(merchant_3)
+    end
+  end
 end
