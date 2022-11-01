@@ -19,4 +19,18 @@ RSpec.describe MerchantRepository do
     end
   end
 
+  describe '#find_by_id' do
+    it 'returns either nil or an instance of Merchant with a matching ID' do
+      mr = MerchantRepository.new
+      m = Merchant.new({:id => 5, :name => "Turing School"})
+      m2 = Merchant.new({:id => 2, :name => "Other School"})
+      mr.add_merchant(m)
+      mr.add_merchant(m2)
+
+      expect(mr.find_by_id(5)).to eq(m)
+      expect(mr.find_by_id(1)).to eq(nil)
+      
+    end
+  end
+
 end
