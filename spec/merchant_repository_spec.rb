@@ -43,6 +43,21 @@ RSpec.describe MerchantRepository do
     mr.add_merchant(m)
     mr.add_merchant(m2)
 
-    expect(mr.find_by_name("Turing School")).to eq(m)
+    expect(mr.find_by_name("TuRing School")).to eq(m)
+    expect(mr.find_by_name("the other other school")).to eq(nil)
+
+  end
+
+  it 'can find all instances of a merchant' do
+    mr = MerchantRepository.new
+    m = Merchant.new({:id => 5, :name => "Turing School"})
+    m2 = Merchant.new({:id => 7, :name => "Turing School"})
+    m3 = Merchant.new({:id => 2, :name => "Other School"})
+    mr.add_merchant(m)
+    mr.add_merchant(m2)
+    mr.add_merchant(m3)
+
+
+    expect(mr.find_all_by_name("turing School")).to eq([m, m2])
   end
 end

@@ -13,4 +13,16 @@ class MerchantRepository
       merchant.id == id
     end
   end
+
+  def find_by_name(name)
+    @all.find do |merchant|
+      name.casecmp(merchant.name) == 0
+    end
+  end
+
+  def find_all_by_name(name)
+    @all.find_all do |merchant|
+      name.casecmp(merchant.name) == 0
+    end
+  end
 end
