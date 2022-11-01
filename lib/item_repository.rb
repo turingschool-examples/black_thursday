@@ -41,7 +41,7 @@ class ItemRepository
   end
 
   def clean_description(desc)
-    desc.downcase.gsub(/\s+/, "").gsub(/\n+/, "")
+    desc.downcase.gsub(/\s+/, '').gsub(/\n+/, '')
   end
 
   def update(id, attributes)
