@@ -29,7 +29,7 @@ class Item
     @description = description
   end
   
-  # def update_unit_price(price, )
-  #   @unit_price = (price, digits)
-  # end
+  def update_unit_price(number,digit)
+    @unit_price = BigDecimal(number,digit)
+  end
 end 
