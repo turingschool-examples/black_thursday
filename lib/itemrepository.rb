@@ -32,4 +32,10 @@ class ItemRepository
       item.unit_price >= range.begin && item.unit_price <= range.end
     end
   end
+
+  def find_all_by_merchant_id(id)
+    all.select do |item|
+      item.merchant_id == id
+    end
+  end
 end
