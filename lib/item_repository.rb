@@ -17,19 +17,19 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.find {|item| item.id == id.to_s}
+    @items.find { |item| item.id == id.to_s }
   end
 
   def find_by_name(name)
-    @items.find {|item| item.name.downcase == name.downcase}
+    @items.find { |item| item.name.downcase == name.downcase }
   end
 
   def find_by_description(description)
-    @items.select {|item| clean_description(item.description) == clean_description(description)}
+    @items.select { |item| clean_description(item.description) == clean_description(description) }
   end
 
   def find_all_by_price(price)
-    @items.select {|item| item.unit_price_to_dollars == price}
+    @items.select { |item| item.unit_price_to_dollars == price }
   end
 
   def find_all_by_price_range(range)
