@@ -9,8 +9,7 @@ RSpec.describe Item do
         :unit_price  => BigDecimal(10.99,4),
         :created_at  => Time.now,
         :updated_at  => Time.now,
-        :merchant_id => 2
-      }) }
+        :merchant_id => 2}) }
 
   describe '#initialize' do
     it 'exists' do
@@ -34,7 +33,6 @@ RSpec.describe Item do
     end
 
     it 'create at time' do 
-    # require 'pry'; binding.pry
       expect(i.created_at).to be_a(Time)
     end
 

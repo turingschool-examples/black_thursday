@@ -1,6 +1,13 @@
+class ItemRepository
+  attr_reader :all
+  def initialize
+    @all = []
+  end
+end
+
+
 # The repository of item instances
 
-# all - an array of all known items
 
 # find_by_id(id) - returns either nil or an instance of Item
 
