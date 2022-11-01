@@ -12,6 +12,10 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    @list.find {|item| item.name == name}
+    @list.find {|item| item.name.downcase == name.downcase}
+  end
+
+  def find_by_description(description)
+    @list.select {|item| item.description.downcase == description.downcase}
   end
 end
