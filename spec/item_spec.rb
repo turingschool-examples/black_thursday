@@ -2,9 +2,9 @@ require './lib/item'
 require 'bigdecimal'
 
 RSpec.describe Item do
-  before :each do
+  before(:each) do
     @time = Time.now
-    @item = Item.new({
+    @i = Item.new({
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
