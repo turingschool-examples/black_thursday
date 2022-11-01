@@ -15,6 +15,12 @@ class Item
   end
 
   def unit_price_to_dollars
-
+    decimal = ["."]
+    price = unit_price.split
+    price = price[1].split('')
+    decimal << price.pop
+    decimal << price.pop
+    price << decimal
+    return price.flatten.sum("").to_f
   end
 end
