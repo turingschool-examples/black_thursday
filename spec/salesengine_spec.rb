@@ -17,7 +17,7 @@ RSpec.describe SalesEngine do
   end
 
   it 'has a method to access the merchant repository with all the merchants loaded' do
-    expect(se.merchants).to be_a(Merchant_Repository)
+    expect(se.merchants).to be_a(MerchantRepository)
     expect(se.merchants.find_by_name("Bowlsbychris")).to be_a(Merchant)
   end
 

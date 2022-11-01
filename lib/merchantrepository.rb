@@ -1,62 +1,32 @@
+require_relative 'reposable'
 require './lib/merchant.rb'
 
-class Merchant_Repository
-  attr_accessor :merchants
+class MerchantRepository
+  include Reposable
 
-  def initialize(merchants = [])
-   
-    @merchants = merchants
-  end
+  attr_accessor :all
 
-  def all
-    merchants
-  end
-
-  def find_by_id(merchant_id)
-    merchants.find do |merchant|
-      merchant.id == merchant_id
-    end
+  def initialize(all = [])
+    @all = all
   end
 
   def find_by_name(merchant_name)
-    merchants.find do |merchant|
+    all.find do |merchant|
       merchant.name.upcase == merchant_name.upcase
     end
   end
 
   def find_all_by_name(merchant_name)
-    merchants.find_all do |merchant|
+    all.find_all do |merchant|
       merchant.name.upcase.include?(merchant_name.upcase)
     end
   end
 
-  def create(merchant_name)
-    merchants << Merchant.new({:name => merchant_name, :id => next_id})
-  end
-
   def next_id
-    if merchants.empty?
+    if all.empty?
       1
     else
-      merchants.last.id += 1
+      all.last.id += 1
     end
-  end
-
-    # def update(id, new_name)
-  #   merchant = find_by_id(merchant_id)
-
-
-  #   # merchants.select do |merchant|
-  #   #    if merchant.id == id then merchant.name = new_name
-  #   #    end
-  #   # end
-  # end
-
-  def delete(id)
-    merchant_to_delete = find_by_id(id)
-    @merchants.delete(merchant_to_delete)
-    
-    # merchants.find do |merchant|
-    #   merchants.delete(merchant) if merchant.id == id
   end
 end
