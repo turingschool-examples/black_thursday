@@ -35,8 +35,8 @@ RSpec.describe MerchantRepository do
   it 'finds Merchants by id' do
     merch_repo = MerchantRepository.new
     merchant1 = merch_repo.create({:id => 5, :name => "Turing School"})
-    merch_repo.create({:id => 6, :name => "Another School"})
-    merch_repo.create({:id => 7, :name => "The Other School"})
+    merchant2 = merch_repo.create({:id => 6, :name => "Another School"})
+    merchant3 = merch_repo.create({:id => 7, :name => "The Other School"})
   
     expect(merch_repo.find_by_id(5)).to eq(merchant1)
     expect(merch_repo.find_by_id(8)).to be(NIL)
@@ -64,15 +64,15 @@ RSpec.describe MerchantRepository do
 
   it 'deletes Merchants by id' do
     merch_repo = MerchantRepository.new
-    merch_repo.create({:id => 5, :name => "Turing School"})
-    merch_repo.create({:id => 6, :name => "Another School"})
-    merch_repo.create({:id => 7, :name => "The Other School"})
+    merchant1 = merch_repo.create({:id => 5, :name => "Turing School"})
+    merchant2 = merch_repo.create({:id => 6, :name => "Another School"})
+    merchant3 = merch_repo.create({:id => 7, :name => "The Other School"})
 
-    expect(merch_repo.merchants.count).to eq(3)
+    expect(merch_repo.all).to eq([merchant1, merchant2, merchant3])
 
     merch_repo.delete(6)
 
-    expect(merch_repo.merchants.count).to eq(2)
+    expect(merch_repo.all).to eq([merchant1, merchant3])
   end
 
   it 'can update merchant name' do
