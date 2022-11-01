@@ -7,4 +7,8 @@ class MerchantRepository
   def create(attributes)
     @merchants << Merchant.new(attributes)
   end
+
+  def all
+    @merchants
+  end
 end
