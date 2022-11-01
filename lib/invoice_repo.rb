@@ -36,6 +36,7 @@ class InvoiceRepo
   end
 
   def update(id, status)
+    find_by_id(id).update
     find_by_id(id).set_status(status)
   end
 

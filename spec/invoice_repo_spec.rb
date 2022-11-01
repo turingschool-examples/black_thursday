@@ -66,6 +66,7 @@ describe InvoiceRepo do
   describe '#update' do
     it 'updates the Invoice instance with the corresponding id with the provided attributes' do
       expect(ir.update("1", "shipped")).to eq ir.invoices[0].status
+      expect(ir.invoices[0].updated_at).to be_within(0.5).of Time.now
     end
   end
 
