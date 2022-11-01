@@ -36,4 +36,32 @@ describe MerchantRepository do
       expect(merchant_repository.find_by_id(7)).to eq(merchant_2)
     end
   end
+
+  describe '#find_by_name' do
+    it 'can find merchant by name' do 
+      merchant_1 = Merchant.new({:id => 6, :name => "Walmart"})
+      merchant_2 = Merchant.new({:id => 7, :name => "Target"})
+      merchant_repository.add_merchant_to_repo(merchant_1)
+      merchant_repository.add_merchant_to_repo(merchant_2)
+  
+      expect(merchant_repository.find_by_name("Safeway")).to eq(nil)
+      expect(merchant_repository.find_by_name("Walmart")).to eq(merchant_1)
+      expect(merchant_repository.find_by_name("WaLmArT")).to eq(merchant_1)
+    end
+  end
+  
+  describe '#find_all_by_name' do 
+    it 'can find all merchants that share part of their name' do 
+      merchant_1 = Merchant.new({:id => 6, :name => "Amazon Fresh"})
+      merchant_2 = Merchant.new({:id => 7, :name => "Amazon Prime"})
+      merchant_3 = Merchant.new({:id => 7, :name => "Walmart"})
+      merchant_repository.add_merchant_to_repo(merchant_1)
+      merchant_repository.add_merchant_to_repo(merchant_2)
+      merchant_repository.add_merchant_to_repo(merchant_3)
+  
+      expect(merchant_repository.find_all_by_name("Amazon")).to eq([merchant_1, merchant_2])
+      expect(merchant_repository.find_all_by_name("AmAzOn")).to eq([merchant_1, merchant_2])
+      expect(merchant_repository.find_all_by_name("Safeway")).to eq([])
+    end
+  end
 end
