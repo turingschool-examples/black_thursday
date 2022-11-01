@@ -16,7 +16,7 @@ describe Item do
     @item = Item.new(@item_list)
   end
 
-  describe 'initialization' do
+  describe '#initialization' do
     it 'exists' do
       expect(@item).to be_instance_of(Item)
     end
