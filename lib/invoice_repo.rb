@@ -4,7 +4,7 @@ class InvoiceRepo
 
   def initialize(data = {})
     @invoices = []
-    data.each {|invoice| create(invoice)}
+    data.each { |invoice| create(invoice) }
   end
 
   def create(invoice)
@@ -18,19 +18,19 @@ class InvoiceRepo
   end
 
   def find_by_id(id)
-    @invoices.find{|invoice| invoice.id == id.to_s}
+    @invoices.find { |invoice| invoice.id == id.to_s }
   end
 
   def find_by_customer_id(id)
-    @invoices.select{|invoice| invoice.customer_id == id.to_s}
+    @invoices.select { |invoice| invoice.customer_id == id.to_s }
   end
 
   def find_by_merchant_id(id)
-    @invoices.select{|invoice| invoice.merchant_id == id.to_s}
+    @invoices.select { |invoice| invoice.merchant_id == id.to_s }
   end
 
   def find_all_by_status(status)
-    @invoices.select{|invoice| invoice.status == status}
+    @invoices.select { |invoice| invoice.status == status }
   end
 
   def update(id, status)
@@ -41,8 +41,4 @@ class InvoiceRepo
   def delete(id)
     @invoices.delete(find_by_id(id))
   end
-
 end
-
-
-

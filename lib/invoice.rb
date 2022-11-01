@@ -16,12 +16,11 @@ class Invoice
     @updated_at  = data[:updated_at]
   end
 
-  def set_status(status)
+  def change_status(status)
     @status = status
   end
 
   def update
     @updated_at = Time.now
   end
-
 end

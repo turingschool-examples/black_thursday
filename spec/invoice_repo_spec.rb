@@ -46,26 +46,27 @@ describe InvoiceRepo do
   end
 
   describe '#find_all_by_status' do
-    it 'returns either [] or one or more instances of Invoice with matching status' do
+    it 'returns [] or one or more instances of Invoice with matching status' do
       expect(ir.find_all_by_status('pending')).to eq [invoice1, invoice4, invoice5]
       expect(ir.find_all_by_status('shipped')).to eq [invoice2, invoice3]
     end
   end
 
   describe '#create' do
-    it 'creates a new invoice instance with the provided attributes, new id is current highest + 1' do
+    it 'creates an Invoice with the provided attributes, new id is current highest + 1' do
       expect(ir.create({
                         :customer_id => 7,
                         :merchant_id => 8,
-                        :status      => "pending",
+                        :status      => 'pending',
                         :created_at  => Time.now,
-                        :updated_at  => Time.now,}).last.id).to eq "6"
+                        :updated_at  => Time.now
+                        }).last.id).to eq '6'
     end
   end
 
   describe '#update' do
-    it 'updates the Invoice instance with the corresponding id with the provided attributes' do
-      expect(ir.update("1", "shipped")).to eq ir.invoices[0].status
+    it 'updates Invoice with corresponding id with the provided attributes' do
+      expect(ir.update('1', 'shipped').to eq ir.invoices[0].status
       expect(ir.invoices[0].updated_at).to be_within(0.5).of Time.now
     end
   end
