@@ -1,7 +1,6 @@
-# This is the MerchantRepository Class
-# frozen_string_literal: true.
-
 class MerchantRepository
+  # This is the MerchantRepository Class
+  # frozen_string_literal: true.
   attr_reader :merchants
 
   def initialize
