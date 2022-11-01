@@ -229,5 +229,4 @@ RSpec.describe ItemRepository do
       expect(item_repository.find_all_by_merchant_id(5)).to eq([])
     end
   end
-
 end
