@@ -7,7 +7,6 @@ describe MerchantRepository do
   let(:data) { CSV.open './data/merchants_test.csv', headers: true, header_converters: :symbol }
 
   describe '#initialize' do
-
     it 'is and instance of MerchantRepository' do
       expect(mr).to be_a MerchantRepository
     end
@@ -29,6 +28,15 @@ describe MerchantRepository do
       expect(mr.merchants[1].name).to eq("Candisart")
       expect(mr.merchants[2].name).to eq("MiniatureBikez")
       expect(mr.merchants[3].name).to eq("LolaMarleys")
+    end
+  end
+
+  describe '#all' do
+    it 'returns an array of all known Merchant instances' do
+      data.each { |line| mr.create(line) }
+
+      expect(mr.all).to be_a array
+      expect(mr.all).to eq(mr.merchants)
     end
   end
 end
