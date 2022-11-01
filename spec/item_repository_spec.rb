@@ -44,13 +44,13 @@ let!(:item_3) {Item.new(
     expect(item_repository).to be_a(ItemRepository)
   end
 
-  xit 'returns all item instances' do
+  it 'returns all item instances' do
     expect(item_repository.all).to eq([item_1, item_2, item_3])
-    # same as merch, use module by now
   end
 
-  xit 'can find item by id' do
+  it 'can find item by id' do
     expect(item_repository.find_by_id(2)).to eq(item_2)
+    expect(item_repository.find_by_id(5)).to eq(nil)
   end
 
   xit 'can find item by name' do
