@@ -48,11 +48,6 @@ class MerchantRepository
   end
 
   def delete(id)
-  @merchants.each do |merchant|
-    old_id = merchant.id
-    if merchant.id == id
-      @merchants.delete(old_id)
-    end
+    @merchants.delete(find_by_id(id))
   end
-end
 end
