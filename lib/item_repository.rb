@@ -61,5 +61,11 @@ class ItemRepository
     end
   end
 
+  def self.find_all_by_merchant_id(merchant_id)
+    self.all.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
 
 end
