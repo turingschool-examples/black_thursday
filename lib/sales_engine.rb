@@ -3,15 +3,23 @@ require 'csv'
 class SalesEngine
   attr_reader
 
-  def initialize(items, merchants)
-    @items = items
-    @merchants = merchants
+  def initialize(data)
+    @items = data[:items]
+    @merchants = data[:merchants]
+    @invoices = data[:invoices]
   end
 
   def self.from_csv(csv_hash)
-    items_input = CSV.open(csv_hash[:items], headers: true, header_converters: :symbol)
-    merchants_input = CSV.open(csv_hash[:merchants], headers: true, header_converters: :symbol)
-    se = SalesEngine.new(items_input, merchants_input)
+    if csv_hash.keys.include?(:items)
+      items_input = CSV.open(csv_hash[:items], headers: true, header_converters: :symbol)
+    end
+    if csv_hash.keys.include?(:merchants)
+      merchants_input = CSV.open(csv_hash[:merchants], headers: true, header_converters: :symbol)
+    end
+    if csv_hash.keys.include?(:invoices)
+      invoices_input = CSV.open(csv_hash[:invoices], headers: true, header_converters: :symbol)
+    end
+    se = SalesEngine.new({items: items_input, merchants: merchants_input, invoices: invoices_input})
   end
 
   def merchants
