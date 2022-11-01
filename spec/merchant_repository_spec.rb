@@ -89,9 +89,23 @@ RSpec.describe MerchantRepository do
       mr.add_merchant(m)
       mr.add_merchant(m2)
       mr.add_merchant(m3)
-      mr.update(7, :name => "Cool School")
+      mr.update(7, "Cool School")
 
       expect(m2.name).to eq("Cool School")
+    end
+  end
+  describe '#delete' do
+    it 'deleted the merchant object with the corresponding id' do
+      mr = MerchantRepository.new
+      m = Merchant.new({:id => 5, :name => "Turing School"})
+      m2 = Merchant.new({:id => 7, :name => "Turing School"})
+      m3 = Merchant.new({:id => 2, :name => "Other School"})
+      mr.add_merchant(m)
+      mr.add_merchant(m2)
+      mr.add_merchant(m3)
+      mr.delete(7)
+
+      expect(mr.all).to eq([m, m3])
     end
 
 end
