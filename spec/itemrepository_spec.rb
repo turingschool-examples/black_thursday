@@ -30,6 +30,15 @@ RSpec.describe ItemRepository do
     :updated_at  => Time.now,
     :merchant_id => 2
   })}
+  let(:item4) {Item.new({
+    :id          => 4,
+    :name        => "Fountain Pen",
+    :description => "A nicer pen",
+    :unit_price  => BigDecimal(22.99,4),
+    :created_at  => Time.now,
+    :updated_at  => Time.now,
+    :merchant_id => 2
+  })}
 
   it 'exists' do
     expect(item_repo).to be_a ItemRepository
@@ -57,9 +66,19 @@ RSpec.describe ItemRepository do
 
   describe '#find_all_by_price' do
     it 'returns an array of items with that price' do
+      expect(item_repo.find_all_by_price(BigDecimal(10.99,4))).to eq []
+
       item_repo = ItemRepository.new([item1,item2,item3])
 
       expect(item_repo.find_all_by_price(BigDecimal(10.99,4))).to eq [item1,item2]
+    end
+  end
+
+  describe '#find_all_by_price_in_range' do
+    it 'returns an array of all items in price range' do
+      expect(item_repo.find_all_by_price(0..10)).to eq []
+      expect(item_repo.find_all_by_price(10..20)).to eq [item1,item2,item3]
+      expect(item_repo.find_all_by_price(20..30)).to eq [item3,item4]
     end
   end
 end
