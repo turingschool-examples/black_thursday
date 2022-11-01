@@ -21,5 +21,6 @@ class Item
 
   def unit_price_to_dollars
     @unit_price.round(2).to_f
+    #is this what we are being asked to do?
   end
 end
