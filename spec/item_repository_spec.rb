@@ -57,7 +57,7 @@ describe ItemRepository do
     end
   end
 
-  describe "#clean_description" do
+  describe '#clean_description' do
     it 'returns a string after removing spaces and newline characters' do
       unclean = "Free standing wooden\n letters \n15cm Any colours\n"
       cleaned = "freestandingwoodenletters15cmanycolours"
@@ -67,7 +67,8 @@ describe ItemRepository do
 
   describe '#find_by_description' do
     it 'searches for specific description and returns items found or empty array' do
-      expect(@ir.find_by_description("Free standing wooden\n letters \n15cm Any colours\n")).to eq([@item4])
+      description = "Free standing wooden\n letters \n15cm Any colours\n"
+      expect(@ir.find_by_description(description)).to eq([@item4])
       expect(@ir.find_by_description("Free standing wooden\n letters")).to eq([])
     end
   end
@@ -95,7 +96,7 @@ describe ItemRepository do
 
   describe '#update' do
     it 'updates the values of the item at id with attributes passed in' do
-      @ir.update(263395237, {name: 'Turkey Leg'})
+      @ir.update(263395237, name: 'Turkey Leg')
       expect(@item1.name).to eq('Turkey Leg')
       expect(@item1.unit_price_to_dollars).to eq(1200)
     end
