@@ -38,6 +38,22 @@ describe Item do
       expect(i.merchant_id).to eq(2)
     end
   end
+
+  describe '#unit_price_to_dollars' do
+    it 'returns the price of the item in dollars formatted as a float' do
+      i = Item.new({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(2, 4),
+        :created_at  => created = Time.now,
+        :updated_at  => updated = Time.now,
+        :merchant_id => 2
+      })
+      # require 'pry'; binding.pry
+      expect(i.unit_price_to_dollars).to eq(2.00)
+    end
+  end
 end
 
 
