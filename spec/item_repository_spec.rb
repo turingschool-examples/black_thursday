@@ -255,7 +255,17 @@ describe ItemRepository do
         :updated_at  => Time.now,
         :merchant_id => 2
       })
+      i2 = Item.new({
+        :id          => 2,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(15.25,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      })
       ir.items << i1
+      ir.items << i2
 
       new_item = ir.create({
         :id          => 7,
@@ -268,7 +278,7 @@ describe ItemRepository do
       })
 
       expect(new_item).to be_a(Item)
-      expect(new_item.id).to eq(2)
+      expect(new_item.id).to eq(3)
     end
   end
 end

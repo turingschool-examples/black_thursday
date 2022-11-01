@@ -46,4 +46,12 @@ class ItemRepository
       item.merchant_id == merchant_id
     end
   end
+
+  def create(attributes)
+    item = Item.new(attributes)
+    item.id = @items.max_by do |item|
+      item.id
+    end.id + 1
+    item
+  end
 end

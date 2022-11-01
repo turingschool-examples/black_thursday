@@ -6,6 +6,7 @@ class Item
               :created_at,
               :updated_at,
               :merchant_id
+  attr_writer :id
 
   def initialize(attributes)
     @id = attributes[:id]
