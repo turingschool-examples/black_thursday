@@ -137,9 +137,7 @@ RSpec.describe do
       :merchant_id => 2
     })
     
-    
     expect(item.unit_price_to_dollars).to eq(10.99)
     expect(item2.unit_price_to_dollars).to eq(10.98)
-    
   end
 end
