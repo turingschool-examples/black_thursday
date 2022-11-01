@@ -16,8 +16,10 @@ RSpec.describe MerchantRepository do
 
   it 'creates new Merchants' do 
     merch_repo = MerchantRepository.new
-    merchant1 = merch_repo.create({:id => 5, :name => "Turing School"})
-
+    merchant1 = merch_repo.create({:id => 10, :name => "Turing School"})
+    merchant2 = merch_repo.create({:id => 8, :name => "Another School"})
+    merchant3 = merch_repo.create({:id => 9, :name => "The Other School"})
+    
     expect(merchant1).to be_a(Merchant)
   end
 
