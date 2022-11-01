@@ -25,7 +25,7 @@ class Merchant_Repository
   end
 
   def find_all_by_name(merchant_name)
-    merchants.select do |merchant|
+    merchants.find_all do |merchant|
       merchant.name.upcase.include?(merchant_name.upcase)
     end
   end
@@ -39,6 +39,19 @@ class Merchant_Repository
       1
     else
       merchants.last.id += 1
+    end
+  end
+
+  def update(id, new_name)
+    merchants.find do |merchant|
+       if merchant.id == id then merchant.name = new_name
+       end
+    end
+  end
+
+  def delete(id)
+    merchants.find do |merchant|
+      merchants.delete(merchant) if merchant.id == id
     end
   end
 end
