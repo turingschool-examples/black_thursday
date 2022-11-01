@@ -48,4 +48,13 @@ describe MerchantRepository do
       expect(mr.find_by_id('2')).to be nil
     end
   end
+
+  describe '#find_by_name' do
+    it 'returns nil or a Merchant instance that matches by name regardless of case' do
+      data.each { |line| mr.create(line) }
+      
+      expect(mr.find_by_name("shopin1901")).to eq(mr.merchants[0])
+      expect(mr.find_by_name("nadda")).to be nil
+    end
+  end
 end
