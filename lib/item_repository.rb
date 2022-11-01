@@ -7,6 +7,7 @@ class ItemRepository
   end
 
   def create(stat)
+    stat[:id] ||= (@items.last.id.to_i + 1).to_s
     item = Item.new(stat)
     @items.push(item)
   end

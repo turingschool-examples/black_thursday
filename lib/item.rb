@@ -16,7 +16,7 @@ class Item
   end
 
   def unit_price
-    BigDecimal(@stats[:unit_price])
+    BigDecimal(@stats[:unit_price], 4)
   end
 
   def created_at
