@@ -27,7 +27,5 @@ class ItemRepository
 
   def find_all_by_price(price)
     @items.find_all {|item| item.unit_price_to_dollars == price}
-
-
   end
 end
