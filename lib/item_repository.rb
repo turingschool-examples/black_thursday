@@ -31,5 +31,12 @@ class ItemRepository
     end
   end
 
-  
+  def self.find_by_name(name)
+    self.all.find do |item|
+      item.name == name
+    # require 'pry'; binding.pry
+    end
+  end
+
+
 end
