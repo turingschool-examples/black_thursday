@@ -4,4 +4,7 @@ class MerchantRepository
     @all = []
   end
 
+  def add_merchant(merchant_object)
+    @all << merchant_object
+  end
 end
