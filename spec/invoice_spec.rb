@@ -23,4 +23,23 @@ describe Invoice do
       expect(invoice.updated_at).to eq time2
     end
   end
+
+  describe '#set_status'do
+    it 'can change the status'do
+      time1 = Time.now
+      time2 = Time.now
+      data = {
+              :id          => 6,
+              :customer_id => 7,
+              :merchant_id => 8,
+              :status      => "pending",
+              :created_at  => time1,
+              :updated_at  => time2,
+              }
+      invoice = Invoice.new(data)
+      invoice.set_status("shipped")
+      
+      expect(invoice.status).to eq "shipped"
+    end
+  end
 end

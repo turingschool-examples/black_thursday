@@ -15,4 +15,9 @@ class Invoice
     @created_at  = data[:created_at]
     @updated_at  = data[:updated_at]
   end
+
+  def set_status(status)
+    @status = status
+  end
+
 end
