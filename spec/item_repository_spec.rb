@@ -1,4 +1,5 @@
 require "./lib/item_repository"
+require "pry"
 
 RSpec.describe ItemRepository do
   before :each do
@@ -14,18 +15,18 @@ RSpec.describe ItemRepository do
   end
 
   it 'finds by id, returns nil otherwise' do
-    expect(@item_repository.find_by_id(263395237)).to eq(@item_repository.all.first)
-    expect(@item_repository.find_by_id(263567474)).to eq(@item_repository.all.last)
-    expect(@item_repository.find_by_id(263395617)).to eq(@item_repository.all[1])
+    expect(@item_repository.find_by_id(263395237)).to eq(@item_repository.items.first)
+    expect(@item_repository.find_by_id(263567474)).to eq(@item_repository.items.last)
+    expect(@item_repository.find_by_id(263395617)).to eq(@item_repository.items[1])
     expect(@item_repository.find_by_id(999999999)).to eq(nil)
     # expect(@item_repository.find_by_id(263395237)).to be_a(Item)
   end
 
   it 'finds by name (case insensitive), returns nil otherwise' do
-    expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to eq(@item_repository.all.first)
-    expect(@item_repository.find_by_name("510+ reAlPUSh IcoN seT")).to eq(@item_repository.all.first)
-    expect(@item_repository.find_by_name("Glitter scrabble frames")).to eq(@item_repository.all[1])
-    expect(@item_repository.find_by_name("GLITter SCRAbbLe fraMES")).to eq(@item_repository.all[1])
+    expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to eq(@item_repository.items.first)
+    expect(@item_repository.find_by_name("510+ reAlPUSh IcoN seT")).to eq(@item_repository.items.first)
+    expect(@item_repository.find_by_name("Glitter scrabble frames")).to eq(@item_repository.items[1])
+    expect(@item_repository.find_by_name("GLITter SCRAbbLe fraMES")).to eq(@item_repository.items[1])
     expect(@item_repository.find_by_name("XXXXXXXXXX")).to eq(nil)
     # expect(@item_repository.find_by_name("510+ RealPush Icon Set")).to be_a(Item)
   end
@@ -33,11 +34,13 @@ RSpec.describe ItemRepository do
   it 'finds all instances given a description (case insensitive), returns empty array otherwise' do
     item1 = @item_repository.find_all_with_description("Disney")
     item2 = @item_repository.find_all_with_description("diSNeY")
+    item3 = @item_repository.find_all_with_description("XXXXXXXXX")
 
     expect(item1.count).to eq(5)
     expect(item2.count).to eq(5)
     expect(item1.first.id).to eq(263395721)
     expect(item2.first.id).to eq(263395721)
+    expect(item3).to eq([])
     expect(item1).to be_a(Array)
     expect(item2).to be_a(Array)
   end
