@@ -242,4 +242,33 @@ describe ItemRepository do
       expect(ir.find_all_by_merchant_id(3)).to eq []
     end
   end
+
+  describe '#create' do
+    it 'can create a new item' do
+      ir = ItemRepository.new
+      i1 = Item.new({
+        :id          => 1,
+        :name        => "Pen",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(15.25,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      })
+      ir.items << i1
+
+      new_item = ir.create({
+        :id          => 7,
+        :name        => "Pen",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(15.25,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      })
+
+      expect(new_item).to be_a(Item)
+      expect(new_item.id).to eq(2)
+    end
+  end
 end
