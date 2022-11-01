@@ -32,11 +32,11 @@ RSpec.describe Item do
       expect(i.unit_price).to eq(10.99)
     end
 
-    it 'create at time' do 
+    it 'logs a created_at time' do 
       expect(i.created_at).to be_a(Time)
     end
 
-    it 'has an updated at time' do 
+    it 'starts with an updated_at time' do 
       expect(i.updated_at).to be_a(Time)
     end
 
@@ -48,6 +48,7 @@ RSpec.describe Item do
   describe '#unit_price_to_dollars' do
     it 'returns price of item in dollars as float' do
       expect(i.unit_price_to_dollars).to eq(10.99)
+      expect(i.unit_price_to_dollars.class).to eq(Float)
     end
   end  
 end
