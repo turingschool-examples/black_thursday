@@ -16,28 +16,36 @@ RSpec.describe MerchantRepository do
   end
   
   it 'can find merchant by an id' do
-    expect(mr.find_by_id(5)).to eq(m_1)
+    expect(mr.find_by_id(7)).to eq(m_3)
   end
   
   it 'returns nil if id is not within' do
     expect(mr.find_by_id(20)).to eq(nil)
+    expect(mr.find_by_id("egg")).to eq(nil)
   end
 
   it 'can find merchant by name *CASE INSENSITIVE*' do
     expect(mr.find_by_name("School of Rock")).to eq(m_3)
+    expect(mr.find_by_name("SCHoOl oF RoCk")).to eq(m_3)
   end
 
   it 'returns nil if name is not within' do
     expect(mr.find_by_name("School of Music")).to eq(nil)
   end
 
-  xit 'can find ALL by supplied name fragment' do
+  it 'can find ALL by supplied name fragment' do
     expect(mr.find_all_by_name('of')).to eq([m_2, m_3])
+    expect(mr.find_all_by_name('Of')).to eq([m_2, m_3])
+
     expect(mr.find_all_by_name('College')).to eq([])
   end
 
-  xit 'can create a new merchant object with attributes' do
-    expect(mr.create(m_4)).to eq(m_4)
+  it 'can create a new merchant object with attributes' do
+    expect(mr.all.last.name).to eq("School of Rock")
+    
+    mr.create("Another Merchant")
+    # require 'pry'; binding.pry
+    expect(mr.all.last.name).to eq("Another Merchant")
   end
 
   xit 'gives the new merchant object the highest id + 1' do
