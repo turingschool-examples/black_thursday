@@ -193,8 +193,8 @@ RSpec.describe ItemRepository do
       items = [item_1, item_2, item_3]
       item_repository = ItemRepository.new(items)
 
-      expect(item_repository.find_all_by_price_in_range(15.0..35.0)).to eq([item_2, item_3])
-      expect(item_repository.find_all_by_price_in_range(5.0..15.0)).to eq([])
+      expect(item_repository.find_all_by_price_in_range(15..35)).to eq([item_2, item_3])
+      expect(item_repository.find_all_by_price_in_range(5..15)).to eq([])
     end
   end
 

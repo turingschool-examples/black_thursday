@@ -18,14 +18,17 @@ class ItemRepository
 
   def find_all_with_description(description)
     items_with_description = @items.find_all {|item| item.description.upcase == description.upcase}
-      if items_with_description == nil
-        []
-      else
-        items_with_description
-      end
   end
 
   def find_all_by_price(price)
     @items.find_all {|item| item.unit_price_to_dollars == price}
+  end
+
+  def find_all_by_price_in_range(range)
+    price = range.to_a
+    min = price.min
+    max = price.max
+    @items.find_all {|item|
+      item.unit_price_to_dollars >= min && item.unit_price_to_dollars <= max}
   end
 end
