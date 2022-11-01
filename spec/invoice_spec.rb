@@ -6,12 +6,12 @@ describe Invoice do
       time1 = Time.now
       time2 = Time.now
       data = {
-              :id          => 6,
-              :customer_id => 7,
-              :merchant_id => 8,
-              :status      => "pending",
-              :created_at  => time1,
-              :updated_at  => time2,
+                id:          => 6,
+                customer_id: => 7,
+                merchant_id: => 8,
+                status:     => 'pending',
+                created_at:  => time1,
+                updated_at:  => time2
               }
       invoice = Invoice.new(data)
 
@@ -29,12 +29,12 @@ describe Invoice do
       time1 = Time.now
       time2 = Time.now
       data = {
-                :id          => 6,
-                :customer_id => 7,
-                :merchant_id => 8,
-                :status      => 'pending',
-                :created_at  => time1,
-                :updated_at  => time2,
+                id:          => 6,
+                customer_id: => 7,
+                merchant_id: => 8,
+                status:     => 'pending',
+                created_at:  => time1,
+                updated_at:  => time2
              }
       invoice = Invoice.new(data)
       invoice.set_status('shipped')
@@ -48,12 +48,12 @@ describe Invoice do
       time1 = Time.now
       time2 = Time.now
       data = {
-                :id          => 6,
-                :customer_id => 7,
-                :merchant_id => 8,
-                :status      => 'pending',
-                :created_at  => time1,
-                :updated_at  => time2
+                id:          => 6,
+                customer_id: => 7,
+                merchant_id: => 8,
+                status:     => 'pending',
+                created_at:  => time1,
+                updated_at:  => time2
              }
       invoice = Invoice.new(data)
 

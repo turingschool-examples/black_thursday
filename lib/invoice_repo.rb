@@ -1,5 +1,5 @@
+# InvoiceRepo holds, creates, updates, destroys, and finds Invoices.
 class InvoiceRepo
-  
   attr_reader :invoices
 
   def initialize(data = {})
