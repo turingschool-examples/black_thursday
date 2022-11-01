@@ -22,7 +22,7 @@ RSpec.describe Item do
     expect(item.id).to eq(1)
     expect(item.name).to eq("Pencil")
     expect(item.description).to eq("You can use it to write things")
-    expect(item.unit_price).to eq(BigDecimal(10.99,4))
+    expect(item.unit_price).to be_a(BigDecimal)
     expect(item.created_at).to eq(time_now)
     expect(item.updated_at).to eq(time_now)
     expect(item.merchant_id).to eq(2)
