@@ -76,4 +76,14 @@ describe MerchantRepository do
       expect(mr.find_by_id('12334115').name).to eq('UpdatedMarleys')
     end
   end
+
+  describe '#delete' do
+    it 'removes a Merchant instance with the corresponding id' do
+      data.each { |line| mr.create(line) }
+      mr.delete('12334113')
+
+      expect(mr.merchants.count).to eq(3)
+      expect(mr.merchants[2].id).to eq('12334115')
+    end
+  end
 end
