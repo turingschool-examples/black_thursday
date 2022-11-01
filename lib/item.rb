@@ -19,8 +19,8 @@ class Item
     decimal = ["."]
     price = unit_price.split
     price = price[1].split('')
-    decimal << price.pop
-    decimal << price.pop
+    decimal << price.pop(2)
+    # decimal << price.pop
     price << decimal
     return price.flatten.sum("").to_f
   end
