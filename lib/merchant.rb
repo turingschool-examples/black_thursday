@@ -6,4 +6,8 @@ class Merchant
     @id   = data[:id]
     @name = data[:name]
   end
+
+  def update(name)
+    @name = name
+  end
 end
