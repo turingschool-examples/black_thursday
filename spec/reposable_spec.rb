@@ -69,4 +69,25 @@ RSpec.describe Reposable do
       expect(item_repo.find_by_id(1)).to eq item
     end
   end
+
+  describe '#delete' do
+    it 'deletes instance with corresponding id' do
+      item = Item.new({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      })  
+      item_repo = ItemRepository.new([item])
+
+      expect(item_repo.all).to eq [item]
+      
+      item_repo.delete(1)
+
+      expect(item_repo.all).to eq []
+    end
+  end
 end
