@@ -126,7 +126,20 @@ RSpec.describe do
       :updated_at  => Time.now,
       :merchant_id => 2
     })
+
+    item2 = Item.new({
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal(10.98,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      :merchant_id => 2
+    })
+    
     
     expect(item.unit_price_to_dollars).to eq(10.99)
+    expect(item2.unit_price_to_dollars).to eq(10.98)
+    
   end
 end
