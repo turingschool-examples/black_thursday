@@ -19,7 +19,7 @@ class SalesEngine
   def repo_creation(input_data, input_type)
     
     if input_type == :merchants 
-      Merchant_Repository.new(thing_creation(input_data, input_type))
+      MerchantRepository.new(thing_creation(input_data, input_type))
     elsif input_type == :items
       ItemRepository.new(thing_creation(input_data, input_type))
     end
