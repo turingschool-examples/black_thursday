@@ -18,13 +18,13 @@ class ItemRepository
 
   def find_by_name(name)
     @items.find do |item|
-      item.name.upcase == name.upcase
+      item.name.casecmp?(name)
     end
   end
 
   def find_all_with_description(description)
     @items.find_all do |item|
-      item.description.upcase == description.upcase
+      item.description.casecmp?(description)
     end
   end
 
@@ -38,6 +38,12 @@ class ItemRepository
     @items.find_all do |item|
       #the range includes the unit price
       range.include?(item.unit_price)
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all do |item|
+      item.merchant_id == merchant_id
     end
   end
 end
