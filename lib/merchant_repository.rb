@@ -14,4 +14,8 @@ class MerchantRepository
   def all
     @merchants
   end
+
+  def find_by_id(id)
+    select = merchants.select { |merchant| merchant.id == id }.first 
+  end
 end
