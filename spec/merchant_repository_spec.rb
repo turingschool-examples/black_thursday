@@ -59,5 +59,26 @@ RSpec.describe MerchantRepository do
 
 
     expect(mr.find_all_by_name("turing School")).to eq([m, m2])
+    expect(mr.find_all_by_name("tuRing ScHool")).to eq([m, m2])
+    expect(mr.find_all_by_name("the other other School")).to eq([])
+
+
   end
+
+  it 'creates a new merchant with the attributes provided with a new highest id' do
+    mr = MerchantRepository.new
+    m = Merchant.new({:id => 5, :name => "Turing School"})
+    m2 = Merchant.new({:id => 7, :name => "Turing School"})
+    m3 = Merchant.new({:id => 2, :name => "Other School"})
+    mr.add_merchant(m)
+    mr.add_merchant(m2)
+    mr.add_merchant(m3)
+
+    m4 = mr.create({:name => "other other school"})
+
+    expect(m4.id).to eq(8)
+  end
+
+
+
 end
