@@ -39,4 +39,13 @@ describe MerchantRepository do
       expect(mr.all).to eq(mr.merchants)
     end
   end
+
+  describe '#find_by_id' do
+    it 'returns nil or a Merchant instance that matches id' do
+      data.each { |line| mr.create(line) }
+
+      expect(mr.find_by_id('12334112')).to eq(mr.merchants[1])
+      expect(mr.find_by_id('2')).to be nil
+    end
+  end
 end
