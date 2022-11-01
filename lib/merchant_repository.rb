@@ -29,4 +29,8 @@ class MerchantRepository
       merchant.name.downcase.include?(name.downcase)
     end
   end
+
+  def delete(id)
+    merchants.delete_if{|merchant| merchant.id.include?(id) }
+  end
 end

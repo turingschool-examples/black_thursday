@@ -64,4 +64,17 @@ RSpec.describe MerchantRepository do
     expect(merch_repo.find_all_by_name("school").count).to eq(3)
     expect(merch_repo.find_all_by_name("Bobby's World")).to eq([])
   end
+
+  it 'deletes Merchants by id' do
+    merch_repo = MerchantRepository.new
+    merch_repo.create({:id => 5, :name => "Turing School"})
+    merch_repo.create({:id => 6, :name => "Another School"})
+    merch_repo.create({:id => 7, :name => "The Other School"})
+
+    expect(merch_repo.merchants.count).to eq(3)
+
+    merch_repo.delete(6)
+
+    expect(merch_repo.merchants.count).to eq(2)
+  end
 end
