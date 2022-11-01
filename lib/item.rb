@@ -19,5 +19,17 @@ class Item
 
   def unit_price_to_dollars
     @unit_price.to_f.truncate(2)
-  end 
+  end
+  
+  def update_name(name)
+    @name = name
+  end
+  
+  def update_description(description)
+    @description = description
+  end
+  
+  # def update_unit_price(price, )
+  #   @unit_price = (price, digits)
+  # end
 end 
