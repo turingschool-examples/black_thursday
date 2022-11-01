@@ -24,13 +24,13 @@ describe ItemRepository do
   describe '#create' do
     it 'creates an item based on the values passed in' do
       @ir.create(
-        :id          => 1,
-        :name        => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
-        :merchant_id => 2
+        id:          1,
+        name:        "Pencil",
+        description: "You can use it to write things",
+        unit_price:  BigDecimal(10.99,4),
+        created_at:  Time.now,
+        updated_at:  Time.now,
+        merchant_id: 2
       )
 
       expect(@ir.all.last.name).to eq("Pencil")
