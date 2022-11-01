@@ -1,3 +1,4 @@
+require 'rspec'
 require './lib/item'
 require './lib/item_repository'
 
@@ -53,44 +54,84 @@ let!(:item_3) {Item.new(
     expect(item_repository.find_by_id(5)).to eq(nil)
   end
 
-  xit 'can find item by name' do
+  it 'can find item by name' do
     expect(item_repository.find_by_name("Pencil Crayons")).to eq(item_3)
+    expect(item_repository.find_by_name("Pencil CrAyOns")).to eq(item_3)
     expect(item_repository.find_by_name("Textbook")).to eq(nil)
   end
 
-  xit 'can find all items with included description' do
+  it 'can find all items with included description' do
     expect(item_repository.find_all_with_description("You can use it to write things")).to eq([item_1])
+    expect(item_repository.find_all_with_description("You can USE it to WrITE things")).to eq([item_1])
     expect(item_repository.find_all_with_description("You can erase things")).to eq([])
   end
 
-  xit 'can find all items by a given price' do
-    expect(item_repository.find_all_by_price(8.99)).to eq(item_2)
+  it 'can find all items by a given price' do
+    expect(item_repository.find_all_by_price(8.99)).to eq([item_2])
     expect(item_repository.find_all_by_price(5.00)).to eq([])
   end
 
-  xit 'can find all items by price, within a range' do
-    expect(item_repository.find_all_by_price_in_range(8.00..11.00)).to eq([item_1, item_2])
-    expect(item_repository.find_all_by_price_in_range(1.00..3.00)).to eq([])
+  it 'can find all items by price, within a range' do
+    expect(item_repository.find_all_by_price_in_range(8.00, 11.00)).to eq([item_1, item_2])
+    expect(item_repository.find_all_by_price_in_range(8, 11)).to eq([item_1, item_2])
+    expect(item_repository.find_all_by_price_in_range(1.00, 3.00)).to eq([])
   end
 
-  xit 'can find all items that are a merchants (id)' do
+  it 'can find all items that are a merchants (id)' do
     expect(item_repository.find_all_by_merchant_id(2)).to eq([item_1, item_2, item_3])
     expect(item_repository.find_all_by_merchant_id(5)).to eq([])
   end
 
-  xit 'can create a new item by supplying the attributes' do
-    expect(item_repository.create(item_4)).to eq(item_4)
+  it 'can create a new item by supplying the attributes' do
+    expect(item_repository.all.last.name).to eq("Pencil crayons")
+
+    item_repository.create(
+      {
+      :id => 0,
+      :name => "Stapler", 
+      :description => "You can use this to staple things", 
+      :unit_price => 7.00,
+      :created_at => time_now,
+      :updated_at => time_now,
+      :merchant_id => 2
+     }
+    )
+    expect(item_repository.all.last.name).to eq("Stapler") 
+  end
+
+  it 'gives the new item the highest item id + 1' do
+    expect(item_repository.all.last.id).to eq(3)
+
+    item_repository.create(
+      {
+      :id => 0,
+      :name => "Stapler", 
+      :description => "You can use this to staple things", 
+      :unit_price => 7.00,
+      :created_at => time_now,
+      :updated_at => time_now,
+      :merchant_id => 2
+     }
+    )
+
+    expect(item_repository.all.last.id).to eq(4)
   end
 
   xit 'can update an item by the id, giving new attributes' do
-    expect(item_repository.update(1, name: "Mechanical Pencil")).to eq(item_1.name)
-    expect(item_repository.update(1, description: "You can use it to write things down")).to eq(item_1.description)
-    expect(item_repository.update(1, unit_price: 9.99)).to eq(item_1.unit_price)
-    expect(item_repository.updated_at).to eq(time_now)
-    expect(item_repository.updated_at).to not_eq(created_at)
+    expect(item_repository.update(1, :name => "Mechanical Pencil")).to eq(item_1.name)
+    # expect(item_repository.update(1, description: "You can use it to write things down")).to eq(item_1.description)
+    # expect(item_repository.update(1, unit_price: 9.99)).to eq(item_1.unit_price)
+    # expect(item_repository.updated_at).to eq(time_now)
+    # expect(item_repository.updated_at).to not_eq(created_at)
   end
 
-  xit 'can delete an item by supplied id' do
-    expect(item_repository.delete(2)).to eq(item.all)
+  it 'can delete an item by supplied id' do
+    expect(item_repository.all.length).to eq(3)
+    expect(item_repository.all).to eq([item_1, item_2, item_3])
+
+    item_repository.delete(1)
+
+    expect(item_repository.all.length).to eq(2)
+    expect(item_repository.all).to eq([item_2, item_3])
   end
 end
