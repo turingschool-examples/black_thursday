@@ -11,7 +11,17 @@ RSpec.describe SalesEngine do
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
+
     expect(se).to be_a (SalesEngine)
   end
 
+  it 'has child instances' do
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+
+    expect(se.items).to be_a (ItemRepository)
+    expect(se.merchants).to be_a (MerchantRepository)
+  end
 end
