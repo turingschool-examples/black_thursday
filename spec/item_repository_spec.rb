@@ -178,4 +178,37 @@ describe ItemRepository do
       expect(ir.find_all_by_price(10.99)).to eq [i1, i2]
     end
   end
+
+  describe '#find_all_by_price_in_range' do
+    it 'can find items within the price range' do
+      ir = ItemRepository.new
+      i1 = Item.new({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(10.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2
+      })
+
+      i2 = Item.new({
+        :id          => 2,
+        :name        => "Pen",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal(15.25,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 3
+      })
+
+      ir.items << i1
+      ir.items << i2
+      
+      
+      expect(ir.find_all_by_price_in_range((10..20))).to eq [i1, i2]
+      expect(ir.find_all_by_price_in_range((10..11))).to eq [i1]
+      expect(ir.find_all_by_price_in_range((10..10.5))).to eq []
+    end
+  end
 end
