@@ -23,4 +23,10 @@ class InvoiceItem
   def unit_price_to_dollars
     unit_price.round(2, :half_up).to_f
   end
+
+  def update(data)
+    @quantity = data[:quantity]
+    @unit_price = data[:unit_price]
+    @updated_at = Time.now
+  end
 end
