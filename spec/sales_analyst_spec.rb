@@ -1,5 +1,5 @@
-require './lib/sales_analyst'
-require './lib/sales_engine'
+require_relative '../lib/sales_analyst'
+require_relative '../lib/sales_engine'
 
 RSpec.describe SalesAnalyst do
   it '#exists' do

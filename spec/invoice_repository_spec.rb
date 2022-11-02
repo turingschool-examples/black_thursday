@@ -1,4 +1,4 @@
-require './lib/invoice_repository'
+require_relative '../lib/invoice_repository'
 
 RSpec.describe InvoiceRepository do
   it 'exists and has no invoices by default' do

@@ -4,7 +4,7 @@ module Modify
       new_merchant = (@merchants.last.id + 1)
       @merchants << Merchant.new({
         id: new_merchant,
-        name: attributes
+        name: attributes[:name]
       })
     elsif @items != [] && @items != nil
       new_item = (@items.last.id + 1)
@@ -13,8 +13,8 @@ module Modify
         name: attributes[:name],
         description: attributes[:description],
         unit_price: attributes[:unit_price],
-        created_at: Time.now,
-        updated_at: Time.now,
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s,
         merchant_id: attributes[:merchant_id]
       })
     else
@@ -24,8 +24,8 @@ module Modify
         customer_id: attributes[:customer_id],
         merchant_id: attributes[:merchant_id],
         status: attributes[:status],
-        created_at: Time.now,
-        updated_at: Time.now
+        created_at: Time.now.to_s,
+        updated_at: Time.now.to_s
         })
     end
   end
@@ -33,17 +33,21 @@ module Modify
   def update(id, attributes)
     if @merchants != [] && @merchants != nil
       updated_merchant = find_by_id(id)
-      updated_merchant.name = attributes
+      if updated_merchant != nil
+        updated_merchant.name = attributes[:name]
+      end
     elsif @items != [] && @items != nil
       update_item = find_by_id(id)
-      # binding.pry
-      update_item.name = attributes[:name]
-      update_item.description = attributes[:description]
-      update_item.unit_price = attributes[:unit_price]
-      update_item.updated_at = Time.now
+      if update_item != nil
+        update_item.name = attributes[:name] if attributes.keys.include?(:name)
+        update_item.description = attributes[:description] if attributes.keys.include?(:description)
+        update_item.unit_price = attributes[:unit_price] if attributes.keys.include?(:unit_price)
+        update_item.updated_at = Time.now
+      end
     else
       update_invoice = find_by_id(id)
       update_invoice.status = attributes
+      update_invoice.updated_at = Time.now
     end
   end
 

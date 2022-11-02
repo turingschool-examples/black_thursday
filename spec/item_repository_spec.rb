@@ -1,6 +1,6 @@
-require "./lib/item_repository"
-require './lib/item'
-require './lib/sales_engine'
+require_relative "../lib/item_repository"
+require_relative '../lib/item'
+require_relative '../lib/sales_engine'
 require "pry"
 
 RSpec.describe ItemRepository do
@@ -49,9 +49,9 @@ RSpec.describe ItemRepository do
   end
 
   it 'finds items with exact price given, returns empty array otherwise' do
-    item1 = @ir.find_all_by_price(1300)
-    item2 = @ir.find_all_by_price(1350)
-    item3 = @ir.find_all_by_price(9999)
+    item1 = @ir.find_all_by_price(13.00)
+    item2 = @ir.find_all_by_price(13.50)
+    item3 = @ir.find_all_by_price(99.99)
 
     expect(item1.count).to eq(8)
     expect(item2.first.id).to eq(263395721)
@@ -60,8 +60,8 @@ RSpec.describe ItemRepository do
   end
 
   it 'finds item within a given price range, returns empty array otherwise' do
-    item1 = @ir.find_all_by_price_in_range(1300..1360)
-    item2 = @ir.find_all_by_price_in_range(1..5)
+    item1 = @ir.find_all_by_price_in_range(13.00..13.60)
+    item2 = @ir.find_all_by_price_in_range(0.01..0.05)
 
     expect(item1.count).to eq(9)
     expect(item1.first.id).to eq(263395617)

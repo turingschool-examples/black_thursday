@@ -1,4 +1,4 @@
-require './lib/merchant_repository'
+require_relative '../lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
   it 'exists' do
@@ -66,12 +66,12 @@ RSpec.describe MerchantRepository do
     mr.add(m)
     mr.add(m2)
     mr.add(m3)
-    mr.create("BMW AG")
+    mr.create({name: "BMW AG"})
 
     expect(mr.merchants.last.name).to eq("BMW AG")
   end
 
-  it 'can create a new merchant' do
+  it 'can update a merchant' do
     mr = MerchantRepository.new
     m = {id: 5, name: "Turing School"}
     m2 = {id: 4, name: "Porsche"}
@@ -79,7 +79,7 @@ RSpec.describe MerchantRepository do
     mr.add(m)
     mr.add(m2)
     mr.add(m3)
-    mr.update(5, "Turing School of Software and Design")
+    mr.update(5, {name: "Turing School of Software and Design"})
 
     expect(mr.merchants.first.name).to eq("Turing School of Software and Design")
   end

@@ -1,5 +1,6 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
+require 'time'
 
 class Item
   attr_accessor :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
@@ -7,9 +8,9 @@ class Item
     @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
-    @unit_price = data[:unit_price].to_d
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
+    @unit_price = data[:unit_price].to_d / 100
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
     @merchant_id = data[:merchant_id].to_i
   end
 
