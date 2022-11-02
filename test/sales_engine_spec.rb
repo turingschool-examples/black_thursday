@@ -22,5 +22,29 @@ RSpec.describe SalesEngine do
 
       expect(ir).to be_a(ItemRepository)
     end
+
+    it 'contains the data from the csv file' do
+      se = se = SalesEngine.new({
+        :items     => './data/items.csv',
+        :merchants => './data/merchants.csv'})
+
+      ir = se.items
+
+      expect(ir.find_by_id("263395237")).to be_a(Item)
+      expect(ir.find_by_id("263395237").name).to eq("510+ RealPush Icon Set")
+      expect(ir.find_by_name("HOT Crystal Dragon Fly Hand Blown Glass Art Gold Trim Figurine Lucky Collection")).to be_a(Item)
+    end
+  end
+
+  describe '#merchants' do
+    it 'creates and returns a merchant repository object' do
+      se = se = SalesEngine.new({
+        :items     => './data/items.csv',
+        :merchants => './data/merchants.csv'})
+
+      mr = se.merchants
+
+      expect(mr).to be_a(MerchantRepository)
+    end
   end
 end
