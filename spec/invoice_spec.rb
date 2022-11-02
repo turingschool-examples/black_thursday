@@ -9,7 +9,7 @@ RSpec.describe Invoice do
   end
 
   it 'returns all the invoice instances' do
-    expect(invoice.all).to eq()
+    expect(invoice.all).to eq([])
   end
 
   it 'can return an invoice by id' do
