@@ -66,4 +66,11 @@ RSpec.describe InvoiceRepository do
 
     expect(se.invoices.all.last.status).to eq('shipped')
   end
+
+  it 'can delete an invoice' do
+    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+    se.invoices.delete(4823)
+
+    expect(se.invoices.find_by_id(4823)).to eq nil
+  end
 end

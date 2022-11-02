@@ -51,9 +51,12 @@ module Modify
     if @merchants != [] && @merchants != nil
       delete_merchant = find_by_id(id)
       @merchants.delete(delete_merchant)
-    else
+    elsif @items != [] && @items != nil
       delete_item = find_by_id(id)
-     @items.delete(delete_item)
+      @items.delete(delete_item)
+    else
+      delete_invoice = find_by_id(id)
+      @invoices.delete(delete_invoice)
     end
   end
 end
