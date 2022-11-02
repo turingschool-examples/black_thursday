@@ -79,4 +79,17 @@ describe InvoiceItemRepository do
       end
     end
   end
+
+  describe '#find_all_by_item_id' do
+    it 'returns an array of all InvoiceItem instances that have a matching item_id' do
+      ii1 = iir.repository[0]
+      ii2 = iir.repository[1]
+      ii3 = iir.repository[2]
+      ii4 = iir.repository[3]
+      expect(iir.find_all_by_item_id('263519844')).to eq([ii1])
+      expect(iir.find_all_by_item_id('263454779')).to eq([ii2])
+      expect(iir.find_all_by_item_id('263451719')).to eq([ii3])
+      expect(iir.find_all_by_item_id('263542298')).to eq([ii4])
+    end
+  end
 end
