@@ -24,4 +24,25 @@ describe SalesEngine do
       )
     end
   end
+
+  describe '#self.from_csv' do
+    it 'reads the csv files to supply data to the repositories' do
+      se = SalesEngine.from_csv(
+        {
+          items: './data/items_test.csv',
+          merchants: './data/merchants_test.csv'
+        }
+      )
+
+      expect(se.items).to eq("")
+      expect(se.merchants).to eq("")
+    end
+  end
+
+  describe '#merchants' do
+    it 'creates a MerchantRepository instance' do
+      mr = se.merchants
+      expect(mr).to be_a MerchantRepository
+    end
+  end
 end
