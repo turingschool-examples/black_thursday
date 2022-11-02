@@ -1,12 +1,13 @@
 class MerchantRepository
   attr_reader :merchants
+
   def initialize
     @merchants = []
   end
 
   def create(attributes)
     new_id = (@merchants.last.id + 1)
-    @merchants << Merchant.new({id: new_id, name: attributes})
+    @merchants << Merchant.new({ id: new_id, name: attributes })
   end
 
   def all
@@ -14,8 +15,8 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    merchants.find {|merchant| merchant.id == id}
-   end
+    merchants.find { |merchant| merchant.id == id }
+  end
 
   def find_by_name(name)
     merchants.find do |merchant|
@@ -30,7 +31,7 @@ class MerchantRepository
   end
 
   def delete(id)
-    merchants.delete_if{|merchant| merchant.id. == id }
+    merchants.delete_if { |merchant| merchant.id.== id }
   end
 
   def update(id, attributes)
