@@ -1,11 +1,9 @@
 require 'csv'
 require './lib/item'
-# require 'objspace'
 class ItemRepository
   attr_reader :repo
 
   def initialize
-    # @repo = ObjectSpace.each_object(Item).to_a
     @repo = []
   end
 
@@ -68,7 +66,6 @@ class ItemRepository
 
   def create(attributes)
     unless all.empty?
-      # require 'pry'; binding.pry
       attributes[:id] = all.max do |item|
         item.id
       end.id + 1
@@ -76,7 +73,6 @@ class ItemRepository
     new_item = Item.new(attributes)
     @repo << new_item
     new_item
-    # @repo << Item.new(attributes)
   end
 
   def update(id, attributes)
@@ -87,6 +83,5 @@ class ItemRepository
 
   def delete(id)
     all.delete_if{|item| item.id == id }
-    
   end
 end

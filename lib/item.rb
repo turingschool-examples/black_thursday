@@ -37,9 +37,6 @@ class Item
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
     @merchant_id = info[:merchant_id]
-    # require 'pry'
-    # binding.pry
-    # require 'pry'; binding.pry
   end
 
   def unit_price_to_dollars
