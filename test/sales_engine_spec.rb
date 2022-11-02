@@ -2,16 +2,43 @@ require './lib/merchant_repository'
 # require './lib/item_repository'
 require './lib/merchant'
 require './lib/sales_engine'
+require 'pry'
 
 RSpec.describe SalesEngine do
-  it 'creates a merchant and merchant repository' do
+  it 'exists' do
+    se = SalesEngine.new
+
+    expect(se).to be_instance_of(SalesEngine)
+  end
+
+  it 'has merchants' do
+    se = SalesEngine.new
+
+  expect(se.merchants).to be_instance_of(MerchantRepository)
+  end
+
+  it 'has items' do
+    se = SalesEngine.new
+
+  expect(se.items).to be_instance_of(ItemRepository)
+  end
+
+  it 'has a merchant' do
+    se = SalesEngine.new
+    mr = se.merchants
+    mr.from_csv
+binding.pry
+    expect(mr.all.sample).to be_instance_of(Merchant)
+  end
+  
+
+  xit 'creates a merchant and merchant repository' do
     se = SalesEngine.from_csv({
                                 # :items     => "./data/items.csv",
-                                merchants: './data/merchants.csv'
+                                :merchants => './data/merchants.csv'
                               })
     mr = se.merchants
-    require 'pry'
-    binding.pry
+    # binding.pry
     merchant = mr.find_by_name('CJsDecor')
 
     expect(mr).to be_instance_of(MerchantRepository)

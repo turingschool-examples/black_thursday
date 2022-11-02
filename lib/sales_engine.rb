@@ -18,21 +18,18 @@ class SalesEngine
     
   end
 
-  def self.from_csv(hash_path)
-    new
-    #test open instead of read
-    contents = CSV.read hash_path[:merchants], headers: true, header_converters: :symbol
-    #12334105
-    #Shopin1901
-    # 2010-12-10
-    # 2011-12-04
-    #This is information for a single merchant instance
-    #We want to take this information and turn into a hash to pash to @merchants.create(attributes)
-    contents.to_a[1]
-    binding.pry
-    names = contents.map do |row|
-      name = row[:name]
-    end
+  def from_csv
+#     new
+#     #test open instead of read
+    contents = CSV.open './data/merchants.csv'[:merchants], headers: true, header_converters: :symbol
+#   
+#     #This is information for a single merchant instance
+#     #We want to take this information and turn into a hash to pash to @merchants.create(attributes)
+#     contents.to_a[1]
+    contents.map do |row|
+        binding.pry
+      self.create(row)
+#     end
   end
 
 #   def clean_csv
@@ -45,17 +42,5 @@ class SalesEngine
     # end
 end
 
-# contents = CSV.open "./data/merchants.csv", headers: true
-# require 'pry'; binding.pry
-#
 
-#     # def from_csv
-#     # end
-# end
-
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-
-# p se
+end
