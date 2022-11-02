@@ -28,6 +28,18 @@ class SalesAnalyst
     std_dev.round(2)
   end
 
+  def merchants_with_high_item_count
+    high_merchants = []
+    merch_hash.each do |merchant, items|
+     if items - average_items_per_merchant_standard_deviation > average_items_per_merchant
+      high_merchants << merchant
+     end
+    end
+    high_merchants.map do |merchant_id|
+      engine.merchants.find_by_id(merchant_id)
+    end
+  end
+
   def average_item_price_for_merchant(merchant_id)
     merchant_specific_items = engine.items.find_all_by_merchant_id(merchant_id)
     merchant_total_value = merchant_specific_items.sum do |item|
