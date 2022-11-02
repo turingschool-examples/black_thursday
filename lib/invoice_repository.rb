@@ -40,4 +40,8 @@ class InvoiceRepository
     updated_invoice.update_status(attributes[:status])
     updated_invoice
   end 
+
+  def delete(id)
+    @invoices.delete(find_by_id(id))
+  end 
 end 
