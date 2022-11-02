@@ -82,4 +82,27 @@ class ItemRepository
   def delete(id)
     @items.delete(find_by_id(id))
   end
+
+  ##### Generate Items
+  def self.create_items
+    contents = CSV.open csv_hash[:items], headers: true, header_converters: :symbol, quote_char: '"'
+    items = []
+    items << make_item_object(contents)
+  end
+  
+  def self.make_item_object(contents)
+    contents.map do |row|
+      item = {
+              :id => row[:id], 
+              :name => row[:name],
+              :description => row[:description],
+              :unit_price => row[:unit_price],
+              :created_at => row[:created_at],
+              :updated_at => row[:updated_at],
+              :merchant_id => row[:merchant_id]
+            }
+      Item.new(item)
+    end
+  end
+
 end
