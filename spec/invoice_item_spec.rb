@@ -39,4 +39,18 @@ describe InvoiceItem do
       expect(ii.unit_price_to_dollars).to eq(10.99)
     end
   end
+
+  describe '#update' do
+    it 'changes the quantity, unit_price and the updated_at' do
+      ii.update(
+        {
+          quantity: 2,
+          unit_price: BigDecimal(11.69, 4)
+        }
+      )
+      expect(ii.quantity).to eq(2)
+      expect(ii.unit_price).to eq(BigDecimal(11.69, 4))
+      expect(ii.updated_at).not_to eq(time2)
+    end
+  end
 end
