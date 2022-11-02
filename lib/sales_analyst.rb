@@ -47,4 +47,18 @@ class SalesAnalyst
     end
     (merchant_total_value / merchant_specific_items.length).round(2)
   end
+
+  def avg_price_per_item # 251.05
+    arr = []
+    engine.items.all.each do |item|
+      arr << item.unit_price
+    end
+    arr.sum / arr.length
+  end
+
+  def golden_items # items with prices at or above 257.57
+    engine.items.all.find_all do |item|
+      item.unit_price >= (avg_price_per_item + (average_items_per_merchant_standard_deviation * 2))
+    end
+  end
 end
