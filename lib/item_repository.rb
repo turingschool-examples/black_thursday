@@ -1,24 +1,18 @@
 # frozen_string_literal: true
-require './lib/item'
 
-class ItemRepository
-  def initialize(stats)
-    @repository = []
-    stats.each { |stat| create(stat) }
+require './lib/item'
+require './lib/general_repo'
+
+# This is the item_repository class
+class ItemRepository < GeneralRepo
+  def initialize(data)
+    super(data)
   end
 
   def create(stat)
     stat[:id] ||= (@repository.last.id.to_i + 1).to_s
     item = Item.new(stat)
     @repository.push(item)
-  end
-
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    @repository.find { |item| item.id == id.to_s }
   end
 
   def find_by_name(name)
@@ -34,7 +28,7 @@ class ItemRepository
   end
 
   def find_all_by_price_range(range)
-    @repository.select { |item| range.include?(item.unit_price.to_f) }
+    @repository.select { |item| range.include?(item.unit_price_to_dollars) }
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -42,14 +36,6 @@ class ItemRepository
   end
 
   def clean_string(desc)
-    desc.downcase.gsub(/\s+/, '').gsub(/\n+/, '')
-  end
-
-  def update(id, attributes)
-    find_by_id(id).update(attributes)
-  end
-
-  def delete(id)
-    @repository.delete(find_by_id(id))
+    desc.gsub(/\s+/, '').gsub(/\n+/, '')
   end
 end
