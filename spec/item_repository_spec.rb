@@ -34,7 +34,61 @@ RSpec.describe ItemRepository do
 
   describe '#find_by_id()' do
     it 'finds an instance of Item with matching ID' do
+      ir.add_to_repo(item_1)
+      ir.add_to_repo(item_2)
+
       expect(ir.find_by_id(4)).to eq(nil)
+      expect(ir.find_by_id(1)).to eq(item_1)
     end
   end
+
+  describe '#find_by_name()' do
+    it 'finds an instance of Item with case intensive search' do
+      ir.add_to_repo(item_1)
+      ir.add_to_repo(item_2)
+
+      expect(ir.find_by_name("Pen")).to eq(item_2)
+    end
+  end
+
+  describe '#find_all_with_description()' do
+    it 'finds an instance of Item using description' do
+      ir.add_to_repo(item_1)
+      ir.add_to_repo(item_2)
+
+      expect(ir.find_all_with_description("You can use it to write things")).to eq(item_1)
+    end
+  end
+
+  describe '#find_all_with_price()' do
+    it 'finds an instance of Item by price' do
+      ir.add_to_repo(item_1)
+      ir.add_to_repo(item_2)
+
+      expect(ir.find_all_with_price(12.99)).to eq(item_2)
+    end
+  end
+
+  describe '#()' do
+    xit 'finds an instance of Item with case intensive search' do
+      ir.add_to_repo(item_1)
+      ir.add_to_repo(item_2)
+
+      expect(ir.find_by_name("Pen")).to eq(item_2)
+    end
+  end
+
+
+  describe '#find_merchant_by_id()' do
+    it 'finds an instance of Item by merchant' do
+      ir.add_to_repo(item_1)
+      ir.add_to_repo(item_2)
+
+      expect(ir.find_all_by_merchant_id(2)).to eq(item_2)
+    end
+  end
+
+  
+
+
 end
