@@ -26,7 +26,7 @@ RSpec.describe SalesAnalyst do
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     sales_analyst = se.analyst
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
