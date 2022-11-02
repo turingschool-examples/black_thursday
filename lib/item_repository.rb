@@ -55,22 +55,21 @@ class ItemRepository
     new_max = max.id + 1
   end
 
-  def create(item)
-    item[:id] = max_id
-    add_to_repo(Item.new(item))
+  def create(attributes)
+    attributes[:id] = max_id
+    add_to_repo(Item.new(attributes))
   end
 
   def update(id, attributes)
     item = find_by_id(id)
-    # working here
-    attributes.keys.each do |key|
-      item.name = attributes[:name]
+    
+    attributes.each do |key, value|
+      item.instance_variable_set("@#{key}", value)
     end
+    item.updated_at = Time.now
   end
 
-
+  def delete(id)
+    @all.delete(find_by_id(id))
+  end
 end
-
-# update(id, attributes)
-
-# delete(id)

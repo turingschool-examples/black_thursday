@@ -154,12 +154,15 @@ RSpec.describe ItemRepository do
   end
 
   describe '#update(id, attributes)' do
-    xit 'updates an items name, description, unit price and updated time' do
+    it 'updates an items name, description, unit price and updated time' do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
       ir.add_to_repo(item_3)
 
       expect(ir.all.first.name).to eq("Pencil") 
+      expect(ir.all.first.unit_price).to eq(10.99)
+      expect(ir.all.first.description).to eq("You can use it to write things")
+      expect(ir.all.first.created_at).to eq(ir.all.first.updated_at)
 
       ir.update(1,{
         :name        => "Mechanical Pencil",
@@ -168,15 +171,27 @@ RSpec.describe ItemRepository do
         })
 
       expect(ir.all.first.name).to eq("Mechanical Pencil") 
+      expect(ir.all.first.unit_price).to eq(5.99)
+      expect(ir.all.first.description).to eq("Writes things with replaceable lead")
+
+      expect(ir.all.first.created_at).not_to eq(ir.all.first.updated_at)
     end
   end
 
   describe '#delete(id)' do
-    xit 'deletes an item from the all array' do
+    it 'deletes an item from the all array' do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
       ir.add_to_repo(item_3)
       
+      expect(ir.all.count).to eq(3)
+
+      ir.delete(1)
+      expect(ir.all.count).to eq(2)
+      expect(ir.all).to eq([item_2, item_3])
+
+      ir.delete(3)
+      expect(ir.all).to eq([item_2])
     end
   end
 end
