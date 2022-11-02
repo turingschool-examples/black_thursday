@@ -121,4 +121,35 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_by_merchant_id(5)).to eq([])
     end
   end
+  
+  describe '#create(attributes)' do
+    it 'creates a new Item instance with provided attributes' do
+      expect(ir.all).to eq([])      
+
+      ir.add_to_repo(item_1)
+      expect(ir.all.count).to eq(1)      
+
+      ir.create({
+        :name        => "Eraser",
+        :description => "Erases pencil markings",
+        :unit_price  => BigDecimal(2.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2})      
+
+      ir.create({
+        :name        => "Scissors",
+        :description => "They cut things",
+        :unit_price  => BigDecimal(7.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 2})      
+
+      expect(ir.all[1].id).to eq(2)
+      expect(ir.all[2].id).to eq(3)
+      expect(ir.all[1].name).to eq("Eraser")
+      expect(ir.all[2].name).to eq("Scissors")
+      expect(ir.all[1]).to be_a(Item) 
+    end
+  end
 end

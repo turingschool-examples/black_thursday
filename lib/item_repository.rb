@@ -45,17 +45,21 @@ class ItemRepository
       range.include?(item.unit_price)
     end
   end
+
+  # helper method for create method
+  def max_id 
+    max = @all.max_by do |item|
+      item.id
+    end
+    return 1 if max.nil?
+    new_max = max.id + 1
+  end
+
+  def create(item)
+    item[:id] = max_id
+    add_to_repo(Item.new(item))
+  end
 end
-
- 
-
-# find_all_with_description(description)
-
-# find_all_by_price(price)
-
-# find_all_by_price_in_range(range)
-
-# find_all_by_merchant_id(merchant_id)
 
 # create(attributes)
 
