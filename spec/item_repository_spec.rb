@@ -1,5 +1,7 @@
 require './spec/spec_helper'
 require 'bigdecimal/util'
+require './lib/item_repository'
+require './lib/item'
 
 RSpec.describe ItemRepository do
   let (:item_1) {Item.new({:id => 1,
@@ -23,7 +25,7 @@ RSpec.describe ItemRepository do
                     :created_at => Time.now,
                     :updated_at => Time.now,
                     :merchant_id => 2})}
-                    
+
   describe '#initialize item repository' do
     it 'exists' do
       items = [item_1, item_2]
@@ -129,31 +131,31 @@ RSpec.describe ItemRepository do
     it 'creates a new item instance with the attributes provided' do
       items = [item_1, item_2, item_3]
       item_repository = ItemRepository.new(items)
-      
+
       expect(item_repository.all).to eq([item_1, item_2, item_3])
       item_4 = item_repository.create(:name => "Extra Cool Hat")
-      
+
       expect(item_repository.all).to eq([item_1, item_2, item_3, item_4])
       expect(item_4.name).to eq("Extra Cool Hat")
       expect(item_4.id).to eq(4)
       expect(item_repository.find_by_id(4)).to eq(item_4)
     end
   end
-  
+
   describe '#update' do
     it 'updates the attributes of a specific item with the given change' do
       items = [item_1, item_2, item_3]
       item_repository = ItemRepository.new(items)
-      
+
       item_repository.update(1, {:id => 1, :name => "Sneakers"})
       expect(item_repository.find_by_id(1).name).to eq("Sneakers")
-      
+
       item_repository.update(1, {:id => 1, :description => "shoes"})
       expect(item_repository.find_by_id(1).description).to eq("shoes")
-      
+
       item_repository.update(1, {:id => 1, :unit_price => BigDecimal(11.99, 4)})
       expect(item_repository.find_by_id(1).unit_price).to eq(0.1199e2)
-      
+
       # ADD TEST TO UPDATE PRICE
     end
   end
@@ -162,12 +164,12 @@ RSpec.describe ItemRepository do
     it 'deletes a specific item from the repository' do
       items = [item_1, item_2, item_3]
       item_repository = ItemRepository.new(items)
-  
+
       item_repository.delete(1)
-      
+
       expect(item_repository.all).to eq([item_2, item_3])
       expect(item_repository.all.include?(item_1)).to eq(false)
     end
   end
-  
+
 end

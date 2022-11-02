@@ -1,10 +1,10 @@
-<<<<<<< HEAD:test/merchant_repository_spec.rb
+
 require './spec_helper'
 require './lib/merchant_repository'
 require './lib/merchant'
-=======
+
 require './spec/spec_helper'
->>>>>>> a44b59031a7a7667ade69c7af5232b4735eb88ff:spec/merchant_repository_spec.rb
+
 
 RSpec.describe MerchantRepository do
   describe '#initialize' do
