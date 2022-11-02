@@ -89,6 +89,16 @@ let (:invoice_3) {Invoice.new({
       expect(invoice_repo.find_all_by_status("delivered")).to eq([])
     end 
   end
-      
+
+  describe "#create" do 
+    it 'will create a new invoice' do 
+      invoices = [invoice_1, invoice_2, invoice_3]
+      invoice_repo = InvoiceRepository.new(invoices)
+
+      expect(invoice_repo.create(:id => 1)) 
+      expect(invoice_repo.all).to eq([invoice_1, invoice_2, invoice_3, invoice_4])
+    end 
+  end 
+                          
 end 
     
