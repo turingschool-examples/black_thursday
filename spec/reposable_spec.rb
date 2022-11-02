@@ -1,5 +1,5 @@
 require './lib/reposable'
-require './lib/itemrepository'
+require './lib/item_repository'
 require './lib/item'
 
 RSpec.describe Reposable do

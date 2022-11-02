@@ -1,5 +1,5 @@
 require_relative 'reposable'
-require './lib/invoice.rb'
+require_relative './invoice.rb'
 
 class InvoiceRepository
   include Reposable
@@ -27,5 +27,9 @@ class InvoiceRepository
     @all.find_all do |invoice|
       invoice.status == invoice_status
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

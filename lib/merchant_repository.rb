@@ -1,5 +1,5 @@
 require_relative 'reposable'
-require './lib/merchant.rb'
+require_relative './merchant.rb'
 
 class MerchantRepository
   include Reposable
@@ -28,5 +28,9 @@ class MerchantRepository
     else
       all.last.id += 1
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
