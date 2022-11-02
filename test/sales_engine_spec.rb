@@ -17,7 +17,6 @@ RSpec.describe SalesEngine do
       se = se = SalesEngine.new({
         :items     => './data/items.csv',
         :merchants => './data/merchants.csv'})
-
       ir = se.items
 
       expect(ir).to be_a(ItemRepository)
@@ -27,7 +26,6 @@ RSpec.describe SalesEngine do
       se = se = SalesEngine.new({
         :items     => './data/items.csv',
         :merchants => './data/merchants.csv'})
-
       ir = se.items
 
       expect(ir.find_by_id("263395237")).to be_a(Item)
@@ -41,10 +39,20 @@ RSpec.describe SalesEngine do
       se = se = SalesEngine.new({
         :items     => './data/items.csv',
         :merchants => './data/merchants.csv'})
-
       mr = se.merchants
 
       expect(mr).to be_a(MerchantRepository)
+    end
+
+    it 'contains the data from the csv file' do
+      se = se = SalesEngine.new({
+        :items     => './data/items.csv',
+        :merchants => './data/merchants.csv'})
+      mr = se.merchants
+
+      expect(mr.find_by_id("12334105")).to be_a(Merchant)
+      expect(mr.find_by_id("12334105").name).to eq("Shopin1901")
+      expect(mr.find_by_name("SassyStrangeArt")).to be_a(Merchant)
     end
   end
 end
