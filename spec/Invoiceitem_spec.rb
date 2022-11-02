@@ -25,4 +25,8 @@ RSpec.describe InvoiceItem do
     expect(invoice_item.updated_at).to eq(Time.now)
   end
 
+  it 'has a method to return unit price in dollar and cents format' do
+    expect(invoice_item.unit_price_to_dollars).to eq(10.99)
+  end
+
 end
