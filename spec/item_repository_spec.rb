@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require './lib/item'
 require './lib/item_repository'
 require 'bigdecimal'
@@ -61,7 +62,7 @@ describe ItemRepository do
   describe '#clean_string' do
     it 'returns a string after removing spaces and newline characters' do
       unclean = "Free standing wooden\n letters \n15cm Any colours\n"
-      cleaned = "freestandingwoodenletters15cmanycolours"
+      cleaned = "Freestandingwoodenletters15cmAnycolours"
       expect(@ir.clean_string(unclean)).to eq(cleaned)
     end
   end
@@ -97,9 +98,9 @@ describe ItemRepository do
 
   describe '#update' do
     it 'updates the values of the item at id with attributes passed in' do
-      @ir.update(263395237, name: 'Turkey Leg')
+      @ir.update(263395237,{ name: 'Turkey Leg', unit_price: 100 })
       expect(@item1.name).to eq('Turkey Leg')
-      expect(@item1.unit_price_to_dollars).to eq(1200)
+      expect(@item1.unit_price_to_dollars).to eq(100)
     end
   end
 
