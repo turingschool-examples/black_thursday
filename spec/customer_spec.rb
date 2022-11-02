@@ -12,7 +12,7 @@ RSpec.describe Customer do
                 created_at:   time1,
                 updated_at:   time2
               }
-      customer = customer.new(data)
+      customer = Customer.new(data)
 
       expect(customer).to be_a Customer
       expect(customer.id).to eq 6
@@ -22,3 +22,10 @@ RSpec.describe Customer do
       expect(customer.updated_at).to eq time2
     end
   end
+
+  describe '#update' do #best way to document this?
+    it 'does nothing' do
+
+    end
+  end
+end
