@@ -1,9 +1,13 @@
 require 'csv'
 require './lib/sales_engine'
 require './lib/merchant'
+require './lib/merchant_repository'
+require './lib/item_repository'
+require './lib/item'
 
 RSpec.describe SalesEngine do
   it 'exists' do
+    require 'pry'; binding.pry
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
