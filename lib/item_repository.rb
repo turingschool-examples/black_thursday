@@ -38,6 +38,13 @@ class ItemRepository
       item.merchant_id == merchant_id
     end
   end
+
+  # can we use find_all_with_price?
+  def find_all_with_price_in_range(range)
+    @all.find_all do |item|
+      range.include?(item.unit_price)
+    end
+  end
 end
 
  

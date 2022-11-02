@@ -40,6 +40,15 @@ RSpec.describe ItemRepository do
         :updated_at  => Time.now,
         :merchant_id => 9}) }
 
+  let(:item_5) { Item.new({
+        :id          => 5,
+        :name        => "Mouse",
+        :description => "Moves the cursor around",
+        :unit_price  => BigDecimal(23.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 9}) }
+
   describe '#initialize' do
     it 'exists' do
       expect(ir).to be_a(ItemRepository)
@@ -88,23 +97,28 @@ RSpec.describe ItemRepository do
   end
 
   describe '#find_all_with_price_in_range()' do
-    xit 'finds an instance of Item with case intensive search' do
+    it 'finds an instance of Item with case insensitive search' do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
       ir.add_to_repo(item_3)
       ir.add_to_repo(item_4)
 
-      expect(ir.find_all_with_price_in_range()).to eq(item_2)
+      expect(ir.find_all_with_price_in_range(19..30)).to eq([item_3, item_4])
+      expect(ir.find_all_with_price_in_range(0..9)).to eq([])
+      expect(ir.find_all_with_price_in_range(19.99..21.21)).to eq([item_3])
     end
   end
 
-  describe '#find_merchant_by_id()' do
-    it 'finds an instance of Item by merchant' do
+  describe '#find_all_by_merchant_by_id()' do
+    it 'finds all instances of items by a merchant id' do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
+      ir.add_to_repo(item_3)
+      ir.add_to_repo(item_4)
+      ir.add_to_repo(item_5)
 
-      expect(ir.find_all_by_merchant_id(2)).to eq([item_1])
+      expect(ir.find_all_by_merchant_id(9)).to eq([item_4, item_5])
+      expect(ir.find_all_by_merchant_id(5)).to eq([])
     end
   end
-
 end
