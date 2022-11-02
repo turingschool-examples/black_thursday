@@ -100,6 +100,23 @@ let (:invoice_3) {Invoice.new({
       expect(invoice_repo.all).to eq([invoice_1, invoice_2, invoice_3, invoice_4])
     end 
   end 
+
+  describe "#update" do 
+    it 'will update invoices' do 
+      invoices = [invoice_1, invoice_2, invoice_3]
+      invoice_repo = InvoiceRepository.new(invoices)
+
+      invoice_repo.update(6, {:id => 6, :customer_id => 4})
+      expect(invoice_repo.find_by_id(6).customer_id).to eq(4)
+
+      invoice_repo.update(6, {:id => 6, :merchant_id => 4})
+      expect(invoice_repo.find_by_id(6).merchant_id).to eq(4)
+
+      invoice_repo.update(6, {:id => 6, :status => "paid"})
+      expect(invoice_repo.find_by_id(6).status).to eq("paid")
+    end 
+  end 
+
                           
 end 
     

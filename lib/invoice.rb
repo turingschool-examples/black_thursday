@@ -14,4 +14,16 @@ class Invoice
   @created_at = invoice_info[:created_at]
   @updated_at = invoice_info[:updated_at]
  end 
+
+  def update_customer_id(id)
+    @customer_id = id
+  end
+
+  def update_merchant_id(id)
+    @merchant_id = id
+  end
+
+  def update_status(status)
+    @status = status
+  end
 end 
