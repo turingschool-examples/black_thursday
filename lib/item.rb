@@ -1,10 +1,12 @@
 # frozen_string_literal: true
-require './lib/general'
 
-class Item < General
+class Item
   def initialize(stats)
-    super(stats)
     @stats = stats
+  end
+
+  def id
+    @stats[:id]
   end
 
   def name
