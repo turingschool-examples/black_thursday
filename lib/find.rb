@@ -1,12 +1,8 @@
 module Find
   def all
-    if @merchants != [] && @merchants != nil
-      return @merchants
-    elsif @items != [] && @items != nil
-      return @items
-    else
-      return @invoices
-    end
+    return @merchants if @merchants != [] && @merchants != nil
+    return @items if @items != [] && @items != nil
+    return @invoices
   end
 
   def find_by_id(id)

@@ -11,20 +11,7 @@ include Modify
   attr_reader :items
 
   def initialize
-    # @csv_file = csv_file
     @items = []
-    # contents = CSV.open(csv_file, headers: true, header_converters: :symbol)
-    # contents.each do |row|
-    #   @items << Item.new(
-    #     id: row[:id].to_i,
-    #     name: row[:name],
-    #     description: row[:description],
-    #     unit_price: row[:unit_price].to_f,
-    #     created_at: row[:created_at],
-    #     updated_at: row[:updated_at],
-    #     merchant_id: row[:merchant_id].to_i
-    #     )
-    # end
   end
 
   def add(data)
