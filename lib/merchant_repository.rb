@@ -1,4 +1,5 @@
 require './lib/merchant'
+require 'csv'
 
 class MerchantRepository
   attr_reader :all
@@ -18,13 +19,13 @@ class MerchantRepository
 
   def find_by_name(name)
     @all.find do |merchant|
-      name.casecmp?(merchant.name) 
+      name.casecmp(merchant.name) == 0
     end
   end
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
-      name.casecmp?(merchant.name)
+      name.casecmp(merchant.name) == 0
     end
   end
 
@@ -37,12 +38,20 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    update_merchant = find_by_id(id)
-    update_merchant.name = attributes
+     update_merchant = find_by_id(id)
+     update_merchant.name = attributes
   end
 
   def delete(id)
     delete_merchant = find_by_id(id)
     @all.delete(delete_merchant)
   end
+
+  def load_data(file)
+    contents = CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+        add_merchant(Merchant.new(row))
+        # require 'pry' ; binding.pry
+    end
+  end
+
 end
