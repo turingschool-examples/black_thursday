@@ -26,7 +26,7 @@ class SalesEngine
     mr
   end
   def analyst
-    SalesAnalyst.new
+    SalesAnalyst.new(self)
   end
   def items
     ir = ItemRepository.new
