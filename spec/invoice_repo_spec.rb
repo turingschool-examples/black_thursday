@@ -7,11 +7,11 @@ RSpec.describe InvoiceRepo do
   let(:data){CSV.readlines('./data/invoices_test.csv', headers: true, header_converters: :symbol)}
   
   let(:ir) {InvoiceRepo.new(data)}
-  let(:invoice1){ir.invoices[0]}
-  let(:invoice2){ir.invoices[1]}
-  let(:invoice3){ir.invoices[2]}
-  let(:invoice4){ir.invoices[3]}
-  let(:invoice5){ir.invoices[4]}
+  let(:invoice1){ir.repository[0]}
+  let(:invoice2){ir.repository[1]}
+  let(:invoice3){ir.repository[2]}
+  let(:invoice4){ir.repository[3]}
+  let(:invoice5){ir.repository[4]}
 
   describe '#initialize' do
     it 'exists' do      
@@ -60,20 +60,24 @@ RSpec.describe InvoiceRepo do
                         :status      => 'pending',
                         :created_at  => Time.now,
                         :updated_at  => Time.now
-                        }).last.id).to eq '6'
+                        }).id).to eq '6'
     end
   end
 
   describe '#update' do
     it 'updates Invoice with corresponding id with the provided attributes' do
-      expect(ir.update('1', 'shipped')).to eq ir.invoices[0].status
-      expect(ir.invoices[0].updated_at).to be_within(0.5).of Time.now
+      expect(ir.repository[0].status).to eq 'pending'
+      ir.update('1', {status: 'shipped'})
+      expect(ir.repository[0].status).to eq 'shipped'
+      expect(ir.repository[0].updated_at).to be_within(0.5).of Time.now
     end
   end
 
   describe '#delete' do
     it 'deletes the Invoice instance with corresponding id' do
-      expect(ir.delete(5)).to eq invoice5
+        ir.delete('1')
+        expect(ir.repository.count).to eq(4)
+        expect(ir.repository[0].id).to eq('2')
     end
   end
 end
