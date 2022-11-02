@@ -3,7 +3,7 @@ require './lib/invoice'
 require 'CSV'
 
 
-describe InvoiceRepo do
+RSpec.describe InvoiceRepo do
   let(:data){CSV.readlines('./data/invoices_test.csv', headers: true, header_converters: :symbol)}
   
   let(:ir) {InvoiceRepo.new(data)}
@@ -73,7 +73,7 @@ describe InvoiceRepo do
 
   describe '#delete' do
     it 'deletes the Invoice instance with corresponding id' do
-      expect(ir.delete(5)).to eq [invoice1, invoice2, invoice3, invoice4]
+      expect(ir.delete(5)).to eq invoice5
     end
   end
 end

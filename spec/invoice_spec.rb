@@ -1,6 +1,6 @@
 require './lib/invoice'
 
-describe Invoice do
+RSpec.describe Invoice do
   describe '#initialize' do
     it 'has readable attributes' do
       time1 = Time.now
@@ -9,9 +9,9 @@ describe Invoice do
                 id:          6,
                 customer_id: 7,
                 merchant_id: 8,
-                status:     'pending',
-                created_at:  time1,
-                updated_at:  time2
+                status:      'pending',
+                created_at:   time1,
+                updated_at:   time2
               }
       invoice = Invoice.new(data)
 
