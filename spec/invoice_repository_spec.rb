@@ -67,5 +67,16 @@ let (:invoice_3) {Invoice.new({
       expect(invoice_repo.find_all_by_customer_id(20)).to eq([])
     end 
   end 
+
+  describe "#find_all_by_merchant_id" do 
+    it 'will find all invoices associate with merchant id' do 
+      invoices = [invoice_1, invoice_2, invoice_3]
+      invoice_repo = InvoiceRepository.new(invoices)
+
+      expect(invoice_repo.find_all_by_merchant_id(6)).to eq([invoice_2, invoice_3])
+      expect(invoice_repo.find_all_by_merchant_id(8)).to eq([invoice_1])
+      expect(invoice_repo.find_all_by_merchant_id(10)).to eq([])
+    end 
+  end 
 end 
     
