@@ -97,9 +97,9 @@ describe ItemRepository do
 
   describe '#update' do
     it 'updates the values of the item at id with attributes passed in' do
-      @ir.update(263395237, name: 'Turkey Leg')
+      @ir.update(263395237,{ name: 'Turkey Leg', unit_price: 100})
       expect(@item1.name).to eq('Turkey Leg')
-      expect(@item1.unit_price_to_dollars).to eq(1200)
+      expect(@item1.unit_price_to_dollars).to eq(100)
     end
   end
 

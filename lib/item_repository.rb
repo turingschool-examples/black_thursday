@@ -36,12 +36,4 @@ class ItemRepository < GeneralRepo
   def clean_string(desc)
     desc.downcase.gsub(/\s+/, '').gsub(/\n+/, '')
   end
-
-  def update(id, attributes)
-    find_by_id(id).update(attributes)
-  end
-
-  def delete(id)
-    @repository.delete(find_by_id(id))
-  end
 end
