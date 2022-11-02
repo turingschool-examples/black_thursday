@@ -1,3 +1,4 @@
+require './spec/spec_helper'
 require './lib/invoice'
 
 RSpec.describe Invoice do 
