@@ -10,5 +10,7 @@ RSpec.describe InvoiceRepository do
 
   it 'can find by id' do
     se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+
+    expect(se.invoices.find_by_id(1)).to eq(se.invoices.all.first)
   end
 end

@@ -9,4 +9,8 @@ class InvoiceRepository
   def initialize
     @invoices = []
   end
+
+  def add(invoice)
+    @invoices << Invoice.new(invoice)
+  end
 end

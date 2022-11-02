@@ -19,7 +19,7 @@ class SalesEngine
     if csv_hash.keys.include?(:invoices)
       invoices_input = CSV.open(csv_hash[:invoices], headers: true, header_converters: :symbol)
     end
-    se = SalesEngine.new({items: items_input, merchants: merchants_input, invoices: invoices_input})
+    SalesEngine.new({items: items_input, merchants: merchants_input, invoices: invoices_input})
   end
 
   def merchants
@@ -43,5 +43,19 @@ class SalesEngine
                 })
     end
     ir
+  end
+
+  def invoices
+    invr = InvoiceRepository.new
+    @invoices.each do |invoice|
+      invr.add({id: invoice[:id],
+                customer_id: invoice[:customer_id],
+                merchant_id: invoice[:unit_price],
+                status: invoice[:status],
+                created_at: invoice[:created_at],
+                updated_at: invoice[:updated_at]
+                })
+    end
+    invr
   end
 end

@@ -2,8 +2,10 @@ module Find
   def all
     if @merchants != [] && @merchants != nil
       return @merchants
-    else
+    elsif @items != [] && @items != nil
       return @items
+    else
+      return @invoices
     end
   end
 
@@ -12,9 +14,13 @@ module Find
       merchants.find do |merchant|
         merchant.id == id
       end
-    else
+    elsif @items != [] && @items != nil
       items.find do |item|
         item.id == id
+      end
+    else
+      invoices.find do |invoice|
+        invoice.id == id
       end
     end
   end
@@ -24,7 +30,7 @@ module Find
       merchants.find do |merchant|
         merchant.name.casecmp?(name)
       end
-    else
+    elsif @items != [] && @items != nil
       items.find do |item|
         item.name.casecmp?(name)
       end
@@ -36,7 +42,7 @@ module Find
       merchants.find_all do |merchant|
         merchant.name.downcase.include?(name.downcase)
       end
-    else
+    elsif @items != [] && @items != nil
       items.find_all do |item|
         item.name.downcase.include?(name.downcase)
       end
