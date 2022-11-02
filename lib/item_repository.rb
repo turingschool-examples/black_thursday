@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+
 require './lib/item'
 require './lib/general_repo'
 
+# This is the item_repository class
 class ItemRepository < GeneralRepo
   def initialize(data)
     super(data)
@@ -26,7 +28,7 @@ class ItemRepository < GeneralRepo
   end
 
   def find_all_by_price_range(range)
-    @repository.select { |item| range.include?(item.unit_price.to_f) }
+    @repository.select { |item| range.include?(item.unit_price_to_dollars) }
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -34,6 +36,6 @@ class ItemRepository < GeneralRepo
   end
 
   def clean_string(desc)
-    desc.downcase.gsub(/\s+/, '').gsub(/\n+/, '')
+    desc.gsub(/\s+/, '').gsub(/\n+/, '')
   end
 end

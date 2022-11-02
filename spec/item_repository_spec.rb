@@ -61,7 +61,7 @@ describe ItemRepository do
   describe '#clean_string' do
     it 'returns a string after removing spaces and newline characters' do
       unclean = "Free standing wooden\n letters \n15cm Any colours\n"
-      cleaned = "freestandingwoodenletters15cmanycolours"
+      cleaned = "Freestandingwoodenletters15cmAnycolours"
       expect(@ir.clean_string(unclean)).to eq(cleaned)
     end
   end
