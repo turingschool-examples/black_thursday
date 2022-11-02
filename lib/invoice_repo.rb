@@ -4,8 +4,8 @@ require './lib/general_repo'
 class InvoiceRepo < GeneralRepo
   attr_reader :invoices
 
-  def initialize(data = {})
-    super(data)
+  def initialize(data)
+    super(data, 'Invoice')
   end
 
   def find_by_customer_id(id)
