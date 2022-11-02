@@ -1,7 +1,7 @@
 require 'rspec'
 require './lib/item'
 require './lib/item_repository'
-require './lib/sales_engine'
+# require './lib/sales_engine'
 
 RSpec.describe ItemRepository do
 let!(:time_now) {Time.now}
@@ -43,7 +43,7 @@ let!(:item_3) {Item.new(
 )}
 
   it 'is an item repository class' do
-    # expect(item_repository).to be_a(ItemRepository)
+    expect(item_repository).to be_a(ItemRepository)
   end
 
   it 'returns all item instances' do
@@ -118,12 +118,18 @@ let!(:item_3) {Item.new(
     expect(item_repository.all.last.id).to eq(4)
   end
 
-  xit 'can update an item by the id, giving new attributes' do
-    expect(item_repository.update(1, :name => "Mechanical Pencil")).to eq(item_1.name)
-    # expect(item_repository.update(1, description: "You can use it to write things down")).to eq(item_1.description)
-    # expect(item_repository.update(1, unit_price: 9.99)).to eq(item_1.unit_price)
-    # expect(item_repository.updated_at).to eq(time_now)
-    # expect(item_repository.updated_at).to not_eq(created_at)
+  it 'can update an item by the id, giving new attributes' do
+    item_repository.update(1, {
+      :name => "Mechanical Pencil",
+      :description => "You can use it to write things down",
+      :unit_price => 9.99
+      })
+
+    expect(item_1.name).to eq("Mechanical Pencil")
+    expect(item_1.description).to eq("You can use it to write things down")
+    expect(item_1.unit_price).to eq(9.99)
+    expect(item_1.created_at).to eq(time_now)
+    expect(item_1.updated_at).to eq(time_now)
   end
 
   it 'can delete an item by supplied id' do
@@ -131,7 +137,7 @@ let!(:item_3) {Item.new(
     expect(item_repository.all).to eq([item_1, item_2, item_3])
 
     item_repository.delete(1)
-
+ 
     expect(item_repository.all.length).to eq(2)
     expect(item_repository.all).to eq([item_2, item_3])
   end

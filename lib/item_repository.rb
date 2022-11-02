@@ -74,25 +74,10 @@ class ItemRepository
   def update(id, attributes)
     @items.each do |item|
       if item.id == id
-        require 'pry'; binding.pry
-        item_new_attribute = item(attributes)
-        return item_new_attribute
+      item.update(attributes)
       end
     end
   end
-    
-    # item[attribute.key] = [attribute.value]
-
-    # def update(id, name)
-    #   @items.each do |item|
-    #     if item.id == id
-    #       item_new_name = item.name.replace(name)
-    #       return item_new_name
-    #     end
-    #   end
-    # end
-
-  
   
   def delete(id)
     @items.delete(find_by_id(id))
