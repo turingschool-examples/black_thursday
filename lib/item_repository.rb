@@ -6,13 +6,7 @@ require './lib/general_repo'
 # This is the item_repository class
 class ItemRepository < GeneralRepo
   def initialize(data)
-    super(data)
-  end
-
-  def create(stat)
-    stat[:id] ||= (@repository.last.id.to_i + 1).to_s
-    item = Item.new(stat)
-    @repository.push(item)
+    super(data, 'Item')
   end
 
   def find_by_name(name)

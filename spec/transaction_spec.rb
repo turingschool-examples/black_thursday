@@ -1,6 +1,6 @@
 # frozen_string_literal: true
+
 require './lib/transaction'
-require 'bigdecimal'
 
 describe Transaction do
   before(:each) do

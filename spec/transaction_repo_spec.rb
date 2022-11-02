@@ -2,7 +2,6 @@
 
 require './lib/transaction'
 require './lib/transaction_repo'
-require 'bigdecimal'
 require 'CSV'
 
 describe TransactionRepo do

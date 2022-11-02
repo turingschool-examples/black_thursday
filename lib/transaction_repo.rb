@@ -6,13 +6,7 @@ require './lib/general_repo'
 # This is the transaction_repository class
 class TransactionRepo < GeneralRepo
   def initialize(data)
-    super(data)
-  end
-
-  def create(stat)
-    stat[:id] ||= (@repository.last.id.to_i + 1).to_s
-    item = Transaction.new(stat)
-    @repository.push(item)
+    super(data, 'Transaction')
   end
 
   def find_all_by_invoice_id(id)
