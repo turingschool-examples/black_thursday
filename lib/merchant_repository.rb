@@ -8,13 +8,11 @@ class MerchantRepository
     @merchants
   end
 
-  def find_by_id(id)
-    if !a_valid_id?(id)
-      return nil
-    else
-      @merchants.find do |merchant|
-        merchant.id == id
-      end
+  def find_by_id(id) 
+    nil if !a_valid_id?(id)
+    
+    @merchants.find do |merchant|
+      merchant.id == id
     end
   end
 
