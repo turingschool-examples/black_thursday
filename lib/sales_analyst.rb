@@ -34,4 +34,16 @@ class SalesAnalyst
     std_dev = Math.sqrt((sqr_diff / (merch_hash.keys.count - 1)))
     std_dev.round(2)
   end
+
+  def merchants_with_high_item_count
+    high_merchants = []
+    merch_hash.each do |merchant, items|
+     if items - average_items_per_merchant_standard_deviation > average_items_per_merchant
+      high_merchants << merchant
+     end
+    end
+    high_merchants.map do |merchant_id|
+      engine.merchants.find_by_id(merchant_id)
+    end
+  end
 end
