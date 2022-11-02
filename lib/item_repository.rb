@@ -1,4 +1,5 @@
 require_relative 'reposable'
+require_relative './item.rb'
 
 class ItemRepository
   include Reposable
