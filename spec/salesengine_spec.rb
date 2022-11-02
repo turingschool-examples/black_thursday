@@ -1,6 +1,8 @@
 require './lib/salesengine.rb'
 require './lib/item_repository.rb'
 require './lib/item.rb'
+require './lib/merchant.rb'
+require './lib/merchant_repository.rb'
 require 'csv'
 
 RSpec.describe SalesEngine do
@@ -21,7 +23,17 @@ RSpec.describe SalesEngine do
       :merchants => "./data/merchants.csv",
     }
     se = SalesEngine.new(files)
-require 'pry'; binding.pry
+
     expect(se.items.all.all?(Item)).to be(true)
+  end
+
+  it 'can have an merchant repository' do
+    files = {
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    }
+    se = SalesEngine.new(files)
+
+    expect(se.merchants.all.all?(Merchant)).to be(true)
   end
 end
