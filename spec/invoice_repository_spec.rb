@@ -63,7 +63,7 @@ let (:invoice_3) {Invoice.new({
       invoice_repo = InvoiceRepository.new(invoices)
 
       expect(invoice_repo.find_all_by_customer_id(5)).to eq([invoice_2, invoice_3])
-      expect(invoice_repo.find_allby_customer_id(7)).to eq([invoice_1])
+      expect(invoice_repo.find_all_by_customer_id(7)).to eq([invoice_1])
       expect(invoice_repo.find_all_by_customer_id(20)).to eq([])
     end 
   end 
