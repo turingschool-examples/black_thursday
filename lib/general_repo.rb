@@ -2,7 +2,7 @@ class GeneralRepo
 
   attr_reader :repository
 
-  def initialize(data = {}, class_nm)
+  def initialize(class_nm, data = {})
     @class_nm = class_nm
     @repository = []
     data.each { |general| create(general) }

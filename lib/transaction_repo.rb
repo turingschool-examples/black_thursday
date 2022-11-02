@@ -6,7 +6,7 @@ require './lib/general_repo'
 # This is the transaction_repository class
 class TransactionRepo < GeneralRepo
   def initialize(data)
-    super(data, 'Transaction')
+    super('Transaction', data)
   end
 
   def find_all_by_invoice_id(id)

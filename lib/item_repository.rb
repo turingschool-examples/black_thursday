@@ -6,7 +6,7 @@ require './lib/general_repo'
 # This is the item_repository class
 class ItemRepository < GeneralRepo
   def initialize(data)
-    super(data, 'Item')
+    super('Item', data)
   end
 
   def find_by_name(name)
