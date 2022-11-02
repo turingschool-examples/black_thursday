@@ -33,4 +33,10 @@ describe InvoiceItem do
       expect(ii.updated_at).to eq(time2)
     end
   end
+
+  describe '#unit_price_to_dollars' do
+    it 'returns item unit price converted to dollars' do
+      expect(ii.unit_price_to_dollars).to eq(10.99)
+    end
+  end
 end
