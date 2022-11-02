@@ -7,8 +7,8 @@ require 'CSV'
 
 describe TransactionRepo do
   before(:each) do
-    csv = {:transactions => './data/transactions.csv'}.values[0]
-    @stats = CSV.readlines(csv, headers: true, header_converters: :symbol)
+    filepath = {:transactions => './data/transactions.csv'}.values[0]
+    @stats = CSV.readlines(filepath, headers: true, header_converters: :symbol)
     @stats = @stats[0..4]
     @tr = TransactionRepo.new(@stats)
     @transaction1 = @tr.all[0]
