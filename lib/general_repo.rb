@@ -2,7 +2,8 @@ class GeneralRepo
 
   attr_reader :repository
 
-  def initialize(data = {})
+  def initialize(class_nm, data = {})
+    @class_nm = class_nm
     @repository = []
     data.each { |general| create(general) }
   end
@@ -17,7 +18,7 @@ class GeneralRepo
 
   def create(general_data)
     general_data[:id] ||= (@repository.last.id.to_i + 1).to_s
-    general = General.new(general_data)
+    general = Object.const_get(@class_nm).new(general_data)
     @repository << general
     general
   end

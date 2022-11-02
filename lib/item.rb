@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This is the item class
 class Item
   def initialize(stats)
     @stats = stats
