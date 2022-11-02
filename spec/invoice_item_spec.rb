@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rspec'
+require 'bigdecimal'
 require './lib/invoice_item'
 
 describe InvoiceItem do
