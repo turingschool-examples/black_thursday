@@ -6,5 +6,5 @@ require 'item_spec'
 require 'merchant_spec'
 require 'salesengine_spec'
 
-#require spec files
-#require_relative
+# require spec files
+# require_relative
