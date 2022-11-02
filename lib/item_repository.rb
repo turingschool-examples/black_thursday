@@ -1,5 +1,6 @@
-class ItemRepository
+require_relative 'item'
 
+class ItemRepository
 
   def initialize(items)
     @items = items
@@ -36,7 +37,7 @@ class ItemRepository
   def find_all_by_merchant_id(merch_id)
     @items.find_all {|item| item.merchant_id == merch_id}
   end
-  
+
   def create(attributes)
     ids = @items.map { |item| item.id}
     attributes[:id] = ids.max + 1
@@ -44,7 +45,7 @@ class ItemRepository
     @items.push(new_item)
     new_item
   end
-  
+
   def update(id, attributes)
     updated_item = find_by_id(attributes[:id])
     updated_item.update_name(attributes[:name])
@@ -52,7 +53,7 @@ class ItemRepository
     updated_item.update_unit_price(attributes[:unit_price])
     updated_item
   end
-  
+
   def delete(id)
     @items.delete(find_by_id(id))
   end
