@@ -108,4 +108,16 @@ RSpec.describe MerchantRepository do
       expect(mr.all).to eq([m, m3])
     end
   end
+
+  it 'can load data' do
+    mr = MerchantRepository.new
+    file = "./data/merchants.csv"
+    mr.load_data(file)
+    # require 'pry' ; binding.pry
+
+    expect(mr.all.first).to be_a(Merchant)
+    expect(mr.all.all?(Merchant)).to eq(true)
+
+
+  end
 end

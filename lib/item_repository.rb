@@ -1,8 +1,12 @@
+require 'csv'
+require './lib/item'
+require 'bigdecimal'
 class ItemRepository
   attr_reader :items
 
-  def initialize
+  def initialize(file = nil)
     @items = []
+    load_data(file)
   end
 
   def all
@@ -66,5 +70,12 @@ class ItemRepository
 
   def delete(id)
     @items.delete(find_by_id(id))
+  end
+
+  def load_data(data)
+    return nil unless data 
+    CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
+      @items << (Item.new(row))
+    end
   end
 end
