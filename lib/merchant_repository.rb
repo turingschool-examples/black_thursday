@@ -22,14 +22,6 @@ class MerchantRepository
     end
   end
 
-  def next_id
-    if all.empty?
-      1
-    else
-      all.last.id += 1
-    end
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

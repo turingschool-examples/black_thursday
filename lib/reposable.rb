@@ -3,8 +3,18 @@ module Reposable
     Object.const_get(self.class.name.chomp('Repository'))
   end
 
+  def next_id
+    if all.empty?
+      1
+    else
+      all.last.id + 1
+    end
+  end
+
   def create(attributes)
-    all << class_name.new(attributes)
+    all << class_name.new({ name: attributes[:name],
+                            id: next_id })
+
   end
   
   def find_by_id(id)
