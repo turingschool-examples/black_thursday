@@ -49,10 +49,9 @@ class MerchantRepository
   end
 
   def load_data(file)
-    if file
-      contents = CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
-          add_merchant(Merchant.new(row))
-      end
+    return nil unless file
+    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+      add_merchant(Merchant.new(row))
     end
   end
 end
