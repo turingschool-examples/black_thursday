@@ -33,6 +33,6 @@ class SalesAnalyst
     merchant_total_value = merchant_specific_items.sum do |item|
       item.unit_price
     end
-    merchant_total_value / merchant_specific_items.length
+    (merchant_total_value / merchant_specific_items.length).round(2)
   end
 end
