@@ -1,24 +1,11 @@
 # InvoiceRepo holds, creates, updates, destroys, and finds Invoices.
-class InvoiceRepo
+require './lib/general_repo'
+
+class InvoiceRepo < GeneralRepo
   attr_reader :invoices
 
   def initialize(data = {})
-    @invoices = []
-    data.each { |invoice| create(invoice) }
-  end
-
-  def create(invoice)
-    invoice[:id] ||= (@invoices.last.id.to_i + 1).to_s
-    invoice = Invoice.new(invoice)
-    @invoices << invoice
-  end
-
-  def all
-    @invoices
-  end
-
-  def find_by_id(id)
-    @invoices.find { |invoice| invoice.id == id.to_s }
+    super(data)
   end
 
   def find_by_customer_id(id)
@@ -32,13 +19,7 @@ class InvoiceRepo
   def find_all_by_status(status)
     @invoices.select { |invoice| invoice.status == status }
   end
-
-  def update(id, status)
-    find_by_id(id).update
-    find_by_id(id).set_status(status)
-  end
-
-  def delete(id)
-    @invoices.delete(find_by_id(id))
-  end
 end
+
+
+
