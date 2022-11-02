@@ -1,32 +1,35 @@
+# This is the MerchantRepository Class
+# frozen_string_literal: true.
+require_relative 'merchant'
+
 class MerchantRepository
-  # This is the MerchantRepository Class
-  # frozen_string_literal: true.
-  attr_reader :merchants
+
+  attr_reader :repository
 
   def initialize
-    @merchants = []
+    @repository = []
   end
 
   def create(data)
-    data[:id] ||= 1 if merchants == []
-    data[:id] ||= (@merchants.last.id.to_i + 1).to_s
-    @merchants << Merchant.new(data)
+    data[:id] ||= 1 if repository == []
+    data[:id] ||= (@repository.last.id.to_i + 1).to_s
+    @repository << Merchant.new(data)
   end
 
   def all
-    @merchants
+    @repository
   end
 
   def find_by_id(id)
-    merchants.select { |merchant| merchant.id == id }.first
+    repository.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
-    merchants.select { |merchant| merchant.name.casecmp?(name) }.first
+    repository.find { |merchant| merchant.name.casecmp?(name) }
   end
 
   def find_all_by_name(name)
-    merchants.select { |merchant| merchant.name.downcase.include? name.downcase }
+    repository.select { |merchant| merchant.name.downcase.include? name.downcase }
   end
 
   def update(id, name)
@@ -35,7 +38,6 @@ class MerchantRepository
   end
 
   def delete(id)
-    to_be_deleted = find_by_id(id)
-    @merchants.delete(to_be_deleted)
+    @repository.delete(find_by_id(id))
   end
 end
