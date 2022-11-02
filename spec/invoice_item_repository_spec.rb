@@ -70,5 +70,13 @@ describe InvoiceItemRepository do
         expect(iir.find_by_id('2').unit_price).to eq(BigDecimal(11.69, 4))
       end
     end
+
+    describe '#delete' do
+      it 'removes a InvoiceItem instance with the corresponding id' do
+        iir.delete('2')
+        expect(iir.repository.count).to eq(3)
+        expect(iir.repository[2].id).to eq('4')
+      end
+    end
   end
 end
