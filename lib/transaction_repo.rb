@@ -16,7 +16,7 @@ class TransactionRepo < GeneralRepo
   end
 
   def find_all_by_invoice_id(id)
-    @repository.select { |item| item.invoice_id == id }
+    @repository.select { |item| item.invoice_id == id.to_s }
   end
 
   def find_all_by_credit_card_number(card_number)

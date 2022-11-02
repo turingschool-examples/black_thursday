@@ -33,4 +33,11 @@ class Transaction
   def updated_at
     @stats[:updated_at]
   end
+
+  def update(attributes)
+    @stats[:credit_card_number] = attributes[:credit_card_number] unless attributes[:credit_card_number].nil?
+    @stats[:credit_card_expiration_date] = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
+    @stats[:result] = attributes[:result] unless attributes[:result].nil?
+    @stats[:updated_at] = Time.now
+  end
 end

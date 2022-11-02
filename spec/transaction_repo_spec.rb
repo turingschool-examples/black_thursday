@@ -55,8 +55,8 @@ describe TransactionRepo do
 
   describe '#find_all_by_invoice_id' do
     it 'searches for specific invoice id and returns invoices or empty array' do
-      expect(@tr.find_all_by_invoice_id(46)).to eq(@transaction2)
-      expect(@tr.find_all_by_invoice_id(22)).to eq(nil)
+      expect(@tr.find_all_by_invoice_id(46)).to eq([@transaction2])
+      expect(@tr.find_all_by_invoice_id(22)).to eq([])
     end
   end
 
@@ -69,14 +69,14 @@ describe TransactionRepo do
 
   describe '#find_all_by_result' do
     it 'searches for result and returns invoices found or empty array' do
-      expect(@tr.find_all_by_result(1300)).to eq([@transaction2])
-      expect(@tr.find_all_by_result(1000)).to eq([])
+      expect(@tr.find_all_by_result('success')).to eq([@transaction1, @transaction2, @transaction3, @transaction4, @transaction5])
+      expect(@tr.find_all_by_result('failure')).to eq([])
     end
   end
 
   describe '#update' do
     it 'updates the values of the item at id with attributes passed in' do
-      @tr.update(263395237,{ result: 'failure', credit_card_number: '4048033451067366'})
+      @tr.update(1,{ result: 'failure', credit_card_number: '4048033451067366'})
       expect(@transaction1.result).to eq('failure')
       expect(@transaction1.credit_card_number).to eq('4048033451067366')
     end
