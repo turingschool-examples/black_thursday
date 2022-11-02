@@ -7,7 +7,7 @@ require 'CSV'
 
 describe TransactionRepo do
   before(:each) do
-    csv = {:transactions => './data/items.csv'}.values[0]
+    csv = {:transactions => './data/transactions.csv'}.values[0]
     @stats = CSV.readlines(csv, headers: true, header_converters: :symbol)
     @stats = @stats[0..4]
     @tr = TransactionRepo.new(@stats)
@@ -47,67 +47,44 @@ describe TransactionRepo do
   end
 
   describe '#find_by_id' do
-    it 'searches for specific item id and returns item or nil if empty' do
-      expect(@tr.find_by_id(263395237)).to eq(@transaction1)
-      expect(@tr.find_by_id(263395537)).to eq(nil)
+    it 'searches for specific item id and returns invoice or nil if empty' do
+      expect(@tr.find_by_id(1)).to eq(@transaction1)
+      expect(@tr.find_by_id(10)).to eq(nil)
     end
   end
 
-  describe '#find_by_name' do
-    it 'searches for specific name and returns item or nil' do
-      expect(@tr.find_by_name('Glitter scrabble frames')).to eq(@transaction2)
-      expect(@tr.find_by_name('Glitter scrabble')).to eq(nil)
+  describe '#find_all_by_invoice_id' do
+    it 'searches for specific invoice id and returns invoices or empty array' do
+      expect(@tr.find_all_by_invoice_id(46)).to eq(@transaction2)
+      expect(@tr.find_all_by_invoice_id(22)).to eq(nil)
     end
   end
 
-  describe '#clean_string' do
-    it 'returns a string after removing spaces and newline characters' do
-      unclean = "Free standing wooden\n letters \n15cm Any colours\n"
-      cleaned = "Freestandingwoodenletters15cmAnycolours"
-      expect(@tr.clean_string(unclean)).to eq(cleaned)
+  describe '#find_all_by_credit_card_number' do
+    it 'searches for card number and returns invoices found or empty array' do
+      expect(@tr.find_all_by_credit_card_number('4048033451067370')).to eq([@transaction4])
+      expect(@tr.find_all_by_credit_card_number('4048033451067366')).to eq([])
     end
   end
 
-  describe '#find_by_description' do
-    it 'searches for specific description and returns items found or empty array' do
-      description = "Free standing wooden\n letters \n15cm Any colours\n"
-      expect(@tr.find_by_description(description)).to eq([@transaction4])
-      expect(@tr.find_by_description("Free standing wooden\n letters")).to eq([])
-    end
-  end
-
-  describe '#find_all_by_price' do
-    it 'searches for specific price and returns items' do
-      expect(@tr.find_all_by_price(1300)).to eq([@transaction2])
-      expect(@tr.find_all_by_price(1000)).to eq([])
-    end
-  end
-
-  describe '#find_all_by_price_range' do
-    it 'searches for specific price range and returns items' do
-      expect(@tr.find_all_by_price_range(1000..1400)).to eq([@transaction1, @transaction2, @transaction3])
-      expect(@tr.find_all_by_price_range(10..100)).to eq([])
-    end
-  end
-
-  describe '#find_all_by_merchant_id' do
-    it 'searches for merchant id and returns items' do
-      expect(@tr.find_all_by_merchant_id(12334141)).to eq([@transaction1])
-      expect(@tr.find_all_by_merchant_id(12334615)).to eq([])
+  describe '#find_all_by_result' do
+    it 'searches for result and returns invoices found or empty array' do
+      expect(@tr.find_all_by_result(1300)).to eq([@transaction2])
+      expect(@tr.find_all_by_result(1000)).to eq([])
     end
   end
 
   describe '#update' do
     it 'updates the values of the item at id with attributes passed in' do
-      @tr.update(263395237,{ name: 'Turkey Leg', unit_price: 100})
-      expect(@transaction1.name).to eq('Turkey Leg')
-      expect(@transaction1.unit_price_to_dollars).to eq(100)
+      @tr.update(263395237,{ result: 'failure', credit_card_number: '4048033451067366'})
+      expect(@transaction1.result).to eq('failure')
+      expect(@transaction1.credit_card_number).to eq('4048033451067366')
     end
   end
 
   describe '#delete' do
     it 'deletes the item at the specified id index' do
-      @tr.delete(263395237)
+      @tr.delete(1)
       expect(@tr.all).to eq([@transaction2, @transaction3, @transaction4, @transaction5])
     end
   end
