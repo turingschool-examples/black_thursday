@@ -171,5 +171,4 @@ RSpec.describe ItemRepository do
       expect(item_repository.all.include?(item_1)).to eq(false)
     end
   end
-
 end

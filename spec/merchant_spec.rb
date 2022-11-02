@@ -1,7 +1,6 @@
 require './spec/spec_helper'
 require './lib/merchant'
 
-
 RSpec.describe Merchant do
   describe '#initialize' do
     before :each do
