@@ -1,3 +1,10 @@
+require './lib/itemrepository'
+require './lib/merchantrepository'
+require './lib/item'
+require './lib/merchant'
+require 'bigdecimal'
+require_relative 'reposable'
+
 class SalesAnalyst
   attr_reader :merchants, :items
 
@@ -17,10 +24,18 @@ class SalesAnalyst
   def merchants_with_high_item_count
     avg = average_items_per_merchant
     stdev = average_items_per_merchant_standard_deviation
-    
-    merch.find_all do |merchant|
+
+    @merchants.all.find_all do |merchant|
       @items.find_all_by_merchant_id(merchant.id).count > avg + stdev
     end
+  end
+
+  def average_item_price_for_merchant(id)
+    sum = @items.find_all_by_merchant_id(id).sum do |item|
+      item.unit_price.to_i
+    end
+    avg = sum.to_f / 100 / @items.find_all_by_merchant_id(id).count.round(4)
+    BigDecimal(avg,4)
   end
 
   def sum_square_diff

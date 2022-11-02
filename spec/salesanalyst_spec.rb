@@ -34,4 +34,11 @@ RSpec.describe SalesAnalyst do
           }).to be true
     end
   end
+
+  describe '#average_item_price_for_merchant' do
+    it 'returns a BigDecimal of average item price' do
+      expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq BigDecimal(16.66,4)
+      expect(sales_analyst.average_item_price_for_merchant(12334257)).to eq BigDecimal(38.33,4)
+    end
+  end
 end
