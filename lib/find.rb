@@ -48,4 +48,16 @@ module Find
       end
     end
   end
+
+  def find_all_by_merchant_id(merch_id)
+    if @items != [] && @items != nil
+      @items.find_all do |item|
+        item.merchant_id == merch_id
+      end
+    else
+      @invoices.find_all do |invoice|
+        invoice.merchant_id == merch_id
+      end
+    end
+  end
 end

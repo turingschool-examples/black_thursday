@@ -16,8 +16,18 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'can find by id' do
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+
+    expect(se.invoices.find_by_id(1).id).to eq(se.invoices.all[0].id)
+  end
+
+  it 'can find by merchant id' do
     se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
 
-    expect(se.invoices.find_by_id(1)).to eq(se.invoices.all.first)
+    expect(se.invoices.find_all_by_merchant_id(12335938).length).to eq 16
   end
 end

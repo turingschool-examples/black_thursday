@@ -1,8 +1,6 @@
 require 'csv'
 
 class SalesEngine
-  attr_reader
-
   def initialize(data)
     @items = data[:items]
     @merchants = data[:merchants]
@@ -10,21 +8,13 @@ class SalesEngine
   end
 
   def self.from_csv(csv_hash)
-    if csv_hash.keys.include?(:items)
-      items_input = CSV.open(csv_hash[:items], headers: true, header_converters: :symbol)
-    end
-    if csv_hash.keys.include?(:merchants)
-      merchants_input = CSV.open(csv_hash[:merchants], headers: true, header_converters: :symbol)
-    end
-    if csv_hash.keys.include?(:invoices)
-      invoices_input = CSV.open(csv_hash[:invoices], headers: true, header_converters: :symbol)
-    end
-    SalesEngine.new({items: items_input, merchants: merchants_input, invoices: invoices_input})
+    SalesEngine.new(csv_hash)
   end
 
   def merchants
     mr = MerchantRepository.new
-    @merchants.each do |merchant|
+    contents = CSV.open(@merchants, headers: true, header_converters: :symbol)
+    contents.each do |merchant|
       mr.add({id: merchant[:id], name: merchant[:name]})
     end
     mr
@@ -32,7 +22,8 @@ class SalesEngine
 
   def items
     ir = ItemRepository.new
-    @items.each do |item|
+    contents = CSV.open(@items, headers: true, header_converters: :symbol)
+    contents.each do |item|
       ir.add({id: item[:id],
                 name: item[:name],
                 description: item[:description],
@@ -47,10 +38,11 @@ class SalesEngine
 
   def invoices
     invr = InvoiceRepository.new
-    @invoices.each do |invoice|
+    contents = CSV.open(@invoices, headers: true, header_converters: :symbol)
+    contents.each do |invoice|
       invr.add({id: invoice[:id],
                 customer_id: invoice[:customer_id],
-                merchant_id: invoice[:unit_price],
+                merchant_id: invoice[:merchant_id],
                 status: invoice[:status],
                 created_at: invoice[:created_at],
                 updated_at: invoice[:updated_at]
