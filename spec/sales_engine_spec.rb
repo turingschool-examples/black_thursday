@@ -41,6 +41,7 @@ RSpec.describe SalesEngine do
       expect(ir.find_by_id(263395237)).to be_a(Item)
       expect(ir.find_by_id(263395237).name).to eq("510+ RealPush Icon Set")
       expect(ir.find_by_name("HOT Crystal Dragon Fly Hand Blown Glass Art Gold Trim Figurine Lucky Collection")).to be_a(Item)
+      expect(ir.find_by_id(1)).to eq(nil)
     end
   end
 
@@ -50,7 +51,7 @@ RSpec.describe SalesEngine do
         :items     => './data/items.csv',
         :merchants => './data/merchants.csv'})
       mr = se.merchants
-      
+
       expect(mr).to be_a(MerchantRepository)
     end
 
@@ -63,6 +64,7 @@ RSpec.describe SalesEngine do
       expect(mr.find_by_id(12334105)).to be_a(Merchant)
       expect(mr.find_by_id(12334105).name).to eq("Shopin1901")
       expect(mr.find_by_name("SassyStrangeArt")).to be_a(Merchant)
+      expect(mr.find_by_id(1)).to eq(nil)
     end
   end
 end
