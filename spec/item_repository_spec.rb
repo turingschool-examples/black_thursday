@@ -70,17 +70,17 @@ RSpec.describe ItemRepository do
 
       item_repo = ItemRepository.new([item1,item2,item3])
 
-      expect(item_repo.find_all_by_price(BigDecimal(10.99,4))).to eq [item1,item2]
+      expect(item_repo.find_all_by_price(BigDecimal(0.1099,4))).to eq [item1,item2]
     end
   end
 
   describe '#find_all_by_price_in_range' do
     it 'returns an array of all items in price range' do
-      item_repo = ItemRepository.new([item1,item2,item3,item4])
+      item_repo = ItemRepository.new([item1, item2, item3, item4])
 
-      expect(item_repo.find_all_by_price_in_range(0..10)).to eq []
-      expect(item_repo.find_all_by_price_in_range(10..21)).to eq [item1,item2,item3]
-      expect(item_repo.find_all_by_price_in_range(20..30)).to eq [item3,item4]
+      expect(item_repo.find_all_by_price_in_range(0..0.15)).to eq [item1, item2]
+      expect(item_repo.find_all_by_price_in_range(0.15..0.25)).to eq [item3, item4]
+      expect(item_repo.find_all_by_price_in_range(2..3)).to eq []
     end
   end
 
@@ -88,8 +88,8 @@ RSpec.describe ItemRepository do
     it 'returns items with specified merchant id' do
       item_repo = ItemRepository.new([item1,item2,item3,item4])
 
-      expect(item_repo.find_all_by_merchant_id(2)).to eq [item1,item2]
-      expect(item_repo.find_all_by_merchant_id(3)).to eq [item3,item4]
+      expect(item_repo.find_all_by_merchant_id(2)).to eq [item1, item2]
+      expect(item_repo.find_all_by_merchant_id(3)).to eq [item3, item4]
     end
   end
 end

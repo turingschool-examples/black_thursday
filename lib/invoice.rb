@@ -2,7 +2,7 @@ class Invoice
   attr_reader :id,
               :customer_id,
               :merchant_id,
-              :status, 
+              :status,
               :created_at,
               :updated_at
 
@@ -11,8 +11,8 @@ class Invoice
     @customer_id  = input_hash[:customer_id]
     @merchant_id  = input_hash[:merchant_id]
     @status       = input_hash[:status]
-    @created_at   = Time.parse(input_hash[:created_at])
-    @updated_at   = Time.parse(input_hash[:updated_at])
+    @created_at   = Time.parse(input_hash[:created_at].to_s)
+    @updated_at   = Time.parse(input_hash[:updated_at].to_s)
   end
 
 
