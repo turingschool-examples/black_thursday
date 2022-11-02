@@ -44,4 +44,18 @@ describe InvoiceItemRepository do
       expect(iir.repository[4].updated_at).to eq(time2)
     end
   end
+
+  describe '#all' do
+    it 'returns an array of all known InvoiceItem instances' do
+      expect(iir.all).to be_a Array
+      expect(iir.all).to eq(iir.repository)
+    end
+  end
+
+  describe '#find_by_id' do
+    it 'returns nil or a InvoiceItem instance that matches id' do
+      expect(iir.find_by_id('2')).to eq(iir.repository[1])
+      expect(iir.find_by_id('8')).to be nil
+    end
+  end
 end
