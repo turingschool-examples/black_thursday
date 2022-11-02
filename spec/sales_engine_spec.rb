@@ -16,12 +16,13 @@ RSpec.describe SalesEngine do
 
   describe '#from_csv' do
     it 'loads data from csv files' do
-      se = SalesEngine.from_csv({
+      engine = SalesEngine.new
+      se = engine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
       })
-
       mr = se.merchants
+      
       expect(mr).to be_a MerchantRepository
     end
   end
