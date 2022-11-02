@@ -1,3 +1,5 @@
+require_relative 'merchant'
+
 class MerchantRepository
 
   def initialize(merchants)
