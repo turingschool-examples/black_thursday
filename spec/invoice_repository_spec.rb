@@ -1,4 +1,5 @@
 require './lib/invoice_repository'
+require './lib/invoice'
 
 
 RSpec.describe InvoiceRepository do
@@ -50,7 +51,7 @@ it 'can update a merchant (by id) with new attributes' do
 end
 
 it 'can delete an invoice instance by supplied id' do
-  
+
 end
 # all - returns an array of all known Invoice instances
 # find_by_id - returns either nil or an instance of Invoice with a matching ID
