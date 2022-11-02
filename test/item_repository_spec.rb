@@ -156,4 +156,19 @@ RSpec.describe ItemRepository do
     # run self.all in pry to see if instance obj is returned
     # instance variable for repo
   end
+
+  it 'deletes item by id' do
+    repo.create({
+      id: 1,
+      name: 'Pencil',
+      description: 'You can use it to write things',
+      unit_price: BigDecimal(10.99, 4),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 2
+    })
+    repo.delete(1)
+    expect(repo.repo).to eq([])
+
+  end
 end

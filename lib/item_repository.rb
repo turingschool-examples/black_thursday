@@ -84,4 +84,9 @@ class ItemRepository
       item.update(attributes) if item.id == id
     end
   end
+
+  def delete(id)
+    all.delete_if{|item| item.id == id }
+    
+  end
 end
