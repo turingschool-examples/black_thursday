@@ -26,7 +26,7 @@ class SalesEngine
                   })
       end
     end
-
+    
     if csv_hash.keys.include?(:merchants)
       merchants_raw = CSV.open(csv_hash[:merchants], headers: true, header_converters: :symbol)
       merchant_repo = MerchantRepository.new
