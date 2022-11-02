@@ -47,10 +47,4 @@ include Modify
       item.unit_price.between?(range.first, range.last)
     end
   end
-
-  def find_all_by_merchant_id(merch_id)
-    @items.find_all do |item|
-      item.merchant_id == merch_id
-    end
-  end
 end
