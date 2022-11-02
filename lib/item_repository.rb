@@ -11,7 +11,7 @@ class ItemRepository
 
   def find_by_id(id)
     @items.find do |item|
-      #if the ids match
+      # if the ids match
       item.id == id
     end
   end
@@ -36,7 +36,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     @items.find_all do |item|
-      #the range includes the unit price
+      # the range includes the unit price
       range.include?(item.unit_price)
     end
   end
@@ -61,7 +61,7 @@ class ItemRepository
     updated.name = attributes[:name]
     updated.description = attributes[:description]
     updated.unit_price = attributes[:unit_price]
-    updated.updated_at = Time.now 
+    updated.updated_at = Time.now
   end
 
   def delete(id)

@@ -320,7 +320,7 @@ describe ItemRepository do
         :created_at  => Time.now,
         :updated_at  => old_time = Time.now,
         :merchant_id => 2
-      })
+                    })
       ir.items << i1
       
       ir.delete(1)
