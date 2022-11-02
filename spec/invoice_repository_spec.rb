@@ -35,7 +35,15 @@ let (:invoice_2) {Invoice.new({
       invoice_repo = InvoiceRepository.new(invoices)
 
       expect(invoice_repo.all).to eq([invoice_1, invoice_2])
-     
+    end 
+  end 
+
+  describe "find_by_id" do 
+    it 'will find the invoice matching the id number' do 
+      invoices = [invoice_1, invoice_2]
+      invoice_repo = InvoiceRepository.new(invoices)
+
+      expect(invoice_repo.find_by_id(6)).to eq(invoice_1)
     end 
   end 
 end 
