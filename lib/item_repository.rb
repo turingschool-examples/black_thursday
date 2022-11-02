@@ -1,3 +1,6 @@
+require 'csv'
+require "./lib/item"
+require "bigdecimal"
 class ItemRepository
   attr_reader :items
 
@@ -67,4 +70,12 @@ class ItemRepository
   def delete(id)
     @items.delete(find_by_id(id))
   end
+
+  def load_data(file)
+    contents = CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+        @items << (Item.new(row))
+        # require 'pry' ; binding.pry
+    end
+  end
+
 end
