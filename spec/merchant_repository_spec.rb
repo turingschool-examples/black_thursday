@@ -1,4 +1,4 @@
-require './lib/merchantrepository'
+require './lib/merchant_repository'
 require './lib/merchant'
 
 RSpec.describe MerchantRepository do
