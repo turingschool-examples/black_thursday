@@ -17,7 +17,7 @@ class InvoiceItemRepository < GeneralRepo
 
   def find_all_by_item_id(item_id)
     repository.find_all do |ii|
-      ii.item_id == item_id
+      ii.item_id == item_id.to_s
     end
   end
 end
