@@ -40,7 +40,10 @@ class MerchantRepository
     max = @all.max_by do |merchant|
       merchant.id
     end
+    return 1 if max == nil
     new_max = max.id + 1
   end
+
+  
   
 end
