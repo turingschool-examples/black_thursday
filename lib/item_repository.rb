@@ -1,24 +1,16 @@
 # frozen_string_literal: true
 require './lib/item'
+require './lib/general_repo'
 
-class ItemRepository
-  def initialize(stats)
-    @repository = []
-    stats.each { |stat| create(stat) }
+class ItemRepository < GeneralRepo
+  def initialize(data)
+    super(data)
   end
 
   def create(stat)
     stat[:id] ||= (@repository.last.id.to_i + 1).to_s
     item = Item.new(stat)
     @repository.push(item)
-  end
-
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    @repository.find { |item| item.id == id.to_s }
   end
 
   def find_by_name(name)
