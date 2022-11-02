@@ -78,5 +78,17 @@ let (:invoice_3) {Invoice.new({
       expect(invoice_repo.find_all_by_merchant_id(10)).to eq([])
     end 
   end 
+
+  describe "#find_all_by_status" do 
+    it 'will find all invoices by status' do 
+      invoices = [invoice_1, invoice_2, invoice_3]
+      invoice_repo = InvoiceRepository.new(invoices)
+
+      expect(invoice_repo.find_all_by_status("paid")).to eq([invoice_2, invoice_3])
+      expect(invoice_repo.find_all_by_status("pending")).to eq([invoice_1])
+      expect(invoice_repo.find_all_by_status("delivered")).to eq([])
+    end 
+  end
+      
 end 
     
