@@ -44,6 +44,8 @@ class MerchantRepository
     new_max = max.id + 1
   end
 
-  
+  def update(id, new_name)
+    find_by_id(id).name = new_name
+  end
   
 end

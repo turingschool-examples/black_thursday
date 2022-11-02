@@ -68,10 +68,14 @@ describe MerchantRepository do
 
   describe '#create' do 
     it 'can create a new merchant instance' do 
+      merchant = merchant_repository.create("Whole Foods")
+
+      expect(merchant.id).to eq(1)
+
       merchant_1 = Merchant.new({:id => 6, :name => "Amazon Fresh"})
 
       merchant_repository.add_merchant_to_repo(merchant_1)
-      
+
       merchant_2 = merchant_repository.create("Walmart")
       merchant_3 = merchant_repository.create("Target")
       
@@ -80,7 +84,23 @@ describe MerchantRepository do
       expect(merchant_2.id).to eq(7)
       expect(merchant_1.id).to eq(6)
       expect(merchant_3.id).to eq(8)
-      expect(merchant_repository.all).to eq([merchant_1, merchant_2, merchant_3])
+      expect(merchant_repository.all).to eq([merchant, merchant_1, merchant_2, merchant_3,])
+    end
+  end
+
+  describe '#update' do 
+    it 'can update merchants name' do 
+      merchant_1 = merchant_repository.create("Safeway")
+      merchant_2 = merchant_repository.create("Walmart")
+      merchant_3 = merchant_repository.create("Target")
+
+      merchant_repository.update(1, "Costco")
+      merchant_repository.update(2, "LaGree's")
+      merchant_repository.update(3, "Natural Grocers")
+      
+      expect(merchant_1.name).to eq("Costco")
+      expect(merchant_2.name).to eq("LaGree's")
+      expect(merchant_3.name).to eq("Natural Grocers")
     end
   end
 
