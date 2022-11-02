@@ -36,4 +36,16 @@ RSpec.describe SalesEngine do
 
     expect(se.merchants.all.all?(Merchant)).to be(true)
   end
+
+  it 'can initialize an instance with files' do
+        se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    ir = se.items
+    mr = se.merchants
+
+    expect(ir).to respond_to(:all)
+    expect(mr).to respond_to(:all)
+  end
 end
