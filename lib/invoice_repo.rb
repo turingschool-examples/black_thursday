@@ -35,7 +35,7 @@ class InvoiceRepo
 
   def update(id, status)
     find_by_id(id).update
-    find_by_id(id).set_status(status)
+    find_by_id(id).change_status(status)
   end
 
   def delete(id)
