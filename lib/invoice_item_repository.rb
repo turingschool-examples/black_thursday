@@ -14,4 +14,10 @@ class InvoiceItemRepository < GeneralRepo
     data[:id] ||= (@repository.last.id.to_i + 1).to_s
     @repository << InvoiceItem.new(data)
   end
+
+  def find_all_by_item_id(item_id)
+    repository.find_all do |ii|
+      ii.item_id == item_id
+    end
+  end
 end
