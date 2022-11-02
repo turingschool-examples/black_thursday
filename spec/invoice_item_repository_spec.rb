@@ -101,7 +101,8 @@ describe InvoiceItemRepository do
       ii3 = iir.repository[2]
       ii4 = iir.repository[3]
       expect(iir.find_all_by_invoice_id('000000000')).to eq([])
-      expect(iir.find_all_by_invoice_id('1')).to eq([ii1])
+      expect(iir.find_all_by_invoice_id('1')).to eq([ii1, ii2, ii3, ii4])
+      expect(iir.find_all_by_invoice_id(1)).to eq([ii1, ii2, ii3, ii4])
     end
   end
 end

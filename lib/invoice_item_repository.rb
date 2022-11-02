@@ -20,4 +20,10 @@ class InvoiceItemRepository < GeneralRepo
       ii.item_id == item_id.to_s
     end
   end
+
+  def find_all_by_invoice_id(invoice_id)
+    repository.find_all do |ii|
+      ii.invoice_id == invoice_id.to_s
+    end
+  end
 end
