@@ -74,7 +74,7 @@ class ItemRepository
 
   def load_data(data)
     if data 
-      # require 'pry'; binding.pry
+      # require 'pry'; bindig.pry
       contents = CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
           @items << (Item.new(row))
           # require 'pry' ; binding.pry

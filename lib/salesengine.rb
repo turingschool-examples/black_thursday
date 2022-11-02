@@ -11,4 +11,8 @@ class SalesEngine
     @merchants = MerchantRepository.new(files[:merchants])
   end
 
+  def self.from_csv(files)
+    SalesEngine.new(files)
+  end
+
 end
