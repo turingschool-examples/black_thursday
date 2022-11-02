@@ -27,6 +27,7 @@ class ItemRepository
   end
 
   def find_by_name(name)
+    require 'pry'; binding.pry
     @items.find{|item| item.name.downcase == name.downcase}
   end
 
@@ -84,8 +85,8 @@ class ItemRepository
   end
 
   ##### Generate Items
-  def self.create_items
-    contents = CSV.open csv_hash[:items], headers: true, header_converters: :symbol, quote_char: '"'
+  def self.create_items(hash)
+    contents = CSV.open hash, headers: true, header_converters: :symbol, quote_char: '"'
     items = []
     items << make_item_object(contents)
   end

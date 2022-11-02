@@ -51,8 +51,8 @@ class MerchantRepository
 
   #### create object
   #### Merchant Repository will make individual merchants
-  def self.create_merchants
-    contents = CSV.open csv_hash[:merchants], headers: true, header_converters: :symbol
+  def self.create_merchants(hash)
+    contents = CSV.open hash, headers: true, header_converters: :symbol
     merchants = []
     merchants << make_merchant_object(contents)
   end
@@ -63,5 +63,5 @@ class MerchantRepository
       Merchant.new(info)
     end
   end
-  
+
 end

@@ -7,12 +7,11 @@ require './lib/item'
 
 RSpec.describe SalesEngine do
   it 'exists' do
-    require 'pry'; binding.pry
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
-
+require 'pry'; binding.pry
     expect(sales_engine).to be_a(SalesEngine)
   end
 
