@@ -48,4 +48,8 @@ class MerchantRepository
     find_by_id(id).name = new_name
   end
   
+  def delete(id)
+    @all.delete(find_by_id(id))
+  end
+
 end

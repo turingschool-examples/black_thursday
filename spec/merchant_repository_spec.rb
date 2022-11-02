@@ -104,4 +104,24 @@ describe MerchantRepository do
     end
   end
 
+  describe '#delete' do 
+    it 'deletes the merchant instance with the corosponding id' do 
+      merchant_1 = merchant_repository.create("Safeway")
+      merchant_2 = merchant_repository.create("Walmart")
+      merchant_3 = merchant_repository.create("Target")
+
+      merchant_repository.delete(1)
+
+      expect(merchant_repository.all).to eq([merchant_2, merchant_3])
+
+      merchant_repository.delete(2)
+
+      expect(merchant_repository.all).to eq([merchant_3])
+
+      merchant_repository.delete(4)
+
+      expect(merchant_repository.all).to eq([merchant_3])
+    end
+  end
+
 end
