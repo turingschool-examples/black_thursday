@@ -13,4 +13,16 @@ class InvoiceRepository
   def add(invoice)
     @invoices << Invoice.new(invoice)
   end
+
+  def find_all_by_customer_id(id)
+    @invoices.find_all do |invoice|
+      invoice.customer_id == id
+    end
+  end
+
+  def find_all_by_status(status)
+    @invoices.find_all do |invoice|
+      invoice.status == status
+    end
+  end
 end

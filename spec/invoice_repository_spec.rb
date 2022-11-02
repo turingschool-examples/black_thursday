@@ -30,4 +30,27 @@ RSpec.describe InvoiceRepository do
 
     expect(se.invoices.find_all_by_merchant_id(12335938).length).to eq 16
   end
+
+  it 'can find by customer id' do
+    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+
+    expect(se.invoices.find_all_by_customer_id(5).length).to eq 8
+  end
+
+  it 'can find by status' do
+    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+
+    expect(se.invoices.find_all_by_status("pending").length).to eq 1473
+  end
+
+  it 'can create a new invoice' do
+    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+    se.invoices.create({
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+    })
+
+    expect(se.invoices.all.last.id).to eq 4986
+  end
 end

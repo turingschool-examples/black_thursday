@@ -6,7 +6,7 @@ module Modify
         id: new_merchant,
         name: attributes
       })
-    else
+    elsif @items != [] && @items != nil
       new_item = (@items.last.id + 1)
       @items << Item.new({
         id: new_item,
@@ -17,6 +17,8 @@ module Modify
         updated_at: Time.now,
         merchant_id: attributes[:merchant_id]
       })
+    else
+
     end
   end
 
