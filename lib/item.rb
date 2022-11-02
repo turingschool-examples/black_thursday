@@ -10,6 +10,8 @@ class Item
               :updated_at,
               :merchant_id
 
+  # attr_accessor :name
+
   # contents = CSV.open './data/items.csv', headers: true, header_converters: :symbol
   # contents.each do |row|
   #   id = row[:id] if row[:id].to_i != 0
@@ -37,9 +39,17 @@ class Item
     @merchant_id = info[:merchant_id]
     # require 'pry'
     # binding.pry
+    # require 'pry'; binding.pry
   end
 
   def unit_price_to_dollars
     unit_price.to_f
+  end
+
+  def update(attributes)
+    @name = attributes[:name].downcase
+    @description = attributes[:description].downcase
+    @unit_price = attributes[:unit_price]
+    self
   end
 end
