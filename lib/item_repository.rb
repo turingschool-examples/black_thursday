@@ -39,14 +39,12 @@ class ItemRepository
     end
   end
 
-  # can we use find_all_with_price?
   def find_all_with_price_in_range(range)
     @all.find_all do |item|
       range.include?(item.unit_price)
     end
   end
 
-  # helper method for create method
   def max_id 
     max = @all.max_by do |item|
       item.id

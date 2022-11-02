@@ -70,7 +70,7 @@ RSpec.describe ItemRepository do
   end
 
   describe '#find_by_name()' do
-    it 'finds an instance of Item with case intensive search' do
+    it 'finds an instance of Item with case insensitive search' do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
 
