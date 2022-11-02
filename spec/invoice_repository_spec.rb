@@ -117,6 +117,16 @@ let (:invoice_3) {Invoice.new({
     end 
   end 
 
+  describe "#delete" do 
+    it 'will delete and invoice' do 
+      invoices = [invoice_1, invoice_2, invoice_3]
+      invoice_repo = InvoiceRepository.new(invoices)
+
+      invoice_repo.delete(6) 
+
+      expect(invoice_repo.all).to eq([invoice_2, invoice_3])
+    end 
+  end 
                           
 end 
     
