@@ -1,5 +1,4 @@
 require './lib/item'
-require './lib/merchant'
 
 RSpec.describe Item do
   let(:i) do
@@ -26,5 +25,16 @@ RSpec.describe Item do
 
   it 'changes unit_price to dollars' do
     expect(i.unit_price_to_dollars).to eq(10.99)
+  end
+
+  it 'updates name, description, and unit price' do
+    i.update({
+      name: 'Paint Brush',
+      description: 'You can use it to paint things',
+      unit_price: BigDecimal(12.99, 4)
+    })
+    expect(i.name).to eq('paint brush')
+    expect(i.description).to eq('you can use it to paint things')
+    expect(i.unit_price_to_dollars).to eq(12.99)
   end
 end
