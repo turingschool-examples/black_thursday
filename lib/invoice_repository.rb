@@ -10,12 +10,6 @@ class InvoiceRepository
   end 
 
   def find_by_id(id)
-    @invoices.each do |invoice|
-      if invoice.id == id
-        return invoice
-      else
-        nil
-      end
-    end
+    @invoices.find {|invoice| invoice.id == id}
   end 
 end 
