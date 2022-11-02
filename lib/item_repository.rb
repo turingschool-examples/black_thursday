@@ -1,6 +1,6 @@
 require 'csv'
-require "./lib/item"
-require "bigdecimal"
+require './lib/item'
+require 'bigdecimal'
 class ItemRepository
   attr_reader :items
 
@@ -73,13 +73,9 @@ class ItemRepository
   end
 
   def load_data(data)
-    if data 
-      # require 'pry'; bindig.pry
-      contents = CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
-          @items << (Item.new(row))
-          # require 'pry' ; binding.pry
-      end
+    return nil unless data 
+    CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
+      @items << (Item.new(row))
     end
   end
-
 end

@@ -9,8 +9,8 @@ RSpec.describe SalesEngine do
 
   it 'exists' do
     files = {
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
     }
     se = SalesEngine.new(files)
 
@@ -19,8 +19,8 @@ RSpec.describe SalesEngine do
 
   it 'can have an item repository' do
     files = {
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
     }
     se = SalesEngine.new(files)
 
@@ -29,8 +29,8 @@ RSpec.describe SalesEngine do
 
   it 'can have an merchant repository' do
     files = {
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
     }
     se = SalesEngine.new(files)
 
@@ -38,9 +38,9 @@ RSpec.describe SalesEngine do
   end
 
   it 'can initialize an instance with files' do
-        se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+    se = SalesEngine.from_csv({
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
     })
     ir = se.items
     mr = se.merchants

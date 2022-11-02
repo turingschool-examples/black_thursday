@@ -205,7 +205,6 @@ describe ItemRepository do
       ir.items << i1
       ir.items << i2
 
-
       expect(ir.find_all_by_price_in_range((10..20))).to eq [i1, i2]
       expect(ir.find_all_by_price_in_range((10..11))).to eq [i1]
       expect(ir.find_all_by_price_in_range((10..10.5))).to eq []
@@ -331,13 +330,10 @@ describe ItemRepository do
 
   it 'can load data' do
     ir = ItemRepository.new
-    file = "./data/items.csv"
+    file = './data/items.csv'
     ir.load_data(file)
-    # require 'pry' ; binding.pry
 
     expect(ir.all.first).to be_a(Item)
     expect(ir.all.all?(Item)).to eq(true)
-
-
   end
 end
