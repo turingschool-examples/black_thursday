@@ -19,8 +19,6 @@ class Item
     BigDecimal(@unit_price,4)
   end
 
-  
-
   def unit_price_to_dollars
     @unit_price.to_f
   end
