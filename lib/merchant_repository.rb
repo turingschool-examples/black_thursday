@@ -11,6 +11,6 @@ class MerchantRepository
   end
 
   def add(merchant)
-    @merchants << merchant
+    @merchants << Merchant.new(merchant)
   end
 end
