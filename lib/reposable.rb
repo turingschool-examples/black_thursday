@@ -4,26 +4,28 @@ module Reposable
   end
 
   def create(attributes)
-    
-    stuff = {:name => attributes[:name],
-            :id => next_id}
+    stuff = {:name        => attributes[:name],
+            :id           => next_id,
+            :description  => attributes[:description],
+            :unit_price   => attributes[:unit_price],
+            :created_at   => attributes[:created_at],
+            :updated_at   => attributes[:updated_at],
+            :merchant_id  => attributes[:merchant_id]}
             
     all.push(class_name.new(stuff))
-    
   end
 
   def next_id
     if all.empty?
       1
     else
-      id = all.last.id
-      id += 1
+      all.last.id + 1
     end
   end
   
   def find_by_id(id)
     all.find do |entry|
-      entry.id == id
+      entry.id == id.to_i
     end
   end
 
