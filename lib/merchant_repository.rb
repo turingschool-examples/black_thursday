@@ -1,6 +1,3 @@
-require 'pry'
-require './lib/merchant'
-
 class MerchantRepository
   attr_reader :all
 
@@ -51,5 +48,4 @@ class MerchantRepository
   def delete(id)
     @all.delete(find_by_id(id))
   end
-
 end

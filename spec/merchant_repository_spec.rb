@@ -1,4 +1,3 @@
-require 'pry'
 require 'rspec'
 require './lib/merchant'
 require './lib/merchant_repository'
@@ -30,7 +29,6 @@ describe MerchantRepository do
       merchant_2 = Merchant.new({:id => 7, :name => "Target"})
       merchant_repository.add_merchant_to_repo(merchant_1)
       merchant_repository.add_merchant_to_repo(merchant_2)
-
 
       expect(merchant_repository.find_by_id(10)).to eq(nil)
       expect(merchant_repository.find_by_id(6)).to eq(merchant_1)
@@ -123,5 +121,4 @@ describe MerchantRepository do
       expect(merchant_repository.all).to eq([merchant_3])
     end
   end
-
 end
