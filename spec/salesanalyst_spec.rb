@@ -24,7 +24,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#merchants_with_high_item_count' do
-    xit 'returns merchants whose average # of items is >1 stdev' do
+    it 'returns merchants whose average # of items is >1 stdev' do
       avg = sales_analyst.average_items_per_merchant
       stdev = sales_analyst.average_items_per_merchant_standard_deviation
 
