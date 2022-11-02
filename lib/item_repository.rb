@@ -1,5 +1,6 @@
 require "csv"
 require "pry"
+require 'time'
 require_relative "find"
 require_relative "modify"
 require_relative "item"
@@ -46,5 +47,9 @@ include Modify
     @items.find_all do |item|
       item.unit_price.between?(range.first, range.last)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end

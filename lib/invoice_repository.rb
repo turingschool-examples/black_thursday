@@ -1,5 +1,6 @@
 require_relative 'find'
 require_relative 'modify'
+require_relative 'invoice'
 
 class InvoiceRepository
   include Find
@@ -24,5 +25,9 @@ class InvoiceRepository
     @invoices.find_all do |invoice|
       invoice.status == status
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 end

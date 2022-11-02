@@ -1,8 +1,9 @@
-require './lib/invoice'
+require_relative '../lib/invoice'
+require 'time'
 
 RSpec.describe Invoice do
   it 'exists and has attributes' do
-    time = Time.now
+    time = Time.now.to_s
     invoice = Invoice.new({
       :id          => 6,
       :customer_id => 7,
@@ -17,7 +18,7 @@ RSpec.describe Invoice do
     expect(invoice.customer_id).to eq 7
     expect(invoice.merchant_id).to eq 8
     expect(invoice.status).to eq("pending")
-    expect(invoice.created_at).to eq time
-    expect(invoice.updated_at).to eq time
+    expect(invoice.created_at).to eq Time.parse(time)
+    expect(invoice.updated_at).to eq Time.parse(time)
   end
 end

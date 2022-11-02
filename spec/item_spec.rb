@@ -1,14 +1,14 @@
-require './lib/item'
+require_relative '../lib/item'
 require 'bigdecimal'
 
 RSpec.describe Item do
   before(:each) do
-    @time = Time.now
+    @time = Time.now.to_s
     @item = Item.new({
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal(10.99,4),
+      :unit_price  => BigDecimal(1099,4),
       :created_at  => @time,
       :updated_at  => @time,
       :merchant_id => 2
@@ -36,11 +36,11 @@ RSpec.describe Item do
   end
 
   it 'has a time created at' do
-    expect(@item.created_at).to eq(@time)
+    expect(@item.created_at).to eq(Time.parse(@time))
   end
 
   it 'has a time updated at' do
-    expect(@item.updated_at).to eq(@time)
+    expect(@item.updated_at).to eq(Time.parse(@time))
   end
 
   it 'has a merchant id' do

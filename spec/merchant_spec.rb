@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 RSpec.describe Merchant do
   it 'exists' do

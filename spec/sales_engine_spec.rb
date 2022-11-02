@@ -1,9 +1,5 @@
 require 'csv'
-require './lib/sales_engine'
-require './lib/merchant'
-require './lib/item'
-require './lib/merchant_repository'
-require './lib/item_repository'
+require_relative '../lib/sales_engine'
 
 RSpec.describe SalesEngine do
   it 'exists' do
