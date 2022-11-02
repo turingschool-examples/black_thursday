@@ -11,7 +11,7 @@ RSpec.describe Customer do
                 last_name: 'Clarke',
                 created_at:   time1,
                 updated_at:   time2
-              }
+      }
       customer = Customer.new(data)
 
       expect(customer).to be_a Customer
@@ -23,9 +23,23 @@ RSpec.describe Customer do
     end
   end
 
-  describe '#update' do #best way to document this?
-    it 'does nothing' do
+  describe '#update' do
+    it 'can update first or last name and log the time updated' do
+      time1 = Time.now
+      time2 = Time.now
+      data = {
+        id:               6,
+        first_name:  'Joan',
+        last_name: 'Clarke',
+        created_at:   time1,
+        updated_at:   time2
+      }
+      customer = Customer.new(data)
+      customer.update({ first_name: 'Timbo', last_name: 'Tombo'})
 
+      expect(customer.updated_at).to be_within(0.5).of Time.now
+      expect(customer.first_name).to eq 'Timbo'
+      expect(customer.last_name).to eq 'Tombo'
     end
   end
 end
