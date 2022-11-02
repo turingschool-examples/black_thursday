@@ -19,4 +19,8 @@ class InvoiceItem
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
   end
+
+  def unit_price_to_dollars
+    unit_price.round(2, :half_up).to_f
+  end
 end
