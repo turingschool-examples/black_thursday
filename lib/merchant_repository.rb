@@ -5,12 +5,8 @@ class MerchantRepository
   end
 
   def create(attributes)
-    # last_id = @mechants.sort_by {|merchant| merchant.id}
-    # new_id = last_id[-1].id
-    #new_merchant = Merchant.new({:id => new_id +1, attributes => attributes})
-    new_merchant = Merchant.new(attributes)
-    @merchants << new_merchant
-    new_merchant
+    new_id = (@merchants.last.id + 1)
+    @merchants << Merchant.new({id: new_id, name: attributes})
   end
 
   def all
