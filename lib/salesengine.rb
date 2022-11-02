@@ -1,9 +1,11 @@
+require './lib/item_repository.rb'
+require './lib/item.rb'
 class SalesEngine
-  attr_reader :csv
+  attr_reader :items
 
-  def initialize(csv)
-    @items = csv[:items]
-    @merchants = csv[:merchants]
+  def initialize(files)
+    @items = ItemRepository.new(files[:items])
+    # @merchants = csv[:merchants]
   end
 
 end
