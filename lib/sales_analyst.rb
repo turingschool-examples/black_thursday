@@ -19,13 +19,6 @@ class SalesAnalyst
     hsh
   end
 
-  # def std_dev(nums, avg)
-  #   total = nums.sum do |num|
-  #     (num - avg)**2
-  #   end
-  #   Math.sqrt(total / (nums.length - 1)).round(2)
-  # end
-
   def average_items_per_merchant_standard_deviation
     sqr_diff = 0.0
     merch_hash.each do |merchant, items|
@@ -45,5 +38,13 @@ class SalesAnalyst
     high_merchants.map do |merchant_id|
       engine.merchants.find_by_id(merchant_id)
     end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    merchant_specific_items = engine.items.find_all_by_merchant_id(merchant_id)
+    merchant_total_value = merchant_specific_items.sum do |item|
+      item.unit_price
+    end
+    merchant_total_value / merchant_specific_items.length
   end
 end

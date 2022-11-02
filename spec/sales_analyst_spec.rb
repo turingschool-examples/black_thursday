@@ -36,7 +36,6 @@ RSpec.describe SalesAnalyst do
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    # require 'pry'; binding.pry
     sales_analyst = se.analyst
     merchants_with_high_item_count_id = sales_analyst.merchants_with_high_item_count.map do |merchant|
       merchant.id
@@ -44,4 +43,13 @@ RSpec.describe SalesAnalyst do
     expect(merchants_with_high_item_count_id.include?(12334195)).to eq (true)
     expect(merchants_with_high_item_count_id.include?(12334105)).to eq (false)
   end 
+
+  it 'can return the average item price for a specific merchant' do
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    sales_analyst = se.analyst
+    expect(sales_analyst.average_item_price_for_merchant(12334159)).to eq 31.50
+  end
 end
