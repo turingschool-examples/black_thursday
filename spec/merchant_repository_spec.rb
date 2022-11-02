@@ -1,5 +1,5 @@
 require './lib/merchant'
-require './lib/merchantrepository'
+require './lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
   let!(:mr) {MerchantRepository.new([m_1, m_2, m_3])}
