@@ -1,7 +1,8 @@
 require 'csv'
 require './lib/merchantrepository'
 require './lib/itemrepository'
-
+require './lib/item'
+require './lib/merchant'
 
 class SalesEngine
   attr_reader :items, :merchants
@@ -9,7 +10,6 @@ class SalesEngine
   def initialize(data)
     @merchants = repo_creation(data[:merchants], :merchants)
     @items = repo_creation(data[:items], :items)
-    
   end
 
   def self.from_csv(data)
@@ -38,5 +38,9 @@ class SalesEngine
     elsif type == :items
       Item.new(row)
     end
+  end
+
+  def analyst
+    SalesAnalyst.new(@merchants,@items)
   end
 end
