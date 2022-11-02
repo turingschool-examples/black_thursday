@@ -95,7 +95,8 @@ let (:invoice_3) {Invoice.new({
       invoices = [invoice_1, invoice_2, invoice_3]
       invoice_repo = InvoiceRepository.new(invoices)
 
-      expect(invoice_repo.create(:id => 1)) 
+      expect(invoice_repo.all).to eq([invoice_1, invoice_2, invoice_3])
+      invoice_4 = invoice_repo.create(:id => 1)
       expect(invoice_repo.all).to eq([invoice_1, invoice_2, invoice_3, invoice_4])
     end 
   end 

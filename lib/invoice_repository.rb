@@ -25,5 +25,11 @@ class InvoiceRepository
     @invoices.find_all {|invoice| invoice.status == status}
   end 
 
-  
+  def create(attributes)
+    ids = @invoices.map { |item| item.id}
+    attributes[:id] = ids.max + 1
+    new_invoice = Invoice.new(attributes)
+    @invoices.push(new_invoice)
+    new_invoice
+  end
 end 
