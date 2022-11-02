@@ -3,8 +3,9 @@ require 'csv'
 
 class MerchantRepository
   attr_reader :all
-  def initialize
+  def initialize(file = nil)
     @all = []
+    load_data(file)
   end
 
   def add_merchant(merchant_object)
@@ -48,10 +49,10 @@ class MerchantRepository
   end
 
   def load_data(file)
-    contents = CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
-        add_merchant(Merchant.new(row))
-        # require 'pry' ; binding.pry
+    if file
+      contents = CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+          add_merchant(Merchant.new(row))
+      end
     end
   end
-
 end
