@@ -4,7 +4,21 @@ module Reposable
   end
 
   def create(attributes)
-    all << class_name.new(attributes)
+    
+    stuff = {:name => attributes[:name],
+            :id => next_id}
+            
+    all.push(class_name.new(stuff))
+    
+  end
+
+  def next_id
+    if all.empty?
+      1
+    else
+      id = all.last.id
+      id += 1
+    end
   end
   
   def find_by_id(id)
