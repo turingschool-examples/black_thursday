@@ -2,11 +2,12 @@
 
 require 'rspec'
 require 'bigdecimal'
+require 'time'
 require './lib/invoice_item'
 
 describe InvoiceItem do
-  let(:time1) { Time.now }
-  let(:time2) { Time.now }
+  let(:time1) { Time.parse("2020-12-20 20:20:20") }
+  let(:time2) { Time.parse("2020-12-20 20:20:20") }
   let(:ii) do
     InvoiceItem.new(
       {
@@ -41,7 +42,7 @@ describe InvoiceItem do
   end
 
   describe '#update' do
-    it 'changes the quantity, unit_price and the updated_at' do
+    it 'changes the quantity and unit_price and sets updated_at to current time' do
       ii.update(
         {
           quantity: 2,
