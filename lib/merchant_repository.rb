@@ -18,13 +18,13 @@ class MerchantRepository
 
   def find_by_name(name)
     @all.find do |merchant|
-      name.casecmp(merchant.name) == 0
+      name.casecmp?(merchant.name) 
     end
   end
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
-      name.casecmp(merchant.name) == 0
+      name.casecmp?(merchant.name)
     end
   end
 
@@ -37,8 +37,8 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-     update_merchant = find_by_id(id)
-     update_merchant.name = attributes
+    update_merchant = find_by_id(id)
+    update_merchant.name = attributes
   end
 
   def delete(id)
