@@ -108,4 +108,8 @@ RSpec.describe ItemRepository do
     @ir.delete(263395617)
     expect(@ir.find_by_id(263395617)).to eq(nil)
   end
+
+  it 'can find an item by name' do
+    expect(@ir.find_all_by_name("Disney scrabble frames")[0].id).to eq(263395721)
+  end
 end

@@ -51,4 +51,8 @@ class SalesEngine
 
     SalesEngine.new({items: item_repo, merchants: merchant_repo, invoices: invoice_repo})
   end
+
+  def analyst
+    SalesAnalyst.new(self)
+  end
 end
