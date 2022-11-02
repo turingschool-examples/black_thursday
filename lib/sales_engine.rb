@@ -19,8 +19,8 @@ class SalesEngine
   # end
 
   def self.from_csv(hash)
-    items = ItemRepository.create_items(hash[:items])
-    merchants = MerchantRepository.create_merchants(hash[:merchants])
+    items = ItemRepository.create_items(hash[:items]).flatten
+    merchants = MerchantRepository.create_merchants(hash[:merchants]).flatten
     new(items, merchants)
   end
 

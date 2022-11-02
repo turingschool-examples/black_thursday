@@ -27,7 +27,6 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    require 'pry'; binding.pry
     @items.find{|item| item.name.downcase == name.downcase}
   end
 
