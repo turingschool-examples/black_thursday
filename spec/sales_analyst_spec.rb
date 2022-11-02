@@ -59,7 +59,7 @@ RSpec.describe SalesAnalyst do
       :merchants => "./data/merchants.csv",
     })
     sales_analyst = se.analyst
-    expect(sales_analyst.golden_items.count).to eq(146)
+    expect(sales_analyst.golden_items.count).to eq(5)
     expect(sales_analyst.golden_items).to be_a(Array)
     expect(sales_analyst.golden_items[0]).to be_a(Item)
   end

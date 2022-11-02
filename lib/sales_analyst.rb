@@ -24,7 +24,7 @@ class SalesAnalyst
     merch_hash.each do |merchant, items|
       sqr_diff += (items - average_items_per_merchant)**2
     end
-    std_dev = Math.sqrt((sqr_diff / (merch_hash.keys.count - 1)))
+    std_dev = Math.sqrt(sqr_diff / (merch_hash.keys.count - 1))
     std_dev.round(2)
   end
 
@@ -48,7 +48,7 @@ class SalesAnalyst
     (merchant_total_value / merchant_specific_items.length).round(2)
   end
 
-  def avg_price_per_item # 251.05
+  def avg_price_per_item
     arr = []
     engine.items.all.each do |item|
       arr << item.unit_price
@@ -56,9 +56,18 @@ class SalesAnalyst
     arr.sum / arr.length
   end
 
-  def golden_items # items with prices at or above 257.57
-    engine.items.all.find_all do |item|
-      item.unit_price >= (avg_price_per_item + (average_items_per_merchant_standard_deviation * 2))
+  def average_item_price_standard_deviation
+    sqr_diff = 0.0
+    engine.items.all.each do |item|
+      sqr_diff += (item.unit_price - avg_price_per_item)**2
     end
+    std_dev = Math.sqrt(sqr_diff / (engine.items.all.count - 1))
+    std_dev.round(2)
+  end
+
+  def golden_items
+    min = avg_price_per_item + (average_item_price_standard_deviation * 2)
+    max = 99999
+    engine.items.find_all_by_price_in_range(min..max)
   end
 end
