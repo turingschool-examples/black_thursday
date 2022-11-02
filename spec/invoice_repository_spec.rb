@@ -1,4 +1,4 @@
-require './lib/invoicerepository'
+require './lib/invoice_repository'
 require './lib/invoice'
 
 RSpec.describe InvoiceRepository do
