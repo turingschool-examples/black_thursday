@@ -59,9 +59,17 @@ class ItemRepository
     item[:id] = max_id
     add_to_repo(Item.new(item))
   end
-end
 
-# create(attributes)
+  def update(id, attributes)
+    item = find_by_id(id)
+    # working here
+    attributes.keys.each do |key|
+      item.name = attributes[:name]
+    end
+  end
+
+
+end
 
 # update(id, attributes)
 

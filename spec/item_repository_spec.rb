@@ -152,4 +152,31 @@ RSpec.describe ItemRepository do
       expect(ir.all[1]).to be_a(Item) 
     end
   end
+
+  describe '#update(id, attributes)' do
+    xit 'updates an items name, description, unit price and updated time' do
+      ir.add_to_repo(item_1)
+      ir.add_to_repo(item_2)
+      ir.add_to_repo(item_3)
+
+      expect(ir.all.first.name).to eq("Pencil") 
+
+      ir.update(1,{
+        :name        => "Mechanical Pencil",
+        :description => "Writes things with replaceable lead",
+        :unit_price  => BigDecimal(5.99,4),
+        })
+
+      expect(ir.all.first.name).to eq("Mechanical Pencil") 
+    end
+  end
+
+  describe '#delete(id)' do
+    xit 'deletes an item from the all array' do
+      ir.add_to_repo(item_1)
+      ir.add_to_repo(item_2)
+      ir.add_to_repo(item_3)
+      
+    end
+  end
 end
