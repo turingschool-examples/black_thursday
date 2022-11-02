@@ -4,7 +4,7 @@ require './lib/item_repository'
 require './lib/invoice_repository'
 
 class SalesEngine
-  attr_accessor :items, :merchants, :invoices
+  attr_reader :items, :merchants, :invoices
   def initialize(data)
     @items = data[:items]
     @merchants = data[:merchants]

@@ -53,4 +53,17 @@ RSpec.describe InvoiceRepository do
 
     expect(se.invoices.all.last.id).to eq 4986
   end
+
+  it 'can update an invoice' do
+    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+    se.invoices.create({
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+    })
+
+    se.invoices.update(4986, "shipped")
+
+    expect(se.invoices.all.last.status).to eq('shipped')
+  end
 end

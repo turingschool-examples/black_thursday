@@ -32,15 +32,18 @@ module Modify
 
   def update(id, attributes)
     if @merchants != [] && @merchants != nil
-      updated_id = find_by_id(id)
-      updated_id.name = attributes
-    else
+      updated_merchant = find_by_id(id)
+      updated_merchant.name = attributes
+    elsif @items != [] && @items != nil
       update_item = find_by_id(id)
       # binding.pry
       update_item.name = attributes[:name]
       update_item.description = attributes[:description]
       update_item.unit_price = attributes[:unit_price]
       update_item.updated_at = Time.now
+    else
+      update_invoice = find_by_id(id)
+      update_invoice.status = attributes
     end
   end
 
