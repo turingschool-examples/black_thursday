@@ -1,5 +1,4 @@
 class InvoiceRepository
-
   def initialize(invoices)
     @invoices = invoices
   end
