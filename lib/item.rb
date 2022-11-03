@@ -19,7 +19,11 @@ class Item
   end
 
   def unit_price
-    BigDecimal(@stats[:unit_price], 4)
+    unit_price = @stats[:unit_price].to_s
+    if unit_price.length > 2 && !unit_price.include?('.')
+      return BigDecimal(unit_price.chars.insert(-3, '.').join, 4)
+    end
+    BigDecimal(unit_price, 4)
   end
 
   def created_at
@@ -35,7 +39,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    unit_price.round(2, :half_up).to_f
+    unit_price.round(2, :ceil).to_f
   end
 
   def update(attributes)

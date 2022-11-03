@@ -38,6 +38,16 @@ describe Item do
 
     it 'returns item unit price' do
       expect(@item.unit_price).to eq(BigDecimal(10.99, 4))
+
+      @item_list[:unit_price] = 144
+      @item = Item.new(@item_list)
+
+      expect(@item.unit_price).to eq(BigDecimal(1.44, 4))
+
+      @item_list[:unit_price] = 17000
+      @item = Item.new(@item_list)
+
+      expect(@item.unit_price).to eq(BigDecimal(170.00, 4))
     end
 
     it 'returns item creation date' do
@@ -54,6 +64,16 @@ describe Item do
 
     it 'returns item unit price converted to money format' do
       expect(@item.unit_price_to_dollars).to eq(10.99)
+
+      @item_list[:unit_price] = 17000
+      @item = Item.new(@item_list)
+
+      expect(@item.unit_price_to_dollars).to eq(170.0)
+
+      @item_list[:unit_price] = 144
+      @item = Item.new(@item_list)
+
+      expect(@item.unit_price_to_dollars).to eq(1.44)
     end
   end
 end
