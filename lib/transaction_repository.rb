@@ -46,4 +46,8 @@ class TransactionRepository
   def create(attributes)
     create_overall(@transactions, attributes)
   end
+
+  def update(id, attributes)
+    update_overall(@transactions, id, attributes)
+  end
 end

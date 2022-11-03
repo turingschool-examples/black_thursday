@@ -69,8 +69,24 @@ RSpec.describe TransactionRepository do
       :created_at => Time.now,
       :updated_at => Time.now
     })
-    
+
     expect(se.transactions.all.last.credit_card_number).to eq("4242424242424242")
     expect(se.transactions.all.last.id).to eq(4986)
+  end
+
+  it 'can update a Transaction instance' do
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv"})
+
+    expect(se.transactions.all[2].credit_card_number).to eq("4271805778010747")
+    expect(se.transactions.all[2].result).to eq("success")
+
+    se.transactions.update(3, {
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "failed"
+    })
+
+    expect(se.transactions.all[2].credit_card_number).to eq("4242424242424242")
+    expect(se.transactions.all[2].result).to eq("failed")
   end
 end

@@ -37,6 +37,7 @@ module Modify
         updated_type.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes.keys.include?(:credit_card_expiration_date)
         updated_type.result = attributes[:result] if attributes.keys.include?(:result)
         updated_type.updated_at = Time.now
+      end
     end
   end
 
