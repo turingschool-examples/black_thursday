@@ -3,6 +3,7 @@ require_relative '../lib/item_repository.rb'
 require_relative '../lib/item.rb'
 require_relative '../lib/merchant.rb'
 require_relative '../lib/merchant_repository.rb'
+require_relative '../lib/sales_analyst'
 require 'csv'
 
 RSpec.describe SalesEngine do
@@ -58,6 +59,14 @@ RSpec.describe SalesEngine do
     se.find_merchant_by_id(12334105)
 
     expect(se.find_merchant_by_id(12334105)).to eq(se.merchants.all[0])
+  end
 
+  it 'can initialize a sales analyst' do
+    se = SalesEngine.from_csv({
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+    })
+
+    expect(se.analyst).to be_a(SalesAnalyst)
   end
 end
