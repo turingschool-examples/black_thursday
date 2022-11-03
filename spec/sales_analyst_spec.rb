@@ -7,18 +7,18 @@ require './lib/merchant_repository'
 require './lib/merchant'
 
 RSpec.describe SalesAnalyst do
-  it 'exists' do
-    sales_engine = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"})
-    sales_analyst = sales_engine.analyst
-    # sales_analyst = SalesEngine.analyst
+  let!(:sales_engine) {SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv"})}
 
+  let!(:sales_analyst) {sales_engine.analyst}
+
+  it 'exists' do
     expect(sales_analyst).to be_a(SalesAnalyst)
   end
 
   it 'has an average number of items per merchant' do
-    expect(sales_analyst.average_items_per_merchant).to eq(x.xx)
+    expect(sales_analyst.average_items_per_merchant).to eq(2.88)
     require 'pry'; binding.pry
     expect(sales_analyst.average_items_per_merchant).to eq(Float)
   end
