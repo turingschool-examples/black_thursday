@@ -2,6 +2,7 @@
 
 require './lib/item'
 require './lib/item_repository'
+require './lib/sales_engine'
 require 'bigdecimal'
 require 'CSV'
 
@@ -9,7 +10,7 @@ describe ItemRepository do
   before(:each) do
     @stats = CSV.readlines('./data/items.csv', headers: true, header_converters: :symbol)
     @stats = @stats[0..4]
-    @ir = ItemRepository.new(@stats)
+    @ir = ItemRepository.new(@stats, @se)
     @item1 = @ir.all[0]
     @item2 = @ir.all[1]
     @item3 = @ir.all[2]
@@ -77,15 +78,15 @@ describe ItemRepository do
 
   describe '#find_all_by_price' do
     it 'searches for specific price and returns items' do
-      expect(@ir.find_all_by_price(1300)).to eq([@item2])
-      expect(@ir.find_all_by_price(1000)).to eq([])
+      expect(@ir.find_all_by_price(13.00)).to eq([@item2])
+      expect(@ir.find_all_by_price(10.00)).to eq([])
     end
   end
 
   describe '#find_all_by_price_range' do
     it 'searches for specific price range and returns items' do
-      expect(@ir.find_all_by_price_range(1000..1400)).to eq([@item1, @item2, @item3])
-      expect(@ir.find_all_by_price_range(10..100)).to eq([])
+      expect(@ir.find_all_by_price_range(10.00..14.00)).to eq([@item1, @item2, @item3])
+      expect(@ir.find_all_by_price_range(100..1000)).to eq([])
     end
   end
 
@@ -100,7 +101,7 @@ describe ItemRepository do
     it 'updates the values of the item at id with attributes passed in' do
       @ir.update(263395237,{ name: 'Turkey Leg', unit_price: 100 })
       expect(@item1.name).to eq('Turkey Leg')
-      expect(@item1.unit_price_to_dollars).to eq(100)
+      expect(@item1.unit_price_to_dollars).to eq(1.00)
     end
   end
 

@@ -1,13 +1,14 @@
-# This is the MerchantRepository Class
-# frozen_string_literal: true.
+# frozen_string_literal: true
+
 require_relative 'merchant'
 require_relative 'general_repo'
 
+# This is the MerchantRepository Class
 class MerchantRepository < GeneralRepo
   attr_reader :repository
 
-  def initialize(data = {})
-    super('Merchant', data)
+  def initialize(data, se)
+    super('Merchant', data, se)
   end
 
   def find_by_name(name)

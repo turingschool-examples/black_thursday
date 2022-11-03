@@ -7,7 +7,7 @@ require './lib/invoice_item_repository'
 
 describe InvoiceItemRepository do
   let(:data) { CSV.open './data/invoice_items_test.csv', headers: true, header_converters: :symbol }
-  let(:iir) { InvoiceItemRepository.new(data) }
+  let(:iir) { InvoiceItemRepository.new(data, "SE") }
   let(:time1) { Time.now }
   let(:time2) { Time.now }
 

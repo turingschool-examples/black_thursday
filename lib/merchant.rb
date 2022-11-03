@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
+# This is the Merchant Class
 class Merchant
-  # This is the Merchant Class
-  # frozen_string_literal: true.
   attr_reader :id,
               :name
 
-  def initialize(data)
+  def initialize(data, repo)
     @id   = data[:id]
     @name = data[:name]
+    @merchant_repo = repo
   end
 
   def update(name)

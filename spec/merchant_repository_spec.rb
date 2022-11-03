@@ -1,10 +1,11 @@
 require 'rspec'
 require 'csv'
 require './lib/merchant_repository'
+require './lib/general_repo'
 
 describe MerchantRepository do
   let(:data) { CSV.open './data/merchants_test.csv', headers: true, header_converters: :symbol }
-  let(:mr) { MerchantRepository.new(data) }
+  let(:mr) { MerchantRepository.new(data, "salesengine") }
 
   describe '#initialize' do
     it 'is and instance of MerchantRepository' do

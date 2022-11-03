@@ -1,10 +1,11 @@
-# InvoiceRepo holds, creates, updates, destroys, and finds repository.
-require './lib/general_repo'
+# frozen_string_literal: true
 
+require_relative 'general_repo'
+
+# InvoiceRepo holds, creates, updates, destroys, and finds repository.
 class InvoiceRepo < GeneralRepo
-  
-  def initialize(data)
-    super('Invoice', data)
+  def initialize(data, engine)
+    super('Invoice', data, engine)
   end
 
   def find_by_customer_id(id)
@@ -19,6 +20,3 @@ class InvoiceRepo < GeneralRepo
     @repository.select { |invoice| invoice.status == status }
   end
 end
-
-
-
