@@ -1,41 +1,10 @@
 module Modify
   def create_overall(type, attributes)
     new_type = (type.last.id + 1)
-    if type == @merchants
-      add({
-        id: new_type,
-        name: attributes[:name]
-      })
-    elsif type == @items
-      add({
-        id: new_type,
-        name: attributes[:name],
-        description: attributes[:description],
-        unit_price: attributes[:unit_price],
-        created_at: Time.now.to_s,
-        updated_at: Time.now.to_s,
-        merchant_id: attributes[:merchant_id]
-      })
-    elsif type == @invoices
-      add({
-        id: new_type,
-        customer_id: attributes[:customer_id],
-        merchant_id: attributes[:merchant_id],
-        status: attributes[:status],
-        created_at: Time.now.to_s,
-        updated_at: Time.now.to_s
-        })
-    elsif type == @invoice_items
-      add({
-        id: new_type,
-        item_id: attributes[:item_id],
-        invoice_id: attributes[:invoice_id],
-        quantity: attributes[:quantity],
-        unit_price: attributes[:unit_price],
-        created_at: Time.now.to_s,
-        updated_at: Time.now.to_s
-        })
-    end
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
+    attributes[:id] = new_type
+    add(attributes)
   end
 
   def update_overall(type, id, attributes)
