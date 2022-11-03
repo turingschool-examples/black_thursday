@@ -19,4 +19,8 @@ class SalesEngine
     @merchants.find_by_id(id)
   end
 
+  def analyst
+    SalesAnalyst.new
+  end
+
 end
