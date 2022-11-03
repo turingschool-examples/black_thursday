@@ -1,8 +1,16 @@
-require 'spec_helper'
+# require 'spec_helper'
 require './lib/sales_analyst'
+require './lib/sales_engine'
+require './lib/item_repository'
+require './lib/item'
+require './lib/merchant_repository'
+require './lib/merchant'
 
 RSpec.describe SalesAnalyst do
   it 'exists' do
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"})
     sales_analyst = sales_engine.analyst
     sales_analyst = SalesEngine.analyst
 

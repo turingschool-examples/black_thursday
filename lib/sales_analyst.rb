@@ -1,13 +1,15 @@
 class SalesAnalyst
+  attr_reader :engine
 
   def initialize(engine)
     @engine = engine
   end
 
-
-# inside sales_engine
-#def self.analyst
-# sales_analyst.new(self)
+  def average_items_per_merchant
+    # total number of items per merchant
+    # divided by total number of merchants
+    # Float
+  end
 
   def average_items_per_merchant
     # total number of items per merchant
