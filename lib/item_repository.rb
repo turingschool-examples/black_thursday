@@ -74,10 +74,11 @@ class ItemRepository
     @items << Item.new(attributes, self)
   end
 
+  # Let's refactor this to use our #find_by_id method
   def update(id, attributes)
     @items.each do |item|
       if item.id == id
-      item.update(attributes)
+      item.update(id, attributes)
       end
     end
   end
