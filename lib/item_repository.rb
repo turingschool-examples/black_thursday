@@ -5,7 +5,7 @@ require './lib/general_repo'
 
 # This is the item_repository class
 class ItemRepository < GeneralRepo
-  def initialize(data)
+  def initialize(data = {})
     super('Item', data)
   end
 
