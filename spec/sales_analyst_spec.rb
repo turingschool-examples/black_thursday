@@ -29,7 +29,7 @@ RSpec.describe SalesAnalyst do
       :merchants => './data/merchants.csv',
     })
     sales_analyst = sales_engine.analyst
-    #require 'pry' ;binding.pry
+     #require 'pry' ;binding.pry
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
   end
 end
