@@ -7,10 +7,34 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-   (sales_engine.items.all.count / sales_engine.merchants.all.count.to_f).round(2)
+   (items_count / merchants_count.to_f).round(2)
+    # total number of items per merchant
+      # add up sums
+    # divided by total number of merchants
   end
 
+  def items_count
+    sales_engine.items.all.count
+  end
+
+  def merchants_count
+    sales_engine.merchants.all.count
+  end
+
+  # def items_per_merchant
+    
+  # end
+
   def average_items_per_merchant_standard_deviation
+
+    sales_engine.items.items.each do |item|
+      item.merchant_id
+      require 'pry'; binding.pry
+    end
+    (item count per merchant - average_items_per_merchant) ^ 2
+    sum = # add all of these up for every single merchant
+    sd = sqrt(sum / (total_merchants - 1)) 
+
     # take average_items_per_merchant 
     # find the standard deviation
         # (item_count_ForEachMerchant - average_items_per_merchant) ^ 2
