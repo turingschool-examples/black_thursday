@@ -36,6 +36,26 @@ include Modify
     end
   end
 
+  def all
+    @items
+  end
+
+  def find_by_id(id)
+    find_by_id_overall(@items, id)
+  end
+
+  def find_by_name(name)
+    find_by_name_overall(@items, name)
+  end
+
+  def find_all_by_name(name)
+    find_all_by_name_overall(@items, name)
+  end
+
+  def find_all_by_merchant_id(merch_id)
+    find_all_by_merchant_id_overall(@items, merch_id)
+  end
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
