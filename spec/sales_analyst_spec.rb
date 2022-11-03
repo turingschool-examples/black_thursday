@@ -62,4 +62,14 @@ RSpec.describe SalesAnalyst do
     sales_analyst = se.analyst
     expect(sales_analyst.average_invoices_per_merchant).to eq (10.49)
   end
+
+  it 'can return the average number of invoices per merchant standard deviation' do
+    se = SalesEngine.from_csv({
+      :items      => "./data/items.csv",
+      :merchants  => "./data/merchants.csv",
+      :invoices   => "./data/invoices.csv"
+    })
+    sales_analyst = se.analyst
+    expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq (3.29)
+  end
 end

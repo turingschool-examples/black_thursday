@@ -51,4 +51,8 @@ class SalesAnalyst
   def average_invoices_per_merchant
     (engine.invoices.all.length.to_f / engine.merchants.all.length).round(2)
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    
+  end
 end
