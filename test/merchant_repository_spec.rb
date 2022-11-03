@@ -14,13 +14,16 @@ RSpec.describe MerchantRepository do
     expect(merch_repo.merchants).to eq([])
   end
 
-  it 'creates new Merchants' do
+  it 'creates new Merchants, id + 1' do
     merch_repo = MerchantRepository.new
-    merchant1 = merch_repo.create({ id: 10, name: 'Turing School' })
-    merchant2 = merch_repo.create({ id: 8, name: 'Another School' })
-    merchant3 = merch_repo.create({ id: 9, name: 'The Other School' })
+    merchant1 = merch_repo.create({ id: NIL, name: 'Turing School' })
+    merchant2 = merch_repo.create({ id: NIL, name: 'Another School' })
+    merchant3 = merch_repo.create({ id: NIL, name: 'The Other School' })
 
     expect(merchant1).to be_a(Merchant)
+    expect(merchanc1.id).to eq(1)
+    expect(merchant2.id).to eq(2)
+    expect(merchant3.id).to eq(3)
   end
 
   it 'lists all Merchants' do
@@ -35,8 +38,8 @@ RSpec.describe MerchantRepository do
   it 'finds Merchants by id' do
     merch_repo = MerchantRepository.new
     merchant1 = merch_repo.create({ id: 5, name: 'Turing School' })
-    merchant2 = merch_repo.create({ id: 6, name: 'Another School' })
-    merchant3 = merch_repo.create({ id: 7, name: 'The Other School' })
+    merchant2 = merch_repo.create({ id: 4, name: 'Another School' })
+    merchant3 = merch_repo.create({ id: 2, name: 'The Other School' })
 
     expect(merch_repo.find_by_id(5)).to eq(merchant1)
     expect(merch_repo.find_by_id(8)).to be(NIL)
