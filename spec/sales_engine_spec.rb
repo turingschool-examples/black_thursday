@@ -18,7 +18,7 @@ RSpec.describe SalesEngine do
     expect(sales_engine.merchants).to be_a(MerchantRepository)
   end
 
-  it 'can perform ItemRepository methods' do
+  xit 'can perform ItemRepository methods' do
     ir = sales_engine.items
     # require 'pry'; binding.pry
     expect(ir.find_by_id(263397785)).to eq(ir.all[13])
@@ -29,7 +29,7 @@ RSpec.describe SalesEngine do
     expect(ir.find_all_by_merchant_id("12334105")).to eq([ir.all[4], ir.all[665], ir.all[671]])
   end
 
-  it 'can create a new item, and the id is the largest id + 1' do
+  xit 'can create a new item, and the id is the largest id + 1' do
     ir = sales_engine.items
 
     expect(ir.all.last.name).to eq("Minty Green Knit Crochet Infinity Scarf")
@@ -51,11 +51,11 @@ RSpec.describe SalesEngine do
     expect(ir.all.last.id).to eq(263567475)
   end
 
-  it 'can update an item with attributes, and updated_at reflects time changed' do
+  xit 'can update an item with attributes, and updated_at reflects time changed' do
 
   end
 
-  it 'can perform MerchantRepository methods' do
+  xit 'can perform MerchantRepository methods' do
     mr = sales_engine.merchants
     # require 'pry'; binding.pry
     expect(mr.find_by_id(12334112)).to eq(mr.all[1])
@@ -63,4 +63,7 @@ RSpec.describe SalesEngine do
     expect(mr.find_all_by_name("ham")).to eq([mr.all[21], mr.all[441]])    
   end
 
+   it 'can have an item object reference the merchant object that is the merchant_id' do
+    require 'pry'; binding.pry
+  end
 end
