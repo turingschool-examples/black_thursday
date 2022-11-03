@@ -3,7 +3,7 @@ require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './invoice_repository'
 require_relative './invoice_item_repository'
-# require_relative './customer_repository'
+require_relative './customer_repository'
 require_relative './item'
 require_relative './merchant'
 require_relative './invoice'
@@ -45,7 +45,7 @@ class SalesEngine
   end
 
   def repo_list
-    ["merchants","items","invoices","invoice_items"]
+    ["merchants","items","invoices","invoice_items","customers"]
   end
 
   def repo_child_class(repo)
