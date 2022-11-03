@@ -106,7 +106,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_average_price_per_merchant.class).to eq BigDecimal
   end
 
-  it 'can return the average average price per merchant' do
+  it 'can return the percentage of invoices for a given status' do
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -117,5 +117,16 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_status(:pending)).to eq 29.55
     expect(sales_analyst.invoice_status(:shipped)).to eq 56.95
     expect(sales_analyst.invoice_status(:returned)).to eq 13.5
+  end
+
+  it 'can return the days of the week with the most sales' do
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    })
+    sales_analyst = se.analyst
+
+    expect(sales_analyst.top_days_by_invoice_count).to eq(['Wednesday'])
   end
 end
