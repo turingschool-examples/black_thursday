@@ -110,7 +110,6 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     average = average_invoices_per_merchant
     stdev = average_invoices_per_merchant_standard_deviation
-
     @merchants.all.find_all do |merchant|
     @invoices.find_all_by_merchant_id(merchant.id).count > average + (stdev * 2)
     # binding.pry
@@ -133,7 +132,7 @@ class SalesAnalyst
   end
 
   def invoice_days_count
-    # [708, 696, 692, 741, 718, 701, 729]
+    [708, 696, 692, 741, 718, 701, 729]
     days_count = []
     days_count << invoices_days_of_week.count(0)
     days_count << invoices_days_of_week.count(1)
@@ -146,7 +145,42 @@ class SalesAnalyst
   end
 
   def average_invoices_per_week
+    # binding.pry
   (invoice_days_count.sum / 7.0).round(2)
+  end
+
+  def average_invoices_per_week_standard_deviation
+    Math.sqrt(invoice_week_sum_diff_square / (invoice_days_count.length - 1)).round(2)
+  end
+
+  def invoice_week_sum_diff_square
+    invoice_days_count.map do |count|
+      (count - average_invoices_per_week)**2
+    end.sum
+  end
+
+  def one_over_standard_dev
+    average_invoices_per_week_standard_deviation + average_invoices_per_week
+  end
+
+  def top_days_by_invoice_count # refactor with group_by, possibly refactor invoice_days_count to hash?
+    days_of_week = []
+    array = invoice_days_count
+    hash = {
+      sunday:     array[0],
+      monday:     array[1],
+      tuesday:    array[2],
+      wednesday:  array[3],
+      thursday:   array[4],
+      friday:     array[5],
+      saturday:   array[6]
+            }
+    hash.each do |day, count|
+      if count > one_over_standard_dev
+         days_of_week << day.to_s.capitalize
+      end
+    end
+    days_of_week
   end
 
   def invoice_status(status)
