@@ -12,4 +12,6 @@ class Transaction
     @created_at                   = attributes[:created_at]
     @updated_at                   = attributes[:updated_at]
   end
+
+  
 end
