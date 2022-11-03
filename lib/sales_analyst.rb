@@ -72,7 +72,7 @@ class SalesAnalyst
     stdev = average_invoices_per_merchant_standard_deviation
 
     @merchants.all.find_all do |merchant|
-    @invoices.find_all_by_merchant_id(merchant.id).count > average - (stdev * 2)
+    @invoices.find_all_by_merchant_id(merchant.id).count < average - (stdev * 2)
     end
   end
 
@@ -112,5 +112,10 @@ class SalesAnalyst
   def top_days_by_invoice_count
     days_of_week= ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     invoice_days_count
+  end
+  
+  def invoice_status(status)
+  invoice_count = invoices.all.select { |invoice| invoice.status == status }
+  ((invoice_count.count).to_f / (invoices.all.count) * 100).round(2)
   end
 end

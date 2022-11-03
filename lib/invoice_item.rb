@@ -4,8 +4,8 @@ class InvoiceItem
               :invoice_id,
               :quantity,
               :unit_price,
-              :created_at,
-              :updated_at
+              :created_at
+  attr_accessor :updated_at
 
   def initialize(ii_input)
     @id           = ii_input[:id]

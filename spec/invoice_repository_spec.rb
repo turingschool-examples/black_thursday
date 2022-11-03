@@ -38,9 +38,9 @@ RSpec.describe InvoiceRepository do
 
   it 'has a method to find_all_by_status' do
     invoice_repository.all << invoice
-    expect(invoice_repository.find_all_by_status("pending")).to eq([invoice])
+    expect(invoice_repository.find_all_by_status(:pending)).to eq([invoice])
 
     invoice_repository.all << invoice2
-    expect(invoice_repository.find_all_by_status("pending")).to eq([invoice, invoice2])
+    expect(invoice_repository.find_all_by_status(:pending)).to eq([invoice, invoice2])
   end
 end
