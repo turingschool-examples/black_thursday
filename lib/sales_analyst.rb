@@ -113,6 +113,12 @@ class SalesAnalyst
     Math.sqrt((sqr_diff / 6)).round(2)
   end
 
+  def top_merchants_by_invoice_count
+    inv_hash.filter_map do |merchant, amount|
+      merchant if amount > (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2)
+    end
+  end
+
   def top_days_by_invoice_count
     day_hash.filter_map do |day, amount|
       day if amount > (average_invoices_per_day + average_invoices_per_day_standard_deviation)
