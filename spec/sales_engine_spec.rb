@@ -57,9 +57,10 @@ RSpec.describe SalesEngine do
 
   it 'can perform MerchantRepository methods' do
     mr = sales_engine.merchants
-    require 'pry'; binding.pry
-
-    
+    # require 'pry'; binding.pry
+    expect(mr.find_by_id(12334112)).to eq(mr.all[1])
+    expect(mr.find_by_name("MiniatureBikez")).to eq(mr.all[2])
+    expect(mr.find_all_by_name("ham")).to eq([mr.all[21], mr.all[441]])    
   end
 
 end
