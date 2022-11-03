@@ -11,15 +11,16 @@ RSpec.describe CustomerRepository do
 
   it 'can find customers by id' do
     se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
-
-    expect(se.customers.find_by_id(6)).to be_a (Customer)
+    cust_id = 6
+    expect(se.customers.find_by_id(cust_id)).to be_a (Customer)
+    expect(se.customers.find_by_id(cust_id)).to eq (se.customers.customers.find {|customer| customer.id == cust_id})
   end
 
   # all - returns an array of all known Customer instances
   xit 'returns an array of all known Customer instances' do
     se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
-   
-    expect(se.customers.all).to eq (Array)
+    expect(se.customers.customers.class).to eq (Array)
+    expect(se.customers.customers.length).to eq ()
   end
 
   # find_by_id - returns either nil or an instance of Customer with a matching ID
