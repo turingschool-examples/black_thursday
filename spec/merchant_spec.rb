@@ -1,7 +1,6 @@
-require 'rspec'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
-describe Merchant do
+RSpec.describe Merchant do
   let!(:merchant) {Merchant.new({:id => 5, :name => "Turing School"})}
   it 'exists' do
     expect(merchant).to be_a Merchant

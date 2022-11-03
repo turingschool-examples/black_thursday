@@ -1,9 +1,9 @@
-require 'rspec'
-require './lib/merchant'
-require './lib/merchant_repository'
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repository'
 
-describe MerchantRepository do
+RSpec.describe MerchantRepository do
   let!(:merchant_repository) {MerchantRepository.new}
+
   it 'exists' do
     expect(merchant_repository).to be_a MerchantRepository
   end
