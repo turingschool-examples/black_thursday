@@ -19,7 +19,6 @@ RSpec.describe SalesAnalyst do
 
   describe '#analyst' do 
     it 'creates an instance of SalesAnalyst' do 
-      
       expect(se.analyst).to be_a(SalesAnalyst)
     end
   end
@@ -30,7 +29,14 @@ RSpec.describe SalesAnalyst do
 
       expect(sales_analyst.average_items_per_merchant).to eq(2.88)
     end
+  end
 
+  describe '#average_items_per_merchant_standard_deviation' do 
+    it 'returns the standard deviation of the average items per merchant' do 
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
+    end
   end
 
 end
