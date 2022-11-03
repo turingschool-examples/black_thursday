@@ -1,0 +1,3 @@
+./coverage/*
+# black_thursday/lib/.gitignore
+# black_thursday/coverage/.resultset.json
