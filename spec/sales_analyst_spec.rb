@@ -76,4 +76,17 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_average_price_per_merchant).to eq 350.29
     expect(sales_analyst.average_average_price_per_merchant.class).to eq BigDecimal
   end
+
+  it 'can return the average average price per merchant' do
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    })
+    sales_analyst = se.analyst
+
+    expect(sales_analyst.invoice_status(:pending)).to eq 29.55
+    expect(sales_analyst.invoice_status(:shipped)).to eq 56.95
+    expect(sales_analyst.invoice_status(:returned)).to eq 13.5
+  end
 end
