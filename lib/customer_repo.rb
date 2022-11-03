@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'general_repo'
+require_relative 'customer'
 
 # Repo for Customer objects, child of general
 class CustomerRepo < GeneralRepo

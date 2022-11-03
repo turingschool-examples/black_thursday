@@ -18,7 +18,7 @@ class GeneralRepo
   end
 
   def find_by_id(id)
-    @repository.find { |general| general.id == id.to_s }
+    @repository.find { |general| general.id == id.to_i }
   end
 
   def create(general_data)
@@ -29,7 +29,7 @@ class GeneralRepo
   end
 
   def update(id, attribute_data)
-    find_by_id(id).update(attribute_data)
+    find_by_id(id)&.update(attribute_data)
   end
 
   def delete(id)
