@@ -1,11 +1,13 @@
 require './lib/sales_analyst'
 require './lib/sales_engine'
 require './lib/item_repository'
+require './lib/invoice_item_repository'
 
 RSpec.describe SalesAnalyst do
   let(:sales_engine) {SalesEngine.from_csv({:items => './data/items.csv',
                                   :merchants => './data/merchants.csv',
-                                  :invoices => './data/invoices.csv'})}
+                                  :invoices => './data/invoices.csv',
+                                  :invoice_items => './data/invoice_items.csv'})}
   let(:sales_analyst) {sales_engine.analyst}
 
   it 'exists' do

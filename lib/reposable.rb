@@ -7,13 +7,13 @@ module Reposable
     if all.empty?
       1
     else
-      all.last.id + 1
+      all.last.id.to_i + 1
     end
   end
   
   def find_by_id(id)
     all.find do |entry|
-      entry.id == id.to_i
+      entry.id.to_i == id.to_i
     end
   end
 

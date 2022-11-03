@@ -2,8 +2,13 @@ require 'bigdecimal'
 require 'time'
 
 class Item
-  attr_reader :id, :merchant_id, :created_at
-  attr_accessor :name, :description, :unit_price, :updated_at
+  attr_reader :id, 
+              :merchant_id, 
+              :created_at
+  attr_accessor :name, 
+                :description, 
+                :unit_price, 
+                :updated_at
 
   def initialize(item_info)
     @id           = item_info[:id].to_i
