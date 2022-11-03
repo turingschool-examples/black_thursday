@@ -18,9 +18,9 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'has an average number of items per merchant' do
+    # require 'pry'; binding.pry
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
-    require 'pry'; binding.pry
-    expect(sales_analyst.average_items_per_merchant).to eq(Float)
+    expect(sales_analyst.average_items_per_merchant).to be_a(Float)
   end
 
   xit 'can return the standard deviation of average number of items per merchant' do

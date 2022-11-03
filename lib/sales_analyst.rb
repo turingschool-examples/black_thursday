@@ -1,28 +1,13 @@
 class SalesAnalyst
-  attr_reader :engine, :sales_analyst
+  attr_reader :sales_engine
 
-  def initialize(engine)
-    @engine = engine
-    @sales_analyst = sales_analyst
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
+    # @sales_analyst = sales_analyst
   end
 
   def average_items_per_merchant
-    sales_engine.items.items.each do |item|
-      require 'pry'; binding.pry
-      items.count
-      require 'pry'; binding.pry
-    end
-    require 'pry'; binding.pry
-    # total number of items per merchant
-    # divided by total number of merchants
-    # Float
-  end
-
-  def average_items_per_merchant
-    # total number of items per merchant
-      # add up the sums 
-    # divided by total number of merchants
-    # Float
+   (sales_engine.items.all.count / sales_engine.merchants.all.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
