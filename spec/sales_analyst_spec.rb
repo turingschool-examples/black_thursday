@@ -63,10 +63,17 @@ RSpec.describe SalesAnalyst do
     it 'returns merchants whose average # of invoices <1 stdev' do
     avg = sales_analyst.average_invoices_per_merchant
     stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
+    binding.pry
     expect(
       sales_analyst.bottom_merchants_by_invoice_count.all? {
       |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count > avg - (stdev * 2)
       }).to be true
+    end
+  end
+
+  describe '#top_days_by_invoice_count' do
+    it 'return an array or the top 2 days for invoices' do
+      
     end
   end
 end

@@ -74,7 +74,29 @@ class SalesAnalyst
 
     @merchants.all.find_all do |merchant|
     @invoices.find_all_by_merchant_id(merchant.id).count > average - (stdev * 2)
-    # binding.pry
     end
+  end
+
+  def invoices_days_of_week
+    @invoices.all.map do |invoice|
+    invoice.created_at.wday
+    end
+  end
+
+  def invoice_days_count
+    # [708, 696, 692, 741, 718, 701, 729]
+    days_count = []
+    days_count << invoices_days_of_week.count(0)
+    days_count << invoices_days_of_week.count(1)
+    days_count << invoices_days_of_week.count(2)
+    days_count << invoices_days_of_week.count(3)
+    days_count << invoices_days_of_week.count(4)
+    days_count << invoices_days_of_week.count(5)
+    days_count << invoices_days_of_week.count(6)
+    days_count
+  end
+
+  def average_invoices_per_week
+  (invoice_days_count.sum / 7.0).round(2)
   end
 end
