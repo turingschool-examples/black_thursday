@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Customer class, holds id, first and last name and create/update times
 class Customer
   attr_reader :id,
               :first_name,
