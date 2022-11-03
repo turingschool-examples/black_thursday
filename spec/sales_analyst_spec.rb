@@ -55,11 +55,11 @@ RSpec.describe SalesAnalyst do
 
   it 'can return the average number of invoices per merchant' do
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+      :items      => "./data/items.csv",
+      :merchants  => "./data/merchants.csv",
+      :invoices   => "./data/invoices.csv"
     })
     sales_analyst = se.analyst
-
     expect(sales_analyst.average_invoices_per_merchant).to eq (10.49)
   end
 end
