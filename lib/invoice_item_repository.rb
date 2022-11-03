@@ -33,6 +33,10 @@ class InvoiceItemRepository
     create_overall(@invoice_items, attributes)
   end
 
+  def delete(id)
+    delete_overall(@invoice_items, id)
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
