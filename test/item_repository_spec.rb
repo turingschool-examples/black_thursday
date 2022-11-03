@@ -13,6 +13,8 @@ RSpec.describe ItemRepository do
                        merchant_id: 2
                      })
     expect(repo.all).to eq([i1])
+
+    # Automatically assigns new ID number
     i2 = repo.create({
 
                        name: 'Pencil',
@@ -52,11 +54,14 @@ RSpec.describe ItemRepository do
 
     it 'finds by name' do
       expect(repo.find_by_name('Pencil')).to be_instance_of(Item)
+      expect(repo.find_by_name('pencil')).to be_instance_of(Item)
       expect(repo.find_by_name('Marker')).to eq(nil)
     end
 
     it 'finds all by description' do
       expect(repo.find_all_with_description('You can use it to write things')[0]).to be_instance_of(Item)
+      expect(repo.find_all_with_description('you can use it to write things')[0]).to be_instance_of(Item)
+
       expect(repo.find_all_with_description('Marker')).to eq([])
       expect(repo.find_all_with_description('Pencil')).to eq([])
     end
