@@ -64,10 +64,11 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     sqr_diff = 0.0
-    inv_hsh.each do |merchant, number|
+    # require 'pry'; binding.pry
+    inv_hash.each do |merchant, number|
       sqr_diff += (number - average_invoices_per_merchant)**2
     end
-    std_dev = Math.sqrt((sqr_diff / (inv_hsh.keys.count - 1)))
+    std_dev = Math.sqrt((sqr_diff / (inv_hash.keys.count - 1)))
     std_dev.round(2)
   end
 end
