@@ -14,7 +14,8 @@ describe Transaction do
       updated_at:                  Time.now
     }
 
-    @transaction = Transaction.new(@transaction)
+    @ir = ''
+    @transaction = Transaction.new(@transaction, @ir)
   end
 
   describe '#initialization' do
