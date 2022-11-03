@@ -31,4 +31,10 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_analyst.engine.invoice_items.all.last.item_id).to eq 7
     expect(@sales_analyst.engine.invoice_items.all.last.invoice_id).to eq 8
   end
+
+  it 'can delete an invoice item' do
+    @sales_analyst.engine.invoice_items.delete(79)
+
+    expect(@sales_analyst.engine.invoice_items.find_by_id(79)).to eq nil
+  end
 end
