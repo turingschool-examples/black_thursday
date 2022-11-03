@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require './lib/item'
+require './lib/item_repository'
 require 'bigdecimal'
 
 describe Item do
@@ -14,7 +15,8 @@ describe Item do
       merchant_id: 2
     }
 
-    @item = Item.new(@item_list)
+    @ir = ItemRepository.new('', '')
+    @item = Item.new(@item_list, @ir)
   end
 
   describe '#initialization' do
@@ -40,12 +42,12 @@ describe Item do
       expect(@item.unit_price).to eq(BigDecimal(10.99, 4))
 
       @item_list[:unit_price] = 144
-      @item = Item.new(@item_list)
+      @item = Item.new(@item_list, @ir)
 
       expect(@item.unit_price).to eq(BigDecimal(144, 4))
 
       @item_list[:unit_price] = 17000
-      @item = Item.new(@item_list)
+      @item = Item.new(@item_list, @ir)
 
       expect(@item.unit_price).to eq(BigDecimal(17000, 4))
     end
@@ -66,12 +68,12 @@ describe Item do
       expect(@item.unit_price_to_dollars).to eq(10.99)
 
       @item_list[:unit_price] = 17000
-      @item = Item.new(@item_list)
+      @item = Item.new(@item_list, @ir)
 
       expect(@item.unit_price_to_dollars).to eq(170.0)
 
       @item_list[:unit_price] = 144
-      @item = Item.new(@item_list)
+      @item = Item.new(@item_list, @ir)
 
       expect(@item.unit_price_to_dollars).to eq(1.44)
     end

@@ -8,12 +8,9 @@ class Item
               :description,
               :created_at,
               :updated_at
-  def initialize(stats, repo)
-    @stats = stats
-    @item_repo = repo
-  end
 
-  def initialize(data)
+  def initialize(data, repo)
+    @item_repo   = repo
     @id          = data[:id]
     @name        = data[:name]
     @description = data[:description]
