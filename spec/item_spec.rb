@@ -71,7 +71,7 @@ RSpec.describe do
       :merchant_id => 2
     })
 
-    expect(item.unit_price).to eq(BigDecimal(10.99,4))
+    expect(item.unit_price).to eq(0.1099)
   end
 
   it 'creates a Time instance when it is created' do
@@ -131,13 +131,13 @@ RSpec.describe do
       :id          => 1,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal(10.98,4),
+      :unit_price  => BigDecimal(20.01,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 2
     })
     
-    expect(item.unit_price_to_dollars).to eq(10.99)
-    expect(item2.unit_price_to_dollars).to eq(10.98)
+    expect(item.unit_price_to_dollars).to eq(0.1099)
+    expect(item2.unit_price_to_dollars).to eq(BigDecimal(20.01,4)/100)
   end
 end

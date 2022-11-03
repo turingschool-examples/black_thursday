@@ -1,5 +1,5 @@
-require './lib/itemrepository'
-require './lib/merchantrepository'
+require './lib/item_repository'
+require './lib/merchant_repository'
 require './lib/item'
 require './lib/merchant'
 require 'bigdecimal'
@@ -32,9 +32,9 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     sum = @items.find_all_by_merchant_id(id).sum do |item|
-      item.unit_price.to_i
+      item.unit_price
     end
-    avg = sum.to_f / 100 / @items.find_all_by_merchant_id(id).count.round(4)
+    avg = sum.to_f / @items.find_all_by_merchant_id(id).count
     BigDecimal(avg,4)
   end
 
