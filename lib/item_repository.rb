@@ -41,7 +41,9 @@ class ItemRepository
   def find_all_by_price_in_range(range)
     @items.find_all do |item|
       # the range includes the unit price
-      range.include?(item.unit_price)
+      # require 'pry' ; binding.pry
+
+      range.include?(item.unit_price_to_dollars)
     end
   end
 

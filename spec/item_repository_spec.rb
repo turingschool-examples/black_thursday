@@ -187,7 +187,7 @@ describe ItemRepository do
         :id          => 1,
         :name        => "Pencil",
         :description => "You can use it to write things",
-        :unit_price  => BigDecimal(10.99,4),
+        :unit_price  => '1099',
         :created_at  => Time.now.to_s,
         :updated_at  => Time.now.to_s,
         :merchant_id => 2
@@ -197,7 +197,7 @@ describe ItemRepository do
         :id          => 2,
         :name        => "Pen",
         :description => "You can use it to write things",
-        :unit_price  => BigDecimal(15.25,4),
+        :unit_price  => '1525',
         :created_at  => Time.now.to_s,
         :updated_at  => Time.now.to_s,
         :merchant_id => 3
