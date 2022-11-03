@@ -24,8 +24,8 @@ describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 
@@ -43,8 +43,8 @@ describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 
@@ -53,8 +53,8 @@ describe ItemRepository do
         :name        => "Pen",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 3
       })
 
@@ -76,8 +76,8 @@ describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 
@@ -86,8 +86,8 @@ describe ItemRepository do
         :name        => "Pen",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 3
       })
 
@@ -106,8 +106,8 @@ describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 
@@ -125,8 +125,8 @@ describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 
@@ -135,8 +135,8 @@ describe ItemRepository do
         :name        => "Pen",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 3
       })
 
@@ -156,8 +156,8 @@ describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 
@@ -165,17 +165,18 @@ describe ItemRepository do
         :id          => 2,
         :name        => "Pen",
         :description => "You can use it to write things",
-        :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :unit_price  => (10.99),
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 3
       })
 
       ir.items << i1
       ir.items << i2
+      # require 'pry' ; binding.pry
 
       expect(ir.find_all_by_price(12.99)).to eq []
-      expect(ir.find_all_by_price(10.99)).to eq [i1, i2]
+      expect(ir.find_all_by_price(0.1099e0)).to eq [i1, i2]
     end
   end
 
@@ -187,8 +188,8 @@ describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 
@@ -197,8 +198,8 @@ describe ItemRepository do
         :name        => "Pen",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.25,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 3
       })
 
@@ -219,8 +220,8 @@ describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 
@@ -229,8 +230,8 @@ describe ItemRepository do
         :name        => "Pen",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.25,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 
@@ -250,8 +251,8 @@ describe ItemRepository do
         :name        => "Pen",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.25,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
       i2 = Item.new({
@@ -259,8 +260,8 @@ describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.25,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
       ir.items << i1
@@ -271,8 +272,8 @@ describe ItemRepository do
         :name        => "Pen",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.25,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 
@@ -289,8 +290,8 @@ describe ItemRepository do
         :name        => "Pen",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.25,4),
-        :created_at  => Time.now,
-        :updated_at  => old_time = Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => old_time = Time.now.to_s,
         :merchant_id => 2
       })
       ir.items << i1
@@ -299,7 +300,7 @@ describe ItemRepository do
                     name: "Apple",
                     description: "You can eat it",
                     unit_price: BigDecimal(20.25,4)
-                    }) && time = Time.now
+                    }) && time = Time.now.to_s
 
       expect(i1.name).to eq "Apple"
       expect(i1.description).to eq "You can eat it"
@@ -316,8 +317,8 @@ describe ItemRepository do
         :name        => "Pen",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.25,4),
-        :created_at  => Time.now,
-        :updated_at  => old_time = Time.now,
+        :created_at  => Time.now.to_s,
+        :updated_at  => old_time = Time.now.to_s,
         :merchant_id => 2
                     })
       ir.items << i1

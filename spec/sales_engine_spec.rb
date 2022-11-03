@@ -44,6 +44,7 @@ RSpec.describe SalesEngine do
     })
     ir = se.items
     mr = se.merchants
+    # require 'pry' ; binding.pry
 
     expect(ir).to respond_to(:all)
     expect(mr).to respond_to(:all)
