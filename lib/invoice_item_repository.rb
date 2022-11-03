@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require './lib/general_repo'
-require './lib/invoice_item'
+require_relative 'general_repo'
+require_relative 'invoice_item'
 
 # this is the InvoiceItemRepository class
 class InvoiceItemRepository < GeneralRepo

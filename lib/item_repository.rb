@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require './lib/item'
-require './lib/general_repo'
+require_relative 'item'
+require_relative 'general_repo'
 
 # This is the item_repository class
 class ItemRepository < GeneralRepo
