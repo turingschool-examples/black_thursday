@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require './lib/item'
+require './lib/item_repository'
 require 'bigdecimal'
 
 describe Item do
@@ -14,7 +15,8 @@ describe Item do
       merchant_id: 2
     }
 
-    @item = Item.new(@item_list)
+    @ir = ''
+    @item = Item.new(@item_list, @ir)
   end
 
   describe '#initialization' do
@@ -38,6 +40,16 @@ describe Item do
 
     it 'returns item unit price' do
       expect(@item.unit_price).to eq(BigDecimal(10.99, 4))
+
+      @item_list[:unit_price] = 144
+      @item = Item.new(@item_list, @ir)
+
+      expect(@item.unit_price).to eq(BigDecimal(144, 4))
+
+      @item_list[:unit_price] = 17000
+      @item = Item.new(@item_list, @ir)
+
+      expect(@item.unit_price).to eq(BigDecimal(17000, 4))
     end
 
     it 'returns item creation date' do
@@ -51,9 +63,30 @@ describe Item do
     it 'returns item merchant id' do
       expect(@item.merchant_id).to eq(2)
     end
+  end
 
+  describe '#unit_price_to_dollars' do
     it 'returns item unit price converted to money format' do
       expect(@item.unit_price_to_dollars).to eq(10.99)
+
+      @item_list[:unit_price] = 17000
+      @item = Item.new(@item_list, @ir)
+
+      expect(@item.unit_price_to_dollars).to eq(170.0)
+
+      @item_list[:unit_price] = 144
+      @item = Item.new(@item_list, @ir)
+
+      expect(@item.unit_price_to_dollars).to eq(1.44)
+    end
+  end
+
+  describe '#update' do
+    it 'Updates the attributes of an item based on passed values' do
+      @item.update(name: 'Turkey Leg', unit_price: 100)
+      expect(@item.name).to eq('Turkey Leg')
+      expect(@item.unit_price_to_dollars).to eq(1.00)
+      expect(@item.description).to eq('You can use it to write things')
     end
   end
 end

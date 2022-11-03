@@ -2,47 +2,40 @@
 
 # This is the item class
 class Item
-  def initialize(stats, repo)
-    @stats = stats
-    @item_repo = repo
-  end
+  attr_reader :id,
+              :name,
+              :merchant_id,
+              :description,
+              :created_at,
+              :updated_at
 
-  def id
-    @stats[:id]
-  end
-
-  def name
-    @stats[:name]
-  end
-
-  def description
-    @stats[:description]
+  def initialize(data, repo)
+    @item_repo   = repo
+    @id          = data[:id]
+    @name        = data[:name]
+    @description = data[:description]
+    @created_at  = data[:created_at]
+    @updated_at  = data[:updated_at]
+    @merchant_id = data[:merchant_id]
+    @unit_price  = data[:unit_price]
   end
 
   def unit_price
-    BigDecimal(@stats[:unit_price], 4)
-  end
-
-  def created_at
-    @stats[:created_at]
-  end
-
-  def updated_at
-    @stats[:updated_at]
-  end
-
-  def merchant_id
-    @stats[:merchant_id]
+    BigDecimal(@unit_price.to_s, 4)
   end
 
   def unit_price_to_dollars
-    unit_price.round(2, :half_up).to_f
+    unit_price = @unit_price.to_s
+    if unit_price.length > 2 && !unit_price.include?('.')
+      unit_price = unit_price.chars.insert(-3, '.').join
+    end
+    unit_price.to_f
   end
 
   def update(attributes)
-    @stats[:name] = attributes[:name] unless attributes[:name].nil?
-    @stats[:description] = attributes[:description] unless attributes[:description].nil?
-    @stats[:unit_price] = attributes[:unit_price] unless attributes[:unit_price].nil?
-    @stats[:updated_at] = Time.now
+    @name = attributes[:name] unless attributes[:name].nil?
+    @description = attributes[:description] unless attributes[:description].nil?
+    @unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
+    @updated_at = Time.now
   end
 end
