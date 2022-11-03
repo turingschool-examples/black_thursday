@@ -19,6 +19,7 @@ class SalesEngine
       new_merchant = Merchant.new(row.to_h)
       sales_engine.merchants.all << new_merchant
     end
+    sales_engine
     # require 'pry'; binding.pry
   end
 end
