@@ -9,7 +9,7 @@ require_relative 'invoice_repository'
 class SalesEngine
 
   attr_reader :items,
-              :merchants,
+              :merchants
               # :invoices,
               # :analyst
 
