@@ -137,8 +137,8 @@ RSpec.describe SalesAnalyst do
       :invoices  => "./data/invoices.csv"
     })
     sales_analyst = se.analyst
-
-    expect(sales_analyst.top_merchants_by_invoice_count.first.class).to be_a(Merchant)
+# require 'pry'; binding.pry
+    expect(sales_analyst.top_merchants_by_invoice_count.first).to be_a(Merchant)
     expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
   end
 end
