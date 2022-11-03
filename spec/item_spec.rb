@@ -15,7 +15,7 @@ describe Item do
       merchant_id: 2
     }
 
-    @ir = ItemRepository.new('', '')
+    @ir = ''
     @item = Item.new(@item_list, @ir)
   end
 
