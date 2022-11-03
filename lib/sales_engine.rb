@@ -32,6 +32,6 @@ class SalesEngine
     invr_data = CSV.read data[:invoices], headers: true, header_converters: :symbol
     tr_data = CSV.read data[:transactions], headers: true, header_converters: :symbol
     cr_data = CSV.read data[:customers], headers: true, header_converters: :symbol
-    SalesEngine.new(ir_data, mr_data, iir_data, invr_data, tr_data)
+    SalesEngine.new(ir_data, mr_data, iir_data, invr_data, tr_data, cr_data)
   end
 end
