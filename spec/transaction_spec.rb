@@ -18,4 +18,8 @@ RSpec.describe Transaction do
   it 'exists' do
     expect(@transaction).to be_a(Transaction)
   end
+
+  it 'has an id' do
+    expect(@transaction.id).to eq(6)
+  end
 end
