@@ -6,8 +6,10 @@ class MerchantRepository
   end
 
   def create(attributes)
+
     new_id = (@merchants.last.id + 1)
     @merchants << Merchant.new({ id: new_id, name: attributes })
+
   end
 
   def all
