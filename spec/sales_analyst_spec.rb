@@ -38,7 +38,6 @@ RSpec.describe SalesAnalyst do
 
   describe '#average_item_price_for_merchant' do
     it 'returns a BigDecimal of average item price' do
-      # require 'pry'; binding.pry
       expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq 16.66
       expect(sales_analyst.average_item_price_for_merchant(12334257)).to eq BigDecimal(38.33,4)
     end
@@ -50,15 +49,19 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  # describe '#golden_items' do
-  #   it 'returns an array of all Item objects with price >2stdev above mean' do
-
-  #   end
-  # end
+  describe '#golden_items' do
+    xit 'returns an array of all Item objects with price >2stdev above mean' do
+      golden_items = sales_engine.items.find_all_by_price_in_range(6999..100000)
+      expect(sales_analyst.golden_items).to eq golden_items
+    end
+  end
 
   describe '#average_item_price' do
     it 'returns the average item price' do
-      expect(sales_analyst.average_item_price).to eq 252105.51
+      expect(sales_analyst.average_item_price).to eq 251.06
+    end
+  end
+
   describe '#average_invoices_per_merchant' do
     it 'gives how many invoices a merchant has on average' do
       expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
@@ -82,16 +85,16 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  describe '#bottom_merchants_by_invoice_count' do
-    it 'returns merchants whose average # of invoices <1 stdev' do
-    avg = sales_analyst.average_invoices_per_merchant
-    stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
-    expect(
-      sales_analyst.bottom_merchants_by_invoice_count.all? {
-      |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count > avg - (stdev * 2)
-      }).to be true
-    end
-  end
+  # describe '#bottom_merchants_by_invoice_count' do
+  #   it 'returns merchants whose average # of invoices <1 stdev' do
+  #   avg = sales_analyst.average_invoices_per_merchant
+  #   stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
+  #   expect(
+  #     sales_analyst.bottom_merchants_by_invoice_count.all? {
+  #     |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count > avg - (stdev * 2)
+  #     }).to be true
+  #   end
+  # end
 
   describe '#top_days_by_invoice_count' do
     it 'return an array or the top 2 days for invoices' do

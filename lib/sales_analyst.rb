@@ -45,13 +45,14 @@ class SalesAnalyst
       average_item_price_for_merchant(merchant.id)
     end
     avg = sum / @merchants.all.count
-    # require 'pry'; binding.pry
-    BigDecimal(avg,5)
+    avg.truncate(2)
   end
 
   def golden_items
-    @items.all.each do |item|
-      item.unit_price
+    avg = average_item_price
+    stdev = Math.sqrt(sum_square_diff_golden/(@items.all.size-1)).round(2)
+    @items.all.select do |item|
+      item.unit_price > avg + 2*stdev
     end
   end
 
@@ -62,26 +63,25 @@ class SalesAnalyst
       (count - average_items_per_merchant)**2
     end.sum
   end
-
   
   def item_counts
     @merchants.all.map do |merchant|
       @items.find_all_by_merchant_id(merchant.id).count
     end
   end
-end
 
-# def sum_square_diff_golden
-#   @items.all.unit_price.map do |price|
-#     (price - )
-#   end
-# end
-
-def average_item_price
-  sum = @items.all.sum do |item|
-    item.unit_price
+  def sum_square_diff_golden
+    @items.all.map do |item|
+      (item.unit_price - average_item_price)**2
+    end.sum
   end
-  sum / @items.all.unit_price.size
+
+  def average_item_price
+    sum = @items.all.sum do |item|
+      item.unit_price
+    end
+    (sum / @items.all.size).round(2)
+  end
 
   def average_invoices_per_merchant
     (@invoices.all.count / @merchants.all.count.to_f).round(2)
