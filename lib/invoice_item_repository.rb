@@ -1,5 +1,5 @@
 require_relative 'reposable'
-require_relative './invoiceitem'
+require_relative './invoice_item'
 
 class InvoiceItemRepository
   include Reposable
@@ -35,8 +35,8 @@ class InvoiceItemRepository
       :invoice_id   => attributes[:invoice_id],
       :quantity     => attributes[:quantity],
       :unit_price   => attributes[:unit_price],
-      :created_at   => attributes[:created_at],
-      :updated_at   => attributes[:updated_at]
+      :created_at   => Time.parse(attributes[:created_at].to_s),
+      :updated_at   => Time.parse(attributes[:updated_at].to_s)
     })
   end
 
