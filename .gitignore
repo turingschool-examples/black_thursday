@@ -1,0 +1,3 @@
+# Files and Folders to Ignore
+/coverage/
+.DS_Store
