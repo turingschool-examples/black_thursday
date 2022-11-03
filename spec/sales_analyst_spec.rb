@@ -37,8 +37,27 @@ RSpec.describe SalesAnalyst do
 
   describe '#average_item_price_for_merchant' do
     it 'returns a BigDecimal of average item price' do
-      expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq BigDecimal(16.66,4)
+      # require 'pry'; binding.pry
+      expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq 16.66
       expect(sales_analyst.average_item_price_for_merchant(12334257)).to eq BigDecimal(38.33,4)
+    end
+  end
+
+  describe '#average_average_price_per_merchant' do
+    it 'returns the average of all merchant average prices' do
+      expect(sales_analyst.average_average_price_per_merchant).to eq 350.29
+    end
+  end
+
+  # describe '#golden_items' do
+  #   it 'returns an array of all Item objects with price >2stdev above mean' do
+
+  #   end
+  # end
+
+  describe '#average_item_price' do
+    it 'returns the average item price' do
+      expect(sales_analyst.average_item_price).to eq 252105.51
     end
   end
 end
