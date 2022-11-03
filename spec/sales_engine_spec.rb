@@ -20,13 +20,18 @@ RSpec.describe SalesEngine do
 
   it 'can perform ItemRepository methods' do
     ir = sales_engine.items
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     expect(ir.find_by_id(263397785)).to eq(ir.all[13])
     expect(ir.find_by_name("Wooden pen and stand")).to eq(ir.all[14])
     expect(ir.find_all_with_description("Acrylique sur toile, mesurant environs 80/50cm.")).to eq([ir.all[30]])
     expect(ir.find_all_by_price(199)).to eq([ir.all[94]])
-    expect(ir.find_all_by_price_in_range(593, 597)).to eq([ir.all[543], ir.all[563]])
-    expect(ir.find_all_by_merchant_id(12334105)).to eq([ir.all[4], ir.all[665], ir.all[671]])
+    expect(ir.find_all_by_price_in_range(593, 597)).to eq([ir.all[543], ir.all[1271]])
+    expect(ir.find_all_by_merchant_id("12334105")).to eq([ir.all[4], ir.all[665], ir.all[671]])
+  end
+
+  it 'can create a new item, and the id is the largest id + 1' do
+    ir = sales_engine.items
+
     expect(ir.all.last.name).to eq("Minty Green Knit Crochet Infinity Scarf")
     expect(ir.all.last.id).to eq(263567474)
 
@@ -36,8 +41,8 @@ RSpec.describe SalesEngine do
           :name => "Stapler", 
           :description => "You can use this to staple things", 
           :unit_price => 7.00,
-          :created_at => time_now,
-          :updated_at => time_now,
+          :created_at => Time.now,
+          :updated_at => Time.now,
           :merchant_id => 2
         }
         )
@@ -45,4 +50,16 @@ RSpec.describe SalesEngine do
     expect(ir.all.last.name).to eq("Stapler")
     expect(ir.all.last.id).to eq(263567475)
   end
+
+  it 'can update an item with attributes, and updated_at reflects time changed' do
+
+  end
+
+  it 'can perform MerchantRepository methods' do
+    mr = sales_engine.merchants
+    require 'pry'; binding.pry
+
+    
+  end
+
 end

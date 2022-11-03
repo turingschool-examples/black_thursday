@@ -91,13 +91,13 @@ class ItemRepository
   def self.make_item_object(contents)
     contents.map do |row|
       item = {
-              :id => row[:id], 
+              :id => row[:id].to_i, 
               :name => row[:name],
               :description => row[:description],
-              :unit_price => row[:unit_price],
+              :unit_price => row[:unit_price].to_f,
               :created_at => row[:created_at],
               :updated_at => row[:updated_at],
-              :merchant_id => row[:merchant_id]
+              :merchant_id => row[:merchant_id].to_i
             }
       Item.new(item)
     end

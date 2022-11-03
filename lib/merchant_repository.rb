@@ -58,7 +58,7 @@ class MerchantRepository
 
   def self.make_merchant_object(contents)
     contents.map do |row|
-      info = {:id => row[:id], :name => row[:name]}
+      info = {:id => row[:id].to_i, :name => row[:name]}
       Merchant.new(info)
     end
   end
