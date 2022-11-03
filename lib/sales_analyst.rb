@@ -1,11 +1,18 @@
 class SalesAnalyst
-  attr_reader :engine
+  attr_reader :engine, :sales_analyst
 
   def initialize(engine)
     @engine = engine
+    @sales_analyst = sales_analyst
   end
 
   def average_items_per_merchant
+    sales_engine.items.items.each do |item|
+      require 'pry'; binding.pry
+      items.count
+      require 'pry'; binding.pry
+    end
+    require 'pry'; binding.pry
     # total number of items per merchant
     # divided by total number of merchants
     # Float
@@ -87,7 +94,7 @@ class SalesAnalyst
     # array of (days) strings
   end
 
-  def invoice_status(:status)
+  def invoice_status(status)
     # find_all_by_status(:status)
     # count how many invoices of THAT given status
     # divide by total invoices
