@@ -12,7 +12,15 @@ class TransactionRepository
     @transactions = []
   end
 
+  def all
+    @transactions
+  end
+
   def add(transaction)
     @transactions << Transaction.new(transaction)
+  end
+
+  def find_by_id(id)
+    find_by_id_overall(@transactions, id)
   end
 end
