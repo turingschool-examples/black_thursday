@@ -5,9 +5,10 @@ class Merchant
   attr_reader :id,
               :name
 
-  def initialize(data)
+  def initialize(data, repo)
     @id   = data[:id]
     @name = data[:name]
+    @merchant_repo = repo
   end
 
   def update(name)

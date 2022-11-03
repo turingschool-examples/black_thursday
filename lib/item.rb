@@ -2,8 +2,9 @@
 
 # This is the item class
 class Item
-  def initialize(stats)
+  def initialize(stats, repo)
     @stats = stats
+    @item_repo = repo
   end
 
   def id
