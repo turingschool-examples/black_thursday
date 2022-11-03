@@ -1,6 +1,6 @@
-require_relative 'rspec'
-require_relative './lib/item'
-require_relative 'bigdecimal'
+require 'rspec'
+require_relative '../lib/item'
+require 'bigdecimal'
 
 describe Item do
   describe '#initialize' do

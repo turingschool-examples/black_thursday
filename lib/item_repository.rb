@@ -1,6 +1,6 @@
-require_relative 'csv'
-require_relative './lib/item'
-require_relative 'bigdecimal'
+require 'csv'
+require_relative '../lib/item'
+require 'bigdecimal'
 class ItemRepository
   attr_reader :items
 
