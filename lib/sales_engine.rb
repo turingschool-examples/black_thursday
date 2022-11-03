@@ -1,7 +1,7 @@
-require_relative './lib/item_repository.rb'
-require_relative './lib/item.rb'
-require_relative './lib/merchant_repository.rb'
-require_relative './lib/merchant.rb'
+require_relative '../lib/item_repository.rb'
+require_relative '../lib/item.rb'
+require_relative '../lib/merchant_repository.rb'
+require_relative '../lib/merchant.rb'
 
 class SalesEngine
   attr_reader :items, :merchants
@@ -14,4 +14,6 @@ class SalesEngine
   def self.from_csv(files)
     SalesEngine.new(files)
   end
+
+  
 end

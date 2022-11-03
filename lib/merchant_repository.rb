@@ -1,5 +1,5 @@
-require_relative './lib/merchant'
-require_relative 'csv'
+require_relative '../lib/merchant'
+require 'csv'
 
 class MerchantRepository
   attr_reader :all
@@ -53,5 +53,9 @@ class MerchantRepository
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
       add_merchant(Merchant.new(row))
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 end

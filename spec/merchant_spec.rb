@@ -1,5 +1,5 @@
-require_relative 'rspec'
-require_relative './lib/merchant'
+require 'rspec'
+require_relative '../lib/merchant'
 
 RSpec.describe do
   it 'exists' do

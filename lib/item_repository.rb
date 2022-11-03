@@ -1,6 +1,6 @@
-require_relative 'csv'
-require_relative './lib/item'
-require_relative 'bigdecimal'
+require 'csv'
+require_relative '../lib/item'
+require 'bigdecimal'
 class ItemRepository
   attr_reader :items
 
@@ -41,7 +41,9 @@ class ItemRepository
   def find_all_by_price_in_range(range)
     @items.find_all do |item|
       # the range includes the unit price
-      range.include?(item.unit_price)
+      # require 'pry' ; binding.pry
+
+      range.include?(item.unit_price_to_dollars)
     end
   end
 
@@ -77,5 +79,9 @@ class ItemRepository
     CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
       @items << (Item.new(row))
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end
