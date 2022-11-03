@@ -26,4 +26,10 @@ class SalesEngine
     end
     SalesEngine.new(mr, ir)
   end
+
+  def analyst 
+    SalesAnalyst.new(@items, @merchants)
+    # this method requires #from_csv to be called first
+  end
+
 end
