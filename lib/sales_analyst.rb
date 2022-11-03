@@ -134,7 +134,3 @@ class SalesAnalyst
     end
   end
 end
-
-# merch_hash.filter_map do |merchant, items|
-#   next if items - average_items_per_merchant_standard_deviation < average_items_per_merchant
-#   engine.merchants.find_by_id(merchant)
