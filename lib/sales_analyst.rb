@@ -96,6 +96,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_week
+    # binding.pry
   (invoice_days_count.sum / 7.0).round(2)
   end
 
@@ -109,11 +110,30 @@ class SalesAnalyst
     end.sum
   end
 
-  def top_days_by_invoice_count
-    days_of_week= ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    invoice_days_count
+  def one_over_standard_dev
+    average_invoices_per_week_standard_deviation + average_invoices_per_week
   end
-  
+
+  def top_days_by_invoice_count
+    days_of_week = []
+    array = invoice_days_count
+    hash = {
+      sunday:     array[0],
+      monday:     array[1],
+      tuesday:    array[2],
+      wednesday:  array[3],
+      thursday:   array[4],
+      friday:     array[5],
+      saturday:   array[6]
+            }
+    hash.each do |day, count|
+      if count > one_over_standard_dev
+         days_of_week << day.to_s.capitalize
+      end
+    end
+    days_of_week
+  end
+
   def invoice_status(status)
   invoice_count = invoices.all.select { |invoice| invoice.status == status }
   ((invoice_count.count).to_f / (invoices.all.count) * 100).round(2)

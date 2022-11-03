@@ -65,7 +65,7 @@ RSpec.describe SalesAnalyst do
     stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
     expect(
       sales_analyst.bottom_merchants_by_invoice_count.all? {
-      |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count > avg - (stdev * 2)
+      |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count < avg - (stdev * 2)
       }).to be true
     end
   end
@@ -78,7 +78,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#top_days_by_invoice_count' do
-    xit 'return an array of the days at least one standard deviation over the mean' do
+    it 'return an array of the days at least one standard deviation over the mean' do
 
       expect(sales_analyst.top_days_by_invoice_count).to eq ["Wednesday"]
     end
