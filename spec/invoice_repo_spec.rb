@@ -6,8 +6,8 @@ require 'CSV'
 
 RSpec.describe InvoiceRepo do
   let(:data){ CSV.readlines('./data/invoices_test.csv', headers: true, header_converters: :symbol) }
-  let(:se) { 'Empty_SE' }
-  let(:ir) { InvoiceRepo.new(data, se) }
+  let(:engine) { 'Empty_SE' }
+  let(:ir) { InvoiceRepo.new(data, engine) }
   let(:invoice1) { ir.repository[0] }
   let(:invoice2) { ir.repository[1] }
   let(:invoice3) { ir.repository[2] }
