@@ -41,7 +41,7 @@ class SalesEngine
   end
 
   def thing_type(type, row)
-    repo_child_class(type.to_s).new(row)
+    repo_child_class(type).new(row)
   end
 
   def repo_list
@@ -49,11 +49,13 @@ class SalesEngine
   end
 
   def repo_child_class(repo)
-    Object.const_get(repo.capitalize.chomp('s'))
+    repo = repo.to_s.split("_").map { |word| word.capitalize }.join
+    Object.const_get(repo.chomp('s'))
   end
 
   def repo_class(repo)
-    class_string = repo.to_s.capitalize.chomp('s') + 'Repository'
+    repo = repo.to_s.split("_").map { |word| word.capitalize }.join
+    class_string = repo.chomp('s') + 'Repository'
     Object.const_get(class_string)
   end
 
