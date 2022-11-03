@@ -115,10 +115,15 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     inv_hash.filter_map do |merchant, amount|
-      # require 'pry'; binding.pry
-      # merchant if amount > (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2)
       next if ((average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant) > amount
+      @engine.merchants.find_by_id(merchant)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    inv_hash.filter_map do |merchant, amount|
       # require 'pry'; binding.pry
+      next if (average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation * 2) < amount
       @engine.merchants.find_by_id(merchant)
     end
   end

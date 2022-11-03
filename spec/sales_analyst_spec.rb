@@ -137,8 +137,18 @@ RSpec.describe SalesAnalyst do
       :invoices  => "./data/invoices.csv"
     })
     sales_analyst = se.analyst
-# require 'pry'; binding.pry
     expect(sales_analyst.top_merchants_by_invoice_count.first).to be_a(Merchant)
     expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
+  end
+
+  it 'can return bottom merchants by invoice count' do 
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    })
+    sales_analyst = se.analyst
+    expect(sales_analyst.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
+    expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
   end
 end
