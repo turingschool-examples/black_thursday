@@ -10,8 +10,8 @@ RSpec.describe Transaction do
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0220",
       :result => "success",
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => @time,
+      :updated_at => @time
     })
   end
 
@@ -37,5 +37,9 @@ RSpec.describe Transaction do
 
   it 'has a result' do
     expect(@transaction.result).to eq("success")
+  end
+
+  it 'has a time created at' do
+    expect(@transaction.created_at).to eq(Time.parse(@time))
   end
 end
