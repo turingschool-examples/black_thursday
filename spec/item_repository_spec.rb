@@ -300,7 +300,7 @@ describe ItemRepository do
                     name: "Apple",
                     description: "You can eat it",
                     unit_price: BigDecimal(20.25,4)
-                    }) && time = Time.now.to_s
+                    }) 
 
       expect(i1.name).to eq "Apple"
       expect(i1.description).to eq "You can eat it"
@@ -318,7 +318,7 @@ describe ItemRepository do
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(15.25,4),
         :created_at  => Time.now.to_s,
-        :updated_at  => old_time = Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
                     })
       ir.items << i1
