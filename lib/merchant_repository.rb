@@ -1,7 +1,7 @@
 require_relative 'merchant'
-
+require_relative 'test_module'
 class MerchantRepository
-
+  include TestModule
   def initialize(merchants)
     @merchants = merchants
   end
@@ -10,9 +10,9 @@ class MerchantRepository
     @merchants
   end
 
-  def find_by_id(id)
-    @merchants.find { |merchant| merchant.id == id}
-  end
+  # def find_by_id(id)
+  #   @merchants.find { |merchant| merchant.id == id}
+  # end
 
   def find_by_name(name)
     @merchants.find { |merchant| merchant.name.upcase == name.upcase}
