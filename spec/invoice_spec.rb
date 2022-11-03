@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require './lib/invoice'
 
 RSpec.describe Invoice do
+  let(:ir) { 'Empty_IR' }
   describe '#initialize' do
     it 'has readable attributes' do
       time1 = Time.now
@@ -13,7 +16,7 @@ RSpec.describe Invoice do
                 created_at:   time1,
                 updated_at:   time2
               }
-      invoice = Invoice.new(data)
+      invoice = Invoice.new(data, ir)
 
       expect(invoice.id).to eq 6
       expect(invoice.customer_id).to eq 7
@@ -23,7 +26,7 @@ RSpec.describe Invoice do
       expect(invoice.updated_at).to eq time2
     end
   end
-  
+
   describe '#update' do
     it 'can change the updated_at to the current Time' do
       time1 = Time.now
@@ -36,7 +39,7 @@ RSpec.describe Invoice do
                 created_at:  time1,
                 updated_at:  time2
              }
-      invoice = Invoice.new(data)
+      invoice = Invoice.new(data, ir)
 
       expect(invoice.update({status: 'shipped'})).to be_within(0.5).of Time.now
       expect(invoice.status).to eq 'shipped'
