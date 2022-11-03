@@ -52,4 +52,11 @@ class SalesAnalyst
     end
     total_of_averages / @merchants.all.size
   end
+
+  def average_item_price
+    sum_of_items = @items.all.sum do |item|
+      item.unit_price
+    end
+    sum_of_items / @items.all.size
+  end
 end
