@@ -76,12 +76,10 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    all.find do |item|
-      item.update(attributes) if item.id == id
-    end
+    find_by_id(id).update(attributes)
   end
 
   def delete(id)
-    all.delete_if{|item| item.id == id }
+    all.delete_if { |item| item.id == id }
   end
 end
