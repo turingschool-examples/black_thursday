@@ -51,14 +51,14 @@ class SalesAnalyst
   def average_invoices_per_merchant
     (engine.invoices.all.length.to_f / engine.merchants.all.length).round(2)
   end
-  
+
 #helper method for average_invoices_per_merchant_standard_deviation
   def inv_hash
     inv_hsh = engine.invoices.all.group_by do |invoice|
       invoice.merchant_id
     end
-      inv_hsh.map do |keys, values|
-        inv_hsh[keys] = values.count
+    inv_hsh.map do |keys, values|
+      inv_hsh[keys] = values.count
     end
     inv_hsh
   end
@@ -106,5 +106,34 @@ class SalesAnalyst
   def invoice_status(status)
     total_by_status = engine.invoices.find_all_by_status(status)
     ((total_by_status.length.to_f / engine.invoices.all.length) * 100).round(2)
+  end
+
+  def average_invoices_per_day
+    engine.invoices.all.length.to_f / 7
+  end
+
+  def day_hash
+    day_hsh = engine.invoices.all.group_by do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+    day_hsh.map do |keys, values|
+      day_hsh[keys] = values.count
+    end
+    day_hsh
+  end
+
+  def average_invoices_per_day_standard_deviation
+    sqr_diff = 0.0
+    day_hash.each do |day, number|
+      sqr_diff += (number - average_invoices_per_day)**2
+    end
+    std_dev = Math.sqrt((sqr_diff / 6))
+    std_dev.round(2)
+  end
+
+  def top_days_by_invoice_count
+    day_hash.filter_map do |day, amount|
+      day if amount > (average_invoices_per_day + average_invoices_per_day_standard_deviation)
+    end
   end
 end
