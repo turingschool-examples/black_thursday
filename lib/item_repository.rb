@@ -60,6 +60,10 @@ include Modify
     create_overall(@items, attributes)
   end
 
+  def update(id, attributes)
+    update_overall(@items, id, attributes)
+  end
+
   def delete(id)
     delete_overall(@items, id)
   end

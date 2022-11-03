@@ -43,6 +43,10 @@ class InvoiceRepository
     create_overall(@invoices, attributes)
   end
 
+  def update(id, attributes)
+    update_overall(@invoices, id, attributes)
+  end
+
   def delete(id)
     delete_overall(@invoices, id)
   end

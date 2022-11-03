@@ -35,6 +35,10 @@ class MerchantRepository
     create_overall(@merchants, attributes)
   end
 
+  def update(id, attributes)
+    update_overall(@merchants, id, attributes)
+  end
+
   def delete(id)
     delete_overall(@merchants, id)
   end
