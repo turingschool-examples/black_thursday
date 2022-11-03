@@ -12,14 +12,24 @@ class SalesEngine
     @items = ItemRepository.new
   end
 
-  def self.from_csv(_hash_path)
+  def self.from_csv(hash_path)
+
     sales_engine = new
-    rows = CSV.open './data/merchants.csv', headers: true, header_converters: :symbol
+
+    rows = CSV.open hash_path[:merchants], headers: true, header_converters: :symbol
     rows.each do |row|
       new_merchant = Merchant.new(row.to_h)
       sales_engine.merchants.all << new_merchant
     end
+
+    rows = CSV.open hash_path[:items], headers: true, header_converters: :symbol
+    rows.each do |row|
+      new_item = Item.new(row.to_h)
+      sales_engine.items.all << new_item
+    end
+
+
+
     sales_engine
-    # require 'pry'; binding.pry
   end
 end
