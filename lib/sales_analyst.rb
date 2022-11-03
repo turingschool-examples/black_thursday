@@ -51,6 +51,27 @@ class SalesAnalyst
   def average_invoices_per_merchant
     (engine.invoices.all.length.to_f / engine.merchants.all.length).round(2)
   end
+  
+#helper method for average_invoices_per_merchant_standard_deviation
+  def inv_hash
+    inv_hsh = engine.invoices.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+      inv_hsh.map do |keys, values|
+        inv_hsh[keys] = values.count
+    end
+    inv_hsh
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    sqr_diff = 0.0
+    # require 'pry'; binding.pry
+    inv_hash.each do |merchant, number|
+      sqr_diff += (number - average_invoices_per_merchant)**2
+    end
+    std_dev = Math.sqrt((sqr_diff / (inv_hash.keys.count - 1)))
+    std_dev.round(2)
+  end
 
   def avg_price_per_item
     arr = []
