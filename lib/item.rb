@@ -32,4 +32,8 @@ class Item
   def update_unit_price(number)
     @unit_price = number
   end
+  
+  def update_time
+    @updated_at = Time.now
+  end
 end 

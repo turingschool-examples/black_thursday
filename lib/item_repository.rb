@@ -29,11 +29,10 @@ class ItemRepository
 
   def find_all_by_price(price)
     @items.find_all {|item| item.unit_price == price}
-    # require 'pry'; binding.pry
   end
 
   def find_all_by_price_in_range(range)
-    price = range.to_a
+    price = range
     min = price.min
     max = price.max
     @items.find_all {|item|
@@ -57,10 +56,17 @@ class ItemRepository
 
   def update(id, attributes)
     if all_ids.include?(id)
-      updated_item = find_by_id(attributes[:id])
-      updated_item.update_name(attributes[:name])
-      updated_item.update_description(attributes[:description])
-      updated_item.update_unit_price(attributes[:unit_price])
+      updated_item = find_by_id(id)
+      if attributes[:name] != nil
+        updated_item.update_name(attributes[:name])
+      end
+      if attributes[:description] != nil
+        updated_item.update_description(attributes[:description])
+      end
+      if attributes[:unit_price] != nil
+        updated_item.update_unit_price(attributes[:unit_price])
+      end
+      updated_item.update_time
       updated_item
     end
   end
