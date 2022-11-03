@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
+# This is the Merchant Class
 class Merchant
-  # This is the Merchant Class
-  # frozen_string_literal: true.
   attr_reader :id,
               :name
 
