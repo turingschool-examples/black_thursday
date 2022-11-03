@@ -1,57 +1,62 @@
 require 'rspec'
 require './lib/item'
 require './lib/item_repository'
+require './lib/sales_engine'
+require './lib/merchant_repository'
+require './lib/merchant'
+require 'csv'
+
 # require './lib/sales_engine'
 
 RSpec.describe ItemRepository do
   let!(:time_now) {Time.now}
-  let!(:item_repository) {ItemRepository.new([item_1, item_2, item_3])}
-  let!(:item_1) {Item.new(
-                          {
-                        :id          => 1,
-                        :name        => "Pencil",
-                        :description => "You can use it to write things",
-                        :unit_price  => BigDecimal(10.99,4),
-                        :created_at  => time_now,
-                        :updated_at  => time_now,
-                        :merchant_id => 2
-                        }
-                        )}
+  let!(:item_repository) {ItemRepository.new("./data/items.csv", nil)}
+  # let!(:item_1) {Item.new(
+  #                         {
+  #                       :id          => 1,
+  #                       :name        => "Pencil",
+  #                       :description => "You can use it to write things",
+  #                       :unit_price  => BigDecimal(10.99,4),
+  #                       :created_at  => time_now,
+  #                       :updated_at  => time_now,
+  #                       :merchant_id => 2
+  #                       }, nil
+  #                       )}
 
-  let!(:item_2) {Item.new(
-                          {
-                        :id          => 2,
-                        :name        => "Notebook",
-                        :description => "You can use it to write in",
-                        :unit_price  => BigDecimal(8.99,4),
-                        :created_at  => time_now,
-                        :updated_at  => time_now,
-                        :merchant_id => 2
-                        }
-                        )}
+  # let!(:item_2) {Item.new(
+  #                         {
+  #                       :id          => 2,
+  #                       :name        => "Notebook",
+  #                       :description => "You can use it to write in",
+  #                       :unit_price  => BigDecimal(8.99,4),
+  #                       :created_at  => time_now,
+  #                       :updated_at  => time_now,
+  #                       :merchant_id => 2
+  #                       }, nil
+  #                       )}
 
-  let!(:item_3) {Item.new(
-                          {
-                        :id          => 3,
-                        :name        => "Pencil crayons",
-                        :description => "You can use it to color",
-                        :unit_price  => BigDecimal(12.00,4),
-                        :created_at  => time_now,
-                        :updated_at  => time_now,
-                        :merchant_id => 2
-                        }
-                        )}
+  # let!(:item_3) {Item.new(
+  #                         {
+  #                       :id          => 3,
+  #                       :name        => "Pencil crayons",
+  #                       :description => "You can use it to color",
+  #                       :unit_price  => BigDecimal(12.00,4),
+  #                       :created_at  => time_now,
+  #                       :updated_at  => time_now,
+  #                       :merchant_id => 2
+  #                       }, nil
+  #                       )}
 
   it 'is an item repository class' do
     expect(item_repository).to be_a(ItemRepository)
   end
 
   it 'returns all item instances' do
-    expect(item_repository.all).to eq([item_1, item_2, item_3])
+    expect(item_repository.all.length).to eq(1367)
   end
 
   it 'can find item by id' do
-    expect(item_repository.find_by_id(2)).to eq(item_2)
+    expect(item_repository.find_by_id(263397785)).to eq(item_repository.all[13])
     expect(item_repository.find_by_id(5)).to eq(nil)
   end
 

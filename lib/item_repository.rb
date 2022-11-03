@@ -37,7 +37,7 @@ class ItemRepository
   
   def create(attribute)
     new_id = @items.last.id + 1
-    @items << Item.new({:id => new_id, :name => attribute})
+    @items << Item.new({:id => new_id, :name => attribute}, self)
   end
   
   def find_all_with_description(string)

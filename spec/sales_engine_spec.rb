@@ -21,7 +21,6 @@ RSpec.describe SalesEngine do
   xit 'can perform ItemRepository methods' do
     ir = sales_engine.items
     # require 'pry'; binding.pry
-    expect(ir.find_by_id(263397785)).to eq(ir.all[13])
     expect(ir.find_by_name("Wooden pen and stand")).to eq(ir.all[14])
     expect(ir.find_all_with_description("Acrylique sur toile, mesurant environs 80/50cm.")).to eq([ir.all[30]])
     expect(ir.find_all_by_price(199)).to eq([ir.all[94]])
