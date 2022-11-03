@@ -50,4 +50,31 @@ RSpec.describe CustomerRepository do
     expect(cust_repo.find_all_by_last_name("Billy")). to eq([])
   end
 
+  it 'has a method to create a new customer and have their id number be correct' do
+    cust_repo.all.push(cust1)
+    cust_repo.create("Sally Sue")
+
+    expect(cust_repo.all[1]).to be_a(Customer)
+    expect(cust_repo.all[1].first_name).to eq("Sally")
+    expect(cust_repo.all[1].last_name).to eq("Sue")
+    expect(cust_repo.all[1].id).to eq(4)
+
+    cust_repo.push(cust2)
+    cust_repo.create("Bobby Bob")
+
+    expect(cust_repo.all[3]).to be_a(Customer)
+    expect(cust_repo.all[3].first_name).to eq("Bobby")
+    expect(cust_repo.all[3].last_name).to eq("Bob")
+    expect(cust_repo.all[3].id).to eq(46)
+  end
+
+  it 'has a method to update the customers first and last names, and auto change the updated_at' do
+    cust_repo.push(cust2)
+    cust_repo.update(45, {:first_name => "Amy",
+                          :last_name  => "Ellen"})
+
+    expect(cust_repo.all[0].first_name).to eq("Amy")
+    expect(cust_repo.all[0].last_name).to eq("Ellen")
+    expect(cust_repo.all[0].id).to eq(45)
+  end
 end
