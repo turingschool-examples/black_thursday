@@ -33,5 +33,23 @@ RSpec.describe Invoice do
           expect(i.created_at).to eq("2022-11-02 11:33:36.699596 -0600")
           expect(i.updated_at).to eq("2022-11-02 11:33:36.699596 -0600")
     end  
-  end      
+  end 
+  
+  describe '#update_customer_id' do 
+    it 'will update customer id' do 
+      i = Invoice.new({
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => "2022-11-02 11:33:36.699596 -0600",
+        :updated_at  =>  "2022-11-02 11:33:36.699596 -0600",
+      })
+      i.update_customer_id(7)
+
+      expect(i.customer_id).to eq(7)
+    end 
+  end 
+
+
 end 
