@@ -8,13 +8,11 @@ class MerchantRepository
     @merchants
   end
 
-  def find_by_id(id)
-    if !a_valid_id?(id)
-      return nil
-    else
-      @merchants.find do |merchant|
-        merchant.id == id
-      end
+  def find_by_id(id) 
+    nil if !a_valid_id?(id)
+
+    @merchants.find do |merchant|
+      merchant.id == id
     end
   end
 
@@ -50,4 +48,19 @@ class MerchantRepository
   def delete(id)
     @merchants.delete(find_by_id(id))
   end
+
+  #### Merchant Repository will make individual merchants
+  def self.create_merchants(hash)
+    contents = CSV.open hash, headers: true, header_converters: :symbol
+    merchants = []
+    merchants << make_merchant_object(contents)
+  end
+
+  def self.make_merchant_object(contents)
+    contents.map do |row|
+      info = {:id => row[:id], :name => row[:name]}
+      Merchant.new(info)
+    end
+  end
+
 end
