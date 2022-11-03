@@ -35,9 +35,9 @@ class SalesEngine
       items.push(Item.new({:id => row[:id].to_i,
                            :name => row[:name],
                            :description => row[:description],
-                           :unit_price => row[:unit_price].to_d,
-                           :created_at => row[:created_at],
-                           :updated_at => row[:updated_at],
+                           :unit_price => (row[:unit_price].to_d * (10**(-2))),
+                           :created_at => Time.parse(row[:created_at]),
+                           :updated_at => Time.parse(row[:updated_at]),
                            :merchant_id => row[:merchant_id].to_i}))
     end
     item_repo = ItemRepository.new(items)
