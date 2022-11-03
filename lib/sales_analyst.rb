@@ -132,7 +132,7 @@ class SalesAnalyst
   end
 
   def invoice_days_count
-    [708, 696, 692, 741, 718, 701, 729]
+    # [708, 696, 692, 741, 718, 701, 729]
     days_count = []
     days_count << invoices_days_of_week.count(0)
     days_count << invoices_days_of_week.count(1)
@@ -144,7 +144,7 @@ class SalesAnalyst
     days_count
   end
 
-  def average_invoices_per_week
+  def average_invoices_per_day
     # binding.pry
   (invoice_days_count.sum / 7.0).round(2)
   end
@@ -155,12 +155,12 @@ class SalesAnalyst
 
   def invoice_week_sum_diff_square
     invoice_days_count.map do |count|
-      (count - average_invoices_per_week)**2
+      (count - average_invoices_per_day)**2
     end.sum
   end
 
   def one_over_standard_dev
-    average_invoices_per_week_standard_deviation + average_invoices_per_week
+    average_invoices_per_week_standard_deviation + average_invoices_per_day
   end
 
   def top_days_by_invoice_count # refactor with group_by, possibly refactor invoice_days_count to hash?
