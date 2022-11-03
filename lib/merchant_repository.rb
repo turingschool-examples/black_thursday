@@ -31,6 +31,18 @@ class MerchantRepository
     find_all_by_name_overall(@merchants, name)
   end
 
+  def create(attributes)
+    create_overall(@merchants, attributes)
+  end
+
+  def update(id, attributes)
+    update_overall(@merchants, id, attributes)
+  end
+
+  def delete(id)
+    delete_overall(@merchants, id)
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
