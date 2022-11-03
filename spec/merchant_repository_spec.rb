@@ -55,6 +55,19 @@ RSpec.describe MerchantRepository do
     end
   end
 
+  describe '#all_ids' do
+    it 'finds all ids' do
+      merchant_1 = Merchant.new({:id => 1,
+                                 :name => "Nike"})
+      merchant_2 = Merchant.new({:id => 2,
+                                 :name => "Addidas"})
+      merchants = [merchant_1, merchant_2]
+      merchant_repository = MerchantRepository.new(merchants)
+
+      expect(merchant_repository.all_ids).to eq([1, 2])
+    end
+  end
+
   describe '#find_all_by_name' do
     it 'returns an array of all merchants with a specific case insensitve name' do
       merchant_1 = Merchant.new({:id => 1,
@@ -94,7 +107,7 @@ RSpec.describe MerchantRepository do
                                  :name => "Addidas"})
       merchants = [merchant_1, merchant_2]
       merchant_repository = MerchantRepository.new(merchants)
-      merchant_repository.update({:id => 1, :name => "Facebook"})
+      merchant_repository.update(1, {:id => 1, :name => "Facebook"})
 
       expect(merchant_repository.find_by_id(1).name).to eq("Facebook")
     end
