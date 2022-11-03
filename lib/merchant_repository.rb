@@ -7,8 +7,8 @@ require_relative 'general_repo'
 class MerchantRepository < GeneralRepo
   attr_reader :repository
 
-  def initialize(data = {})
-    super('Merchant', data)
+  def initialize(data, se)
+    super('Merchant', data, se)
   end
 
   def find_by_name(name)

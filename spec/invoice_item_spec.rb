@@ -6,8 +6,8 @@ require 'time'
 require './lib/invoice_item'
 
 describe InvoiceItem do
-  let(:time1) { Time.parse("2020-12-20 20:20:20") }
-  let(:time2) { Time.parse("2020-12-20 20:20:20") }
+  let(:time1) { Time.parse('2020-12-20 20:20:20') }
+  let(:time2) { Time.parse('2020-12-20 20:20:20') }
   let(:ii) do
     InvoiceItem.new(
       {
@@ -18,7 +18,7 @@ describe InvoiceItem do
         unit_price: BigDecimal(10.99, 4),
         created_at: time1,
         updated_at: time2
-      }
+      }, 'iir'
     )
   end
 
