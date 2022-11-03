@@ -7,8 +7,8 @@ require './lib/sales_engine'
 RSpec.describe SalesEngine do
 
   describe '#initialize' do
-    xit 'exists' do
-      se = SalesEngine.new
+    it 'exists' do
+      se = SalesEngine.new(MerchantRepository.new, ItemRepository.new)
 
       expect(se).to be_a SalesEngine
     end
@@ -35,16 +35,13 @@ RSpec.describe SalesEngine do
     end
 
     it 'loads item data from csv files' do
-
       se = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
       })
-
       ir = se.items
 
       expect(ir).to be_a ItemRepository
-      # expect(ir.items.all.size).to eq(475)
       se.items.all.each do |item|
         expect(item).to be_a(Item)
       end
@@ -56,7 +53,7 @@ RSpec.describe SalesEngine do
       expect(item.id).to eq(263395721)
 
       ir.update(263395721, {name: 'Walt Disney Scrabble'})
-      require "pry"; binding.pry
+
       expect(item.name).to eq('Walt Disney Scrabble')
     end
   end
