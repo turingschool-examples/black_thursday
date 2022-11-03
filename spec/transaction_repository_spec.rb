@@ -89,4 +89,15 @@ RSpec.describe TransactionRepository do
     expect(se.transactions.all[2].credit_card_number).to eq("4242424242424242")
     expect(se.transactions.all[2].result).to eq("failed")
   end
+
+  it 'can delete a Transaction instance' do
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv"})
+
+    expect(se.transactions.all[2].credit_card_number).to eq("4271805778010747")
+    expect(se.transactions.all[2].result).to eq("success")
+
+    se.transactions.delete(3)
+
+    expect(se.transactions.find_by_id(3)).to eq(nil)
+  end
 end

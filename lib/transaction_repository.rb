@@ -50,4 +50,8 @@ class TransactionRepository
   def update(id, attributes)
     update_overall(@transactions, id, attributes)
   end
+
+  def delete(id)
+    delete_overall(@transactions, id)
+  end
 end
