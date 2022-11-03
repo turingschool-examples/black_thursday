@@ -2,8 +2,8 @@ require_relative '../lib/invoice_item'
 require_relative '../lib/sales_engine'
 
 RSpec.describe InvoiceItem do
-  @time = Time.now
   before :each do
+    @time = Time.now.to_s
     @ii = InvoiceItem.new({
       :id => 6,
       :item_id => 7,
@@ -21,8 +21,12 @@ RSpec.describe InvoiceItem do
     expect(@ii.item_id).to eq 7
     expect(@ii.invoice_id).to eq 8
     expect(@ii.quantity).to eq 1
-    expect(@ii.unit_price).to eq BigDecimal(1099, 4)
-    expect(@ii.created_at).to eq @time
-    expect(@ii.updated_at).to eq @time
+    expect(@ii.unit_price).to eq 10.99
+    expect(@ii.created_at).to eq Time.parse(@time)
+    expect(@ii.updated_at).to eq Time.parse(@time)
+  end
+
+  it 'can return the unit price in dollars' do
+    expect(@ii.unit_price_to_dollars).to eq 10.99
   end
 end
