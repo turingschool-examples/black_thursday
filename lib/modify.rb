@@ -2,12 +2,12 @@ module Modify
   def create_overall(type, attributes)
     new_type = (type.last.id + 1)
     if type == @merchants
-      @merchants << Merchant.new({
+      add({
         id: new_type,
         name: attributes[:name]
       })
     elsif type == @items
-      @items << Item.new({
+      add({
         id: new_type,
         name: attributes[:name],
         description: attributes[:description],
@@ -17,7 +17,7 @@ module Modify
         merchant_id: attributes[:merchant_id]
       })
     elsif type == @invoices
-      @invoices << Invoice.new({
+      add({
         id: new_type,
         customer_id: attributes[:customer_id],
         merchant_id: attributes[:merchant_id],
@@ -26,7 +26,7 @@ module Modify
         updated_at: Time.now.to_s
         })
     elsif type == @invoice_items
-      @invoice_items << InvoiceItem.new({
+      add({
         id: new_type,
         item_id: attributes[:item_id],
         invoice_id: attributes[:invoice_id],
@@ -44,7 +44,6 @@ module Modify
       if updated_type != nil
         updated_type.name = attributes[:name]
       end
-
     elsif type = @items
       if updated_type != nil
         updated_type.name = attributes[:name] if attributes.keys.include?(:name)
