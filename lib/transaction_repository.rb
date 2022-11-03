@@ -1,6 +1,7 @@
 require_relative 'find'
 require_relative 'modify'
 require_relative 'transaction'
+require 'pry'
 
 class TransactionRepository
   include Find
@@ -27,6 +28,12 @@ class TransactionRepository
   def find_all_by_invoice_id(invoice_id)
     @transactions.find_all do |transaction|
       transaction.invoice_id == invoice_id
+    end
+  end
+
+  def find_all_by_credit_card_number(cc_num)
+    @transactions.find_all do |transaction|
+      transaction.credit_card_number == cc_num
     end
   end
 end
