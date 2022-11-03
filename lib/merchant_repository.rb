@@ -1,5 +1,6 @@
 class MerchantRepository
   attr_reader :merchants
+
   def initialize
     @merchants = []
   end
@@ -11,6 +12,7 @@ def create(attributes)
   new_merchant = Merchant.new(attributes)
   @merchants << new_merchant
   new_merchant
+
 end
 
   def all
