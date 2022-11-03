@@ -78,4 +78,9 @@ class SalesAnalyst
     end
     (total_average_price / engine.merchants.all.length).round(2)
   end
+
+  def invoice_status(status)
+    total_by_status = engine.invoices.find_all_by_status(status)
+    ((total_by_status.length.to_f / engine.invoices.all.length) * 100).round(2)
+  end
 end
