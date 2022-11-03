@@ -1,63 +1,63 @@
 class TransactionRepository
 
   def initialize
-    @invoice_item = invoice_item
+    @transaction = transaction
   end
 
   def all
-    @invoice_item
+    @transaction
   end
 
   def a_valid_id?(id)
-    @merchants.any? do |merchant| merchant.id == id
+    @transaction.any? do |instance| instance.id == id
   end 
 
   def find_by_id(id)
     if !a_valid_id?()
       return nil
     else
-      @invoice_item.find do |invoice|
+      @transaction.find do |invoice|
         invoice.id == id
       end
     end
   end
 
-  def find_all_by_customer_id(id)
+  def find_all_by_invoice_id(id)
     if !a_valid_id?()
       return nil
     else
-      @invoice_item.find do |invoice|
+      @transaction.find do |invoice|
         invoice.id == id
       end
     end
   end
 
-  def find_all_by_customer_id(id)
+  def find_all_by_credit_card_number(id)
     if !a_valid_id?()
       return nil
     else
-      @invoice_item.find do |invoice|
+      @transaction.find do |invoice|
         invoice.id == id
       end
     end
   end
 
   def create(attribute)
-    new_invoice = @invoice_item.last.id + 1
-    @invoice_item << InvoiceItem.new({:id => new_id, :name => attribute})
+    new_transaction = @transaction.last.id + 1
+    @transaction << Transaction.new({:id => new_id, :name => attribute})
   end
 
   def update(id, attribute)
-    @invoice_item.each do |invoice|
+    @transaction.each do |invoice|
       if invoice.id == id
-        invoice_new_status = invoice.name.replace(attribute)
-        return invoice_new_status
+        transaction_new_status = invoice.name.replace(attribute)
+        return transaction_new_status
       end
     end
   end
 
   def delete(id)
-    @invoice_item.delete(find_by_id(id))
+    @transaction.delete(find_by_id(id))
   end
 end
 end
