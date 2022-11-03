@@ -1,7 +1,8 @@
 class MerchantRepository
 
-  def initialize(merchants)
-    @merchants = merchants
+  def initialize(merchants, engine)
+    @merchants = create_merchants(merchants)
+    # @engine = engine
   end
   
   def all
@@ -33,7 +34,7 @@ class MerchantRepository
 
   def create(attribute)
     new_id = @merchants.last.id + 1
-    @merchants << Merchant.new({:id => new_id, :name => attribute})
+    @merchants << Merchant.new({:id => new_id, :name => attribute}, self)
   end
 
   def update(id, name)
@@ -50,16 +51,16 @@ class MerchantRepository
   end
 
   #### Merchant Repository will make individual merchants
-  def self.create_merchants(hash)
-    contents = CSV.open hash, headers: true, header_converters: :symbol
-    merchants = []
-    merchants << make_merchant_object(contents)
+  def create_merchants(filepath)
+    contents = CSV.open filepath, headers: true, header_converters: :symbol
+   
+    make_merchant_object(contents)
   end
 
-  def self.make_merchant_object(contents)
+  def make_merchant_object(contents)
     contents.map do |row|
-      info = {:id => row[:id], :name => row[:name]}
-      Merchant.new(info)
+      info = {:id => row[:id].to_i, :name => row[:name]}
+      Merchant.new(info, self)
     end
   end
 

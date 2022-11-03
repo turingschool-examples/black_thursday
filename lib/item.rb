@@ -9,7 +9,7 @@ class Item
               :updated_at,
               :merchant_id
 
-  def initialize(item)
+  def initialize(item, repo)
     @id = item[:id]
     @name = item[:name]
     @description = item[:description]
@@ -17,6 +17,7 @@ class Item
     @created_at = item[:created_at]
     @updated_at = item[:updated_at]
     @merchant_id = item[:merchant_id]
+    @repo = repo
   end
 
   def unit_price_to_dollars
@@ -27,5 +28,11 @@ class Item
     @name = attributes[:name]
     @description = attributes[:description]
     @unit_price = attributes[:unit_price]
+    @updated_at = Time.now
   end
+
+  def merchant
+    @repo.find_merchant_by_id(@merchant_id)
+  end
+
 end
