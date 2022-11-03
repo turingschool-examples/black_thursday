@@ -24,7 +24,7 @@ class SalesAnalyst
     merch_hash.each do |merchant, items|
       sqr_diff += (items - average_items_per_merchant)**2
     end
-    std_dev = Math.sqrt((sqr_diff / (merch_hash.keys.count - 1)))
+    std_dev = Math.sqrt(sqr_diff / (merch_hash.keys.count - 1))
     std_dev.round(2)
   end
 
@@ -50,5 +50,40 @@ class SalesAnalyst
 
   def average_invoices_per_merchant
     (engine.invoices.all.length.to_f / engine.merchants.all.length).round(2)
+  end
+
+  def avg_price_per_item
+    arr = []
+    engine.items.all.each do |item|
+      arr << item.unit_price
+    end
+    arr.sum / arr.length
+  end
+
+  def average_item_price_standard_deviation
+    sqr_diff = 0.0
+    engine.items.all.each do |item|
+      sqr_diff += (item.unit_price - avg_price_per_item)**2
+    end
+    std_dev = Math.sqrt(sqr_diff / (engine.items.all.count - 1))
+    std_dev.round(2)
+  end
+
+  def golden_items
+    min = avg_price_per_item + (average_item_price_standard_deviation * 2)
+    max = 99999
+    engine.items.find_all_by_price_in_range(min..max)
+  end
+
+  def average_average_price_per_merchant
+    total_average_price = engine.merchants.all.sum do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    (total_average_price / engine.merchants.all.length).round(2)
+  end
+
+  def invoice_status(status)
+    total_by_status = engine.invoices.find_all_by_status(status)
+    ((total_by_status.length.to_f / engine.invoices.all.length) * 100).round(2)
   end
 end
