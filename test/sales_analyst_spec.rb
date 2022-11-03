@@ -1,4 +1,5 @@
 require './lib/sales_engine'
+require './lib/sales_analyst'
 
 RSpec.describe SalesAnalyst do
   it 'exists' do

@@ -5,11 +5,13 @@ require 'pry'
 
 class SalesEngine
   attr_reader :merchants,
-              :items
+              :items,
+              :analyst
 
   def initialize
     @merchants = MerchantRepository.new
     @items = ItemRepository.new
+    @analyst = SalesAnalyst.new
   end
 
   def self.from_csv(hash_path)
