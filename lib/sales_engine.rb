@@ -10,18 +10,18 @@ class SalesEngine
 
   attr_reader :items,
               :merchants,
-              :invoices,
-              :analyst
+              # :invoices,
+              # :analyst
 
   def initialize(csv_hash)
     @items = create_item_repo(csv_hash[:items])
     @merchants = create_merchant_repo(csv_hash[:merchants])
-    if (csv_hash.has_key(:invoices))
-      @invoices = create_invoice_repo(csv_hash[:invoices])
-    else
-      @invoices = nil
-    end
-      @anaylyst = create_analyst(@items, @merchants, @invoices)
+    # if (csv_hash.has_key?(:invoices))
+    #   @invoices = create_invoice_repo(csv_hash[:invoices])
+    # else
+    #   @invoices = nil
+    # end
+    #   @anaylyst = create_analyst(@items, @merchants, @invoices)
   end
 
   def self.from_csv(csv_hash)
@@ -54,10 +54,10 @@ class SalesEngine
   end
 
   def create_invoice_repo(invoice_csv)
-    items = []
+    invoices = []
     contents = CSV.open invoice_csv, headers: true, header_converters: :symbol
     contents.each do |row|
-      items.push(Item.new({:id => row[:id].to_i,
+      invoices.push(Invoice.new({:id => row[:id].to_i,
                            :name => row[:name],
                            :description => row[:description],
                            :unit_price => row[:unit_price].to_d,
@@ -65,7 +65,7 @@ class SalesEngine
                            :updated_at => row[:updated_at],
                            :merchant_id => row[:merchant_id].to_i}))
     end
-    item_repo = ItemRepository.new(items)
+    invoice_repo = InvoiceRepository.new(items)
   end
 
 end
