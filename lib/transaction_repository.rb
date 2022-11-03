@@ -36,4 +36,10 @@ class TransactionRepository
       transaction.credit_card_number == cc_num
     end
   end
+
+  def find_all_by_result(result)
+    @transactions.find_all do |transaction|
+      transaction.result == result
+    end
+  end  
 end

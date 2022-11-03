@@ -46,4 +46,14 @@ RSpec.describe TransactionRepository do
     expect(se.transactions.find_all_by_credit_card_number("4297222478855497")).to be_a(Array)
     expect(se.transactions.find_all_by_credit_card_number("4297222478855497").first).to be_a(Transaction)
   end
+
+  it 'can find all by result' do
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv"})
+
+    expect(se.transactions.find_all_by_result("success").count).to eq(4158)
+    expect(se.transactions.find_all_by_result("failed")[0]).to eq(se.transactions.all[8])
+    expect(se.transactions.find_all_by_result("gibberish")).to eq([])
+    expect(se.transactions.find_all_by_result("failed")).to be_a(Array)
+    expect(se.transactions.find_all_by_result("failed").first).to be_a(Transaction)
+  end
 end
