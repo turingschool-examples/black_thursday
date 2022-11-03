@@ -84,4 +84,21 @@ RSpec.describe Invoice do
         expect(i.status).to eq("paid")
     end 
   end 
+
+  describe '#update_time' do 
+    it 'will update time' do 
+      i = Invoice.new({
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => Time.now,
+        :updated_at  => Time.now
+     })
+
+      original_time = i.update_time
+
+      expect(i.update_time).to be > original_time
+    end 
+  end 
 end 
