@@ -2,10 +2,11 @@ require 'csv'
 require_relative '../lib/item'
 require 'bigdecimal'
 class ItemRepository
-  attr_reader :items
+  attr_reader :items, :engine
 
-  def initialize(file = nil)
+  def initialize(file = nil, engine = nil)
     @items = []
+    @engine = engine
     load_data(file)
   end
 
@@ -77,7 +78,7 @@ class ItemRepository
   def load_data(data)
     return nil unless data
     CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
-      @items << (Item.new(row))
+      @items << (Item.new(row, self))
     end
   end
 

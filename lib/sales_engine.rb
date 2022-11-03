@@ -7,13 +7,13 @@ class SalesEngine
   attr_reader :items, :merchants
 
   def initialize(files)
-    @items = ItemRepository.new(files[:items])
-    @merchants = MerchantRepository.new(files[:merchants])
+    @items = ItemRepository.new(files[:items], self)
+    @merchants = MerchantRepository.new(files[:merchants], self)
   end
 
   def self.from_csv(files)
     SalesEngine.new(files)
   end
 
-  
+
 end

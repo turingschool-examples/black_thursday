@@ -2,9 +2,10 @@ require_relative '../lib/merchant'
 require 'csv'
 
 class MerchantRepository
-  attr_reader :all
-  def initialize(file = nil)
+  attr_reader :all, :engine
+  def initialize(file = nil, engine = nil)
     @all = []
+    @engine = engine
     load_data(file)
   end
 
@@ -51,7 +52,7 @@ class MerchantRepository
   def load_data(file)
     return nil unless file
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
-      add_merchant(Merchant.new(row))
+      add_merchant(Merchant.new(row, self))
     end
   end
 
