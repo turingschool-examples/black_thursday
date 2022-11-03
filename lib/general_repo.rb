@@ -1,5 +1,9 @@
-class GeneralRepo
+# frozen_string_literal: true
 
+require_relative 'general'
+
+# this is the GeneralRepo supeclass
+class GeneralRepo
   attr_reader :repository
 
   def initialize(class_nm, data = {})
@@ -30,6 +34,8 @@ class GeneralRepo
   def delete(id)
     @repository.delete(find_by_id(id))
   end
+
+  def inspect
+    #"#<#{self.class} #{@merchants.size} rows>"
+  end
 end
-
-

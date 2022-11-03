@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
-require './lib/merchant_repository'
+require_relative 'merchant_repository'
 
 # This is the SalesEngine class
 class SalesEngine
@@ -16,7 +16,7 @@ class SalesEngine
     @merchants = nil
     create_repositories
   end
-  
+
   def create_repositories
     @merchants = MerchantRepository.new(@mr_data)
   end

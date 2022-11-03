@@ -1,8 +1,9 @@
-# This is the MerchantRepository Class
-# frozen_string_literal: true.
+# frozen_string_literal: true
+
 require_relative 'merchant'
 require_relative 'general_repo'
 
+# This is the MerchantRepository Class
 class MerchantRepository < GeneralRepo
   attr_reader :repository
 
