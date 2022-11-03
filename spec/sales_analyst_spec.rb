@@ -13,6 +13,16 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst).to be_a(SalesAnalyst)
   end
 
+  it 'has a sales engine' do
+    sales_engine = SalesEngine.from_csv({
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+    })
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.engine).to be_a(SalesEngine)
+  end
+
   it 'calculates the average items per merchant' do
     sales_engine = SalesEngine.from_csv({
       :items     => './data/items.csv',
