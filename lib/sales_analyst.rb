@@ -1,3 +1,5 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
 class SalesAnalyst
   attr_reader :items,
               :merchants
@@ -27,15 +29,20 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     @merchants.all.select do |merchant|
-      # require "pry"; binding.pry
       @items.find_all_by_merchant_id(merchant.id).size > avg_plus_std_dev
     end
-    # iterate thru all merchants and find how many items they have
-    # check if num of items is greater or = to 7
-    # return those merchants in an array
   end
 
   def avg_plus_std_dev
     (average_items_per_merchant + average_items_per_merchant_standard_deviation).to_i
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    sum = @items.find_all_by_merchant_id(merchant_id).sum do |item|
+      sum = 0 if sum.nil?
+      item.unit_price.to_d(2)
+      # should conversion to big decimal happen
+      # in the item class??
+    end
   end
 end
