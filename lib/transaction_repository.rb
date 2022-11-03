@@ -41,5 +41,9 @@ class TransactionRepository
     @transactions.find_all do |transaction|
       transaction.result == result
     end
-  end  
+  end
+
+  def create(attributes)
+    create_overall(@transactions, attributes)
+  end
 end

@@ -56,4 +56,21 @@ RSpec.describe TransactionRepository do
     expect(se.transactions.find_all_by_result("failed")).to be_a(Array)
     expect(se.transactions.find_all_by_result("failed").first).to be_a(Transaction)
   end
+
+  it 'can create new Transaction instances' do
+    se = SalesEngine.from_csv({:transactions => "./data/transactions.csv"})
+
+    se.transactions.create({
+      :id => 6,
+      :invoice_id => 8,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      :created_at => Time.now,
+      :updated_at => Time.now
+    })
+    
+    expect(se.transactions.all.last.credit_card_number).to eq("4242424242424242")
+    expect(se.transactions.all.last.id).to eq(4986)
+  end
 end
