@@ -5,6 +5,10 @@ class MerchantRepository
     @merchants = []
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 def create(attributes)
   if merchants.last.nil? == false
     attributes[:id] = (@merchants.last.id + 1)

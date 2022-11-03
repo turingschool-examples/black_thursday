@@ -1,7 +1,11 @@
 require 'csv'
-require './lib/item'
+require_relative './item'
 class ItemRepository
   attr_reader :repo
+
+  def inspect
+    "#<#{self.class} #{@repo.size} rows>"
+  end
 
   def initialize
     @repo = []
