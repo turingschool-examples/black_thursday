@@ -15,6 +15,10 @@ class SalesEngine
     merchants = MerchantRepository.create_merchants(hash[:merchants]).flatten
     new(items, merchants)
   end
+
+  def analyst
+    SalesAnalyst.new(self)
+  end
 end
 
 ##### Leftover notes
