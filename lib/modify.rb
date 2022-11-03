@@ -46,8 +46,10 @@ module Modify
       end
     else
       update_invoice = find_by_id(id)
-      update_invoice.status = attributes
-      update_invoice.updated_at = Time.now
+      if update_invoice != nil
+        update_invoice.status = attributes[:status].to_sym if attributes.keys.include?(:status)
+        update_invoice.updated_at = Time.now
+      end
     end
   end
 
