@@ -20,23 +20,16 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    sqr_diff = 0.0
-    merch_hash.each do |merchant, items|
-      sqr_diff += (items - average_items_per_merchant)**2
+    sqr_diff = merch_hash.sum do |merchant, items|
+      (items - average_items_per_merchant)**2.0
     end
-    std_dev = Math.sqrt(sqr_diff / (merch_hash.keys.count - 1))
-    std_dev.round(2)
+    Math.sqrt(sqr_diff / (merch_hash.keys.count - 1)).round(2)
   end
 
   def merchants_with_high_item_count
-    high_merchants = []
-    merch_hash.each do |merchant, items|
-     if items - average_items_per_merchant_standard_deviation > average_items_per_merchant
-      high_merchants << merchant
-     end
-    end
-    high_merchants.map do |merchant_id|
-      engine.merchants.find_by_id(merchant_id)
+    merch_hash.filter_map do |merchant, items|
+     next if items - average_items_per_merchant_standard_deviation < average_items_per_merchant
+     engine.merchants.find_by_id(merchant)
     end
   end
 
@@ -64,30 +57,21 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    sqr_diff = 0.0
-    # require 'pry'; binding.pry
-    inv_hash.each do |merchant, number|
-      sqr_diff += (number - average_invoices_per_merchant)**2
+    sqr_diff = inv_hash.sum do |merchant, number|
+      (number - average_invoices_per_merchant)**2.0
     end
-    std_dev = Math.sqrt((sqr_diff / (inv_hash.keys.count - 1)))
-    std_dev.round(2)
+    Math.sqrt((sqr_diff / (inv_hash.keys.count - 1))).round(2)
   end
 
   def avg_price_per_item
-    arr = []
-    engine.items.all.each do |item|
-      arr << item.unit_price
-    end
-    arr.sum / arr.length
+    engine.items.all.sum { |item| item.unit_price} / engine.items.all.length
   end
 
   def average_item_price_standard_deviation
-    sqr_diff = 0.0
-    engine.items.all.each do |item|
-      sqr_diff += (item.unit_price - avg_price_per_item)**2
+    sqr_diff = engine.items.all.sum do |item|
+      (item.unit_price - avg_price_per_item)**2.0
     end
-    std_dev = Math.sqrt(sqr_diff / (engine.items.all.count - 1))
-    std_dev.round(2)
+    Math.sqrt(sqr_diff / (engine.items.all.count - 1)).round(2)
   end
 
   def golden_items
@@ -123,12 +107,10 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day_standard_deviation
-    sqr_diff = 0.0
-    day_hash.each do |day, number|
-      sqr_diff += (number - average_invoices_per_day)**2
+    sqr_diff = day_hash.sum do |day, number|
+      (number - average_invoices_per_day)**2.0
     end
-    std_dev = Math.sqrt((sqr_diff / 6))
-    std_dev.round(2)
+    Math.sqrt((sqr_diff / 6)).round(2)
   end
 
   def top_days_by_invoice_count
