@@ -11,10 +11,10 @@ class CustomerRepo < GeneralRepo
   end
 
   def find_all_by_first_name(first_name)
-    @repository.select{ |customer| customer.first_name.downcase.include? first_name.downcase}
+    @repository.select{ |customer| customer.first_name.casecmp?(first_name) }
   end
 
   def find_all_by_last_name(last_name)
-    @repository.select{ |customer| customer.last_name.downcase.include? last_name.downcase}
+    @repository.select{ |customer| customer.last_name.downcase.include? last_name.downcase }
   end
 end

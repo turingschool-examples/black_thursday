@@ -5,7 +5,8 @@ class Customer
               :created_at,
               :updated_at
 
-  def initialize(customer_data)
+  def initialize(customer_data, repo)
+    @customer_repo = repo
     @id = customer_data[:id]
     @first_name = customer_data[:first_name]
     @last_name = customer_data[:last_name]
