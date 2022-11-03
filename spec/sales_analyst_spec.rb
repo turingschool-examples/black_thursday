@@ -58,7 +58,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.0)
     end
     
-    it '#merchants_with_high_item_count can determine which merchants sell the highest number of items' do
+    xit '#merchants_with_high_item_count can determine which merchants sell the highest number of items' do
       expect(sales_analyst.merchants_with_high_item_count).to eq([])
     end
     

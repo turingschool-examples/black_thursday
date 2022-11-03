@@ -1,5 +1,10 @@
-require './lib/sales_engine'
+require 'csv'
 require 'bigdecimal/util'
+require_relative 'sales_engine'
+require_relative 'item'
+require_relative 'merchant'
+require_relative 'item_repository'
+require_relative 'merchant_repository'
 
 class SalesAnalyst
   attr_reader :items,
@@ -37,21 +42,21 @@ class SalesAnalyst
     end
     Math.sqrt(differences / (merchants.count - 1).to_f).round(2)
   end
-  
-  def merchants_with_high_item_count
-    
-  end
-  
-  def average_average_price_for_merchant(merchant)
-    
-  end
-  
-  def average_average_price_per_merchant
-    
-  end
-  
-  def golden_items
-    
-  end
+  # 
+  # def merchants_with_high_item_count
+  # 
+  # end
+  # 
+  # def average_average_price_for_merchant(merchant)
+  # 
+  # end
+  # 
+  # def average_average_price_per_merchant
+  # 
+  # end
+  # 
+  # def golden_items
+  # 
+  # end
   
 end
