@@ -172,3 +172,5 @@ RSpec.describe ItemRepository do
     end
   end
 end
+
+#add all_ids test
