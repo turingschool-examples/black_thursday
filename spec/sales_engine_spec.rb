@@ -49,4 +49,15 @@ RSpec.describe SalesEngine do
     expect(ir).to respond_to(:all)
     expect(mr).to respond_to(:all)
   end
+
+  it 'finds the merchant by id' do
+    se = SalesEngine.from_csv({
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+    })
+    se.find_merchant_by_id(12334105)
+
+    expect(se.find_merchant_by_id(12334105)).to eq(se.merchants.all[0])
+
+  end
 end
