@@ -41,7 +41,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#merchants_with_high_item_count' do
-    it 'returns merchants who are more than one standard deviation above average items offered' do
+    xit 'returns merchants who are more than one standard deviation above average items offered' do
       sales_analyst = se.analyst
 
       sales_analyst.merchants_with_high_item_count.each do |merchant|
@@ -67,4 +67,15 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  describe '#golden_items' do
+    it 'returns the items which have a price two standard deviations above the average price' do
+      sales_analyst = se.analyst
+  require "pry"; binding.pry
+      sales_analyst.golden_items.each do |item|
+        expect(item).to be_a Item
+      end
+
+      expect(sales_analyst.golden_items.size).to <= (1367 * 0.025)
+    end
+  end
 end
