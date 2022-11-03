@@ -1,29 +1,33 @@
 class InvoiceRepository
   attr_reader :invoices
 
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
+
   def initialize(invoices)
     @invoices = invoices
-  end 
+  end
 
-  def all 
+  def all
     @invoices
-  end 
+  end
 
   def find_by_id(id)
     @invoices.find {|invoice| invoice.id == id}
-  end 
+  end
 
   def find_all_by_customer_id(id)
     @invoices.find_all {|invoice| invoice.customer_id == id}
-  end 
+  end
 
   def find_all_by_merchant_id(id)
     @invoices.find_all {|invoice| invoice.merchant_id == id}
-  end 
+  end
 
   def find_all_by_status(status)
     @invoices.find_all {|invoice| invoice.status == status}
-  end 
+  end
 
   def create(attributes)
     ids = @invoices.map { |item| item.id}
@@ -39,9 +43,9 @@ class InvoiceRepository
     updated_invoice.update_merchant_id(attributes[:merchant_id])
     updated_invoice.update_status(attributes[:status])
     updated_invoice
-  end 
+  end
 
   def delete(id)
     @invoices.delete(find_by_id(id))
-  end 
-end 
+  end
+end

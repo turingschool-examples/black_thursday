@@ -2,6 +2,11 @@ require_relative 'merchant'
 require_relative 'test_module'
 class MerchantRepository
   include TestModule
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def initialize(merchants)
     @merchants = merchants
   end
