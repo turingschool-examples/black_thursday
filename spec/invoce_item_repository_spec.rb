@@ -3,57 +3,43 @@ require './lib/item'
 require './lib/invoice_item_repository'
 
 RSpec.describe InvoiceItemRepository do
-  let(:invoice_item_repo) {InvoiceItemRepository.new}
-  let(:item1) {Item.new({
-    :id          => 1,
-    :name        => "Pencil",
-    :description => "You can use it to write things",
-    :unit_price  => BigDecimal(10.99,4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 2
+  let(:invoice_item_repository) {InvoiceItemRepository.new}
+  let(:invoice_item) {InvoiceItem.new({
+    :id           => 6,
+    :item_id      => 7,
+    :invoice_id   => 8,
+    :quantity     => 1,
+    :unit_price   => BigDecimal(10.99, 4),
+    :created_at   => Time.now,
+    :updated_at   => Time.now
   })}
-  let(:item2) {Item.new({
-    :id          => 2,
-    :name        => "Eraser",
-    :description => "You can use it to erase things",
-    :unit_price  => BigDecimal(10.99,4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 2
-  })}
-  let(:item3) {Item.new({
-    :id          => 3,
-    :name        => "Pen",
-    :description => "You can write but not erase",
-    :unit_price  => BigDecimal(20.99,4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 3
-  })}
-  let(:item4) {Item.new({
-    :id          => 4,
-    :name        => "Fountain Pen",
-    :description => "A nicer pen",
-    :unit_price  => BigDecimal(22.99,4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 3
-  })}
-
+   
   it 'exists' do
-    expect(invoice_item_repo).to be_a InvoiceItemRepository
+    expect(invoice_item_repository).to be_a InvoiceItemRepository
   end
 
   it 'can find by id' do
+    expect(invoice_item_repository.find_by_id(5)).to be nil
+
+    invoice_item_repository.all << invoice_item
+    expect(invoice_item_repository.find_by_id(6)).to be invoice_item
   end
 
   it 'can find all by item id' do
+    expect(invoice_item_repository.find_all_by_item_id(5)).to eq []
+
+    invoice_item_repository.all << invoice_item
+    expect(invoice_item_repository.find_all_by_item_id(7)).to be {invoice_item}
   end
 
   it 'can find all by invoice id' do
+    expect(invoice_item_repository.find_all_by_invoice_id(5)).to eq []
+
+    invoice_item_repository.all << invoice_item
+    expect(invoice_item_repository.find_all_by_invoice_id(8)).to be {invoice_item}
   end
 
   it 'can create a repository' do
+    expect(invoice_item_repository.create(invoice_item)).to be_a {InvoiceItem}
   end
 end
