@@ -51,4 +51,6 @@ RSpec.describe InvoiceItemRepository do
 
     expect(invoice_item_repository.create(invoice_item_input)).to be_a {InvoiceItem}
   end
+
+  # missing an update test
 end
