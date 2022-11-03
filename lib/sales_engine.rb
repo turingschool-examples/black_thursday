@@ -10,39 +10,13 @@ class SalesEngine
     @merchants = MerchantRepository.new(merchants)
   end
 
-  # def items
-  #   ItemRepository.new(from_csv[:items])
-  # end
-
-  # def merchants
-  #   MerchantRepository.new(from_csv[:merchants])
-  # end
-
   def self.from_csv(hash)
     items = ItemRepository.create_items(hash[:items]).flatten
     merchants = MerchantRepository.create_merchants(hash[:merchants]).flatten
     new(items, merchants)
   end
-
-  
-  def self.csv_hash
-    {
-    :items      => './data/items.csv',
-    :merchants  => './data/merchants.csv'
-    }
-  end
-
- 
-  
-  # def merchants
-  #   contents = CSV.open './data/merchants.csv', headers: true, header_converters: :symbol
-  #   merchants = []
-  #   contents.each do |row|
-  #   info = {:id => row[:id], :name => row[:name]}
-  #     merchants << Merchant.new(info)
-  #   end
-  # end
 end
+
 ##### Leftover notes
     # items_contents = CSV.open(csv_hash[:items], headers: true, header_converters: :symbol)
     # merchants_contents = CSV.open(csv_hash[:merchants], headers: true, header_converters: :symbol)

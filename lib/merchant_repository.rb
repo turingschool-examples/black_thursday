@@ -49,7 +49,6 @@ class MerchantRepository
     @merchants.delete(find_by_id(id))
   end
 
-  #### create object
   #### Merchant Repository will make individual merchants
   def self.create_merchants(hash)
     contents = CSV.open hash, headers: true, header_converters: :symbol

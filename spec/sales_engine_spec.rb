@@ -20,7 +20,7 @@ RSpec.describe SalesEngine do
 
   it 'can perform ItemRepository methods' do
     ir = sales_engine.items
-
+    require 'pry'; binding.pry
     
     
   end
