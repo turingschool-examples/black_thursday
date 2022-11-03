@@ -74,3 +74,4 @@ RSpec.describe Transaction do
     expect(transaction.updated_at).to eq(nil)
     expect(transaction.updated_at).to eq(nil)
   end
+end

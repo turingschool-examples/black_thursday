@@ -59,7 +59,7 @@ end
   #will also change the invoices updated_at_attribute to current time
     expect(invoice_item_repository.find_by_id().name).to eq()
 
-    invoice_item_repository.update(,)
+    invoice_item_repository.update(',')
 
     expect(invoice_item_repository.find_by_id().name).to eq()
   end
