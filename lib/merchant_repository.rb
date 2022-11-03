@@ -41,8 +41,9 @@ class MerchantRepository
   end
 
   def update(id, attributes)
+    return unless attributes[:name]
     update_merchant = find_by_id(id)
-    update_merchant.name = attributes
+    update_merchant.name = attributes[:name]
   end
 
   def delete(id)
