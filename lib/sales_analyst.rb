@@ -1,4 +1,10 @@
 require 'pry'
+require_relative './merchant_repository'
+require_relative './item_repository'
+require_relative './invoice_repository'
+require_relative './item'
+require_relative './merchant'
+require_relative './invoice'
 
 class SalesAnalyst
   attr_reader :merchants, :items, :invoices
@@ -13,7 +19,8 @@ class SalesAnalyst
     (@items.all.count / @merchants.all.count.to_f).round(2)
   end
 
-  def average_items_per_merchant_standard_deviation    
+  def average_items_per_merchant_standard_deviation  
+    # binding.pry  
     Math.sqrt(sum_square_diff/(item_counts.length-1)).round(2)
   end
 
@@ -34,6 +41,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
+    # binding.pry
     Math.sqrt(invoice_sum_square_diff / (invoice_count.length - 1)).round(2)
   end
 
@@ -46,21 +54,17 @@ class SalesAnalyst
   def invoice_count
     @merchants.all.map do |merchant|
       @invoices.find_all_by_merchant_id(merchant.id).count
+      # binding.pry
     end
   end
 
   def top_merchants_by_invoice_count
-    arr = []
+    average = average_invoices_per_merchant
+    stdev = average_invoices_per_merchant_standard_deviation
 
-    @invoices.find_all_by_merchant_id(12334105).count > average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
-    #   arr << merchant
+    @merchants.all.find_all do |merchant|
+    @invoices.find_all_by_merchant_id(merchant.id).count > average + (stdev * 2)
     # binding.pry
-   
-    # arr
-      
-    # @merchants.each do |merchant|
-    #   @invoices
-    #   > avg + (stdev * 2) 
-      
+    end
   end
 end
