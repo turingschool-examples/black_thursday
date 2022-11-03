@@ -6,4 +6,10 @@ RSpec.describe TransactionRepository do
 
     expect(tr).to be_a(TransactionRepository)
   end
+
+  it 'has an empty transactions array by default' do
+    tr = TransactionRepository.new
+
+    expect(tr.transactions).to eq([])
+  end
 end
