@@ -42,12 +42,12 @@ describe Item do
       @item_list[:unit_price] = 144
       @item = Item.new(@item_list)
 
-      expect(@item.unit_price).to eq(BigDecimal(1.44, 4))
+      expect(@item.unit_price).to eq(BigDecimal(144, 4))
 
       @item_list[:unit_price] = 17000
       @item = Item.new(@item_list)
 
-      expect(@item.unit_price).to eq(BigDecimal(170.00, 4))
+      expect(@item.unit_price).to eq(BigDecimal(17000, 4))
     end
 
     it 'returns item creation date' do
