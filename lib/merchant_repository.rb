@@ -5,20 +5,23 @@ class MerchantRepository
     @merchants = []
   end
 
-  def create(attributes)
-
-    new_id = (@merchants.last.id + 1)
-    @merchants << Merchant.new({ id: new_id, name: attributes })
-
+def create(attributes)
+  if merchants.last.nil? == false
+    attributes[:id] = (@merchants.last.id + 1)
   end
+  new_merchant = Merchant.new(attributes)
+  @merchants << new_merchant
+  new_merchant
+
+end
 
   def all
     @merchants
   end
 
   def find_by_id(id)
-    merchants.find { |merchant| merchant.id == id }
-  end
+    merchants.find {|merchant| merchant.id == id}
+   end
 
   def find_by_name(name)
     merchants.find do |merchant|
@@ -33,7 +36,7 @@ class MerchantRepository
   end
 
   def delete(id)
-    merchants.delete_if { |merchant| merchant.id.== id }
+    merchants.delete_if{|merchant| merchant.id. == id }
   end
 
   def update(id, attributes)
