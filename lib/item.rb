@@ -26,7 +26,7 @@ class Item
 
   def unit_price_to_dollars
     unit_price = @unit_price.to_s
-    if unit_price.length > 2 && !unit_price.include?('.')
+    if unit_price.length > 1 && !unit_price.include?('.')
       unit_price = unit_price.chars.insert(-3, '.').join
     end
     unit_price.to_f
