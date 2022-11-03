@@ -22,22 +22,36 @@ class SalesAnalyst
   end
   
   def average_items_per_merchant
-    avg = (item_count / merchant_count).to_f.round(2)
+    (item_count / merchant_count).to_f.round(2)
   end
   
   def average_items_per_merchant_standard_deviation
+    # binding.pry
+    merchants = @merchants.all.map do |merchant|
+      @items.find_all_by_merchant_id(merchant.id).count
+    end
+    average = average_items_per_merchant
+    differences = 0
+    merchants.map do |num|
+      differences += (num - average)**2
+    end
+    Math.sqrt(differences / (merchants.count - 1).to_f).round(2)
   end
   
   def merchants_with_high_item_count
+    
   end
   
   def average_average_price_for_merchant(merchant)
+    
   end
   
   def average_average_price_per_merchant
+    
   end
   
   def golden_items
+    
   end
   
 end
