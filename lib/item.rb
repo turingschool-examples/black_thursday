@@ -8,6 +8,10 @@ class Item
               :description,
               :created_at,
               :updated_at
+  def initialize(stats, repo)
+    @stats = stats
+    @item_repo = repo
+  end
 
   def initialize(data)
     @id          = data[:id]
