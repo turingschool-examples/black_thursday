@@ -5,16 +5,26 @@ class SalesEngine
   attr_reader :items, :merchants
 
   ### from_csv will do '.new' things
-  def initialize(items, merchants)
-    @items = ItemRepository.new(items)
-    @merchants = MerchantRepository.new(merchants)
+  def initialize(hash)
+    @items = ItemRepository.new(hash[:items], self)
+    @merchants = MerchantRepository.new(hash[:merchants], self)
   end
 
   def self.from_csv(hash)
-    items = ItemRepository.create_items(hash[:items]).flatten
-    merchants = MerchantRepository.create_merchants(hash[:merchants]).flatten
-    new(items, merchants)
+    new(hash)
+    # items = ItemRepository.create_items(hash[:items]).flatten
+    # merchants = MerchantRepository.create_merchants(hash[:merchants]).flatten
+    # new(items, merchants)
   end
+
+  def analyst
+    SalesAnalyst.new(self)
+  end
+  
+  def find_by_merchant_id(id)
+    @merchants.find_by_id(id)
+  end
+
 end
 
 ##### Leftover notes
