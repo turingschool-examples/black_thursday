@@ -52,7 +52,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#golden_items' do
-    xit 'returns an array of all Item objects with price >2stdev above mean' do
+    it 'returns an array of all Item objects with price >2stdev above mean' do
       golden_items = sales_engine.items.find_all_by_price_in_range(6999..100000)
       expect(sales_analyst.golden_items).to eq golden_items
     end
@@ -104,6 +104,34 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.average_invoices_per_week_standard_deviation).to eq 18.07
     end
   end
+
+  describe '#invoice_days_count' do
+    it 'returns an array of invoice counts from sunday..saturday' do
+
+      expect(sales_analyst.invoice_days_count).to eq [708, 696, 692, 741, 718, 701, 729]
+    end
+  end
+
+  describe '#average_invoices_per_day' do
+    it 'returns the average invoices per day' do
+
+      expect(sales_analyst.average_invoices_per_day).to eq 712.14
+    end
+  end
+
+  describe '#invoice_week_sum_diff_square' do
+    it 'returns the first part of the formula for standard deviation' do
+
+      expect(sales_analyst.invoice_week_sum_diff_square).to eq 1958.8572
+    end
+  end
+
+  describe '#one_over_standard_dev' do
+  it 'returns the first part of the formula for standard deviation' do
+
+    expect(sales_analyst.one_over_standard_dev).to eq 730.21
+  end
+end
 
   describe '#top_days_by_invoice_count' do
     it 'return an array of the days at least one standard deviation over the mean' do
