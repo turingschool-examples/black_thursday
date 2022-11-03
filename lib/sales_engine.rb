@@ -2,16 +2,22 @@ require 'csv'
 require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './invoice_repository'
+require_relative './invoice_item_repository'
 # require_relative './customer_repository'
 require_relative './item'
 require_relative './merchant'
 require_relative './invoice'
+require_relative './invoice_item'
 require_relative './customer'
 
 class SalesEngine
   # repo_list = ["merchants","items","invoices","customers"]
   # repo_list.each { |repo| attr_reader repo.to_sym }
-  attr_reader :items, :merchants, :invoices, :customers
+  attr_reader :items, 
+              :merchants,
+              :invoices, 
+              :invoice_items,
+              :customers
 
   def initialize(data)
     repo_list.each do |repo|
@@ -39,7 +45,7 @@ class SalesEngine
   end
 
   def repo_list
-    ["merchants","items","invoices"]
+    ["merchants","items","invoices","invoice_items"]
   end
 
   def repo_child_class(repo)

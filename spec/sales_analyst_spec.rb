@@ -1,11 +1,13 @@
 require './lib/sales_analyst'
 require './lib/sales_engine'
 require './lib/item_repository'
+require './lib/invoice_item_repository'
 
 RSpec.describe SalesAnalyst do
   let(:sales_engine) {SalesEngine.from_csv({:items => './data/items.csv',
                                   :merchants => './data/merchants.csv',
-                                  :invoices => './data/invoices.csv'})}
+                                  :invoices => './data/invoices.csv',
+                                  :invoice_items => './data/invoice_items.csv'})}
   let(:sales_analyst) {sales_engine.analyst}
 
   it 'exists' do
@@ -50,7 +52,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#golden_items' do
-    xit 'returns an array of all Item objects with price >2stdev above mean' do
+    it 'returns an array of all Item objects with price >2stdev above mean' do
       golden_items = sales_engine.items.find_all_by_price_in_range(6999..100000)
       expect(sales_analyst.golden_items).to eq golden_items
     end
@@ -85,20 +87,56 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  # describe '#bottom_merchants_by_invoice_count' do
-  #   it 'returns merchants whose average # of invoices <1 stdev' do
-  #   avg = sales_analyst.average_invoices_per_merchant
-  #   stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
-  #   expect(
-  #     sales_analyst.bottom_merchants_by_invoice_count.all? {
-  #     |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count > avg - (stdev * 2)
-  #     }).to be true
-  #   end
-  # end
+  describe '#bottom_merchants_by_invoice_count' do
+    it 'returns merchants whose average # of invoices <1 stdev' do
+    avg = sales_analyst.average_invoices_per_merchant
+    stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
+    expect(
+      sales_analyst.bottom_merchants_by_invoice_count.all? {
+      |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count < avg - (stdev * 2)
+      }).to be true
+    end
+  end
+
+  describe '#average_invoices_per_week_standard_deviation' do
+    it 'returns standard deviation of invoices per week' do
+
+      expect(sales_analyst.average_invoices_per_week_standard_deviation).to eq 18.07
+    end
+  end
+
+  describe '#invoice_days_count' do
+    it 'returns an array of invoice counts from sunday..saturday' do
+
+      expect(sales_analyst.invoice_days_count).to eq [708, 696, 692, 741, 718, 701, 729]
+    end
+  end
+
+  describe '#average_invoices_per_day' do
+    it 'returns the average invoices per day' do
+
+      expect(sales_analyst.average_invoices_per_day).to eq 712.14
+    end
+  end
+
+  describe '#invoice_week_sum_diff_square' do
+    it 'returns the first part of the formula for standard deviation' do
+
+      expect(sales_analyst.invoice_week_sum_diff_square).to eq 1958.8572
+    end
+  end
+
+  describe '#one_over_standard_dev' do
+  it 'returns the first part of the formula for standard deviation' do
+
+    expect(sales_analyst.one_over_standard_dev).to eq 730.21
+  end
+end
 
   describe '#top_days_by_invoice_count' do
-    it 'return an array or the top 2 days for invoices' do
-      
+    it 'return an array of the days at least one standard deviation over the mean' do
+
+      expect(sales_analyst.top_days_by_invoice_count).to eq ["Wednesday"]
     end
   end
 end
