@@ -41,7 +41,22 @@ class TransactionRepository
                            })
   end
 
-  def update(attributes)
+  def update(id,attributes)
+    if find_by_id(id) == nil 
+      return
+    else
+    find_by_id(id).updated_at = Time.now
+    attributes.each do |att,val|
+      case att
+      when :credit_card_number
+        find_by_id(id).credit_card_number = val
+      when :credit_card_expiration_date
+        find_by_id(id).credit_card_expiration_date = val
+      when :result
+        find_by_id(id).result = val
+      end
+    end
+    end
   end
 
   def inspect

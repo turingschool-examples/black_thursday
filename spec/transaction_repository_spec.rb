@@ -39,24 +39,49 @@ RSpec.describe TransactionRepository do
   end
 
   it "#create creates a new transaction instance" do
-    attributes = {
-      :id => 6, 
-      :invoice_id => 8,
-      :credit_card_number => "4242424242424242",
-      :credit_card_expiration_date  => "0220",
-      :result => "success",
-      :created_at => Time.now,
-      :updated_at => Time.now
-      }
-    expect(transaction_repository.create(attributes)).to be_a {Transaction}
+    transaction_repository.all << transaction
+    transaction_repository.create({ :id => 6, 
+                                    :invoice_id => 8,
+                                    :credit_card_number => "4242424242424000",
+                                    :credit_card_expiration_date  => "0230",
+                                    :result => "success",
+                                    :created_at => Time.now,
+                                    :updated_at => Time.now
+                                  })
+
+    expect(transaction_repository.all[1]).to be_a(Transaction)
+    expect(transaction_repository.all[1].credit_card_number).to eq("4242424242424000")
+    expect(transaction_repository.all[1].credit_card_expiration_date).to eq("0230")
+    expect(transaction_repository.all[1].id).to eq(6)
   end
 
-  xit "#update updates a transaction" do
+  it "#update updates a transaction" do
+    transaction_repository.all << transaction
+    transaction_repository.update(6, {:credit_card_number => "4242424242424000",
+                                      :credit_card_expiration_date  => "0230"})
+
+    expect(transaction_repository.all[0].credit_card_number).to eq("4242424242424000")
+    expect(transaction_repository.all[0].credit_card_expiration_date).to eq("0230")
+    expect(transaction_repository.all[0].id).to eq(6)
   end
 
-  xit "#update cannot update id, invoice_id, or created_at" do
+  it "#update cannot update id, invoice_id, or created_at" do
+    transaction_repository.all << transaction
+    transaction_repository.update(6, {:id => 100,
+                                      :invoice_id => 100,
+                                      :created_at => Time.now })
+
+    expect(transaction_repository.all[0].id).to eq(6)
+    expect(transaction_repository.all[0].invoice_id).to eq(8)
   end
 
-  xit "#update on unknown transaction does nothing" do
+  it "#update on unknown transaction does nothing" do
+    transaction_repository.all << transaction
+    transaction_repository.update(8, {:credit_card_number => "4242424242424000",
+                                    :credit_card_expiration_date  => "0230"})
+
+    expect(transaction_repository.all[0].id).to eq(6)
+
+    expect(transaction_repository.find_by_id(8)).to eq nil
   end
 end
