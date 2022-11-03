@@ -1,18 +1,17 @@
+# frozen_string_literal: true
+
 require './lib/customer'
+require './lib/customer_repo'
+require 'csv'
 
 RSpec.describe Customer do
+  let(:se) { 'EMPTY_SE' }
+  let(:data) { CSV.readlines('./data/customer_test.csv', headers: true, header_converters: :symbol) }
+  let(:cr) { CustomerRepo.new(data, se) }
   describe '#initialize' do
     it 'exists and has readable attributes' do
-      time1 = Time.now
-      time2 = Time.now
-      data = {
-                id:          6,
-                first_name:  'Joan',
-                last_name: 'Clarke',
-                created_at:   time1,
-                updated_at:   time2
-      }
-      customer = Customer.new(data)
+      data = data[0]
+      customer = Customer.new(data, cr)
 
       expect(customer).to be_a Customer
       expect(customer.id).to eq 6
@@ -34,8 +33,8 @@ RSpec.describe Customer do
         created_at:   time1,
         updated_at:   time2
       }
-      customer = Customer.new(data)
-      customer.update({ first_name: 'Timbo', last_name: 'Tombo'})
+      customer = Customer.new(data, cr)
+      customer.update({ first_name: 'Timbo', last_name: 'Tombo' })
 
       expect(customer.updated_at).to be_within(0.5).of Time.now
       expect(customer.first_name).to eq 'Timbo'
