@@ -89,7 +89,7 @@ RSpec.describe MerchantRepository do
       mr.add_merchant(m)
       mr.add_merchant(m2)
       mr.add_merchant(m3)
-      mr.update(7, "Cool School")
+      mr.update(7, {name: "Cool School"})
 
       expect(m2.name).to eq("Cool School")
     end
