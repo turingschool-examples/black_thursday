@@ -65,6 +65,23 @@ RSpec.describe Invoice do
       i.update_merchant_id(9)
 
       expect(i.merchant_id).to eq(9)
-      end 
     end 
+  end 
+
+   describe '#update_status' do
+    it 'will update status' do 
+      i = Invoice.new({
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => "2022-11-02 11:33:36.699596 -0600",
+        :updated_at  =>  "2022-11-02 11:33:36.699596 -0600",
+      })
+
+      i.update_status("paid")
+
+        expect(i.status).to eq("paid")
+    end 
+  end 
 end 
