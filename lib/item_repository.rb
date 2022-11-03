@@ -2,6 +2,11 @@ require_relative 'item'
 require_relative 'test_module'
 class ItemRepository
   include TestModule
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
   def initialize(items)
     @items = items
   end
