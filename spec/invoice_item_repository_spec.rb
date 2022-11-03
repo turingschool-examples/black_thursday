@@ -35,7 +35,7 @@ RSpec.describe InvoiceItemRepository do
   it 'can update an invoice item' do
     @sales_analyst.engine.invoice_items.update(79, {
       :quantity => 48,
-      :unit_price => 1099
+      :unit_price => BigDecimal(10.99, 4)
     })
 
     expect(@sales_analyst.engine.invoice_items.find_by_id(79).quantity).to eq 48
@@ -46,5 +46,10 @@ RSpec.describe InvoiceItemRepository do
     @sales_analyst.engine.invoice_items.delete(79)
 
     expect(@sales_analyst.engine.invoice_items.find_by_id(79)).to eq nil
+  end
+
+  it 'can find invoice items by invoice id' do
+    expect(@sales_analyst.engine.invoice_items.find_all_by_invoice_id(10).length).to eq 5
+    expect(@sales_analyst.engine.invoice_items.find_all_by_invoice_id(10).first).to be_a InvoiceItem
   end
 end
