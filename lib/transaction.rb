@@ -6,7 +6,8 @@ class Transaction
                 :credit_card_number,
                 :credit_card_expiration_date,
                 :result,
-                :created_at
+                :created_at,
+                :updated_at
 
   def initialize(data)
     @id = data[:id].to_i
@@ -15,5 +16,6 @@ class Transaction
     @credit_card_expiration_date = data[:credit_card_expiration_date]
     @result = data[:result]
     @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
   end
 end

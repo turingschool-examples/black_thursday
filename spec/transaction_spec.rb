@@ -42,4 +42,8 @@ RSpec.describe Transaction do
   it 'has a time created at' do
     expect(@transaction.created_at).to eq(Time.parse(@time))
   end
+
+  it 'has a time updated at' do
+    expect(@transaction.updated_at).to eq Time.parse(@time)
+  end
 end
