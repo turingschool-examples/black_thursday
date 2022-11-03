@@ -27,6 +27,18 @@ class InvoiceRepository
     end
   end
 
+  def all
+    @invoices
+  end
+
+  def find_by_id(id)
+    find_by_id_overall(@invoices, id)
+  end
+
+  def find_all_by_merchant_id(merch_id)
+    find_all_by_merchant_id_overall(@invoices, merch_id)
+  end
+
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
