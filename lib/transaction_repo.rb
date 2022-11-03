@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require './lib/transaction'
-require './lib/general_repo'
+require_relative 'transaction'
+require_relative 'general_repo'
 
 # This is the transaction_repository class
 class TransactionRepo < GeneralRepo
