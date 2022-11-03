@@ -1,6 +1,6 @@
-require 'rspec'
-require './lib/merchant'
-require './lib/merchant_repository'
+require_relative 'rspec'
+require_relative './lib/merchant'
+require_relative './lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
   it 'can return an array of Merchant instances' do
