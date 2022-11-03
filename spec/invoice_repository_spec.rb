@@ -40,7 +40,7 @@ RSpec.describe InvoiceRepository do
   it 'can find by status' do
     se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
 
-    expect(se.invoices.find_all_by_status("pending").length).to eq 1473
+    expect(se.invoices.find_all_by_status(:pending).length).to eq 1473
   end
 
   it 'can create a new invoice' do
@@ -62,9 +62,9 @@ RSpec.describe InvoiceRepository do
       :status      => "pending",
     })
 
-    se.invoices.update(4986, "shipped")
+    se.invoices.update(4986, {status: :shipped})
 
-    expect(se.invoices.all.last.status).to eq('shipped')
+    expect(se.invoices.all.last.status).to eq(:shipped)
   end
 
   it 'can delete an invoice' do
