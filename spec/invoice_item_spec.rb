@@ -1,4 +1,4 @@
-require './lib/invoice_item.rb'
+require './lib/invoiceitem.rb'
 require 'bigdecimal'
 
 RSpec.describe InvoiceItem do
@@ -26,7 +26,7 @@ RSpec.describe InvoiceItem do
   end
 
   it 'has a method to return unit price in dollar and cents format' do
-    expect(invoice_item.unit_price_to_dollars).to eq(0.1099)
+    expect(invoice_item.unit_price_to_dollars).to eq(10.99)
   end
 
 end
