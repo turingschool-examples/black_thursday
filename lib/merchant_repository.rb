@@ -54,4 +54,8 @@ class MerchantRepository
       add_merchant(Merchant.new(row))
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
 end
