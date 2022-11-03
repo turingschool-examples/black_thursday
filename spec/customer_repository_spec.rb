@@ -52,7 +52,9 @@ RSpec.describe CustomerRepository do
 
   it 'has a method to create a new customer and have their id number be correct' do
     cust_repo.all.push(cust1)
-    cust_repo.create("Sally Sue")
+    cust_repo.create({:first_name => "Sally",
+                      :last_name => "Sue"
+                    })
 
     expect(cust_repo.all[1]).to be_a(Customer)
     expect(cust_repo.all[1].first_name).to eq("Sally")
@@ -60,7 +62,9 @@ RSpec.describe CustomerRepository do
     expect(cust_repo.all[1].id).to eq(4)
 
     cust_repo.push(cust2)
-    cust_repo.create("Bobby Bob")
+    cust_repo.create({:first_name => "Bobby",
+                      :last_name => "Bob"
+                    })
 
     expect(cust_repo.all[3]).to be_a(Customer)
     expect(cust_repo.all[3].first_name).to eq("Bobby")
