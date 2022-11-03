@@ -1,4 +1,5 @@
 require 'csv'
+require 'time'
 require_relative 'item'
 require_relative 'merchant'
 require_relative 'item_repository'
@@ -9,9 +10,9 @@ require_relative 'invoice_repository'
 class SalesEngine
 
   attr_reader :items,
-              :merchants
+              :merchants,
               # :invoices,
-              # :analyst
+              :analyst
 
   def initialize(csv_hash)
     @items = create_item_repo(csv_hash[:items])
@@ -21,7 +22,7 @@ class SalesEngine
     # else
     #   @invoices = nil
     # end
-    #   @anaylyst = create_analyst(@items, @merchants, @invoices)
+    @analyst = SalesAnalyst.new(@items, @merchants)
   end
 
   def self.from_csv(csv_hash)
