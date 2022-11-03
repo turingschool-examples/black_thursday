@@ -27,9 +27,9 @@ class MerchantRepository
     @merchants.find_all { |merchant| merchant.name.upcase.include?(name.upcase)}
   end
 
-  def all_ids
-    ids = @merchants.map { |merchant| merchant.id}
-  end
+  # def all_ids
+  #   ids = @merchants.map { |merchant| merchant.id}
+  # end
 
   def create(attributes)
     ids = all_ids
@@ -47,7 +47,7 @@ class MerchantRepository
     end
   end
 
-  def delete(id)
-    @merchants.delete(find_by_id(id))
-  end
+  # def delete(id)
+  #   @merchants.delete(find_by_id(id))
+  # end
 end

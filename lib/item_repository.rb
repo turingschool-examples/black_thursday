@@ -50,9 +50,9 @@ class ItemRepository
     new_item
   end
 
-  def all_ids
-    @items.map { |item| item.id}
-  end
+  # def all_ids
+  #   @items.map { |item| item.id}
+  # end
 
   def update(id, attributes)
     if all_ids.include?(id)
@@ -71,8 +71,7 @@ class ItemRepository
     end
   end
 
-  def delete(id)
-    @items.delete(find_by_id(id))
-  end
-
+  # def delete(id)
+  #   @items.delete(find_by_id(id))
+  # end
 end

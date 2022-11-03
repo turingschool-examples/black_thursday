@@ -8,4 +8,11 @@ module RepoModule
     all.find { |obj| obj.name.upcase == name.upcase}
   end
 
+  def all_ids
+    ids = all.map { |obj| obj.id}
+  end
+
+  def delete(id)
+    all.delete(find_by_id(id))
+  end
 end
