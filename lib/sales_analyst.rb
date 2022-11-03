@@ -67,4 +67,14 @@ class SalesAnalyst
     # binding.pry
     end
   end
+
+  def bottom_merchants_by_invoice_count
+    average = average_invoices_per_merchant
+    stdev = average_invoices_per_merchant_standard_deviation
+
+    @merchants.all.find_all do |merchant|
+    @invoices.find_all_by_merchant_id(merchant.id).count > average - (stdev * 2)
+    # binding.pry
+    end
+  end
 end
