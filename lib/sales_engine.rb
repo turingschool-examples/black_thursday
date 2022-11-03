@@ -1,15 +1,18 @@
 require 'csv'
 require_relative './merchant_repository'
 require_relative './item_repository'
+require_relative './invoice_repository'
 require_relative './item'
 require_relative './merchant'
+require_relative './invoice'
 
 class SalesEngine
-  attr_reader :items, :merchants
+  attr_reader :items, :merchants, :invoices
 
   def initialize(data)
     repo_creation(data[:merchants], :merchants)
     repo_creation(data[:items], :items)
+    repo_creation(data[:invoices], :invoices)
   end
 
   def self.from_csv(data)
@@ -21,6 +24,8 @@ class SalesEngine
       @merchants = MerchantRepository.new(thing_creation(input_data, input_type))
     elsif input_type == :items
       @items = ItemRepository.new(thing_creation(input_data, input_type))
+    elsif input_type == :invoices
+      @invoices = InvoiceRepository.new(thing_creation(input_data, input_type))
     end
   end
 
@@ -36,10 +41,12 @@ class SalesEngine
       Merchant.new(row)
     elsif type == :items
       Item.new(row)
+    elsif type == :invoices
+      Invoice.new(row)
     end
   end
 
   def analyst
-    SalesAnalyst.new(@merchants,@items)
+    SalesAnalyst.new(@merchants,@items,@invoices)
   end
 end

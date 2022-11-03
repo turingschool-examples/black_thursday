@@ -4,7 +4,8 @@ require './lib/item_repository'
 
 RSpec.describe SalesAnalyst do
   let(:sales_engine) {SalesEngine.from_csv({:items => './data/items.csv',
-                                  :merchants => './data/merchants.csv'})}
+                                  :merchants => './data/merchants.csv',
+                                  :invoices => './data/invoices.csv'})}
   let(:sales_analyst) {sales_engine.analyst}
 
   it 'exists' do
@@ -58,6 +59,43 @@ RSpec.describe SalesAnalyst do
   describe '#average_item_price' do
     it 'returns the average item price' do
       expect(sales_analyst.average_item_price).to eq 252105.51
+  describe '#average_invoices_per_merchant' do
+    it 'gives how many invoices a merchant has on average' do
+      expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    end
+  end
+
+  describe '#average_invoices_per_merchant_standard_deviation' do
+    it 'returns the stdev of merchant average # of invoices' do
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation). to eq 3.29
+    end
+  end
+
+  describe '#top_merchants_by_invoice_count' do
+    it 'returns merchants whose average # of invoices >2 stdev' do
+    avg = sales_analyst.average_invoices_per_merchant
+    stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
+    expect(
+      sales_analyst.top_merchants_by_invoice_count.all? {
+      |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count > avg + (stdev * 2)
+      }).to be true
+    end
+  end
+
+  describe '#bottom_merchants_by_invoice_count' do
+    it 'returns merchants whose average # of invoices <1 stdev' do
+    avg = sales_analyst.average_invoices_per_merchant
+    stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
+    expect(
+      sales_analyst.bottom_merchants_by_invoice_count.all? {
+      |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count > avg - (stdev * 2)
+      }).to be true
+    end
+  end
+
+  describe '#top_days_by_invoice_count' do
+    it 'return an array or the top 2 days for invoices' do
+      
     end
   end
 end
