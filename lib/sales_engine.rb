@@ -1,6 +1,9 @@
 require 'csv'
-require './lib/merchant_repository'
-require './lib/item_repository'
+require_relative 'merchant_repository'
+require_relative './item_repository'
+require_relative './item'
+require_relative './merchant'
+require_relative './sales_analyst'
 require 'pry'
 
 class SalesEngine
@@ -11,7 +14,7 @@ class SalesEngine
   def initialize
     @merchants = MerchantRepository.new
     @items = ItemRepository.new
-    @analyst = SalesAnalyst.new
+    # @analyst = SalesAnalyst.new
   end
 
   def self.from_csv(hash_path)
