@@ -37,7 +37,7 @@ class ItemRepository
   
   def create(attribute)
     new_id = @items.last.id + 1
-    @items << Item.new({:id => new_id, :name => attribute})
+    @items << Item.new({:id => new_id, :name => attribute}, self)
   end
   
   def find_all_with_description(string)
@@ -74,10 +74,11 @@ class ItemRepository
     @items << Item.new(attributes, self)
   end
 
+  # Let's refactor this to use our #find_by_id method
   def update(id, attributes)
     @items.each do |item|
       if item.id == id
-      item.update(attributes)
+      item.update(id, attributes)
       end
     end
   end

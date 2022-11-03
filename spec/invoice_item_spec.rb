@@ -11,7 +11,6 @@ RSpec.describe InvoiceItem do
     :created_at => Time.now,
     :updated_at => Time.now
   })}
-  end
 
   it 'is a invoice item class' do
     expect(invoice_item).to be_(InvoiceItem)

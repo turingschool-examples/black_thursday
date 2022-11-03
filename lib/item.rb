@@ -24,7 +24,7 @@ class Item
     @unit_price.round(2).to_f
   end
 
-  def update(attributes)
+  def update(id, attributes)
     @name = attributes[:name]
     @description = attributes[:description]
     @unit_price = attributes[:unit_price]
