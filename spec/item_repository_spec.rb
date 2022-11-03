@@ -9,7 +9,7 @@ require 'CSV'
 describe ItemRepository do
   before(:each) do
     @stats = CSV.readlines('./data/items.csv', headers: true, header_converters: :symbol)
-    @stats = @stats[0..4]
+    # @stats = @stats[0..4]
     @ir = ItemRepository.new(@stats, @se)
     @item1 = @ir.all[0]
     @item2 = @ir.all[1]
@@ -68,11 +68,11 @@ describe ItemRepository do
     end
   end
 
-  describe '#find_by_description' do
+  describe '#find_all_with_description' do
     it 'searches for specific description and returns items found or empty array' do
       description = "Free standing wooden\n letters \n15cm Any colours\n"
-      expect(@ir.find_by_description(description)).to eq([@item4])
-      expect(@ir.find_by_description("Free standing wooden\n letters")).to eq([])
+      expect(@ir.find_all_with_description(description)).to eq([@item4])
+      expect(@ir.find_all_with_description("Free standing wooden\n letters")).to eq([])
     end
   end
 
@@ -83,10 +83,10 @@ describe ItemRepository do
     end
   end
 
-  describe '#find_all_by_price_range' do
+  describe '#find_all_by_price_in_range' do
     it 'searches for specific price range and returns items' do
-      expect(@ir.find_all_by_price_range(10.00..14.00)).to eq([@item1, @item2, @item3])
-      expect(@ir.find_all_by_price_range(100..1000)).to eq([])
+      expect(@ir.find_all_by_price_in_range(10.00..14.00)).to eq([@item1, @item2, @item3])
+      expect(@ir.find_all_by_price_in_range(100..1000)).to eq([])
     end
   end
 

@@ -11,7 +11,7 @@ class Item
 
   def initialize(data, repo)
     @item_repo   = repo
-    @id          = data[:id]
+    @id          = data[:id].to_i
     @name        = data[:name]
     @description = data[:description]
     @created_at  = data[:created_at]

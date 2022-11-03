@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bigdecimal'
 require_relative 'item'
 require_relative 'general_repo'
 
@@ -13,7 +14,7 @@ class ItemRepository < GeneralRepo
     @repository.find { |item| item.name.casecmp?(name) }
   end
 
-  def find_by_description(description)
+  def find_all_with_description(description)
     @repository.select { |item| clean_string(item.description).casecmp?(clean_string(description)) }
   end
 
@@ -21,7 +22,7 @@ class ItemRepository < GeneralRepo
     @repository.select { |item| item.unit_price_to_dollars == price }
   end
 
-  def find_all_by_price_range(range)
+  def find_all_by_price_in_range(range)
     @repository.select { |item| range.include?(item.unit_price_to_dollars) }
   end
 
