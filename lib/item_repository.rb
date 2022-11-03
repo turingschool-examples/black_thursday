@@ -56,6 +56,14 @@ include Modify
     find_all_by_merchant_id_overall(@items, merch_id)
   end
 
+  def create(attributes)
+    create_overall(@items, attributes)
+  end
+
+  def delete(id)
+    delete_overall(@items, id)
+  end
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end

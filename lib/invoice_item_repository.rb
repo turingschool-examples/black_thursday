@@ -28,4 +28,12 @@ class InvoiceItemRepository
       invoice_item.item_id == item_id
     end
   end
+
+  def create(attributes)
+    create_overall(@invoice_items, attributes)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

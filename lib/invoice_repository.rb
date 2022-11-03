@@ -39,6 +39,14 @@ class InvoiceRepository
     find_all_by_merchant_id_overall(@invoices, merch_id)
   end
 
+  def create(attributes)
+    create_overall(@invoices, attributes)
+  end
+
+  def delete(id)
+    delete_overall(@invoices, id)
+  end
+
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end

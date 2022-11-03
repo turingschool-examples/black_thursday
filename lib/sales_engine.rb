@@ -3,6 +3,7 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'sales_analyst'
+require_relative 'invoice_item_repository'
 
 class SalesEngine
   attr_reader :items, :merchants, :invoices, :invoice_items

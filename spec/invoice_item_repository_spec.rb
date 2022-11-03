@@ -19,4 +19,16 @@ RSpec.describe InvoiceItemRepository do
   it 'can find all invoice items by item id' do
     expect(@sales_analyst.engine.invoice_items.find_all_by_item_id(263417825)[0].id).to eq 76
   end
+
+  it 'can create new invoice items' do
+    @sales_analyst.engine.invoice_items.create({
+      :item_id => 7,
+      :invoice_id => 8,
+      :quantity => 1,
+      :unit_price => BigDecimal(10.99, 4)
+    })
+
+    expect(@sales_analyst.engine.invoice_items.all.last.item_id).to eq 7
+    expect(@sales_analyst.engine.invoice_items.all.last.invoice_id).to eq 8
+  end
 end
