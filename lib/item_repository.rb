@@ -1,7 +1,7 @@
 require_relative 'item'
-require_relative 'test_module'
+require_relative 'repo_module'
 class ItemRepository
-  include TestModule
+  include RepoModule
 
   def inspect
     "#<#{self.class} #{@items.size} rows>"
@@ -15,9 +15,9 @@ class ItemRepository
     @items
   end
 
-  def find_by_id(id)
-    @items.find {|item| item.id == id}
-  end
+  # def find_by_id(id)
+  #   @items.find {|item| item.id == id}
+  # end
 
   def find_by_name(name)
     @items.find {|item| item.name.upcase == name.upcase}
@@ -49,7 +49,7 @@ class ItemRepository
     @items.push(new_item)
     new_item
   end
-  
+
   def all_ids
     @items.map { |item| item.id}
   end
