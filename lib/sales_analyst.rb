@@ -108,4 +108,9 @@ class SalesAnalyst
       (count - average_invoices_per_week)**2
     end.sum
   end
+
+  def top_days_by_invoice_count
+    days_of_week= ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    invoice_days_count
+  end
 end
