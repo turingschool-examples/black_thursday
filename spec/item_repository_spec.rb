@@ -1,5 +1,5 @@
-require 'rspec'
-require './lib/item_repository'
+require_relative 'rspec'
+require_relative './lib/item_repository'
 
 describe ItemRepository do
   describe '#initialize' do

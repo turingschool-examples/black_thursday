@@ -1,9 +1,9 @@
-require './lib/salesengine.rb'
-require './lib/item_repository.rb'
-require './lib/item.rb'
-require './lib/merchant.rb'
-require './lib/merchant_repository.rb'
-require 'csv'
+require_relative './lib/salesengine.rb'
+require_relative './lib/item_repository.rb'
+require_relative './lib/item.rb'
+require_relative './lib/merchant.rb'
+require_relative './lib/merchant_repository.rb'
+require_relative 'csv'
 
 RSpec.describe SalesEngine do
 
