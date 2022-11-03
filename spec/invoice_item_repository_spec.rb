@@ -12,7 +12,11 @@ RSpec.describe InvoiceItemRepository do
     expect(@sales_analyst.engine.invoice_items.all.first).to be_a InvoiceItem
   end
 
-  it 'can find an item by id' do
+  it 'can find an invoice item by id' do
     expect(@sales_analyst.engine.invoice_items.find_by_id(76).item_id).to eq 263417825
+  end
+
+  it 'can find an invoice item by item id' do
+    expect(@sales_analyst.engine.invoice_items.find_by_item_id(263417825)).id.to eq 76
   end
 end
