@@ -1,20 +1,21 @@
+# frozen_string_literal: true
+
 require './lib/invoice_repo'
 require './lib/invoice'
 require 'CSV'
 
-
 RSpec.describe InvoiceRepo do
-  let(:data){CSV.readlines('./data/invoices_test.csv', headers: true, header_converters: :symbol)}
-  
-  let(:ir) {InvoiceRepo.new(data)}
-  let(:invoice1){ir.repository[0]}
-  let(:invoice2){ir.repository[1]}
-  let(:invoice3){ir.repository[2]}
-  let(:invoice4){ir.repository[3]}
-  let(:invoice5){ir.repository[4]}
+  let(:data){ CSV.readlines('./data/invoices_test.csv', headers: true, header_converters: :symbol) }
+  let(:se) { 'Empty_SE' }
+  let(:ir) { InvoiceRepo.new(data, se) }
+  let(:invoice1) { ir.repository[0] }
+  let(:invoice2) { ir.repository[1] }
+  let(:invoice3) { ir.repository[2] }
+  let(:invoice4) { ir.repository[3] }
+  let(:invoice5) { ir.repository[4] }
 
   describe '#initialize' do
-    it 'exists' do      
+    it 'exists' do
       expect(ir).to be_a InvoiceRepo
     end
   end
@@ -40,8 +41,8 @@ RSpec.describe InvoiceRepo do
 
   describe '#find_by_merchant_id' do
     it 'returns either [] or one or more instances of Invoice with matching merchant id' do
-      expect(ir.find_by_merchant_id(12335938)).to eq [invoice1]
-      expect(ir.find_by_merchant_id(33333333)).to eq []
+      expect(ir.find_by_merchant_id(12_335_938)).to eq [invoice1]
+      expect(ir.find_by_merchant_id(33_333_333)).to eq []
     end
   end
 
@@ -55,19 +56,19 @@ RSpec.describe InvoiceRepo do
   describe '#create' do
     it 'creates an Invoice with the provided attributes, new id is current highest + 1' do
       expect(ir.create({
-                        :customer_id => 7,
-                        :merchant_id => 8,
-                        :status      => 'pending',
-                        :created_at  => Time.now,
-                        :updated_at  => Time.now
-                        }).id).to eq '6'
+                        customer_id:         7,
+                        merchant_id:         8,
+                        status:      'pending',
+                        created_at:   Time.now,
+                        updated_at:   Time.now
+                       }).id).to eq '6'
     end
   end
 
   describe '#update' do
     it 'updates Invoice with corresponding id with the provided attributes' do
       expect(ir.repository[0].status).to eq 'pending'
-      ir.update('1', {status: 'shipped'})
+      ir.update('1', { status: 'shipped' })
       expect(ir.repository[0].status).to eq 'shipped'
       expect(ir.repository[0].updated_at).to be_within(0.5).of Time.now
     end
@@ -75,9 +76,9 @@ RSpec.describe InvoiceRepo do
 
   describe '#delete' do
     it 'deletes the Invoice instance with corresponding id' do
-        ir.delete('1')
-        expect(ir.repository.count).to eq(4)
-        expect(ir.repository[0].id).to eq('2')
+      ir.delete('1')
+      expect(ir.repository.count).to eq(4)
+      expect(ir.repository[0].id).to eq('2')
     end
   end
 end
