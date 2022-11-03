@@ -6,11 +6,18 @@ require 'csv'
 
 RSpec.describe Customer do
   let(:se) { 'EMPTY_SE' }
-  let(:data) { CSV.readlines('./data/customer_test.csv', headers: true, header_converters: :symbol) }
-  let(:cr) { CustomerRepo.new(data, se) }
+  let(:cr) { 'EMPTY_CR' }
   describe '#initialize' do
     it 'exists and has readable attributes' do
-      data = data[0]
+      time1 = Time.now
+      time2 = Time.now
+      data = {
+        id:               6,
+        first_name:  'Joan',
+        last_name: 'Clarke',
+        created_at:   time1,
+        updated_at:   time2
+      }
       customer = Customer.new(data, cr)
 
       expect(customer).to be_a Customer

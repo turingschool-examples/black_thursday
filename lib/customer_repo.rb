@@ -10,8 +10,8 @@ class CustomerRepo < GeneralRepo
               :created_at,
               :updated_at
 
-  def initialize(customer_data)
-    super('Customer', customer_data)
+  def initialize(customer_data, engine)
+    super('Customer', customer_data, engine)
   end
 
   def find_all_by_first_name(first_name)

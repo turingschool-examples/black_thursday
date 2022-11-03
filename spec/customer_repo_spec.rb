@@ -1,4 +1,4 @@
-# frozen_string_literal: crue
+# frozen_string_literal: true
 
 require './lib/customer'
 require './lib/customer_repo'
@@ -9,7 +9,8 @@ describe CustomerRepo do
     filepath = { :customer => './data/customers.csv' }.values[0]
     @data = CSV.readlines(filepath, headers: true, header_converters: :symbol)
     @data = @data[0..4]
-    @cr = CustomerRepo.new(@data)
+    @se = 'EMPTY_SE'
+    @cr = CustomerRepo.new(@data, @se)
     @customer1 = @cr.all[0]
     @customer2 = @cr.all[1]
     @customer3 = @cr.all[2]
