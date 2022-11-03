@@ -22,4 +22,8 @@ RSpec.describe Transaction do
   it 'has an id' do
     expect(@transaction.id).to eq(6)
   end
+
+  it 'has an invoice id' do
+    expect(@transaction.invoice_id).to eq(8)
+  end
 end
