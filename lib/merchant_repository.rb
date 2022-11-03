@@ -1,6 +1,5 @@
 require_relative 'merchant'
 require_relative 'repo_module'
-
 class MerchantRepository
   include RepoModule
 
@@ -20,9 +19,9 @@ class MerchantRepository
   #   @merchants.find { |merchant| merchant.id == id}
   # end
 
-  def find_by_name(name)
-    @merchants.find { |merchant| merchant.name.upcase == name.upcase}
-  end
+  # def find_by_name(name)
+  #   @merchants.find { |merchant| merchant.name.upcase == name.upcase}
+  # end
 
   def find_all_by_name(name)
     @merchants.find_all { |merchant| merchant.name.upcase.include?(name.upcase)}
