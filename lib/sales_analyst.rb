@@ -48,6 +48,9 @@ class SalesAnalyst
     (merchant_total_value / merchant_specific_items.length).round(2)
   end
 
+  def average_invoices_per_merchant
+    (engine.invoices.all.length.to_f / engine.merchants.all.length).round(2)
+  end
 
   def avg_price_per_item
     arr = []
