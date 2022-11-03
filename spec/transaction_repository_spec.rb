@@ -1,4 +1,5 @@
 require_relative '../lib/transaction_repository'
+require './lib/sales_engine'
 
 RSpec.describe TransactionRepository do
   it 'exists' do
@@ -18,6 +19,7 @@ RSpec.describe TransactionRepository do
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
       :transactions => "./data/transactions.csv"
       })
 

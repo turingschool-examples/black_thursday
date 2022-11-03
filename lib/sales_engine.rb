@@ -34,15 +34,15 @@ class SalesEngine
     end
 
     if csv_hash.keys.include?(:transactions)
-      transaction_item_input_data = transaction_breakdown(csv_hash[:transactions])
+      transaction_input_data = transaction_breakdown(csv_hash[:transactions])
     end
 
     SalesEngine.new({
       items: item_input_data,
       merchants: merchant_input_data,
       invoices: invoice_input_data,
-      invoice_items: invoice_item_input_data
-      transactions: transaction_item_input_data
+      invoice_items: invoice_item_input_data,
+      transactions: transaction_input_data
       })
   end
 
