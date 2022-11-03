@@ -129,4 +129,16 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.top_days_by_invoice_count).to eq(['Wednesday'])
   end
+
+  it 'can return top merchants by invoice count' do 
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    })
+    sales_analyst = se.analyst
+# require 'pry'; binding.pry
+    expect(sales_analyst.top_merchants_by_invoice_count.first).to be_a(Merchant)
+    expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
+  end
 end
