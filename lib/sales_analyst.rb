@@ -114,7 +114,7 @@ class SalesAnalyst
     average_invoices_per_week_standard_deviation + average_invoices_per_week
   end
 
-  def top_days_by_invoice_count
+  def top_days_by_invoice_count # refactor with group_by, possibly refactor invoice_days_count to hash?
     days_of_week = []
     array = invoice_days_count
     hash = {
