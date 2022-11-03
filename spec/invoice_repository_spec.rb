@@ -100,6 +100,14 @@ let (:invoice_3) {Invoice.new({
       expect(invoice_repo.all).to eq([invoice_1, invoice_2, invoice_3, invoice_4])
     end 
   end 
+  describe "#all_ids" do 
+    it 'will return all ids' do 
+      invoices = [invoice_1, invoice_2, invoice_3]
+      invoice_repo = InvoiceRepository.new(invoices)
+      
+      expect(invoice_repo.all_ids).to eq([invoice_1.id, invoice_2.id, invoice_3.id])
+    end 
+  end 
 
   describe "#update" do 
     it 'will update invoices' do 
