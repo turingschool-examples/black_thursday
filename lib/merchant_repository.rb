@@ -27,7 +27,7 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @all.find_all do |merchant|
-      name.casecmp?(merchant.name)
+      merchant.name.upcase.include?(name.upcase)
     end
   end
 
@@ -36,6 +36,7 @@ class MerchantRepository
     new.id = @all.max_by do |merchant|
       merchant.id
     end.id + 1
+    @all << new
     new
   end
 
