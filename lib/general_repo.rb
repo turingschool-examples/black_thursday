@@ -6,9 +6,10 @@ require_relative 'general'
 class GeneralRepo
   attr_reader :repository
 
-  def initialize(class_nm, data = {})
+  def initialize(class_nm, data = {}, se)
     @class_nm = class_nm
     @repository = []
+    @se = se
     data.each { |general| create(general) }
   end
 
@@ -22,7 +23,7 @@ class GeneralRepo
 
   def create(general_data)
     general_data[:id] ||= (@repository.last.id.to_i + 1).to_s
-    general = Object.const_get(@class_nm).new(general_data)
+    general = Object.const_get(@class_nm).new(general_data, self)
     @repository << general
     general
   end
@@ -36,6 +37,6 @@ class GeneralRepo
   end
 
   def inspect
-    #"#<#{self.class} #{@merchants.size} rows>"
+    # "#<#{self.class} #{@merchants.size} rows>"
   end
 end

@@ -2,8 +2,9 @@
 
 # This is the transaction class
 class Transaction
-  def initialize(stats)
+  def initialize(stats, repo)
     @stats = stats
+    @transaction_repo = repo
   end
 
   def id
