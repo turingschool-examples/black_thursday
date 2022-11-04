@@ -1,15 +1,29 @@
 # require 'spec_helper'
+require 'csv'
 require './lib/sales_analyst'
 require './lib/sales_engine'
-require './lib/item_repository'
 require './lib/item'
-require './lib/merchant_repository'
+require './lib/item_repository'
 require './lib/merchant'
+require './lib/merchant_repository'
+require './lib/invoice'
+require './lib/invoice_repository'
+require './lib/invoice_item'
+require './lib/invoice_item_repository'
+require './lib/customer'
+require './lib/customer_repository'
+require './lib/transaction'
+require './lib/transaction_repository'
 
 RSpec.describe SalesAnalyst do
   let!(:sales_engine) {SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"})}
+    :merchants => "./data/merchants.csv",
+    :customers => "./data/customers.csv",
+    :invoices => "./data/invoices.csv",
+    :invoice_items => "./data/invoice_items.csv",
+    :transactions => "./data/transactions.csv"
+    })}
 
   let!(:sales_analyst) {sales_engine.analyst}
 
@@ -40,12 +54,12 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_high_item_count.first.class).to eq(Merchant)
   end
 
-  xit 'can return average item price for the given merchant' do
+  it 'can return average item price for the given merchant' do
     expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
     expect(sales_analyst.average_item_price_for_merchant(12334105).class).to eq(BigDecimal)
   end
 
-  it 'can return average item price per (all) merchants' do
+  xit 'can return average item price per (all) merchants' do
     expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
     expect(sales_analyst.average_average_price_per_merchant).to eq(BigDecimal)
   end

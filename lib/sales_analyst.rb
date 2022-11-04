@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'csv'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -52,7 +53,18 @@ class SalesAnalyst
         item_prices_per_merchant << item.unit_price 
       end
       avg = ((item_prices_per_merchant.sum) / items_per_merchant.count)
-      BigDecimal(avg, 4)
+      avg = BigDecimal(avg, 4) * 100
+      
+      #mode and value
+      # 0.1666665e
+
+      # [4] pry(main)> a = 1665.6666666666667
+      # => 1665.6666666666667
+      # (a).round(-2)
+      # => 1700
+      # (a).round(2)
+      # => 1665.67
+      # (a).round(2)
       # avg_bd = BigDecimal.new(avg,4)
       # price of each item for that merchant
       # add it all together
