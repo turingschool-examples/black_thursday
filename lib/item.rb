@@ -11,9 +11,9 @@ class Item
               :merchant_id
 
   def initialize(info)
-    @id = info[:id]
-    @name = info[:name].downcase
-    @description = info[:description].downcase
+    @id = info[:id].to_i
+    @name = info[:name]
+    @description = info[:description]
     @unit_price = info[:unit_price]
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
@@ -25,8 +25,8 @@ class Item
   end
 
   def update(attributes)
-    @name = attributes[:name].downcase
-    @description = attributes[:description].downcase
+    @name = attributes[:name]
+    @description = attributes[:description]
     @unit_price = attributes[:unit_price]
     self
   end
