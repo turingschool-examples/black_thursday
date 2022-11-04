@@ -102,12 +102,21 @@ RSpec.describe InvoiceItemRepository do
 
       expect(invoice_items_repository.all_ids).to eq([6, 4, 8])
     end
+  end
 
   describe '#update' do
-    xit 'will update invoice item' do
+    it 'will update invoice item' do
+      invoice_items = [ii_1, ii_2, ii_3]
+      invoice_items_repository = InvoiceItemRepository.new(invoice_items)
+      original_time = invoice_items_repository.find_by_id(8).update_time
 
+      invoice_item_repository.update(8, {:id => 8, :quantity => 7})
+      expect(invoice_items_repository.find_by_id(8).quantity).to eq(7)
 
+      invoice_item_repository.update(8, {:id => 8, :unit_price => BigDecimal(68.22, 4)})
+      expect(invoice_items_repository.find_by_id(8).unit_price).to eq(0.6822e2)
 
+      expect(invoice_items_repository.find_by_id(8).updated_at).to be > original_time
     end
   end
 
