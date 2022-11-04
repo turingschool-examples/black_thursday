@@ -11,7 +11,7 @@ RSpec.describe InvoiceItemRepository do
                 :unit_price => BigDecimal(10.99, 4),
                 :created_at => Time.now,
                 :updated_at => Time.now
-              })
+              })}
   let (:ii_2) {InvoiceItem.new({
                 :id => 4,
                 :item_id => 23,
@@ -20,7 +20,7 @@ RSpec.describe InvoiceItemRepository do
                 :unit_price => BigDecimal(54.22, 4),
                 :created_at => Time.now,
                 :updated_at => Time.now
-              })
+              })}
   let (:ii_3) {InvoiceItem.new({
                 :id => 8,
                 :item_id => 2,
@@ -29,7 +29,7 @@ RSpec.describe InvoiceItemRepository do
                 :unit_price => BigDecimal(24.42, 4),
                 :created_at => Time.now,
                 :updated_at => Time.now
-              })
+              })}
 
   describe '#initialize' do
     it 'exists' do
