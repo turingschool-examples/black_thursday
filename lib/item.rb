@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Item
   attr_reader :id,
               :created_at,
@@ -12,7 +14,7 @@ class Item
     @id = item[:id].to_i
     @name = item[:name]
     @description = item[:description]
-    @unit_price = (item[:unit_price].to_f / 100).to_d
+    @unit_price = BigDecimal((item[:unit_price].to_f / 100), 4)
     @created_at = return_time_object(item[:created_at])
     @updated_at = return_time_object(item[:updated_at])
     @merchant_id = item[:merchant_id].to_i
