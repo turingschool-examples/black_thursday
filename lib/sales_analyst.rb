@@ -169,5 +169,7 @@ class SalesAnalyst
 
   end
 
-  
+  def revenue_by_merchant(merchant_id)
+
+  end
 end
