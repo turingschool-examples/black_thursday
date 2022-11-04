@@ -61,7 +61,7 @@ RSpec.describe InvoiceRepo do
                         status:      'pending',
                         created_at:   Time.now,
                         updated_at:   Time.now
-                       }).id).to eq '6'
+                       }).id).to eq 6
     end
   end
 
@@ -78,7 +78,7 @@ RSpec.describe InvoiceRepo do
     it 'deletes the Invoice instance with corresponding id' do
       ir.delete('1')
       expect(ir.repository.count).to eq(4)
-      expect(ir.repository[0].id).to eq('2')
+      expect(ir.repository[0].id).to eq(2)
     end
   end
 end

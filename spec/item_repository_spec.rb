@@ -9,7 +9,7 @@ require 'CSV'
 describe ItemRepository do
   before(:each) do
     @stats = CSV.readlines('./data/items.csv', headers: true, header_converters: :symbol)
-    # @stats = @stats[0..4]
+    @stats = @stats[0..4]
     @ir = ItemRepository.new(@stats, @se)
     @item1 = @ir.all[0]
     @item2 = @ir.all[1]
