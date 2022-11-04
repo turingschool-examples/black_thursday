@@ -53,4 +53,23 @@ RSpec.describe InvoiceItem do
       expect(ii.unit_price_to_dollars).to eq(10.99)
     end
   end
+
+  describe '#update' do
+    let (:ii) {InvoiceItem.new({
+                  :id => 3,
+                  :item_id => 9,
+                  :invoice_id => 1,
+                  :quantity => 2,
+                  :unit_price => BigDecimal(10.99, 4),
+                  :created_at => Time.now,
+                  :updated_at => Time.now
+                })}
+
+    it 'will update the invoice item quantity' do
+      ii.update_quantity(5)
+      expect(ii.quantity).to eq(5)
+    end
+
+
+  end
 end
