@@ -13,14 +13,16 @@ require_relative './customer'
 require_relative './transaction'
 
 class SalesAnalyst
-  attr_reader :merchants, :items, :invoices, :customers, :transactions
+  attr_reader :merchants, :items, :invoices, :customers, :transactions, :invoice_items
+  
 
-  def initialize(merchants,items,invoices,customers,transactions)
+  def initialize(merchants, items, invoices, customers, transactions, invoice_items)
     @merchants = merchants
     @items = items
     @invoices = invoices
     @customers = customers
     @transactions = transactions
+    @invoice_items = invoice_items
   end
 
   def average_items_per_merchant
@@ -207,9 +209,29 @@ class SalesAnalyst
   def merchants_with_only_one_item_registered_in_month(month)
   end
 
-  def revenue_by_merchant(merchant_id)
+
+
+  def invoices_by_merchant(merchant_id)
+    @invoices.all.find_all do |invoice|
+      invoice.merchant_id == merchant_id
+    end
   end
 
+  def invoice_items_by_merchant(merchant_id)
+    invoices_by_merchant(merchant_id).collect do |invoice|
+      @invoice_items.all.find_all do |invoice_item|
+        invoice_item.invoice_id == invoice.id
+      end
+    end.flatten.uniq
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoice_items_by_merchant(merchant_id).sum do |invoice_item|
+     invoice_item.quantity.to_i * invoice_item.unit_price
+    end
+  end
+  
+    
   def most_sold_item_for_merchant(merchant_id)
   end
 
