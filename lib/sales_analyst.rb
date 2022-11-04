@@ -37,18 +37,21 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    # use average_items_per_merchant_standard_deviation 
-    # find_all merchants with more than ONE sd ABOVE the average number of items for sale
+    high_item_count = sales_engine.merchants.all.find_all do |merchant|
+      (sales_engine.items.find_all_by_merchant_id(merchant.id).count) > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+    end
+    # find_all merchants with more than ONE sd ABOVE the average number of items offered
     # return array of merchants
   end
 
-  def average_item_price_for_specific_merchant(merchant_id)
-    # total of all item unit_price per merchant(use merchant ID)
+  def average_item_price_for_merchant(merchant_id)
+    # the average item price for the given merchant
+    # total of all item unit_price per SPECIFIC merchant(use merchant ID)
     # divide by total number of items for THAT merchant
     # BigDecimal
   end
 
-  def average_item_price_for_all_merchants
+  def average_average_price_per_merchant
     # use average_item_price_for_specific_merchant(merchant_id)
     # add the sum of all averages between ALL of the merchants
     # divided by number of total merchants
