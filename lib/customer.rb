@@ -10,7 +10,7 @@ class Customer
 
   def initialize(customer_data, repo)
     @customer_repo = repo
-    @id = customer_data[:id]
+    @id = customer_data[:id].to_i
     @first_name = customer_data[:first_name]
     @last_name = customer_data[:last_name]
     @created_at = customer_data[:created_at]

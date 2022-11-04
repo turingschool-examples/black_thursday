@@ -27,7 +27,7 @@ describe SalesEngine do
   # end
 
   describe '#self.from_csv' do
-    it 'reads the csv files to supply data to the repositories' do
+    xit 'reads the csv files to supply data to the repositories' do
       se = SalesEngine.from_csv(data)
       i_data = CSV.read './data/items_test.csv', headers: true, header_converters: :symbol
       m_data = CSV.read './data/merchants_test.csv', headers: true, header_converters: :symbol
@@ -37,7 +37,7 @@ describe SalesEngine do
   end
 
   describe '#merchants' do
-    it 'has a MerchantRepository object instance' do
+    xit 'has a MerchantRepository object instance' do
       se = SalesEngine.from_csv(data)
       expect(se.merchants).to be_a MerchantRepository
     end

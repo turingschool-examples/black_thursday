@@ -4,12 +4,13 @@ require_relative 'general'
 
 # this is the GeneralRepo supeclass
 class GeneralRepo
-  attr_reader :repository
+  attr_reader :repository,
+              :engine
 
-  def initialize(class_nm, data = {}, se)
+  def initialize(class_nm, data = {}, engine)
     @class_nm = class_nm
     @repository = []
-    @se = se
+    @engine = engine
     data.each { |general| create(general) }
   end
 
