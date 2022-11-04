@@ -8,6 +8,10 @@ class SalesAnalyst
     (item_amount.sum / item_amount.length.to_f).round(2)
   end
 
+  def average_items_per_merchant_standard_deviation
+    Math.sqrt(divide_diff_and_square_sum).round(2)
+  end
+
   def item_amount
     @engine.merchants.all.map do |merchant|
       @engine.find_all_by_merchant_id(merchant.id).length
@@ -27,6 +31,8 @@ class SalesAnalyst
   def divide_diff_and_square_sum
     diff_and_square_sum / (item_amount.length - 1)
   end
+
+
 
 
 end

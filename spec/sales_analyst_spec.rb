@@ -67,4 +67,47 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.divide_diff_and_square_sum).to eq(1)
   end
+
+  it 'returns the standard deviation' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_test.csv'
+      )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.0)
+  end
+  it 'returns the standard deviation' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_test.csv'
+      )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.0)
+  end
+
+  it 'returns the standard deviation' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_test.csv'
+      )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.0)
+  end
+
+  xit 'returns the standard deviation' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv'
+      )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
+  end
 end
