@@ -9,6 +9,8 @@ RSpec.describe SalesAnalyst do
                            items: './data/items.csv',
                            merchants: './data/merchants.csv'
                          })
+                        #  let(:sales_analyst) { sales_engine.analyst }
+                         
   end
 
   it 'exists' do
@@ -30,6 +32,12 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.merchants_with_high_item_count).to be_a(Array)
     expect(sales_analyst.merchants_with_high_item_count[0]).to be_a(Merchant)
+
+  end
+
+  it 'checks average item price for merchant)' do
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.average_item_price_for_merchant(12334159)).to be_a(BigDecimal)
 
   end
 end
