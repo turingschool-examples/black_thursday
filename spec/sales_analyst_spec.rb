@@ -62,23 +62,17 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.merchants_with_high_item_count).to eq([])
     end
 
-    xit '#average_item_price_for_merchant() can determine the average price for a merchants items' do
-      expect(sales_analyst.average_item_price_for_merchant()).to eq.()
+    
+    it '#average_average_price_per_merchant can determine the average price of an item across all merchants' do
+      expect(sales_analyst.average_item_price_for_merchant(1)).to eq(0.7854e2.to_d)
     end
-
-    xit '#average_average_price_per_merchant can determine the average price of an item across all merchants' do
-      expect(sales_analyst.average_average_price_per_merchant).to eq.()
+    
+    it '#average_average_price_per_merchant can determine the average price of an item across all merchants' do
+      expect(sales_analyst.average_average_price_per_merchant).to eq(0.5294e2)
     end
 
     xit '#golden_items can determine which items are 2 standard deviations above the avg item price' do
-      expect(sales_analyst.golden_items).to eq.([])
+      expect(sales_analyst.golden_items).to eq([])
     end
-
-    # xit '' do
-    # end
-    #
-    # xit '' do
-    # end
-
   end
 end
