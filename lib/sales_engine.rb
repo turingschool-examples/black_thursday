@@ -14,9 +14,6 @@ class SalesEngine
   def initialize
     @merchants = MerchantRepository.new
     @items = ItemRepository.new
-
-
-
   end
 
   def self.from_csv(hash_path)
@@ -48,8 +45,8 @@ class SalesEngine
   end
 
   def analyst
-    # require 'pry'; binding.pry
         @analyst = SalesAnalyst.new(self)
+        # SalesAnalyst.new(self)
         # KR why is analyst an attribute value?
 
   end
