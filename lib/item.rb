@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'time'
+require 'calculable'
 
 # This is the item class
 class Item
+  include Calculable
   attr_reader :id,
               :name,
               :merchant_id,
@@ -21,11 +23,7 @@ class Item
   end
 
   def unit_price
-    unit_price = @unit_price.to_s
-    if unit_price.length > 1 && !unit_price.include?('.')
-      unit_price = unit_price.chars.insert(-3, '.').join
-    end
-    BigDecimal(unit_price)
+    BigDecimal(price_converter(@unit_price))
   end
 
   def created_at
@@ -41,11 +39,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    unit_price = @unit_price.to_s
-    if unit_price.length > 1 && !unit_price.include?('.')
-      unit_price = unit_price.chars.insert(-3, '.').join
-    end
-    unit_price.to_f
+    price_converter(@unit_price).to_f
   end
 
   def update(attributes)
