@@ -72,7 +72,7 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    # new_attributes = find_by_id(id).attributes.merge!(attributes)
+    return unless !attributes.empty?
     updated = find_by_id(id)
     updated.name = attributes[:name]
     updated.description = attributes[:description]
