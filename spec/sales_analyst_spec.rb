@@ -110,4 +110,16 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
+
+  it 'returns the merchants with high item counts' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test2.csv',
+      :merchants => './data/merchant_test2.csv'
+      )
+    sales_analyst = sales_engine.analyst
+    #mean 5.6 + 2.41 = 8.01...last merchant(9) items > 1 std dev from mean
+    expect(sales_analyst.merchants_with_high_item_count).to eq(@engine.merchants[-1])
+
+  end
 end
