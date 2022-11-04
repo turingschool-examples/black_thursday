@@ -165,15 +165,17 @@ end
   end
 
   it "#revenue_by_merchant returns the revenue for given merchant" do
-    expected = sales_analyst.revenue_by_merchant(12334194) #is this a merchant id or the revenue
+    expected = sales_analyst.revenue_by_merchant(12334194) #is the merchant id
 
     expect(sales_analyst.revenue_by_merchant(12334194)).to eq BigDecimal(expected)
     expect(expected.class).to eq BigDecimal
   end
 
   it '#most_sold_item_for_merchant returns the most sold item' do
+    expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq [item]
   end
 
   it '#best_item_for_merchant returns an item based off revenue generated' do
+  expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq [item]
   end
 end
