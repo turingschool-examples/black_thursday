@@ -54,12 +54,12 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_high_item_count.first.class).to eq(Merchant)
   end
 
-  it 'can return average item price for the given merchant' do
+  xit 'can return average item price for the given merchant' do
     expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
     expect(sales_analyst.average_item_price_for_merchant(12334105).class).to eq(BigDecimal)
   end
 
-  xit 'can return average item price per (all) merchants' do
+  it 'can return average item price per (all) merchants' do
     expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
     expect(sales_analyst.average_average_price_per_merchant).to eq(BigDecimal)
   end

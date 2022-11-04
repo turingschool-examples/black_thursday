@@ -52,8 +52,8 @@ RSpec.describe TransactionRepository do
   end
 
   it 'can create a new invoice instance with attributes' do
-  expect(transaction_repository.create()).to eq()
-end
+    expect(transaction_repository.create()).to eq()
+  end
 
   it 'gives the new invoice instance the highest id + 1' do
     expect(transaction_repository.all.last.id).to eq()
