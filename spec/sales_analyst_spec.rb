@@ -70,12 +70,12 @@ RSpec.describe SalesAnalyst do
   describe '#golden_items' do
     it 'returns the items which have a price two standard deviations above the average price' do
       sales_analyst = se.analyst
-  require "pry"; binding.pry
+
       sales_analyst.golden_items.each do |item|
         expect(item).to be_a Item
       end
 
-      expect(sales_analyst.golden_items.size).to <= (1367 * 0.025)
+      expect(sales_analyst.golden_items.size).to be <= (1367 * 0.025)
     end
   end
 end
