@@ -79,4 +79,8 @@ RSpec.describe SalesAnalyst do
   it 'can return the total dollar amount paid for a specific invoice' do
     expect(sales_analyst.invoice_total(1)).to eq 21067.77
   end
+
+  it 'can return the total revenue by date' do
+    expect(sales_analyst.total_revenue_by_date(12.12.2013).to eq 0
+  end
 end
