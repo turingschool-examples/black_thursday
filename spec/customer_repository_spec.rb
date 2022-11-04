@@ -30,8 +30,8 @@ RSpec.describe CustomerRepository do
     se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
 
     expect(se.customers.find_all_by_first_name("Coopernicus")).to eq []
-    require 'pry'; binding.pry
-    expect(se.customers.find_all_by_first_name("Lisa")).to eq ()
+    # require 'pry'; binding.pry
+    expect(se.customers.find_all_by_first_name("Lisa")).to eq ([se.customers.all[60], se.customers.all[66]])
   end
   
   # find_all_by_last_name - returns either [] or one or more matches which have a last name matching the substring fragment supplied
