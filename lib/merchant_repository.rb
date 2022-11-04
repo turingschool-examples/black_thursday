@@ -1,44 +1,47 @@
-class MerchantRepository
+require './lib/modules/repository_queries'
 
-  def initialize(merchants, engine)
-    @merchants = create_merchants(merchants)
+class MerchantRepository
+include RepositoryQueries
+
+  def initialize(data, engine)
+    @data = create_merchants(data)
     # @engine = engine
   end
   
-  def all
-    @merchants
-  end
+  # def all
+  #   @data
+  # end
 
   def find_by_id(id) 
     nil if !a_valid_id?(id)
 
-    @merchants.find do |merchant|
+    @data.find do |merchant|
       merchant.id == id
     end
   end
 
   def a_valid_id?(id)
-    @merchants.any? do |merchant| merchant.id == id
+    @data.any? do |merchant| merchant.id == id
     end 
   end
   
   def find_by_name(name)
-    @merchants.find{|merchant| merchant.name.downcase == name.downcase}
+    @data.find{|merchant| merchant.name.downcase == name.downcase}
   end
 
   def find_all_by_name(string)
-    @merchants.find_all do |merchant|
+    @data.find_all do |merchant|
       merchant.name.downcase.include?(string.downcase)
     end
   end
 
   def create(attribute)
-    new_id = @merchants.last.id + 1
-    @merchants << Merchant.new({:id => new_id, :name => attribute}, self)
+    new_id = @data.last.id + 1
+    @data << Merchant.new({:id => new_id, :name => attribute}, self)
   end
 
   def update(id, name)
-    @merchants.each do |merchant|
+    @data.each do |merchant|
       if merchant.id == id
         merchant_new_name = merchant.name.replace(name)
         return merchant_new_name
@@ -47,10 +50,10 @@ class MerchantRepository
   end
 
   def delete(id)
-    @merchants.delete(find_by_id(id))
+    @data.delete(find_by_id(id))
   end
 
-  #### Merchant Repository will make individual merchants
+  #### Merchant Repository will make individual data
   def create_merchants(filepath)
     contents = CSV.open filepath, headers: true, header_converters: :symbol
    
@@ -65,6 +68,6 @@ class MerchantRepository
   end
   
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@data.size} rows>"
   end
 end
