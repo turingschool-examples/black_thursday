@@ -5,19 +5,14 @@ class MerchantRepository
     @merchants = []
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+  def create(attributes)
+    if merchants.last.nil? == false
+      attributes[:id] = (@merchants.last.id + 1)
+    end
+    new_merchant = Merchant.new(attributes)
+    @merchants << new_merchant
+    new_merchant
   end
-
-def create(attributes)
-  if merchants.last.nil? == false
-    attributes[:id] = (@merchants.last.id + 1)
-  end
-  new_merchant = Merchant.new(attributes)
-  @merchants << new_merchant
-  new_merchant
-
-end
 
   def all
     @merchants
@@ -29,7 +24,7 @@ end
 
   def find_by_name(name)
     merchants.find do |merchant|
-      merchant.name.downcase == name.downcase
+      merchant.name.casecmp?(name)
     end
   end
 
@@ -44,7 +39,12 @@ end
   end
 
   def update(id, attributes)
-    updated_merchant = find_by_id(id)
-    updated_merchant.name = attributes
+    if updated_merchant = find_by_id(id)
+      updated_merchant.name = attributes[:name]
+    end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
