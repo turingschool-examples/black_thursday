@@ -9,12 +9,14 @@ require_relative './invoice'
 require_relative './invoice_item'
 
 class SalesAnalyst
-  attr_reader :merchants, :items, :invoices
+  attr_reader :merchants, :items, :invoices, :customers, :transactions
 
-  def initialize(merchants,items,invoices)
+  def initialize(merchants,items,invoices,customers,transactions)
     @merchants = merchants
     @items = items
     @invoices = invoices
+    @customers = customers
+    @transactions = transactions
   end
 
   def average_items_per_merchant
