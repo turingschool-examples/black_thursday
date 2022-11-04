@@ -107,15 +107,22 @@ RSpec.describe TransactionRepository do
         expect(t_repo.find_by_id(7)).to eq(nil)
       end
       
-      xit 'will not update attributes not specified in the method' do
-        expect(t_repo.update(2, {})).to eq()
+      it 'will not update attributes not specified in the method' do
+        t_repo.update(4, {:id => 7, 
+                          :invoice_id => 1234,
+                          :result => 'success'})
+        expect(t_repo.transactions[-1].id).to eq(4)
+        expect(t_repo.transactions[-1].invoice_id).to eq(4126)
+        expect(t_repo.transactions[-1].result).to eq('success')
       end
     end
     
-    # describe '#delete(id)' do
-    #   it '' do
-    #     expect(t_repo.).to eq()
-    #   end
-    # end
+    describe '#delete(id)' do
+      it 'deletes the transaction with the given id' do
+        t_repo.delete(1)
+        
+        expect(t_repo.find_by_id(1)).to eq(nil)
+      end
+    end
   end
 end

@@ -55,4 +55,8 @@ class TransactionRepository
       updated_t
     end
   end
+  
+  def delete(id)
+    @transactions.delete(find_by_id(id))
+  end
 end

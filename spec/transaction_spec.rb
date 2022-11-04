@@ -31,7 +31,7 @@ RSpec.describe Transaction do
       :invoice_id => 8,
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0220",
-      :result => "failure",
+      :result => "failed",
       :created_at => Time.now,
       :updated_at => Time.now
   })}
@@ -49,10 +49,9 @@ RSpec.describe Transaction do
     end
     
     it 'can update :result' do
-      expect(t.result).to eq("failure")
+      expect(t.result).to eq("failed")
       t.update_result("success")
       expect(t.result).to eq("success")
     end
-    
   end
 end
