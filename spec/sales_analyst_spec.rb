@@ -143,29 +143,27 @@ end
     end
   end
 
-  describe '#invoice_paid_in_full?(invoice_id)' do
-    it 'return true if transaction success and false if failed' do
+  # describe '#invoice_paid_in_full?(invoice_id)' do
+  #   it 'return true if transaction success and false if failed' do
 
-      expected = sales_analyst.invoice_paid_in_full?(1)
-      expect(expected).to eq true
+  #     expected = sales_analyst.invoice_paid_in_full?(1)
+  #     expect(expected).to eq true
 
-      expected = sales_analyst.invoice_paid_in_full?(200)
-      expect(expected).to eq true
+  #     expected = sales_analyst.invoice_paid_in_full?(200)
+  #     expect(expected).to eq true
 
-      expected = sales_analyst.invoice_paid_in_full?(203)
-      expect(expected).to eq false
+  #     expected = sales_analyst.invoice_paid_in_full?(203)
+  #     expect(expected).to eq false
 
-      expected = sales_analyst.invoice_paid_in_full?(204)
-      expect(expected).to eq false
-    end
-  end
+  #     expected = sales_analyst.invoice_paid_in_full?(204)
+  #     expect(expected).to eq false
+  #   end
+  # end
 
-  describe '#top_days_by_invoice_count' do
+  describe '#invoice_total(1)' do # changetest later to other invoice number
     it 'will return the invoice total for that id' do
-      expected = sales_analyst.invoice_total(1)
 
-      expect(expected).to eq 21067.77
-      expect(expected.class).to eq BigDecimal
+      expect(sales_analyst.invoice_total(1)).to eq 21067.77
     end
   end
 

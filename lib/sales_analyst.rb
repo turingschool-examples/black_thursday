@@ -13,12 +13,13 @@ require_relative './customer'
 require_relative './transaction'
 
 class SalesAnalyst
-  attr_reader :merchants, :items, :invoices, :customers, :transactions
+  attr_reader :merchants, :items, :invoices, :customers, :transactions, :invoice_items
 
-  def initialize(merchants,items,invoices,customers,transactions)
+  def initialize(merchants,items,invoices,invoice_items,customers,transactions)
     @merchants = merchants
     @items = items
     @invoices = invoices
+    @invoice_items = invoice_items
     @customers = customers
     @transactions = transactions
   end
@@ -189,13 +190,29 @@ class SalesAnalyst
     days_of_week
   end
 
+  def find_transaction_by_invoice_id(invoice_id)
+    transactions.all.find do |transaction|
+      transaction.invoice_id == invoice_id
+    end.result
+  end
+
+
   def invoice_paid_in_full?(invoice_id)
-    transactions.find_by_id(invoice_id).result == :success &&
+    find_transaction_by_invoice_id(invoice_id) == :success
     # invoices.find_by_
   end
 
-  def invoice_total(invoice_id)
+  def find_invoice_item_by_invoice_id(invoice_id) 
+    invoice_items.all.find_all do |invoice_item|
+    invoice_item.invoice_id == invoice_id
+    end
+  end
 
+  def invoice_total(invoice_id)
+    ii = find_invoice_item_by_invoice_id(invoice_id)
+    ii.collect do |i|
+      i.quantity.to_i * i.unit_price
+    end.sum.to_f
   end
 
   def invoice_status(status)
