@@ -8,8 +8,8 @@ require 'bigdecimal'
 
 RSpec.describe SalesAnalyst do
   let(:se) {SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
+    items: "./data/items.csv",
+    merchants: "./data/merchants.csv"
     })}
 
   it 'exists' do

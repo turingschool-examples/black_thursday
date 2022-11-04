@@ -16,9 +16,10 @@ RSpec.describe SalesEngine do
   describe '#from_csv' do
     it 'loads merchant data from csv files' do
       se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
+      items: "./data/items.csv",
+      merchants: "./data/merchants.csv"
       })
+
       mr = se.merchants
 
       expect(mr).to be_a MerchantRepository
@@ -35,8 +36,8 @@ RSpec.describe SalesEngine do
 
     it 'loads item data from csv files' do
       se = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
+        items:     "./data/items.csv",
+        merchants: "./data/merchants.csv"
       })
       ir = se.items
 
@@ -51,7 +52,7 @@ RSpec.describe SalesEngine do
       expect(item.name).to eq('Disney scrabble frames')
       expect(item.id).to eq(263395721)
 
-      ir.update(263395721, {name: 'Walt Disney Scrabble'})
+      ir.update(263395721, { name: 'Walt Disney Scrabble' })
 
       expect(item.name).to eq('Walt Disney Scrabble')
     end

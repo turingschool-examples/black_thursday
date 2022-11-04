@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'bigdecimal'
 require 'bigdecimal/util'
 class SalesAnalyst
   attr_reader :items,
               :merchants
-
 
   def initialize(items, merchants)
     @items = items
@@ -54,9 +55,7 @@ class SalesAnalyst
   end
 
   def average_item_price
-    sum_of_items = @items.all.sum do |item|
-      item.unit_price
-    end
+    sum_of_items = @items.all.sum(&:unit_price)
     sum_of_items / @items.all.size
   end
 
@@ -68,9 +67,7 @@ class SalesAnalyst
   end
 
   def array_of_items_price
-    @items.all.map do |item|
-      item.unit_price
-    end
+    @items.all.map(&:unit_price)
   end
 
   def golden_items

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ItemRepository
   attr_reader :all
 
@@ -8,10 +10,10 @@ class ItemRepository
   def add_to_repo(item)
     @all << item
   end
-  
+
   def find_by_id(id)
     @all.find do |item|
-      item.id == id      
+      item.id == id
     end
   end
 
@@ -45,12 +47,12 @@ class ItemRepository
     end
   end
 
-  def max_id 
+  def max_id
     max = @all.max_by do |item|
       item.id
     end
     return 1 if max.nil?
-    new_max = max.id + 1
+    max.id + 1
   end
 
   def create(attributes)
@@ -60,7 +62,7 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    
+
     attributes.each do |key, value|
       item.instance_variable_set("@#{key}", value)
     end
