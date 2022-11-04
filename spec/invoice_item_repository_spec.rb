@@ -14,7 +14,7 @@ RSpec.describe InvoiceItemRepository do
               })}
   let (:ii_2) {InvoiceItem.new({
                 :id => 4,
-                :item_id => 23,
+                :item_id => 2,
                 :invoice_id => 10,
                 :quantity => 2,
                 :unit_price => BigDecimal(54.22, 4),
@@ -59,5 +59,15 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
+  describe '#find_all_by_item_id' do
+    it 'find all invoice items with item id' do
+      invoice_items = [ii_1, ii_2, ii_3]
+      invoice_item_repository = InvoiceItemRepository.new(invoice_items)
+
+      expect(invoice_item_repository.find_all_by_item_id(2)).to eq([ii_2, ii_3])
+      expect(invoice_item_repository.find_all_by_item_id(7)).to eq([ii_1])
+      expect(invoice_item_repository.find_all_by_item_id(14)).to eq([])
+    end
+  end
 
 end
