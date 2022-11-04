@@ -1,7 +1,8 @@
 require_relative 'merchant'
-require_relative 'test_module'
+
+require_relative 'repo_module'
 class MerchantRepository
-  include TestModule
+  include RepoModule
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
@@ -15,20 +16,8 @@ class MerchantRepository
     @merchants
   end
 
-  def find_by_id(id)
-    @merchants.find { |merchant| merchant.id == id}
-  end
-
-  def find_by_name(name)
-    @merchants.find { |merchant| merchant.name.upcase == name.upcase}
-  end
-
   def find_all_by_name(name)
     @merchants.find_all { |merchant| merchant.name.upcase.include?(name.upcase)}
-  end
-
-  def all_ids
-    ids = @merchants.map { |merchant| merchant.id}
   end
 
   def create(attributes)
@@ -45,9 +34,5 @@ class MerchantRepository
       updated_merchant.update_name(attributes[:name])
       updated_merchant
     end
-  end
-
-  def delete(id)
-    @merchants.delete(find_by_id(id))
   end
 end
