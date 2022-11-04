@@ -26,4 +26,8 @@ class Invoice
   def update_status(status)
     @status = status
   end
+
+  def update_time
+    @updated_at = Time.now
+  end 
 end 
