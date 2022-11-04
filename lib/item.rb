@@ -28,6 +28,7 @@ class Item
   end
 
   def update(attributes)
+    require'pry'
     @name = attributes[:name]
     @description = attributes[:description]
     @unit_price = attributes[:unit_price]
