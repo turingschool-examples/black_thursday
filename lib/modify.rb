@@ -19,6 +19,8 @@ module Modify
       updated_type.credit_card_number = attributes[:credit_card_number] if attributes.keys.include?(:credit_card_number)
       updated_type.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes.keys.include?(:credit_card_expiration_date)
       updated_type.result = attributes[:result] if attributes.keys.include?(:result)
+      updated_type.first_name = attributes[:first_name] if attributes.keys.include?(:first_name)
+      updated_type.last_name = attributes[:last_name] if attributes.keys.include?(:last_name)
     end
   end
 
