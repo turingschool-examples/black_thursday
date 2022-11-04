@@ -24,4 +24,10 @@ class Merchant
   def item_count
     _items.count
   end
+
+  def item_prices
+    _items.map do |item|
+      item.unit_price
+    end
+  end
 end
