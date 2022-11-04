@@ -10,7 +10,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (items.count/ merchants.count.to_f).round(2)
+    (items.count / merchants.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -29,26 +29,18 @@ class SalesAnalyst
   def merchants_with_high_item_count
     # merchants with 5 or more items
     merchants.find_all do |merchant|
-        # KR refactor opportunity, 33 same as line 19
-        sales_engine.items.find_all_by_merchant_id(merchant.id).count >= 5
+      # KR refactor opportunity, 33 same as line 19
+      sales_engine.items.find_all_by_merchant_id(merchant.id).count >= 5
     end
-    # require 'pry'; binding.pry
   end
 
   def average_item_price_for_merchant(merchant_id)
-    #  find all items by merchant id
-    # require 'pry'; binding.pry
     items = sales_engine.items.find_all_by_merchant_id(merchant_id)
-    # require 'pry'; binding.pry
     if items.empty?
-        BigDecimal(0)
+      BigDecimal(0)
     else
-    price = BigDecimal(items.inject(0) {|sum, item| sum + unit_price})    # average item price)
-    price / items.count
+      price = BigDecimal(items.inject(0) { |sum, _item| sum + unit_price })    # average item price)
+      price / items.count
     end
-    # items.inject(0)
-    # require 'pry'; binding.pry
-
   end
-
 end
