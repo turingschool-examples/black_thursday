@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'general_repo'
+require_relative 'invoice'
 
 # InvoiceRepo holds, creates, updates, destroys, and finds repository.
 class InvoiceRepo < GeneralRepo

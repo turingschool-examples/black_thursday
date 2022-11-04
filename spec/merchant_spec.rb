@@ -32,7 +32,7 @@ describe Merchant do
   describe '#update' do
     it 'changes the @name of the Merchant' do
       m = Merchant.new({ id: 5, name: 'Turing School' }, 'mr')
-      m.update('Test')
+      m.update({ name: 'Test' })
 
       expect(m.name).to eq('Test')
     end
