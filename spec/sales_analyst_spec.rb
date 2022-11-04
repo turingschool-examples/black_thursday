@@ -118,8 +118,7 @@ RSpec.describe SalesAnalyst do
       :merchants => './data/merchant_test2.csv'
       )
     sales_analyst = sales_engine.analyst
-    #mean 5.6 + 2.41 = 8.01...last merchant(9) items > 1 std dev from mean
-    expect(sales_analyst.merchants_with_high_item_count).to eq([sales_engine.merchants.all[-1]])
 
+    expect(sales_analyst.merchants_with_high_item_count).to eq([sales_engine.merchants.all[-1]])
   end
 end
