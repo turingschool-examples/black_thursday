@@ -1,4 +1,5 @@
 require './spec_helper'
+require './lib/invoice_item'
 
 RSpec.describe InvoiceItem do
   describe '#initialize' do
@@ -18,7 +19,7 @@ RSpec.describe InvoiceItem do
       expect(ii.item_id).to eq(7)
       expect(ii.invoice_id).to eq(8)
       expect(ii.quantity).to eq(1)
-      expect(ii.unit_price).to eq(0.1099e2)    
+      expect(ii.unit_price).to eq(0.1099e2)
     end
   end
 end
