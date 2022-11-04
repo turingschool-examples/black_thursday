@@ -1,11 +1,19 @@
 class Invoice
 
-  def initialize
-    @id = id
-    @customer_id = customer_id
-    @merchant_id = merchant_id
-    @status = status
-    # @created_at = created_at
-    # @updated_at = updated_at
+  attr_reader :id,
+              :customer_id,
+              :merchant_id,
+              :status,
+              :created_at,
+              :updated_at
+
+  def initialize(info, repo)
+    @id           = info[:id]
+    @customer_id  = info[:customer_id]
+    @merchant_id  = info[:merchant_id]
+    @status       = info[:status]
+    @created_at   = info[:created_at]
+    @updated_at   = info[:updated_at]
+    @repo = repo
   end
 end

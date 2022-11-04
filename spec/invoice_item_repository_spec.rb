@@ -1,10 +1,19 @@
 require './lib/invoice_item'
 require './lib/invoice_item_repository'
+require './lib/sales_engine'
+require './lib/merchant'
+require './lib/merchant_repository'
+require './lib/item_repository'
+require './lib/item'
+require './lib/sales_analyst'
+require './lib/transaction'
+require './lib/transaction_repository'
 
 RSpec.describe InvoiceItemRepository do
-  let!(:invoice_item_repository){InvoiceItemRepository.new()}
+  let!(:invoice_item_repository){InvoiceItemRepository.new('./data/invoice_items.csv', nil)}
 
   it 'is an invoice item repository class' do
+    require 'pry'; binding.pry
     expect(invoice_item_repository).to be_a(InvoiceItemRepository)
   end
   it 'returns all known invoice items in ana array' do

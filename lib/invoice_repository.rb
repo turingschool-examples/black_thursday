@@ -1,6 +1,7 @@
 class InvoiceRepository
-  def initialize(invoices)
-    @invoices = invoices
+  def initialize(invoices, engine)
+    @invoices = create_invoices(invoices)
+    @engine = engine
   end
 
   def all
@@ -70,6 +71,25 @@ class InvoiceRepository
     @invoices.delete(find_by_id(id))
   end
 
+  def create_invoices(filepath)
+    contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
+    make_invoice_object(contents)
+  end
+  
+  def make_invoice_object(contents)
+    contents.map do |row|
+      invoice = {
+              :id => row[:id].to_i, 
+              :customer_id => row[:customer_id].to_i,
+              :merchant_id => row[:merchant_id].to_i,
+              :status => row[:status].to_sym,
+              :created_at => row[:created_at],
+              :updated_at => row[:updated_at]
+            }
+      Invoice.new(invoice, self)
+    end
+  end
+  
     def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

@@ -14,19 +14,25 @@ require_relative './merchant'
 
 class SalesEngine
   
-  attr_reader :items, :merchants
+  attr_reader :items, 
+              :merchants, 
+              :customers,
+              :invoices,
+              :invoice_items,
+              :transactions
 
   ### from_csv will do '.new' things
   def initialize(hash)
     @items = ItemRepository.new(hash[:items], self)
     @merchants = MerchantRepository.new(hash[:merchants], self)
+    @customers = CustomerRepository.new(hash[:customers], self)
+    @invoices = InvoiceRepository.new(hash[:invoices], self)
+    @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self)
+    @transactions = TransactionRepository.new(hash[:transactions], self)
   end
 
   def self.from_csv(hash)
     new(hash)
-    # items = ItemRepository.create_items(hash[:items]).flatten
-    # merchants = MerchantRepository.create_merchants(hash[:merchants]).flatten
-    # new(items, merchants)
   end
 
   def analyst
