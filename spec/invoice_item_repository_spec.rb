@@ -95,4 +95,16 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
+
+  describe '#delete' do
+    it 'will delete the invoice item with the matching id' do
+      invoice_items = [ii_1, ii_2, ii_3]
+      invoice_item_repository = InvoiceItemRepository.new(invoice_items)
+
+      invoice_item_repository.delete(4)
+
+      expect(invoice_item_repository.all).to eq([ii_1, ii_3])
+      expect(item_repository.all.include?(ii_2)).to eq(false)
+    end
+  end
 end
