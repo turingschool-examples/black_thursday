@@ -39,40 +39,34 @@ RSpec.describe CustomerRepository do
 
   # create(attributes) - create a new Customer instance with the provided attributes. The new Customer’s id should be the current highest Customer id plus 1.
   it 'creates a new Customer instance with provided attributes' do
-    se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
-    se.customers.create({
-      :id         => se.customers.customers.length + 1,
+    engine.customers.create({
       :first_name => "Monty",
-      :last_name  => "Python",
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :last_name  => "Python"
     })
 
-    expect(se.customers.all.last.first_name).to eq ("Monty")
-    expect(se.customers.all.last.last_name).to eq ("Python")
-    expect(se.customers.all.last.id).to eq (1001)
+    expect(engine.customers.all.last.first_name).to eq ("Monty")
+    expect(engine.customers.all.last.last_name).to eq ("Python")
+    expect(engine.customers.all.last.id).to eq (1001)
   end
   
   # update(id, attribute) - update the Customer instance with the corresponding id with the provided attributes. Only the customer’s first_name and last_name can be updated. This method will also change the customer’s updated_at attribute to the current time.
   it 'updates customer last name and updated at time of provided id' do 
-    se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
-    expect(se.customers.find_by_id(999).updated_at).to eq Time.parse("2012-03-27 14:58:15 UTC")
-    
-    expect(se.customers.find_by_id(999).first_name).to eq ("Clementina")
-    expect(se.customers.find_by_id(999).last_name).to eq ("Hudson")
-    time_current = se.customers.find_by_id(999).updated_at
-    se.customers.update(999, {first_name: "Dennis", last_name: "Rodman"})
-    expect(se.customers.find_by_id(999).first_name).to eq ("Dennis")
-    expect(se.customers.find_by_id(999).last_name).to eq ("Rodman")
-    
-    expect(se.customers.find_by_id(999).updated_at).to be > (time_current)
+    expect(engine.customers.find_by_id(999).updated_at).to eq Time.parse("2012-03-27 14:58:15 UTC")
+    expect(engine.customers.find_by_id(999).first_name).to eq ("Clementina")
+    expect(engine.customers.find_by_id(999).last_name).to eq ("Hudson")
+
+    time_current = engine.customers.find_by_id(999).updated_at
+
+    engine.customers.update(999, {first_name: "Dennis", last_name: "Rodman"})
+
+    expect(engine.customers.find_by_id(999).first_name).to eq ("Dennis")
+    expect(engine.customers.find_by_id(999).last_name).to eq ("Rodman")
+    expect(engine.customers.find_by_id(999).updated_at).to be > (time_current)
   end
   #delete(id) - delete the Customer instance with the corresponding id
   it 'deletes a Customer instance with provided id' do
-    se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
-
-    expect(se.customers.all[9].last_name).to eq ("Reynolds")
-    se.customers.delete(10)
-    expect(se.customers.find_by_id(10)).to eq(nil)
+    expect(engine.customers.all.last.last_name).to eq ("Python")
+    engine.customers.delete(1001)
+    expect(engine.customers.find_by_id(1001)).to eq(nil)
   end
 end
