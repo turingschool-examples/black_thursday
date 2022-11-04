@@ -57,18 +57,16 @@ class SalesAnalyst
       # price of each item for that merchant
       # add it all together
       # divide by number of items for THAT merchant
+        # divide ^ by 100 because items are in cents and we want dollars
       #BigDecimal
     end
 
   def average_average_price_per_merchant
     all_merchant_averages = []
     sales_engine.merchants.all.each do |merchant|
-      require 'pry'; binding.pry
-      all_merchant_averages << merchant.average_item_price_for_merchant(merchant.id)
-      require 'pry'; binding.pry
+      all_merchant_averages  << average_item_price_for_merchant(merchant.id)
     end
-    (all_merchant_averages.sum) / merchants_count
-    # require 'pry'; binding.pry
+    ((all_merchant_averages.sum).to_f / merchants_count).truncate(2)
     # use average_item_price_for_merchant(merchant_id)
     # add the sum of all averages between ALL of the merchants
     # divided by number of total merchants
@@ -76,9 +74,26 @@ class SalesAnalyst
   end
 
   def golden_items
+
+    
+    # golden_item_objects = [] 
+    # sales_engine.items.all.each do |item|
+    #   if (item.unit_price / 100) > (average_average_price_per_merchant + (average_items_per_merchant_standard_deviation * 2))
+    #     golden_item_objects << item
+    #     require 'pry'; binding.pry
+    #   end
+    #   golden_item_objects.length
+    # end
+  end
+      
+      # (average_items_per_merchant_standard_deviation * 2)
+    # sales_engine.items.all.each do |item|
+    #   find_all_by_price(item.unit_price) > (average_items_per_merchant_standard_deviation * 2)
+      
+
     # find_all items that are TWO sd ABOVE the average_item_price_for_all_merchants
     # returns an array of item objects
-  end
+
 
    # ======================================= #
 
