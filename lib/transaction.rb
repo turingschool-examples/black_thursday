@@ -15,4 +15,16 @@ class Transaction
     @created_at = attributes[:created_at]
     @updated_at = attributes[:updated_at]
   end
+  
+  def update_credit_card_number(ccn)
+    @credit_card_number = ccn
+  end
+  
+  def update_credit_card_expiration_date(cce)
+    @credit_card_expiration_date = cce
+  end
+  
+  def update_result(result)
+    @result = result
+  end
 end
