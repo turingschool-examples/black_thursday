@@ -150,30 +150,30 @@ end
       
       expect(sales_analyst.merchants_with_only_one_item.length).to eq 243 # the number of merchants taken from spec harness
       expect(sales_analyst.merchants_with_only_one_item.first.class).to eq Merchant
-    end
+  end
 
-    it "#merchants_with_only_one_item_registered_in_month returns merchants with only one invoice in given month" do
-      expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
+  it "#merchants_with_only_one_item_registered_in_month returns merchants with only one invoice in given month" do
+    expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
 
-      expect(expected.length).to eq 21
-      expect(expected.first.class).to eq Merchant
+    expect(expected.length).to eq 21
+    expect(expected.first.class).to eq Merchant
 
-      expected = sales_analyst.merchants_with_only_one_item_registered_in_month("June")
+    expected = sales_analyst.merchants_with_only_one_item_registered_in_month("June")
 
-      expect(expected.length).to eq 18
-      expect(expected.first.class).to eq Merchant
-    end
+    expect(expected.length).to eq 18
+    expect(expected.first.class).to eq Merchant
+  end
 
-    it "#revenue_by_merchant returns the revenue for given merchant" do
-      expected = sales_analyst.revenue_by_merchant(12334194) #is this a merchant id or the revenue
+  it "#revenue_by_merchant returns the revenue for given merchant" do
+    expected = sales_analyst.revenue_by_merchant(12334194) #is this a merchant id or the revenue
 
-      expect(sales_analyst.revenue_by_merchant(12334194)).to eq BigDecimal(expected)
-      expect(expected.class).to eq BigDecimal
-    end
+    expect(sales_analyst.revenue_by_merchant(12334194)).to eq BigDecimal(expected)
+    expect(expected.class).to eq BigDecimal
+  end
 
+  it '#most_sold_item_for_merchant returns the most sold item' do
+  end
 
-
-
-
-
+  it '#best_item_for_merchant returns an item based off revenue generated' do
+  end
 end
