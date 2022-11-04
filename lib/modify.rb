@@ -16,6 +16,9 @@ module Modify
       updated_type.updated_at = Time.now unless type = @merchants
       updated_type.status = attributes[:status].to_sym if attributes.keys.include?(:status)
       updated_type.quantity = attributes[:quantity].to_i if attributes.keys.include?(:quantity)
+      updated_type.credit_card_number = attributes[:credit_card_number] if attributes.keys.include?(:credit_card_number)
+      updated_type.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes.keys.include?(:credit_card_expiration_date)
+      updated_type.result = attributes[:result] if attributes.keys.include?(:result)
     end
   end
 

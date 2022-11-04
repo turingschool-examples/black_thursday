@@ -4,14 +4,16 @@ require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'sales_analyst'
 require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices, :invoice_items
+  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions
   def initialize(data)
     @items = data[:items]
     @merchants = data[:merchants]
     @invoices = data[:invoices]
     @invoice_items = data[:invoice_items]
+    @transactions = data[:transactions]
   end
 
   def self.from_csv(csv_hash)
@@ -31,11 +33,16 @@ class SalesEngine
       invoice_item_input_data = invoice_item_breakdown(csv_hash[:invoice_items])
     end
 
+    if csv_hash.keys.include?(:transactions)
+      transaction_input_data = transaction_breakdown(csv_hash[:transactions])
+    end
+
     SalesEngine.new({
       items: item_input_data,
       merchants: merchant_input_data,
       invoices: invoice_input_data,
-      invoice_items: invoice_item_input_data
+      invoice_items: invoice_item_input_data,
+      transactions: transaction_input_data
       })
   end
 
@@ -99,6 +106,23 @@ class SalesEngine
         })
     end
     invoice_item_repo
+  end
+
+  def self.transaction_breakdown(transactions_entered)
+    transactions_raw = CSV.open(transactions_entered, headers: true, header_converters: :symbol)
+    transaction_repo = TransactionRepository.new
+    transactions_raw.each do |transaction|
+      transaction_repo.add({
+        id: transaction[:id],
+        invoice_id: transaction[:invoice_id],
+        credit_card_number: transaction[:credit_card_number],
+        credit_card_expiration_date: transaction[:credit_card_expiration_date],
+        result: transaction[:result],
+        created_at: transaction[:created_at],
+        updated_at: transaction[:updated_at]
+        })
+    end
+    transaction_repo
   end
 
   def analyst
