@@ -60,7 +60,7 @@ class ItemRepository
                             description: attributes[:description],
                             unit_price:  attributes[:unit_price],
                             merchant_id: attributes[:merchant_id]
-                           }
+    }
     item = Item.new(sanitized_attributes)
     item.id = @items.max_by do |item|
       item.id
@@ -72,7 +72,7 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    return unless !attributes.empty?
+    return if attributes.empty?
     updated = find_by_id(id)
     updated.name = attributes[:name]
     updated.description = attributes[:description]
@@ -87,7 +87,7 @@ class ItemRepository
   def load_data(data)
     return nil unless data
     CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
-      @items << (Item.new(row, self))
+      @items << Item.new(row, self)
     end
   end
 

@@ -16,7 +16,7 @@ RSpec.describe SalesAnalyst do
   it 'has a sales engine' do
     sales_engine = SalesEngine.from_csv({
       :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
+      :merchants => './data/merchants.csv'
     })
     sales_analyst = sales_engine.analyst
 
@@ -24,12 +24,13 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'calculates the average items per merchant' do
-    sales_engine = SalesEngine.from_csv({
+    sales_engine = SalesEngine.from_csv(
+      
       :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
-    })
+      :merchants => './data/merchants.csv'
+      )
     sales_analyst = sales_engine.analyst
-     #require 'pry' ;binding.pry
+ 
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
   end
 end

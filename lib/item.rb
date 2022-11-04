@@ -2,7 +2,7 @@ require 'bigdecimal'
 require 'time'
 class Item
   attr_reader :created_at,
-              :merchant_id
+              :merchant_id,
               :repo
   attr_accessor :id,
                 :name,
