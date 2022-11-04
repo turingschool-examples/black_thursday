@@ -38,8 +38,11 @@ describe Merchant do
 
   describe '#_items' do
     it 'fetches items owned by merchant' do
+      merch_repo = double('merch_repo')
       engine = double('engine')
       item_repo = double('ItemRepo')
+      merchant = Merchant.new({ id: 5, name: 'Turing School' }, merch_repo)
+      allow(merch_repo).to receive(:engine).and_return(engine)
       allow(engine).to receive(:items).and_return(item_repo)
       allow(item_repo).to receive(:find_all_by_merchant_id).and_return(['item1', 'item2'])
       expect(merchant._items).to eq ['item1', 'item2']
@@ -53,10 +56,14 @@ describe Merchant do
     end
   end
 
-  describe '#item_count' do
+  describe '#item_prices' do
     it 'returns the number of items a merchant owns' do
-      allow(merchant).to receive(:_items).and_return([1, 2])
-      expect(merchant.item_prices).to eq(2)
+      item1 = double('item1')
+      item2 = double('item2')
+      allow(item1).to receive(:unit_price).and_return(1)
+      allow(item2).to receive(:unit_price).and_return(3)
+      allow(merchant).to receive(:_items).and_return([item1, item2])
+      expect(merchant.item_prices).to eq([1, 3])
     end
   end
 end
