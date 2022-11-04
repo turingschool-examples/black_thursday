@@ -47,8 +47,9 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     stock = (items.find_all_by_merchant_id(id))
-    price_array = stock.map { |stock| stock.unit_price }.sum
-    (price_array / stock.count).round(2)
+    price_array = stock.map {|stock| stock.unit_price }.sum
+    @average_item_price = (price_array / stock.count).round(2)
+    @average_item_price
   end
   
   def average_average_price_per_merchant
@@ -67,6 +68,12 @@ class SalesAnalyst
   end
   
   def golden_items
+    unit_price_sum = @items.all.map {|item| item.unit_price }.sum
+    price_average = unit_price_sum / @items.all.count
+    difference_sum = @items.all.map {|item| price_average - item.unit_price }.sum
+    price_stdrd_dev = Math.sqrt(difference_sum / @items.all.count)
+    # require 'pry'; binding.pry
 
+    @items.all.find_all  {|item|  item.unit_price >= price_average + (price_stdrd_dev * 2)}
   end
 end

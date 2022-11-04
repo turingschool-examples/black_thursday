@@ -19,7 +19,7 @@ RSpec.describe SalesAnalyst do
     let (:item_3) {Item.new({:id => 3,
                       :name => "More Expensive Cool hat",
                       :description => "black top hat",
-                      :unit_price => BigDecimal(32.44,4),
+                      :unit_price => BigDecimal(312.44,4),
                       :created_at => Time.now,
                       :updated_at => Time.now,
                       :merchant_id => 2})}
@@ -68,11 +68,11 @@ RSpec.describe SalesAnalyst do
     end
     
     it '#average_average_price_per_merchant can determine the average price of an item across all merchants' do
-      expect(sales_analyst.average_average_price_per_merchant).to eq(0.5294e2)
+      expect(sales_analyst.average_average_price_per_merchant).to eq( 0.12293e3.to_d)
     end
 
-    xit '#golden_items can determine which items are 2 standard deviations above the avg item price' do
-      expect(sales_analyst.golden_items).to eq([])
+    it '#golden_items can determine which items are 2 standard deviations above the avg item price' do
+      expect(sales_analyst.golden_items).to eq([item_3])
     end
   end
 end
