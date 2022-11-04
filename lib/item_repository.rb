@@ -1,7 +1,8 @@
 require_relative 'item'
-require_relative 'repository_module'
+
+require_relative 'repo_module'
 class ItemRepository
-  include RepositoryModule
+  include RepoModule
 
   def inspect
     "#<#{self.class} #{@items.size} rows>"
@@ -13,14 +14,6 @@ class ItemRepository
 
   def all
     @items
-  end
-
-  def find_by_id(id)
-    @items.find {|item| item.id == id}
-  end
-
-  def find_by_name(name)
-    @items.find {|item| item.name.upcase == name.upcase}
   end
 
   def find_all_with_description(description)
@@ -50,10 +43,6 @@ class ItemRepository
     new_item
   end
 
-  def all_ids
-    @items.map { |item| item.id}
-  end
-
   def update(id, attributes)
     if all_ids.include?(id)
       updated_item = find_by_id(id)
@@ -70,9 +59,4 @@ class ItemRepository
       updated_item
     end
   end
-
-  def delete(id)
-    @items.delete(find_by_id(id))
-  end
-
 end
