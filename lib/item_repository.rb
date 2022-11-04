@@ -2,10 +2,11 @@ require 'csv'
 require_relative '../lib/item'
 require 'bigdecimal'
 class ItemRepository
-  attr_reader :items
+  attr_reader :items, :engine
 
-  def initialize(file = nil)
+  def initialize(file = nil, engine = nil)
     @items = []
+    @engine = engine
     load_data(file)
   end
 
@@ -54,15 +55,24 @@ class ItemRepository
   end
 
   def create(attributes)
-    item = Item.new(attributes)
+    sanitized_attributes = {
+                            name:        attributes[:name],
+                            description: attributes[:description],
+                            unit_price:  attributes[:unit_price],
+                            merchant_id: attributes[:merchant_id]
+    }
+    item = Item.new(sanitized_attributes)
     item.id = @items.max_by do |item|
       item.id
     end.id + 1
+    item.created_at = Time.now
+    item.updated_at = Time.now
+    @items << item
     item
   end
 
   def update(id, attributes)
-    # new_attributes = find_by_id(id).attributes.merge!(attributes)
+    return if attributes.empty?
     updated = find_by_id(id)
     updated.name = attributes[:name]
     updated.description = attributes[:description]
@@ -77,7 +87,7 @@ class ItemRepository
   def load_data(data)
     return nil unless data
     CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
-      @items << (Item.new(row))
+      @items << Item.new(row, self)
     end
   end
 

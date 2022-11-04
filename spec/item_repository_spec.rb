@@ -302,7 +302,7 @@ describe ItemRepository do
                     unit_price: BigDecimal(20.25,4)
                     }) 
 
-      expect(i1.name).to eq "Apple"
+      expect(ir.all[0].name).to eq "Apple"
       expect(i1.description).to eq "You can eat it"
       expect(i1.unit_price).to eq BigDecimal(20.25,4)
       expect(i1.updated_at).not_to eq old_time

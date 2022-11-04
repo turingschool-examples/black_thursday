@@ -3,6 +3,7 @@ require_relative '../lib/item_repository.rb'
 require_relative '../lib/item.rb'
 require_relative '../lib/merchant.rb'
 require_relative '../lib/merchant_repository.rb'
+require_relative '../lib/sales_analyst'
 require 'csv'
 
 RSpec.describe SalesEngine do
@@ -48,5 +49,32 @@ RSpec.describe SalesEngine do
 
     expect(ir).to respond_to(:all)
     expect(mr).to respond_to(:all)
+  end
+
+  it 'finds the merchant by id' do
+    se = SalesEngine.from_csv({
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+    })
+
+    expect(se.find_merchant_by_id(12334105)).to eq(se.merchants.all[0])
+  end
+
+  it 'finds all items by merchant id' do
+    se = SalesEngine.from_csv({
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+    })
+
+    expect(se.find_all_by_merchant_id(12334105)).to eq(se.items.find_all_by_merchant_id(12334105))
+  end
+
+  it 'can initialize a sales analyst' do
+    se = SalesEngine.from_csv({
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+    })
+
+    expect(se.analyst).to be_a(SalesAnalyst)
   end
 end
