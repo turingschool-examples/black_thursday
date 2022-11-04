@@ -5,7 +5,7 @@ class ItemRepository
 
   def initialize(items, engine)
     @items = create_items(items)
-    @engine = engine
+    # @engine = engine
   end
 
   def all
