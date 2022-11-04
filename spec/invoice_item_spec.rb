@@ -35,6 +35,22 @@ RSpec.describe InvoiceItem do
 
       expect(ii.created_at).to eq("2022-11-04 10:18:47.464692 -0700")
       expect(ii.updated_at).to eq("2022-11-04 10:18:47.464692 -0700")
-    end 
+    end
+  end
+
+  describe '#unit_price_to_dollars' do
+    it 'returns the price as formatted float' do
+      ii = InvoiceItem.new({
+            :id => 6,
+            :item_id => 7,
+            :invoice_id => 8,
+            :quantity => 1,
+            :unit_price => BigDecimal(10.99, 4),
+            :created_at => "2022-11-04 10:18:47.464692 -0700",
+            :updated_at => "2022-11-04 10:18:47.464692 -0700"
+          })
+
+      expect(ii.unit_price_to_dollars).to eq(10.99)
+    end
   end
 end
