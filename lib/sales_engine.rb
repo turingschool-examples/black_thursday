@@ -41,4 +41,11 @@ class SalesEngine
     @merchants.average_items_per_merchant
   end
 
+  def number_of_items_per_merchant
+    @merchants.number_of_items_per_merchant
+  end
+
+  def items_per_merchant
+    @merchants.items_per_merchant
+  end
 end
