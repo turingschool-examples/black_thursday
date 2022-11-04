@@ -37,4 +37,17 @@ describe Merchant do
       expect(m.name).to eq('Test')
     end
   end
+
+  describe '#_items' do
+    it 'fetches items owned by merchant' do
+      engine = double('engine')
+      allow(engine).to recieve(:items)
+    end
+  end
+
+  describe '#item_count' do
+    it 'returns the number of items a merchant owns' do
+      expect(merchant.item_count).to eq ()
+    end
+  end
 end

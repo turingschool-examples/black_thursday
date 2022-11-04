@@ -14,4 +14,14 @@ class Merchant
   def update(name)
     @name = name
   end
+
+  # Fetches items owned by merchant
+  def _items
+    @_items ||= @merchant_repo.engine.items.find_all_by_merchant_id(@id)
+  end
+
+  # Returns number of items owned by merchant.
+  def item_count
+    _items.count
+  end
 end
