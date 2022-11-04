@@ -48,7 +48,6 @@ RSpec.describe CustomerRepository do
   # create(attributes) - create a new Customer instance with the provided attributes. The new Customer’s id should be the current highest Customer id plus 1.
   it 'creates a new Customer instance with provided attributes' do
     se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
-    # require 'pry'; binding.pry
     se.customers.create({
       :id         => se.customers.customers.length + 1,
       :first_name => "Monty",
@@ -63,13 +62,14 @@ RSpec.describe CustomerRepository do
   end
   
   # update(id, attribute) - update the Customer instance with the corresponding id with the provided attributes. Only the customer’s first_name and last_name can be updated. This method will also change the customer’s updated_at attribute to the current time.
+  
   #delete(id) - delete the Customer instance with the corresponding id
   it 'deletes a Customer instance with provided id' do
     se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
+
     expect(se.customers.all.last.id).to eq (1000)
-    expect(se.customers.all.[9].last_name).to eq ("Reynolds")
+    expect(se.customers.all[9].last_name).to eq ("Reynolds")
     se.customers.delete(10)
-    # expect(se.customers.find_by_id(10)).to eq(nil)
-    # expect(se.customers.all.last.id).to eq (999)
+    expect(se.customers.find_by_id(10)).to eq(nil)
   end
 end
