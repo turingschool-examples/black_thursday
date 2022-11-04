@@ -1,20 +1,19 @@
 require_relative 'sales_engine'
 
 class SalesAnalyst
-  attr_reader :sales_engine
+  attr_reader :sales_engine, :items, :merchants
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
+    @items = sales_engine.items.all
+    @merchants = sales_engine.merchants.all
   end
 
   def average_items_per_merchant
-    item_count = sales_engine.items.all.count.to_f
-    merchant_count = sales_engine.merchants.all.count.to_f
-    (item_count / merchant_count).round(2)
+    (items.count/ merchants.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    merchants = sales_engine.merchants.all
     avg = average_items_per_merchant
     total_difference = merchants.inject(0) do |sum, merchant|
       merchant_items = sales_engine.items.find_all_by_merchant_id(merchant.id)
@@ -29,6 +28,11 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     # merchants with 5 or more items
-    require 'pry'; binding.pry
+    merchants.find_all do |merchant|
+        # KR refactor opportunity, 33 same as line 19
+        sales_engine.items.find_all_by_merchant_id(merchant.id).count >= 5
+    end
+    # require 'pry'; binding.pry
   end
+
 end
