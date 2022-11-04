@@ -25,18 +25,13 @@ RSpec.describe SalesAnalyst do
 
   describe '#average_items_per_merchant' do
     it 'returns average # of items per merchant' do
-      expect(analyst.average_items_per_merchant).to eq(0)
+      expect(analyst.average_items_per_merchant).to eq(2.88)
     end
   end
 
   describe '#average_items_per_merchant_standard_deviation' do
     it 'returns the strd dev for # of items per merchant' do
-      m_repo = double('MerchantRepo')
-      i_repo = double('ItemRepo')
-      allow(m_repo).to receive(:all).and_return(['merchant1', 'merchant2',])
-      allow(i_repo).to receive(:all).and_return(['item1', 'item2', 'item3', 'item4'])
-      
-      expect(sa.average_items_per_merchant_standard_deviation(ir, mr)).to eq(0)
+      expect(analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
   end
 
@@ -46,14 +41,14 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  describe '#average_item_price_for_merchant' do
-    it "returns the average price of a merchant's items" do
-      item_repo = double('ItemRepo')
-      allow(item_repo).to receive(:find_all_by_merchant_id).and_return([BigDecimal("2"), BigDecimal("5"), BigDecimal("3"), BigDecimal("9")])
+  # describe '#average_item_price_for_merchant' do
+  #   it "returns the average price of a merchant's items" do
+  #     item_repo = double('ItemRepo')
+  #     allow(item_repo).to receive(:find_all_by_merchant_id).and_return([BigDecimal("2"), BigDecimal("5"), BigDecimal("3"), BigDecimal("9")])
       
-      expect(sa.average_item_price_for_merchant(item_repo, 1111111)).to eq 0.475e1
-    end
-  end
+  #     expect(sa.average_item_price_for_merchant(item_repo, 1111111)).to eq 0.475e1
+  #   end
+  # end
 
   # describe '#average_average_price_per_merchant' do
   #   it 'returns an average of all merchant average item price' do

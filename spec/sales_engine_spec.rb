@@ -42,4 +42,11 @@ describe SalesEngine do
       expect(se.merchants).to be_a MerchantRepository
     end
   end
+
+  describe '#average_items_per_merchant' do
+    it 'returns the average_items_per_merchant' do
+      se = SalesEngine.from_csv(data)
+      expect(se.average_items_per_merchant).to eq(2.88)
+    end
+  end
 end
