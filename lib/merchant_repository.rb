@@ -15,21 +15,9 @@ class MerchantRepository
     @merchants
   end
 
-  # def find_by_id(id)
-  #   @merchants.find { |merchant| merchant.id == id}
-  # end
-
-  # def find_by_name(name)
-  #   @merchants.find { |merchant| merchant.name.upcase == name.upcase}
-  # end
-
   def find_all_by_name(name)
     @merchants.find_all { |merchant| merchant.name.upcase.include?(name.upcase)}
   end
-
-  # def all_ids
-  #   ids = @merchants.map { |merchant| merchant.id}
-  # end
 
   def create(attributes)
     ids = all_ids
@@ -46,8 +34,4 @@ class MerchantRepository
       updated_merchant
     end
   end
-
-  # def delete(id)
-  #   @merchants.delete(find_by_id(id))
-  # end
 end
