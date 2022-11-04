@@ -11,10 +11,14 @@ require_relative 'invoice_repository'
 class SalesAnalyst
   attr_reader :items,
               :merchants
-  def initialize(item_repo, merchant_repo)
+  def initialize(item_repo, merchant_repo, invoice_repo)
     @items = item_repo
     @merchants = merchant_repo
-    # @invoices = invoice_repo
+    @invoices = invoice_repo
+  end
+
+  def invoices_exist?
+    @invoices != nil
   end
 
   def item_count
@@ -50,7 +54,7 @@ class SalesAnalyst
     price_array = stock.map { |stock| stock.unit_price }.sum
     (price_array / stock.count).round(2)
   end
-  
+
   def average_average_price_per_merchant
     sellers = merchants.all
     array = []
@@ -65,7 +69,7 @@ class SalesAnalyst
     threshold = average_items_per_merchant + average_items_per_merchant_standard_deviation
     @merchants.all.find_all { |merchant| items_per_merchant(merchant.id) > threshold }
   end
-  
+
   def golden_items
 
   end
