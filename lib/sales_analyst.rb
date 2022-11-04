@@ -103,6 +103,7 @@ class SalesAnalyst
     day_hsh.map do |keys, values|
       day_hsh[keys] = values.count
     end
+    require 'pry'; binding.pry
     day_hsh
   end
 
