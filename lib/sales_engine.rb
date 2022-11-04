@@ -49,7 +49,7 @@ class SalesEngine
       merchants: merchant_input_data,
       invoices: invoice_input_data,
       invoice_items: invoice_item_input_data, 
-      customers: customer_input_data
+      customers: customer_input_data,
       transactions: transaction_input_data
       })
   end
