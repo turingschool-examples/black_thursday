@@ -73,4 +73,5 @@ class SalesAnalyst
   def golden_items
 
   end
+
 end

@@ -126,6 +126,11 @@ RSpec.describe SalesAnalyst do
                         :updated_at => Time.now})}
     let (:invoices) {[invoice_1, invoice_2, invoice_3]}
     let (:invoice_repo) {InvoiceRepository.new(invoices)}
-    let (:sales_analyst) {SalesAnalyst.new(item_repo, merchant_repo, invoice_repo)})
+    let (:sales_analyst) {SalesAnalyst.new(item_repo, merchant_repo, invoice_repo)}
+
+    it '#average_invoices_per_merchant correctly calculates and returns the average invoices per merchant' do
+      expect(sales_analyst.average_invoices_per_merchant).to eq(1.5)
+    end
+
   end
 end
