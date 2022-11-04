@@ -5,7 +5,7 @@ class General
   attr_reader :id, :attribute
 
   def initialize(data, repo)
-    @id = data[:id]
+    @id = data[:id].to_i
     @attribute = data[:attribute]
     @general_repo = repo
   end

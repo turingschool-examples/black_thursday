@@ -10,7 +10,7 @@ class Invoice
               :updated_at
 
   def initialize(data, repo)
-    @id          = data[:id]
+    @id          = data[:id].to_i
     @customer_id = data[:customer_id]
     @merchant_id = data[:merchant_id]
     @status      = data[:status]
