@@ -78,9 +78,27 @@ describe MerchantRepository do
     end
   end
 
+  describe '#number_of_items_per_merchant' do
+    it 'returns the number of items per merchant' do
+      engine = double('engine')
+      items = double('item_repo')
+      allow(mr).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:items).and_return(items)
+      allow(items).to receive(:find_all_by_merchant_id).and_return(['item1', 'item2'])
+
+      expect(mr.number_of_items_per_merchant).to eq [2, 2, 2, 2]
+    end
+  end
+
   describe '#average_items_per_merchant' do
     it 'returns the average number of items per merchant' do
       expect(mr.average_items_per_merchant).to eq 2.88
+    end
+  end
+
+  describe '#average_items_per_merchant_standard_deviation' do
+    it 'returns the deviation for average number of items per mechant' do
+      expect(mr.average_items_per_merchant_standard_deviation).to eq 3.26
     end
   end
 end
