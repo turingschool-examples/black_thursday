@@ -37,26 +37,6 @@ class InvoiceRepository
                           :status       => attributes[:status]
                       })    
   end
- 
-  def update(id,attributes)
-    if find_by_id(id) == nil 
-      return
-    else
-    find_by_id(id).updated_at = Time.now
-    attributes.each do |att,val|
-      case att
-      when :name
-        find_by_id(id).name = val
-      when :description
-        find_by_id(id).description = val
-      when :unit_price
-        find_by_id(id).unit_price = val
-      when :status
-        find_by_id(id).status = val
-      end
-    end
-    end
-  end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"

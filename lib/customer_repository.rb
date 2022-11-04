@@ -31,22 +31,6 @@ class CustomerRepository
                             }))
   end
 
-  def update(id,attributes)
-    if find_by_id(id) == nil 
-      return
-    else
-      find_by_id(id).updated_at = Time.now
-      attributes.each do |att,val|
-        case att
-        when :first_name
-          find_by_id(id).first_name = val
-        when :last_name
-          find_by_id(id).last_name = val
-        end
-      end
-    end
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

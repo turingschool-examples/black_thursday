@@ -6,7 +6,7 @@ module Reposable
   def update(id,attributes)
     entry = find_by_id(id)
   
-    entry.updated_at = Time.now if entry
+    entry.updated_at = Time.now if entry.respond_to?(:updated_at=)
 
     attributes.each do |att,val|
       sym_eq = (att.to_s + "=").to_sym
