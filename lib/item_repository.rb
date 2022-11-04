@@ -1,7 +1,7 @@
 require_relative 'item'
-require_relative 'test_module'
+require_relative 'repository_module'
 class ItemRepository
-  include TestModule
+  include RepositoryModule
 
   def inspect
     "#<#{self.class} #{@items.size} rows>"
@@ -49,7 +49,7 @@ class ItemRepository
     @items.push(new_item)
     new_item
   end
-  
+
   def all_ids
     @items.map { |item| item.id}
   end

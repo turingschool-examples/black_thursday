@@ -1,7 +1,7 @@
 require_relative 'merchant'
-require_relative 'test_module'
+require_relative 'repository_module'
 class MerchantRepository
-  include TestModule
+  include RepositoryModule
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
