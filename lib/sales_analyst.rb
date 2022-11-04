@@ -40,6 +40,13 @@ class SalesAnalyst
     end
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    prices = @engine.merchants.find_by_id(merchant_id).items.map do |item|
+      item.unit_price
+    end
+    (prices.sum / prices.length).round(2)
+
+  end
 
 
 end
