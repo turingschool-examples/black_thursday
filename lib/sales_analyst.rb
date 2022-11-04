@@ -103,7 +103,6 @@ class SalesAnalyst
     day_hsh.map do |keys, values|
       day_hsh[keys] = values.count
     end
-    require 'pry'; binding.pry
     day_hsh
   end
 
@@ -148,7 +147,7 @@ class SalesAnalyst
 
   def total_revenue_by_date(date)
     invoice_by_day = engine.invoice_items.all.filter_map do |invoice_item|
-      date == invoice_item.updated_at.strftime(%D/%M/%Y)
+      date == invoice_item.updated_at.strftime("%D"/"%M"/"%Y")
     end
     require 'pry'; binding.pry
   end
