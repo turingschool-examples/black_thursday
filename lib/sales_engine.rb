@@ -34,4 +34,9 @@ class SalesEngine
     cr_data = CSV.read data[:customers], headers: true, header_converters: :symbol
     SalesEngine.new(ir_data, mr_data, iir_data, invr_data, tr_data, cr_data)
   end
+
+  def average_items_per_merchant
+    @merchants.average_items_per_merchant
+  end
+
 end
