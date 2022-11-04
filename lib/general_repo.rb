@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'general'
+require_relative 'calculable'
 
 # this is the GeneralRepo supeclass
 class GeneralRepo

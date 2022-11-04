@@ -42,4 +42,8 @@ class SalesEngine
   def items_per_merchant
     @merchants.items_per_merchant
   end
+
+  def average_items_per_merchant_standard_deviation
+    @merchants.average_items_per_merchant_standard_deviation
+  end
 end
