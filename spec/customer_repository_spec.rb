@@ -36,12 +36,12 @@ RSpec.describe CustomerRepository do
   end
   
   # find_all_by_last_name - returns either [] or one or more matches which have a last name matching the substring fragment supplied
-  xit 'finds all by last name -if last name does not exist returns nil' do
+  it 'finds all by last name -if last name does not exist returns nil' do
     se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
 
     expect(se.customers.find_all_by_last_name("Schnickelfritz")).to eq []
-    expect(se.customers.find_all_by_last_name("Fadel")).to eq ([se.customers.all[8]])
-    expect(se.customers.find_all_by_last_name("oe")).to eq ([se.customers.all[8]])
+    expect(se.customers.find_all_by_last_name("Fadel")[0]).to eq (se.customers.all[8])
+    expect(se.customers.find_all_by_last_name("On").length).to eq 85
 
   end
   
