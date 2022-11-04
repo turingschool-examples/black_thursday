@@ -2,15 +2,20 @@ require 'csv'
 
 class SalesEngine
   
-  attr_reader :items, :merchants
+  attr_reader :items, 
+              :merchants, 
+              :customers,
+              :invoices,
+              :invoice_items,
+              :transactions
 
   ### from_csv will do '.new' things
   def initialize(hash)
     @items = ItemRepository.new(hash[:items], self)
     @merchants = MerchantRepository.new(hash[:merchants], self)
     @customers = CustomerRepository.new(hash[:customers], self)
-    @invoices = InvoicesRepository.new(hash[:invoices], self)
-    @invoice_items = InvoiceItemsRepository.new(hash[:invoice_items], self)
+    @invoices = InvoiceRepository.new(hash[:invoices], self)
+    @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self)
     @transactions = TransactionRepository.new(hash[:transactions], self)
   end
 
