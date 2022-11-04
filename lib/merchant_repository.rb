@@ -32,10 +32,14 @@ class MerchantRepository < GeneralRepo
   end
 
   def average_items_per_merchant
-    items_per_merchant.sum.fdiv(all.length).round(2)
+    average(number_of_items_per_merchant.sum, all.length).round(2)
   end
 
-  def average_item_price_for_merchant
-    average()
+  def average_items_per_merchant_standard_deviation
+    
   end
+
+  # def average_item_price_for_merchant
+  #   average()
+  # end
 end
