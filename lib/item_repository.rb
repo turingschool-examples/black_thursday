@@ -52,6 +52,7 @@ class ItemRepository
       item.id
     end
     return 1 if max.nil?
+
     max.id + 1
   end
 
