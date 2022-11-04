@@ -31,7 +31,6 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can return the standard deviation of average number of items per merchant' do
-    require 'pry'; binding.pry
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to be_a(Float)
   end

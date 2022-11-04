@@ -21,20 +21,12 @@ class SalesAnalyst
     sales_engine.merchants.all.count
   end
 
-  # def items_per_merchant
-    
-  # end
-
   def average_items_per_merchant_standard_deviation
-
-    sales_engine.items.items.each do |item|
-      item.merchant_id
-      require 'pry'; binding.pry
+    sum = 0
+    sales_engine.merchants.all.each do |merchant|
+      sum += (sales_engine.items.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant)**2
     end
-    (item count per merchant - average_items_per_merchant) ^ 2
-    sum = # add all of these up for every single merchant
-    sd = sqrt(sum / (total_merchants - 1)) 
-
+    Math.sqrt(sum / (merchants_count - 1)).round(2)
     # take average_items_per_merchant 
     # find the standard deviation
         # (item_count_ForEachMerchant - average_items_per_merchant) ^ 2
@@ -42,7 +34,6 @@ class SalesAnalyst
             #  sum / (by total number of merchants - 1) = answer
         # sqrt(answer) = sd
     # Float
-
   end
 
   def merchants_with_high_item_count
