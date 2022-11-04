@@ -59,5 +59,8 @@ class TransactionRepository
   def delete(id)
     @transaction.delete(find_by_id(id))
   end
-end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

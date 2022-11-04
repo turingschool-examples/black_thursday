@@ -1,4 +1,16 @@
 require 'csv'
+require 'rspec'
+require_relative './item'
+require_relative './merchant'
+require_relative './invoice'
+require_relative './invoice_item'
+require_relative './transaction'
+require_relative './item_repository'
+require_relative './merchant_repository'
+require_relative './item_repository'
+require_relative './sales_analyst'
+require_relative './merchant_repository'
+require_relative './merchant'
 
 class SalesEngine
   
