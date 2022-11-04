@@ -91,7 +91,7 @@ RSpec.describe InvoiceItemRepository do
       expect(invoice_item_repository.all).to eq([ii_1, ii_2, ii_3, ii_4])
       expect(ii_4.id).to eq(9)
       expect(ii_4.quantity).to eq(24)
-      expect(invocie_item_repository.find_by_id(9)).to eq(ii_4)
+      expect(invoice_item_repository.find_by_id(9)).to eq(ii_4)
     end
   end
 
