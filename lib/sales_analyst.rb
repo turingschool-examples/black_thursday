@@ -144,5 +144,14 @@ class SalesAnalyst
       invoice_items.sum { |ii| ii.unit_price * ii.quantity}.round(2)
     end
   end
-end
 
+  def total_revenue_by_date(date)
+    invoice_by_day.map .strftime.unit_price time quantity
+  end
+
+  def top_revenue_earners(x)
+
+  end
+
+
+end
