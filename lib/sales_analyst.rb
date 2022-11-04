@@ -147,7 +147,10 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    invoice_by_day.map .strftime.unit_price time quantity
+    invoice_by_day = engine.invoice_items.all.filter_map do |invoice_item|
+      date == invoice_item.updated_at.strftime(%D/%M/%Y)
+    end
+    require 'pry'; binding.pry
   end
 
   def top_revenue_earners(x)
@@ -166,7 +169,7 @@ class SalesAnalyst
 
   end
 
-  def merchants_with_only_one_item_registered_in_month("Month"
+  def merchants_with_only_one_item_registered_in_month(month)
 
   end
 
