@@ -18,6 +18,15 @@ class SalesAnalyst
     item_amount.map do |amount|
       (amount - average_items_per_merchant)**2
     end
-
   end
+
+  def diff_and_square_sum
+    diff_and_square.sum
+  end
+
+  def divide_diff_and_square_sum
+    diff_and_square_sum / (item_amount.length - 1)
+  end
+
+
 end
