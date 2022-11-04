@@ -57,6 +57,7 @@ class TransactionRepository
     @transactions.delete(find_by_id(id))
   end
 
+
   def create_transactions(filepath)
     contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
     make_transaction_object(contents)
@@ -76,5 +77,9 @@ class TransactionRepository
       Transaction.new(transaction, self)
     end
   end
-
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+end
 end

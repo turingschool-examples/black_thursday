@@ -107,5 +107,8 @@ class ItemRepository
       Item.new(item, self)
     end
   end
-
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
