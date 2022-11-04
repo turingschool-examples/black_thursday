@@ -81,4 +81,18 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
+  describe "#create" do
+    it 'will create a new invoice item' do
+      invoice_items = [ii_1, ii_2, ii_3]
+      invoice_item_repository = InvoiceItemRepository.new(invoice_items)
+
+      expect(invoice_item_repository.all).to eq([ii_1, ii_2, ii_3])
+      ii_4 = invoice_item_repository.create(:quantity => 24)
+      expect(invoice_item_repository.all).to eq([ii_1, ii_2, ii_3, ii_4])
+      expect(ii_4.id).to eq(9)
+      expect(ii_4.quantity).to eq(24)
+      expect(invocie_item_repository.find_by_id(9)).to eq(ii_4)
+    end
+  end
+
 end
