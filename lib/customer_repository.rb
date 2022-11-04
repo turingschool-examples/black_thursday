@@ -20,4 +20,8 @@ include Modify
   def add(customer)
     @customers << Customer.new(customer)
   end
+
+  def all
+    @customers
+  end
 end
