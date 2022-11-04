@@ -9,6 +9,7 @@ RSpec.describe SalesAnalyst do
                                           items: './data/items.csv',
                                           merchants: './data/merchants.csv'
                                         })
+                                        # require 'pry'; binding.pry
     sales_analyst = sales_engine.analyst
     expect(sales_analyst).to be_instance_of(SalesAnalyst)
   end
