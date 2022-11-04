@@ -1,10 +1,17 @@
+require './lib/sales_engine'
+require './lib/merchant'
+require './lib/merchant_repository'
+require './lib/item_repository'
+require './lib/item'
+require './lib/sales_analyst'
 require './lib/transaction'
 require './lib/transaction_repository'
 
 RSpec.describe TransactionRepository do
-  let!(:transaction_repository){TransactionRepository.new()}
+  let!(:transaction_repository) {TransactionRepository.new('./data/transactions.csv', nil)}
 
   it 'is an transaction repository' do
+    require 'pry'; binding.pry
     expect(transaction_repository).to be_a(TransactionRepository)
   end
 
