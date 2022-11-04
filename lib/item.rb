@@ -17,9 +17,9 @@ class Item
     @name = info[:name]
     @description = info[:description]
     @unit_price = BigDecimal(info[:unit_price], 4) / 100
-    @created_at = Time.parse(info[:created_at])
-    @updated_at = Time.parse(info[:updated_at])
-    @merchant_id = info[:merchant_id]
+    @created_at = Time.parse(info[:created_at].to_s)
+    @updated_at = Time.parse(info[:updated_at].to_s)
+    @merchant_id = info[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
@@ -27,6 +27,7 @@ class Item
   end
 
   def update(attributes)
+    require'pry'
     @name = attributes[:name]
     @description = attributes[:description]
     @unit_price = attributes[:unit_price]

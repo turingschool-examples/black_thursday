@@ -32,6 +32,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     repo.find_all do |item|
+      # binding.pry
       item.unit_price == price
     end
   end
@@ -43,7 +44,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    repo.select do |item|
+      repo.find_all do |item|
       item.merchant_id == merchant_id
     end
   end
