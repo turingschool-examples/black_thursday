@@ -43,11 +43,12 @@ class InvoiceRepository
 
   def update(id, attributes)
     if all_ids.include?(id)
-      updated_invoice = find_by_id(attributes[:id])
-      updated_invoice.update_customer_id(attributes[:customer_id])
-      updated_invoice.update_merchant_id(attributes[:merchant_id])
-      updated_invoice.update_status(attributes[:status])
-      updated_invoice.Time.now
+      updated_invoice = find_by_id(id)
+        if updated_invoice.status != nil
+           updated_invoice.update_status(attributes[:status])
+           updated_invoice.update_time
+        end
+        updated_invoice
     end 
   end
 

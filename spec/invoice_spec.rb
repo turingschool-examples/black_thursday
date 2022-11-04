@@ -81,7 +81,7 @@ RSpec.describe Invoice do
 
       i.update_status("paid")
 
-        expect(i.status).to eq("paid")
+      expect(i.status).to eq("paid")
     end 
   end 
 
@@ -96,7 +96,7 @@ RSpec.describe Invoice do
         :updated_at  => Time.now
      })
 
-      original_time = i.update_time
+      original_time = i.updated_at
 
       expect(i.update_time).to be > original_time
     end 
