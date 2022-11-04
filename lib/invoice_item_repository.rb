@@ -17,5 +17,9 @@ class InvoiceItemRepository
     @invoiceitems.find {|invoiceitem| invoiceitem.id == id}
   end
 
+  def find_all_by_item_id(id)
+    @invoiceitems.find_all {|invoiceitem| invoiceitem.item_id == id}
+  end
+
 
 end
