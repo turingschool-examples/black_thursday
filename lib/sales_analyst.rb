@@ -13,14 +13,16 @@ require_relative './customer'
 require_relative './transaction'
 
 class SalesAnalyst
-  attr_reader :merchants, :items, :invoices, :customers, :transactions
+  attr_reader :merchants, :items, :invoices, :customers, :transactions, :invoice_items
+  
 
-  def initialize(merchants,items,invoices,customers,transactions)
+  def initialize(merchants, items, invoices, customers, transactions, invoice_items)
     @merchants = merchants
     @items = items
     @invoices = invoices
     @customers = customers
     @transactions = transactions
+    @invoice_items = invoice_items
   end
 
   def average_items_per_merchant
@@ -193,10 +195,51 @@ class SalesAnalyst
   invoice_count = invoices.all.select { |invoice| invoice.status == status }
   ((invoice_count.count).to_f / (invoices.all.count) * 100).round(2)
   end
-end
+
 
 # def merchants_with_pending_invoices
 #     @merchants.all.find_all do |merchant|  maybe possible to go straight to invoices?
 #     merchant.invoices.any? |invoice|      believe any? will skip any that dont have an invoice, think they all do so this could be redundant.
 #     !invoices.is_paid_in_full?            depending on how are paid in full method works? i dont love ! but wasnt sure how else to write it.
 # end
+
+  def merchants_with_only_one_item
+    @merchants.all.collect do |merchant|
+      require 'pry'; binding.pry
+      @items.find_all_by_merchant_id(merchant.id).count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+  end
+
+
+
+  def invoices_by_merchant(merchant_id)
+    @invoices.all.find_all do |invoice|
+      invoice.merchant_id == merchant_id
+    end
+  end
+
+  def invoice_items_by_merchant(merchant_id)
+    invoices_by_merchant(merchant_id).collect do |invoice|
+      @invoice_items.all.find_all do |invoice_item|
+        invoice_item.invoice_id == invoice.id
+      end
+    end.flatten.uniq
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoice_items_by_merchant(merchant_id).sum do |invoice_item|
+     invoice_item.quantity.to_i * invoice_item.unit_price
+    end
+  end
+  
+    
+  def most_sold_item_for_merchant(merchant_id)
+  end
+
+  def best_item_for_merchant(merchant_id)
+  end
+
+end
