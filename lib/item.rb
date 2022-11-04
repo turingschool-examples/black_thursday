@@ -1,5 +1,7 @@
 require 'bigdecimal'
 require 'csv'
+require 'time'
+require 'pry'
 require_relative './item_repository'
 class Item
   attr_reader :id,
@@ -14,9 +16,9 @@ class Item
     @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
-    @unit_price = info[:unit_price]
-    @created_at = info[:created_at]
-    @updated_at = info[:updated_at]
+    @unit_price = BigDecimal(info[:unit_price], 4) / 100
+    @created_at = Time.parse(info[:created_at])
+    @updated_at = Time.parse(info[:updated_at])
     @merchant_id = info[:merchant_id]
   end
 
