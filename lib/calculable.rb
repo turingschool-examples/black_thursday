@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# This is the calcuable module
-module Calcuable
+# This is the calculable module
+module Calculable
   def self.price_converter(price)
     unit_price = price.to_s
     if unit_price.length > 1 && !unit_price.include?('.')
@@ -23,6 +23,6 @@ module Calcuable
   end
 
   def self.percent(value, total_value)
-    value / total_value.to_f * 100
+    (value / total_value.to_f * 100).round(2)
   end
 end
