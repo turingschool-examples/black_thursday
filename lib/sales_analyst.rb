@@ -45,11 +45,12 @@ class SalesAnalyst
     end
     Math.sqrt(differences / (merchants.count - 1).to_f).round(2)
   end
-  #
-  # def merchants_with_high_item_count
-  #
-  # end
-  #
+
+  def merchants_with_high_item_count
+    threshold = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    @merchants.map { |merchant| items_per_merchant(merchant.id) > threshold }
+  end
+
   # def average_average_price_for_merchant(merchant)
   #
   # end
