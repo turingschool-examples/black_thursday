@@ -77,4 +77,10 @@ describe MerchantRepository do
       expect(mr.repository[2].id).to eq('12334115')
     end
   end
+
+  describe '#average_items_per_merchant' do
+    it 'returns the average number of items per merchant' do
+      expect(mr.average_items_per_merchant).to eq 2.8
+    end
+  end
 end
