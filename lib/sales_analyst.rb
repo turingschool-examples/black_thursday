@@ -153,5 +153,13 @@ class SalesAnalyst
 
   end
 
+  def top_revenue_earners
 
+  end
+
+  def merchants_with_pending_invoices
+
+  end
+
+  
 end
