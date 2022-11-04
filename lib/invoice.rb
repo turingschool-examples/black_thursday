@@ -8,12 +8,12 @@ class Invoice
               :updated_at
 
   def initialize(info, repo)
-    @id           = info[:id],
-    @customer_id  = info[:customer_id],
-    @merchant_id  = info[:merchant_id],
-    @status       = info[:status],
-    @created_at   = info[:created_at],
-    @updated_at   = info[:updated_at],
+    @id           = info[:id]
+    @customer_id  = info[:customer_id]
+    @merchant_id  = info[:merchant_id]
+    @status       = info[:status]
+    @created_at   = info[:created_at]
+    @updated_at   = info[:updated_at]
     @repo = repo
   end
 end
