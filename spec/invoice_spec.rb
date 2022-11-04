@@ -2,7 +2,14 @@ require './lib/invoice_repository'
 require './lib/invoice'
 
 RSpec.describe Invoice do
-  let!(:invoice) {Invoice.new()}
+  let!(:invoice) {Invoice.new({
+    :id => 1,
+    :customer_id => 1,
+    :merchant_id => 28282828,
+    :status => :pending,
+    :created_at => Time.now,
+    :updated_at => Time.now
+  }, nil)}
 
   it 'is an invoice class' do
     expect(invoice).to be_a(Invoice)

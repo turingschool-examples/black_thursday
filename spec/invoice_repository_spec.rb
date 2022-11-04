@@ -1,11 +1,19 @@
 require './lib/invoice_repository'
 require './lib/invoice'
+require 'rspec'
+require './lib/item'
+require './lib/item_repository'
+require './lib/sales_engine'
+require './lib/merchant_repository'
+require './lib/merchant'
+require 'csv'
 
 
 RSpec.describe InvoiceRepository do
-  let!(:invoice_repository) {Invoice.new({})}
+  let!(:invoice_repository) {InvoiceRepository.new('./data/invoices.csv', nil)}
 
   it 'is a invoice repository class' do
+    require 'pry'; binding.pryq
     expect(invoice_repository).to be_a(InvoiceRepository)
   end
 
