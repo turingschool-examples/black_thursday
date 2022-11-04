@@ -14,7 +14,9 @@ class SalesEngine
   def initialize
     @merchants = MerchantRepository.new
     @items = ItemRepository.new
-    # @analyst = SalesAnalyst.new
+
+
+
   end
 
   def self.from_csv(hash_path)
@@ -31,10 +33,24 @@ class SalesEngine
 
     rows = CSV.open hash_path[:items], headers: true, header_converters: :symbol
     rows.each do |row|
+      # require 'pry'; binding.pry
+      # id = row[:created_at]
+      describe = row[:description].partition("\n")[0]
+      row[:description] = describe
+      # require 'pry'; binding.pry
       new_item = Item.new(row.to_h)
       sales_engine.items.all << new_item
+      # puts row
     end
+    # require 'pry'; binding.pry
 
     sales_engine
+  end
+
+  def analyst
+    # require 'pry'; binding.pry
+        @analyst = SalesAnalyst.new(self)
+        # KR why is analyst an attribute value?
+
   end
 end
