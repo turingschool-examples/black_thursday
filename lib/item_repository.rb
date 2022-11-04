@@ -60,7 +60,7 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    find_by_id(id).update(attributes)
+    find_by_id(id).update(attributes) unless find_by_id(id).nil?
   end
 
   def delete(id)

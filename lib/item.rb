@@ -28,10 +28,10 @@ class Item
   end
 
   def update(attributes)
-    require'pry'
-    @name = attributes[:name]
-    @description = attributes[:description]
-    @unit_price = attributes[:unit_price]
+    @name = attributes[:name] if attributes.key?(:name)
+    @description = attributes[:description] if attributes.key?(:description)
+    @unit_price = attributes[:unit_price] if attributes.key?(:unit_price)
+    @updated_at = Time.now
     self
   end
 end
