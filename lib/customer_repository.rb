@@ -44,7 +44,7 @@ include Modify
   def delete(id)
     delete_overall(@customers, id)
   end
-  
+
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end
