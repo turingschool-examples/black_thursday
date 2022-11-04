@@ -42,7 +42,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it '#average average price per merchant' do
-  sales_analyst = sales_analyst.analyst
+  sales_analyst = sales_engine.analyst
   expect(sales_analyst.average_average_price_per_merchant). to be_a(BigDecimal)
 end
 end

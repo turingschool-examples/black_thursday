@@ -39,8 +39,25 @@ class SalesAnalyst
     if items.empty?
       BigDecimal(0)
     else
-      price = BigDecimal(items.inject(0) { |sum, _item| sum + unit_price })    # average item price)
+      price = BigDecimal(items.inject(0) do |sum, item|
+        # require 'pry'; binding.pry
+         sum + BigDecimal(item.unit_price )
+    end)    # average item price)
       price / items.count
     end
   end
+
+  def average_average_price_per_merchant
+    total_price = merchants.map do |merchant|
+        average_item_price_for_merchant(merchant.id)
+
+    # require 'pry'; binding.pry
+    end.inject(0, :+)
+    total_price/merchants.count
+    require 'pry'; binding.pry
+
+  end
+
+
+
 end
