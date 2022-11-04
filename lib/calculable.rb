@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+require 'time'
+
+# This is the calcuable module
 module Calculable
   def price_converter(price)
     unit_price = price.to_s
@@ -13,7 +18,6 @@ module Calculable
   def deviation(items)
     if items.length > 1
       mean_avg = (items.sum / items.length.to_f)
-    
       items.map { |num| (num - mean_avg) ** 2 }.sum / (all_nums.length - 1)
     end
   end
