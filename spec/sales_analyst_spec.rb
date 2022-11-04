@@ -79,4 +79,8 @@ RSpec.describe SalesAnalyst do
   it 'can return the total dollar amount paid for a specific invoice' do
     expect(sales_analyst.invoice_total(1)).to eq 21067.77
   end
+
+  it 'can return top x performing merchants in terms of revenue' do
+    expect(sales.analyst.top_revenue_earners(10)).to be_a Array 
+  end
 end
