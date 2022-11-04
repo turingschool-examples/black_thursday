@@ -54,4 +54,8 @@ class TransactionRepository
   def delete(id)
     delete_overall(@transactions, id)
   end
+
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
+  end
 end

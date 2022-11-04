@@ -36,7 +36,7 @@ RSpec.describe Transaction do
   end
 
   it 'has a result' do
-    expect(@transaction.result).to eq("success")
+    expect(@transaction.result).to eq(:success)
   end
 
   it 'has a time created at' do
