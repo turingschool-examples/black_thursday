@@ -25,9 +25,9 @@ include Modify
     @customers
   end
 
-  def find_all_by_first_name(first_name)
+  def find_all_by_first_name(name_frag)
     @customers.find_all do |customer|
-      customer.first_name == first_name
+     customer.first_name.downcase.include?(name_frag.downcase)
     end
   end
 end

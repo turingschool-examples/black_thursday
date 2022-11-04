@@ -31,10 +31,20 @@ RSpec.describe CustomerRepository do
 
     expect(se.customers.find_all_by_first_name("Coopernicus")).to eq []
     # require 'pry'; binding.pry
-    expect(se.customers.find_all_by_first_name("Lisa")).to eq ([se.customers.all[60], se.customers.all[66]])
+    expect(se.customers.find_all_by_first_name("Lisa")).to eq ([se.customers.all[60], se.customers.all[66], se.customers.all[599], se.customers.all[646]])
+    expect(se.customers.find_all_by_first_name("oe")).to eq ([se.customers.all[0], se.customers.all[191], se.customers.all[308], se.customers.all[446], se.customers.all[504], se.customers.all[567], se.customers.all[588], se.customers.all[823]])
   end
   
   # find_all_by_last_name - returns either [] or one or more matches which have a last name matching the substring fragment supplied
+  xit 'finds all by last name -if last name does not exist returns nil' do
+    se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
+
+    expect(se.customers.find_all_by_last_name("Schnickelfritz")).to eq []
+    expect(se.customers.find_all_by_last_name("Fadel")).to eq ([se.customers.all[8]])
+    expect(se.customers.find_all_by_last_name("oe")).to eq ([se.customers.all[8]])
+
+  end
+  
   # create(attributes) - create a new Customer instance with the provided attributes. The new Customer’s id should be the current highest Customer id plus 1.
   # update(id, attribute) - update the Customer instance with the corresponding id with the provided attributes. Only the customer’s first_name and last_name can be updated. This method will also change the customer’s updated_at attribute to the current time.
   #delete(id) - delete the Customer instance with the corresponding id
