@@ -36,9 +36,8 @@ class MerchantRepository < GeneralRepo
   end
 
   def average_items_per_merchant_standard_deviation
-    
+    deviation(number_of_items_per_merchant, average_items_per_merchant).round(2)
   end
-
   # def average_item_price_for_merchant
   #   average()
   # end
