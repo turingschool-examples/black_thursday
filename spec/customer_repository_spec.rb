@@ -64,14 +64,16 @@ RSpec.describe CustomerRepository do
   # update(id, attribute) - update the Customer instance with the corresponding id with the provided attributes. Only the customer’s first_name and last_name can be updated. This method will also change the customer’s updated_at attribute to the current time.
   it 'updates customer last name and updated at time of provided id' do 
     se = SalesEngine.from_csv({:customers => "./data/customers.csv"})
-    # expect(se.customers.find_by_id(999).updated_at).to eq ("2012-03-27 14:58:15 UTC")
+    expect(se.customers.find_by_id(999).updated_at).to eq Time.parse("2012-03-27 14:58:15 UTC")
     
     expect(se.customers.find_by_id(999).first_name).to eq ("Clementina")
     expect(se.customers.find_by_id(999).last_name).to eq ("Hudson")
+    time_current = se.customers.find_by_id(999).updated_at
     se.customers.update(999, {first_name: "Dennis", last_name: "Rodman"})
     expect(se.customers.find_by_id(999).first_name).to eq ("Dennis")
     expect(se.customers.find_by_id(999).last_name).to eq ("Rodman")
-    expect(se.customers.find_by_id(999).updated_at).to eq (Time.now)
+    
+    expect(se.customers.find_by_id(999).updated_at).to be > (time_current)
   end
   #delete(id) - delete the Customer instance with the corresponding id
   it 'deletes a Customer instance with provided id' do
