@@ -120,13 +120,7 @@ class SalesEngine
     customers_raw = CSV.open(customers_entered, headers: true, header_converters: :symbol)
     customer_repo = CustomerRepository.new
     customers_raw.each do |customer|
-      customer_repo.add({
-        id: customer[:id],
-        first_name: customer[:first_name],
-        last_name: customer[:last_name],
-        created_at: customer[:created_at],
-        updated_at: customer[:updated_at]
-        })
+      customer_repo.add(customer)
     end
     customer_repo
   end
