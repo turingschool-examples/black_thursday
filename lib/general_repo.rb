@@ -4,6 +4,7 @@ require_relative 'general'
 
 # this is the GeneralRepo supeclass
 class GeneralRepo
+  include Calculable
   attr_reader :repository,
               :engine
 
