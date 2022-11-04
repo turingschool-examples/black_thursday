@@ -9,5 +9,8 @@ class InvoiceItemRepository
     @invoiceitems = invoiceitems
   end
 
+  def all
+    @invoiceitems
+  end
 
 end

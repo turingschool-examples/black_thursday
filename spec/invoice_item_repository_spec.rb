@@ -41,7 +41,7 @@ RSpec.describe InvoiceItemRepository do
   end
 
   describe '#all' do
-    it 'returns an array of all known items' do
+    it 'returns an array of all known invoice items' do
       invoice_items = [ii_1, ii_2, ii_3]
       invoice_item_repository = InvoiceItemRepository.new(invoice_items)
 
