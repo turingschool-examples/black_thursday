@@ -44,4 +44,27 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.diff_and_square).to eq([1,0,1])
   end
+
+  it "gets the sum from #diff_and_square" do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_test.csv'
+      )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.diff_and_square_sum).to eq(2)
+
+  end
+
+  it 'Divide the sum by the number of elements minus 1.' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_test.csv'
+      )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.divide_diff_and_square_sum).to eq(1)
+  end
 end
