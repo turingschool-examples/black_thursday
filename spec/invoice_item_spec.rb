@@ -21,5 +21,20 @@ RSpec.describe InvoiceItem do
       expect(ii.quantity).to eq(1)
       expect(ii.unit_price).to eq(0.1099e2)
     end
+
+    it 'will have a time when created and updated' do
+      ii = InvoiceItem.new({
+            :id => 6,
+            :item_id => 7,
+            :invoice_id => 8,
+            :quantity => 1,
+            :unit_price => BigDecimal(10.99, 4),
+            :created_at => "2022-11-04 10:18:47.464692 -0700",
+            :updated_at => "2022-11-04 10:18:47.464692 -0700"
+          })
+
+      expect(ii.created_at).to eq("2022-11-04 10:18:47.464692 -0700")
+      expect(ii.updated_at).to eq("2022-11-04 10:18:47.464692 -0700")
+    end 
   end
 end
