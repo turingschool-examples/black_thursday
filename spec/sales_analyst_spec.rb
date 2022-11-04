@@ -130,7 +130,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.top_days_by_invoice_count).to eq(['Wednesday'])
   end
 
-  it 'can return top merchants by invoice count' do 
+  it 'can return top merchants by invoice count' do
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -141,7 +141,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
   end
 
-  it 'can return bottom merchants by invoice count' do 
+  it 'can return bottom merchants by invoice count' do
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -150,5 +150,23 @@ RSpec.describe SalesAnalyst do
     sales_analyst = se.analyst
     expect(sales_analyst.bottom_merchants_by_invoice_count.first).to be_a(Merchant)
     expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
+  end
+
+  it 'can return if an invoice is paid in full based on an invoice id' do
+    se = SalesEngine.from_csv({
+      :transactions => "./data/transactions.csv"
+    })
+    sales_analyst = se.analyst
+    expect(sales_analyst.invoice_paid_in_full?(3374)).to eq true
+    expect(sales_analyst.invoice_paid_in_full?(1202)).to eq false
+  end
+
+  it 'can return the total dollar amount paid for a specific invoice' do
+    se = SalesEngine.from_csv({
+      :transactions => "./data/transactions.csv",
+      :invoice_items => "./data/invoice_items.csv"
+    })
+    sales_analyst = se.analyst
+    expect(sales_analyst.invoice_total(1)).to eq 21067.77
   end
 end

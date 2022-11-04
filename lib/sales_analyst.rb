@@ -122,7 +122,6 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     inv_hash.filter_map do |merchant, amount|
-      # require 'pry'; binding.pry
       next if (average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation * 2) < amount
       @engine.merchants.find_by_id(merchant)
     end
@@ -133,8 +132,16 @@ class SalesAnalyst
       day if amount > (average_invoices_per_day + average_invoices_per_day_standard_deviation)
     end
   end
-end
 
-# merch_hash.filter_map do |merchant, items|
-#   next if items - average_items_per_merchant_standard_deviation < average_items_per_merchant
-#   engine.merchants.find_by_id(merchant)
+  def invoice_paid_in_full?(invoice)
+    transactions_in_invoice = engine.transactions.find_all_by_invoice_id(invoice)
+    transactions_in_invoice.any? { |transaction| transaction.result == :success}
+  end
+
+  def invoice_total(invoice)
+    if invoice_paid_in_full?(invoice)
+      invoice_items = engine.invoice_items.find_all_by_invoice_id(invoice)
+      invoice_items.sum { |ii| ii.unit_price * ii.quantity}.round(2)
+    end
+  end
+end
