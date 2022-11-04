@@ -12,13 +12,13 @@ class CustomerRepository
 
   def find_all_by_first_name(first_name)
     all.select do |customer|
-      customer.first_name.include?(first_name)
+      customer.first_name.downcase.include?(first_name.downcase)
     end
   end
 
   def find_all_by_last_name(last_name)
     all.select do |customer|
-      customer.last_name.include?(last_name)
+      customer.last_name.downcase.include?(last_name.downcase)
     end
   end
 
@@ -40,10 +40,14 @@ class CustomerRepository
         case att
         when :first_name
           find_by_id(id).first_name = val
-        when :description
+        when :last_name
           find_by_id(id).last_name = val
         end
       end
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

@@ -53,7 +53,9 @@ RSpec.describe CustomerRepository do
   it 'has a method to create a new customer and have their id number be correct' do
     cust_repo.all.push(cust1)
     cust_repo.create({:first_name => "Sally",
-                      :last_name => "Sue"
+                      :last_name => "Sue",
+                      :created_at => Time.now,
+                      :updated_at => Time.now
                     })
 
     expect(cust_repo.all[1]).to be_a(Customer)
@@ -61,9 +63,11 @@ RSpec.describe CustomerRepository do
     expect(cust_repo.all[1].last_name).to eq("Sue")
     expect(cust_repo.all[1].id).to eq(4)
 
-    cust_repo.push(cust2)
+    cust_repo.all.push(cust2)
     cust_repo.create({:first_name => "Bobby",
-                      :last_name => "Bob"
+                      :last_name => "Bob",
+                      :created_at => Time.now,
+                      :updated_at => Time.now
                     })
 
     expect(cust_repo.all[3]).to be_a(Customer)
@@ -73,7 +77,7 @@ RSpec.describe CustomerRepository do
   end
 
   it 'has a method to update the customers first and last names, and auto change the updated_at' do
-    cust_repo.push(cust2)
+    cust_repo.all.push(cust2)
     cust_repo.update(45, {:first_name => "Amy",
                           :last_name  => "Ellen"})
 
