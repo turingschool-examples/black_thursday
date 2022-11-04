@@ -45,6 +45,10 @@ include Modify
     delete_overall(@customers, id)
   end
 
+  def update(id, attributes)
+    update_overall(@customers, id, attributes)
+  end
+
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end

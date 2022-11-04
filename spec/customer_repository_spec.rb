@@ -71,7 +71,7 @@ RSpec.describe CustomerRepository do
     se.customers.update(999, {first_name: "Dennis", last_name: "Rodman"})
     expect(se.customers.find_by_id(999).first_name).to eq ("Dennis")
     expect(se.customers.find_by_id(999).last_name).to eq ("Rodman")
-
+    expect(se.customers.find_by_id(999).updated_at).to eq (Time.now)
   end
   #delete(id) - delete the Customer instance with the corresponding id
   it 'deletes a Customer instance with provided id' do
