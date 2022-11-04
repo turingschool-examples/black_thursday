@@ -193,10 +193,27 @@ class SalesAnalyst
   invoice_count = invoices.all.select { |invoice| invoice.status == status }
   ((invoice_count.count).to_f / (invoices.all.count) * 100).round(2)
   end
-end
+
 
 # def merchants_with_pending_invoices
 #     @merchants.all.find_all do |merchant|  maybe possible to go straight to invoices?
 #     merchant.invoices.any? |invoice|      believe any? will skip any that dont have an invoice, think they all do so this could be redundant.
 #     !invoices.is_paid_in_full?            depending on how are paid in full method works? i dont love ! but wasnt sure how else to write it.
 # end
+
+  def merchants_with_only_one_item
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+  end
+
+  def revenue_by_merchant(merchant_id)
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+  end
+
+  def best_item_for_merchant(merchant_id)
+  end
+
+end
