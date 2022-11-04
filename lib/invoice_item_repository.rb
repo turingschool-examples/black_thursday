@@ -13,4 +13,9 @@ class InvoiceItemRepository
     @invoiceitems
   end
 
+  def find_by_id(id)
+    @invoiceitems.find {|invoiceitem| invoiceitem.id == id}
+  end
+
+
 end
