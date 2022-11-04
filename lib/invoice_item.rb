@@ -23,6 +23,9 @@ class InvoiceItem
 
   def update_quantity(quantity)
     @quantity = quantity
-  end 
+  end
 
+  def update_unit_price(number)
+    @unit_price = number
+  end 
 end
