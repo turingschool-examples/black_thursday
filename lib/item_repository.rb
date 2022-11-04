@@ -55,10 +55,19 @@ class ItemRepository
   end
 
   def create(attributes)
-    item = Item.new(attributes)
+    sanitized_attributes = {
+                            name:        attributes[:name],
+                            description: attributes[:description],
+                            unit_price:  attributes[:unit_price],
+                            merchant_id: attributes[:merchant_id]
+                           }
+    item = Item.new(sanitized_attributes)
     item.id = @items.max_by do |item|
       item.id
     end.id + 1
+    item.created_at = Time.now
+    item.updated_at = Time.now
+    @items << item
     item
   end
 
