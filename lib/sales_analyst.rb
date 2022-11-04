@@ -147,9 +147,8 @@ class SalesAnalyst
 
   def total_revenue_by_date(date)
     invoice_by_day = engine.invoice_items.all.filter_map do |invoice_item|
-      date == invoice_item.updated_at.strftime("%D"/"%M"/"%Y")
+      date == invoice_item.updated_at.strftime("%Y-%M-%D")
     end
-    require 'pry'; binding.pry
   end
 
   def top_revenue_earners(x)
