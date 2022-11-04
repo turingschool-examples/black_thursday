@@ -74,8 +74,14 @@ class SalesAnalyst
   end
 
   def golden_items
-
-    
+    require 'pry'; binding.pry
+    sales_engine.items
+    require 'pry'; binding.pry
+    find_all_by_price(unit_price)
+      if (item.unit_price/100) > (average_average_price_per_merchant + (average_items_per_merchant_standard_deviation * 2))
+      require 'pry'; binding.pry
+      end
+     
     # golden_item_objects = [] 
     # sales_engine.items.all.each do |item|
     #   if (item.unit_price / 100) > (average_average_price_per_merchant + (average_items_per_merchant_standard_deviation * 2))
@@ -85,12 +91,7 @@ class SalesAnalyst
     #   golden_item_objects.length
     # end
   end
-      
-      # (average_items_per_merchant_standard_deviation * 2)
-    # sales_engine.items.all.each do |item|
-    #   find_all_by_price(item.unit_price) > (average_items_per_merchant_standard_deviation * 2)
-      
-
+  
     # find_all items that are TWO sd ABOVE the average_item_price_for_all_merchants
     # returns an array of item objects
 
