@@ -60,7 +60,7 @@ RSpec.describe ItemRepository do
       item_repository = ItemRepository.new(items)
 
       expect(item_repository.find_by_name("Cool hat")).to eq(item_2)
-      expect(item_repository.find_by_id("Suit")).to eq(nil)
+      expect(item_repository.find_by_name("Suit")).to eq(nil)
     end
   end
 
