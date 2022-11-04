@@ -67,14 +67,20 @@ RSpec.describe InvoiceItem do
 
     it 'will update the invoice item quantity' do
       ii.update_quantity(5)
+
       expect(ii.quantity).to eq(5)
     end
 
     it 'will update the unit price for the invoice item' do
       ii.update_unit_price(BigDecimal(17.88, 4))
+
       expect(ii.unit_price).to eq(0.1788e2)
     end
 
-    
+    it 'will update the time invoice item was updated at' do
+      original_time = ii.updated_at
+
+      expect(ii.update_time).to be > original_time
+    end
   end
 end
