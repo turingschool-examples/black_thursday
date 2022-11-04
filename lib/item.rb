@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 
 class Item
   attr_reader :id,
@@ -15,19 +16,15 @@ class Item
     @name = item[:name]
     @description = item[:description]
     @unit_price = BigDecimal((item[:unit_price].to_f / 100), 4)
-    @created_at = return_time_object(item[:created_at])
-    @updated_at = return_time_object(item[:updated_at])
+    @created_at = return_time_from(item[:created_at])
+    @updated_at = return_time_from(item[:updated_at])
     @merchant_id = item[:merchant_id].to_i
   end
 
-  def return_time_object(object)
-    if object.instance_of?(Time)
-      return object
-    elsif object.instance_of?(String)
-      return Time.parse(object)
-    else
-      return nil
-    end
+  def return_time_from(object)
+    return object if object.instance_of?(Time)
+    return Time.parse(object) if object.instance_of?(String)
+    return nil
   end
 
   def unit_price_to_dollars

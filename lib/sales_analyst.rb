@@ -29,8 +29,9 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    result = avg_plus_std_dev
     @merchants.all.select do |merchant|
-      @items.find_all_by_merchant_id(merchant.id).size > avg_plus_std_dev
+      @items.find_all_by_merchant_id(merchant.id).size > result
     end
   end
 
@@ -71,8 +72,9 @@ class SalesAnalyst
   end
 
   def golden_items
+    result = (average_item_price + (average_item_price_std_dev * 2))
     @items.all.select do |item|
-      item.unit_price > (average_item_price + (average_item_price_std_dev * 2))
+      item.unit_price > result
     end
   end
 end
