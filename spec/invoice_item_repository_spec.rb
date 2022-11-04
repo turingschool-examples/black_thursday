@@ -110,10 +110,10 @@ RSpec.describe InvoiceItemRepository do
       invoice_items_repository = InvoiceItemRepository.new(invoice_items)
       original_time = invoice_items_repository.find_by_id(8).update_time
 
-      invoice_item_repository.update(8, {:id => 8, :quantity => 7})
+      invoice_items_repository.update(8, {:id => 8, :quantity => 7})
       expect(invoice_items_repository.find_by_id(8).quantity).to eq(7)
 
-      invoice_item_repository.update(8, {:id => 8, :unit_price => BigDecimal(68.22, 4)})
+      invoice_items_repository.update(8, {:id => 8, :unit_price => BigDecimal(68.22, 4)})
       expect(invoice_items_repository.find_by_id(8).unit_price).to eq(0.6822e2)
 
       expect(invoice_items_repository.find_by_id(8).updated_at).to be > original_time

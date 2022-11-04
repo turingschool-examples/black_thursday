@@ -35,7 +35,21 @@ class InvoiceItemRepository
 
   def all_ids
     ids = @invoiceitems.map { |invoiceitem| invoiceitem.id}
-  end 
+  end
+
+  def update(id, attributes)
+    if all_ids.include?(id)
+      updated_invoice_item = find_by_id(id)
+        if attributes[:quantity] != nil
+          updated_invoice_item.update_quantity(attributes[:quantity])
+        end
+        if attributes[:unit_price] != nil
+          updated_invoice_item.update_unit_price(attributes[:unit_price])
+        end
+      updated_invoice_item.update_time
+      updated_invoice_item
+    end
+  end
 
   def delete(id)
     @invoiceitems.delete(find_by_id(id))
