@@ -8,8 +8,7 @@ RSpec.describe ItemRepository do
         :id          => 1,
         :name        => "Pencil",
         :description => "You can use it to write things",
-        :unit_price  => BigDecimal(10.99,4),
-        # all Time.now here need conversion to string
+        :unit_price  => 10.99,
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 2}) }
@@ -18,7 +17,7 @@ RSpec.describe ItemRepository do
         :id          => 2,
         :name        => "Pen",
         :description => "You can use it to permanently write things",
-        :unit_price  => BigDecimal(12.99,4),
+        :unit_price  => 12.99,
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 7}) }
@@ -84,29 +83,29 @@ RSpec.describe ItemRepository do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
 
-      expect(ir.find_all_with_description("You can use it to write things")).to eq(item_1)
+      expect(ir.find_all_with_description("You can use it to write things")).to eq([item_1])
     end
   end
-  # Update this to find_all_by_price
-  describe '#find_all_with_price()' do
+  
+  describe '#find_all_by_price()' do
     it 'finds an instance of Item by price' do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
-
-      expect(ir.find_all_with_price(12.99)).to eq([item_2])
+      require 'pry'; binding.pry
+      expect(ir.find_all_by_price(12.99)).to eq([item_2])
     end
   end
 
-  describe '#find_all_with_price_in_range()' do
+  describe '#find_all_by_price_in_range()' do
     it 'finds an instance of Item with case insensitive search' do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
       ir.add_to_repo(item_3)
       ir.add_to_repo(item_4)
 
-      expect(ir.find_all_with_price_in_range(19..30)).to eq([item_3, item_4])
-      expect(ir.find_all_with_price_in_range(0..9)).to eq([])
-      expect(ir.find_all_with_price_in_range(19.99..21.21)).to eq([item_3])
+      expect(ir.find_all_by_price_in_range(19..30)).to eq([item_3, item_4])
+      expect(ir.find_all_by_price_in_range(0..9)).to eq([])
+      expect(ir.find_all_by_price_in_range(19.99..21.21)).to eq([item_3])
     end
   end
 
