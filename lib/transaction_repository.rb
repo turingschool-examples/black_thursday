@@ -1,54 +1,51 @@
 class TransactionRepository
 
-  def initialize
-    @transaction = transaction
+  def initialize(transactions, engine)
+    @transactions = create_transactions(transactions)
+    @engine = engine
   end
 
   def all
-    @transaction
+    @transactions
   end
 
   def a_valid_id?(id)
-    @transaction.any? do |instance| instance.id == id
+    @transactions.any? do |instance| 
+      instance.id == id
+    end
   end 
 
   def find_by_id(id)
-    if !a_valid_id?()
-      return nil
-    else
-      @transaction.find do |invoice|
-        invoice.id == id
-      end
+    nil if !a_valid_id?()
+    
+    @transactions.find do |invoice|
+      invoice.id == id
     end
   end
-
+  
   def find_all_by_invoice_id(id)
-    if !a_valid_id?()
-      return nil
-    else
-      @transaction.find do |invoice|
-        invoice.id == id
-      end
+    nil if !a_valid_id?()
+    
+    @transactions.find_all do |invoice|
+      invoice.id == id
     end
   end
-
+  
   def find_all_by_credit_card_number(id)
-    if !a_valid_id?()
-      return nil
-    else
-      @transaction.find do |invoice|
-        invoice.id == id
-      end
+    nil if !a_valid_id?()
+    
+    @transactions.find_all do |invoice|
+      invoice.id == id
     end
   end
 
   def create(attribute)
-    new_transaction = @transaction.last.id + 1
-    @transaction << Transaction.new({:id => new_id, :name => attribute})
+    new_transaction = @transactions.last.id + 1
+    @transactions << Transaction.new(attributes, self)
   end
 
   def update(id, attribute)
-    @transaction.each do |invoice|
+    @transactions.each do |invoice|
       if invoice.id == id
         transaction_new_status = invoice.name.replace(attribute)
         return transaction_new_status
@@ -57,7 +54,27 @@ class TransactionRepository
   end
 
   def delete(id)
-    @transaction.delete(find_by_id(id))
+    @transactions.delete(find_by_id(id))
   end
-end
+
+  def create_transactions(filepath)
+    contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
+    make_transaction_object(contents)
+  end
+  
+  def make_transaction_object(contents)
+    contents.map do |row|
+      transaction = {
+              :id => row[:id].to_i, 
+              :invoice_id => row[:invoice_id].to_i,
+              :credit_card_number => row[:credit_card_number].to_i,
+              :credit_card_expiration_date => row[:credit_card_expiration_date].to_i,
+              :result => row[:result].to_sym,
+              :created_at => row[:created_at],
+              :updated_at => row[:updated_at],
+            }
+      Transaction.new(transaction, self)
+    end
+  end
+
 end

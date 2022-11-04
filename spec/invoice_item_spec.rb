@@ -10,9 +10,10 @@ RSpec.describe InvoiceItem do
     :unit_price => BigDecimal(10.99, 4),
     :created_at => Time.now,
     :updated_at => Time.now
-  })}
+  }, nil)}
 
   it 'is a invoice item class' do
+    require 'pry'; binding.pry
     expect(invoice_item).to be_(InvoiceItem)
   end
 
