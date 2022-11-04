@@ -52,12 +52,16 @@ class SalesAnalyst
   def average_item_price_for_merchant(id)
     stock = (items.find_all_by_merchant_id(id))
     price_array = stock.map { |stock| stock.unit_price }.sum
-    
     (price_array / stock.count).round(2)
   end
   
   def average_average_price_per_merchant
-    
+    sellers = merchants.all
+    array = []
+    sellers.each do |seller|
+      array << self.average_item_price_for_merchant(seller.id)
+    end
+    (array.sum / sellers.count).round(2)
   end
   
   # def golden_items

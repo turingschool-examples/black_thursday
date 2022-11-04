@@ -62,13 +62,13 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.merchants_with_high_item_count).to eq([])
     end
     
-    it "#average_item_price_for_merchant() returns the average item price for the given merchant" do
-      expect(sales_analyst.average_item_price_for_merchant(1)).to be_a(BigDecimal)
-      # expect(sales_analyst.average_item_price_for_merchant(1)).to eq(0.7854e2)
+    it '#average_average_price_per_merchant can determine the average price of an item across all merchants' do
+      expect(sales_analyst.average_item_price_for_merchant(1)).to eq(0.7854e2)
+      #this test isn't passing here, but the spec_harness does and I'm not sure why
     end
     
-    xit '#average_average_price_per_merchant can determine the average price of an item across all merchants' do
-      expect(sales_analyst.average_average_price_per_merchant).to eq()
+    it '#average_average_price_per_merchant can determine the average price of an item across all merchants' do
+      expect(sales_analyst.average_average_price_per_merchant).to eq(0.5294e2)
     end
     
     xit '#golden_items can determine which items are 2 standard deviations above the avg item price' do
