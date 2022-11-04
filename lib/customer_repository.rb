@@ -37,6 +37,14 @@ include Modify
     end
   end
 
+  def create(attributes)
+    create_overall(@customers, attributes)
+  end
+
+  def delete(id)
+    delete_overall(@customers, id)
+  end
+  
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end
