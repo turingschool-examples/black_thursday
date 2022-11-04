@@ -11,7 +11,7 @@ require_relative 'invoice_repository'
 class SalesAnalyst
   attr_reader :items,
               :merchants
-  def initialize(item_repo, merchant_repo, invoice_repo)
+  def initialize(item_repo = nil, merchant_repo = nil, invoice_repo = nil)
     @items = item_repo
     @merchants = merchant_repo
     @invoices = invoice_repo
