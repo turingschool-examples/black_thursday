@@ -3,6 +3,17 @@ module Reposable
     Object.const_get(self.class.name.chomp('Repository'))
   end
 
+  def update(id,attributes)
+    entry = find_by_id(id)
+  
+    entry.updated_at = Time.now if entry
+
+    attributes.each do |att,val|
+      sym_eq = (att.to_s + "=").to_sym
+      entry.send(sym_eq.to_s,val) if entry.respond_to?(sym_eq)
+    end
+  end
+
   def next_id
     if all.empty?
       1

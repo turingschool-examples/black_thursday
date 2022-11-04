@@ -16,28 +16,10 @@ class ItemRepository
                       :id           => next_id,
                       :description  => attributes[:description],
                       :unit_price   => attributes[:unit_price],
-                      :created_at   => Time.parse(attributes[:created_at].to_s),
-                      :updated_at   => Time.parse(attributes[:updated_at].to_s),
+                      :created_at   => attributes[:created_at],
+                      :updated_at   => attributes[:updated_at],
                       :merchant_id  => attributes[:merchant_id]
                     })    
-  end
-
-  def update(id,attributes)
-    if find_by_id(id) == nil 
-      return
-    else
-    find_by_id(id).updated_at = Time.now
-    attributes.each do |att,val|
-      case att
-      when :name
-        find_by_id(id).name = val
-      when :description
-        find_by_id(id).description = val
-      when :unit_price
-        find_by_id(id).unit_price = val
-      end
-    end
-    end
   end
 
   def find_by_name(name)
