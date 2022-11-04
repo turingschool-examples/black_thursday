@@ -17,7 +17,6 @@ module Calcuable
   def self.deviation(items)
     if items.length > 1
       mean_avg = (items.sum / items.length.to_f)
-      p mean_avg
       squares = items.map { |num| (num - mean_avg) ** 2 }
       Math.sqrt(squares.sum / (items.length.to_f - 1))
     end
