@@ -27,4 +27,8 @@ class Transaction
   def update_result(result)
     @result = result
   end
+  
+  def update_time
+    @updated_at = Time.now
+  end
 end
