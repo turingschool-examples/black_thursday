@@ -1,4 +1,4 @@
-require_relative '../lib/item.rb'
+require_relative '../lib/item'
 require 'bigdecimal'
 
 RSpec.describe Item do
@@ -7,6 +7,7 @@ RSpec.describe Item do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(10.99,4),
+        # Change Time.now to Time.now.to_s? to pass our tests
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 2}) }

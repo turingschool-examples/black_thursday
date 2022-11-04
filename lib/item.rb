@@ -13,12 +13,12 @@ class Item
     @name = item[:name]
     @description = item[:description]
     @unit_price = (item[:unit_price].to_f / 100).to_d
-    @created_at = item[:created_at]
-    @updated_at = item[:updated_at]
+    @created_at = Time.parse(item[:created_at])
+    @updated_at = Time.parse(item[:updated_at])
     @merchant_id = item[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
-    (@unit_price.to_f)
+    @unit_price.to_f
   end
 end

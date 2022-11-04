@@ -124,10 +124,10 @@ RSpec.describe ItemRepository do
   
   describe '#create(attributes)' do
     it 'creates a new Item instance with provided attributes' do
-      expect(ir.all).to eq([])      
+      expect(ir.all).to eq([])
 
       ir.add_to_repo(item_1)
-      expect(ir.all.count).to eq(1)      
+      expect(ir.all.count).to eq(1)
 
       ir.create({
         :name        => "Eraser",
