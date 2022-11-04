@@ -95,6 +95,22 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
+  describe '#all_ids' do
+    it 'will return all ids' do
+      invoice_items = [ii_1, ii_2, ii_3]
+      invoice_items_repository = InvoiceItemRepository.new(invoice_items)
+
+      expect(invoice_items_repository.all_ids).to eq([6, 4, 8])
+    end
+
+  describe '#update' do
+    xit 'will update invoice item' do
+
+
+
+    end
+  end
+
   describe '#delete' do
     it 'will delete the invoice item with the matching id' do
       invoice_items = [ii_1, ii_2, ii_3]
