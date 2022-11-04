@@ -161,5 +161,9 @@ class SalesAnalyst
 
   end
 
+  def merchants_with_only_one_item
+
+  end
+
   
 end
