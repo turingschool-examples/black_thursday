@@ -4,11 +4,13 @@ require_relative './item_repository'
 require_relative './invoice_repository'
 require_relative './invoice_item_repository'
 require_relative './customer_repository'
+require_relative './transaction_repository'
 require_relative './item'
 require_relative './merchant'
 require_relative './invoice'
 require_relative './invoice_item'
 require_relative './customer'
+require_relative './transaction'
 
 class SalesEngine
   # repo_list = ["merchants","items","invoices","customers"]
@@ -17,7 +19,8 @@ class SalesEngine
               :merchants,
               :invoices, 
               :invoice_items,
-              :customers
+              :customers,
+              :transactions
 
   def initialize(data)
     repo_list.each do |repo|
@@ -45,7 +48,7 @@ class SalesEngine
   end
 
   def repo_list
-    ["merchants","items","invoices","invoice_items","customers"]
+    ["merchants","items","invoices","invoice_items","customers","transactions"]
   end
 
   def repo_child_class(repo)
@@ -60,6 +63,6 @@ class SalesEngine
   end
 
   def analyst
-    SalesAnalyst.new(@merchants,@items,@invoices)
+    SalesAnalyst.new(@merchants,@items,@invoices,@customers,@transactions)
   end
 end
