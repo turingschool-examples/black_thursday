@@ -189,6 +189,15 @@ class SalesAnalyst
     days_of_week
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    transactions.find_by_id(invoice_id).result == :success &&
+    # invoices.find_by_
+  end
+
+  def invoice_total(invoice_id)
+
+  end
+
   def invoice_status(status)
   invoice_count = invoices.all.select { |invoice| invoice.status == status }
   ((invoice_count.count).to_f / (invoices.all.count) * 100).round(2)
