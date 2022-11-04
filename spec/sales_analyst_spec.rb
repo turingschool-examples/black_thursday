@@ -25,12 +25,23 @@ RSpec.describe SalesAnalyst do
 
   it 'calculates the average items per merchant' do
     sales_engine = SalesEngine.from_csv(
-      
+
       :items     => './data/items.csv',
       :merchants => './data/merchants.csv'
       )
     sales_analyst = sales_engine.analyst
- 
+
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
+  end
+
+  it 'Take the difference between each number and the mean, then square it.' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_test.csv'
+      )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.diff_and_square).to eq([1,0,1])
   end
 end
