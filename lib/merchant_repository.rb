@@ -1,4 +1,5 @@
 require_relative 'merchant'
+
 require_relative 'repo_module'
 class MerchantRepository
   include RepoModule

@@ -1,4 +1,5 @@
 require_relative 'item'
+
 require_relative 'repo_module'
 class ItemRepository
   include RepoModule

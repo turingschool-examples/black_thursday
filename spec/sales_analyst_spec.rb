@@ -32,53 +32,53 @@ RSpec.describe SalesAnalyst do
     let (:merchants) {[merchant_1, merchant_2]}
     let (:merchant_repo) {MerchantRepository.new(merchants)}
     let (:sales_analyst) {SalesAnalyst.new(item_repo, merchant_repo)}
-    
+
     it 'exists' do
       expect(sales_analyst).to be_a(SalesAnalyst)
     end
-    
+
     it '#item_count can determine how many total items are available' do
       expect(sales_analyst.item_count).to eq(3)
     end
-    
+
     it '#items_per_merchant() can determine how many products individual merchants sell' do
       expect(sales_analyst.items_per_merchant(1)).to eq(1)
       expect(sales_analyst.items_per_merchant(2)).to eq(2)
     end
-    
+
     it '#merchant_count can count the total number of merchants' do
       expect(sales_analyst.merchant_count).to eq(2)
     end
-    
+
     it '#average_items_per_merchant can determine how many products merchants sell on average' do
-      expect(sales_analyst.average_items_per_merchant).to eq(1.0)
+      expect(sales_analyst.average_items_per_merchant).to eq(1.5)
     end
-    
+
     it '#average_items_per_merchant_standard_deviation can determine standard deviation on average items per merchant' do
-      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.0)
+      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(0.71)
     end
-    
-    xit '#merchants_with_high_item_count can determine which merchants sell the highest number of items' do
+
+    it '#merchants_with_high_item_count can determine which merchants sell the highest number of items' do
       expect(sales_analyst.merchants_with_high_item_count).to eq([])
     end
-    
+
     xit '#average_item_price_for_merchant() can determine the average price for a merchants items' do
       expect(sales_analyst.average_item_price_for_merchant()).to eq.()
     end
-    
+
     xit '#average_average_price_per_merchant can determine the average price of an item across all merchants' do
       expect(sales_analyst.average_average_price_per_merchant).to eq.()
     end
-    
+
     xit '#golden_items can determine which items are 2 standard deviations above the avg item price' do
       expect(sales_analyst.golden_items).to eq.([])
     end
-    
+
     # xit '' do
     # end
-    # 
+    #
     # xit '' do
     # end
-    
+
   end
 end
