@@ -70,6 +70,11 @@ RSpec.describe InvoiceItem do
       expect(ii.quantity).to eq(5)
     end
 
+    it 'will update the unit price for the invoice item' do
+      ii.update_unit_price(BigDecimal(17.88, 4))
+      expect(ii.unit_price).to eq(0.1788e2)
+    end
 
+    
   end
 end
