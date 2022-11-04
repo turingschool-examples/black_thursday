@@ -34,7 +34,6 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    # binding.pry
     merchants = @merchants.all.map do |merchant|
       @items.find_all_by_merchant_id(merchant.id).count
     end
@@ -50,16 +49,19 @@ class SalesAnalyst
   #
   # end
   #
-  # def average_average_price_for_merchant(merchant)
-  #
-  # end
-  #
-  # def average_average_price_per_merchant
-  #
-  # end
-  #
+  def average_item_price_for_merchant(id)
+    stock = (items.find_all_by_merchant_id(id))
+    price_array = stock.map { |stock| stock.unit_price }.sum
+    
+    (price_array / stock.count).round(2)
+  end
+  
+  def average_average_price_per_merchant
+    
+  end
+  
   # def golden_items
-  #
+  # 
   # end
 
 end
