@@ -1,15 +1,3 @@
-require 'simplecov'
-SimpleCov.start
-
-require_relative 'merchant_spec'
-require_relative 'merchant_repository_spec'
-require_relative 'item_spec'
-require_relative 'item_repository_spec'
-require_relative 'invoice_spec'
-require_relative 'invoice_repository_spec'
-require_relative 'sales_engine_spec'
-require_relative 'sales_analyst_spec'
-
 spec_harness_root = File.expand_path('..',  __dir__)
 unless File.expand_path(Dir.pwd) == spec_harness_root
   die_because.call "Run the program from the root of the Spec Harness (#{spec_harness_root.inspect})"
