@@ -39,4 +39,14 @@ RSpec.describe InvoiceItemRepository do
       expect(invoice_item_repository).to be_a(InvoiceItemRepository)
     end
   end
+
+  describe '#all' do
+    it 'returns an array of all known items' do
+      invoice_items = [ii_1, ii_2, ii_3]
+      invoice_item_repository = InvoiceItemRepository.new(invoice_items)
+
+      expect(invoice_item_repository.all).to eq([ii_1, ii_2, ii_3])
+    end
+  end
+
 end
