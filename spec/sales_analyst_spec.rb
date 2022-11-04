@@ -143,6 +143,7 @@ end
     end
   end
 
+
   # describe '#invoice_paid_in_full?(invoice_id)' do
   #   it 'return true if transaction success and false if failed' do
 
@@ -167,4 +168,33 @@ end
     end
   end
 
+  it "#merchants_with_only_one_item returns merchants with only one item" do
+    expect(sales_analyst.merchants_with_only_one_item.length).to eq 243 # the number of merchants taken from spec harness
+    expect(sales_analyst.merchants_with_only_one_item.first.class).to eq Merchant
+  end
+
+  xit "#merchants_with_only_one_item_registered_in_month returns merchants with only one invoice in given month" do
+    expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
+
+    expect(expected.length).to eq 21
+    expect(expected.first.class).to eq Merchant
+
+    expected = sales_analyst.merchants_with_only_one_item_registered_in_month("June")
+
+    expect(expected.length).to eq 18
+    expect(expected.first.class).to eq Merchant
+  end
+
+  it "#revenue_by_merchant returns the revenue for given merchant" do
+    expect(sales_analyst.revenue_by_merchant(12337411)).to eq (68159.36)
+    expect(sales_analyst.revenue_by_merchant(12337411).class).to eq BigDecimal
+  end
+
+  xit '#most_sold_item_for_merchant returns the most sold item' do
+    expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq [item]
+  end
+
+  xit '#best_item_for_merchant returns an item based off revenue generated' do
+    expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq [item]
+  end
 end
