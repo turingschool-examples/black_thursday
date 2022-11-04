@@ -8,13 +8,9 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (sales_engine.items.all.count / sales_engine.merchants.all.count.to_f).round(2)
-    # find_all_by_merchant_id(merchant_id)
-    # require 'pry'; binding.pry
-    # test = sales_engine.items.all.map do |item|
-    #     sales_engine.items.find_all_by_merchant_id(item.merchant_id).length
-    # end
-    # require 'pry'; binding.pry
+    item_count = sales_engine.items.all.count.to_f
+    merchant_count = sales_engine.merchants.all.count.to_f
+    (item_count / merchant_count).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -29,5 +25,10 @@ class SalesAnalyst
     Math.sqrt(total_difference / (merchants.length - 1)).round(2)
     # Divide the sum by the number of elements minus 1.
     # Take the square root of this result.
+  end
+
+  def merchants_with_high_item_count
+    # merchants with 5 or more items
+    require 'pry'; binding.pry
   end
 end
