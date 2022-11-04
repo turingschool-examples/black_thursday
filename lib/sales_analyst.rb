@@ -8,8 +8,14 @@ class SalesAnalyst
     end
 
     def average_items_per_merchant
-        require 'pry'; binding.pry  
+        (sales_engine.items.all.count / sales_engine.merchants.all.count.to_f).round(2)
         # find_all_by_merchant_id(merchant_id)
+        # require 'pry'; binding.pry
+        # test = sales_engine.items.all.map do |item|
+        #     sales_engine.items.find_all_by_merchant_id(item.merchant_id).length
+        # end
+        # require 'pry'; binding.pry  
+        
         
     end
 end
