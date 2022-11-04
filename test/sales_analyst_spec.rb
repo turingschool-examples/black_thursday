@@ -25,4 +25,6 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
   end
+
+  
 end
