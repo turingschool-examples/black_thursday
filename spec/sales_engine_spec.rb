@@ -16,17 +16,10 @@ describe SalesEngine do
       customers: './data/customer_test.csv'
     }
   end
-  # let(:se) { SalesEngine.new(data) }
 
   describe '#initialize' do
     it 'instantiates correctly' do
-      i_data = CSV.read './data/items_test.csv', headers: true, header_converters: :symbol
-      m_data = CSV.read './data/merchants_test.csv', headers: true, header_converters: :symbol
-      ii_data = CSV.read './data/invoice_items_test.csv', headers: true, header_converters: :symbol
-      inv_data = CSV.read './data/invoices_test.csv', headers: true, header_converters: :symbol
-      t_data = CSV.read './data/transactions_test.csv', headers: true, header_converters: :symbol
-      c_data = CSV.read './data/customer_test.csv', headers: true, header_converters: :symbol
-      se = SalesEngine.new(i_data, m_data, ii_data, inv_data, t_data, c_data)
+      se = SalesEngine.new(data)
 
       expect(se).to be_a SalesEngine
     end
@@ -42,6 +35,7 @@ describe SalesEngine do
       expect(se.invoices).to be_a InvoiceRepo
       expect(se.transactions).to be_a TransactionRepo
       expect(se.customers).to be_a CustomerRepo
+      # expect(se.analyst).to be_a SalesAnalyst
     end
   end
 end
