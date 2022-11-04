@@ -33,4 +33,7 @@ class InvoiceItemRepository
     new_invoice_item
   end
 
+  def delete(id)
+    @invoiceitems.delete(find_by_id(id))
+  end
 end
