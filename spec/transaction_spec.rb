@@ -12,6 +12,7 @@ RSpec.describe Transaction do
   })}
 
   it 'exists and takes in info and gives access to them' do
+    @time_now = Time.parse("2022-11-03 18:56:21.000000000 -0700")
     allow(Time).to receive(:now).and_return(@time_now)
 
     expect(transaction).to be_a(Transaction)
@@ -19,8 +20,8 @@ RSpec.describe Transaction do
     expect(transaction.invoice_id).to eq(8)
     expect(transaction.credit_card_number).to eq("4242424242424242")
     expect(transaction.credit_card_expiration_date).to eq("0220")
-    expect(transaction.result).to eq("success")
-    expect(transaction.created_at).to eq(Time.now)
-    expect(transaction.updated_at).to eq(Time.now)
+    expect(transaction.result).to eq(:success)
+    expect(transaction.created_at).to eq(@time_now)
+    expect(transaction.updated_at).to eq(@time_now)
   end
 end

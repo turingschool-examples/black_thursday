@@ -1,9 +1,15 @@
-require './lib/sales_engine'
 require './lib/merchant_repository'
 require './lib/item_repository'
 require './lib/invoice_repository'
+require './lib/invoice_item_repository'
 require './lib/customer_repository'
+require './lib/transaction_repository'
+require './lib/item'
 require './lib/merchant'
+require './lib/invoice'
+require './lib/invoice_item'
+require './lib/customer'
+require './lib/transaction'
 require 'csv'
 
 RSpec.describe SalesEngine do
@@ -11,7 +17,8 @@ RSpec.describe SalesEngine do
                                   :merchants => './data/merchants.csv',
                                   :invoices => './data/invoices.csv',
                                   :invoice_items => './data/invoice_items.csv',
-                                  :customers => './data/customers.csv'})}
+                                  :customers => './data/customers.csv',
+                                  :transactions => './data/transactions.csv'})}
   
   it 'is an instance of a sales engine' do
     
