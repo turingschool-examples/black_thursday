@@ -50,11 +50,11 @@ RSpec.describe TransactionRepository do
   it 'can find all by result' do
     se = SalesEngine.from_csv({:transactions => "./data/transactions.csv"})
 
-    expect(se.transactions.find_all_by_result("success").count).to eq(4158)
-    expect(se.transactions.find_all_by_result("failed")[0]).to eq(se.transactions.all[8])
-    expect(se.transactions.find_all_by_result("gibberish")).to eq([])
-    expect(se.transactions.find_all_by_result("failed")).to be_a(Array)
-    expect(se.transactions.find_all_by_result("failed").first).to be_a(Transaction)
+    expect(se.transactions.find_all_by_result(:success).count).to eq(4158)
+    expect(se.transactions.find_all_by_result(:failed)[0]).to eq(se.transactions.all[8])
+    expect(se.transactions.find_all_by_result(:gibberish)).to eq([])
+    expect(se.transactions.find_all_by_result(:failed)).to be_a(Array)
+    expect(se.transactions.find_all_by_result(:failed).first).to be_a(Transaction)
   end
 
   it 'can create new Transaction instances' do
@@ -65,7 +65,7 @@ RSpec.describe TransactionRepository do
       :invoice_id => 8,
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0220",
-      :result => "success",
+      :result => :success,
       :created_at => Time.now,
       :updated_at => Time.now
     })
@@ -78,23 +78,23 @@ RSpec.describe TransactionRepository do
     se = SalesEngine.from_csv({:transactions => "./data/transactions.csv"})
 
     expect(se.transactions.all[2].credit_card_number).to eq("4271805778010747")
-    expect(se.transactions.all[2].result).to eq("success")
+    expect(se.transactions.all[2].result).to eq(:success)
 
     se.transactions.update(3, {
       :credit_card_number => "4242424242424242",
       :credit_card_expiration_date => "0220",
-      :result => "failed"
+      :result => :failed
     })
 
     expect(se.transactions.all[2].credit_card_number).to eq("4242424242424242")
-    expect(se.transactions.all[2].result).to eq("failed")
+    expect(se.transactions.all[2].result).to eq(:failed)
   end
 
   it 'can delete a Transaction instance' do
     se = SalesEngine.from_csv({:transactions => "./data/transactions.csv"})
 
     expect(se.transactions.all[2].credit_card_number).to eq("4271805778010747")
-    expect(se.transactions.all[2].result).to eq("success")
+    expect(se.transactions.all[2].result).to eq(:success)
 
     se.transactions.delete(3)
 
