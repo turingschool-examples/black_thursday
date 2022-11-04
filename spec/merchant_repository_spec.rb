@@ -68,7 +68,6 @@ RSpec.describe MerchantRepository do
     it 'can create a new merchant instance' do
       expect(merchant_repository.all).to eq([])
 
-      # This test was asserting against an instance returned by create
       merchant_repository.create({ name: 'Whole Foods' })
       expect(merchant_repository.all.first.id).to eq(1)
 
