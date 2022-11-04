@@ -49,4 +49,15 @@ RSpec.describe InvoiceItemRepository do
     end
   end
 
+  describe '#find_by_id' do
+    it 'returns nil or an instance of invoice item with matching id' do
+      invoice_items = [ii_1, ii_2, ii_3]
+      invoice_item_repository = InvoiceItemRepository.new(invoice_items)
+
+      expect(invoice_item_repository.find_by_id(8)).to eq(ii_3)
+      expect(invoice_item_repository.find_by_id(10)).to eq(nil)
+    end
+  end
+
+
 end
