@@ -13,9 +13,19 @@ class Item
     @name = item[:name]
     @description = item[:description]
     @unit_price = (item[:unit_price].to_f / 100).to_d
-    @created_at = Time.parse(item[:created_at])
-    @updated_at = Time.parse(item[:updated_at])
+    @created_at = return_time_object(item[:created_at])
+    @updated_at = return_time_object(item[:updated_at])
     @merchant_id = item[:merchant_id].to_i
+  end
+
+  def return_time_object(object)
+    if object.instance_of?(Time)
+      return object
+    elsif object.instance_of?(String)
+      return Time.parse(object)
+    else
+      return nil
+    end
   end
 
   def unit_price_to_dollars

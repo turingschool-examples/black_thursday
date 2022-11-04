@@ -9,6 +9,7 @@ RSpec.describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => BigDecimal(10.99,4),
+        # all Time.now here need conversion to string
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 2}) }
@@ -53,7 +54,7 @@ RSpec.describe ItemRepository do
     it 'exists' do
       expect(ir).to be_a(ItemRepository)
     end
-    
+
     it 'starts with an empty array' do
       expect(ir.all).to eq([])
     end
@@ -86,7 +87,7 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_with_description("You can use it to write things")).to eq(item_1)
     end
   end
-
+  # Update this to find_all_by_price
   describe '#find_all_with_price()' do
     it 'finds an instance of Item by price' do
       ir.add_to_repo(item_1)
@@ -121,7 +122,7 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_by_merchant_id(5)).to eq([])
     end
   end
-  
+
   describe '#create(attributes)' do
     it 'creates a new Item instance with provided attributes' do
       expect(ir.all).to eq([])

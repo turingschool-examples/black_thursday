@@ -24,12 +24,12 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @all.find do |item|
+    @all.find_all do |item|
       item.description.downcase == description.downcase
     end
   end
 
-  def find_all_with_price(price)
+  def find_all_by_price(price)
     @all.find_all do |item|
       item.unit_price == price
     end
@@ -41,7 +41,7 @@ class ItemRepository
     end
   end
 
-  def find_all_with_price_in_range(range)
+  def find_all_by_price_in_range(range)
     @all.find_all do |item|
       range.include?(item.unit_price)
     end
@@ -63,8 +63,11 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
+    return nil if item.nil?
 
     attributes.each do |key, value|
+      next if [:id, :merchant_id, :created_at].include?(key)
+
       item.instance_variable_set("@#{key}", value)
     end
     item.updated_at = Time.now
