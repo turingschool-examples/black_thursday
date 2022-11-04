@@ -32,6 +32,18 @@ class SalesAnalyst
     diff_and_square_sum / (item_amount.length - 1)
   end
 
+  def merchants_with_high_item_count
+    #check every merchant
+    #iterate through every merchant and look at item amount
+    #go through item amounts for every merchant
+    #check that amount, see if it is greater than the method average_items_per_merchant
+    #plus standar deviation
+
+    @engine.merchants.all.find_all do |merchant|
+      #require 'pry' ;binding.pry
+      merchant.items.length > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+    end
+  end
 
 
 
