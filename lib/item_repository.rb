@@ -1,5 +1,6 @@
 require 'csv'
 require_relative './item'
+require 'pry'
 class ItemRepository
   attr_reader :repo
 
@@ -42,7 +43,6 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-
     repo.select do |item|
       item.merchant_id == merchant_id
     end

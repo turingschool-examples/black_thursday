@@ -1,6 +1,7 @@
 require 'simplecov'
 SimpleCov.start
 require './lib/item_repository'
+require 'pry'
 
 RSpec.describe ItemRepository do
   let(:repo) { ItemRepository.new }

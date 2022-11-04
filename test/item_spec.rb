@@ -1,4 +1,6 @@
 require './lib/item'
+require 'pry'
+require 'time'
 
 RSpec.describe Item do
   let(:i) do
