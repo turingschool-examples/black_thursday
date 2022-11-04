@@ -80,7 +80,7 @@ describe MerchantRepository do
 
   describe '#average_items_per_merchant' do
     it 'returns the average number of items per merchant' do
-      expect(mr.average_items_per_merchant).to eq 2.8
+      expect(mr.average_items_per_merchant).to eq 2.88
     end
   end
 end

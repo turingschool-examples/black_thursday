@@ -19,7 +19,23 @@ class MerchantRepository < GeneralRepo
     repository.select { |merchant| merchant.name.downcase.include? name.downcase }
   end
 
+  def number_of_items_per_merchant
+    all.map do |merchant|
+      merchant.item_count
+    end
+  end
+
+  def items_per_merchant
+    all.map do |merchant|
+      merchant._items
+    end
+  end
+
   def average_items_per_merchant
-    all.sum{ |merchant| merchant.item_count }.fdiv(all.length)
+    items_per_merchant.sum.fdiv(all.length).round(2)
+  end
+
+  def average_item_price_for_merchant
+    average()
   end
 end
