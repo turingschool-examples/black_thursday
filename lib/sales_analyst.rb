@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class SalesAnalyst
   attr_reader :sales_engine
 
@@ -9,7 +11,6 @@ class SalesAnalyst
   def average_items_per_merchant
    (items_count / merchants_count.to_f).round(2)
     # total number of items per merchant
-      # add up sums
     # divided by total number of merchants
   end
 
@@ -45,16 +46,32 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    # the average item price for the given merchant
-    # total of all item unit_price per SPECIFIC merchant(use merchant ID)
-    # divide by total number of items for THAT merchant
-    # BigDecimal
-  end
+    item_prices_per_merchant = []
+      items_per_merchant = sales_engine.items.find_all_by_merchant_id(merchant_id)
+      items_per_merchant.each do |item|
+        item_prices_per_merchant << item.unit_price 
+      end
+      avg = ((item_prices_per_merchant.sum) / items_per_merchant.count)
+      BigDecimal(avg, 4)
+      # avg_bd = BigDecimal.new(avg,4)
+      # price of each item for that merchant
+      # add it all together
+      # divide by number of items for THAT merchant
+      #BigDecimal
+    end
 
   def average_average_price_per_merchant
+    all_merchant_averages = []
+    sales_engine.merchants.all.each do |merchant|
+      require 'pry'; binding.pry
+      all_merchant_averages << merchant.average_item_price_for_merchant(merchant.id)
+      require 'pry'; binding.pry
+    end
+    (all_merchant_averages.sum) / merchants_count
     # use average_item_price_for_specific_merchant(merchant_id)
     # add the sum of all averages between ALL of the merchants
     # divided by number of total merchants
+
     # BigDecimal
   end
 
@@ -67,8 +84,7 @@ class SalesAnalyst
 
   def average_invoices_per_merchant
     # total number of invoices per merchant
-      # add up sums
-    # divided by total number of merchants? (or invoices)
+    # divided by total number of merchants?
   end
 
   def average_invoices_per_merchant_standard_deviation
