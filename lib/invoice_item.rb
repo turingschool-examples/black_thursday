@@ -20,4 +20,9 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f.truncate(2)
   end
+
+  def update_quantity(quantity)
+    @quantity = quantity
+  end 
+
 end
