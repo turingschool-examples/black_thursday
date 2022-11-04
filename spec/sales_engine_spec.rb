@@ -9,37 +9,33 @@ describe SalesEngine do
   let(:data) do
     {
       items: './data/items_test.csv',
-      merchants: './data/merchants_test.csv'
+      merchants: './data/merchants_test.csv',
+      invoice_items: './data/invoice_items_test.csv',
+      invoices: './data/invoices_test.csv',
+      transactions: './data/transactions_test.csv',
+      customers: './data/customer_test.csv'
     }
   end
-  let(:se) { SalesEngine.new(data) }
 
-  # describe '#initialize' do
-  #   it 'instantiates correctly' do
-  #     expect(se).to be_a SalesEngine
-  #     expect(se.repository).to eq(
-  #       {
-  #         items: './data/items_test.csv',
-  #         merchants: './data/merchants_test.csv'
-  #       }
-  #     )
-  #   end
-  # end
+  describe '#initialize' do
+    it 'instantiates correctly' do
+      se = SalesEngine.new(data)
 
-  describe '#self.from_csv' do
-    xit 'reads the csv files to supply data to the repositories' do
-      se = SalesEngine.from_csv(data)
-      i_data = CSV.read './data/items_test.csv', headers: true, header_converters: :symbol
-      m_data = CSV.read './data/merchants_test.csv', headers: true, header_converters: :symbol
-      expect(se.ir_data).to eq(i_data)
-      expect(se.mr_data).to eq(m_data)
+      expect(se).to be_a SalesEngine
     end
   end
 
-  describe '#merchants' do
-    xit 'has a MerchantRepository object instance' do
+  describe '#self.from_csv' do
+    it 'initializes a SalesEngine with data from a hash of CSV file locations' do
       se = SalesEngine.from_csv(data)
+      expect(se).to be_a SalesEngine
+      expect(se.items).to be_a ItemRepository
       expect(se.merchants).to be_a MerchantRepository
+      expect(se.invoice_items).to be_a InvoiceItemRepository
+      expect(se.invoices).to be_a InvoiceRepo
+      expect(se.transactions).to be_a TransactionRepo
+      expect(se.customers).to be_a CustomerRepo
+      # expect(se.analyst).to be_a SalesAnalyst
     end
   end
 end

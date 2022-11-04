@@ -17,23 +17,17 @@ class SalesEngine
               :transactions,
               :customers
 
-  def initialize(ir_data, mr_data, iir_data, invr_data, tr_data, cr_data)
-    @items = ItemRepository.new(ir_data, self)
-    @merchants = MerchantRepository.new(mr_data, self)
-    @invoice_items = InvoiceItemRepository.new(iir_data, self)
-    @invoices = InvoiceRepo.new(invr_data, self)
-    @transactions = TransactionRepo.new(tr_data, self)
-    @customers = CustomerRepo.new(cr_data, self)
+  def initialize(data)
+    @items = ItemRepository.new((CSV.read data[:items], headers: true, header_converters: :symbol), self)
+    @merchants = MerchantRepository.new((CSV.read data[:merchants], headers: true, header_converters: :symbol), self)
+    @invoice_items = InvoiceItemRepository.new((CSV.read data[:invoice_items], headers: true, header_converters: :symbol), self)
+    @invoices = InvoiceRepo.new((CSV.read data[:invoices], headers: true, header_converters: :symbol), self)
+    @transactions = TransactionRepo.new((CSV.read data[:transactions], headers: true, header_converters: :symbol), self)
+    @customers = CustomerRepo.new((CSV.read data[:customers], headers: true, header_converters: :symbol), self)
     # @analyst = SalesAnalyst.new(self)
   end
 
   def self.from_csv(data)
-    ir_data = CSV.read data[:items], headers: true, header_converters: :symbol
-    mr_data = CSV.read data[:merchants], headers: true, header_converters: :symbol
-    iir_data = CSV.read data[:invoice_items], headers: true, header_converters: :symbol
-    invr_data = CSV.read data[:invoices], headers: true, header_converters: :symbol
-    tr_data = CSV.read data[:transactions], headers: true, header_converters: :symbol
-    cr_data = CSV.read data[:customers], headers: true, header_converters: :symbol
-    SalesEngine.new(ir_data, mr_data, iir_data, invr_data, tr_data, cr_data)
+    SalesEngine.new(data)
   end
 end
