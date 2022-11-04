@@ -33,6 +33,10 @@ class InvoiceItemRepository
     new_invoice_item
   end
 
+  def all_ids
+    ids = @invoiceitems.map { |invoiceitem| invoiceitem.id}
+  end 
+
   def delete(id)
     @invoiceitems.delete(find_by_id(id))
   end
