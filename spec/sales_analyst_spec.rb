@@ -63,7 +63,7 @@ RSpec.describe SalesAnalyst do
     end
     
     it '#average_average_price_per_merchant can determine the average price of an item across all merchants' do
-      expect(sales_analyst.average_item_price_for_merchant(1)).to eq(0.7854e2)
+      expect(sales_analyst.average_item_price_for_merchant(1)).to eq(0.7854e2.to_d)
       #this test isn't passing here, but the spec_harness does and I'm not sure why
     end
     
