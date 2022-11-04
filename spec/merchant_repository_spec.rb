@@ -23,10 +23,10 @@ describe MerchantRepository do
 
   describe '#create' do
     it 'creates a Merchant and adds object to @merchants' do
-      expect(mr.repository[0].id).to eq('12334105')
-      expect(mr.repository[1].id).to eq('12334112')
-      expect(mr.repository[2].id).to eq('12334113')
-      expect(mr.repository[3].id).to eq('12334115')
+      expect(mr.repository[0].id).to eq(12334105)
+      expect(mr.repository[1].id).to eq(12334112)
+      expect(mr.repository[2].id).to eq(12334113)
+      expect(mr.repository[3].id).to eq(12334115)
       expect(mr.repository[0].name).to eq('Shopin1901')
       expect(mr.repository[1].name).to eq('Candisart')
       expect(mr.repository[2].name).to eq('MiniatureBikez')
@@ -43,8 +43,8 @@ describe MerchantRepository do
 
   describe '#find_by_id' do
     it 'returns nil or a Merchant instance that matches id' do
-      expect(mr.find_by_id('12334112')).to eq(mr.repository[1])
-      expect(mr.find_by_id('2')).to be nil
+      expect(mr.find_by_id(12334112)).to eq(mr.repository[1])
+      expect(mr.find_by_id(2)).to be nil
     end
   end
 
@@ -65,16 +65,16 @@ describe MerchantRepository do
 
   describe '#update' do
     it 'updates the Merchant instance that matches the id with the provided name' do
-      mr.update('12334115', 'UpdatedMarleys')
-      expect(mr.find_by_id('12334115').name).to eq('UpdatedMarleys')
+      mr.update(12334115, { name: 'UpdatedMarleys' })
+      expect(mr.find_by_id(12334115).name).to eq('UpdatedMarleys')
     end
   end
 
   describe '#delete' do
     it 'removes a Merchant instance with the corresponding id' do
-      mr.delete('12334113')
+      mr.delete(12334113)
       expect(mr.repository.count).to eq(3)
-      expect(mr.repository[2].id).to eq('12334115')
+      expect(mr.repository[2].id).to eq(12334115)
     end
   end
 

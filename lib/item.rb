@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
+require 'time'
+
 # This is the item class
 class Item
   attr_reader :id,
               :name,
               :merchant_id,
-              :description,
-              :created_at,
-              :updated_at
+              :description
 
   def initialize(data, repo)
     @item_repo   = repo
-    @id          = data[:id]
+    @id          = data[:id].to_i
     @name        = data[:name]
     @description = data[:description]
     @created_at  = data[:created_at]
@@ -21,12 +21,28 @@ class Item
   end
 
   def unit_price
-    BigDecimal(@unit_price.to_s, 4)
+    unit_price = @unit_price.to_s
+    if unit_price.length > 1 && !unit_price.include?('.')
+      unit_price = unit_price.chars.insert(-3, '.').join
+    end
+    BigDecimal(unit_price)
+  end
+
+  def created_at
+    return Time.parse(@created_at) if @created_at.is_a? String
+
+    @created_at
+  end
+
+  def updated_at
+    return Time.parse(@updated_at) if @updated_at.is_a? String
+
+    @updated_at
   end
 
   def unit_price_to_dollars
     unit_price = @unit_price.to_s
-    if unit_price.length > 2 && !unit_price.include?('.')
+    if unit_price.length > 1 && !unit_price.include?('.')
       unit_price = unit_price.chars.insert(-3, '.').join
     end
     unit_price.to_f

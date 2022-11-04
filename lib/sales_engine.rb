@@ -6,6 +6,7 @@ require_relative 'merchant_repository'
 require_relative 'invoice_item_repository'
 require_relative 'invoice_repo'
 require_relative 'transaction_repo'
+require_relative 'customer_repo'
 
 # This is the SalesEngine class
 class SalesEngine
@@ -13,14 +14,15 @@ class SalesEngine
               :merchants,
               :invoice_items,
               :invoices,
-              :transactions
+              :transactions,
+              :customers
 
-  def initialize(ir_data, mr_data, iir_data, invr_data, tr_data)
+  def initialize(ir_data, mr_data, iir_data, invr_data, tr_data, cr_data)
     @items = ItemRepository.new(ir_data, self)
     @merchants = MerchantRepository.new(mr_data, self)
-    @invoice_items = InvoiceItemsRepository.new(iir_data, self)
+    @invoice_items = InvoiceItemRepository.new(iir_data, self)
     @invoices = InvoiceRepo.new(invr_data, self)
-    @transactions = TransactionRepo.new(tr_data, self)
+    # @transactions = TransactionRepo.new(tr_data, self)
     @customers = CustomerRepo.new(cr_data, self)
     # @analyst = SalesAnalyst.new(self)
   end

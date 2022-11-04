@@ -9,7 +9,8 @@ describe TransactionRepo do
     filepath = { :transactions => './data/transactions.csv' }.values[0]
     @stats = CSV.readlines(filepath, headers: true, header_converters: :symbol)
     @stats = @stats[0..4]
-    @tr = TransactionRepo.new(@stats)
+    @se = ''
+    @tr = TransactionRepo.new(@stats, @se)
     @transaction1 = @tr.all[0]
     @transaction2 = @tr.all[1]
     @transaction3 = @tr.all[2]
