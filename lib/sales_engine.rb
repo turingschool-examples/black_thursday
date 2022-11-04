@@ -13,8 +13,6 @@ require_relative './customer'
 require_relative './transaction'
 
 class SalesEngine
-  # repo_list = ["merchants","items","invoices","customers"]
-  # repo_list.each { |repo| attr_reader repo.to_sym }
   attr_reader :items, 
               :merchants,
               :invoices, 
