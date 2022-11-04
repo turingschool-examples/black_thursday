@@ -1,5 +1,6 @@
-require './lib/invoiceitem.rb'
+require './lib/invoice_item.rb'
 require 'bigdecimal'
+require 'time'
 
 RSpec.describe InvoiceItem do
   let(:invoice_item) {InvoiceItem.new({
@@ -13,6 +14,7 @@ RSpec.describe InvoiceItem do
                                       })}
 
   it 'exists and takes in info and gives access to them' do
+    @time_now = Time.parse("2022-11-03 18:56:21.000000000 -0700")
     allow(Time).to receive(:now).and_return(@time_now)
 
     expect(invoice_item).to be_a(InvoiceItem)
@@ -20,13 +22,13 @@ RSpec.describe InvoiceItem do
     expect(invoice_item.item_id).to eq(7)
     expect(invoice_item.invoice_id).to eq(8)
     expect(invoice_item.quantity).to eq(1)
-    expect(invoice_item.unit_price).to eq(BigDecimal(10.99, 4))
-    expect(invoice_item.created_at).to eq(Time.now)
-    expect(invoice_item.updated_at).to eq(Time.now)
+    expect(invoice_item.unit_price).to eq(BigDecimal(0.1099, 4))
+    expect(invoice_item.created_at).to eq(@time_now)
+    expect(invoice_item.updated_at).to eq(@time_now)
   end
 
   it 'has a method to return unit price in dollar and cents format' do
-    expect(invoice_item.unit_price_to_dollars).to eq(10.99)
+    expect(invoice_item.unit_price_to_dollars).to eq(0.1099)
   end
 
 end

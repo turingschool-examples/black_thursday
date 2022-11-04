@@ -2,21 +2,23 @@ require './lib/customer'
 require 'time'
 
 RSpec.describe Customer do
-  let(:time) {Time.now}
-  let(:c) {Customer.new({
-    :id => 6,
-    :first_name => "Joan",
-    :last_name => "Clarke",
-    :created_at => time,
-    :updated_at => time
-  })}
 
   it 'exists and has attributes' do
-    expect(c).to be_a Customer
-    expect(c.id).to eq 6
-    expect(c.first_name).to eq "Joan"
-    expect(c.last_name).to eq "Clarke"
-    expect(c.created_at).to eq time
-    expect(c.updated_at).to eq time
+    @time_now = Time.parse("2022-11-03 18:56:21.000000000 -0700")
+    allow(Time).to receive(:now).and_return(@time_now)
+
+    customer = Customer.new({ :id           => 6,
+                              :first_name   => "Joan",
+                              :last_name    => "Clarke",
+                              :created_at   => Time.now,
+                              :updated_at   => Time.now
+                          })
+    
+    expect(customer).to be_a Customer
+    expect(customer.id).to eq 6
+    expect(customer.first_name).to eq "Joan"
+    expect(customer.last_name).to eq "Clarke"
+    expect(customer.created_at).to eq(@time_now)
+    expect(customer.updated_at).to eq(@time_now)
   end
 end

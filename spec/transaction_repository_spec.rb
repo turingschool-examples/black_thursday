@@ -34,8 +34,8 @@ RSpec.describe TransactionRepository do
   it "#find_all_by_result returns all transactions matching given result" do
     transaction_repository.all << transaction
 
-    expect(transaction_repository.find_all_by_result("failed")).to eq []
-    expect(transaction_repository.find_all_by_result("success")).to eq [transaction]
+    expect(transaction_repository.find_all_by_result(:failed)).to eq []
+    expect(transaction_repository.find_all_by_result(:success)).to eq [transaction]
   end
 
   it "#create creates a new transaction instance" do
@@ -52,7 +52,7 @@ RSpec.describe TransactionRepository do
     expect(transaction_repository.all[1]).to be_a(Transaction)
     expect(transaction_repository.all[1].credit_card_number).to eq("4242424242424000")
     expect(transaction_repository.all[1].credit_card_expiration_date).to eq("0230")
-    expect(transaction_repository.all[1].id).to eq(6)
+    expect(transaction_repository.all[1].id).to eq(7)
   end
 
   it "#update updates a transaction" do
