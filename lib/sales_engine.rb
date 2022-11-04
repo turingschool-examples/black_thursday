@@ -30,23 +30,14 @@ class SalesEngine
 
     rows = CSV.open hash_path[:items], headers: true, header_converters: :symbol
     rows.each do |row|
-      # require 'pry'; binding.pry
-      # id = row[:created_at]
-      describe = row[:description].partition("\n")[0]
-      row[:description] = describe
-      # require 'pry'; binding.pry
       new_item = Item.new(row.to_h)
       sales_engine.items.all << new_item
-      # puts row
     end
-    # require 'pry'; binding.pry
-
     sales_engine
   end
 
   def analyst
         @analyst = SalesAnalyst.new(self)
-        # SalesAnalyst.new(self)
         # KR why is analyst an attribute value?
 
   end
