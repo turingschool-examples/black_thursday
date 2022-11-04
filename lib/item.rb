@@ -8,6 +8,7 @@ class Item
                 :name,
                 :description,
                 :unit_price,
+                :created_at,
                 :updated_at
 
   def initialize(attributes, repo = nil)
@@ -15,8 +16,8 @@ class Item
     @name = attributes[:name]
     @description = attributes[:description]
     @unit_price = BigDecimal(attributes[:unit_price], 4) / 100
-    @created_at = Time.parse(attributes[:created_at])
-    @updated_at = Time.parse(attributes[:updated_at])
+    @created_at = time_converter(attributes[:created_at])
+    @updated_at = time_converter(attributes[:updated_at])
     @merchant_id = attributes[:merchant_id].to_i
     @repo = repo
   end
@@ -25,6 +26,10 @@ class Item
     @unit_price.to_f
   end
 
+  def time_converter(attributes)
+    return unless attributes
+    Time.parse(attributes)
+  end
   # def merchant
   #   @repo
   # end
