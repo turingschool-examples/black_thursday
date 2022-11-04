@@ -35,4 +35,20 @@ class SalesAnalyst
     # require 'pry'; binding.pry
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    #  find all items by merchant id
+    # require 'pry'; binding.pry
+    items = sales_engine.items.find_all_by_merchant_id(merchant_id)
+    # require 'pry'; binding.pry
+    if items.empty?
+        BigDecimal(0)
+    else
+    price = BigDecimal(items.inject(0) {|sum, item| sum + unit_price})    # average item price)
+    price / items.count
+    end
+    # items.inject(0)
+    # require 'pry'; binding.pry
+
+  end
+
 end
