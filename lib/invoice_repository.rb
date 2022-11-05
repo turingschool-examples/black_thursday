@@ -5,7 +5,7 @@ class InvoiceRepository
 
   attr_reader :data
 
-  def initialize
+  def initialize(file = nil, engine = nil)
     @data = []
   end
 end
