@@ -125,6 +125,18 @@ RSpec.describe SalesAnalyst do
       sales_analyst = se.analyst
 
       expect(sales_analyst.average_item_price_for_merchant(12334159)).to be_a BigDecimal
+      expect(sales_analyst.average_item_price_for_merchant(12334159).to_f).to eq(31.5)
+
+      sales_analyst.items.create({
+        :name        => "Mike Tyson's Ball Point Pen",
+        :description => "Makes permanent markings",
+        :unit_price  => BigDecimal(30_000.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      expect(sales_analyst.average_item_price_for_merchant(12334159).to_f).to eq(55.91)
+      expect(sales_analyst.average_item_price_for_merchant(12334174).to_f).to eq(30.0)
     end
   end
 
@@ -133,6 +145,17 @@ RSpec.describe SalesAnalyst do
       sales_analyst = se.analyst
 
       expect(sales_analyst.average_average_price_per_merchant).to be_a BigDecimal
+      expect(sales_analyst.average_average_price_per_merchant.to_f).to eq(350.29)
+
+      sales_analyst.items.create({
+        :name        => "Abraham Lincoln's Fountain Pen",
+        :description => "Makes artisinal permanent markings",
+        :unit_price  => BigDecimal(523_300.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+        expect(sales_analyst.average_average_price_per_merchant.to_f).to eq(351.29)
     end
   end
 
