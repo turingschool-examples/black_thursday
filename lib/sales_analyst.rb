@@ -17,17 +17,12 @@ class SalesAnalyst
     avg = average_items_per_merchant
     total_difference = merchants.inject(0) do |sum, merchant|
       merchant_items = sales_engine.items.find_all_by_merchant_id(merchant.id)
-      #   Take the difference between each number and the mean, then square it.
       sum += (merchant_items.count - avg)**2
-      #   ^Sum these square differences together.
     end
     Math.sqrt(total_difference / (merchants.length - 1)).round(2)
-    # Divide the sum by the number of elements minus 1.
-    # Take the square root of this result.
   end
 
   def merchants_with_high_item_count
-    # merchants with 5 or more items
     double = average_items_per_merchant_standard_deviation * 2
     merchants.find_all do |merchant|
       # KR refactor opportunity, 33 same as line 19
