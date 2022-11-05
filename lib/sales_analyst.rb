@@ -230,8 +230,7 @@ class SalesAnalyst
 # end
 
   def merchants_with_only_one_item
-    @merchants.all.collect do |merchant|
-      require 'pry'; binding.pry
+    @merchants.all.find_all do |merchant|
       @items.find_all_by_merchant_id(merchant.id).count == 1
     end
   end
@@ -252,7 +251,7 @@ class SalesAnalyst
       @invoice_items.all.find_all do |invoice_item|
         invoice_item.invoice_id == invoice.id
       end
-    end.flatten.uniq
+    end.flatten
   end
 
   def revenue_by_merchant(merchant_id)
