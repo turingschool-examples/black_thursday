@@ -6,7 +6,7 @@ class MerchantRepository
   end
 
   def create(attributes)
-    attributes[:id] = (@merchants[-1].id + 1) unless merchants[0].nil?
+    attributes[:id] = (@merchants[-1].id + 1) if merchants[0]
     new_merchant = Merchant.new(attributes)
     @merchants << new_merchant
     new_merchant
