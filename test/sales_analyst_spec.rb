@@ -1,7 +1,7 @@
-require 'simplecov'
-SimpleCov.start
-require './lib/sales_engine'
-require './lib/sales_analyst'
+# require 'simplecov'
+# SimpleCov.start
+require_relative '../lib/sales_engine'
+require_relative '../lib/sales_analyst'
 
 RSpec.describe SalesAnalyst do
   let(:sales_engine) do
@@ -9,7 +9,6 @@ RSpec.describe SalesAnalyst do
                            items: './data/items.csv',
                            merchants: './data/merchants.csv'
                          })
-    #  let(:sales_analyst) { sales_engine.analyst }
   end
 
   it 'exists' do
