@@ -132,12 +132,21 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.invoice_quantity_per_merchant).to eq([1, 2])
     end
 
+    it '#merchant_invoice_num returns how many invoices a merchant has' do
+      expect(sales_analyst.merchant_invoice_num(1)).to eq(2)
+      expect(sales_analyst.merchant_invoice_num(2)).to eq(1)
+    end
+
     it '#average_invoices_per_merchant correctly calculates and returns the average invoices per merchant' do
       expect(sales_analyst.average_invoices_per_merchant).to eq(1.5)
     end
 
     it '#average_invoices_per_merchant_standard_deviation calculates and returns the correct value' do
       expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(0.5)
+    end
+
+    xit '#top_merchants_by_invoice_count returns array of merchant objects 2 standard deviations above the mean' do
+      expect(sales_analyst.top_merchants_by_invoice_count).to eq([])
     end
   end
 end
