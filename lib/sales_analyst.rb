@@ -80,19 +80,24 @@ class SalesAnalyst
     avg_price_of_items = (total_price_for_all_items / items_count).round(2)
   end
 
-  def golden_items 
+  def average_standard_deviation_for_all_items
     sum = 0
     sales_engine.items.all.each do |item|
       sum += (item.unit_price - average_price_for_all_items)**2
     end
     items_standard_deviation = Math.sqrt(sum / (items_count - 1)).round(2)
+  end
 
+  def golden_items
     sales_engine.items.all.find_all do |item|
-      item.unit_price > (average_price_for_all_items + (items_standard_deviation * 2))
+      item.unit_price > (average_price_for_all_items + (average_standard_deviation_for_all_items * 2))
     end
   end
 
-    # find_all items that are TWO sd ABOVE the average_item_price_for_all_items
+    # find average_item_price_for_all_items
+      # all item prices / all items count
+    # find all items SD
+    # find all items that are TWO sd ABOVE the average_item_price_for_all_items
     # returns an array of item objects
     # it is an Item Class
 

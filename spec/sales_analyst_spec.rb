@@ -64,9 +64,14 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_average_price_per_merchant.class).to eq(BigDecimal)
   end
   
-  it 'can return average price for all items' do
+  it 'can return an average price for all items' do
     expect(sales_analyst.average_price_for_all_items).to eq(25105.51)
     expect(sales_analyst.average_price_for_all_items.class).to eq(Float)
+  end
+  
+  it 'can return a standard deviation for all items' do
+    expect(sales_analyst.average_standard_deviation_for_all_items).to eq(290099.0)
+    expect(sales_analyst.average_standard_deviation_for_all_items.class).to eq(Float)
   end
 
   it 'can return items that are two standard deviations ABOVE the average ITEM price (golden items)' do
@@ -75,42 +80,42 @@ RSpec.describe SalesAnalyst do
   end
 
   # ======================================= #
-  
+
   xit 'has an average number of invoices per merchant' do
-    expect(sales_analyst.average_invoices_per_merchant).to eq(x.xx)
+    expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
     expect(sales_analyst.average_invoices_per_merchant.class).to eq(Float)
   end
 
   xit 'can return the standard deviation of average number of invoices per merchant' do
-    expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(x.xx)
+    expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation.class).to eq(Float)
   end
 
   xit 'can return the merchant with the highest invoice count' do
-    expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(xx)
+    expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
     expect(sales_analyst.top_merchants_by_invoice_count.first.class).to eq(Merchant)
   end
 
   xit 'can return the merchant with the lowest invoice count' do
-    expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(x)
+    expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
     expect(sales_analyst.bottom_merchants_by_invoice_count.first.class).to eq(Merchant)
   end
 
   xit 'can return the days with the highest invoice count' do
-    expect(sales_analyst.top_days_by_invoice_count.length).to eq(x)
-    expect(sales_analyst.top_days_by_invoice_count.first).to eq("xxDay")
+    expect(sales_analyst.top_days_by_invoice_count.length).to eq(1)
+    expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
     expect(sales_analyst.top_days_by_invoice_count.first.class).to eq(String)
   end
 
   xit 'can return percentage of invoices that are not shipped' do
     sales_analyst.invoice_status(:pending)
-    expect(sales_analyst.invoice_status(:status)).to eq(xx.xx)
+    expect(sales_analyst.invoice_status(:status)).to eq(29.55)
 
     sales_analyst.invoice_status(:pending)
-    expect(sales_analyst.invoice_status(:shipped)).to eq(xx.xx)
+    expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
 
     sales_analyst.invoice_status(:pending)
-    expect(sales_analyst.invoice_status(:returned)).to eq(xx.xx)
+    expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
    
     expect(sales_analyst.invoice).to eq(xx.x)
   end
