@@ -22,6 +22,11 @@ RSpec.describe Customer do
 
       expect(customer.first_name).to eq("Joan")
     end 
+
+    it 'will have a last name' do 
+      
+      expect(customer.last_name).to eq("Clarke")
+    end 
   end 
 end 
     
