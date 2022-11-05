@@ -9,7 +9,7 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
-    if !a_valid_id?()
+    if !a_valid_id?(id)
       return nil
     else
       @invoices.find do |invoice|
@@ -19,7 +19,7 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(id)
-    if !a_valid_id?()
+    if !a_valid_id?(id)
       return nil
     else
       @invoices.find do |invoice|
@@ -32,25 +32,34 @@ class InvoiceRepository
     @invoices.any? do |invoice| invoice.id == id
     end 
   end
+  
+  def a_valid_merchant_id?(id)
+    @invoices.any? do |invoice| invoice.merchant_id == id
+    end 
+  end
 
   def find_all_by_merchant_id(id)
-    if !a_valid_id?()
+    if !a_valid_merchant_id?(id)
       return nil
     else
-      @invoices.find do |invoice|
-        invoice.id == id
+      @invoices.find_all do |invoice|
+        invoice.merchant_id == id
       end
     end
   end
 
-  def find_all_by_status(id)
-    if !a_valid_id?()
-      return nil
-    else
-      @invoices.find do |invoice|
-        invoice.id == id
+  ### I didn't fully finish this, but I figure it's a good start
+  def find_all_by_status(status)
+    ### We could make a "valid status?" method, 
+    ### it would make the string case insensitive, etc.
+
+    # if !a_valid_status?(status)
+    #   return nil
+    # else
+      @invoices.find_all do |invoice|
+        invoice.status == status
       end
-    end
+    # end
   end
 
   def create(attribute)
@@ -91,6 +100,6 @@ class InvoiceRepository
   end
   
     def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 end
