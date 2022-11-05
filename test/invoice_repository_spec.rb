@@ -26,4 +26,33 @@ RSpec.describe InvoiceRepository do
     expect(inv_creation.updated_at).to be_instance_of(Time)
   end
 
+  it 'the repository can return an array of all invoices' do
+    invoice_repo1 = InvoiceRepository.new
+    inv_creation1 = invoice_repo1.create ({
+                          id: 1,
+                          customer_id: 1,
+                          merchant_id: 12335938,
+                          status: "pending",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
+    inv_creation2 = invoice_repo1.create ({
+                          id: 3,
+                          customer_id: 5,
+                          merchant_id: 12333135231,
+                          status: "pending",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
+    inv_creation3 = invoice_repo1.create ({
+                          id: 6,
+                          customer_id: 8,
+                          merchant_id: 1233635,
+                          status: "shipped",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
+    expect(invoice_repo1.all).to eq([inv_creation1, inv_creation2, inv_creation3])
+  end
+
 end
