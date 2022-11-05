@@ -75,6 +75,12 @@ class SalesAnalyst
 
   # Helper methods
 
+  def find_customer_by_id(cust_id)
+    @customers.all.find do |cust|
+      cust.id == cust_id
+    end
+  end
+
   def customer_spent(cust_id)
     sum = 0
     customer_invoices(cust_id).each do |cust_inv|
@@ -82,6 +88,7 @@ class SalesAnalyst
       # cust_inv.status != :returned ? invoice_revenue(cust_inv.id) : 0
       invoice_paid_in_full?(cust_inv.id) ? sum += invoice_revenue(cust_inv.id) : 0
     end
+    sum
   end
 
   def customer_invoices(cust_id)

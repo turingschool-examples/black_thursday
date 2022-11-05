@@ -63,7 +63,6 @@ RSpec.describe SalesAnalyst do
 
   describe '#top_buyers' do
     it 'returns the top x buyers' do
-      # require 'pry'; binding.pry
       expect(sales_analyst.top_buyers).to eq []
     end
     xit 'returns the top 20 buyers by default' do
@@ -71,11 +70,17 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  describe '#find_customer_by_id' do
+    it 'returns a Customer object matching given id' do
+      expected = sales_analyst.find_customer_by_id(1)
+      expect(expected).to eq sales_analyst.customers.all[0]
+    end
+  end
+
   describe '#customer_spent' do
     it 'returns how much a customer has spent' do
       expected = sales_analyst.customer_spent(1)
-      require 'pry'; binding.pry
-      expect(expected).to eq(120881.31)
+      expect(expected).to eq 88758.65
     end
   end
 
