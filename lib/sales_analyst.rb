@@ -67,7 +67,17 @@ class SalesAnalyst
     end
   end
 
+  def top_buyers
+    # @invoice_items.all
+  end
+
   # Helper methods
+
+  def customer_invoices(cust_id)
+    @invoices.all.find_all do |invoice|
+      invoice.customer_id == cust_id
+    end
+  end
 
   def invoice_revenue(invoice_id)
     invoice_items_by_invoice_id(invoice_id).sum do |invoice_item|
