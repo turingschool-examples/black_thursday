@@ -35,4 +35,33 @@ module RepoQueries
       datum.merchant_id == merchant_id
     end
   end
+
+  def sanitized_attributes(attributes)
+    {
+      name:        attributes[:name],
+      description: attributes[:description],
+      unit_price:  attributes[:unit_price],
+      merchant_id: attributes[:merchant_id]
+    }
+  end
+
+  def increment_id(datum)
+    datum.id = all.max_by do |datum|
+      datum.id
+    end.id + 1
+  end
+
+  def time_stamp(datum)
+    return if datum.class == Merchant 
+    datum.created_at = Time.now
+    datum.updated_at = Time.now
+  end
+
+  def create(attributes)
+    datum = child.new(sanitized_attributes(attributes))
+    increment_id(datum)
+    time_stamp(datum)
+    all << datum
+    datum
+  end
 end
