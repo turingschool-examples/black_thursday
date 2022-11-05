@@ -29,4 +29,10 @@ module RepoQueries
       data << child.new(row, self)
     end
   end
+
+  def find_all_by_merchant_id(merchant_id)
+    all.find_all do |datum|
+      datum.merchant_id == merchant_id
+    end
+  end
 end
