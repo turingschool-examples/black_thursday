@@ -35,7 +35,12 @@ class ItemRepository < GeneralRepo
   end
 
   def average_price
-    prices = @repository.map { |item | item.unit_price_to_dollars }
+    prices = @repository.map { |item | item.unit_price_to_dollars } # dupe
     average(prices.sum, prices.count)
+  end
+
+  def average_price_standard_deviation
+    prices = @repository.map { |item | item.unit_price_to_dollars } # dupe
+    deviation(prices, average_price)
   end
 end
