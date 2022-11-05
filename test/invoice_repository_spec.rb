@@ -161,4 +161,20 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo1.find_all_by_status("shipped")).to eq([inv_creation3])
     expect(invoice_repo1.find_all_by_status("only Joseph knows")).to eq([])
   end
+
+  it 'repository can update the status of an invoice' do
+    invoice_repo1 = InvoiceRepository.new
+    inv_creation1 = invoice_repo1.create ({
+                          id: 1,
+                          customer_id: 1,
+                          merchant_id: 12335938,
+                          status: "pending",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
+    expect(inv_creation1.status).to eq(:pending)
+
+    invoice_repo1.update(1, status: :shipped)
+    expect(inv_creation1.status).to eq(:shipped)
+  end
 end
