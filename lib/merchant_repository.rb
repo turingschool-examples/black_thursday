@@ -29,21 +29,23 @@ class MerchantRepository
     end
   end
 
-  def create(merchant_name)
-    merchant = Merchant.new({ id: max_id, name: merchant_name })
-    add_merchant_to_repo(merchant)
-    merchant
+  def create(attributes)
+    attributes[:id] = max_id
+    add_merchant_to_repo(Merchant.new(attributes))
   end
 
   def max_id
     max = @all.max_by(&:id)
     return 1 if max.nil?
 
-    max.id + 1
+    (max.id + 1)
   end
 
-  def update(id, new_name)
-    find_by_id(id).name = new_name
+  def update(id, attributes)
+    return nil if find_by_id(id).nil?
+
+    name = attributes[:name]
+    find_by_id(id).name = name
   end
 
   def delete(id)

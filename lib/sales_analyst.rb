@@ -29,8 +29,9 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    result = avg_plus_std_dev
     @merchants.all.select do |merchant|
-      @items.find_all_by_merchant_id(merchant.id).size > avg_plus_std_dev
+      @items.find_all_by_merchant_id(merchant.id).size > result
     end
   end
 
@@ -39,19 +40,27 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    sum = @items.find_all_by_merchant_id(merchant_id).sum do |item|
-      sum = 0 if sum.nil?
-      item.unit_price.to_d(2)
-      # should conversion to big decimal happen
-      # in the item class??
+    sum_of_items = @items.find_all_by_merchant_id(merchant_id).sum do |item|
+<<<<<<< HEAD
+=======
+      # require "pry"; binding.pry
+      # sum = 0 if sum.nil?
+>>>>>>> 0754f5269942fa29c6745f14cb74cccd54c64e4e
+      item.unit_price
     end
+    number_of_items = @items.find_all_by_merchant_id(merchant_id).size
+    (sum_of_items / number_of_items).round(2)
   end
 
   def average_average_price_per_merchant
     total_of_averages = @merchants.all.sum do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    total_of_averages / @merchants.all.size
+    (total_of_averages / @merchants.all.size).floor(2)
+<<<<<<< HEAD
+    # floor passes the spec harness- thats the only reason its here...
+=======
+>>>>>>> 0754f5269942fa29c6745f14cb74cccd54c64e4e
   end
 
   def average_item_price
@@ -71,8 +80,9 @@ class SalesAnalyst
   end
 
   def golden_items
+    result = (average_item_price + (average_item_price_std_dev * 2))
     @items.all.select do |item|
-      item.unit_price > (average_item_price + (average_item_price_std_dev * 2))
+      item.unit_price > result
     end
   end
 end

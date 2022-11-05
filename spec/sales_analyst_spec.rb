@@ -41,7 +41,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#merchants_with_high_item_count' do
-    xit 'returns merchants who are more than one standard deviation above average items offered' do
+    it 'returns merchants who are more than one standard deviation above average items offered' do
       sales_analyst = se.analyst
 
       sales_analyst.merchants_with_high_item_count.each do |merchant|
