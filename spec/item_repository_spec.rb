@@ -59,6 +59,20 @@ RSpec.describe ItemRepository do
     end
   end
 
+  describe '#add_to_repo()' do
+    it 'adds items to @all' do
+      expect(ir.all).not_to include(item_1)
+
+      ir.add_to_repo(item_1)
+
+      expect(ir.all).to include(item_1)
+
+      ir.add_to_repo(item_2)
+
+      expect(ir.all).to include(item_1, item_2)
+    end
+  end
+
   describe '#find_by_id()' do
     it 'finds an instance of Item with matching ID' do
       ir.add_to_repo(item_1)
@@ -86,7 +100,7 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_with_description("You can use it to write things")).to eq([item_1])
     end
   end
-  
+
   describe '#find_all_by_price()' do
     it 'finds an instance of Item by price' do
       ir.add_to_repo(item_1)
@@ -135,7 +149,7 @@ RSpec.describe ItemRepository do
         :unit_price  => BigDecimal(2.99,4),
         :created_at  => Time.now,
         :updated_at  => Time.now,
-        :merchant_id => 2})      
+        :merchant_id => 2})
 
       ir.create({
         :name        => "Scissors",
@@ -143,13 +157,13 @@ RSpec.describe ItemRepository do
         :unit_price  => BigDecimal(7.99,4),
         :created_at  => Time.now,
         :updated_at  => Time.now,
-        :merchant_id => 2})      
+        :merchant_id => 2})
 
       expect(ir.all[1].id).to eq(2)
       expect(ir.all[2].id).to eq(3)
       expect(ir.all[1].name).to eq("Eraser")
       expect(ir.all[2].name).to eq("Scissors")
-      expect(ir.all[1]).to be_a(Item) 
+      expect(ir.all[1]).to be_a(Item)
     end
   end
 
@@ -159,7 +173,7 @@ RSpec.describe ItemRepository do
       ir.add_to_repo(item_2)
       ir.add_to_repo(item_3)
 
-      expect(ir.all.first.name).to eq("Pencil") 
+      expect(ir.all.first.name).to eq("Pencil")
       expect(ir.all.first.unit_price).to eq(10.99)
       expect(ir.all.first.description).to eq("You can use it to write things")
       expect(ir.all.first.created_at).to eq(ir.all.first.updated_at)
@@ -170,7 +184,7 @@ RSpec.describe ItemRepository do
         :unit_price  => BigDecimal(5.99,4),
         })
 
-      expect(ir.all.first.name).to eq("Mechanical Pencil") 
+      expect(ir.all.first.name).to eq("Mechanical Pencil")
       expect(ir.all.first.unit_price).to eq(5.99)
       expect(ir.all.first.description).to eq("Writes things with replaceable lead")
 
@@ -183,7 +197,7 @@ RSpec.describe ItemRepository do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
       ir.add_to_repo(item_3)
-      
+
       expect(ir.all.count).to eq(3)
 
       ir.delete(1)
