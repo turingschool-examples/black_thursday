@@ -28,4 +28,18 @@ RSpec.describe Invoice do
       expect(invoice_2.customer_id).to eq(2)
     end
   end
+
+  describe '#merchant_id' do 
+    it 'returns the merchant id' do 
+      expect(invoice_1.merchant_id).to eq(8)
+      expect(invoice_2.merchant_id).to eq(3)
+    end
+  end
+
+  describe '#status' do 
+    it 'returns the status' do 
+      expect(invoice_1.status).to eq("pending")
+      expect(invoice_2.status).to eq("shipped")
+    end
+  end
 end
