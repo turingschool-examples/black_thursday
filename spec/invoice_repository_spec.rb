@@ -167,4 +167,46 @@ RSpec.describe InvoiceRepository do
       expect(ivr.all).to eq([i1,i2,i3])
       expect(ivr.find_all_by_status('pending')).to eq([i1,i2])
   end
+
+  it 'can create a new invoice' do
+    ivr = InvoiceRepository.new
+      i1 = Invoice.new(
+        :id          => 6,
+        :customer_id => 8,
+        :merchant_id => 8,
+        :status      => 'pending',
+        :created_at  => created = Time.now.to_s,
+        :updated_at  => updated = Time.now.to_s
+      )
+      i2 = Invoice.new(
+        :id          => 5,
+        :customer_id => 8,
+        :merchant_id => 8,
+        :status      => 'pending',
+        :created_at  => created = Time.now.to_s,
+        :updated_at  => updated = Time.now.to_s
+      )
+      i3 = Invoice.new(
+        :id          => 7,
+        :customer_id => 9,
+        :merchant_id => 10,
+        :status      => 'completed',
+        :created_at  => created = Time.now.to_s,
+        :updated_at  => updated = Time.now.to_s
+      )
+
+      ivr.all.push(i1,i2,i3)
+
+      ivr.create(
+        :id          => 7,
+        :customer_id => 9,
+        :merchant_id => 10,
+        :status      => 'completed',
+        :created_at  => created = Time.now.to_s,
+        :updated_at  => updated = Time.now.to_s
+      )
+
+      expect(ivr.all[-1].id).to eq(8)
+      expect(ivr.all[-1].id).to be_a(Invoice)
+  end
 end
