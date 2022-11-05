@@ -19,9 +19,9 @@ RSpec.describe Repository do
       expect(repository.all).to eq([invoice_1, invoice_2])
     end
   end
-  
+
   describe '#find_by_id' do
-    it 'returns an instance of invoice with matching id' do
+    it 'returns an instance of merchant with matching id' do
       merchant_1 = double({ id: 6, name: 'Walmart' })
       merchant_2 = double({ id: 7, name: 'Target' })
       repository.add_to_repo(merchant_1)
@@ -32,4 +32,22 @@ RSpec.describe Repository do
       expect(repository.find_by_id(1)).to eq(nil)
     end
   end
+
+  describe '#delete' do
+    it 'delete the merchant id with matching id' do
+      merchant_1 = double({ id: 6, name: 'Walmart' })
+      merchant_2 = double({ id: 7, name: 'Target' })
+      repository.add_to_repo(merchant_1)
+      repository.add_to_repo(merchant_2)
+
+      repository.delete(6)
+
+      expect(repository.all).to eq(merchant_2)
+
+      repository.delete(1)
+      
+      expect(repository.all).to eq(merchant_2)
+    end
+  end
+
 end
