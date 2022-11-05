@@ -9,11 +9,11 @@ class InvoiceRepo < GeneralRepo
     super('Invoice', data, engine)
   end
 
-  def find_by_customer_id(id)
+  def find_all_by_customer_id(id)
     @repository.select { |invoice| invoice.customer_id == id.to_s }
   end
 
-  def find_by_merchant_id(id)
+  def find_all_by_merchant_id(id)
     @repository.select { |invoice| invoice.merchant_id == id.to_s }
   end
 
