@@ -1,8 +1,8 @@
 # require 'simplecov'
 # SimpleCov.start
-require './lib/merchant_repository'
-require './lib/merchant'
-require './lib/sales_engine'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/merchant'
+require_relative '../lib/sales_engine'
 require 'pry'
 
 RSpec.describe SalesEngine do

@@ -1,4 +1,6 @@
-require './lib/merchant'
+# require 'simplecov'
+# SimpleCov.start
+require_relative '../lib/merchant'
 
 RSpec.describe Merchant do
   let(:merchant) { Merchant.new({ id: 5, name: 'Turing School' })}

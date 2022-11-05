@@ -1,7 +1,7 @@
 # require 'simplecov'
 # SimpleCov.start
-require './lib/merchant'
-require './lib/merchant_repository'
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
   let(:merch_repo) {MerchantRepository.new}
