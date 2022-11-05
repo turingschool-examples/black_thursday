@@ -28,6 +28,15 @@ let (:customer_3) {Customer.new({:id => 8,
       expect(customer_repo).to be_a(CustomerRepository)
     end 
   end 
+
+  describe '#all' do 
+    it 'will return all of the customers' do 
+      customers = [customer_1, customer_2, customer_3]
+      customer_repo = CustomerRepository.new(customers)
+      
+      expect(customer_repo.all).to eq([customer_1, customer_2, customer_3])
+    end 
+  end 
 end 
 
      
