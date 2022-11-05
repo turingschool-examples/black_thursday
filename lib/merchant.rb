@@ -1,3 +1,5 @@
+require_relative 'require_store'
+
 class Merchant
   attr_accessor :id,
               :name

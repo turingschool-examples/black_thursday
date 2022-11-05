@@ -1,6 +1,4 @@
-require 'bigdecimal'
-require 'bigdecimal/util'
-require 'time'
+require_relative 'require_store'
 
 class InvoiceItem
   attr_accessor :id,
