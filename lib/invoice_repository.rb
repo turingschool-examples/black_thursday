@@ -30,6 +30,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_customer_id(customer_id)
+    invoice_repo.select do |invoice|
+        invoice.customer_id == customer_id
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@invioce_repo.size} rows>"
   end
