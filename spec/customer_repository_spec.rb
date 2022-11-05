@@ -20,11 +20,10 @@ let (:customer_3) {Customer.new({:id => 8,
   :updated_at => Time.now
 })}
 
-  customers = [customer_1, customer_2, customer_3]
-  customer_repo = CustomerRepository(customers)
-
   describe '#initialize' do 
     it 'will exist' do 
+      customers = [customer_1, customer_2, customer_3]
+      customer_repo = CustomerRepository.new(customers)
 
       expect(customer_repo).to be_a(CustomerRepository)
     end 
