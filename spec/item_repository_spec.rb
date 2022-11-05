@@ -120,7 +120,7 @@ describe ItemRepository do
 
   describe '#average_price_standard_deviation' do
     it 'calculates the standard_deviation' do
-      expect(@ir.average_price_standard_deviation).to eq(2)
+      expect(@ir.average_price_standard_deviation).to eq(8.716393749710942)
     end
   end
 end
