@@ -91,4 +91,24 @@ RSpec.describe SalesEngine do
       expect(invoice_repo.find_by_id(123123123)).to eq(nil)
     end
   end
+  
+  describe '#create_invoice_item_repo' do
+    it 'creates an invoice item repository object and stores in instance variable' do
+      se = SalesEngine.from_csv({
+        :invoice_items => './data/invoice_items.csv'})
+      invoice_item_repo = se.invoice_items
+
+      expect(invoice_item_repo).to be_a(InvoiceItemRepository)
+    end
+    
+    it 'contains the data from the csv file' do
+      se = SalesEngine.from_csv({
+        :invoice_items => './data/invoice_items.csv'})
+      invoice_item_repo = se.invoice_items
+
+      expect(invoice_item_repo.find_by_id(1)).to be_a(InvoiceItem)
+      expect(invoice_item_repo.find_by_id(720)).to be_a(InvoiceItem)
+      expect(invoice_item_repo.find_by_id(123123123)).to eq(nil)
+    end
+  end
 end
