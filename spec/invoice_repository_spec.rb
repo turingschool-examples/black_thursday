@@ -1,6 +1,7 @@
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice'
 require_relative '../lib/merchant'
+require_relative '../lib/sales_engine'
 
 RSpec.describe InvoiceRepository do
   it 'exists' do
@@ -101,6 +102,13 @@ RSpec.describe InvoiceRepository do
 
       expect(ivr.all).to eq([])
     end
+  end
+
+  it 'can have an engine' do
+    se = SalesEngine.new({:invoices => "./data/invoices.csv"})
+    ivr = InvoiceRepository.new(nil, se)
+
+    expect(ivr.engine).to be_a(SalesEngine)
   end
 
   it 'can find invoices by customer id' do
@@ -225,7 +233,7 @@ RSpec.describe InvoiceRepository do
   
       ivr.all << i 
       expect(i.updated_at).to eq(Time.parse(updated))
-      
+
       ivr.update(6, status: "completed")
 
       expect(i.status).to eq("completed")
