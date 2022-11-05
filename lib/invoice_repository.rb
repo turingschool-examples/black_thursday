@@ -1,4 +1,6 @@
 class InvoiceRepository
+  attr_reader :invoices
+
   def initialize(invoices, engine)
     @invoices = create_invoices(invoices)
     @engine = engine
@@ -95,7 +97,7 @@ class InvoiceRepository
     end
   end
   
-    def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
+  #   def inspect
+  #   "#<#{self.class} #{@merchants.size} rows>"
+  # end
 end
