@@ -46,6 +46,16 @@ let (:customer_3) {Customer.new({:id => 8,
       expect(customer_repo.find_by_id(6)).to eq(customer_1)
     end 
   end 
+
+  describe "#find_all_by_first_name" do 
+    it 'will return all customers with the first name' do 
+      customers = [customer_1, customer_2, customer_3]
+      customer_repo = CustomerRepository.new(customers)
+
+      expect(customer_repo.find_all_by_first_name("Joan")).to eq([customer_1])
+      expect(customer_repo.find_all_by_first_name("Larry")).to eq([])
+    end 
+  end 
 end 
 
      
