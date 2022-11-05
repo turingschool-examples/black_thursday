@@ -111,4 +111,10 @@ describe ItemRepository do
       expect(@ir.all).to eq([@item2, @item3, @item4, @item5])
     end
   end
+
+  describe '#average_price' do
+    it 'returns the average price of all items' do
+      expect(@ir.average_price.round(3)).to eq(15.098)
+    end
+  end
 end
