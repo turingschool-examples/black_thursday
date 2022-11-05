@@ -7,7 +7,7 @@ require 'pry'
 RSpec.describe InvoiceRepository do
   it 'exists and has attributes' do
     invoice_repo1 = InvoiceRepository.new
-    invoice_repo1.create ({
+    inv_creation = invoice_repo1.create ({
                           id: 1,
                           customer_id: 1,
                           merchant_id: 12335938,
@@ -17,7 +17,7 @@ RSpec.describe InvoiceRepository do
                           })
 
     expect(invoice_repo1).to be_instance_of(InvoiceRepository)
-    expect(invoice_repo1.create).to be_instance_of(Invoice)
+    expect(inv_creation).to be_instance_of(Invoice)
   end
 
 end
