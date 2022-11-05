@@ -20,4 +20,10 @@ class InvoiceRepo < GeneralRepo
   def find_all_by_status(status)
     @repository.select { |invoice| invoice.status == status }
   end
+
+  def invoice_status(type)
+    count = find_all_by_status(type.to_s).count
+    total = all.count
+    percent(count, total)
+  end
 end

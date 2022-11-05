@@ -53,6 +53,14 @@ RSpec.describe InvoiceRepo do
     end
   end
 
+  describe '#invoice_status' do
+    it 'returns an float representing the percent of matches to status type symbol passed' do
+      expect(ir.invoice_status(:shipped)).to eq 40.0
+      expect(ir.invoice_status(:shipped)).to be_a Float
+      expect(0..100).to include(ir.invoice_status(:shipped))
+    end
+  end
+
   describe '#create' do
     it 'creates an Invoice with the provided attributes, new id is current highest + 1' do
       expect(ir.create({

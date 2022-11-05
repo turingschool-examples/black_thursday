@@ -33,17 +33,14 @@ include Calculable
     end
   end
 
-  # Fetches items owned by merchant
   def _invoices
     @_invoices ||= @merchant_repo.engine.invoices.find_by_merchant_id(@id)
   end
 
-  # Returns number of items owned by merchant.
   def invoice_count
     _invoices.count
   end
   
-  # Returns the avrg price of the merchants items.
   def avg_item_price
     average(item_prices.sum, item_count)
   end

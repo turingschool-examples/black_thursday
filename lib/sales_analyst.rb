@@ -48,4 +48,8 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     @engine.merchants.bottom_merchants_by_invoice_count
   end
+
+  def invoice_status(type)
+    @engine.invoices.invoice_status(type)
+  end
 end

@@ -87,4 +87,12 @@ RSpec.describe SalesAnalyst do
       end
     end
   end
+
+  describe '#invoice_status' do
+    it 'returns an percent value for invoice objects that match the type symbol passed' do
+      expected = analyst.invoice_status(:shipped)
+      expect(expected).to be_a Float
+      expect(0..100).to include(expected)
+    end
+  end
 end
