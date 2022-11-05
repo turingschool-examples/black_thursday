@@ -9,9 +9,7 @@ class InvoiceItemRepository
   end
 
   def create(attributes)
-    if invoice_items.last.nil? == false
-      attributes[:id] = (@invoice_items.last.id + 1)
-    end
+    attributes[:id] = (@invoice_items.last.id + 1) if invoice_items.last.nil? == false
     new_invoice_item = InvoiceItem.new(attributes)
     @invoice_items << new_invoice_item
     new_invoice_item
@@ -30,7 +28,7 @@ class InvoiceItemRepository
   end
 
   def find_all_by_invoice_id(id)
-    invoice_items.select { |invoice_item| invoice_item.invoice_id == id}
+    invoice_items.select { |invoice_item| invoice_item.invoice_id == id }
   end
 
   def update(id, attributes)
@@ -38,6 +36,6 @@ class InvoiceItemRepository
   end
 
   def delete(id)
-    invoice_items.delete_if{|invoice_item| invoice_item.id. == id }
+    invoice_items.delete_if { |invoice_item| invoice_item.id.== id }
   end
 end
