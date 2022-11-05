@@ -1,6 +1,4 @@
-require 'bigdecimal'
-require 'bigdecimal/util'
-require 'time'
+require_relative 'require_store'
 
 class Item
   attr_accessor :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id

@@ -4,10 +4,7 @@ require "spec_helper_2"
 
 RSpec.describe CustomerRepository do
   it 'exists and has no customers by default' do
-    cust = CustomerRepository.new
-
-    expect(cust).to be_a(CustomerRepository)
-    expect(cust.customers).to eq([])
+    expect(engine.customers).to be_a(CustomerRepository)
   end
 
   # find_by_id - returns either nil or an instance of Customer with a matching ID
