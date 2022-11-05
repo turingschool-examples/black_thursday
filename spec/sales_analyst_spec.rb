@@ -42,7 +42,7 @@ RSpec.describe SalesAnalyst do
       )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.diff_and_square(sales_analyst.item_amount)).to eq([1,0,1])
+    expect(sales_analyst.diff_and_square(sales_analyst.item_amount, sales_analyst.average_items_per_merchant)).to eq([1,0,1])
   end
 
   it "gets the sum from #diff_and_square" do
@@ -53,7 +53,7 @@ RSpec.describe SalesAnalyst do
       )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.diff_and_square_sum(sales_analyst.item_amount)).to eq(2)
+    expect(sales_analyst.diff_and_square_sum(sales_analyst.item_amount, sales_analyst.average_items_per_merchant)).to eq(2)
 
   end
 
@@ -65,7 +65,7 @@ RSpec.describe SalesAnalyst do
       )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.divide_diff_and_square_sum(sales_analyst.item_amount)).to eq(1)
+    expect(sales_analyst.divide_diff_and_square_sum(sales_analyst.item_amount, sales_analyst.average_items_per_merchant)).to eq(1)
   end
 
   it 'returns the standard deviation' do
@@ -154,7 +154,7 @@ RSpec.describe SalesAnalyst do
       sales_analyst = sales_engine.analyst
       sales_analyst.all_merchant_prices
 
-      expect(sales_analyst.average_item_price_std_dev).to eq()
+      expect(sales_analyst.average_item_price_std_dev).to eq(0.43)
   end
 
   it 'finds the item prices of a merchant by its id' do
@@ -180,7 +180,7 @@ RSpec.describe SalesAnalyst do
   end
 
 
-  xit 'returns golden items' do
+  it 'returns golden items' do
     sales_engine = SalesEngine.from_csv(
 
       :items     => './data/items_test.csv',
