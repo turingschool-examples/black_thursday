@@ -13,6 +13,7 @@ class Item
               :merchant_id
 
   def initialize(info)
+    # require 'pry'; binding.pry
     @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
@@ -25,6 +26,7 @@ class Item
   def to_price(price)
     p = BigDecimal(price, 4)
     (p / 100) if (p % 1).zero?
+    p
   end
 
   def to_time(time)
