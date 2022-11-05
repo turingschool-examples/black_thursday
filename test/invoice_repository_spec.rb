@@ -87,8 +87,16 @@ RSpec.describe InvoiceRepository do
                           created_at: Time.now,
                           updated_at: Time.now
                           })
+    inv_creation3 = invoice_repo1.create ({
+                          id: 6,
+                          customer_id: 5,
+                          merchant_id: 1233635,
+                          status: "shipped",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
     expect(invoice_repo1.find_all_by_customer_id(1)).to eq([inv_creation1])
-    expect(invoice_repo1.find_all_by_customer_id(5)).to eq([inv_creation2])
+    expect(invoice_repo1.find_all_by_customer_id(5)).to eq([inv_creation2, inv_creation3])
     expect(invoice_repo1.find_all_by_customer_id(18)).to eq([])
   end
 
@@ -110,8 +118,16 @@ RSpec.describe InvoiceRepository do
                           created_at: Time.now,
                           updated_at: Time.now
                           })
-    expect(invoice_repo1.find_all_by_merchant_id(1)).to eq([inv_creation1])
+    inv_creation3 = invoice_repo1.create ({
+                          id: 6,
+                          customer_id: 1,
+                          merchant_id: 1233635,
+                          status: "shipped",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
+    expect(invoice_repo1.find_all_by_merchant_id(1)).to eq([inv_creation1], [inv_creation3])
     expect(invoice_repo1.find_all_by_merchant_id(5)).to eq([inv_creation2])
-    expect(invoice_repo1.find_all_by_merchant_id(18)).to eq([])
+    expect(invoice_repo1.find_all_by_merchant_id(765)).to eq([])
   end
 end
