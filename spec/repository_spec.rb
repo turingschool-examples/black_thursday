@@ -19,7 +19,7 @@ RSpec.describe Repository do
       expect(repository.all).to eq([invoice_1, invoice_2])
     end
   end
-
+  
   describe '#find_by_id' do
     it 'returns an instance of invoice with matching id' do
       merchant_1 = double({ id: 6, name: 'Walmart' })
