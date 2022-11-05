@@ -92,7 +92,7 @@ RSpec.describe ItemRepository do
                     description: 'You can use it to paint things',
                     unit_price: BigDecimal(12.99, 4)
                   })
-      expect(repo.find_by_id(1).name).to eq('paint brush')
+      expect(repo.find_by_id(1).name).to eq('Paint Brush')
     end
 
     it 'deletes item by id' do

@@ -91,8 +91,12 @@ RSpec.describe MerchantRepository do
     merchant1 = merch_repo.create({:id => 5, :name => "Turing School"})
 
     expect(merchant1.name).to eq("Turing School")
-   
-    merch_repo.update(5, "Different School")
+  #  require 'pry'; binding.pry
+    attributes = {
+      id: 5,
+      name: "Different School"
+    }
+    merch_repo.update(5, {:name => "Different School"})
  
     expect(merchant1.name).to eq("Different School")
   end
