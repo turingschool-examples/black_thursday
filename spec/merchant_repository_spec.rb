@@ -128,7 +128,7 @@ describe MerchantRepository do
       invoices = double('invoice_repo')
       allow(mr).to receive(:engine).and_return(engine)
       allow(engine).to receive(:invoices).and_return(invoices)
-      allow(invoices).to receive(:find_by_merchant_id).and_return(['invoice1', 'invoice2'])
+      allow(invoices).to receive(:find_all_by_merchant_id).and_return(['invoice1', 'invoice2'])
 
       expect(mr.number_of_invoices_per_merchant).to eq [2, 2, 2, 2]
     end

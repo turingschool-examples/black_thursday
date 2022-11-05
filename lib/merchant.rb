@@ -34,7 +34,7 @@ include Calculable
   end
 
   def _invoices
-    @_invoices ||= @merchant_repo.engine.invoices.find_by_merchant_id(@id)
+    @_invoices ||= @merchant_repo.engine.invoices.find_all_by_merchant_id(@id)
   end
 
   def invoice_count

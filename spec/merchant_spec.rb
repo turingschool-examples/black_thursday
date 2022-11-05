@@ -87,7 +87,7 @@ describe Merchant do
       merchant = Merchant.new({ id: 5, name: 'Turing School' }, merch_repo)
       allow(merch_repo).to receive(:engine).and_return(engine)
       allow(engine).to receive(:invoices).and_return(invoice_repo)
-      allow(invoice_repo).to receive(:find_by_merchant_id).and_return(['invoice1', 'invoice2'])
+      allow(invoice_repo).to receive(:find_all_by_merchant_id).and_return(['invoice1', 'invoice2'])
       expect(merchant._invoices).to eq ['invoice1', 'invoice2']
     end
   end
