@@ -68,14 +68,19 @@ class SalesAnalyst
   end
 
   def top_buyers
-    @invoice_items.all
+    @customers.all.sort_by do |cust|
+      customer_spent(cust.id)
+    end.reverse![0..4]
   end
 
   # Helper methods
 
   def customer_spent(cust_id)
-    customer_invoices(cust_id).sum do |cust_inv|
-      invoice_revenue(cust_inv.id)
+    sum = 0
+    customer_invoices(cust_id).each do |cust_inv|
+      # require 'pry'; binding.pry
+      # cust_inv.status != :returned ? invoice_revenue(cust_inv.id) : 0
+      invoice_paid_in_full?(cust_inv.id) ? sum += invoice_revenue(cust_inv.id) : 0
     end
   end
 
@@ -220,16 +225,17 @@ class SalesAnalyst
     days_of_week
   end
 
-  def find_transaction_by_invoice_id(invoice_id)
-    transactions.all.find do |transaction|
+  def find_transactions_by_invoice_id(invoice_id) # there can be multiple transactions per invoice
+    transactions.all.find_all do |transaction|
       transaction.invoice_id == invoice_id
-    end.result
+    end
   end
 
 
   def invoice_paid_in_full?(invoice_id)
-    find_transaction_by_invoice_id(invoice_id) == :success
-    # invoices.find_by_
+    find_transactions_by_invoice_id(invoice_id).any? do |transaction|
+      transaction.result == :success
+    end
   end
 
   def find_invoice_item_by_invoice_id(invoice_id) 
