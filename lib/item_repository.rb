@@ -52,7 +52,6 @@ class ItemRepository
   end
 
   def create(attributes)
-    # require 'pry'; binding.pry
     attributes[:id] ||= new_id(attributes)
     new_item = Item.new(attributes)
     @items << new_item
