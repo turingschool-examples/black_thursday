@@ -38,6 +38,13 @@ class TransactionRepository
     end
   end
 
+  def find_all_by_result(result)
+    result.to_sym
+    @transactions.find_all do |transaction|
+      transaction.result == result
+    end
+  end
+
   def create(attributes)
     new_id = @transactions.last.id + 1
     @transactions << Transaction.new({ :id => new_id, 
@@ -49,14 +56,11 @@ class TransactionRepository
                                       :updated_at => Time.now}, self)
   end
 
-  # def update(id, attribute)
-  #   @transaction.each do |transaction|
-  #     if transaction.id == id
-  #       transaction_new_status = transaction.name.replace(attribute)
-  #       return transaction_new_status
-  #     end
-  #   end
-  # end
+  def update(id, attributes)
+    @transactions.each do |transaction|
+      transaction.update(attributes) if transaction.id == id
+    end
+  end
 
   def delete(id)
     @transactions.delete(find_by_id(id))
