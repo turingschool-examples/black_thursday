@@ -121,4 +121,13 @@ describe MerchantRepository do
       expect(mr.average_items_per_merchant_standard_deviation).to eq 0.96
     end
   end
+
+  describe '#average_item_price_for_merchant' do
+    it 'returns the average item price for the given merchant id' do
+      
+      allow(mr.all[0]).to receive(:avg_item_price).and_return(2.0)
+      
+      expect(mr.average_item_price_for_merchant(12334105))
+    end
+  end
 end
