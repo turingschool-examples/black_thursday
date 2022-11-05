@@ -20,7 +20,7 @@ class SalesAnalyst
 
   def item_amount
     @engine.merchants.all.map do |merchant|
-      @engine.find_all_by_merchant_id(merchant.id).length
+      @engine.find_all_items_by_merchant_id(merchant.id).length
     end
   end
 
@@ -62,6 +62,16 @@ class SalesAnalyst
       (std_dev *
       2 +
       average_average_price_per_merchant)
+    end
+  end
+
+  def average_invoices_per_merchant
+    (invoice_amount.sum / invoice_amount.length.to_f).round(2)
+  end
+
+  def invoice_amount
+    @engine.merchants.all.map do |merchant|
+      @engine.find_all_invoices_by_merchant_id(merchant.id).length
     end
   end
 end
