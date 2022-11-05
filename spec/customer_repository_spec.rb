@@ -86,6 +86,16 @@ let (:customer_3) {Customer.new({:id => 8,
     end    
   end 
 
+  describe "#all_ids" do 
+    it 'will return all ids' do 
+      customers = [customer_1, customer_2, customer_3]
+      customer_repo = CustomerRepository.new(customers)
+
+      expect(customer_repo.all_ids).to eq([6, 7, 8])
+    end 
+  end 
+
+
   describe "#update" do 
     it 'will update the customer names with coorisponding id' do 
       customers = [customer_1, customer_2, customer_3]
