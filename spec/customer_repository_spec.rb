@@ -66,6 +66,21 @@ let (:customer_3) {Customer.new({:id => 8,
       expect(customer_repo.find_all_by_last_name("Churchill")).to eq([])
     end 
   end 
+
+  describe "#create" do 
+    it 'will create a new customer' do 
+      customers = [customer_1, customer_2, customer_3]
+      customer_repo = CustomerRepository.new(customers)
+      customer_repo.create(:id => 8,
+        :first_name => "Mike",
+        :last_name => "Lowry",
+        :created_at => Time.now,
+        :updated_at => Time.now)
+
+      expect(customer_repo.all).to eq([customer_1, customer_2, customer_3, customer_4])
+      
+    end    
+  end 
 end 
 
      
