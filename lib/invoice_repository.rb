@@ -9,7 +9,7 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
-    if !a_valid_id?()
+    if !a_valid_id?(id)
       return nil
     else
       @invoices.find do |invoice|
@@ -19,7 +19,7 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(id)
-    if !a_valid_id?()
+    if !a_valid_id?(id)
       return nil
     else
       @invoices.find do |invoice|
@@ -29,28 +29,33 @@ class InvoiceRepository
   end
 
   def a_valid_id?(id)
-    @merchants.any? do |merchant| merchant.id == id
+    @invoices.any? do |invoice| invoice.id == id
+    end 
+  end
+  
+  def a_valid_merchant_id?(id)
+    @invoices.any? do |invoice| invoice.merchant_id == id
     end 
   end
 
   def find_all_by_merchant_id(id)
-    if !a_valid_id?()
+    if !a_valid_id?(id)
       return nil
     else
-      @invoices.find do |invoice|
-        invoice.id == id
+      @invoices.find_all do |invoice|
+        invoice.merchant_id == id
       end
     end
   end
 
   def find_all_by_status(id)
-    if !a_valid_id?()
+    if !a_valid_id?(id)
       return nil
     else
       @invoices.find do |invoice|
         invoice.id == id
       end
-    end
+    # end
   end
 
   def create(attribute)
@@ -90,7 +95,7 @@ class InvoiceRepository
     end
   end
   
-    def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
+  #   def inspect
+  #   "#<#{self.class} #{@merchants.size} rows>"
+  # end
 end

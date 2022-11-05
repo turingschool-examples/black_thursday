@@ -13,55 +13,62 @@ RSpec.describe InvoiceRepository do
   let!(:invoice_repository) {InvoiceRepository.new('./data/invoices.csv', nil)}
 
   it 'is a invoice repository class' do
-    require 'pry'; binding.pryq
     expect(invoice_repository).to be_a(InvoiceRepository)
   end
 
   it 'returns an array of all known invoices' do
-    expect(invoice_repository.all).to eq()
+    expect(invoice_repository.all).to be_a Array
+    expect(invoice_repository.all.length).to eq(4985)
+    
   end
 
   it 'returns an instance of an invoice with matching id' do
-    expect(invoice_repository.find_by_id()).to eq()
+    expect(invoice_repository.find_by_id(16)).to eq(invoice_repository.all[15])
   end
 
-  it 'returns nil if id is not within' do
-    expect(invoice_repository.find_by_id()).to eq(nil)
-    expect(invoice_repository.find_by_id()).to eq(nil)
+  xit 'returns nil if id is not within' do
+    expect(invoice_repository.find_by_id(9999)).to eq(nil)
+    expect(invoice_repository.find_by_id("tacos")).to eq(nil)
   end
 
-  it 'can find all customers with matching id in an array' do
-    expect(invoice_repository.find_all_by_customer_id()).to eq([])
+  xit 'can find all customers with matching id in an array' do
+    expect(invoice_repository.find_all_by_customer_id(8)).to eq([invoice_repository.all[31], invoice_repository.all[32]])
   end
 
-  it 'returns nil if not valid customer id' do
-    expect(invoice_repository.find_all_by_customer_id()).to eq(nil)
-    expect(invoice_repository.find_all_by_customer_id()).to eq(nil)
+  xit 'returns nil if not valid customer id' do
+    expect(invoice_repository.find_all_by_customer_id(9999)).to eq(nil)
+    expect(invoice_repository.find_all_by_customer_id("tacos")).to eq(nil)
   end
 
-  it 'can find all merchants with matching id in an array' do
-    expect(invoice_repository.find_all_by_merchant_id()).to eq([])
+  xit 'can find all merchants with matching id in an array' do
+    expect(invoice_repository.find_all_by_merchant_id(12334488)).to be_a Array
+    expect(invoice_repository.find_all_by_merchant_id(12334488).length).to eq(17)
   end
 
-  it 'returns nil if not a valid merchant id' do
-    expect(invoice_repository.find_all_by_merchant_id()).to eq(nil)
-    expect(invoice_repository.find_all_by_merchant_id()).to eq(nil)
+  xit 'returns nil if not a valid merchant id' do
+    expect(invoice_repository.find_all_by_merchant_id(9999)).to eq(nil)
+    expect(invoice_repository.find_all_by_merchant_id("tacos")).to eq(nil)
   end
 
-  it 'can return all that match a status' do
-    expect(invoice_repository.find_all_by_status()).to eq([])
+  xit 'can return all that match a status' do
+    expect(invoice_repository.find_all_by_status('returned')).to be_a Array
+    expect(invoice_repository.find_all_by_status('returned').length).to eq(2019)
   end
 
-  it 'returns nil if not a valid status' do
-    expect(invoice_repository.find_all_by_status()).to eq(nil)
-    expect(invoice_repository.find_all_by_status()).to eq(nil)
+  xit 'returns nil if not a valid status' do
+    expect(invoice_repository.find_all_by_status(9999)).to eq(nil)
+    expect(invoice_repository.find_all_by_status("tacos")).to eq(nil)
   end
 
-  it 'can create a new invoice instance with attributes' do
-    expect(invoice_repository.create()).to eq()
+  xit 'can create a new invoice instance with attributes' do
+     expect(invoice_repository.all.last.id).to eq(4985)
+     
+     invoice_repository.create()
+
+     expect(invoice_repository.all.last.id).to eq(4986)
   end
 
-  it 'gives the new invoice instance the highest id + 1' do
+  xit 'gives the new invoice instance the highest id + 1' do
     expect(invoice_repository.all.last.id).to eq()
 
     invoice_repository.create()
@@ -69,23 +76,22 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repository.all.last.id).to eq()
   end
 
-  it 'can update a merchant (by id) with new attributes' do
+ xit 'can update a merchant (by id) with new attributes' do
   #will also change the invoices updated_at_attribute to current time
-    expect(invoice_repository.find_by_id().name).to eq()
+    expect(invoice_repository.all.last.id).to eq(4985)
 
-    invoice_repository.update(',')
+    invoice_repository.update()
 
-    expect(invoice_repository.find_by_id().name).to eq()
+    expect(invoice_repository.all.last.id).to eq(4986)
   end
 
-  it 'can delete an invoice instance by supplied id' do
-    expect(invoice_repository.all.length).to eq()
-    expect(invoice_repository.all).to eq()
+  xit 'can delete an invoice instance by supplied id' do
+    expect(invoice_repository.all.length).to eq(4985)
 
-    invoice_repository.delete()
+    invoice_repository.delete(11)
 
-    expect(invoice_repository.all.length).to eq()
-    expect(invoice_repository.all).to eq()
+    expect(invoice_repository.all.length).to eq(4984)
+  
   end
 # all - returns an array of all known Invoice instances
 # find_by_id - returns either nil or an instance of Invoice with a matching ID
