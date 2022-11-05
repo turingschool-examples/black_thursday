@@ -183,7 +183,7 @@ RSpec.describe InvoiceRepository do
       ivr.all.push(i1,i2,i3)
 
       expect(ivr.all).to eq([i1,i2,i3])
-      expect(ivr.find_all_by_status('pending')).to eq([i1,i2])
+      expect(ivr.find_all_by_status(:pending)).to eq([i1,i2])
   end
 
   it 'can create a new invoice' do

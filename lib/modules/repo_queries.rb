@@ -41,7 +41,8 @@ module RepoQueries
       name:        attributes[:name],
       description: attributes[:description],
       unit_price:  attributes[:unit_price],
-      merchant_id: attributes[:merchant_id]
+      merchant_id: attributes[:merchant_id],
+      status:      attributes[:status]
     }
   end
 
