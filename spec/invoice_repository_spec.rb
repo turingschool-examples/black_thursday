@@ -1,5 +1,6 @@
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice'
+require_relative '../lib/merchant'
 
 RSpec.describe InvoiceRepository do
   it 'exists' do
@@ -207,6 +208,6 @@ RSpec.describe InvoiceRepository do
       )
 
       expect(ivr.all[-1].id).to eq(8)
-      expect(ivr.all[-1].id).to be_a(Invoice)
+      expect(ivr.all[-1]).to be_a(Invoice)
   end
 end

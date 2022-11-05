@@ -1,4 +1,5 @@
 require_relative '../lib/modules/repo_queries'
+require_relative '../lib/invoice'
 
 class InvoiceRepository
   include RepoQueries
@@ -19,5 +20,9 @@ class InvoiceRepository
     all.find_all do |invoice|
       invoice.status.casecmp?(status)
     end
+  end
+
+  def child
+    Invoice
   end
 end
