@@ -129,15 +129,15 @@ RSpec.describe SalesAnalyst do
     let (:sales_analyst) {SalesAnalyst.new(item_repo, merchant_repo, invoice_repo)}
 
     it '#invoice_quantity_per_merchant returns an array with correct invoice quantity values' do
-      expect(sales_analyst.invoice_quantity_per_merchant).to eq([2, 1])
+      expect(sales_analyst.invoice_quantity_per_merchant).to eq([1, 2])
     end
 
     it '#average_invoices_per_merchant correctly calculates and returns the average invoices per merchant' do
       expect(sales_analyst.average_invoices_per_merchant).to eq(1.5)
     end
 
-    xit '#average_invoices_per_merchant_standard_deviation calculates and returns the correct value' do
-      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(0.7)
+    it '#average_invoices_per_merchant_standard_deviation calculates and returns the correct value' do
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(0.5)
     end
   end
 end

@@ -22,7 +22,7 @@ class SalesEngine
     else
       @invoices = nil
     end
-    @analyst = SalesAnalyst.new(@items, @merchants)
+    @analyst = SalesAnalyst.new(@items, @merchants, @invoices)
   end
 
   def self.from_csv(csv_hash)

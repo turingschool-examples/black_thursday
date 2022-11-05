@@ -76,26 +76,23 @@ class SalesAnalyst
   end
 
   def invoice_quantity_per_merchant
-    invoice_quantity_per_merchant = []
-    @merchants.all.each do |merchant|
-      invoice_num = 0
-      @invoices.all.each do |invoice|
-        if (invoice.merchant_id == merchant.id)
-          invoice_num += 1
-        end
-      end
-      invoice_quantity_per_merchant.push(invoice_num)
+    merchant_ids = @invoices.all.map { |invoice| invoice.merchant_id}
+    hash = Hash.new(0)
+
+    merchant_ids.each do |id|
+      hash[id] += 1
     end
-    invoice_quantity_per_merchant
+
+    invoices_per_merchant = hash.values.sort
   end
 
   def average_invoices_per_merchant
-    (invoice_quantity_per_merchant.sum.to_f / invoice_quantity_per_merchant.count).truncate(2)
+    (invoice_quantity_per_merchant.sum.to_f / invoice_quantity_per_merchant.count).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
     difference_sum = invoice_quantity_per_merchant.map {|invoice_quantity| (average_invoices_per_merchant - invoice_quantity)**2 }.sum
-    price_stdrd_dev = Math.sqrt((difference_sum / invoice_quantity_per_merchant.count).abs)
+    price_stdrd_dev = Math.sqrt((difference_sum.to_f / invoice_quantity_per_merchant.count).abs).round(2)
   end
 
 end
