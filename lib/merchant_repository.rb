@@ -3,8 +3,9 @@ require_relative '../lib/modules/repo_queries'
 require 'csv'
 
 class MerchantRepository
-include RepoQueries
+  include RepoQueries
   attr_reader :data, :engine
+  
   def initialize(file = nil, engine = nil)
     @data = []
     @engine = engine

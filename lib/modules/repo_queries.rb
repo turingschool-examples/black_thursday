@@ -1,5 +1,4 @@
 module RepoQueries
-
   def all
     @data
   end
@@ -27,7 +26,7 @@ module RepoQueries
   def load_data(file)
     return nil unless file
     CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
-     data << (child.new(row, self))
+      data << child.new(row, self)
     end
   end
 end
