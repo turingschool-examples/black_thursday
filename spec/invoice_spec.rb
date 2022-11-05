@@ -21,4 +21,11 @@ RSpec.describe Invoice do
       expect(invoice_2.id).to eq(1)
     end
   end
+
+  describe '#customer_id' do 
+    it 'returns the customer id' do 
+      expect(invoice_1.customer_id).to eq(7)
+      expect(invoice_2.customer_id).to eq(2)
+    end
+  end
 end
