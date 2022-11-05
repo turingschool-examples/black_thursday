@@ -65,10 +65,10 @@ class CustomerRepository
     contents.map do |row|
       customer = {
               :id => row[:id].to_i, 
-              :first_name => row[:first_name],
-              :last_name => row[:last_name],  
+              :first_name => row[:first_name].to_s,
+              :last_name => row[:last_name].to_s,  
               :created_at => row[:created_at],
-              :updated_at => row[:updated_at],
+              :updated_at => row[:updated_at]
             }
       Customer.new(customer, self)
     end
