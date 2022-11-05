@@ -13,21 +13,39 @@ RSpec.describe InvoiceRepository do
 
     expect(ivr.data).to eq([])
   end
+  describe '#module methods' do
+    it 'can return all invoices' do
+      ivr = InvoiceRepository.new
+  
+      i = Invoice.new(
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => created = Time.now.to_s,
+        :updated_at  => updated = Time.now.to_s
+      )
+  
+      ivr.all << i 
+  
+      expect(ivr.all).to eq([i])
+    end
 
-  it 'can return all invoices' do
-    ivr = InvoiceRepository.new
+    it 'find invoices by id' do
+      ivr = InvoiceRepository.new
+      i = Invoice.new(
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => created = Time.now.to_s,
+        :updated_at  => updated = Time.now.to_s
+      )
 
-    i = Invoice.new(
-      :id          => 6,
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status      => "pending",
-      :created_at  => created = Time.now.to_s,
-      :updated_at  => updated = Time.now.to_s
-    )
+      ivr.all << i 
 
-    ivr.all << i 
-
-    expect(ivr.all).to eq([i])
+      expect(ivr.find_by_id(6)).to eq(i)
+      expect(ivr.find_by_id(2)).to eq(nil)
+    end
   end
 end
