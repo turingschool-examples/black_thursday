@@ -117,4 +117,10 @@ describe ItemRepository do
       expect(@ir.average_price.round(3)).to eq(15.098)
     end
   end
+
+  describe '#average_price_standard_deviation' do
+    it 'calculates the standard_deviation' do
+      expect(@ir.average_price_standard_deviation).to eq(2)
+    end
+  end
 end
