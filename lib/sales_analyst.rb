@@ -1,7 +1,7 @@
 require_relative 'sales_engine'
 
 class SalesAnalyst
-  attr_reader :sales_engine, :items, :merchants
+  attr_reader :sales_engine, :items, :merchants, :invoices
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
