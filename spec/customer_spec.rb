@@ -32,6 +32,11 @@ RSpec.describe Customer do
       
       expect(customer.updated_at).to be < (Time.now)
     end 
+
+    it 'will have a value for created_at' do 
+
+      expect(customer.created_at).to be < (Time.now)
+    end 
   end 
 end 
     
