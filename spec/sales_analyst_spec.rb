@@ -41,10 +41,12 @@ RSpec.describe SalesAnalyst do
     it 'returns a list of merchants whose standard deviation of # of items is greater than 1' do
       expected = analyst.merchants_with_high_item_count
       expect(expected).to be_a Array
-      expect(expected[0]).to be_a MerchantRepository
-      expect(expected[0].deviation_difference).to be > 1
-      expect(expected[1]).to be_a MerchantRepository
-      expect(expected[1].deviation_difference).to be > 1
+      expect(expected).to all(be_a Merchant)
+      expected.each do |merchant|
+        expect(merchant.item_count).to be > (
+          analyst.average_items_per_merchant + analyst.average_items_per_merchant_standard_deviation
+        )
+      end
     end
   end
 
