@@ -70,7 +70,7 @@ describe Calculable do
   describe '#deviation_difference' do
     it 'calculates the difference between deviation' do
       expect(@dummy.deviation_difference(@deviation1, 
-        @deviation_set1.count, @deviation_all_avg)).to eq(-8)
+        @deviation_set1.count, @deviation_all_avg)).to eq(-8.333333333333334)
     end
   end
 end
