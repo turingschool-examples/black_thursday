@@ -108,6 +108,19 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  describe '#array_of_items_per_merchant' do
+    it 'returns an array of number of items for each merchant' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.array_of_items_per_merchant.size).to eq(475)
+      expect(sales_analyst.array_of_items_per_merchant.first).to eq(3)
+
+      sales_analyst.merchants.create({ name: 'Whole Foods' })
+
+      expect(sales_analyst.array_of_items_per_merchant.size).to eq(476)
+    end
+  end
+  
   describe '#merchants_with_high_item_count' do
     it 'returns merchants who are more than one standard deviation above average items offered' do
       sales_analyst = se.analyst
@@ -170,7 +183,7 @@ RSpec.describe SalesAnalyst do
 
       expect(sales_analyst.golden_items.size).to be <= (1367 * 0.025)
       expect(sales_analyst.golden_items.size).to eq(5)
-      
+
       sales_analyst.items.create({
         :name        => "Abraham Lincoln's Fountain Pen",
         :description => "Makes artisinal permanent markings",
