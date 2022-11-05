@@ -165,9 +165,21 @@ RSpec.describe SalesAnalyst do
 
       sales_analyst.golden_items.each do |item|
         expect(item).to be_a Item
+        expect(item.unit_price_to_dollars).to be > 6053
       end
 
       expect(sales_analyst.golden_items.size).to be <= (1367 * 0.025)
+      expect(sales_analyst.golden_items.size).to eq(5)
+      
+      sales_analyst.items.create({
+        :name        => "Abraham Lincoln's Fountain Pen",
+        :description => "Makes artisinal permanent markings",
+        :unit_price  => BigDecimal(1_523_300.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      expect(sales_analyst.golden_items.size).to eq(6)
     end
   end
 end
