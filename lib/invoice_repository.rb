@@ -19,7 +19,7 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(id)
-    if !a_valid_id?()
+    if !a_valid_id?(id)
       return nil
     else
       @invoices.find do |invoice|
@@ -34,7 +34,7 @@ class InvoiceRepository
   end
 
   def find_all_by_merchant_id(id)
-    if !a_valid_id?()
+    if !a_valid_id?(id)
       return nil
     else
       @invoices.find do |invoice|
@@ -44,7 +44,7 @@ class InvoiceRepository
   end
 
   def find_all_by_status(id)
-    if !a_valid_id?()
+    if !a_valid_id?(id)
       return nil
     else
       @invoices.find do |invoice|
