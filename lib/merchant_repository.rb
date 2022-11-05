@@ -49,6 +49,26 @@ class MerchantRepository < GeneralRepo
     average(number_of_invoices_per_merchant.sum, all.length).round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    deviation(number_of_invoices_per_merchant, average_invoices_per_merchant).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    mer_avg = average_invoices_per_merchant
+    all.select do |merchant|
+      deviation_difference(std_dev, merchant.invoice_count, mer_avg) > 2
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    mer_avg = average_invoices_per_merchant
+    all.select do |merchant|
+      deviation_difference(std_dev, merchant.invoice_count, mer_avg) < -2
+    end
+  end
+
   # def average_item_price_for_merchant
   #   average()
   # end

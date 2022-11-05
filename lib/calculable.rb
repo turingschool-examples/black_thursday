@@ -20,7 +20,7 @@ module Calculable
   end
 
   def deviation_difference(dev, count, mean_avg)
-    ((count - mean_avg) / dev).to_i
+    ((count - mean_avg) / dev)
   end
 
   def percent(value, total_value)
