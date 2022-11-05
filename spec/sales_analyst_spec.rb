@@ -152,9 +152,22 @@ RSpec.describe SalesAnalyst do
       :merchants => './data/merchant_test2.csv'
       )
       sales_analyst = sales_engine.analyst
-
+      sales_analyst.all_merchant_prices
+      #require 'pry' ;binding.pry
       expect(sales_analyst.average_item_price_std_dev).to eq()
   end
+
+  it 'finds the item prices of a merchant by its id' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_test.csv'
+      )
+      sales_analyst = sales_engine.analyst
+
+      expect(sales_analyst.prices(12334105)).to eq([12.0, 13.0, 14.0])
+  end
+
 
   xit 'returns golden items' do
     sales_engine = SalesEngine.from_csv(
