@@ -48,7 +48,11 @@ RSpec.describe SalesAnalyst do
   sales_analyst = sales_engine.analyst
   expect(sales_analyst.golden_items).to be_a(Array)
   expect(sales_analyst.golden_items[0]).to be_a(Item)
+  end
 
+  it '#average_invoices_per_merchant' do
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
 
-end
+  end
 end

@@ -7,6 +7,7 @@ class SalesAnalyst
     @sales_engine = sales_engine
     @items = sales_engine.items.all
     @merchants = sales_engine.merchants.all
+    @invoices = sales_engine.invoices.all
   end
 
   def average_items_per_merchant
@@ -83,4 +84,6 @@ class SalesAnalyst
   def golden_items_std_dev
    
   end
+
+  
 end
