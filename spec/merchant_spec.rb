@@ -66,4 +66,16 @@ describe Merchant do
       expect(merchant.item_prices).to eq([1, 3])
     end
   end
+
+  describe '#avg_item_price' do
+    it 'returns the average price of the merchants items' do
+      item1 = double('item1')
+      item2 = double('item2')
+      allow(item1).to receive(:unit_price).and_return(1)
+      allow(item2).to receive(:unit_price).and_return(3)
+      allow(merchant).to receive(:_items).and_return([item1, item2])
+      expect(merchant.item_prices).to eq([1, 3])
+      expect(merchant.avg_item_price).to eq 2.0
+    end
+  end
 end
