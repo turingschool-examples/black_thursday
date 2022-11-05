@@ -10,13 +10,13 @@ class TransactionRepository
   end
 
   def a_valid_id?(id)
-    @transactions.any? do |instance| 
-      instance.id == id
+    @transactions.any? do |transaction| 
+      transaction.id == id
     end
   end 
 
   def find_by_id(id)
-    nil if !a_valid_id?()
+    nil if !a_valid_id?(id)
     
     @transactions.find do |invoice|
       invoice.id == id
@@ -24,7 +24,7 @@ class TransactionRepository
   end
   
   def find_all_by_invoice_id(id)
-    nil if !a_valid_id?()
+    nil if !a_valid_id?(id)
     
     @transactions.find_all do |invoice|
       invoice.id == id
@@ -32,7 +32,7 @@ class TransactionRepository
   end
   
   def find_all_by_credit_card_number(id)
-    nil if !a_valid_id?()
+    nil if !a_valid_id?(id)
     
     @transactions.find_all do |invoice|
       invoice.id == id

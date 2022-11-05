@@ -26,36 +26,36 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repository.find_by_id(17)).to eq(invoice_repository.all[15])
   end
 
-  it 'returns nil if id is not within' do
+  xit 'returns nil if id is not within' do
     expect(invoice_repository.find_by_id(9999)).to eq(nil)
     expect(invoice_repository.find_by_id("tacos")).to eq(nil)
   end
 
-  it 'can find all customers with matching id in an array' do
+  xit 'can find all customers with matching id in an array' do
     expect(invoice_repository.find_all_by_customer_id(8)).to eq([invoice_repository.all[31], invoice_repository.all[32]])
   end
 
-  it 'returns nil if not valid customer id' do
+  xit 'returns nil if not valid customer id' do
     expect(invoice_repository.find_all_by_customer_id(9999)).to eq(nil)
     expect(invoice_repository.find_all_by_customer_id("tacos")).to eq(nil)
   end
 
-  it 'can find all merchants with matching id in an array' do
+  xit 'can find all merchants with matching id in an array' do
     expect(invoice_repository.find_all_by_merchant_id(12334488)).to be_a Array
     expect(invoice_repository.find_all_by_merchant_id(12334488).length).to eq(51)
   end
 
-  it 'returns nil if not a valid merchant id' do
+  xit 'returns nil if not a valid merchant id' do
     expect(invoice_repository.find_all_by_merchant_id(9999)).to eq(nil)
     expect(invoice_repository.find_all_by_merchant_id("tacos")).to eq(nil)
   end
 
-  it 'can return all that match a status' do
+  xit 'can return all that match a status' do
     expect(invoice_repository.find_all_by_status('returned')).to be_a Array
     expect(invoice_repository.find_all_by_status('returned').length).to eq(2019)
   end
 
-  it 'returns nil if not a valid status' do
+  xit 'returns nil if not a valid status' do
     expect(invoice_repository.find_all_by_status(9999)).to eq(nil)
     expect(invoice_repository.find_all_by_status("tacos")).to eq(nil)
   end
@@ -85,7 +85,7 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repository.all.last.id).to eq(4986)
   end
 
-  it 'can delete an invoice instance by supplied id' do
+  xit 'can delete an invoice instance by supplied id' do
     expect(invoice_repository.all.length).to eq(4985)
 
     invoice_repository.delete(11)
