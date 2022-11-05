@@ -43,7 +43,7 @@ class SalesAnalyst
       price = BigDecimal(items.inject(0) do |sum, item|
                            sum + BigDecimal(item.unit_price)
                          end) # average item price)
-      price / items.count
+      (price / items.count).round(2)
     end
   end
 
@@ -51,36 +51,19 @@ class SalesAnalyst
     total_price = merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end.inject(0, :+)
-    total_price / merchants.count
+    (total_price / merchants.count).round(2)
   end
 
   def golden_items
-    # avg items per merchant
-    # avg items per merchant std dev
-
-    # avg item price
-    test = items.sum do |item|
-      BigDecimal(item.unit_price)
-    end
-    avg_item_price = test / items.count
-
-    # avg item price std deviation
-    total_difference = items.inject(0) do |sum, item|
-        # require 'pry'; binding.pry
-    #   merchant_items = sales_engine.items.find_all_by_merchant_id(merchant.id)
-      #   Take the difference between each number and the mean, then square it.
-      sum += (item.unit_price.to_f - avg_item_price)**2
-      #   ^Sum these square differences together.
-    end
-    std_dev = Math.sqrt(total_difference / (test - 1)).round(2)
-
-    # items w/ price > std dev * 3
+    prices = items.map {|item| item.unit_price}    
+    avg = ((prices.sum)/(prices.count)).round(2)
+    total_diff = prices.inject(0) do |sum, price|
+      sum + (price - avg)**2
+    end.round(2)
+    std_dev = Math.sqrt(total_diff / (prices.length - 1)).round(2)
     items.find_all do |item|
-      item.unit_price.to_f > (std_dev * 3)
+      item.unit_price.to_f >= avg + (std_dev * 2)
     end
-  end
 
-  def golden_items_std_dev
-   
   end
 end
