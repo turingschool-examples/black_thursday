@@ -13,27 +13,24 @@ class SalesEngine
     @items = item_repo
   end
 
+  def self.generate_and_add_to_repo(class_to_create, repo, csv_data)
+    CSV.foreach(csv_data, headers: true, header_converters: :symbol) do |row|
+      repo.add_to_repo(class_to_create.new(row))
+    end
+  end
+
   def self.from_csv(data)
     mr = MerchantRepository.new
     ir = ItemRepository.new
 
-    CSV.foreach(data[:merchants], headers: true, header_converters: :symbol) do |row|
-      merchant = Merchant.new(row)
+    generate_and_add_to_repo(Item, ir, data[:items])
+    generate_and_add_to_repo(Merchant, mr, data[:merchants])
 
-      mr.add_merchant_to_repo(merchant)
-    end
-
-    CSV.foreach(data[:items], headers: true, header_converters: :symbol) do |row|
-      item = Item.new(row)
-
-      ir.add_to_repo(item)
-    end
     SalesEngine.new(mr, ir)
   end
 
-  def analyst 
+  def analyst
     SalesAnalyst.new(@items, @merchants)
-    # this method requires #from_csv to be called first
   end
 
 end

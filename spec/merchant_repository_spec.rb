@@ -16,19 +16,32 @@ RSpec.describe MerchantRepository do
 
     expect(merchant_repository.all).to eq([])
 
-    merchant_repository.add_merchant_to_repo(merchant_1)
+    merchant_repository.add_to_repo(merchant_1)
     expect(merchant_repository.all).to eq([merchant_1])
 
-    merchant_repository.add_merchant_to_repo(merchant_2)
+    merchant_repository.add_to_repo(merchant_2)
     expect(merchant_repository.all).to eq([merchant_1, merchant_2])
+  end
+
+  describe '#add_to_repo' do
+    it 'adds merchant to merchant repository' do
+      merchant_1 = Merchant.new({ id: 6, name: 'Walmart' })
+      merchant_2 = Merchant.new({ id: 7, name: 'Target' })
+
+      merchant_repository.add_to_repo(merchant_1)
+      expect(merchant_repository.all).to eq([merchant_1])
+
+      merchant_repository.add_to_repo(merchant_2)
+      expect(merchant_repository.all).to eq([merchant_1, merchant_2])
+    end
   end
 
   describe '#find_by_id' do
     it 'returns either nil or an instance of merchant with the matching ID' do
       merchant_1 = Merchant.new({ id: 6, name: 'Walmart' })
       merchant_2 = Merchant.new({ id: 7, name: 'Target' })
-      merchant_repository.add_merchant_to_repo(merchant_1)
-      merchant_repository.add_merchant_to_repo(merchant_2)
+      merchant_repository.add_to_repo(merchant_1)
+      merchant_repository.add_to_repo(merchant_2)
 
       expect(merchant_repository.find_by_id(10)).to eq(nil)
       expect(merchant_repository.find_by_id(6)).to eq(merchant_1)
@@ -40,8 +53,8 @@ RSpec.describe MerchantRepository do
     it 'can find merchant by name' do
       merchant_1 = Merchant.new({id: 6, name: 'Walmart'})
       merchant_2 = Merchant.new({id: 7, name: 'Target'})
-      merchant_repository.add_merchant_to_repo(merchant_1)
-      merchant_repository.add_merchant_to_repo(merchant_2)
+      merchant_repository.add_to_repo(merchant_1)
+      merchant_repository.add_to_repo(merchant_2)
 
       expect(merchant_repository.find_by_name('Safeway')).to eq(nil)
       expect(merchant_repository.find_by_name('Walmart')).to eq(merchant_1)
@@ -54,25 +67,13 @@ RSpec.describe MerchantRepository do
       merchant_1 = Merchant.new({ id: 6, name: 'Amazon Fresh' })
       merchant_2 = Merchant.new({ id: 7, name: 'Amazon Prime' })
       merchant_3 = Merchant.new({ id: 7, name: 'Walmart' })
-      merchant_repository.add_merchant_to_repo(merchant_1)
-      merchant_repository.add_merchant_to_repo(merchant_2)
-      merchant_repository.add_merchant_to_repo(merchant_3)
+      merchant_repository.add_to_repo(merchant_1)
+      merchant_repository.add_to_repo(merchant_2)
+      merchant_repository.add_to_repo(merchant_3)
 
       expect(merchant_repository.find_all_by_name('Amazon')).to eq([merchant_1, merchant_2])
       expect(merchant_repository.find_all_by_name('AmAzOn')).to eq([merchant_1, merchant_2])
       expect(merchant_repository.find_all_by_name('Safeway')).to eq([])
-    end
-  end
-
-  describe '#max_id' do
-    it 'returns a number one higher than current highest merchant ID, or 1 if no merchants in repo' do
-      merchant_1 = Merchant.new({ id: 6, name: 'Walmart' })
-
-      expect(merchant_repository.max_id).to eq(1)
-
-      merchant_repository.add_merchant_to_repo(merchant_1)
-
-      expect(merchant_repository.max_id).to eq(7)
     end
   end
 
@@ -85,7 +86,7 @@ RSpec.describe MerchantRepository do
       expect(merchant_repository.all.first.id).to eq(1)
 
       merchant_1 = Merchant.new({ id: 6, name: 'Amazon Fresh' })
-      merchant_repository.add_merchant_to_repo(merchant_1)
+      merchant_repository.add_to_repo(merchant_1)
 
       merchant_repository.create({ name: 'Walmart' })
       merchant_repository.create({ name: 'Target' })
@@ -94,6 +95,18 @@ RSpec.describe MerchantRepository do
         expect(merchant).to be_a(Merchant)
       end
       expect(merchant_repository.all.size).to eq(4)
+    end
+  end
+
+  describe '#max_id' do
+    it 'returns a number one higher than current highest merchant ID, or 1 if no merchants in repo' do
+      merchant_1 = Merchant.new({ id: 6, name: 'Walmart' })
+
+      expect(merchant_repository.max_id).to eq(1)
+
+      merchant_repository.add_to_repo(merchant_1)
+
+      expect(merchant_repository.max_id).to eq(7)
     end
   end
 

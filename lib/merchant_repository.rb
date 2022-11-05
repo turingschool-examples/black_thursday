@@ -7,7 +7,7 @@ class MerchantRepository
     @all = []
   end
 
-  def add_merchant_to_repo(merchant)
+  def add_to_repo(merchant)
     @all << merchant
   end
 
@@ -31,7 +31,7 @@ class MerchantRepository
 
   def create(attributes)
     attributes[:id] = max_id
-    add_merchant_to_repo(Merchant.new(attributes))
+    add_to_repo(Merchant.new(attributes))
   end
 
   def max_id
