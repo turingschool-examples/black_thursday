@@ -105,7 +105,7 @@ RSpec.describe ItemRepository do
     it 'finds an instance of Item by price' do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
-      # require 'pry'; binding.pry
+
       expect(ir.find_all_by_price(12.99)).to eq([item_2])
     end
   end
@@ -133,6 +133,16 @@ RSpec.describe ItemRepository do
 
       expect(ir.find_all_by_merchant_id(9)).to eq([item_4, item_5])
       expect(ir.find_all_by_merchant_id(5)).to eq([])
+    end
+  end
+
+  describe '#max_id' do
+    it 'returns a number one higher than current highest item ID, or 1 if no items in repo' do
+      expect(ir.max_id).to eq(1)
+
+      ir.add_to_repo(item_5)
+      
+      expect(ir.max_id).to eq(6)
     end
   end
 

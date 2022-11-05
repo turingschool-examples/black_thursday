@@ -49,8 +49,8 @@ RSpec.describe MerchantRepository do
     end
   end
 
-  describe '#find_all_by_name' do 
-    it 'can find all merchants that share part of their name' do 
+  describe '#find_all_by_name' do
+    it 'can find all merchants that share part of their name' do
       merchant_1 = Merchant.new({ id: 6, name: 'Amazon Fresh' })
       merchant_2 = Merchant.new({ id: 7, name: 'Amazon Prime' })
       merchant_3 = Merchant.new({ id: 7, name: 'Walmart' })
@@ -64,11 +64,24 @@ RSpec.describe MerchantRepository do
     end
   end
 
+  describe '#max_id' do
+    it 'returns a number one higher than current highest merchant ID, or 1 if no merchants in repo' do
+      merchant_1 = Merchant.new({ id: 6, name: 'Walmart' })
+
+      expect(merchant_repository.max_id).to eq(1)
+
+      merchant_repository.add_merchant_to_repo(merchant_1)
+
+      expect(merchant_repository.max_id).to eq(7)
+    end
+  end
+
   describe '#create' do
     it 'can create a new merchant instance' do
       expect(merchant_repository.all).to eq([])
 
       merchant_repository.create({ name: 'Whole Foods' })
+
       expect(merchant_repository.all.first.id).to eq(1)
 
       merchant_1 = Merchant.new({ id: 6, name: 'Amazon Fresh' })
@@ -77,8 +90,10 @@ RSpec.describe MerchantRepository do
       merchant_repository.create({ name: 'Walmart' })
       merchant_repository.create({ name: 'Target' })
 
-      # Add More Tests Here To Finish 
-      expect(merchant_repository.all[1].name).to eq('Amazon Fresh')
+      merchant_repository.all.each do |merchant|
+        expect(merchant).to be_a(Merchant)
+      end
+      expect(merchant_repository.all.size).to eq(4)
     end
   end
 
@@ -122,8 +137,11 @@ RSpec.describe MerchantRepository do
       merchant_repository.create({ name: 'Safeway' })
       merchant_repository.create({ name: 'Walmart' })
       merchant_repository.create({ name: 'Target' })
-      
+
+      expect(merchant_repository.all.size).to eq(3)
+
       merchant_repository.delete(4)
+
       expect(merchant_repository.all.size).to eq(3)
       expect(merchant_repository.all[0].name).to eq('Safeway')
     end
