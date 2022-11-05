@@ -9,7 +9,7 @@ class InvoiceRepository
   def initialize(file = nil, engine = nil)
     @data = []
     @engine = engine
-    # load_data(file)
+    load_data(file)
   end
 
   def find_all_by_customer_id(customer_id)
