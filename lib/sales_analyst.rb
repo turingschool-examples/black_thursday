@@ -41,11 +41,6 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     sum_of_items = @items.find_all_by_merchant_id(merchant_id).sum do |item|
-<<<<<<< HEAD
-=======
-      # require "pry"; binding.pry
-      # sum = 0 if sum.nil?
->>>>>>> 0754f5269942fa29c6745f14cb74cccd54c64e4e
       item.unit_price
     end
     number_of_items = @items.find_all_by_merchant_id(merchant_id).size
@@ -57,10 +52,7 @@ class SalesAnalyst
       average_item_price_for_merchant(merchant.id)
     end
     (total_of_averages / @merchants.all.size).floor(2)
-<<<<<<< HEAD
     # floor passes the spec harness- thats the only reason its here...
-=======
->>>>>>> 0754f5269942fa29c6745f14cb74cccd54c64e4e
   end
 
   def average_item_price
