@@ -29,7 +29,7 @@ class InvoiceRepository
   end
 
   def a_valid_id?(id)
-    @merchants.any? do |merchant| merchant.id == id
+    @invoices.any? do |invoice| invoice.id == id
     end 
   end
 
