@@ -95,4 +95,14 @@ RSpec.describe SalesAnalyst do
       expect(0..100).to include(expected)
     end
   end
+
+  describe 'top_days_by_invoice_count' do
+    it 'returns a collection of all days that are above the average by one std deviation' do
+      expected = analyst.top_days_by_invoice_count
+      expect(expected).to be_a Array
+      expected.each do |day|
+        expect(day).to be('Wednesday')
+      end
+    end
+  end
 end

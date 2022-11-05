@@ -52,4 +52,8 @@ class SalesAnalyst
   def invoice_status(type)
     @engine.invoices.invoice_status(type)
   end
+
+  def top_days_by_invoice_count
+    @engine.invoices.top_days_by_invoice_count
+  end
 end

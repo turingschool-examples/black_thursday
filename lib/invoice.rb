@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'time'
+
 # Invoice data class, can update status and time updated.
 class Invoice
   attr_reader :id,
