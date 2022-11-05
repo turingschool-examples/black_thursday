@@ -16,7 +16,6 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    #@engine.items.find_all_by_merchant_id(merchant_id)
     @engine.merchants.average_item_price_for_merchant(id)
   end
 
