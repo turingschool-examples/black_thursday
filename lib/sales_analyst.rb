@@ -15,6 +15,10 @@ class SalesAnalyst
     @engine.average_items_per_merchant_standard_deviation
   end
 
+  def merchants_with_high_item_count
+    @engine.merchants.merchants_with_high_item_count
+  end
+
     #average = average_items_per_merchant
     # @engine.items_per_merchant.map { |number| (number - average)**2 }.sum / @engine.merchants.all.length
 
@@ -29,5 +33,4 @@ class SalesAnalyst
   #     average_item_price_for_merchant(merchant.id)
   #   end.sum  / mr.all.length
   # end
-
 end

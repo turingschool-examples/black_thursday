@@ -20,7 +20,7 @@ module Calculable
   end
 
   def deviation_difference(std_dev, count, avg_count)
-    ((count - avg_count) / std_dev).to_i
+    ((count - avg_count) / std_dev)# .to_i
   end
 
   def percent(value, total_value)
