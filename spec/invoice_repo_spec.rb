@@ -48,8 +48,8 @@ RSpec.describe InvoiceRepo do
 
   describe '#find_all_by_status' do
     it 'returns [] or one or more instances of Invoice with matching status' do
-      expect(ir.find_all_by_status('pending')).to eq [invoice1, invoice4, invoice5]
-      expect(ir.find_all_by_status('shipped')).to eq [invoice2, invoice3]
+      expect(ir.find_all_by_status(:pending)).to eq [invoice1, invoice4, invoice5]
+      expect(ir.find_all_by_status(:shipped)).to eq [invoice2, invoice3]
     end
   end
 
@@ -66,7 +66,7 @@ RSpec.describe InvoiceRepo do
       expect(ir.create({
                         customer_id:         7,
                         merchant_id:         8,
-                        status:      'pending',
+                        status:      :pending,
                         created_at:   Time.now,
                         updated_at:   Time.now
                        }).id).to eq 6
@@ -75,9 +75,9 @@ RSpec.describe InvoiceRepo do
 
   describe '#update' do
     it 'updates Invoice with corresponding id with the provided attributes' do
-      expect(ir.repository[0].status).to eq 'pending'
-      ir.update('1', { status: 'shipped' })
-      expect(ir.repository[0].status).to eq 'shipped'
+      expect(ir.repository[0].status).to eq :pending
+      ir.update('1', { status: :shipped })
+      expect(ir.repository[0].status).to eq :shipped
       expect(ir.repository[0].updated_at).to be_within(0.5).of Time.now
     end
   end
