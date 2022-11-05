@@ -191,4 +191,16 @@ RSpec.describe SalesAnalyst do
 
       expect(sales_analyst.golden_items).to eq([sales_engine.items.all[15], sales_engine.items.all[26]])
   end
+
+  it 'can calculate average invoices per merchant' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_invoices_test.csv',
+      :invoices  => './data/invoices_test.csv'
+      )
+      sales_analyst = sales_engine.analyst
+    
+      expect(sales_analyst.average_invoices_per_merchant).to eq(4)
+  end  
 end
