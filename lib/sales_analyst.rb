@@ -73,26 +73,22 @@ class SalesAnalyst
     # BigDecimal
   end
 
-  # def average_price_for_all_items
-  #  variable = sales_engine.items.all.map |item|
-  #   item.unit_price
-  #  unit_price.sum / items_count
-  # end
-
-  def golden_items 
+  def average_price_for_all_items
     total_price_for_all_items = sales_engine.items.all.sum do |item|
       item.unit_price
     end
     avg_price_of_items = (total_price_for_all_items / items_count).round(2)
+  end
 
+  def golden_items 
     sum = 0
     sales_engine.items.all.each do |item|
-      sum += (item.unit_price - avg_price_of_items)**2
+      sum += (item.unit_price - average_price_for_all_items)**2
     end
     items_standard_deviation = Math.sqrt(sum / (items_count - 1)).round(2)
 
     sales_engine.items.all.find_all do |item|
-      item.unit_price > (avg_price_of_items + (items_standard_deviation * 2))
+      item.unit_price > (average_price_for_all_items + (items_standard_deviation * 2))
     end
   end
 
