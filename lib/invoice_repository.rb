@@ -4,10 +4,12 @@ require_relative '../lib/invoice'
 class InvoiceRepository
   include RepoQueries
 
-  attr_reader :data
+  attr_reader :data, :engine
 
   def initialize(file = nil, engine = nil)
     @data = []
+    @engine = engine
+    # load_data(file)
   end
 
   def find_all_by_customer_id(customer_id)
