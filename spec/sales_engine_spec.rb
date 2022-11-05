@@ -45,4 +45,10 @@ describe SalesEngine do
       expect(se.average_items_per_merchant).to eq(0.25)
     end
   end
+
+  describe '#average_item_price_for_merchant' do
+    it 'returns the average item price for merchant' do
+      expect(analyst.average_item_price_for_merchant).to eq 1
+    end
+  end
 end
