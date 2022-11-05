@@ -10,12 +10,12 @@ class Invoice
               :created_at, 
               :updated_at
   def initialize(info)
-    @id = id
-    @customer_id = customer_id
-    @merchant_id = merchant_id
-    @status = status
-    @created_at = created_at
-    @updated_at = updated_at
+    @id = info[:id].to_i
+    @customer_id = info[:customer_id].to_i
+    @merchant_id = info[:merchant_id].to_i
+    @status = info[:status]
+    @created_at = Time.parse(info[:created_at].to_s)
+    @updated_at = Time.parse(info[:updated_at].to_s)
   end
 
 end
