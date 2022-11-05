@@ -18,20 +18,8 @@ class SalesEngine
 
   def self.from_csv(hash_path)
     sales_engine = new
-
-    # TODO: refactor opportunity
-
-    rows = CSV.open hash_path[:merchants], headers: true, header_converters: :symbol
-    rows.each do |row|
-      new_obj = Merchant.new(row.to_h)
-      sales_engine.merchants.all << new_obj
-    end
-    
-    rows = CSV.open hash_path[:items], headers: true, header_converters: :symbol
-    rows.each do |row|
-      new_obj = Item.new(row.to_h)
-      sales_engine.items.all << new_obj
-    end
+    sales_engine.items.parse_data(hash_path[:items])
+    sales_engine.merchants.parse_data(hash_path[:merchants])
     sales_engine
   end
 
