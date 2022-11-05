@@ -135,7 +135,7 @@ describe MerchantRepository do
       allow(mr.all[1]).to receive(:avg_item_price).and_return(2.2)
       allow(mr.all[2]).to receive(:avg_item_price).and_return(3.6)
       allow(mr.all[3]).to receive(:avg_item_price).and_return(7.4)
-      expect(mr.average_average_price_per_merchant). to eq 3.55
+      expect(mr.average_average_price_per_merchant).to eq 3.55
     end
   end
 end
