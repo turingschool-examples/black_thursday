@@ -132,5 +132,9 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.average_invoices_per_merchant).to eq(1.5)
     end
 
+    it '#average_invoices_per_merchant_standard_deviation calculates and returns the correct value' do
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(0.7)
+    end
+
   end
 end
