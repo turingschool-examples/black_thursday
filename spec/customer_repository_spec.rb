@@ -85,6 +85,22 @@ let (:customer_3) {Customer.new({:id => 8,
       expect(customer_repo.find_by_id(9)).to eq(customer_4) 
     end    
   end 
+
+  describe "#update" do 
+    it 'will update the customer names with coorisponding id' do 
+      customers = [customer_1, customer_2, customer_3]
+      customer_repo = CustomerRepository.new(customers)
+
+      customer_repo.update(6, {:id => 6, :first_name => "Joanee"})
+      expect(customer_repo.find_by_id(6).first_name).to eq("Joanee")
+
+      customer_repo.update(6, {:id => 6, :last_name => "Clark"})
+      expect(customer_repo.find_by_id(6).last_name).to eq("Clark")
+
+      customer_repo.update(7, {:id => 7, :first_name => "Rick"})
+      expect(customer_repo.find_by_id(7).first_name).to eq("Rick") 
+    end 
+  end 
 end 
 
      
