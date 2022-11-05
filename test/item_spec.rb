@@ -17,8 +17,8 @@ RSpec.describe Item do
   it 'exists and has attributes' do
     expect(i).to be_instance_of(Item)
     expect(i.id).to eq(1)
-    expect(i.name).to eq('pencil')
-    expect(i.description).to eq('you can use it to write things')
+    expect(i.name).to eq('Pencil')
+    expect(i.description).to eq('You can use it to write things')
     expect(i.unit_price).to eq(10.99)
     expect(i.created_at).to be_instance_of(Time)
     expect(i.updated_at).to be_instance_of(Time)
@@ -35,8 +35,8 @@ RSpec.describe Item do
       description: 'You can use it to paint things',
       unit_price: BigDecimal(12.99, 4)
     })
-    expect(i.name).to eq('paint brush')
-    expect(i.description).to eq('you can use it to paint things')
+    expect(i.name).to eq('Paint Brush')
+    expect(i.description).to eq('You can use it to paint things')
     expect(i.unit_price_to_dollars).to eq(12.99)
   end
 end
