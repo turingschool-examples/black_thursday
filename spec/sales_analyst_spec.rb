@@ -62,7 +62,7 @@ RSpec.describe SalesAnalyst do
         :updated_at  => Time.now,
         :merchant_id => 12334159})
 
-      expect(sales_analyst.average_items_per_merchant).not_to eq(2.88)
+      expect(sales_analyst.average_items_per_merchant).to eq(2.89)
     end
   end
 
@@ -104,7 +104,7 @@ RSpec.describe SalesAnalyst do
         :updated_at  => Time.now,
         :merchant_id => 12334159})
 
-      expect(sales_analyst.average_items_per_merchant_standard_deviation).not_to eq(3.26)
+      expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.28)
     end
   end
 
@@ -120,16 +120,47 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.array_of_items_per_merchant.size).to eq(476)
     end
   end
-  
+
   describe '#merchants_with_high_item_count' do
     it 'returns merchants who are more than one standard deviation above average items offered' do
       sales_analyst = se.analyst
+      merchant = sales_analyst.merchants.find_by_id(12334160)
 
       sales_analyst.merchants_with_high_item_count.each do |merchant|
         expect(merchant).to be_a Merchant
         expect(sales_analyst.items.find_all_by_merchant_id(merchant.id).size).to be > 6
       end
-      expect(sales_analyst.merchants_with_high_item_count.count).to be <= (475 * 0.16)
+      expect(sales_analyst.merchants_with_high_item_count.size).to be <= (475 * 0.16)
+      expect(sales_analyst.merchants_with_high_item_count).not_to include(merchant)
+
+      10.times { sales_analyst.items.create({
+        :name        => "Amazing YoYo",
+        :description => "It returns to you when you throw it",
+        :unit_price  => BigDecimal(5.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334160}) }
+
+      expect(sales_analyst.merchants_with_high_item_count).to include(merchant)
+    end
+  end
+
+  describe '#avg_plus_std_dev' do
+    it 'sums the average items per merchant and average items per merchant std dev and converts to integer' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.avg_plus_std_dev).to be_a Integer
+      expect(sales_analyst.avg_plus_std_dev).to eq(6)
+
+      60.times { sales_analyst.items.create({
+        :name        => "Mike Tyson's Ball Point Pen",
+        :description => "Makes permanent markings",
+        :unit_price  => BigDecimal(30_000.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159}) }
+
+      expect(sales_analyst.avg_plus_std_dev).to eq(7)
     end
   end
 
@@ -139,6 +170,7 @@ RSpec.describe SalesAnalyst do
 
       expect(sales_analyst.average_item_price_for_merchant(12334159)).to be_a BigDecimal
       expect(sales_analyst.average_item_price_for_merchant(12334159).to_f).to eq(31.5)
+      expect(sales_analyst.average_item_price_for_merchant(12334174).to_f).to eq(30.0)
 
       sales_analyst.items.create({
         :name        => "Mike Tyson's Ball Point Pen",
@@ -149,7 +181,6 @@ RSpec.describe SalesAnalyst do
         :merchant_id => 12334159})
 
       expect(sales_analyst.average_item_price_for_merchant(12334159).to_f).to eq(55.91)
-      expect(sales_analyst.average_item_price_for_merchant(12334174).to_f).to eq(30.0)
     end
   end
 
@@ -168,7 +199,63 @@ RSpec.describe SalesAnalyst do
         :updated_at  => Time.now,
         :merchant_id => 12334159})
 
-        expect(sales_analyst.average_average_price_per_merchant.to_f).to eq(351.29)
+      expect(sales_analyst.average_average_price_per_merchant.to_f).to eq(351.29)
+    end
+  end
+
+  describe '#average_item_price' do
+    it 'finds the overall average item price' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.average_item_price).to be_a BigDecimal
+      expect(sales_analyst.average_item_price.to_f.round(2)).to eq(251.06)
+
+      sales_analyst.items.create({
+        :name        => "Abraham Lincoln's Fountain Pen",
+        :description => "Makes artisinal permanent markings",
+        :unit_price  => BigDecimal(523_300.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      expect(sales_analyst.average_item_price.to_f.round(2)).to eq(254.70)
+    end
+  end
+
+  describe '#average_item_price_std_dev' do
+    it 'returns std dev from the average price of items' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.average_item_price_std_dev).to eq(2901.08)
+
+      sales_analyst.items.create({
+        :name        => "Abraham Lincoln's Fountain Pen",
+        :description => "Makes artisinal permanent markings",
+        :unit_price  => BigDecimal(523_300.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      expect(sales_analyst.average_item_price_std_dev).to eq(2903.14)
+    end
+  end
+
+  describe '#array_of_items_price' do
+    it 'returns an array of the price of each item in the item repo' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.array_of_items_price.size).to eq(1367)
+
+      sales_analyst.items.create({
+        :name        => "Ball Point Pen",
+        :description => "Makes permanent markings",
+        :unit_price  => BigDecimal(3.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      expect(sales_analyst.array_of_items_price.size).to eq(1368)
+      expect(sales_analyst.array_of_items_price.last).to eq(0.399e-1)
     end
   end
 
