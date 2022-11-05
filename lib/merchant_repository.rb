@@ -22,15 +22,6 @@ class MerchantRepository
     end
   end
 
-  # def create(attributes)
-  #   new = Merchant.new(attributes)
-  #   new.id = all.max_by do |merchant|
-  #     merchant.id
-  #   end.id + 1
-  #   all << new
-  #   new
-  # end
-
   def update(id, attributes)
     return if attributes.empty?
     update_merchant = find_by_id(id)

@@ -210,4 +210,24 @@ RSpec.describe InvoiceRepository do
       expect(ivr.all[-1].id).to eq(8)
       expect(ivr.all[-1]).to be_a(Invoice)
   end
+
+  it 'can update invoices status and update time only' do
+    ivr = InvoiceRepository.new
+  
+      i = Invoice.new(
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => created = Time.now.to_s,
+        :updated_at  => updated = Time.now.to_s
+      )
+  
+      ivr.all << i 
+
+      ivr.update(6, status: "completed") && updated_time = Time.now
+
+      expect(i.status).to eq("completed")
+      expect(i.updated_at).to eq(updated_time)
+  end
 end
