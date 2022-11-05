@@ -43,4 +43,12 @@ class ItemRepository < GeneralRepo
     prices = @repository.map { |item | item.unit_price_to_dollars } # dupe
     deviation(prices, average_price)
   end
+
+  def golden_items
+    std_dev = average_price_standard_deviation
+    avg_count = average_price
+    all.select do |item|
+      deviation_difference(std_dev, item.unit_price_to_dollars, avg_count) > 2
+    end
+  end
 end
