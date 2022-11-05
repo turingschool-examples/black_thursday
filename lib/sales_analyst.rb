@@ -85,5 +85,8 @@ class SalesAnalyst
    
   end
 
+  def average_invoices_per_merchant
+   (@invoices.count/@merchants.count.to_f).round(2)
+  end
   
 end
