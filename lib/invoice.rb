@@ -5,7 +5,8 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :invoices
 
   def initialize(info, repo)
     @id           = info[:id]
@@ -15,5 +16,8 @@ class Invoice
     @created_at   = info[:created_at]
     @updated_at   = info[:updated_at]
     @repo = repo
+    @invoices = []
   end
+
+  
 end

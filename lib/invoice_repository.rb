@@ -55,7 +55,7 @@ class InvoiceRepository
       @invoices.find do |invoice|
         invoice.id == id
       end
-    # end
+    end
   end
 
   def create(attribute)
@@ -95,7 +95,7 @@ class InvoiceRepository
     end
   end
   
-  #   def inspect
-  #   "#<#{self.class} #{@merchants.size} rows>"
-  # end
+    def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
