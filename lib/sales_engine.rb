@@ -11,6 +11,8 @@ require_relative 'invoice_item'
 require_relative 'invoice_item_repository'
 require_relative 'transaction'
 require_relative 'transaction_repository'
+require_relative 'customer'
+require_relative 'customer_repository'
 
 class SalesEngine
 
@@ -19,7 +21,8 @@ class SalesEngine
               :invoices,
               :analyst,
               :invoice_items,
-              :transactions
+              :transactions,
+              :customers
 
   def initialize(csv_hash)
     if (csv_hash.has_key?(:items))
@@ -50,6 +53,12 @@ class SalesEngine
       @transactions = create_transaction_repo(csv_hash[:transactions])
     else
       @transactions = nil
+    end
+
+    if (csv_hash.has_key?(:customers))
+      @customers = create_customer_repo(csv_hash[:customers])
+    else
+      @customers = nil
     end
 
     @analyst = SalesAnalyst.new(@items, @merchants, @invoices)
@@ -127,5 +136,18 @@ class SalesEngine
                            :updated_at => Time.parse(row[:updated_at])}))
     end
     transaction_repo = TransactionRepository.new(transactions)
+  end
+
+  def create_customer_repo(customer_csv)
+    customers = []
+    contents = CSV.open customer_csv, headers: true, header_converters: :symbol
+    contents.each do |row|
+      customers.push(Customer.new({:id => row[:id].to_i,
+                           :first_name => row[:first_name],
+                           :last_name => row[:last_name],
+                           :created_at => Time.parse(row[:created_at]),
+                           :updated_at => Time.parse(row[:updated_at])}))
+    end
+    customer_repo = CustomerRepository.new(customers)
   end
 end
