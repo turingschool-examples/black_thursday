@@ -18,10 +18,6 @@ class SalesAnalyst
     @invoices = invoice_repo
   end
 
-  def invoices_exist?
-    @invoices != nil
-  end
-
   def item_count
     items.all.count
   end
@@ -81,11 +77,12 @@ class SalesAnalyst
 
   def invoice_quantity_per_merchant
     invoice_quantity_per_merchant = []
-    @merchants.each do |merchant|
+    @merchants.all.each do |merchant|
       invoice_num = 0
-      @invoices.each do |invoice|
+      @invoices.all.each do |invoice|
         if (invoice.merchant_id == merchant.id)
           invoice_num += 1
+        end
       end
       invoice_quantity_per_merchant.push(invoice_num)
     end
@@ -93,12 +90,12 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-
-
+    (invoice_quantity_per_merchant.sum.to_f / invoice_quantity_per_merchant.count).truncate(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-
+    difference_sum = invoice_quantity_per_merchant.map {|invoice_quantity| (average_invoices_per_merchant - invoice_quantity)**2 }.sum
+    price_stdrd_dev = Math.sqrt((difference_sum / invoice_quantity_per_merchant.count).abs)
   end
 
 end
