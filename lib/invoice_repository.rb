@@ -48,7 +48,14 @@ class InvoiceRepository
     end
   end
 
+  def update(id, attributes)
+    if updated_invoice = find_by_id(id)
+      updated_invoice.status = attributes[:status]
+    elsif 
+    end
+  end
+
   def inspect
-    "#<#{self.class} #{@invioce_repo.size} rows>"
+    "#<#{self.class} #{@invoice_repo.size} rows>"
   end
 end
