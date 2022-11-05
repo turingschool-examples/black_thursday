@@ -15,14 +15,10 @@ class SalesAnalyst
     @engine.average_items_per_merchant_standard_deviation
   end
 
-    #average = average_items_per_merchant
-    # @engine.items_per_merchant.map { |number| (number - average)**2 }.sum / @engine.merchants.all.length
-
-  # def average_item_price_for_merchant(id)
-  #   #@engine.items_per_merchant
-  #   @engine.items.find_all_by_merchant_id(merchant_id)
-  #   # all_items.sum.fdiv(all_items.length)
-  # end
+  def average_item_price_for_merchant(id)
+    #@engine.items.find_all_by_merchant_id(merchant_id)
+    @engine.merchants.average_item_price_for_merchant(id)
+  end
 
   # def average_average_price_per_merchant
   #   mr.all.map do |merchant|
