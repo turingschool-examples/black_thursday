@@ -239,6 +239,10 @@ BigDecimal(total, 4)
     
   end
 
+  def top_revenue_earners
+
+  end
+
      #dfg
 # def merchants_with_pending_invoices
 #     @merchants.all.find_all do |merchant|  maybe possible to go straight to invoices?

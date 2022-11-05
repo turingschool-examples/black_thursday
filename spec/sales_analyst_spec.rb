@@ -176,6 +176,14 @@ end
     end
   end
 
+  describe '#top_revenue_earners' do
+    it 'will give you the total revenue on any given date' do
+      date = Time.parse("2012-03-27 14:54:09 UTC")
+      
+      expect(sales_analyst.top_revenue_by_date(date)).to eq []
+    end
+  end
+
   it "#merchants_with_only_one_item returns merchants with only one item" do
     expect(sales_analyst.merchants_with_only_one_item.length).to eq 243 #the number of merchants taken from spec harness
     expect(sales_analyst.merchants_with_only_one_item.first.class).to eq Merchant
