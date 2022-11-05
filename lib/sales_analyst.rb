@@ -70,7 +70,9 @@ class SalesAnalyst
   # Helper methods
 
   def invoice_revenue(invoice_id)
-
+    invoice_items_by_invoice_id(invoice_id).sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
   end
 
   def invoice_items_by_invoice_id(invoice_id)
