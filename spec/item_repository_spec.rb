@@ -111,4 +111,32 @@ describe ItemRepository do
       expect(@ir.all).to eq([@item2, @item3, @item4, @item5])
     end
   end
+
+  describe '#average_price' do
+    it 'returns the average price of all items' do
+      expect(@ir.average_price.round(3)).to eq(15.098)
+    end
+  end
+
+  describe '#average_price_standard_deviation' do
+    it 'calculates the standard_deviation' do
+      expect(@ir.average_price_standard_deviation).to eq(8.716393749710942)
+    end
+  end
+
+  describe '#golden_items' do
+    it 'returns an array of items above 2 standard deviations in price' do
+      @ir.create(
+        {
+          name: 'test',
+          description: 'test',
+          created_at: Time.now,
+          updated_at: Time.now,
+          merchant_id: '696969',
+          unit_price: '100000'
+        }
+      )
+      expect(@ir.golden_items).to eq([@ir.repository[5]])
+    end
+  end
 end
