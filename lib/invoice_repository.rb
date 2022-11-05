@@ -14,4 +14,10 @@ class InvoiceRepository
       invoice.customer_id == customer_id
     end
   end
+
+  def find_all_by_status(status)
+    all.find_all do |invoice|
+      invoice.status.casecmp?(status)
+    end
+  end
 end
