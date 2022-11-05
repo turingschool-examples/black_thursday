@@ -55,6 +55,10 @@ class InvoiceRepository
     end
   end
 
+  def delete(id)
+    invoice_repo.delete_if { |invoice| invoice.id == id }
+  end
+
   def inspect
     "#<#{self.class} #{@invoice_repo.size} rows>"
   end

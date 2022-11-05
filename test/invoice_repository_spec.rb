@@ -188,9 +188,16 @@ RSpec.describe InvoiceRepository do
                           created_at: Time.now,
                           updated_at: Time.now
                           })
+    inv_creation2 = invoice_repo1.create ({
+                          id: 3,
+                          customer_id: 5,
+                          merchant_id: 12333135231,
+                          status: "pending",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
     expect(inv_creation1).to be_instance_of(Invoice)
-    
     invoice_repo1.delete(1)
-    expect(inv_creation1).to be_nil
+    expect(invoice_repo1.all).not_to include(inv_creation1)
   end
 end
