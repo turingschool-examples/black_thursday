@@ -78,7 +78,6 @@ class SalesAnalyst
   def invoice_quantity_per_merchant
     merchant_ids = @invoices.all.map { |invoice| invoice.merchant_id}
     hash = Hash.new(0)
-
     merchant_ids.each do |id|
       hash[id] += 1
     end
@@ -105,7 +104,7 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    @merchants.all.find_all { |merchant| }
+    @merchants.all.find_all { |merchant| merchant_invoice_num(merchant.id) > average_invoices_per_merchant + average_items_per_merchant_standard_deviation * 2}
   end
 
 end
