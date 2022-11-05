@@ -45,6 +45,13 @@ RSpec.describe Item do
     end
   end
 
+  describe '#return_time_from' do
+    it 'returns a time object if passed a Time or a String' do
+      expect(i.return_time_from(Time.parse("2022-11-05 11:17:20.889536 -0700"))).to be_a(Time)
+      expect(i.return_time_from("2022-11-05 11:17:20.889536 -0700")).to be_a(Time)
+    end
+  end
+
   describe '#unit_price_to_dollars' do
     it 'returns price of item in dollars as float' do
       expect(i.unit_price_to_dollars).to eq(10.99)
