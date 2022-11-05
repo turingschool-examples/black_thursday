@@ -16,11 +16,19 @@ class Item
     @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
-    @unit_price = BigDecimal(info[:unit_price], 4)
-    @unit_price = (@unit_price / 100) if (@unit_price % 1).zero?
-    @created_at = Time.parse(info[:created_at].to_s)
-    @updated_at = Time.parse(info[:updated_at].to_s)
+    @unit_price = to_price(info[:unit_price])
+    @created_at = to_time(info[:created_at])
+    @updated_at = to_time(info[:updated_at])
     @merchant_id = info[:merchant_id].to_i
+  end
+
+  def to_price(price)
+    p = BigDecimal(price, 4)
+    (p / 100) if (p % 1).zero?
+  end
+
+  def to_time(time)
+    Time.parse(time.to_s)
   end
 
   def unit_price_to_dollars
@@ -28,9 +36,9 @@ class Item
   end
 
   def update(attributes)
-    @name = attributes[:name] if attributes.key?(:name)
-    @description = attributes[:description] if attributes.key?(:description)
-    @unit_price = attributes[:unit_price] if attributes.key?(:unit_price)
+    @name = attributes[:name] if attributes[:name]
+    @description = attributes[:description] if attributes[:description]
+    @unit_price = attributes[:unit_price] if attributes[:unit_price]
     @updated_at = Time.now
     self
   end

@@ -95,7 +95,7 @@ RSpec.describe ItemRepository do
 
     it 'deletes item by id' do
       repo.delete(1)
-      expect(repo.repo).to eq([])
+      expect(repo.items).to eq([])
     end
   end
 end
