@@ -38,6 +38,17 @@ class MerchantRepository < GeneralRepo
   def average_items_per_merchant_standard_deviation
     deviation(number_of_items_per_merchant, average_items_per_merchant).round(2)
   end
+
+  def number_of_invoices_per_merchant
+    all.map do |merchant|
+      merchant.invoice_count
+    end
+  end
+
+  def average_invoices_per_merchant
+    average(number_of_invoices_per_merchant.sum, all.length).round(2)
+  end
+
   # def average_item_price_for_merchant
   #   average()
   # end

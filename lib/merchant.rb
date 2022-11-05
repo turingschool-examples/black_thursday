@@ -30,4 +30,14 @@ class Merchant
       item.unit_price
     end
   end
+
+  # Fetches items owned by merchant
+  def _invoices
+    @_invoices ||= @merchant_repo.engine.invoices.find_all_by_merchant_id(@id)
+  end
+
+  # Returns number of items owned by merchant.
+  def invoice_count
+    _invoices.count
+  end
 end
