@@ -33,16 +33,17 @@ RSpec.describe InvoiceRepo do
     end
   end
 
-  describe '#find_by_customer_id' do
+  describe '#find_all_by_customer_id' do
     it 'returns either [] or one or more instances of Invoice with matching customer id' do
-      expect(ir.find_by_customer_id(1)).to eq [invoice1, invoice2, invoice3, invoice4, invoice5]
+      expect(ir.find_all_by_customer_id(231)).to eq []
+      expect(ir.find_all_by_customer_id(1)).to eq [invoice1, invoice2, invoice3, invoice4, invoice5]
     end
   end
 
-  describe '#find_by_merchant_id' do
+  describe '#find_all_by_merchant_id' do
     it 'returns either [] or one or more instances of Invoice with matching merchant id' do
-      expect(ir.find_by_merchant_id(12_335_938)).to eq [invoice1]
-      expect(ir.find_by_merchant_id(33_333_333)).to eq []
+      expect(ir.find_all_by_merchant_id(12_335_938)).to eq [invoice1]
+      expect(ir.find_all_by_merchant_id(33_333_333)).to eq []
     end
   end
 
