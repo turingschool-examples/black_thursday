@@ -50,26 +50,16 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  # describe '#average_item_price_for_merchant' do
-  #   it "returns the average price of a merchant's items" do
-  #     item_repo = double('ItemRepo')
-  #     allow(item_repo).to receive(:find_all_by_merchant_id).and_return([BigDecimal("2"), BigDecimal("5"), BigDecimal("3"), BigDecimal("9")])
-      
-  #     expect(sa.average_item_price_for_merchant(item_repo, 1111111)).to eq 0.475e1
-  #   end
-  # end
-
-  # describe '#average_average_price_per_merchant' do
-  #   it 'returns an average of all merchant average item price' do
-  #     item_repo = double('ItemRepo')
-  #     allow(item_repo).to receive(:find_all_by_merchant_id).and_return([2, 5, 3, 9])
-  #     expect(sa.average_item_price_for_merchant(item_repo, 22222)).to eq 
-  #   end
-  # end
-
   describe '#golden_items' do
-    it '' do
-
+    it 'returns an array of item objects that are 2 std dev above average item price' do
+      expected = analyst.golden_items
+      expect(expected).to be_a Array
+      expect(expected).to all(be_a Merchant)
+      expected.each do |item|
+        expect(item.unit_price).to be > (
+          analyst.average_price + analyst.average_price_standard_deviation
+        )
+      end
     end
   end
 end
