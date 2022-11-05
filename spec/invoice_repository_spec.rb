@@ -111,6 +111,15 @@ RSpec.describe InvoiceRepository do
     expect(ivr.engine).to be_a(SalesEngine)
   end
 
+  it 'can load data' do
+    ivr = InvoiceRepository.new
+    file = './data/invoices.csv'
+    ivr.load_data(file)
+
+    expect(ivr.all.first).to be_a(Invoice)
+    expect(ivr.all.all?(Invoice)).to eq(true)
+  end
+
   it 'can find invoices by customer id' do
     ivr = InvoiceRepository.new
       i1 = Invoice.new(
