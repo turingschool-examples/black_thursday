@@ -1,7 +1,9 @@
+require 'csv'
+
 class TransactionRepository
 
   def initialize(transactions, engine)
-    @transactions = create_transactions(transactions)
+    @transactions = create_records(transactions)
     @engine = engine
   end
 
@@ -11,6 +13,7 @@ class TransactionRepository
 
   def a_valid_id?(id)
     @transactions.any? do |transaction| transaction.id == id
+    end
   end 
 
   def find_by_id(id)
@@ -30,14 +33,14 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(cc)
-    @transaction.find_all do |transaction|
+    @transactions.find_all do |transaction|
       transaction.credit_card_number == cc
     end
   end
 
   def create(attributes)
-    new_id = @transaction.last.id + 1
-    @transaction << Transaction.new({ :id => new_id, 
+    new_id = @transactions.last.id + 1
+    @transactions << Transaction.new({ :id => new_id, 
                                       :invoice_id => attributes[:invoice_id], 
                                       :credit_card_number => attributes[:credit_card_number],
                                       :credit_card_expiration_date => attributes [:credit_card_expiration_date],
@@ -46,26 +49,25 @@ class TransactionRepository
                                       :updated_at => Time.now}, self)
   end
 
-  def update(id, attribute)
-    @transaction.each do |transaction|
-      if transaction.id == id
-        transaction_new_status = transaction.name.replace(attribute)
-        return transaction_new_status
-      end
-    end
-  end
+  # def update(id, attribute)
+  #   @transaction.each do |transaction|
+  #     if transaction.id == id
+  #       transaction_new_status = transaction.name.replace(attribute)
+  #       return transaction_new_status
+  #     end
+  #   end
+  # end
 
   def delete(id)
     @transactions.delete(find_by_id(id))
   end
 
-
-  def create_transactions(filepath)
+  def create_records(filepath)
     contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
-    make_transaction_object(contents)
+    make_object(contents)
   end
   
-  def make_transaction_object(contents)
+  def make_object(contents)
     contents.map do |row|
       transaction = {
               :id => row[:id].to_i, 
@@ -80,8 +82,7 @@ class TransactionRepository
     end
   end
   
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-end
+  # def inspect
+  #   "#<#{self.class} #{@merchants.size} rows>"
+  # end
 end

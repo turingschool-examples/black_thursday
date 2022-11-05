@@ -12,7 +12,6 @@ RSpec.describe TransactionRepository do
   let!(:transaction_repository) {TransactionRepository.new('./data/transactions.csv', nil)}
 
   it 'is an transaction repository' do
-    require 'pry'; binding.pry
     expect(transaction_repository).to be_a(TransactionRepository)
   end
 
