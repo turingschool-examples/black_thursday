@@ -85,4 +85,11 @@ class SalesAnalyst
       merchant.invoices.length > (average_invoices_per_merchant + std_dev * 2)
     end
   end
+
+  def bottom_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    @engine.merchants.all.find_all do |merchant|
+      merchant.invoices.length < (average_invoices_per_merchant - std_dev * 2)
+    end
+  end
 end
