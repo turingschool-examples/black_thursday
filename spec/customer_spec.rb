@@ -38,5 +38,29 @@ RSpec.describe Customer do
       expect(customer.created_at).to be < (Time.now)
     end 
   end 
+
+  describe '#update first name' do 
+    it 'will update the first name' do 
+      customer.update_first_name("Joanne")
+
+      expect(customer.first_name).to eq("Joanne")
+    end 
+  end 
+
+  describe '#update last name' do 
+    it 'will update the last name' do
+      customer.update_last_name("Clark")
+
+      expect(customer.last_name).to eq("Clark")
+    end 
+  end 
+  
+  describe "update time" do 
+    it 'will update the time' do 
+      original_update = customer.updated_at
+      
+      expect(customer.update_time).to be > (original_update)
+    end 
+  end 
 end 
     
