@@ -73,27 +73,32 @@ class SalesAnalyst
     # BigDecimal
   end
 
-  def golden_items
-    require 'pry'; binding.pry
-    sales_engine.items
-    require 'pry'; binding.pry
-    find_all_by_price(unit_price)
-      if (item.unit_price/100) > (average_average_price_per_merchant + (average_items_per_merchant_standard_deviation * 2))
-      require 'pry'; binding.pry
-      end
-     
-    # golden_item_objects = [] 
-    # sales_engine.items.all.each do |item|
-    #   if (item.unit_price / 100) > (average_average_price_per_merchant + (average_items_per_merchant_standard_deviation * 2))
-    #     golden_item_objects << item
-    #     require 'pry'; binding.pry
-    #   end
-    #   golden_item_objects.length
-    # end
+  # def average_price_for_all_items
+  #  variable = sales_engine.items.all.map |item|
+  #   item.unit_price
+  #  unit_price.sum / items_count
+  # end
+
+  def golden_items 
+    total_price_for_all_items = sales_engine.items.all.sum do |item|
+      item.unit_price
+    end
+    avg_price_of_items = (total_price_for_all_items / items_count).round(2)
+
+    sum = 0
+    sales_engine.items.all.each do |item|
+      sum += (item.unit_price - avg_price_of_items)**2
+    end
+    items_standard_deviation = Math.sqrt(sum / (items_count - 1)).round(2)
+
+    sales_engine.items.all.find_all do |item|
+      item.unit_price > (avg_price_of_items + (items_standard_deviation * 2))
+    end
   end
-  
-    # find_all items that are TWO sd ABOVE the average_item_price_for_all_merchants
+
+    # find_all items that are TWO sd ABOVE the average_item_price_for_all_items
     # returns an array of item objects
+    # it is an Item Class
 
 
    # ======================================= #
