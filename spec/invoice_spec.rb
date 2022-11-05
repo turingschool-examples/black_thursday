@@ -44,9 +44,16 @@ RSpec.describe Invoice do
   end
 
   describe '#created_at' do 
-    it 'returns a time instance for the date the item was first created' do 
+    it 'returns a Time instance for the date the item was first created' do 
       expect(invoice_1.created_at).to be_a(Time)
       expect(invoice_2.created_at).to be_a(Time)
+    end
+  end
+
+  describe '#updated_at' do 
+    it 'returns a Time instance for the date the item was last modified' do 
+      expect(invoice_1.updated_at).to be_a(Time)
+      expect(invoice_2.updated_at).to be_a(Time)
     end
   end
 end
