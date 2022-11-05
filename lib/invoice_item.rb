@@ -13,6 +13,7 @@ class InvoiceItem
               :created_at,
               :updated_at
 
+
   def initialize(info)
     @id = info[:id].to_i
     @item_id = info[:item_id].to_i
@@ -26,5 +27,12 @@ class InvoiceItem
 
   def unit_price_to_dollars
     unit_price.to_f
+  end
+
+  def update(attributes)
+    @quantity = attributes[:quantity] if attributes.key?(:quantity)
+    @unit_price = attributes[:unit_price] if attributes.key?(:unit_price)
+    @updated_at = Time.now
+    self
   end
 end

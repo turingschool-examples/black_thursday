@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require 'time'
 require './lib/item'
 # require './lib/invoice'
