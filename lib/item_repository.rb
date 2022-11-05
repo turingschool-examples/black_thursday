@@ -33,4 +33,9 @@ class ItemRepository < GeneralRepo
   def clean_string(desc)
     desc.gsub(/\s+/, '').gsub(/\n+/, '')
   end
+
+  def average_price
+    prices = @repository.map { |item | item.unit_price_to_dollars }
+    average(prices.sum, prices.count)
+  end
 end
