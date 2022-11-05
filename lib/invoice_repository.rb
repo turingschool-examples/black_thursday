@@ -5,6 +5,6 @@ require 'pry'
 class InvoiceRepository
 
     def initialize
-        invoice_repo = []
+        @invoice_repo = []
     end
 end
