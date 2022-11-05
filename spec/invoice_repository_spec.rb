@@ -23,7 +23,7 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'returns an instance of an invoice with matching id' do
-    expect(invoice_repository.find_by_id(17)).to eq(invoice_repository.all[15])
+    expect(invoice_repository.find_by_id(16)).to eq(invoice_repository.all[15])
   end
 
   xit 'returns nil if id is not within' do
@@ -42,7 +42,7 @@ RSpec.describe InvoiceRepository do
 
   xit 'can find all merchants with matching id in an array' do
     expect(invoice_repository.find_all_by_merchant_id(12334488)).to be_a Array
-    expect(invoice_repository.find_all_by_merchant_id(12334488).length).to eq(51)
+    expect(invoice_repository.find_all_by_merchant_id(12334488).length).to eq(17)
   end
 
   xit 'returns nil if not a valid merchant id' do
@@ -63,7 +63,7 @@ RSpec.describe InvoiceRepository do
   xit 'can create a new invoice instance with attributes' do
      expect(invoice_repository.all.last.id).to eq(4985)
      
-     invoice_repository.update()
+     invoice_repository.create()
 
      expect(invoice_repository.all.last.id).to eq(4986)
   end

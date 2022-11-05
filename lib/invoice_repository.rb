@@ -32,13 +32,18 @@ class InvoiceRepository
     @invoices.any? do |invoice| invoice.id == id
     end 
   end
+  
+  def a_valid_merchant_id?(id)
+    @invoices.any? do |invoice| invoice.merchant_id == id
+    end 
+  end
 
   def find_all_by_merchant_id(id)
     if !a_valid_id?(id)
       return nil
     else
-      @invoices.find do |invoice|
-        invoice.id == id
+      @invoices.find_all do |invoice|
+        invoice.merchant_id == id
       end
     end
   end
@@ -50,7 +55,7 @@ class InvoiceRepository
       @invoices.find do |invoice|
         invoice.id == id
       end
-    end
+    # end
   end
 
   def create(attribute)
