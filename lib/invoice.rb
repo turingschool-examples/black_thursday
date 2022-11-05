@@ -5,10 +5,10 @@ require 'csv'
 class Invoice
   attr_reader :id, 
               :customer_id, 
-              :merchant_id, 
-              :status, 
+              :merchant_id,  
               :created_at, 
               :updated_at
+  attr_accessor :status
   def initialize(info)
     @id = info[:id].to_i
     @customer_id = info[:customer_id].to_i
