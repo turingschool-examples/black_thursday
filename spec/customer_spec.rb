@@ -16,6 +16,11 @@ RSpec.describe Customer do
     it 'will have an id' do 
 
       expect(customer.id).to eq(6)
+    end
+    
+    it 'will have a first_name' do 
+
+      expect(customer.first_name).to eq("Joan")
     end 
   end 
 end 
