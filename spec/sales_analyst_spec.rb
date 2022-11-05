@@ -7,14 +7,16 @@ require './lib/sales_engine'
 require 'bigdecimal'
 
 RSpec.describe SalesAnalyst do
-  let(:data) { {
+  let(:data) do
+    {
       items:         './data/items.csv', 
       merchants: './data/merchants.csv',
       invoices: './data/invoices.csv',
       invoice_items: './data/invoices.csv',
       transactions: './data/transactions.csv',
-      customers:   './data/customers.csv',
-      } }
+      customers:   './data/customers.csv'
+    }
+  end
   let(:engine) { SalesEngine.from_csv(data) }
   let(:analyst) { SalesAnalyst.new(engine) }
   describe '#initialize' do
@@ -36,8 +38,13 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#merchants_with_high_item_count' do
-    it 'returns a list of merchants whose standard deviation of # of items is 1 or greater' do
-
+    it 'returns a list of merchants whose standard deviation of # of items is greater than 1' do
+      expected = analyst.merchants_with_high_item_count
+      expect(expected).to be_a Array
+      expect(expected[0]).to be_a MerchantRepository
+      expect(expected[0].deviation_difference).to be > 1
+      expect(expected[1]).to be_a MerchantRepository
+      expect(expected[1].deviation_difference).to be > 1
     end
   end
 
