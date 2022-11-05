@@ -8,5 +8,5 @@ class Merchant
 
   def update(attributes)
     @name = attributes[:name]
-    end
+  end
 end

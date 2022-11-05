@@ -37,10 +37,8 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    unless find_by_id(id).nil?
+    if find_by_id(id)
       find_by_id(id).update(attributes)
-
-      # find_by_id(id).name = attributes[:name]
     end
   end
 
