@@ -21,7 +21,7 @@ RSpec.describe InvoiceRepository do
     expect(inv_creation.id).to eq(1)
     expect(inv_creation.customer_id).to eq(1)
     expect(inv_creation.merchant_id).to eq(12335938)
-    expect(inv_creation.status).to eq("pending")
+    expect(inv_creation.status).to eq(:pending)
     expect(inv_creation.created_at).to be_instance_of(Time)
     expect(inv_creation.updated_at).to be_instance_of(Time)
   end
