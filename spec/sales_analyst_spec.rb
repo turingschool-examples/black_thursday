@@ -47,13 +47,11 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  # describe '#average_average_price_per_merchant' do
-  #   it 'returns an average of all merchant average item price' do
-  #     item_repo = double('ItemRepo')
-  #     allow(item_repo).to receive(:find_all_by_merchant_id).and_return([2, 5, 3, 9])
-  #     expect(sa.average_item_price_for_merchant(item_repo, 22222)).to eq 
-  #   end
-  # end
+  describe '#average_average_price_per_merchant' do
+    it 'returns an average of all merchant average item price' do
+      expect(analyst.average_average_price_per_merchant).to eq 350.29
+    end
+  end
 
   describe '#golden_items' do
     it '' do
