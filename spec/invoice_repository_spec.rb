@@ -224,10 +224,11 @@ RSpec.describe InvoiceRepository do
       )
   
       ivr.all << i 
-
-      ivr.update(6, status: "completed") && updated_time = Time.now
+      expect(i.updated_at).to eq(Time.parse(updated))
+      
+      ivr.update(6, status: "completed")
 
       expect(i.status).to eq("completed")
-      expect(i.updated_at).to eq(updated_time)
+      expect(i.updated_at).not_to eq(Time.parse(updated))
   end
 end
