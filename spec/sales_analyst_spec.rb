@@ -29,6 +29,40 @@ RSpec.describe SalesAnalyst do
       sales_analyst = se.analyst
 
       expect(sales_analyst.average_items_per_merchant).to eq(2.88)
+
+      sales_analyst.items.create({
+        :name        => "Eraser",
+        :description => "Erases pencil markings",
+        :unit_price  => BigDecimal(2.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      sales_analyst.items.create({
+        :name        => "Ball Point Pen",
+        :description => "Makes permanent markings",
+        :unit_price  => BigDecimal(3.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      sales_analyst.items.create({
+        :name        => "Fountain Pen",
+        :description => "Makes artisinal permanent markings",
+        :unit_price  => BigDecimal(103.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      sales_analyst.items.create({
+        :name        => "Mike Tyson's Ball Point Pen",
+        :description => "Makes permanent markings",
+        :unit_price  => BigDecimal(30_000.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      expect(sales_analyst.average_items_per_merchant).not_to eq(2.88)
     end
   end
 
@@ -37,6 +71,40 @@ RSpec.describe SalesAnalyst do
       sales_analyst = se.analyst
 
       expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
+
+      sales_analyst.items.create({
+        :name        => "Eraser",
+        :description => "Erases pencil markings",
+        :unit_price  => BigDecimal(2.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      sales_analyst.items.create({
+        :name        => "Ball Point Pen",
+        :description => "Makes permanent markings",
+        :unit_price  => BigDecimal(3.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      sales_analyst.items.create({
+        :name        => "Fountain Pen",
+        :description => "Makes artisinal permanent markings",
+        :unit_price  => BigDecimal(103.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      sales_analyst.items.create({
+        :name        => "Mike Tyson's Ball Point Pen",
+        :description => "Makes permanent markings",
+        :unit_price  => BigDecimal(30_000.99,4),
+        :created_at  => Time.now,
+        :updated_at  => Time.now,
+        :merchant_id => 12334159})
+
+      expect(sales_analyst.average_items_per_merchant_standard_deviation).not_to eq(3.26)
     end
   end
 
@@ -46,8 +114,9 @@ RSpec.describe SalesAnalyst do
 
       sales_analyst.merchants_with_high_item_count.each do |merchant|
         expect(merchant).to be_a Merchant
+        expect(sales_analyst.items.find_all_by_merchant_id(merchant.id).size).to be > 6
       end
-      expect(sales_analyst.merchants_with_high_item_count.count).to be <= (475 * 0.17)
+      expect(sales_analyst.merchants_with_high_item_count.count).to be <= (475 * 0.16)
     end
   end
 
