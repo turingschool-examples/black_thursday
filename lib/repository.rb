@@ -15,6 +15,10 @@ class Repository
     end
   end
   #create and update methods to be made
+  # def create(attributes)
+  #   attributes[:id] = max_id
+  #   add_to_repo(Item.new(attributes))
+  # end
 
   def delete(id)
     @all.delete(find_by_id(id))
