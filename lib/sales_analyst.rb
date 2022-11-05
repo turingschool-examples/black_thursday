@@ -67,10 +67,10 @@ class SalesAnalyst
     end
   end
 
-  def top_buyers
+  def top_buyers(num_buyers = 20)
     @customers.all.sort_by do |cust|
       customer_spent(cust.id)
-    end.reverse![0..4]
+    end.reverse![0..num_buyers-1]
   end
 
   # Helper methods
@@ -84,8 +84,6 @@ class SalesAnalyst
   def customer_spent(cust_id)
     sum = 0
     customer_invoices(cust_id).each do |cust_inv|
-      # require 'pry'; binding.pry
-      # cust_inv.status != :returned ? invoice_revenue(cust_inv.id) : 0
       invoice_paid_in_full?(cust_inv.id) ? sum += invoice_revenue(cust_inv.id) : 0
     end
     sum

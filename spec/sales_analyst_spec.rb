@@ -63,10 +63,21 @@ RSpec.describe SalesAnalyst do
 
   describe '#top_buyers' do
     it 'returns the top x buyers' do
-      expect(sales_analyst.top_buyers).to eq []
+      expected = [313,517,148,370,478].map do |cust| 
+        sales_analyst.find_customer_by_id(cust)
+      end
+      expect(sales_analyst.top_buyers(5)).to eq(expected)
     end
     xit 'returns the top 20 buyers by default' do
-
+      expected = [
+                  313,517,148,370,478,
+                  266,596,802,793,571,
+                  655,433, 5 ,755,258,
+                  888,821,274,954,250               
+                  ].map do |cust| 
+        sales_analyst.find_customer_by_id(cust)
+      end
+      expect(sales_analyst.top_buyers).to eq(expected)
     end
   end
 
@@ -80,7 +91,7 @@ RSpec.describe SalesAnalyst do
   describe '#customer_spent' do
     it 'returns how much a customer has spent' do
       expected = sales_analyst.customer_spent(1)
-      expect(expected).to eq 88758.65
+      expect(expected).to eq BigDecimal(88758.65,7)
     end
   end
 
