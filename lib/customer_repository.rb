@@ -6,20 +6,55 @@ class CustomerRepository
   end
 
   ######################################
-  #def all
+  def all
+    @customers
+  end
+
+  def find_by_id(id)
+    if !a_valid_id?(id)
+      return nil
+    else
+      @customers.find do |customer|
+        customer.id == id
+      end
+    end
+  end
+
+  def a_valid_id?(id)
+    @customers.any? do |customer| customer.id == id
+    end 
+  end
   
-  #def find_by_id
+  def find_all_by_first_name(string)
+    @customers.find_all do |customer| 
+      customer.first_name.downcase.include?(string.downcase)
+    end
+  end
+  
+  def find_all_by_last_name(string)
+    @customers.find_all do |customer| 
+      customer.last_name.downcase.include?(string.downcase)
+    end
+  end
 
-  #def find_all_by_first_name
+  def create(attribute)
+    new_id = @customers.last.id + 1
+    @customers << Customer.new({:id => new_id, :first_name => attribute[:first_name]}, self)
+  end
 
-  #def find_all_by_last_name
+  def update(id, attributes)
+    @customers.find do |customer|
+      if customer.id == id
+        customer.first_name.replace(attributes[:first_name])
+        customer.last_name.replace(attributes[:last_name])
+        customer.updated_at.replace(Time.now.to_s)
+      end
+    end
+  end
 
-  #create
-
-  #update
-
-  #delete
-  ######################################
+  def delete(id)
+    @customers.delete(find_by_id(id))
+  end
 
   def create_customers(filepath)
     contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
