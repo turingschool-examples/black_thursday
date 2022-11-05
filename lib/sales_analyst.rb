@@ -69,6 +69,16 @@ class SalesAnalyst
 
   # Helper methods
 
+  def invoice_revenue(invoice_id)
+
+  end
+
+  def invoice_items_by_invoice_id(invoice_id)
+    @invoice_items.all.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
+    end
+  end
+
   def sum_square_diff_items
     item_counts.map do |count|
       (count - average_items_per_merchant)**2
