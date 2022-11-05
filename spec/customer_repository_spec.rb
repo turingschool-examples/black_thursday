@@ -33,8 +33,17 @@ let (:customer_3) {Customer.new({:id => 8,
     it 'will return all of the customers' do 
       customers = [customer_1, customer_2, customer_3]
       customer_repo = CustomerRepository.new(customers)
-      
+
       expect(customer_repo.all).to eq([customer_1, customer_2, customer_3])
+    end 
+  end 
+
+  describe "#find_by_id" do 
+    it 'will return the customer whos id matches id arguement' do 
+      customers = [customer_1, customer_2, customer_3]
+      customer_repo = CustomerRepository.new(customers)
+
+      expect(customer_repo.find_by_id(6)).to eq(customer_1)
     end 
   end 
 end 
