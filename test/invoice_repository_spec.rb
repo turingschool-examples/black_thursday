@@ -177,4 +177,20 @@ RSpec.describe InvoiceRepository do
     invoice_repo1.update(1, status: :shipped)
     expect(inv_creation1.status).to eq(:shipped)
   end
+
+  it 'repository can delete invoices by id' do
+    invoice_repo1 = InvoiceRepository.new
+    inv_creation1 = invoice_repo1.create ({
+                          id: 1,
+                          customer_id: 1,
+                          merchant_id: 12335938,
+                          status: "pending",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
+    expect(inv_creation1).to be_instance_of(Invoice)
+    
+    invoice_repo1.delete(1)
+    expect(inv_creation1).to be_nil
+  end
 end
