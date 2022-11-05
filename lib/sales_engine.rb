@@ -17,7 +17,6 @@ class SalesEngine
   end
 
   def self.from_csv(hash_path)
-
     sales_engine = new
 
     # TODO: refactor opportunity
@@ -37,8 +36,7 @@ class SalesEngine
   end
 
   def analyst
-        @analyst = SalesAnalyst.new(self)
-        # KR why is analyst an attribute value?
-
+    @analyst = SalesAnalyst.new(self)
+    # KR why is analyst an attribute value?
   end
 end

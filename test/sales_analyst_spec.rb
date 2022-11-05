@@ -9,7 +9,6 @@ RSpec.describe SalesAnalyst do
                            items: './data/items.csv',
                            merchants: './data/merchants.csv'
                          })
-    #  let(:sales_analyst) { sales_engine.analyst }
   end
 
   it 'exists' do

@@ -50,8 +50,8 @@ class SalesAnalyst
   end
 
   def golden_items
-    prices = items.map {|item| item.unit_price}    
-    avg = ((prices.sum)/(prices.count)).round(2)
+    prices = items.map { |item| item.unit_price }
+    avg = (prices.sum / prices.count).round(2)
     total_diff = prices.inject(0) do |sum, price|
       sum + (price - avg)**2
     end.round(2)
@@ -59,6 +59,5 @@ class SalesAnalyst
     items.find_all do |item|
       item.unit_price.to_f >= avg + (std_dev * 2)
     end
-
   end
 end
