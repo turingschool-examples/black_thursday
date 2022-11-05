@@ -1,7 +1,7 @@
 require './spec/spec_helper'
 require './lib/transaction_repository'
 
-RSpec.describe TransactionRepository do 
+RSpec.describe TransactionRepository do
   describe 'iteration 3' do
     let (:t1) {Transaction.new({
                                 :id => 1,
@@ -41,28 +41,36 @@ RSpec.describe TransactionRepository do
                               })}
     let (:transactions) {[t1, t2, t3, t4]}
     let (:t_repo) {TransactionRepository.new(transactions)}
-    
-    describe '#initialize' do 
-      it 'exists and has attributes' do 
+
+    describe '#initialize' do
+      it 'exists and has attributes' do
         expect(t_repo).to be_a(TransactionRepository)
         expect(t_repo.transactions).to eq([t1, t2, t3, t4])
       end
     end
-    
+
     describe '#find_by_id(id)' do
       it 'returns nil or an instance with a matching id' do
         expect(t_repo.find_by_id(1)).to eq(t1)
         expect(t_repo.find_by_id(5)).to eq(nil)
       end
     end
-    
+
+    describe '#find_all_by_invoice_id' do
+      it 'find all transactions with invoice id' do
+        expect(t_repo.find_all_by_invoice_id(46)).to eq([t2])
+        expect(t_repo.find_all_by_invoice_id(2179)).to eq([t1])
+        expect(t_repo.find_all_by_invoice_id(589)).to eq([])
+      end
+    end
+
     describe '#find_all_by_credit_card_number(ccn)' do
       it 'returns [] or a list of matches' do
         expect(t_repo.find_all_by_credit_card_number('4068631943231473')).to eq([t1, t2])
         expect(t_repo.find_all_by_credit_card_number('4177816490204479')).to eq([])
       end
     end
-    
+
     describe '#find_all_by_result(result)' do
       it 'returns [] or a list of matches' do
         expect(t_repo.find_all_by_result('success')).to eq([t1, t2, t3])
@@ -70,11 +78,11 @@ RSpec.describe TransactionRepository do
         expect(t_repo.find_all_by_result('failure')).to eq([])
       end
     end
-    
+
     describe '#create(attributes)' do
       it 'will create a new instance of Transaction' do
         expect(t_repo.transactions).to eq([t1, t2, t3, t4])
-        
+
         t5 = t_repo.create({:invoice_id => '3715',
                             :credit_card_number => '4297222478855497',
                             :credit_card_expiration_date => '1215',
@@ -83,32 +91,32 @@ RSpec.describe TransactionRepository do
         expect(t_repo.transactions).to eq([t1, t2, t3, t4, t5])
       end
     end
-    
+
     describe '#update(id, attribute)' do
       it 'updates specific Transaction attributes' do
         expect(t_repo.transactions[-1].credit_card_number).to eq('4048033451067370')
         expect(t_repo.transactions[-1].credit_card_expiration_date).to eq('0313')
         expect(t_repo.transactions[-1].result).to eq('failed')
-        
-        t_repo.update(4, {:credit_card_number => '4242424242424242', 
+
+        t_repo.update(4, {:credit_card_number => '4242424242424242',
                           :credit_card_expiration_date => '1225',
                           :result => 'success'})
-        
+
         expect(t_repo.transactions[-1].credit_card_number).to eq('4242424242424242')
         expect(t_repo.transactions[-1].credit_card_expiration_date).to eq('1225')
         expect(t_repo.transactions[-1].result).to eq('success')
         expect(t_repo.transactions[-1].updated_at).to be > (t_repo.transactions[-1].created_at)
       end
-      
+
       it 'will do nothing if the id does not exist' do
-        t_repo.update(7, {:credit_card_number => '4242424242424242', 
+        t_repo.update(7, {:credit_card_number => '4242424242424242',
                           :credit_card_expiration_date => '1225',
                           :result => 'success'})
         expect(t_repo.find_by_id(7)).to eq(nil)
       end
-      
+
       it 'will not update attributes not specified in the method' do
-        t_repo.update(4, {:id => 7, 
+        t_repo.update(4, {:id => 7,
                           :invoice_id => 1234,
                           :result => 'success'})
         expect(t_repo.transactions[-1].id).to eq(4)
@@ -116,11 +124,11 @@ RSpec.describe TransactionRepository do
         expect(t_repo.transactions[-1].result).to eq('success')
       end
     end
-    
+
     describe '#delete(id)' do
       it 'deletes the transaction with the given id' do
         t_repo.delete(1)
-        
+
         expect(t_repo.find_by_id(1)).to eq(nil)
       end
     end

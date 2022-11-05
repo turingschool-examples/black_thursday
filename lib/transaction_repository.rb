@@ -11,23 +11,27 @@ class TransactionRepository
   def initialize(transactions)
     @transactions = transactions
   end
-  
+
   def all
     @transactions
   end
-  
+
   def find_by_id(id)
     @transactions.find {|transaction| transaction.id == id}
   end
-  
+
+  def find_all_by_invoice_id(id)
+    @transactions.find_all {|transaction| transaction.invoice_id == id}
+  end
+
   def find_all_by_credit_card_number(ccn)
     @transactions.find_all {|transaction| transaction.credit_card_number == ccn}
   end
-  
+
   def find_all_by_result(result)
     @transactions.find_all {|transaction| transaction.result == result}
   end
-  
+
   def create(attributes)
     ids = all_ids
     attributes[:id] = ids.max + 1
@@ -35,7 +39,7 @@ class TransactionRepository
     @transactions.push(new_transaction)
     new_transaction
   end
-  
+
   def delete(id)
   end
 
@@ -55,7 +59,7 @@ class TransactionRepository
       updated_t
     end
   end
-  
+
   def delete(id)
     @transactions.delete(find_by_id(id))
   end
