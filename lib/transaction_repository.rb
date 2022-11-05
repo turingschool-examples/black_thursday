@@ -10,8 +10,7 @@ class TransactionRepository
   end
 
   def a_valid_id?(id)
-    @transactions.any? do |transaction| 
-      transaction.id == id
+    @transactions.any? do |transaction| transaction.id == id
     end
   end 
 

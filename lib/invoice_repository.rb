@@ -9,7 +9,7 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
-    if !a_valid_id?()
+    if !a_valid_id?(id)
       return nil
     else
       @invoices.find do |invoice|
@@ -90,7 +90,7 @@ class InvoiceRepository
     end
   end
   
-    def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
+  #   def inspect
+  #   "#<#{self.class} #{@merchants.size} rows>"
+  # end
 end
