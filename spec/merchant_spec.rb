@@ -78,4 +78,24 @@ describe Merchant do
       expect(merchant.avg_item_price).to eq 2.0
     end
   end
+
+  describe '#_invoices' do
+    it 'fetches invoices created by merchant' do
+      merch_repo = double('merch_repo')
+      engine = double('engine')
+      invoice_repo = double('InvoiceRepo')
+      merchant = Merchant.new({ id: 5, name: 'Turing School' }, merch_repo)
+      allow(merch_repo).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:invoices).and_return(invoice_repo)
+      allow(invoice_repo).to receive(:find_by_merchant_id).and_return(['invoice1', 'invoice2'])
+      expect(merchant._invoices).to eq ['invoice1', 'invoice2']
+    end
+  end
+
+  describe '#invoice_count' do
+    it 'returns the number of invoices a merchant keeps' do
+      allow(merchant).to receive(:_invoices).and_return(['invoice1', 'invoice2'])
+      expect(merchant.invoice_count).to eq(2)
+    end
+  end
 end

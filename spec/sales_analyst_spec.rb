@@ -38,6 +38,18 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  describe '#average_invoices_per_merchant' do
+    it 'returns average # of invoices per merchant' do
+      expect(analyst.average_invoices_per_merchant).to eq(10.49)
+    end
+  end
+
+  describe '#average_invoices_per_merchant_standard_deviation' do
+    it 'returns the std dev for # of invoices per merchant' do
+      expect(analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+    end
+  end
+
   describe '#merchants_with_high_item_count' do
     it 'returns a list of merchants whose standard deviation of # of items is greater than 1' do
       expected = analyst.merchants_with_high_item_count

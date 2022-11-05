@@ -128,7 +128,7 @@ describe MerchantRepository do
       invoices = double('invoice_repo')
       allow(mr).to receive(:engine).and_return(engine)
       allow(engine).to receive(:invoices).and_return(invoices)
-      allow(invoices).to receive(:find_all_by_merchant_id).and_return(['invoice1', 'invoice2'])
+      allow(invoices).to receive(:find_by_merchant_id).and_return(['invoice1', 'invoice2'])
 
       expect(mr.number_of_invoices_per_merchant).to eq [2, 2, 2, 2]
     end
@@ -202,7 +202,7 @@ describe MerchantRepository do
     end
   end
 
-  describe '#def average_average_price_per_merchant' do
+  describe '#average_average_price_per_merchant' do
     it 'returns the average of merchants average item price' do
       allow(mr.all[0]).to receive(:avg_item_price).and_return(1.0)
       allow(mr.all[1]).to receive(:avg_item_price).and_return(2.2)
