@@ -6,6 +6,7 @@ require './lib/item'
 require './lib/sales_analyst'
 require './lib/transaction'
 require './lib/transaction_repository'
+require 'csv'
 
 RSpec.describe TransactionRepository do
   let!(:transaction_repository) {TransactionRepository.new('./data/transactions.csv', nil)}
