@@ -4,16 +4,19 @@ require_relative './item_repository'
 require_relative './item'
 require_relative './merchant'
 require_relative './sales_analyst'
+require_relative './invoice'
+require_relative './invoice_repository'
 require 'pry'
 
 class SalesEngine
   attr_reader :merchants,
               :items,
-              :analyst
+              :invoices
 
   def initialize
     @merchants = MerchantRepository.new
     @items = ItemRepository.new
+    @invoices = InvoiceRepository.new
   end
 
   def self.from_csv(hash_path)
