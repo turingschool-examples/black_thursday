@@ -18,7 +18,6 @@ RSpec.describe do
 
   it 'finds all the items per merchant' do
     sales_engine = SalesEngine.from_csv(
-
       :items     => './data/items_test2.csv',
       :merchants => './data/merchant_test2.csv'
       )

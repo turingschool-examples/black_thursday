@@ -1,5 +1,4 @@
 module StandardDeviation
-
   def diff_and_square(amounts, average)
     amounts.map do |amount|
       (amount - average)**2

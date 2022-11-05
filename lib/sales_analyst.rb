@@ -59,9 +59,9 @@ class SalesAnalyst
     std_dev = average_item_price_std_dev
     @engine.items.all.find_all do |item|
       item.unit_price  >
-              (std_dev *
-                      2 +
-                      average_average_price_per_merchant)
+      (std_dev *
+      2 +
+      average_average_price_per_merchant)
     end
   end
 end
