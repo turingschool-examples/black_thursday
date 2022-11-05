@@ -124,10 +124,18 @@ describe MerchantRepository do
 
   describe '#average_item_price_for_merchant' do
     it 'returns the average item price for the given merchant id' do
-      
       allow(mr.all[0]).to receive(:avg_item_price).and_return(2.0)
-      
-      expect(mr.average_item_price_for_merchant(12334105))
+      expect(mr.average_item_price_for_merchant(12334105)). to eq (2.0)
+    end
+  end
+
+  describe '#def average_average_price_per_merchant' do
+    it 'returns the average of merchants average item price' do
+      allow(mr.all[0]).to receive(:avg_item_price).and_return(1.0)
+      allow(mr.all[1]).to receive(:avg_item_price).and_return(2.2)
+      allow(mr.all[2]).to receive(:avg_item_price).and_return(3.6)
+      allow(mr.all[3]).to receive(:avg_item_price).and_return(7.4)
+      expect(mr.average_average_price_per_merchant). to eq 3.55
     end
   end
 end
