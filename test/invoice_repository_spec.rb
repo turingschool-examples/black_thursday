@@ -91,4 +91,27 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo1.find_all_by_customer_id(5)).to eq([inv_creation2])
     expect(invoice_repo1.find_all_by_customer_id(18)).to eq([])
   end
+
+  it 'repository can find all invoices by merchant id' do
+    invoice_repo1 = InvoiceRepository.new
+    inv_creation1 = invoice_repo1.create ({
+                          id: 1,
+                          customer_id: 1,
+                          merchant_id: 12335938,
+                          status: "pending",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
+    inv_creation2 = invoice_repo1.create ({
+                          id: 3,
+                          customer_id: 5,
+                          merchant_id: 12333135231,
+                          status: "pending",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
+    expect(invoice_repo1.find_all_by_merchant_id(1)).to eq([inv_creation1])
+    expect(invoice_repo1.find_all_by_merchant_id(5)).to eq([inv_creation2])
+    expect(invoice_repo1.find_all_by_merchant_id(18)).to eq([])
+  end
 end
