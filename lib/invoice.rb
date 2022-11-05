@@ -4,7 +4,7 @@ class Invoice
   attr_reader :customer_id,
               :merchant_id,
               :repo
-              
+                            
   attr_accessor :id,
                 :created_at,
                 :updated_at,

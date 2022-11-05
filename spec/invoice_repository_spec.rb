@@ -235,11 +235,11 @@ RSpec.describe InvoiceRepository do
         :id          => 6,
         :customer_id => 7,
         :merchant_id => 8,
-        :status      => "pending",
-        :created_at  => created = Time.now.to_s,
+        :status      => 'pending',
+        :created_at  => Time.now.to_s,
         :updated_at  => updated = Time.now.to_s
       )
-  
+
       ivr.all << i 
       expect(i.updated_at).to eq(Time.parse(updated))
 
