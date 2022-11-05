@@ -22,6 +22,13 @@ class InvoiceRepository
     end
   end
 
+  def update(id, attributes)
+    return if attributes.empty?
+    updated = find_by_id(id)
+    updated.status = attributes[:status]
+    updated.updated_at = Time.now
+  end
+
   def child
     Invoice
   end

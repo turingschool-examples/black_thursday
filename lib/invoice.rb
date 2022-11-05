@@ -2,12 +2,12 @@ require 'time'
 
 class Invoice
   attr_reader :customer_id,
-              :merchant_id,
-              :status
+              :merchant_id
               
   attr_accessor :id,
                 :created_at,
-                :updated_at
+                :updated_at,
+                :status
 
   def initialize(attributes)
     @id           = attributes[:id].to_i
