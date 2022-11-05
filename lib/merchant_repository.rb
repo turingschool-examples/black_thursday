@@ -6,7 +6,7 @@ class MerchantRepository
   end
 
   def create(attributes)
-    attributes[:id] = (@merchants.last.id + 1) if merchants.last.nil? == false
+    attributes[:id] = (@merchants[-1].id + 1) unless merchants[0].nil?
     new_merchant = Merchant.new(attributes)
     @merchants << new_merchant
     new_merchant
@@ -27,18 +27,18 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    merchants.select do |merchant|
+    merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
   end
 
   def delete(id)
-    merchants.delete_if { |merchant| merchant.id.== id }
+    merchants.delete_if { |merchant| merchant.id == id }
   end
 
   def update(id, attributes)
-    if updated_merchant = find_by_id(id)
-      updated_merchant.name = attributes[:name]
+    unless find_by_id(id).nil?
+      find_by_id(id).name = attributes[:name]
     end
   end
 

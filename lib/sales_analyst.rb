@@ -15,17 +15,16 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     avg = average_items_per_merchant
-    total_difference = merchants.inject(0) do |sum, merchant|
+    total_diff = merchants.inject(0) do |sum, merchant|
       merchant_items = sales_engine.items.find_all_by_merchant_id(merchant.id)
-      sum += (merchant_items.count - avg)**2
+      sum + (merchant_items.count - avg)**2
     end
-    Math.sqrt(total_difference / (merchants.length - 1)).round(2)
+    Math.sqrt(total_diff / (merchants.length - 1)).round(2)
   end
 
   def merchants_with_high_item_count
     double = average_items_per_merchant_standard_deviation * 2
     merchants.find_all do |merchant|
-      # KR refactor opportunity, 33 same as line 19
       sales_engine.items.find_all_by_merchant_id(merchant.id).count > double
     end
   end
@@ -35,9 +34,9 @@ class SalesAnalyst
     if items.empty?
       BigDecimal(0)
     else
-      price = BigDecimal(items.inject(0) do |sum, item|
-                           sum + BigDecimal(item.unit_price)
-                         end) # average item price)
+      price = items.inject(0) do |sum, item|
+        sum + item.unit_price
+      end
       (price / items.count).round(2)
     end
   end

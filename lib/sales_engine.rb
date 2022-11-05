@@ -23,14 +23,14 @@ class SalesEngine
 
     rows = CSV.open hash_path[:merchants], headers: true, header_converters: :symbol
     rows.each do |row|
-      new_merchant = Merchant.new(row.to_h)
-      sales_engine.merchants.all << new_merchant
+      new_obj = Merchant.new(row.to_h)
+      sales_engine.merchants.all << new_obj
     end
-
+    
     rows = CSV.open hash_path[:items], headers: true, header_converters: :symbol
     rows.each do |row|
-      new_item = Item.new(row.to_h)
-      sales_engine.items.all << new_item
+      new_obj = Item.new(row.to_h)
+      sales_engine.items.all << new_obj
     end
     sales_engine
   end

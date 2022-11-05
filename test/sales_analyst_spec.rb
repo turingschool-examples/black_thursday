@@ -1,5 +1,5 @@
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 require './lib/sales_engine'
 require './lib/sales_analyst'
 
