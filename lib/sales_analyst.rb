@@ -1,4 +1,5 @@
 require 'pry'
+require 'bigdecimal'
 require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './invoice_repository'
@@ -222,7 +223,23 @@ class SalesAnalyst
   ((invoice_count.count).to_f / (invoices.all.count) * 100).round(2)
   end
 
+  
 
+  def total_revenue_by_date(date)
+    total = 0
+  invoice_items.all.find_all do |item|
+    # binding.pry
+    if item.created_at == date
+      total += item.unit_price
+    end
+  end
+  # total.to_f
+BigDecimal(total, 4)
+
+    
+  end
+
+     #dfg
 # def merchants_with_pending_invoices
 #     @merchants.all.find_all do |merchant|  maybe possible to go straight to invoices?
 #     merchant.invoices.any? |invoice|      believe any? will skip any that dont have an invoice, think they all do so this could be redundant.
@@ -231,7 +248,6 @@ class SalesAnalyst
 
   def merchants_with_only_one_item
     @merchants.all.collect do |merchant|
-      require 'pry'; binding.pry
       @items.find_all_by_merchant_id(merchant.id).count == 1
     end
   end

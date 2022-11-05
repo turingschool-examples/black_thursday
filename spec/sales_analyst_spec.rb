@@ -144,32 +144,40 @@ end
   end
 
 
-  # describe '#invoice_paid_in_full?(invoice_id)' do
-  #   it 'return true if transaction success and false if failed' do
+  describe '#invoice_paid_in_full?(invoice_id)' do
+    xit 'return true if transaction success and false if failed' do
 
-  #     expected = sales_analyst.invoice_paid_in_full?(1)
-  #     expect(expected).to eq true
+      expected = sales_analyst.invoice_paid_in_full?(1)
+      expect(expected).to eq true
 
-  #     expected = sales_analyst.invoice_paid_in_full?(200)
-  #     expect(expected).to eq true
+      expected = sales_analyst.invoice_paid_in_full?(200)
+      expect(expected).to eq true
 
-  #     expected = sales_analyst.invoice_paid_in_full?(203)
-  #     expect(expected).to eq false
+      expected = sales_analyst.invoice_paid_in_full?(203)
+      expect(expected).to eq false
 
-  #     expected = sales_analyst.invoice_paid_in_full?(204)
-  #     expect(expected).to eq false
-  #   end
-  # end
+      expected = sales_analyst.invoice_paid_in_full?(204)
+      expect(expected).to eq false
+    end
+  end
 
-  describe '#invoice_total(1)' do # changetest later to other invoice number
+  describe '#invoice_total(1)' do # change test later to other invoice number
     it 'will return the invoice total for that id' do
 
       expect(sales_analyst.invoice_total(1)).to eq 21067.77
     end
   end
 
+  describe '#total_revenue_by_date' do
+    it 'will give you the total revenue on any given date' do
+      date = Time.parse("2012-03-27 14:54:09 UTC")
+      
+      expect(sales_analyst.total_revenue_by_date(date)).to eq 5977.78
+    end
+  end
+
   it "#merchants_with_only_one_item returns merchants with only one item" do
-    expect(sales_analyst.merchants_with_only_one_item.length).to eq 243 # the number of merchants taken from spec harness
+    expect(sales_analyst.merchants_with_only_one_item.length).to eq 243 #the number of merchants taken from spec harness
     expect(sales_analyst.merchants_with_only_one_item.first.class).to eq Merchant
   end
 
