@@ -33,7 +33,14 @@ include Calculable
     end
   end
 
-  # Returns the avrg price of the merchants items.
+  def _invoices
+    @_invoices ||= @merchant_repo.engine.invoices.find_all_by_merchant_id(@id)
+  end
+
+  def invoice_count
+    _invoices.count
+  end
+  
   def avg_item_price
     average(item_prices.sum, item_count)
   end

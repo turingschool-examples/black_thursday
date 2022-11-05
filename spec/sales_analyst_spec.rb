@@ -38,6 +38,18 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  describe '#average_invoices_per_merchant' do
+    it 'returns average # of invoices per merchant' do
+      expect(analyst.average_invoices_per_merchant).to eq(10.49)
+    end
+  end
+
+  describe '#average_invoices_per_merchant_standard_deviation' do
+    it 'returns the std dev for # of invoices per merchant' do
+      expect(analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+    end
+  end
+
   describe '#merchants_with_high_item_count' do
     it 'returns a list of merchants whose standard deviation of # of items is greater than 1' do
       expected = analyst.merchants_with_high_item_count
@@ -72,6 +84,24 @@ RSpec.describe SalesAnalyst do
         expect(item.unit_price).to be > (
           analyst.engine.items.average_price + analyst.engine.items.average_price_standard_deviation
         )
+      end
+    end
+  end
+
+  describe '#invoice_status' do
+    it 'returns an percent value for invoice objects that match the type symbol passed' do
+      expected = analyst.invoice_status(:shipped)
+      expect(expected).to be_a Float
+      expect(0..100).to include(expected)
+    end
+  end
+
+  describe 'top_days_by_invoice_count' do
+    it 'returns a collection of all days that are above the average by one std deviation' do
+      expected = analyst.top_days_by_invoice_count
+      expect(expected).to be_a Array
+      expected.each do |day|
+        expect(day).to be('Wednesday')
       end
     end
   end

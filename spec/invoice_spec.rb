@@ -21,7 +21,7 @@ RSpec.describe Invoice do
       expect(invoice.id).to eq 6
       expect(invoice.customer_id).to eq 7
       expect(invoice.merchant_id).to eq 8
-      expect(invoice.status).to eq 'pending'
+      expect(invoice.status).to eq :pending
       expect(invoice.created_at).to eq time1
       expect(invoice.updated_at).to eq time2
     end
@@ -41,8 +41,8 @@ RSpec.describe Invoice do
              }
       invoice = Invoice.new(data, ir)
 
-      expect(invoice.update({status: 'shipped'})).to be_within(0.5).of Time.now
-      expect(invoice.status).to eq 'shipped'
+      expect(invoice.update({status: :shipped})).to be_within(0.5).of Time.now
+      expect(invoice.status).to eq :shipped
     end
   end
 end

@@ -49,8 +49,16 @@ RSpec.describe InvoiceRepo do
 
   describe '#find_all_by_status' do
     it 'returns [] or one or more instances of Invoice with matching status' do
-      expect(ir.find_all_by_status('pending')).to eq [invoice1, invoice4, invoice5]
-      expect(ir.find_all_by_status('shipped')).to eq [invoice2, invoice3]
+      expect(ir.find_all_by_status(:pending)).to eq [invoice1, invoice4, invoice5]
+      expect(ir.find_all_by_status(:shipped)).to eq [invoice2, invoice3]
+    end
+  end
+
+  describe '#invoice_status' do
+    it 'returns an float representing the percent of matches to status type symbol passed' do
+      expect(ir.invoice_status(:shipped)).to eq 40.0
+      expect(ir.invoice_status(:shipped)).to be_a Float
+      expect(0..100).to include(ir.invoice_status(:shipped))
     end
   end
 
@@ -59,7 +67,7 @@ RSpec.describe InvoiceRepo do
       expect(ir.create({
                         customer_id:         7,
                         merchant_id:         8,
-                        status:      'pending',
+                        status:      :pending,
                         created_at:   Time.now,
                         updated_at:   Time.now
                        }).id).to eq 6
@@ -68,9 +76,9 @@ RSpec.describe InvoiceRepo do
 
   describe '#update' do
     it 'updates Invoice with corresponding id with the provided attributes' do
-      expect(ir.repository[0].status).to eq 'pending'
-      ir.update('1', { status: 'shipped' })
-      expect(ir.repository[0].status).to eq 'shipped'
+      expect(ir.repository[0].status).to eq :pending
+      ir.update('1', { status: :shipped })
+      expect(ir.repository[0].status).to eq :shipped
       expect(ir.repository[0].updated_at).to be_within(0.5).of Time.now
     end
   end
@@ -80,6 +88,50 @@ RSpec.describe InvoiceRepo do
       ir.delete('1')
       expect(ir.repository.count).to eq(4)
       expect(ir.repository[0].id).to eq(2)
+    end
+  end
+
+  describe '#convert_int_to_day(num)' do
+    it 'converts an integer numeric value into a string weekday' do
+      expect(ir.convert_int_to_day(3)).to eq('Wednesday')
+      expect(ir.convert_int_to_day(7)).to eq(nil)
+    end
+  end
+
+  describe '#number_of_invoices_per_day' do
+    it 'returns a hash containing invoice counts by a dayname=>count structure' do
+      expect(ir.number_of_invoices_per_day.keys).to eq(
+        ["Saturday", "Friday", "Wednesday", "Monday"]
+      )
+      expect(ir.number_of_invoices_per_day.values).to eq([2, 1, 1, 1])
+    end
+  end
+
+  describe '#average_invoices_per_day' do
+    it 'returns the average number of invoices per day' do
+      engine = double('engine')
+      invoices = double('invoice_repo')
+      allow(ir).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:invoices).and_return(invoices)
+
+      expect(ir.average_invoices_per_day).to eq(1.25)
+    end
+  end
+
+  describe '#average_invoices_per_day_standard_deviation' do
+    it 'returns the deviation for average number of invoices per day' do
+      engine = double('engine')
+      invoices = double('invoice_repo')
+      allow(ir).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:invoices).and_return(invoices)
+
+      expect(ir.average_invoices_per_day_standard_deviation).to eq(0.5)
+    end
+  end
+
+  describe '#top_days_by_invoice_count' do
+    it 'returns a collection of all days that are above the average by one std deviation' do
+      expect(ir.top_days_by_invoice_count).to eq(['Saturday'])
     end
   end
 end
