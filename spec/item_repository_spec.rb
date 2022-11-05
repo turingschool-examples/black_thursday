@@ -126,7 +126,17 @@ describe ItemRepository do
 
   describe '#golden_items' do
     it 'returns an array of items above 2 standard deviations in price' do
-      expect(@ir.golden_items).to eq([@ir.repository[4]])
+      @ir.create(
+        {
+          name: 'test',
+          description: 'test',
+          created_at: Time.now,
+          updated_at: Time.now,
+          merchant_id: '696969',
+          unit_price: '100000'
+        }
+      )
+      expect(@ir.golden_items).to eq([@ir.repository[5]])
     end
   end
 end
