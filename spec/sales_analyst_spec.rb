@@ -175,7 +175,7 @@ RSpec.describe SalesAnalyst do
       :merchants => './data/merchant_test.csv'
       )
       sales_analyst = sales_engine.analyst
-      # require 'pry' ;binding.pry
+
       expect(sales_analyst.all_merchant_prices).to eq([0.12e2, 0.13e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2])
   end
 
@@ -202,5 +202,17 @@ RSpec.describe SalesAnalyst do
       sales_analyst = sales_engine.analyst
     
       expect(sales_analyst.average_invoices_per_merchant).to eq(4)
-  end  
+  end
+
+  it 'can calculate average invoices per merchant standard deviation' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_invoices_test.csv',
+      :invoices  => './data/invoices_test.csv'
+      )
+      sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(1.00)
+  end
 end
