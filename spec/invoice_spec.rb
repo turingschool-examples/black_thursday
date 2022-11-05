@@ -42,4 +42,11 @@ RSpec.describe Invoice do
       expect(invoice_2.status).to eq("shipped")
     end
   end
+
+  describe '#created_at' do 
+    it 'returns a time instance for the date the item was first created' do 
+      expect(invoice_1.created_at).to be_a(Time)
+      expect(invoice_2.created_at).to be_a(Time)
+    end
+  end
 end
