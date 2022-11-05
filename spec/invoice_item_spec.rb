@@ -3,80 +3,48 @@ require './lib/invoice_item_repository'
 
 RSpec.describe InvoiceItem do
   let!(:invoice_item) {InvoiceItem.new({
-    :id => 6,
-    :item_id => 7,
-    :invoice_id => 8,
-    :quantity => 1,
-    :unit_price => BigDecimal(10.99, 4),
+    :id => 2345,
+    :item_id => 263562118,
+    :invoice_id => 522,
+    :quantity => 9,
+    :unit_price => BigDecimal(0, 9),
     :created_at => Time.now,
     :updated_at => Time.now
   }, nil)}
 
-  it 'is a invoice item class' do
-    require 'pry'; binding.pry
+  xit 'is a invoice item class' do
+    # require 'pry'; binding.pry
     expect(invoice_item).to be_(InvoiceItem)
   end
 
-  it 'can return an integer id' do
-    expect(invoice_item.id()).to eq() 
+  it "#id returns the invoice item id" do
+    expect(invoice_item.id).to eq 2345
+    expect(invoice_item.id.class).to eq Fixnum
   end
 
-  it 'can return nil if it is not within' do
-    expect(invoice_item.id()).to eq(nil)
-    expect(invoice_item.id()).to eq(nil)
+  it "#item_id returns the item id" do
+    expect(invoice_item.item_id).to eq 263562118
+    expect(invoice_item.item_id.class).to eq Fixnum
   end
 
-  it 'returns the item id' do
-    expect(invoice_item.item_id()).to eq()
+  it "#invoice_id returns the invoice id" do
+    expect(invoice_item.invoice_id).to eq 522
+    expect(invoice_item.invoice_id.class).to eq Fixnum
   end
 
-  it 'can return mil if it is not within' do
-    expect(invoice_item.item_id()).to eq(nil)
-    expect(invoice_item.item_id()).to eq(nil)
+  it "#unit_price returns the unit price" do
+    expect(invoice_item.unit_price).to eq 847.87
+    expect(invoice_item.unit_price.class).to eq BigDecimal
   end
 
-  it 'return the invoice id' do
-    expect(invoice_item.invoice_id()).to eq()
+  it "#created_at returns a Time instance for the date the invoice item was created" do
+      # expect(invoice_item.created_at).to eq Time.parse("2012-03-27 14:54:35 UTC")
+      expect(invoice_item.created_at.class).to eq Time
+    end
+
+  it "#updated_at returns a Time instance for the date the invoice item was last updated" do
+    # expect(invoice_item.updated_at).to eq Time.parse("2012-03-27 14:54:35 UTC")
+    expect(invoice_item.updated_at.class).to eq Time
   end
 
-  it 'can return nil if it is not within' do
-    expect(invoice_item.invoice_id()).to eq(nil)
-    expect(invoice_item.invoice_id()).to eq(nil)
-  end
-
-  it 'returns the quanity' do
-    expect(invoice_item.quanity()).to eq()
-  end
-
-  it 'can return nil if it is not within' do
-    expect(invoice_item.quanity()).to eq(nil)
-    expect(invoice_item.quanity()).to eq(nil)
-  end
-
-  it 'returns the unit price' do
-    expect(invoice_item.unit_price).to eq()
-  end
-
-  it 'can return nil if it is not within' do
-    expect(invoice_item.unit_price).to eq(nil)
-    expect(invoice_item.unit_price).to eq(nil)
-  end
-
-  it 'returns the time instance for the date and time it ws first created' do
-    expect(invoice_item.created_at).to eq()
-  end
-
-  it 'can return nil if it is not within' do
-    expect(invoice_item.created_at).to eq(nil)
-    expect(invoice_item.created_at).to eq(nil)
-  end
-
-  it 'returns a time instance for the date in invoice item was last modified' do
-    expect(invoice_item.updated_at).to eq()
-  end
-
-  it 'can return nil if it is not within' do
-    expect(invoice_item.updated_at).to eq(nil)
-    expect(invoice_item.updated_at).to eq(nil)
-  end
 end
