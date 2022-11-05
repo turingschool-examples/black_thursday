@@ -296,6 +296,8 @@ describe ItemRepository do
       })
       ir.all << i1
 
+      expect(i1.updated_at).to eq(Time.parse(old_time))
+
       ir.update(1,{
                     name: "Apple",
                     description: "You can eat it",
@@ -305,7 +307,7 @@ describe ItemRepository do
       expect(ir.all[0].name).to eq "Apple"
       expect(i1.description).to eq "You can eat it"
       expect(i1.unit_price).to eq BigDecimal(20.25,4)
-      expect(i1.updated_at).not_to eq old_time
+      expect(i1.updated_at).not_to eq(Time.parse(old_time))
     end
   end
 

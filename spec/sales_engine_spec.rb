@@ -38,6 +38,15 @@ RSpec.describe SalesEngine do
     expect(se.merchants.all.all?(Merchant)).to be(true)
   end
 
+  it 'can have a invoice repository' do
+    files = {invoices: './data/invoices.csv'}
+
+    se = SalesEngine.new(files)
+
+    expect(se.invoices.all.all?(Invoice)).to be(true)
+    expect(se.invoices).to respond_to(:find_by_id)
+  end
+
   it 'can initialize an instance with files' do
     se = SalesEngine.from_csv({
       :items     => './data/items.csv',
