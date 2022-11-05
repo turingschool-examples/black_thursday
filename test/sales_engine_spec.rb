@@ -51,4 +51,16 @@ RSpec.describe SalesEngine do
     expect(ir).to be_instance_of(ItemRepository)
     expect(item).to be_instance_of(Item)
   end
+
+  it 'creates invoice and invoice repository' do
+    se = SalesEngine.from_csv({
+                                items: './data/items.csv',
+                                merchants: './data/merchants.csv',
+                                invoices: './data/invoices.csv'
+                              })
+    inr   = se.invoices
+    invoice = inr.find_by_id(6)
+    expect(inr).to be_instance_of(ItemRepository)
+    expect(invoice).to be_instance_of(Invoice)
+  end
 end
