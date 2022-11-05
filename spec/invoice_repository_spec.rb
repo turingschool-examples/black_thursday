@@ -36,15 +36,9 @@ RSpec.describe InvoiceRepository do
   end
 
   it "#find_all_by_customer_id returns all invoices associated with given customer" do
-    customer_id = 300
-    expected = invoice_repository.find_all_by_customer_id(customer_id)
-# require 'pry'; binding.pry
-    expect(expected.invoices.length).to eq 10
+   expect(invoice_repository.find_all_by_customer_id(300).length).to eq 10
+   expect(invoice_repository.find_all_by_customer_id(1000)).to eq([])
 
-    customer_id = 1000
-    expected = invoice_repository.find_all_by_customer_id(customer_id)
-
-    expect(expected).to eq []
   end
 
   xit "#find_all_by_merchant_id returns all invoices associated with given merchant" do
@@ -76,7 +70,7 @@ RSpec.describe InvoiceRepository do
     expect(expected).to eq []
   end
 
-  xit "#create creates a new invoice instance" do
+  it "#create creates a new invoice instance" do
     attributes = {
       :customer_id => 7,
       :merchant_id => 8,
@@ -84,8 +78,8 @@ RSpec.describe InvoiceRepository do
       :created_at  => Time.now,
       :updated_at  => Time.now,
     }
-    engine.invoices.create(attributes)
-    expected = engine.invoices.find_by_id(4986)
+    invoice_repository.create(attributes)
+    expected = invoice_repository.find_by_id(4986)
     expect(expected.merchant_id).to eq 8
   end
 

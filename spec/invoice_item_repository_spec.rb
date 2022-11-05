@@ -13,73 +13,116 @@ RSpec.describe InvoiceItemRepository do
   let!(:invoice_item_repository){InvoiceItemRepository.new('./data/invoice_items.csv', nil)}
 
   it 'is an invoice item repository class' do
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     expect(invoice_item_repository).to be_a(InvoiceItemRepository)
   end
-  it 'returns all known invoice items in ana array' do
-    expect(invoice_item_repository.all).to eq([])
+
+  it "#all returns an array of all invoice item instances" do
+      # expected = invoice_item_repository.invoice_items.all
+      expect(invoice_item_repository.invoice_items.count).to eq 21830
+    end
+
+  it "#find_by_id finds an invoice_item by id" do
+    id = 10
+    expected = engine.invoice_items.find_by_id(id)
+
+    expect(expected.id).to eq id
+    expect(expected.item_id).to eq 263523644
+    expect(expected.invoice_id).to eq 2
   end
 
-  it 'can return nil if it is not within' do
-    expect(invoice_item_repository.all).to eq(nil)
-    expect(invoice_item_repository.all).to eq(nil)
+  it "#find_by_id returns nil if the invoice item does not exist" do
+    id = 200000
+    expected = engine.invoice_items.find_by_id(id)
+
+    expect(expected).to eq nil
   end
 
-  it 'returns an invoice item with matching id' do
-    expect(invoice_item_repository.find_by_id()).to eq()
+  xit "#find_all_by_item_id finds all items matching given item_id" do
+    item_id = 263408101
+    expected = engine.invoice_items.find_all_by_item_id(item_id)
+
+    expect(expected.length).to eq 11
+    expect(expected.first.class).to eq InvoiceItem
   end
 
-  it 'can return nil if it is not within' do 
-    expect(invoice_item_repository.find_by_id()).to eq(nil)
-    expect(invoice_item_repository.find_by_id()).to eq(nil)
+  xit "#find_all_by_item_id returns an empty array if there are no matches" do
+    item_id = 10
+    expected = engine.invoice_items.find_all_by_item_id(item_id)
+
+    expect(expected.length).to eq 0
+    expect(expected.empty?).to eq true
   end
 
-  it 'can return all the matching item id' do
-    expect(invoice_item_repository.find_all_by_item_id()).([])
+  xit "#find_all_by_invoice_id finds all items matching given item_id" do
+    invoice_id = 100
+    expected = engine.invoice_items.find_all_by_invoice_id(invoice_id)
+
+    expect(expected.length).to eq 3
+    expect(expected.first.class).to eq InvoiceItem
   end
 
-  it 'can return nil if it is not within' do
-    expect(invoice_item_repository.find_all_by_item_id()).(nil)
-    expect(invoice_item_repository.find_all_by_item_id()).(nil)
+  xit "#find_all_by_invoice_id returns an empty array if there are no matches" do
+    invoice_id = 1234567890
+    expected = engine.invoice_items.find_all_by_invoice_id(invoice_id)
+
+    expect(expected.length).to eq 0
+    expect(expected.empty?).to eq true
   end
 
-  it 'returns all the matching invoice id' do
-    expect(invoice_item_repository.find_all_by_invoice_id()).to eq([])
+  xit "#create creates a new invoice item instance" do
+    attributes = {
+      :item_id => 7,
+      :invoice_id => 8,
+      :quantity => 1,
+      :unit_price => BigDecimal(10.99, 4),
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
+    engine.invoice_items.create(attributes)
+    expected = engine.invoice_items.find_by_id(21831)
+    expect(expected.item_id).to eq 7
   end
 
-  it 'can return nil if it is not within' do
-    expect(invoice_item_repository.find_all_by_invoice_id()).to eq(nil)
-    expect(invoice_item_repository.find_all_by_invoice_id()).to eq(nil)
+  xit "#update updates an invoice item" do
+    original_time = engine.invoice_items.find_by_id(21831).updated_at
+    attributes = {
+      quantity: 13
+    }
+    engine.invoice_items.update(21831, attributes)
+    expected = engine.invoice_items.find_by_id(21831)
+    expect(expected.quantity).to eq 13
+    expect(expected.item_id).to eq 7
+    expect(expected.updated_at).to be > original_time
   end
 
-  it 'can create a new invoice instance with attributes' do
-  expect(invoice_item_repository.create()).to eq()
-end
-
-  it 'gives the new invoice instance the highest id + 1' do
-    expect(invoice_item_repository.all.last.id).to eq()
-
-    invoice_item_repository.create()
-
-    expect(invoice_item_repository.all.last.id).to eq()
+  xit "#update cannot update id, item_id, invoice_id, or created_at" do
+    attributes = {
+      id: 22000,
+      item_id: 32,
+      invoice_id: 53,
+      created_at: Time.now
+    }
+    engine.invoice_items.update(21831, attributes)
+    expected = engine.invoice_items.find_by_id(22000)
+    expect(expected).to eq nil
+    expected = engine.invoice_items.find_by_id(21831)
+    expect(expected.item_id).not_to eq attributes[:item_id]
+    expect(expected.invoice_id).not_to eq attributes[:invoice_id]
+    expect(expected.created_at).not_to eq attributes[:created_at]
   end
 
-  it 'can update a merchant (by id) with new attributes' do
-  #will also change the invoices updated_at_attribute to current time
-    expect(invoice_item_repository.find_by_id().name).to eq()
-
-    invoice_item_repository.update(',')
-
-    expect(invoice_item_repository.find_by_id().name).to eq()
+  xit "#update on unknown invoice item does nothing" do
+    engine.invoice_items.update(22000, {})
   end
 
-  it 'can delete an invoice instance by supplied id' do
-    expect(invoice_item_repository.all.length).to eq()
-    expect(invoice_item_repository.all).to eq()
+  xit "#delete deletes the specified invoice" do
+    engine.invoice_items.delete(21831)
+    expected = engine.invoice_items.find_by_id(21831)
+    expect(expected).to eq nil
+  end
 
-    invoice_item_repository.delete()
-
-    expect(invoice_item_repository.all.length).to eq()
-    expect(invoice_item_repository.all).to eq()
+  xit "#delete on unknown invoice does nothing" do
+    engine.invoice_items.delete(22000)
   end
 end

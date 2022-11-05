@@ -24,8 +24,9 @@ class InvoiceRepository
     if !a_valid_id?(id)
       return nil
     else
-      @invoices.find do |invoice|
-        invoice.id == id
+      @invoices.find_all do |invoice|
+        # require 'pry'; binding.pry
+        invoice.customer_id == id
       end
     end
   end
@@ -61,8 +62,12 @@ class InvoiceRepository
   end
 
   def create(attribute)
-    new_invoice = @invoices.last.id + 1
-    @invoices << Invoice.new({:id => new_id, :name => attribute})
+    new_id = @invoices.last.id + 1
+    @invoices << Invoice.new({:id => new_id, :customer_id => attribute[:customer_id],
+      :merchant_id => attribute[:merchant_id],
+      :status      => attribute[:attribute],
+      :created_at  => Time.now,
+      :updated_at  => Time.now}, self)
   end
 
   def update(id, attribute)
@@ -97,7 +102,7 @@ class InvoiceRepository
     end
   end
   
-  #   def inspect
-  #   "#<#{self.class} #{@merchants.size} rows>"
-  # end
+    def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

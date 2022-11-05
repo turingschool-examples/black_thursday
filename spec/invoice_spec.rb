@@ -38,10 +38,12 @@ RSpec.describe Invoice do
     end
 
     it "#created_at returns a Time instance for the date the invoice was created" do
+      expect(invoice.created_at).to eq Time.parse("2015-07-10 00:00:00 -0600")
       expect(invoice.created_at.class).to eq Time
     end
 
     it "#updated_at returns a Time instance for the date the invoice was last updated" do
+      expect(invoice.updated_at).to eq Time.parse("2015-12-10 00:00:00 -0700")
       expect(invoice.updated_at.class).to eq Time
     end
  
