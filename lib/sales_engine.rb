@@ -21,13 +21,24 @@ class SalesEngine
               :invoice_items
 
   def initialize(csv_hash)
-    @items = create_item_repo(csv_hash[:items])
-    @merchants = create_merchant_repo(csv_hash[:merchants])
+    if (csv_hash.has_key?(:items))
+      @items = create_item_repo(csv_hash[:items])
+    else
+      @items = nil
+    end
+    
+    if (csv_hash.has_key?(:merchants))
+      @merchants = create_merchant_repo(csv_hash[:merchants])
+    else
+      @merchants = nil
+    end
+    
     if (csv_hash.has_key?(:invoices))
       @invoices = create_invoice_repo(csv_hash[:invoices])
     else
       @invoices = nil
     end
+    
     if (csv_hash.has_key?(:invoice_items))
       @invoice_items = create_invoice_item_repo(csv_hash[:invoice_items])
     else
@@ -85,8 +96,8 @@ class SalesEngine
     invoice_items = []
     contents = CSV.open invoice_items_csv, headers: true, header_converters: :symbol
     contents.each do |row|
-      invoice_items.push(InvoiceItems.new({:id => row[:id].to_i,
-                           :item_id => row[:item_id],
+      invoice_items.push(InvoiceItem.new({:id => row[:id].to_i,
+                           :item_id => row[:item_id].to_i,
                            :invoice_id => row[:invoice_id].to_i,
                            :quantity => row[:quantity].to_i,
                            :unit_price => row[:unit_price].to_d * (10**(-2)),
@@ -95,6 +106,9 @@ class SalesEngine
     end
     invoice_item_repo = InvoiceItemRepository.new(invoice_items)
   end
+end
+
+
 
   # def create_transaction_repo(transaction_csv)
   #   transactions = []
@@ -110,4 +124,3 @@ class SalesEngine
   #   end
   #   transaction_repo = TransactionRepository.new(transactions)
   # end
-end
