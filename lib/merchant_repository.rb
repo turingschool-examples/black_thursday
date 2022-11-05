@@ -1,65 +1,44 @@
 require_relative '../lib/merchant'
+require_relative '../lib/modules/repo_queries'
 require 'csv'
 
 class MerchantRepository
-  attr_reader :all, :engine
+  include RepoQueries
+  attr_reader :data, :engine
+  
   def initialize(file = nil, engine = nil)
-    @all = []
+    @data = []
     @engine = engine
     load_data(file)
   end
 
   def add_merchant(merchant_object)
-    @all << merchant_object
-  end
-
-  def find_by_id(id)
-    @all.find do |merchant|
-      merchant.id == id
-    end
-  end
-
-  def find_by_name(name)
-    @all.find do |merchant|
-      name.casecmp?(merchant.name)
-    end
+    all << merchant_object
   end
 
   def find_all_by_name(name)
-    @all.find_all do |merchant|
+    all.find_all do |merchant|
       merchant.name.upcase.include?(name.upcase)
     end
   end
 
   def create(attributes)
     new = Merchant.new(attributes)
-    new.id = @all.max_by do |merchant|
+    new.id = all.max_by do |merchant|
       merchant.id
     end.id + 1
-    @all << new
+    all << new
     new
   end
 
   def update(id, attributes)
-    return unless attributes[:name]
+    return if attributes.empty?
     update_merchant = find_by_id(id)
     update_merchant.name = attributes[:name]
   end
 
-  def delete(id)
-    delete_merchant = find_by_id(id)
-    @all.delete(delete_merchant)
-  end
-
-  def load_data(file)
-    return nil unless file
-    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
-      add_merchant(Merchant.new(row, self))
-    end
-  end
-
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
+  def child
+    Merchant
   end
 
   def find_all_by_merchant_id(id)

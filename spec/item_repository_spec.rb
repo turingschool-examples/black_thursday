@@ -12,7 +12,7 @@ describe ItemRepository do
     it 'starts with empty items array' do
       ir = ItemRepository.new
 
-      expect(ir.items).to eq []
+      expect(ir.data).to eq []
     end
   end
 
@@ -29,7 +29,7 @@ describe ItemRepository do
         :merchant_id => 2
       })
 
-      ir.items << i
+      ir.all << i
 
       expect(ir.all).to eq([i])
     end
@@ -59,8 +59,8 @@ describe ItemRepository do
       })
 
 
-      ir.items << i1
-      ir.items << i2
+      ir.all << i1
+      ir.all << i2
 
       expect(ir.find_by_id(1)).to eq i1
       expect(ir.find_by_id(2)).to eq i2
@@ -91,8 +91,8 @@ describe ItemRepository do
         :merchant_id => 3
       })
 
-      ir.items << i1
-      ir.items << i2
+      ir.all << i1
+      ir.all << i2
 
       expect(ir.find_by_name("Pencil")).to eq i1
       expect(ir.find_by_name("Pen")).to eq i2
@@ -111,7 +111,7 @@ describe ItemRepository do
         :merchant_id => 2
       })
 
-      ir.items << i1
+      ir.all << i1
 
       expect(ir.find_by_name("pencil")).to eq i1
     end
@@ -140,8 +140,8 @@ describe ItemRepository do
         :merchant_id => 3
       })
 
-      ir.items << i1
-      ir.items << i2
+      ir.all << i1
+      ir.all << i2
 
       expect(ir.find_all_with_description("you can use it to Write things")).to eq([i1, i2])
       expect(ir.find_all_with_description("It is unbreakable")).to eq([])
@@ -171,8 +171,8 @@ describe ItemRepository do
         :merchant_id => 3
       })
 
-      ir.items << i1
-      ir.items << i2
+      ir.all << i1
+      ir.all << i2
       # require 'pry' ; binding.pry
 
       expect(ir.find_all_by_price(12.99)).to eq []
@@ -203,8 +203,8 @@ describe ItemRepository do
         :merchant_id => 3
       })
 
-      ir.items << i1
-      ir.items << i2
+      ir.all << i1
+      ir.all << i2
 
       expect(ir.find_all_by_price_in_range((10..20))).to eq [i1, i2]
       expect(ir.find_all_by_price_in_range((10..11))).to eq [i1]
@@ -235,8 +235,8 @@ describe ItemRepository do
         :merchant_id => 2
       })
 
-      ir.items << i1
-      ir.items << i2
+      ir.all << i1
+      ir.all << i2
 
       expect(ir.find_all_by_merchant_id(2)).to eq [i1, i2]
       expect(ir.find_all_by_merchant_id(3)).to eq []
@@ -264,8 +264,8 @@ describe ItemRepository do
         :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
-      ir.items << i1
-      ir.items << i2
+      ir.all << i1
+      ir.all << i2
 
       new_item = ir.create({
         :id          => 7,
@@ -294,7 +294,7 @@ describe ItemRepository do
         :updated_at  => old_time = Time.now.to_s,
         :merchant_id => 2
       })
-      ir.items << i1
+      ir.all << i1
 
       ir.update(1,{
                     name: "Apple",
@@ -321,11 +321,11 @@ describe ItemRepository do
         :updated_at  => Time.now.to_s,
         :merchant_id => 2
                     })
-      ir.items << i1
+      ir.all << i1
 
       ir.delete(1)
 
-      expect(ir.items).to eq []
+      expect(ir.all).to eq []
     end
   end
 
