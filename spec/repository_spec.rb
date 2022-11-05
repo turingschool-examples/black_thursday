@@ -42,12 +42,11 @@ RSpec.describe Repository do
 
       repository.delete(6)
 
-      expect(repository.all).to eq(merchant_2)
+      expect(repository.all).to eq([merchant_2])
 
       repository.delete(1)
-      
-      expect(repository.all).to eq(merchant_2)
+
+      expect(repository.all).to eq([merchant_2])
     end
   end
-
 end
