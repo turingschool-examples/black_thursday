@@ -127,24 +127,24 @@ RSpec.describe InvoiceRepository do
         :customer_id => 8,
         :merchant_id => 8,
         :status      => 'pending',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       )
       i2 = Invoice.new(
         :id          => 5,
         :customer_id => 8,
         :merchant_id => 8,
         :status      => 'pending',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       )
       i3 = Invoice.new(
         :id          => 7,
         :customer_id => 9,
         :merchant_id => 10,
         :status      => 'pending',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       )
 
       ivr.all.push(i1,i2,i3)
@@ -160,24 +160,24 @@ RSpec.describe InvoiceRepository do
         :customer_id => 8,
         :merchant_id => 8,
         :status      => 'pending',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       )
       i2 = Invoice.new(
         :id          => 5,
         :customer_id => 8,
         :merchant_id => 8,
         :status      => 'pending',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       )
       i3 = Invoice.new(
         :id          => 7,
         :customer_id => 9,
         :merchant_id => 10,
         :status      => 'completed',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       )
 
       ivr.all.push(i1,i2,i3)
@@ -193,24 +193,24 @@ RSpec.describe InvoiceRepository do
         :customer_id => 8,
         :merchant_id => 8,
         :status      => 'pending',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       )
       i2 = Invoice.new(
         :id          => 5,
         :customer_id => 8,
         :merchant_id => 8,
         :status      => 'pending',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       )
       i3 = Invoice.new(
         :id          => 7,
         :customer_id => 9,
         :merchant_id => 10,
         :status      => 'completed',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       )
 
       ivr.all.push(i1,i2,i3)
@@ -220,8 +220,8 @@ RSpec.describe InvoiceRepository do
         :customer_id => 9,
         :merchant_id => 10,
         :status      => 'completed',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
       )
 
       expect(ivr.all[-1].id).to eq(8)
