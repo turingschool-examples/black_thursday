@@ -66,7 +66,7 @@ class SalesAnalyst
     sales_engine.merchants.all.each do |merchant|
       all_merchant_averages  << average_item_price_for_merchant(merchant.id)
     end
-    ((all_merchant_averages.sum).to_f / merchants_count).truncate(2)
+    ((all_merchant_averages.sum) / merchants_count).truncate(2)
     # use average_item_price_for_merchant(merchant_id)
     # add the sum of all averages between ALL of the merchants
     # divided by number of total merchants
