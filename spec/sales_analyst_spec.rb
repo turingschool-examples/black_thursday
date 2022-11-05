@@ -129,8 +129,19 @@ RSpec.describe SalesAnalyst do
       :merchants => './data/merchant_test2.csv'
       )
       sales_analyst = sales_engine.analyst
-    
+
       expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(13.0)
       expect(sales_analyst.average_item_price_for_merchant(12334105)).to be_a(BigDecimal)
+  end
+
+  it 'sums all the averages, and find the average across all merchant' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_test.csv'
+      )
+      sales_analyst = sales_engine.analyst
+
+      expect(sales_analyst.average_average_price_per_merchant).to eq(13.67)
   end
 end
