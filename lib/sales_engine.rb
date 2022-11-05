@@ -37,11 +37,11 @@ class SalesEngine
       sales_engine.items.all << new_item
     end
 
-    # rows = CSV.open hash_path[:invoices], headers: true, header_converters: :symbol
-    # rows.each do |row|
-    #   new_item = Invoice.new(row.to_h)
-    #   sales_engine.invoices.all << new_item
-    # end    
+    rows = CSV.open hash_path[:invoices], headers: true, header_converters: :symbol
+    rows.each do |row|
+      new_item = Invoice.new(row.to_h)
+      sales_engine.invoices.all << new_item
+    end    
 
     sales_engine
   end
