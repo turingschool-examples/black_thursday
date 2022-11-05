@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ItemRepository
   attr_reader :all
 
@@ -8,10 +10,10 @@ class ItemRepository
   def add_to_repo(item)
     @all << item
   end
-  
+
   def find_by_id(id)
     @all.find do |item|
-      item.id == id      
+      item.id == id
     end
   end
 
@@ -22,12 +24,12 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @all.find do |item|
+    @all.find_all do |item|
       item.description.downcase == description.downcase
     end
   end
 
-  def find_all_with_price(price)
+  def find_all_by_price(price)
     @all.find_all do |item|
       item.unit_price == price
     end
@@ -39,18 +41,19 @@ class ItemRepository
     end
   end
 
-  def find_all_with_price_in_range(range)
+  def find_all_by_price_in_range(range)
     @all.find_all do |item|
       range.include?(item.unit_price)
     end
   end
 
-  def max_id 
+  def max_id
     max = @all.max_by do |item|
       item.id
     end
     return 1 if max.nil?
-    new_max = max.id + 1
+
+    max.id + 1
   end
 
   def create(attributes)
@@ -60,8 +63,11 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    
+    return nil if item.nil?
+
     attributes.each do |key, value|
+      next if [:id, :merchant_id, :created_at].include?(key)
+
       item.instance_variable_set("@#{key}", value)
     end
     item.updated_at = Time.now
@@ -69,5 +75,9 @@ class ItemRepository
 
   def delete(id)
     @all.delete(find_by_id(id))
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

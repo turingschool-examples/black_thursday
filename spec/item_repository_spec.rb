@@ -1,5 +1,5 @@
-require './lib/item_repository'
-require './lib/item'
+require_relative '../lib/item_repository'
+require_relative '../lib/item'
 require 'bigdecimal'
 
 RSpec.describe ItemRepository do
@@ -8,7 +8,7 @@ RSpec.describe ItemRepository do
         :id          => 1,
         :name        => "Pencil",
         :description => "You can use it to write things",
-        :unit_price  => BigDecimal(10.99,4),
+        :unit_price  => "1099",
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 2}) }
@@ -17,7 +17,7 @@ RSpec.describe ItemRepository do
         :id          => 2,
         :name        => "Pen",
         :description => "You can use it to permanently write things",
-        :unit_price  => BigDecimal(12.99,4),
+        :unit_price  => "1299",
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 7}) }
@@ -26,7 +26,7 @@ RSpec.describe ItemRepository do
         :id          => 3,
         :name        => "Stapler",
         :description => "Attaches pieces of paper together",
-        :unit_price  => BigDecimal(19.99,4),
+        :unit_price  => "1999",
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 3}) }
@@ -35,7 +35,7 @@ RSpec.describe ItemRepository do
         :id          => 4,
         :name        => "Keyboard",
         :description => "Allows text input to a computer",
-        :unit_price  => BigDecimal(29.99,4),
+        :unit_price  => "2999",
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 9}) }
@@ -44,7 +44,7 @@ RSpec.describe ItemRepository do
         :id          => 5,
         :name        => "Mouse",
         :description => "Moves the cursor around",
-        :unit_price  => BigDecimal(23.99,4),
+        :unit_price  => "2399",
         :created_at  => Time.now,
         :updated_at  => Time.now,
         :merchant_id => 9}) }
@@ -53,9 +53,23 @@ RSpec.describe ItemRepository do
     it 'exists' do
       expect(ir).to be_a(ItemRepository)
     end
-    
+
     it 'starts with an empty array' do
       expect(ir.all).to eq([])
+    end
+  end
+
+  describe '#add_to_repo()' do
+    it 'adds items to @all' do
+      expect(ir.all).not_to include(item_1)
+
+      ir.add_to_repo(item_1)
+
+      expect(ir.all).to include(item_1)
+
+      ir.add_to_repo(item_2)
+
+      expect(ir.all).to include(item_1, item_2)
     end
   end
 
@@ -83,29 +97,29 @@ RSpec.describe ItemRepository do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
 
-      expect(ir.find_all_with_description("You can use it to write things")).to eq(item_1)
+      expect(ir.find_all_with_description("You can use it to write things")).to eq([item_1])
     end
   end
 
-  describe '#find_all_with_price()' do
+  describe '#find_all_by_price()' do
     it 'finds an instance of Item by price' do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
 
-      expect(ir.find_all_with_price(12.99)).to eq([item_2])
+      expect(ir.find_all_by_price(12.99)).to eq([item_2])
     end
   end
 
-  describe '#find_all_with_price_in_range()' do
+  describe '#find_all_by_price_in_range()' do
     it 'finds an instance of Item with case insensitive search' do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
       ir.add_to_repo(item_3)
       ir.add_to_repo(item_4)
 
-      expect(ir.find_all_with_price_in_range(19..30)).to eq([item_3, item_4])
-      expect(ir.find_all_with_price_in_range(0..9)).to eq([])
-      expect(ir.find_all_with_price_in_range(19.99..21.21)).to eq([item_3])
+      expect(ir.find_all_by_price_in_range(19..30)).to eq([item_3, item_4])
+      expect(ir.find_all_by_price_in_range(0..9)).to eq([])
+      expect(ir.find_all_by_price_in_range(19.99..21.21)).to eq([item_3])
     end
   end
 
@@ -121,13 +135,23 @@ RSpec.describe ItemRepository do
       expect(ir.find_all_by_merchant_id(5)).to eq([])
     end
   end
-  
+
+  describe '#max_id' do
+    it 'returns a number one higher than current highest item ID, or 1 if no items in repo' do
+      expect(ir.max_id).to eq(1)
+
+      ir.add_to_repo(item_5)
+      
+      expect(ir.max_id).to eq(6)
+    end
+  end
+
   describe '#create(attributes)' do
     it 'creates a new Item instance with provided attributes' do
-      expect(ir.all).to eq([])      
+      expect(ir.all).to eq([])
 
       ir.add_to_repo(item_1)
-      expect(ir.all.count).to eq(1)      
+      expect(ir.all.count).to eq(1)
 
       ir.create({
         :name        => "Eraser",
@@ -135,7 +159,7 @@ RSpec.describe ItemRepository do
         :unit_price  => BigDecimal(2.99,4),
         :created_at  => Time.now,
         :updated_at  => Time.now,
-        :merchant_id => 2})      
+        :merchant_id => 2})
 
       ir.create({
         :name        => "Scissors",
@@ -143,13 +167,13 @@ RSpec.describe ItemRepository do
         :unit_price  => BigDecimal(7.99,4),
         :created_at  => Time.now,
         :updated_at  => Time.now,
-        :merchant_id => 2})      
+        :merchant_id => 2})
 
       expect(ir.all[1].id).to eq(2)
       expect(ir.all[2].id).to eq(3)
       expect(ir.all[1].name).to eq("Eraser")
       expect(ir.all[2].name).to eq("Scissors")
-      expect(ir.all[1]).to be_a(Item) 
+      expect(ir.all[1]).to be_a(Item)
     end
   end
 
@@ -159,7 +183,7 @@ RSpec.describe ItemRepository do
       ir.add_to_repo(item_2)
       ir.add_to_repo(item_3)
 
-      expect(ir.all.first.name).to eq("Pencil") 
+      expect(ir.all.first.name).to eq("Pencil")
       expect(ir.all.first.unit_price).to eq(10.99)
       expect(ir.all.first.description).to eq("You can use it to write things")
       expect(ir.all.first.created_at).to eq(ir.all.first.updated_at)
@@ -170,7 +194,7 @@ RSpec.describe ItemRepository do
         :unit_price  => BigDecimal(5.99,4),
         })
 
-      expect(ir.all.first.name).to eq("Mechanical Pencil") 
+      expect(ir.all.first.name).to eq("Mechanical Pencil")
       expect(ir.all.first.unit_price).to eq(5.99)
       expect(ir.all.first.description).to eq("Writes things with replaceable lead")
 
@@ -183,7 +207,7 @@ RSpec.describe ItemRepository do
       ir.add_to_repo(item_1)
       ir.add_to_repo(item_2)
       ir.add_to_repo(item_3)
-      
+
       expect(ir.all.count).to eq(3)
 
       ir.delete(1)
