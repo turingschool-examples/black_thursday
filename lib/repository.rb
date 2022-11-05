@@ -8,4 +8,10 @@ class Repository
   def add_to_repo(instance)
     @all << instance
   end
+
+  def find_by_id(id)
+    @all.find do |instance|
+      instance.id == id 
+    end
+  end
 end
