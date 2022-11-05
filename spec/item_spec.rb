@@ -11,7 +11,7 @@ RSpec.describe Item do
   :created_at => time_now,
   :updated_at => time_now,
   :merchant_id => 2
-  }
+  }, nil
   )}
 
   it 'is an item class' do

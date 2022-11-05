@@ -1,20 +1,19 @@
 class MerchantRepository
 
-  def initialize(merchants)
-    @merchants = merchants
+  def initialize(merchants, engine)
+    @merchants = create_merchants(merchants)
+    # @engine = engine
   end
   
   def all
     @merchants
   end
 
-  def find_by_id(id)
-    if !a_valid_id?(id)
-      return nil
-    else
-      @merchants.find do |merchant|
-        merchant.id == id
-      end
+  def find_by_id(id) 
+    nil if !a_valid_id?(id)
+
+    @merchants.find do |merchant|
+      merchant.id == id
     end
   end
 
@@ -35,7 +34,7 @@ class MerchantRepository
 
   def create(attribute)
     new_id = @merchants.last.id + 1
-    @merchants << Merchant.new({:id => new_id, :name => attribute})
+    @merchants << Merchant.new({:id => new_id, :name => attribute}, self)
   end
 
   def update(id, name)
@@ -49,5 +48,23 @@ class MerchantRepository
 
   def delete(id)
     @merchants.delete(find_by_id(id))
+  end
+
+  #### Merchant Repository will make individual merchants
+  def create_merchants(filepath)
+    contents = CSV.open filepath, headers: true, header_converters: :symbol
+   
+    make_merchant_object(contents)
+  end
+
+  def make_merchant_object(contents)
+    contents.map do |row|
+      info = {:id => row[:id].to_i, :name => row[:name]}
+      Merchant.new(info, self)
+    end
+  end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

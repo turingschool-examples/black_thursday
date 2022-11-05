@@ -3,8 +3,9 @@ require 'bigdecimal'
 class ItemRepository
   attr_reader :items
 
-  def initialize(items)
-    @items = items
+  def initialize(items, engine)
+    @items = create_items(items)
+    @engine = engine
   end
 
   def all
@@ -12,12 +13,10 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    if !a_valid_id?(id)
-      return nil
-    else
-      @items.find do |item|
-        item.id == id
-      end
+    nil if !a_valid_id?(id)
+
+    @items.find do |item|
+      item.id == id
     end
   end
 
@@ -38,7 +37,7 @@ class ItemRepository
   
   def create(attribute)
     new_id = @items.last.id + 1
-    @items << Item.new({:id => new_id, :name => attribute})
+    @items << Item.new({:id => new_id, :name => attribute}, self)
   end
   
   def find_all_with_description(string)
@@ -59,6 +58,10 @@ class ItemRepository
     end
   end
   
+  def find_merchant_by_id(id)
+    @engine.find_by_merchant_id(id)
+  end
+
   def find_all_by_merchant_id(id)
     @items.find_all do |item|
       item.merchant_id == id.to_i
@@ -68,18 +71,44 @@ class ItemRepository
   def create(attributes)
     new_id = @items.last.id + 1
     attributes[:id] = new_id
-    @items << Item.new(attributes)
+    @items << Item.new(attributes, self)
   end
 
+  # Let's refactor this to use our #find_by_id method
   def update(id, attributes)
     @items.each do |item|
       if item.id == id
-      item.update(attributes)
+      item.update(id, attributes)
       end
     end
   end
   
   def delete(id)
     @items.delete(find_by_id(id))
+  end
+
+  ##### Generate Items
+  def create_items(filepath)
+    contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
+    make_item_object(contents)
+  end
+  
+  def make_item_object(contents)
+    contents.map do |row|
+      item = {
+              :id => row[:id].to_i, 
+              :name => row[:name],
+              :description => row[:description],
+              :unit_price => row[:unit_price].to_f,
+              :created_at => row[:created_at],
+              :updated_at => row[:updated_at],
+              :merchant_id => row[:merchant_id].to_i
+            }
+      Item.new(item, self)
+    end
+  end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
