@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-
+require 'calculable'
 # This is the Merchant Class
 class Merchant
+include Calculable
   attr_reader :id,
               :name
 
@@ -25,9 +26,15 @@ class Merchant
     _items.count
   end
 
+  # Returns an array of item prices owned by merchant.
   def item_prices
     _items.map do |item|
       item.unit_price
     end
+  end
+
+  # Returns the avrg price of the merchants items.
+  def avg_item_price
+    average(item_prices.sum, item_count)
   end
 end

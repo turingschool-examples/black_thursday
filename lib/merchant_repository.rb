@@ -46,7 +46,13 @@ class MerchantRepository < GeneralRepo
       deviation_difference(std_dev, merchant.item_count, avg_count) > 1
     end
   end
-  # def average_item_price_for_merchant
-  #   average()
-  # end
+
+  def average_item_price_for_merchant(id)
+    find_by_id(id).avg_item_price
+  end
+
+  def average_average_price_per_merchant
+    total_avg_item_prices = all.sum { |merchant| average_item_price_for_merchant(merchant.id) }
+    average(total_avg_item_prices, all.length).round(2)
+  end
 end

@@ -17,6 +17,7 @@ RSpec.describe SalesAnalyst do
       customers:   './data/customers.csv'
     }
   end
+  
   let(:engine) { SalesEngine.from_csv(data) }
   let(:analyst) { SalesAnalyst.new(engine) }
   describe '#initialize' do
@@ -47,6 +48,18 @@ RSpec.describe SalesAnalyst do
           analyst.average_items_per_merchant + analyst.average_items_per_merchant_standard_deviation
         )
       end
+    end
+  end
+  
+  describe '#average_item_price_for_merchant' do
+    it "returns the average price of a merchant's items" do
+      expect(analyst.average_item_price_for_merchant(12_334_105)).to eq 16.66
+    end
+  end
+
+  describe '#average_average_price_per_merchant' do
+    it 'returns an average of all merchant average item price' do
+      expect(analyst.average_average_price_per_merchant).to eq 350.29
     end
   end
 
