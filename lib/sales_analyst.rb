@@ -79,4 +79,26 @@ class SalesAnalyst
     @items.all.find_all  {|item|  item.unit_price > price_average + (price_stdrd_dev * 2)}
   end
 
+  def invoice_quantity_per_merchant
+    invoice_quantity_per_merchant = []
+    @merchants.each do |merchant|
+      invoice_num = 0
+      @invoices.each do |invoice|
+        if (invoice.merchant_id == merchant.id)
+          invoice_num += 1
+      end
+      invoice_quantity_per_merchant.push(invoice_num)
+    end
+    invoice_quantity_per_merchant
+  end
+
+  def average_invoices_per_merchant
+
+
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+
+  end
+
 end
