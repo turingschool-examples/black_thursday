@@ -176,11 +176,11 @@ end
     end
   end
 
-  describe '#top_revenue_earners' do
+  describe '#top_revenue_earners(x)' do
     it 'will give you the total revenue on any given date' do
-      date = Time.parse("2012-03-27 14:54:09 UTC")
+      sum = []
       
-      expect(sales_analyst.top_revenue_by_date(date)).to eq []
+      expect(sales_analyst.top_revenue_earners(x)).to eq []
     end
   end
 
