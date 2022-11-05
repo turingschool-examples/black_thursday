@@ -225,6 +225,6 @@ RSpec.describe SalesAnalyst do
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.top_merchants_by_invoice_count).to eq([-1])
+    expect(sales_analyst.top_merchants_by_invoice_count).to eq([sales_engine.merchants.all[-1]])
   end
 end
