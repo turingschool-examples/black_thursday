@@ -123,4 +123,10 @@ describe ItemRepository do
       expect(@ir.average_price_standard_deviation).to eq(8.716393749710942)
     end
   end
+
+  describe '#golden_items' do
+    it 'returns an array of items above 2 standard deviations in price' do
+      expect(@ir.golden_items).to eq([@ir.repository[4]])
+    end
+  end
 end
