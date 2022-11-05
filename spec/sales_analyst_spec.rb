@@ -227,4 +227,16 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.top_merchants_by_invoice_count).to eq([sales_engine.merchants.all[-1]])
   end
+
+  it 'can return the lowest performing merchant' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items_test.csv',
+      :merchants => './data/merchant_invoices_test3.csv',
+      :invoices  => './data/invoices_test3.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.bottom_merchants_by_invoice_count).to eq([sales_engine.merchants.all[0]])
+  end
 end
