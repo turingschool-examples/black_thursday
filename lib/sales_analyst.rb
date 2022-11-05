@@ -74,4 +74,8 @@ class SalesAnalyst
       @engine.find_all_invoices_by_merchant_id(merchant.id).length
     end
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(invoice_amount, average_invoices_per_merchant)
+  end
 end
