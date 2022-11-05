@@ -27,6 +27,11 @@ RSpec.describe Customer do
       
       expect(customer.last_name).to eq("Clarke")
     end 
+
+    it 'will have a value for updated_at' do 
+      
+      expect(customer.updated_at).to be < (Time.now)
+    end 
   end 
 end 
     
