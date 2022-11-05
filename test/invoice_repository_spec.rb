@@ -55,4 +55,17 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repo1.all).to eq([inv_creation1, inv_creation2, inv_creation3])
   end
 
+  it 'repository can find the invoices by id' do
+    invoice_repo1 = InvoiceRepository.new
+    inv_creation1 = invoice_repo1.create ({
+                          id: 1,
+                          customer_id: 1,
+                          merchant_id: 12335938,
+                          status: "pending",
+                          created_at: Time.now,
+                          updated_at: Time.now
+                          })
+    expect(invoice_repo1.find_by_id(1)).to be_instance_of(Invoice)
+    expect(invoice_repo1.find_by_id(625)).to be_nil
+  end
 end
