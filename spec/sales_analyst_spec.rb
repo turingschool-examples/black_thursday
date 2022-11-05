@@ -54,10 +54,10 @@ RSpec.describe SalesAnalyst do
     it 'returns an array of item objects that are 2 std dev above average item price' do
       expected = analyst.golden_items
       expect(expected).to be_a Array
-      expect(expected).to all(be_a Merchant)
+      expect(expected).to all(be_a Item)
       expected.each do |item|
         expect(item.unit_price).to be > (
-          analyst.average_price + analyst.average_price_standard_deviation
+          analyst.engine.items.average_price + analyst.engine.items.average_price_standard_deviation
         )
       end
     end

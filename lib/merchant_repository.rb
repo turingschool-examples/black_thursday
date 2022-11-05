@@ -43,7 +43,7 @@ class MerchantRepository < GeneralRepo
     std_dev = average_items_per_merchant_standard_deviation
     avg_count = average_items_per_merchant
     all.select do |merchant|
-      deviation_difference(std_dev, (merchant.item_count), avg_count) > 1
+      deviation_difference(std_dev, merchant.item_count, avg_count) > 1
     end
   end
   # def average_item_price_for_merchant
