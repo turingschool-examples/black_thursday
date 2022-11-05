@@ -7,14 +7,14 @@ RSpec.describe InvoiceItem do
     :item_id => 263562118,
     :invoice_id => 522,
     :quantity => 9,
-    :unit_price => BigDecimal(0, 9),
+    :unit_price => BigDecimal(847.87, 9),
     :created_at => Time.now,
     :updated_at => Time.now
   }, nil)}
 
-  xit 'is a invoice item class' do
+  it 'is a invoice item class' do
     # require 'pry'; binding.pry
-    expect(invoice_item).to be_(InvoiceItem)
+    expect(invoice_item).to be_a(InvoiceItem)
   end
 
   it "#id returns the invoice item id" do
