@@ -1,3 +1,4 @@
 coverage
 .vscode/settings.json
 .gitignore
+.DS_Store

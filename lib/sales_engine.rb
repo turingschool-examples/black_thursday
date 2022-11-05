@@ -30,4 +30,20 @@ class SalesEngine
   def self.from_csv(data)
     SalesEngine.new(data)
   end
+
+  def average_items_per_merchant
+    @merchants.average_items_per_merchant
+  end
+
+  def number_of_items_per_merchant
+    @merchants.number_of_items_per_merchant
+  end
+
+  def items_per_merchant
+    @merchants.items_per_merchant
+  end
+
+  def average_items_per_merchant_standard_deviation
+    @merchants.average_items_per_merchant_standard_deviation
+  end
 end

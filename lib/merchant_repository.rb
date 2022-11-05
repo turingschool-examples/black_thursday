@@ -7,8 +7,8 @@ require_relative 'general_repo'
 class MerchantRepository < GeneralRepo
   attr_reader :repository
 
-  def initialize(data, se)
-    super('Merchant', data, se)
+  def initialize(data, engine)
+    super('Merchant', data, engine)
   end
 
   def find_by_name(name)
@@ -18,4 +18,27 @@ class MerchantRepository < GeneralRepo
   def find_all_by_name(name)
     repository.select { |merchant| merchant.name.downcase.include? name.downcase }
   end
+
+  def number_of_items_per_merchant
+    all.map do |merchant|
+      merchant.item_count
+    end
+  end
+
+  def items_per_merchant
+    all.map do |merchant|
+      merchant._items
+    end
+  end
+
+  def average_items_per_merchant
+    average(number_of_items_per_merchant.sum, all.length).round(2)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    deviation(number_of_items_per_merchant, average_items_per_merchant).round(2)
+  end
+  # def average_item_price_for_merchant
+  #   average()
+  # end
 end

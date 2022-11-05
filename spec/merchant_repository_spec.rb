@@ -77,4 +77,48 @@ describe MerchantRepository do
       expect(mr.repository[2].id).to eq(12334115)
     end
   end
+
+  describe '#number_of_items_per_merchant' do
+    it 'returns the number of items per merchant' do
+      engine = double('engine')
+      items = double('item_repo')
+      allow(mr).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:items).and_return(items)
+      allow(items).to receive(:find_all_by_merchant_id).and_return(['item1', 'item2'])
+
+      expect(mr.number_of_items_per_merchant).to eq [2, 2, 2, 2]
+    end
+  end
+
+  describe '#items_per_merchant' do
+    it 'returns a list of items per merchant' do
+      allow(mr.all[0]).to receive(:_items).and_return(['item'])
+      allow(mr.all[1]).to receive(:_items).and_return(['item1', 'item2'])
+      allow(mr.all[2]).to receive(:_items).and_return(['item', 'item2', 'item3'])
+      allow(mr.all[3]).to receive(:_items).and_return(['item'])
+
+      expect(mr.items_per_merchant).to eq [['item'], ['item1', 'item2'], ['item', 'item2', 'item3'], ['item']]
+    end
+  end
+
+  describe '#average_items_per_merchant' do
+    it 'returns the average number of items per merchant' do
+      allow(mr.all[0]).to receive(:_items).and_return(['item'])
+      allow(mr.all[1]).to receive(:_items).and_return(['item1', 'item2'])
+      allow(mr.all[2]).to receive(:_items).and_return(['item', 'item2', 'item3'])
+      allow(mr.all[3]).to receive(:_items).and_return(['item'])
+
+      expect(mr.average_items_per_merchant).to eq 1.75
+    end
+  end
+
+  describe '#average_items_per_merchant_standard_deviation' do
+    it 'returns the deviation for average number of items per mechant' do
+      allow(mr.all[0]).to receive(:_items).and_return(['item'])
+      allow(mr.all[1]).to receive(:_items).and_return(['item1', 'item2'])
+      allow(mr.all[2]).to receive(:_items).and_return(['item', 'item2', 'item3'])
+      allow(mr.all[3]).to receive(:_items).and_return(['item'])
+      expect(mr.average_items_per_merchant_standard_deviation).to eq 0.96
+    end
+  end
 end
