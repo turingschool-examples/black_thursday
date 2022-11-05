@@ -201,8 +201,20 @@ class SalesAnalyst
 
 
   def invoice_paid_in_full?(invoice_id)
-    find_transaction_by_invoice_id(invoice_id) == :success
+    transactions = @transactions.find_all_by_invoice_id(invoice_id)
+
+    if transactions.length == 0
+      return false
+    end
+
+    expectations = transactions.map do |transaction|
+      transaction.result
+    end
+
+    !expectations.include?(:failed)
+    # find_transaction_by_invoice_id(invoice_id) == :success
     # invoices.find_by_
+
   end
 
   def find_invoice_item_by_invoice_id(invoice_id) 
@@ -239,8 +251,21 @@ BigDecimal(total, 4)
     
   end
 
-  def top_revenue_earners
+  def total_merchant_revenue(merchant_id)
+    total = 0 
+    x = @invoices.find_all_by_merchant_id(merchant_id)
+    x.each do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        total += invoice_total(invoice.id)
+      end
+    end
+    total.round(2)
+  end
 
+  def top_revenue_earners(rank = 20)
+    merchants.all.max_by(rank) do |merchant|
+      total_merchant_revenue(merchant.id)
+    end
   end
 
      #dfg

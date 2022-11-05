@@ -145,7 +145,7 @@ end
 
 
   describe '#invoice_paid_in_full?(invoice_id)' do
-    xit 'return true if transaction success and false if failed' do
+    it 'return true if transaction success and false if failed' do
 
       expected = sales_analyst.invoice_paid_in_full?(1)
       expect(expected).to eq true
@@ -180,11 +180,11 @@ end
     it 'will give you the total revenue on any given date' do
       sum = []
       
-      expect(sales_analyst.top_revenue_earners(x)).to eq []
+      expect(sales_analyst.top_revenue_earners).to eq []
     end
   end
 
-  it "#merchants_with_only_one_item returns merchants with only one item" do
+  xit "#merchants_with_only_one_item returns merchants with only one item" do
     expect(sales_analyst.merchants_with_only_one_item.length).to eq 243 #the number of merchants taken from spec harness
     expect(sales_analyst.merchants_with_only_one_item.first.class).to eq Merchant
   end
