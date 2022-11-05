@@ -30,7 +30,7 @@ RSpec.describe SalesEngine do
     expect(se.invoices).to be_instance_of(InvoiceRepository)
   end
 
-  it 'creates a merchant and merchant repository' do
+  xit 'creates a merchant and merchant repository' do
     se = SalesEngine.from_csv({
                                 items: './data/items.csv',
                                 merchants: './data/merchants.csv'
@@ -41,7 +41,7 @@ RSpec.describe SalesEngine do
     expect(merchant).to be_instance_of(Merchant)
   end
 
-  it 'creates item and item repository' do
+  xit 'creates item and item repository' do
     se = SalesEngine.from_csv({
                                 items: './data/items.csv',
                                 merchants: './data/merchants.csv'
@@ -52,7 +52,7 @@ RSpec.describe SalesEngine do
     expect(item).to be_instance_of(Item)
   end
 
-  it 'creates invoice and invoice repository' do
+  xit 'creates invoice and invoice repository' do
     se = SalesEngine.from_csv({
                                 items: './data/items.csv',
                                 merchants: './data/merchants.csv',
