@@ -61,4 +61,8 @@ class MerchantRepository
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
+
+  def find_all_by_merchant_id(id)
+    @engine.find_all_by_merchant_id(id)
+  end
 end

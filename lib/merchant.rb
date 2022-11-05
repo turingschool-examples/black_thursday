@@ -5,4 +5,8 @@ class Merchant
     @name = attributes[:name]
     @repo = repo
   end
+
+  def items
+    @repo.find_all_by_merchant_id(id)
+  end
 end
