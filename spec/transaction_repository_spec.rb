@@ -16,21 +16,15 @@ RSpec.describe TransactionRepository do
   end
 
   it 'can return all know transaction instances' do
-    expect(transaction_repository.all).to eq()
-  end
-
-  it 'can return nil if it is not within' do
-    expect(transaction_repository.all).to eq(nil)
-    expect(transaction_repository.all).to eq(nil)
+    expect(transaction_repository.all.length).to eq(4985)
   end
 
   it 'can return transaction with matching id' do
-    expect(transaction_repository.find_by_id()).to eq()
+    expect(transaction_repository.find_by_id(1)).to eq(transaction_repository.all[0])
   end
 
   it 'can return nil if it is not within' do
-    expect(transaction_repository.find_by_id()).to eq(nil)
-    expect(transaction_repository.find_by_id()).to eq(nil)
+    expect(transaction_repository.find_by_id(5000)).to eq(nil)
   end
 
   it 'can find all items with matching id in an array' do
