@@ -2,6 +2,8 @@
 
 # Sales Analyst performs various data operations.
 class SalesAnalyst
+  attr_reader :engine
+
 # include Calculable
   def initialize(engine)
     @engine = engine
@@ -15,6 +17,14 @@ class SalesAnalyst
     @engine.average_items_per_merchant_standard_deviation
   end
 
+  def merchants_with_high_item_count
+    @engine.merchants.merchants_with_high_item_count
+  end
+
+  def golden_items
+    @engine.items.golden_items
+  end
+  
   def average_item_price_for_merchant(id)
     @engine.merchants.average_item_price_for_merchant(id)
   end

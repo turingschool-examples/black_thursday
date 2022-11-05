@@ -15,7 +15,8 @@ class SalesEngine
               :invoice_items,
               :invoices,
               :transactions,
-              :customers
+              :customers,
+              :analyst
 
   def initialize(data)
     @items = ItemRepository.new((CSV.read data[:items], headers: true, header_converters: :symbol), self)
@@ -24,7 +25,7 @@ class SalesEngine
     @invoices = InvoiceRepo.new((CSV.read data[:invoices], headers: true, header_converters: :symbol), self)
     @transactions = TransactionRepo.new((CSV.read data[:transactions], headers: true, header_converters: :symbol), self)
     @customers = CustomerRepo.new((CSV.read data[:customers], headers: true, header_converters: :symbol), self)
-    # @analyst = SalesAnalyst.new(self)
+    @analyst = SalesAnalyst.new(self)
   end
 
   def self.from_csv(data)

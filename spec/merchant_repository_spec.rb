@@ -122,10 +122,20 @@ describe MerchantRepository do
     end
   end
 
+  describe '#merchants_with_high_item_count' do
+    it 'returns an array of merchants whos item count is greater than 1 standard deviation' do
+      allow(mr.all[0]).to receive(:_items).and_return(['item'])
+      allow(mr.all[1]).to receive(:_items).and_return(['item1', 'item2'])
+      allow(mr.all[2]).to receive(:_items).and_return(['item', 'item2', 'item3', 'item4', 'item5', 'item6', 'item7'])
+      allow(mr.all[3]).to receive(:_items).and_return(['item'])
+      expect(mr.merchants_with_high_item_count).to eq([mr.all[2]])
+    end
+  end
+  
   describe '#average_item_price_for_merchant' do
     it 'returns the average item price for the given merchant id' do
       allow(mr.all[0]).to receive(:avg_item_price).and_return(2.0)
-      expect(mr.average_item_price_for_merchant(12334105)). to eq (2.0)
+      expect(mr.average_item_price_for_merchant(12_334_105)). to eq (2.0)
     end
   end
 
