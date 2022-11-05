@@ -44,6 +44,7 @@ RSpec.describe SalesEngine do
     se = SalesEngine.new(files)
 
     expect(se.invoices.all.all?(Invoice)).to be(true)
+    expect(se.invoices).to respond_to(:find_by_id)
   end
 
   it 'can initialize an instance with files' do
