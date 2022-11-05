@@ -15,12 +15,6 @@ include RepoQueries
     all << merchant_object
   end
 
-  def find_by_name(name)
-    all.find do |merchant|
-      name.casecmp?(merchant.name)
-    end
-  end
-
   def find_all_by_name(name)
     all.find_all do |merchant|
       merchant.name.upcase.include?(name.upcase)
@@ -37,25 +31,13 @@ include RepoQueries
   end
 
   def update(id, attributes)
-    return unless attributes[:name]
+    return if attributes.empty?
     update_merchant = find_by_id(id)
     update_merchant.name = attributes[:name]
   end
 
-  def delete(id)
-    delete_merchant = find_by_id(id)
-    all.delete(delete_merchant)
-  end
-
-  def load_data(file)
-    return nil unless file
-    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
-      add_merchant(Merchant.new(row, self))
-    end
-  end
-
-  def inspect
-    "#<#{self.class} #{all.size} rows>"
+  def child
+    Merchant
   end
 
   def find_all_by_merchant_id(id)

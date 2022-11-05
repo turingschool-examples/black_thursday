@@ -13,12 +13,6 @@ include RepoQueries
     load_data(file)
   end
 
-  def find_by_name(name)
-    all.find do |item|
-      item.name.casecmp?(name)
-    end
-  end
-
   def find_all_with_description(description)
     all.find_all do |item|
       item.description.casecmp?(description)
@@ -33,9 +27,6 @@ include RepoQueries
 
   def find_all_by_price_in_range(range)
     all.find_all do |item|
-      # the range includes the unit price
-      # require 'pry' ; binding.pry
-
       range.include?(item.unit_price_to_dollars)
     end
   end
@@ -72,18 +63,7 @@ include RepoQueries
     updated.updated_at = Time.now
   end
 
-  def delete(id)
-    all.delete(find_by_id(id))
-  end
-
-  def load_data(data)
-    return nil unless data
-    CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
-      all << Item.new(row, self)
-    end
-  end
-
-  def inspect
-    "#<#{self.class} #{all.size} rows>"
+  def child
+    Item
   end
 end
