@@ -181,11 +181,14 @@ RSpec.describe SalesAnalyst do
 
 
   it 'returns golden items' do
+
     sales_engine = SalesEngine.from_csv(
 
-      :items     => './data/items_test.csv',
-      :merchants => './data/merchant_test.csv'
+      :items     => './data/items_test3.csv',
+      :merchants => './data/merchant_test3.csv'
       )
       sales_analyst = sales_engine.analyst
+
+      expect(sales_analyst.golden_items).to eq([sales_engine.items.all[15], sales_engine.items.all[26]])
   end
 end
