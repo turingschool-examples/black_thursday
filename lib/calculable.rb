@@ -14,13 +14,13 @@ module Calculable
     sum / count.to_f
   end
 
-  def deviation(items, mean_avg)
-    squares = items.map { |num| (num - mean_avg) ** 2 }
+  def deviation(items, avg_count)
+    squares = items.map { |num| (num - avg_count) ** 2 }
     Math.sqrt(squares.sum / (items.length.to_f - 1))
   end
 
-  def deviation_difference(dev, count, mean_avg)
-    ((count - mean_avg) / dev).to_i
+  def deviation_difference(std_dev, count, avg_count)
+    ((count - avg_count) / std_dev).to_i
   end
 
   def percent(value, total_value)
