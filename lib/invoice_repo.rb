@@ -22,7 +22,7 @@ class InvoiceRepo < GeneralRepo
   end
 
   def invoice_status(type)
-    count = find_all_by_status(type.to_s).count
+    count = find_all_by_status(type).count
     total = all.count
     percent(count, total)
   end
