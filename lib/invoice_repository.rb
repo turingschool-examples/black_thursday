@@ -51,7 +51,7 @@ class InvoiceRepository
   def update(id, attributes)
     if updated_invoice = find_by_id(id)
       updated_invoice.status = attributes[:status]
-    elsif 
+      attributes[:updated_at] = Time.now
     end
   end
 
