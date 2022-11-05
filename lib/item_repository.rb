@@ -1,6 +1,7 @@
 require 'csv'
-require_relative './item'
+require_relative 'item'
 require 'pry'
+
 class ItemRepository
   attr_reader :items
 
@@ -31,15 +32,15 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
+    # require 'pry'; binding.pry
+
     items.find_all do |item|
-      # require 'pry'; binding.pry
       item.unit_price == price
     end
   end
 
   def find_all_by_price_in_range(range)
     items.find_all do |item|
-      # require 'pry'; binding.pry
       range === item.unit_price
     end
   end
@@ -51,14 +52,19 @@ class ItemRepository
   end
 
   def create(attributes)
+    # require 'pry'; binding.pry
+    attributes[:id] ||= new_id(attributes)
+    new_item = Item.new(attributes)
+    @items << new_item
+    new_item
+  end
+
+  def new_id(attributes)
     unless items.empty?
       attributes[:id] = all.max do |item|
         item.id
       end.id + 1
     end
-    new_item = Item.new(attributes)
-    @items << new_item
-    new_item
   end
 
   def parse_data(file)
