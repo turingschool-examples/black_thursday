@@ -5,12 +5,17 @@ class SalesAnalyst
   def initialize(engine = nil)
     @engine = engine
   end
+
   def average_items_per_merchant
     (item_amount.sum / item_amount.length.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviation(item_amount)
+    standard_deviation(item_amount, average_items_per_merchant)
+  end
+
+  def average_item_price_std_dev
+    standard_deviation(all_merchant_prices, average_average_price_per_merchant)
   end
 
   def item_amount
@@ -21,7 +26,6 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
-    #require 'pry' ;binding.pry
     @engine.merchants.all.find_all do |merchant|
       merchant.items.length >
       (average_items_per_merchant + std_dev)
@@ -37,7 +41,6 @@ class SalesAnalyst
       average_item_price_for_merchant(merchant.id)
     end
     (averages.sum / averages.length).round(2)
-
   end
 
   def prices(merchant_id)
@@ -52,4 +55,13 @@ class SalesAnalyst
     end
   end
 
+  def golden_items
+    std_dev = average_item_price_std_dev
+    @engine.items.all.find_all do |item|
+      item.unit_price  >
+              (std_dev *
+                      2 +
+                      average_average_price_per_merchant)
+    end
+  end
 end

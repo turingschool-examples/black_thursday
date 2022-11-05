@@ -1,20 +1,20 @@
 module StandardDeviation
 
-  def diff_and_square(amounts)
+  def diff_and_square(amounts, average)
     amounts.map do |amount|
-      (amount - average_items_per_merchant)**2
+      (amount - average)**2
     end
   end
 
-  def diff_and_square_sum(amounts)
-    diff_and_square(amounts).sum
+  def diff_and_square_sum(amounts, average)
+    diff_and_square(amounts, average).sum
   end
 
-  def divide_diff_and_square_sum(amounts)
-    diff_and_square_sum(amounts) / (amounts.length - 1)
+  def divide_diff_and_square_sum(amounts, average)
+    diff_and_square_sum(amounts, average) / (amounts.length - 1)
   end
 
-  def standard_deviation(amounts)
-    Math.sqrt(divide_diff_and_square_sum(amounts)).round(2)
+  def standard_deviation(amounts, average)
+    Math.sqrt(divide_diff_and_square_sum(amounts, average)).round(2)
   end
 end
