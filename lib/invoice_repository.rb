@@ -36,6 +36,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    invoice_repo.select do |invoice|
+        invoice.merchant_id == merchant_id
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@invioce_repo.size} rows>"
   end
