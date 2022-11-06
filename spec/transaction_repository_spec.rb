@@ -102,7 +102,7 @@ RSpec.describe TransactionRepository do
 
         tr.all << t
 
-        expect(tr.find_all_by_result("success")).to eq([t])
+        expect(tr.find_all_by_result(:success)).to eq([t])
         expect(tr.find_all_by_result("not success")).to eq([])
     end
   end
@@ -132,12 +132,14 @@ RSpec.describe TransactionRepository do
           :updated_at => updated = Time.now.to_s
           })
 
+        #require 'pry' ;binding.pry
+        expect(tr.all).to eq([t, t2])
         expect(t2).to be_a(Transaction)
         expect(t2.id).to eq(7)
         expect(t2.invoice_id).to eq(9)
         expect(t2.credit_card_number).to eq("565656565642424242")
         expect(t2.credit_card_expiration_date).to eq("0217")
-        expect(t2.result).to eq("fail")
+        expect(t2.result).to eq(:fail)
     end
   end
 
@@ -203,6 +205,17 @@ RSpec.describe TransactionRepository do
       tr.delete(8)
 
       expect(tr.all).to eq([t])
+    end
+  end
+
+  describe '#load_data' do
+    it 'can load data' do
+      tr = TransactionRepository.new
+      file = './data/transactions.csv'
+      tr.load_data(file)
+
+      expect(tr.all.first).to be_a(Transaction)
+      expect(tr.all.all?(Transaction)).to eq(true)
     end
   end
 end
