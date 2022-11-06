@@ -60,8 +60,8 @@ RSpec.describe InvoiceRepository do
       :customer_id => 7,
       :merchant_id => 8,
       :status      => 'pending',
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :created_at  => Time.now.to_s,
+      :updated_at  => Time.now.to_s,
     }
     invoice_repository.create(attributes)
     expected = invoice_repository.find_by_id(4986)
