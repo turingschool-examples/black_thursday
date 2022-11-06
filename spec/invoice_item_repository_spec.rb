@@ -196,7 +196,7 @@ RSpec.describe InvoiceItemRepository do
 
     expect(invoice_items.all).to eq ([ii, ii2])
 
-    invoice_items.delete(ii2)
+    invoice_items.delete(7)
 
     expect(invoice_items.all).to eq ([ii])
   end
