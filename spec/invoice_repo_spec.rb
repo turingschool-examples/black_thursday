@@ -134,4 +134,11 @@ RSpec.describe InvoiceRepo do
       expect(ir.top_days_by_invoice_count).to eq(['Saturday'])
     end
   end
+
+  describe '#invoice_paid_in_full?' do
+    it 'returns a boolean indicating whether or not an invoice has been paid' do
+      expect(analyst.invoice_paid_in_full?(46)).to be true
+      expect(analyst.invoice_paid_in_full?(204)).to be false
+    end
+  end
 end
