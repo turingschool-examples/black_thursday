@@ -48,5 +48,24 @@ RSpec.describe CustomerRepository do
         expect(cr.find_by_id(10)).to eq(cr.all[-1])
       end
     end
+
+    describe '#create' do
+      it 'creates a new customer instance with the id one higher than the current highest' do
+        cr = CustomerRepository.new('./data/test_data/customers_test.csv')
+
+        cr.create(
+          :id => 6,
+          :first_name => "Joan",
+          :last_name => "Clarke",
+          :created_at => Time.now.to_s,
+          :updated_at => Time.now.to_s
+        )
+
+        expect(cr.all[-1]).to be_a Customer
+        expect(cr.all[-1].first_name).to eq("Joan")
+        expect(cr.all[-1].last_name).to eq("Clarke")
+        expect(cr.all[-1].id).to eq(11)
+      end
+    end
   end
 end
