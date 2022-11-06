@@ -6,7 +6,7 @@ require_relative 'invoice_item'
 # this is the InvoiceItemRepository class
 class InvoiceItemRepository < GeneralRepo
   def initialize(data, se)
-    super('InvoiceItem', data, se)
+    super(InvoiceItem, data, se)
   end
 
   def find_all_by_item_id(item_id)

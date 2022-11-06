@@ -8,7 +8,7 @@ class MerchantRepository < GeneralRepo
   attr_reader :repository
 
   def initialize(data, engine)
-    super('Merchant', data, engine)
+    super(Merchant, data, engine)
   end
 
   def find_by_name(name)

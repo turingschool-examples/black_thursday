@@ -5,7 +5,7 @@ require 'CSV'
 RSpec.describe GeneralRepo do
   let(:data) { CSV.readlines('./data/general_test.csv', headers: true, header_converters: :symbol) }
 
-  let(:gr) { GeneralRepo.new('General', data, "se") }
+  let(:gr) { GeneralRepo.new(General, data, "se") }
 
   describe '#initialize' do
     it 'exists and has readable attrs' do

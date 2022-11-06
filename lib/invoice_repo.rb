@@ -7,7 +7,7 @@ require 'time'
 # InvoiceRepo holds, creates, updates, destroys, and finds repository.
 class InvoiceRepo < GeneralRepo
   def initialize(data, engine)
-    super('Invoice', data, engine)
+    super(Invoice, data, engine)
   end
 
   def find_all_by_customer_id(id)

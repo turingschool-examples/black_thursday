@@ -7,7 +7,7 @@ require_relative 'general_repo'
 # This is the item_repository class
 class ItemRepository < GeneralRepo
   def initialize(data, engine)
-    super('Item', data, engine)
+    super(Item, data, engine)
   end
 
   def find_by_name(name)
