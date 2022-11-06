@@ -1,3 +1,4 @@
+
 require 'simplecov'
 SimpleCov.start
 require './lib/item_repository'
@@ -17,7 +18,6 @@ RSpec.describe ItemRepository do
                      })
     expect(repo.all).to eq([i1])
 
-    # Automatically assigns new ID number
     i2 = repo.create({
 
                        name: 'Pencil',
@@ -70,7 +70,6 @@ RSpec.describe ItemRepository do
     end
 
     it 'finds all by price' do
-      # require 'pry'; binding.pry
       expect(repo.find_all_by_price(10.99)[0]).to be_instance_of(Item)
       expect(repo.find_all_by_price(20)).to eq([])
       expect(repo.find_all_by_price(0)).to eq([])
@@ -97,7 +96,7 @@ RSpec.describe ItemRepository do
 
     it 'deletes item by id' do
       repo.delete(1)
-      expect(repo.repo).to eq([])
+      expect(repo.items).to eq([])
     end
   end
 end

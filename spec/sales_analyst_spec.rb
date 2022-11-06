@@ -10,8 +10,7 @@ RSpec.describe SalesAnalyst do
                            merchants: './data/merchants.csv',
                            invoices: './data/invoices.csv'
                          })
-    #  let(:sales_analyst) { sales_engine.analyst }
-  end
+   end
 
   it 'exists' do
     sales_analyst = sales_engine.analyst
