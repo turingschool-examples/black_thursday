@@ -42,7 +42,11 @@ module RepoQueries
       description: attributes[:description],
       unit_price:  attributes[:unit_price],
       merchant_id: attributes[:merchant_id],
-      status:      attributes[:status]
+      status:      attributes[:status],
+      invoice_id: attributes[:invoice_id],
+      credit_card_number: attributes[:credit_card_number],
+      credit_card_expiration_date: attributes[:credit_card_expiration_date],
+      result: attributes[:result]
     }
   end
 

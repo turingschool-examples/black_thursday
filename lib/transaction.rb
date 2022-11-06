@@ -1,8 +1,15 @@
 require 'time'
 class Transaction
-  attr_reader :id, :invoice_id, :credit_card_number,
-              :credit_card_expiration_date, :result,
-              :created_at, :updated_at, :repo
+
+  attr_reader :repo
+  attr_accessor :id,
+                :invoice_id,
+                :credit_card_number,
+                :credit_card_expiration_date,
+                :result,
+                :created_at,
+                :updated_at
+
   def initialize(attributes, repo = nil)
     @id = attributes[:id].to_i
     @invoice_id = attributes[:invoice_id].to_i
