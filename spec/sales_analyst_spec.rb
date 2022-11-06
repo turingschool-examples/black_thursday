@@ -81,15 +81,21 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can return top x performing merchants in terms of revenue' do
-    expect(sales_analyst.top_revenue_earners).to be_a Array 
-    expect(sales_analyst.top_revenue_earners(10)).to be_a Array 
+    expect(sales_analyst.top_revenue_earners).to be_a Array
+    expect(sales_analyst.top_revenue_earners(10)).to be_a Array
     expect(sales_analyst.top_revenue_earners(10).length).to eq (10)
     expect(sales_analyst.top_revenue_earners.length).to eq (20)
   end
 
-  it 'can return total revenue for a single merchant' do 
+  it 'can return total revenue for a single merchant' do
 
     expect(sales_analyst.revenue_by_merchant(12335938)).to be_a (BigDecimal)
-    expect(sales_analyst.revenue_by_merchant(12335938).to_f).to eq (158631.65)
+    expect(sales_analyst.revenue_by_merchant(12335938).to_f).to eq 126300.9
+  end
+
+  it 'can return the merchants that offer only one item' do
+    expect(sales_analyst.merchants_with_only_one_item).to be_a Array
+    expect(sales_analyst.merchants_with_only_one_item.length).to eq 243
+    expect(sales_analyst.merchants_with_only_one_item.first).to be_a Merchant
   end
 end
