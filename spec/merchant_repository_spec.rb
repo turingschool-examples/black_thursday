@@ -1,7 +1,7 @@
-# require 'simplecov'
-# SimpleCov.start
-require_relative '../lib/merchant'
-require_relative '../lib/merchant_repository'
+require 'simplecov'
+SimpleCov.start
+require './lib/merchant'
+require './lib/merchant_repository'
 
 RSpec.describe MerchantRepository do
   let(:merch_repo) {MerchantRepository.new}
@@ -27,7 +27,6 @@ RSpec.describe MerchantRepository do
     merchant1 = merch_repo.create({ id: 5, name: 'Turing School' })
     merchant2 = merch_repo.create({ id: 6, name: 'Another School' })
     merchant3 = merch_repo.create({ id: 7, name: 'The Other School' })
-
     expect(merch_repo.all).to eq([merchant1, merchant2, merchant3])
   end
 
