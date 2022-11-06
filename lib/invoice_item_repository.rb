@@ -17,14 +17,6 @@ class InvoiceItemRepository < Repository
     new_item
   end
 
-  # def create(attributes)
-  #   require 'pry'; binding.pry
-  #   attributes[:id] = (@repo.last.id + 1) unless repo.nil? == false
-  #   new_invoice_item = InvoiceItem.new(attributes)
-  #   @repo << new_invoice_item
-  #   new_invoice_item
-  # end
-
   def all
     @repo
   end

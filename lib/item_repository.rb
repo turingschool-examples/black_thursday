@@ -51,14 +51,6 @@ class ItemRepository < Repository
     new_item
   end
 
-  # def new_id(attributes)
-  #   unless @repo.empty?
-  #     attributes[:id] = all.max do |item|
-  #       item.id
-  #     end.id + 1
-  #   end
-  # end
-
   def update(id, attributes)
     find_by_id(id).update(attributes) if find_by_id(id)
   end
