@@ -1,7 +1,9 @@
 require_relative '../lib/item'
 require_relative '../lib/merchant'
+require_relative '../lib/invoice'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/invoice_repository'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 require 'bigdecimal'
@@ -9,11 +11,12 @@ require 'bigdecimal'
 RSpec.describe SalesAnalyst do
   let(:se) {SalesEngine.from_csv({
     items: "./data/items.csv",
-    merchants: "./data/merchants.csv"
+    merchants: "./data/merchants.csv",
+    invoices: "./data/invoices.csv"
     })}
 
   it 'exists' do
-    sales_analyst = SalesAnalyst.new(ItemRepository.new, MerchantRepository.new)
+    sales_analyst = SalesAnalyst.new(ItemRepository.new, MerchantRepository.new, InvoiceRepository.new)
 
     expect(sales_analyst).to be_a(SalesAnalyst)
   end
@@ -280,6 +283,14 @@ RSpec.describe SalesAnalyst do
         :merchant_id => 12334159})
 
       expect(sales_analyst.golden_items.size).to eq(6)
+    end
+  end
+
+  describe '#average_invoices_per_merchant' do
+    it 'return the average count of invoices per merchant' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
     end
   end
 end

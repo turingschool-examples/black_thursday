@@ -6,9 +6,10 @@ class SalesAnalyst
   attr_reader :items,
               :merchants
 
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices)
     @items = items
     @merchants = merchants
+    @invoices = invoices
   end
 
   def average_items_per_merchant
@@ -76,5 +77,11 @@ class SalesAnalyst
     @items.all.select do |item|
       item.unit_price > two_std_devs_above_avg
     end
+  end
+
+  def average_invoices_per_merchant
+    # find the total number of invoices
+
+    # divide that by total num of merchants
   end
 end
