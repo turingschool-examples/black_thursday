@@ -228,4 +228,12 @@ describe MerchantRepository do
       expect(mr.top_revenue_earners(4)).to eq([m3, m1, m4, m2])
     end
   end
+
+  describe '#revenue_by_merchant' do
+    it 'returns the total revenue of a given merchant' do
+      allow(mr.all[0]).to receive(:revenue).and_return(30000)
+      
+      expect(mr.revenue_by_merchant('12334105')).to eq(30000)
+    end
+  end
 end
