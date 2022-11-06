@@ -213,7 +213,7 @@ class SalesAnalyst
 
     !expectations.include?(:failed)
     # find_transaction_by_invoice_id(invoice_id) == :success
-    # invoices.find_by_
+
 
   end
 
@@ -224,11 +224,38 @@ class SalesAnalyst
   end
 
   def invoice_total(invoice_id)
+    # if invoice_paid_in_full?(invoice_id)
+      # return false
+    # end
     ii = find_invoice_item_by_invoice_id(invoice_id)
     ii.collect do |i|
+      if invoice_paid_in_full?(invoice_id)
       i.quantity.to_i * i.unit_price
+      else
+        0
+      end
     end.sum.to_f
   end
+  
+  # def merchant_revenue(merchant_id)
+  #   invoice_tot = []
+  #   merchant_invoices = valid_merchants(merchant_id)
+  #   merchant_invoices.each do |invoice|
+  #     invoice_tot << invoice_total(merchant_id)
+  #   end
+  #   invoice_tot.inject(0) do |sum,num|
+  #     sum + num
+  #   end
+  # end
+
+  # def valid_merchants(merchant_id)
+  #   merchant_invoices = invoices.all.find_all do |invoice|
+  #     invoice.merchant_id == merchant_id
+  #   end
+  #   merchant_invoices.find_all do |invoice|
+  #   invoice_paid_in_full?(invoice.id)
+  #   end
+  # end
 
   def invoice_status(status)
   invoice_count = invoices.all.select { |invoice| invoice.status == status }
@@ -253,19 +280,33 @@ BigDecimal(total, 4)
 
   def total_merchant_revenue(merchant_id)
     total = 0 
+    total_h = {}
     x = @invoices.find_all_by_merchant_id(merchant_id)
     x.each do |invoice|
       if invoice_paid_in_full?(invoice.id)
         total += invoice_total(invoice.id)
       end
     end
+    x.group_by do |merchant|
     total.round(2)
+    binding.pry
   end
 
+  # def ranked_sorted_merchants
+  #   sorted_merchants = merchants.all.sort_by do |merchant|
+  #     merchant_revenue(merchant.id)
+  #   end.reverse
+  # end
+
   def top_revenue_earners(rank = 20)
-    merchants.all.max_by(rank) do |merchant|
+    # binding.pry
+    # ranked_sorted_merchants[0..(rank-1)]
+    # binding.pry
+    # (merchant_revenue[0..(rank-1)]).reverse
+    x = merchants.all.max_by(rank) do |merchant|
       total_merchant_revenue(merchant.id)
     end
+    
   end
 
      #dfg

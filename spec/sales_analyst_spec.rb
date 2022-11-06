@@ -177,10 +177,20 @@ end
   end
 
   describe '#top_revenue_earners(x)' do
-    it 'will give you the total revenue on any given date' do
-      sum = []
+    it 'will return the top revenue earners. (will default to 20)' do
+      merchants = sales_analyst.top_revenue_earners(10)
+
+      merchant_1 = sales_analyst.top_revenue_earners(10).first
+      merchant_2 = sales_analyst.top_revenue_earners(10).last
       
-      expect(sales_analyst.top_revenue_earners).to eq []
+      expect(merchants.length).to eq 10
+      binding.pry
+      expect(merchant_1.class).to eq Merchant
+      expect(merchant_1.id).to eq 12334634
+      # binding.pry
+
+      expect(merchant_2.class).to eq Merchant
+      expect(merchant_2.id).to eq 12335747
     end
   end
 
