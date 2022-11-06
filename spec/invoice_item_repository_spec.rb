@@ -52,6 +52,6 @@ RSpec.describe InvoiceItemRepository do
     invoice_items = InvoiceItemRepository.new
     invoice_items.all << ii
 
-    expect(invoice_items.find_by_id(6)).to eq (ii)
+    expect(invoice_items.find_all_by_merchant_id(7)).to eq (ii)
 
 end
