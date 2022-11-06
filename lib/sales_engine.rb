@@ -4,14 +4,17 @@ require_relative '../lib/merchant_repository.rb'
 require_relative '../lib/merchant.rb'
 require_relative '../lib/invoice_repository.rb'
 require_relative '../lib/invoice.rb'
+require_relative '../lib/customer_repository.rb'
+require_relative '../lib/customer.rb'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices
+  attr_reader :items, :merchants, :invoices, :customers
 
   def initialize(files)
     @items = ItemRepository.new(files[:items], self)
     @merchants = MerchantRepository.new(files[:merchants], self)
     @invoices = InvoiceRepository.new(files[:invoices], self)
+    @customers = CustomerRepository.new(files[:customers], self)
   end
 
   def self.from_csv(files)
