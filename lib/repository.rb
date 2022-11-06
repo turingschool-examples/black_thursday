@@ -14,6 +14,13 @@ class Repository
       instance.id == id 
     end
   end
+
+  # add a superclass level test for this
+  def find_all_by_merchant_id(merchant_id)
+    @all.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
   #create and update methods to be made
   # def create(attributes)
   #   attributes[:id] = max_id
