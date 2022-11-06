@@ -5,10 +5,11 @@ require 'csv'
 class MerchantRepository
   include RepoQueries
   attr_reader :data, :engine
-  
+
   def initialize(file = nil, engine = nil)
     @data = []
     @engine = engine
+    @child = Merchant
     load_data(file)
   end
 
@@ -26,10 +27,6 @@ class MerchantRepository
     return if attributes.empty?
     update_merchant = find_by_id(id)
     update_merchant.name = attributes[:name]
-  end
-
-  def child
-    Merchant
   end
 
   def find_all_items_by_merchant_id(id)

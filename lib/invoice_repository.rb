@@ -9,6 +9,7 @@ class InvoiceRepository
   def initialize(file = nil, engine = nil)
     @data = []
     @engine = engine
+    @child = Invoice
     load_data(file)
   end
 
@@ -29,9 +30,5 @@ class InvoiceRepository
     updated = find_by_id(id)
     updated.status = attributes[:status]
     updated.updated_at = Time.now
-  end
-
-  def child
-    Invoice
   end
 end
