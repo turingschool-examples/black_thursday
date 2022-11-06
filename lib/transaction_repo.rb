@@ -10,7 +10,7 @@ class TransactionRepo < GeneralRepo
   end
 
   def find_all_by_invoice_id(id)
-    @repository.select { |item| item.invoice_id == id.to_s }
+    @repository.select { |item| item.invoice_id == id.to_i }
   end
 
   def find_all_by_credit_card_number(card_number)
@@ -18,6 +18,6 @@ class TransactionRepo < GeneralRepo
   end
 
   def find_all_by_result(result)
-    @repository.select { |item| item.result.casecmp?(result) }
+    @repository.select { |item| item.result == result }
   end
 end

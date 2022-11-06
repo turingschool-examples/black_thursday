@@ -22,4 +22,16 @@ class Customer
     @last_name = attributes[:last_name] unless attributes[:last_name].nil?
     @updated_at = Time.now
   end
+
+  def created_at
+    return Time.parse(@created_at) if @created_at.is_a? String
+
+    @created_at
+  end
+
+  def updated_at
+    return Time.parse(@updated_at) if @updated_at.is_a? String
+
+    @updated_at
+  end
 end
