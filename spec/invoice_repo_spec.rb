@@ -139,7 +139,7 @@ RSpec.describe InvoiceRepo do
     it 'returns a boolean indicating whether or not an invoice has been paid' do
       allow(invoice1).to receive(:paid?).and_return(true)
       allow(invoice2).to receive(:paid?).and_return(false)
-      
+
       expect(ir.invoice_paid_in_full?(1)).to be true
       expect(ir.invoice_paid_in_full?(2)).to be false
     end
@@ -150,6 +150,18 @@ RSpec.describe InvoiceRepo do
       allow(invoice1).to receive(:total).and_return(1000)
 
       expect(ir.invoice_total(1)).to eq 1000
+    end
+  end
+
+  describe '#all_invoices_paid_on' do
+    it 'returns an array of all invoices paid on a certain date' do 
+      allow(invoice1).to receive(:created_at).and_return(Time.parse('2012-02-26 20:56:56 UTC'))
+      allow(invoice2).to receive(:created_at).and_return(Time.parse('2012-02-27 20:56:56 UTC'))
+      allow(invoice3).to receive(:created_at).and_return(Time.parse('2012-05-26 20:56:56 UTC'))
+      allow(invoice4).to receive(:created_at).and_return(Time.parse('2012-02-26 08:19:32 UTC'))
+      allow(invoice5).to receive(:created_at).and_return(Time.parse('2011-02-26 20:56:56 UTC'))
+
+      expect(ir.all_invoices_paid_on('2012-02-26')).to eq([invoice1, invoice4])
     end
   end
 end
