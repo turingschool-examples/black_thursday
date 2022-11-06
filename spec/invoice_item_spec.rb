@@ -57,4 +57,18 @@ RSpec.describe InvoiceItem do
 
     expect(ii.invoice_id).to eq(8)
   end
+
+  it 'has an quantity' do
+    ii = InvoiceItem.new({
+  :id => 6,
+  :item_id => 7,
+  :invoice_id => 8,
+  :quantity => 1,
+  :unit_price => BigDecimal(10.99, 4),
+  :created_at => Time.now,
+  :updated_at => Time.now
+    })
+
+    expect(ii.quantity).to eq(1)
+  end
 end
