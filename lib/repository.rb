@@ -32,7 +32,7 @@ class Repository
     max.id + 1
   end
 
-  # create and update methods to be made
+  #add tests
   def create(attributes)
     attributes[:id] = max_id
     # Object.const_get() returns the class of the passed string, ie passing "Merchant" returns the Merchant Class
@@ -47,17 +47,14 @@ class Repository
     self.class.name.split('Repository').join 
   end 
  
-  # add tests  and make work
+  # add tests 
   def update(id, attributes)
-    item = find_by_id(id)
-    return nil if item.nil?
+    instance = find_by_id(id)
+    return nil if instance.nil?
 
     attributes.each do |key, value|
-      next if [:id, :merchant_id, :created_at].include?(key)
-
-      item.instance_variable_set("@#{key}", value)
+      instance.instance_variable_set("@#{key}", value)
     end
-    item.updated_at = Time.now
   end
 
   def delete(id)
