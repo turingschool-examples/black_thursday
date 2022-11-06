@@ -255,17 +255,16 @@ class SalesAnalyst
   
 
   def total_revenue_by_date(date)
-    total = 0
-  invoice_items.all.find_all do |item|
-    # binding.pry
-    if item.created_at == date
-      total += item.unit_price
-    end
+    invoice_date = find_i_by_date(date)
+    invoice_date.map do |invoice|
+      invoice_total(invoice.id)
+    end.inject(:+)
   end
-  # total.to_f
-BigDecimal(total, 4)
 
-    
+  def find_i_by_date(date)
+    invoices.all.find_all do |invoice|
+      invoice.created_at.to_date === date.to_date
+    end
   end
 
   def total_merchant_revenue(merchant_id)
