@@ -30,8 +30,8 @@ RSpec.describe InvoiceItemRepository do
       :invoice_id => 8,
       :quantity => 1,
       :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
       })
     invoice_items = InvoiceItemRepository.new
     invoice_items.all << ii
@@ -46,8 +46,8 @@ RSpec.describe InvoiceItemRepository do
       :invoice_id => 8,
       :quantity => 1,
       :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
       })
 
       ii2 = InvoiceItem.new({
@@ -56,8 +56,8 @@ RSpec.describe InvoiceItemRepository do
         :invoice_id => 9,
         :quantity => 1,
         :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s
         })
     invoice_items = InvoiceItemRepository.new
     invoice_items.all << ii
@@ -74,8 +74,8 @@ RSpec.describe InvoiceItemRepository do
       :invoice_id => 8,
       :quantity => 1,
       :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
       })
 
       ii2 = InvoiceItem.new({
@@ -84,8 +84,8 @@ RSpec.describe InvoiceItemRepository do
         :invoice_id => 9,
         :quantity => 1,
         :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s
         })
     invoice_items = InvoiceItemRepository.new
     invoice_items.all << ii
@@ -102,8 +102,8 @@ RSpec.describe InvoiceItemRepository do
       :invoice_id => 8,
       :quantity => 1,
       :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
       })
 
       ii2 = InvoiceItem.new({
@@ -112,8 +112,8 @@ RSpec.describe InvoiceItemRepository do
         :invoice_id => 9,
         :quantity => 1,
         :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s
         })
     invoice_items = InvoiceItemRepository.new
     invoice_items.all << ii
@@ -125,8 +125,8 @@ RSpec.describe InvoiceItemRepository do
       :invoice_id => 9,
       :quantity => 1,
       :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
       })
 
       expect(new_invoice_item.id).to be(8)
@@ -139,8 +139,8 @@ RSpec.describe InvoiceItemRepository do
       :invoice_id => 8,
       :quantity => 1,
       :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
       })
 
       ii2 = InvoiceItem.new({
@@ -148,9 +148,9 @@ RSpec.describe InvoiceItemRepository do
         :item_id => 8,
         :invoice_id => 9,
         :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
+        :unit_price => 1099,
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s
         })
 
     invoice_items = InvoiceItemRepository.new
@@ -158,15 +158,15 @@ RSpec.describe InvoiceItemRepository do
     invoice_items.all << ii2
 
     expect(ii.quantity).to eq (1)
-    expect(ii.unit_price).to eq (10.99)
+    expect(ii.unit_price).to eq (0.1099e0)
 
-    invoice_items.update(7, {
+    invoice_items.update(6, {
       quantity: 3,
       unit_price: BigDecimal(11.99, 4)
       })
 
-      expect(ii.quantity).to eq (1)
-      expect(ii.unit_price).to eq (10.99)
+      expect(ii.quantity).to eq (3)
+      expect(ii.unit_price).to eq (11.99)
   end
 
   it 'can delete an invoice item' do
@@ -176,8 +176,8 @@ RSpec.describe InvoiceItemRepository do
       :invoice_id => 8,
       :quantity => 1,
       :unit_price => BigDecimal(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
       })
 
       ii2 = InvoiceItem.new({
@@ -186,8 +186,8 @@ RSpec.describe InvoiceItemRepository do
         :invoice_id => 9,
         :quantity => 1,
         :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now,
-        :updated_at => Time.now
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s.to_s
         })
 
     invoice_items = InvoiceItemRepository.new

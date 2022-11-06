@@ -1,4 +1,5 @@
 require_relative '../lib/modules/repo_queries'
+require 'bigdecimal'
 
 class InvoiceItemRepository
   include RepoQueries
