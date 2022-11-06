@@ -68,6 +68,21 @@ RSpec.describe CustomerRepository do
         expect(cr.all[-1].id).to eq(11)
       end
     end
+    describe '#delete' do
+      it 'can delete and instance of customer' do
+        cr = CustomerRepository.new('./data/test_data/customers_test.csv')
+
+        expect(cr.all.length).to eq(10)
+        expect(cr.all[0].id).to eq(1)
+        expect(cr.all[0].first_name).to eq('Joey')
+        
+        cr.delete(1)
+
+        expect(cr.all.length).to eq(9)
+        expect(cr.all[0].id).to eq(2)
+        expect(cr.all[0].first_name).to eq("Cecelia")
+      end
+    end
   end
 
   describe '#update' do
