@@ -168,4 +168,38 @@ RSpec.describe InvoiceItemRepository do
       expect(ii.quantity).to eq (1)
       expect(ii.unit_price).to eq (10.99)
   end
+
+  it 'can delete an invoice item' do
+    ii = InvoiceItem.new({
+      :id => 6,
+      :item_id => 7,
+      :invoice_id => 8,
+      :quantity => 1,
+      :unit_price => BigDecimal(10.99, 4),
+      :created_at => Time.now,
+      :updated_at => Time.now
+      })
+
+      ii2 = InvoiceItem.new({
+        :id => 7,
+        :item_id => 8,
+        :invoice_id => 9,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+        })
+
+    invoice_items = InvoiceItemRepository.new
+    invoice_items.all << ii
+    invoice_items.all << ii2
+
+    expect(invoice_items.all).to eq ([ii, ii2])
+
+    invoice_items.delete(ii2)
+
+    expect(invoice_items.all).to eq ([ii])
+  end
+
+
 end
