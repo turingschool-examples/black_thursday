@@ -156,5 +156,11 @@ RSpec.describe SalesAnalyst do
     it '#top_days_by_invoice_count returns and array of days one standard deviation above the mean' do
       expect(sales_analyst.top_days_by_invoice_count).to eq([])
     end
+
+    it '#invoice_status returns the % of invoices with the passed in status' do
+      expect(sales_analyst.invoice_status(:pending)).to eq(66.67)
+      expect(sales_analyst.invoice_status(:shipped)).to eq(33.33)
+      expect(sales_analyst.invoice_status(:returned)).to eq(0.0)
+    end
   end
 end

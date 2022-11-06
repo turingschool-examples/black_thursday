@@ -139,7 +139,7 @@ class SalesAnalyst
     days
   end
 
-  # def invoice_status
-  #
-  # end
+  def invoice_status(status)
+    
+  end
 end
