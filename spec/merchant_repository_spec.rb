@@ -211,4 +211,14 @@ describe MerchantRepository do
       expect(mr.average_average_price_per_merchant).to eq 3.55
     end
   end
+
+  describe '#merchants_with_pending_invoices' do
+    it 'returns an array of merchants with pending invoices' do
+      allow(mr.all[0]).to receive(:has_pending?).and_return(true)
+      allow(mr.all[1]).to receive(:has_pending?).and_return(false)
+      allow(mr.all[2]).to receive(:has_pending?).and_return(false)
+      allow(mr.all[3]).to receive(:has_pending?).and_return(true)
+      expect(analyst.merchants_with_pending_invoices).to eq ([mr.all[0], mr.all[3]])
+    end
+  end
 end
