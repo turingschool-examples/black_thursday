@@ -68,7 +68,45 @@ class SalesAnalyst
     end
   end
 
+  def top_buyers(num_buyers = 20)
+    @customers.all.sort_by do |cust|
+      customer_spent(cust.id)
+    end.reverse![0..num_buyers-1]
+  end
+
   # Helper methods
+
+  def find_customer_by_id(cust_id)
+    @customers.all.find do |cust|
+      cust.id == cust_id
+    end
+  end
+
+  def customer_spent(cust_id)
+    sum = 0
+    customer_invoices(cust_id).each do |cust_inv|
+      invoice_paid_in_full?(cust_inv.id) ? sum += invoice_revenue(cust_inv.id) : 0
+    end
+    sum
+  end
+
+  def customer_invoices(cust_id)
+    @invoices.all.find_all do |invoice|
+      invoice.customer_id == cust_id
+    end
+  end
+
+  def invoice_revenue(invoice_id)
+    invoice_items_by_invoice_id(invoice_id).sum do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+  end
+
+  def invoice_items_by_invoice_id(invoice_id)
+    @invoice_items.all.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
+    end
+  end
 
   def sum_square_diff_items
     item_counts.map do |count|
@@ -193,28 +231,17 @@ class SalesAnalyst
     days_of_week
   end
 
-  def find_transaction_by_invoice_id(invoice_id)
-    transactions.all.find do |transaction|
+  def find_transactions_by_invoice_id(invoice_id) # there can be multiple transactions per invoice
+    transactions.all.find_all do |transaction|
       transaction.invoice_id == invoice_id
-    end.result
+    end
   end
 
 
   def invoice_paid_in_full?(invoice_id)
-    transactions = @transactions.find_all_by_invoice_id(invoice_id)
-
-    if transactions.length == 0
-      return false
+    find_transactions_by_invoice_id(invoice_id).any? do |transaction|
+      transaction.result == :success
     end
-
-    expectations = transactions.map do |transaction|
-      transaction.result
-    end
-
-    !expectations.include?(:failed)
-    # find_transaction_by_invoice_id(invoice_id) == :success
-
-
   end
 
   def find_invoice_item_by_invoice_id(invoice_id) 
@@ -317,7 +344,7 @@ BigDecimal(total, 4)
 # end
 
   def merchants_with_only_one_item
-    @merchants.all.collect do |merchant|
+    @merchants.all.find_all do |merchant|
       @items.find_all_by_merchant_id(merchant.id).count == 1
     end
   end
@@ -338,7 +365,7 @@ BigDecimal(total, 4)
       @invoice_items.all.find_all do |invoice_item|
         invoice_item.invoice_id == invoice.id
       end
-    end.flatten.uniq
+    end.flatten
   end
 
   def revenue_by_merchant(merchant_id)
