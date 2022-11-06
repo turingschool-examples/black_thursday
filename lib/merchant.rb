@@ -44,4 +44,9 @@ include Calculable
   def avg_item_price
     average(item_prices.sum, item_count)
   end
+
+  def revenue
+    paid_inv = _invoices.select { |invoice| invoice.paid? }
+    paid_inv.sum { |invoice| invoice.total }
+  end
 end
