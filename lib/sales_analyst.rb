@@ -110,6 +110,24 @@ class SalesAnalyst
     end
     chosen_merchants
   end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants_invoices = []
+     merchants_with_invoices.each do |invoices_array|
+      if invoices_array.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+      bottom_merchants_invoices.push(invoices_array)
+      end
+    end
+    merchant_ids_collection = []
+    bottom_merchants_invoices.each do |invoices_collection|
+      merchant_ids_collection.push(invoices_collection[0].merchant_id)
+    end
+    chosen_merchants = []
+    merchant_ids_collection.each do |merchant|
+      chosen_merchants.push(@sales_engine.merchants.find_by_id(merchant))
+    end
+    chosen_merchants
+  end
   
 end
   # def golden_items

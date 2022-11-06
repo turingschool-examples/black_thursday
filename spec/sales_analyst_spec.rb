@@ -78,5 +78,6 @@ RSpec.describe SalesAnalyst do
   it "#bottom_merchants_by_invoice_count" do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.bottom_merchants_by_invoice_count).to be_instance_of(Array)
+    expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
   end
 end
