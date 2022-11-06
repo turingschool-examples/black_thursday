@@ -85,4 +85,8 @@ class MerchantRepository < GeneralRepo
     total_avg_item_prices = all.sum { |merchant| average_item_price_for_merchant(merchant.id) }
     average(total_avg_item_prices, all.length).round(2)
   end
+
+  def merchants_with_pending_invoices
+    all.select { |merchant| merchant.has_pending? }
+  end
 end
