@@ -30,6 +30,15 @@ class TransactionRepository
     end
   end
 
+  def update(id, attributes)
+    return if attributes.empty?
+    updated = find_by_id(id)
+    updated.credit_card_number = attributes[:credit_card_number]
+    updated.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+    updated.result = attributes[:result]
+    updated.updated_at = Time.now
+  end
+
   def child
     Transaction
   end
