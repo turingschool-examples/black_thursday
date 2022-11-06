@@ -3,6 +3,7 @@ require_relative './invoice_item'
 require_relative 'repository'
 
 
+
 class InvoiceItemRepository < Repository
 
   def new_obj(attributes)  

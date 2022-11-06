@@ -2,8 +2,6 @@ require 'simplecov'
 SimpleCov.start
 require 'time'
 require './lib/item'
-# require './lib/invoice'
-require './lib/invoice_item'
 
 RSpec.describe InvoiceItem do
   let(:ii) do

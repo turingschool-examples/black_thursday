@@ -1,9 +1,10 @@
 require_relative 'invoice_repository'
 require 'pry'
 require 'csv'
+require_relative 'sanitize'
 
 class Invoice
-
+include Sanitize
   attr_reader :id, 
               :customer_id, 
               :merchant_id,  
@@ -16,8 +17,8 @@ class Invoice
     @customer_id = info[:customer_id].to_i
     @merchant_id = info[:merchant_id].to_i
     @status = info[:status].to_sym
-    @created_at = Time.parse(info[:created_at].to_s)
-    @updated_at = Time.parse(info[:updated_at].to_s)
+    @created_at = to_time(info[:created_at])
+    @updated_at = to_time(info[:updated_at])
   end
 
   def update(attributes)

@@ -22,7 +22,7 @@ RSpec.describe InvoiceItemRepository do
       :updated_at => Time.now
     })}
 
-  it 'creates a new InvoiceItem, with attributes' do
+  it '#initialize' do
     expect(item1).to be_a(InvoiceItem)
     expect(item1.id).to eq(6)
     expect(item1.item_id).to eq(7)
