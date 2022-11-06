@@ -140,6 +140,12 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    
+    num_status = 0
+    invoices.all.each do |invoice|
+      if invoice.status == status
+        num_status += 1
+      end
+    end
+    ((num_status.to_f / invoices.all.count.to_f) * 100).round(2)
   end
 end

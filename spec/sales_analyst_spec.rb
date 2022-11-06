@@ -109,19 +109,19 @@ RSpec.describe SalesAnalyst do
     let (:invoice_1) {Invoice.new({:id => 1,
                         :customer_id => 1,
                         :merchant_id => 1,
-                        :status => "pending",
+                        :status => :pending,
                         :created_at => Time.now,
                         :updated_at => Time.now})}
     let (:invoice_2) {Invoice.new({:id => 2,
                         :customer_id => 2,
                         :merchant_id => 1,
-                        :status => "pending",
+                        :status => :pending,
                         :created_at => Time.now,
                         :updated_at => Time.now})}
     let (:invoice_3) {Invoice.new({:id => 3,
                         :customer_id => 1,
                         :merchant_id => 2,
-                        :status => "shipped",
+                        :status => :shipped,
                         :created_at => Time.now,
                         :updated_at => Time.now})}
     let (:invoices) {[invoice_1, invoice_2, invoice_3]}
