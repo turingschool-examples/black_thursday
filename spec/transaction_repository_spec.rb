@@ -171,4 +171,38 @@ RSpec.describe TransactionRepository do
         expect(t.updated_at).not_to eq(Time.parse(old_time))
     end
   end
+
+  describe '#delete' do
+    it 'deletes the transaction instance w/ the given id' do
+      tr = TransactionRepository.new
+      t = Transaction.new({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => created = Time.now.to_s,
+        :updated_at => old_time = Time.now.to_s
+        })
+
+      t2 = Transaction.new({
+        :id => 8,
+        :invoice_id => 4,
+        :credit_card_number => "424242424245634242",
+        :credit_card_expiration_date => "0224",
+        :result => "success",
+        :created_at => created = Time.now.to_s,
+        :updated_at => old_time = Time.now.to_s
+        })
+
+      tr.all << t
+      tr.all << t2
+
+      expect(tr.all).to eq([t, t2])
+
+      tr.delete(8)
+
+      expect(tr.all).to eq([t])
+    end
+  end
 end
