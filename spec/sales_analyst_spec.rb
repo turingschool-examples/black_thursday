@@ -254,7 +254,7 @@ RSpec.describe SalesAnalyst do
 
   it 'can calculate percentages by the status' do
     sales_engine = SalesEngine.from_csv(
-
+      
       :items     => './data/items_test.csv',
       :merchants => './data/merchant_invoices_test2.csv',
       :invoices  => './data/invoices_test2.csv'

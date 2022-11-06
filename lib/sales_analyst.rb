@@ -98,13 +98,13 @@ class SalesAnalyst
       invoice.created_at.strftime('%A') 
     end
     day_hash = {
-      "Monday" => 0,
-      "Tuesday" => 0,
-      "Wednesday" => 0,
-      "Thursday" => 0,
-      "Friday" => 0,
-      "Saturday" => 0,
-      "Sunday" => 0
+      'Monday' => 0,
+      'Tuesday' => 0,
+      'Wednesday' => 0,
+      'Thursday' => 0,
+      'Friday' => 0,
+      'Saturday' => 0,
+      'Sunday' => 0
     }
     days.each do |day|
       day_hash[day] += 1
@@ -134,6 +134,6 @@ class SalesAnalyst
     status_array = @engine.invoices.all.find_all do |invoice|
       invoice.status == status
     end
-  ((status_array.count / @engine.invoices.all.count.to_f) * 100).round(2)
+    ((status_array.count / @engine.invoices.all.count.to_f) * 100).round(2)
   end
 end
