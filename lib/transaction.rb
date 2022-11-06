@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
+require 'time'
 # This is the transaction class
 class Transaction
   attr_reader :id,
               :invoice_id,
               :credit_card_number,
               :credit_card_expiration_date,
-              :created_at,
-              :updated_at,
               :result
 
   def initialize(data, repo)
@@ -18,7 +17,7 @@ class Transaction
     @credit_card_expiration_date = data[:credit_card_expiration_date]
     @created_at                  = data[:created_at]
     @updated_at                  = data[:updated_at]
-    @result                      = data[:result]
+    @result                      = data[:result].to_sym
   end
 
   def update(attributes)
@@ -26,5 +25,17 @@ class Transaction
     @credit_card_expiration_date = attributes[:credit_card_expiration_date] unless attributes[:credit_card_expiration_date].nil?
     @result = attributes[:result] unless attributes[:result].nil?
     @updated_at = Time.now
+  end
+
+  def created_at
+    return Time.parse(@created_at) if @created_at.is_a? String
+
+    @created_at
+  end
+
+  def updated_at
+    return Time.parse(@updated_at) if @updated_at.is_a? String
+
+    @updated_at
   end
 end
