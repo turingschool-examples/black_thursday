@@ -16,4 +16,16 @@ module StandardDeviation
   def standard_deviation(amounts, average)
     Math.sqrt(divide_diff_and_square_sum(amounts, average)).round(2)
   end
+
+  def merchants
+    @engine.merchants
+  end
+
+  def items
+    @engine.items
+  end
+
+  def invoices
+    @engine.invoices
+  end
 end
