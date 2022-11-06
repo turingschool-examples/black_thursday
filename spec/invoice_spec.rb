@@ -105,4 +105,27 @@ RSpec.describe Invoice do
       expect(invoice._invoice_items).to eq ['invoice_item1', 'invoice_item2']
     end
   end
+
+  describe '#total' do
+    it 'returns the total value of the invoice' do
+      invoice_item1 = double('invoice_item1')
+      invoice_item2 = double('invoice_item2')
+      invoice_repo = double('InvoiceRepo')
+      invoice = Invoice.new({
+                              id: 1,
+                              customer_id: 1,
+                              merchant_id: 1,
+                              status: 'shipped',
+                              created_at: Time.now,
+                              updated_at: Time.now
+                            }, invoice_repo)
+      allow(invoice_item1).to receive(:unit_price).and_return(10_000)
+      allow(invoice_item1).to receive(:quantity).and_return(2)
+      allow(invoice_item2).to receive(:unit_price).and_return(5000)
+      allow(invoice_item2).to receive(:quantity).and_return(3)
+      allow(invoice).to receive(:_invoice_items).and_return([invoice_item1, invoice_item2])
+
+      expect(invoice.total).to eq 35000
+    end
+  end
 end
