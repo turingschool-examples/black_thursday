@@ -13,4 +13,12 @@ class CustomerRepository
     @child = Customer
     load_data(file)
   end
+
+  def update(id, attributes)
+    return if attributes.empty?
+    updated = find_by_id(id)
+    updated.first_name = attributes[:first_name]
+    updated.last_name = attributes[:last_name]
+    updated.updated_at = Time.now
+  end
 end
