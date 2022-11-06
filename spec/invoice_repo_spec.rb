@@ -139,7 +139,7 @@ RSpec.describe InvoiceRepo do
     it 'returns a boolean indicating whether or not an invoice has been paid' do
       allow(invoice1).to receive(:paid?).and_return(true)
       allow(invoice2).to receive(:paid?).and_return(false)
-      
+
       expect(ir.invoice_paid_in_full?(1)).to be true
       expect(ir.invoice_paid_in_full?(2)).to be false
     end

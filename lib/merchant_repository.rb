@@ -87,6 +87,6 @@ class MerchantRepository < GeneralRepo
   end
 
   def merchants_with_pending_invoices
-    all.select { |merchant| merchant.has_pending? }
+    all.select { |merchant| merchant.invoice_pending? }
   end
 end
