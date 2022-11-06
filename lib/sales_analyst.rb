@@ -107,4 +107,15 @@ class SalesAnalyst
     @merchants.all.find_all { |merchant| merchant_invoice_num(merchant.id) > average_invoices_per_merchant + average_items_per_merchant_standard_deviation * 2}
   end
 
+  def bottom_merchants_by_invoice_count
+    @merchants.all.find_all { |merchant| merchant_invoice_num(merchant.id) < average_invoices_per_merchant - average_items_per_merchant_standard_deviation * 2}
+  end
+
+  # def top_days_by_invoice_count
+  #
+  # end
+  #
+  # def invoice_status
+  #
+  # end
 end
