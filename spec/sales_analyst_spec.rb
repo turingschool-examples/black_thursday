@@ -69,8 +69,14 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_invoices).to be_instance_of(Array)
   end
 
-  it "#top_merchants_by_invoice_count" do
+  xit "#top_merchants_by_invoice_count" do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.top_merchants_by_invoice_count).to be_instance_of(Array)
+    expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
+  end
+
+  it "#bottom_merchants_by_invoice_count" do
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.bottom_merchants_by_invoice_count).to be_instance_of(Array)
   end
 end
