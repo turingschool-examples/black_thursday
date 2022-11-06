@@ -65,4 +65,10 @@ class InvoiceRepo < GeneralRepo
   def invoice_total(invoice_id)
     find_by_id(invoice_id).total
   end
+
+  def all_invoices_paid_on(date)
+    @repository.select do |invoice|
+      invoice.paid_on?(date)
+    end
+  end
 end
