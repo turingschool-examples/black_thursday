@@ -129,4 +129,11 @@ class SalesAnalyst
       day[0]
     end
   end
+
+  def invoice_status(status)
+    status_array = @engine.invoices.all.find_all do |invoice|
+      invoice.status == status
+    end
+  ((status_array.count / @engine.invoices.all.count.to_f) * 100).round(2)
+  end
 end
