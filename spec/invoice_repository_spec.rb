@@ -122,7 +122,7 @@ RSpec.describe InvoiceRepository do
   end
   
   describe '#update' do
-    it 'can update merchants name' do
+    it 'can update status' do
       invoice_repository.add_to_repo(invoice_1)
       invoice_repository.add_to_repo(invoice_2)
       invoice_repository.add_to_repo(invoice_3)
@@ -142,33 +142,34 @@ RSpec.describe InvoiceRepository do
   end
 
   describe '#delete' do
-    xit 'deletes the merchant instance with the corresponding id' do
-      merchant_repository.create({ name: 'Safeway' })
-      merchant_repository.create({ name: 'Walmart' })
-      merchant_repository.create({ name: 'Target' })
+    it 'deletes the invoice with the corresponding id' do
+      invoice_repository.add_to_repo(invoice_1)
+      invoice_repository.add_to_repo(invoice_2)
+      invoice_repository.add_to_repo(invoice_3)
 
-      expect(merchant_repository.all.size).to eq(3)
+      expect(invoice_repository.all.size).to eq(3)
 
-      merchant_repository.delete(1)
-      expect(merchant_repository.all.size).to eq(2)
+      invoice_repository.delete(6)
+      expect(invoice_repository.all.size).to eq(2)
 
-      merchant_repository.delete(2)
-      expect(merchant_repository.all[0].name).to eq('Target')
-      expect(merchant_repository.all.size).to eq(1)
+      invoice_repository.delete(1)
+      expect(invoice_repository.all[0].customer_id).to eq(2)
+      expect(invoice_repository.all.size).to eq(1)
     end
    
 
-    xit 'cannot delete an id that does not exist' do
-      merchant_repository.create({ name: 'Safeway' })
-      merchant_repository.create({ name: 'Walmart' })
-      merchant_repository.create({ name: 'Target' })
+   it 'cannot delete an id that does not exist' do
+      invoice_repository.add_to_repo(invoice_1)
+      invoice_repository.add_to_repo(invoice_2)
+      invoice_repository.add_to_repo(invoice_3)
 
-      expect(merchant_repository.all.size).to eq(3)
 
-      merchant_repository.delete(4)
+      expect(invoice_repository.all.size).to eq(3)
 
-      expect(merchant_repository.all.size).to eq(3)
-      expect(merchant_repository.all[0].name).to eq('Safeway')
+      invoice_repository.delete(12)
+
+      expect(invoice_repository.all.size).to eq(3)
+      expect(invoice_repository.all[0].customer_id).to eq(7)
     end
   end
 end
