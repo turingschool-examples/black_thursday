@@ -21,11 +21,8 @@ class Invoice
   end
 
   def update(attributes)
-    # require 'pry'; binding.pry
-
     @status = attributes[:status] if attributes[:status]
     @updated_at = Time.now
-    # require 'pry'; binding.pry
     self
   end
   

@@ -35,18 +35,8 @@ class Repository
   end
 
   def update(id, attributes)
-    # require 'pry'; binding.pry
     find_by_id(id).update(attributes) if find_by_id(id)
-    # @repo[:updated_at] = Time.now
   end
-
-  #   def update(id, attributes)
-  #     if find_by_id(id)
-  #       require 'pry'; binding.pry
-  #       find_by_id(id).status = attributes[:status]
-  #     attributes[:updated_at] = Time.now
-  #   end
-  # end
 
   def delete(id)
     @repo.delete_if { |object| object.id == id }
