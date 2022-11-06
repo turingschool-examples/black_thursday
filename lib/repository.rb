@@ -17,16 +17,21 @@ class Repository
     end
   end
 
+  def create(attributes)
+    attributes[:id] ||= new_id(attributes)
+    new_obj(attributes)
+  end
+
   def new_id(attributes)
     unless @repo.empty?
-      attributes[:id] = all.max do |item|
-        item.id
+      attributes[:id] = all.max do |object|
+        object.id
       end.id + 1
     end
   end
 
   def find_by_id(id)
-    @repo.find { |item| item.id == id }
+    @repo.find { |object| object.id == id }
   end
 
   def update(id, attributes)
@@ -34,7 +39,7 @@ class Repository
   end
 
   def delete(id)
-    @repo.delete_if { |item| item.id == id }
+    @repo.delete_if { |object| object.id == id }
   end
 
   def inspect

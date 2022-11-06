@@ -1,5 +1,3 @@
-# require 'simplecov'
-# SimpleCov.start
 require './lib/merchant'
 require './lib/merchant_repository'
 
@@ -11,7 +9,7 @@ RSpec.describe MerchantRepository do
   end
 
   it '#initialize stores merchants, empty by default' do
-    expect(merch_repo.merchants).to eq([])
+    expect(merch_repo.repo).to eq([])
   end
 
   it '#create makes new Merchants, id + 1' do

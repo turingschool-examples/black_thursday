@@ -5,6 +5,12 @@ require_relative 'repository'
 
 class ItemRepository < Repository
 
+  def new_obj(attributes)
+    new_item = Item.new(attributes)
+    @repo << new_item
+    new_item
+  end
+
   def find_by_name(name)
     @repo.find do |item|
       item.name.casecmp?(name)
@@ -33,16 +39,5 @@ class ItemRepository < Repository
     @repo.find_all do |item|
       item.merchant_id == merchant_id
     end
-  end
-
-  def create(attributes)
-    attributes[:id] ||= new_id(attributes)
-    new_item = Item.new(attributes)
-    @repo << new_item
-    new_item
-  end
-
-  def inspect
-    "#<#{self.class} #{@repo.size} rows>"
   end
 end

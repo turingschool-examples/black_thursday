@@ -24,7 +24,7 @@ class SalesEngine
   def self.from_csv(hash_path)
     sales_engine = new  
     sales_engine.items.parse_data(hash_path[:items], Item)
-    sales_engine.merchants.parse_data(hash_path[:merchants])
+    sales_engine.merchants.parse_data(hash_path[:merchants], Merchant)
     sales_engine.invoices.parse_data(hash_path[:invoices])
     sales_engine.invoice_items.parse_data(hash_path[:invoice_items], InvoiceItem)
     sales_engine

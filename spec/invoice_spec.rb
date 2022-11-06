@@ -1,5 +1,3 @@
-# require 'simplecov'
-# SimpleCov.start
 require 'rspec'
 require 'pry'
 require './lib/invoice'
