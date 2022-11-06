@@ -112,13 +112,11 @@ class SalesAnalyst
   end
   
   def average_invoices_per_merchant_standard_deviation
-    # take average_invoices_per_merchant 
-    # find the standard deviation
-    # (invoice_count_ForEachMerchant - average_invoice_per_merchant) ^ 2
-    # add all of these up for every single merchant = sum
-    #  sum / (by total number of merchants - 1) = answer
-    # sqrt(answer) = sd
-    # Float
+    sum = 0
+    sales_engine.merchants.all.each do |merchant|
+      sum += (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count - average_invoices_per_merchant)**2
+    end
+    Math.sqrt(sum / (merchants_count - 1)).round(2)
   end
   
   def top_merchants_by_invoice_count
