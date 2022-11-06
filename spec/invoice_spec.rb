@@ -102,7 +102,7 @@ RSpec.describe Invoice do
       allow(invoice_repo).to receive(:engine).and_return(engine)
       allow(engine).to receive(:invoice_items).and_return(invoice_item_repo)
       allow(invoice_item_repo).to receive(:find_all_by_invoice_id).and_return(['invoice_item1', 'invoice_item2'])
-      expect(invoice._transactions).to eq ['invoice_item1', 'invoice_item2']
+      expect(invoice._invoice_items).to eq ['invoice_item1', 'invoice_item2']
     end
   end
 end
