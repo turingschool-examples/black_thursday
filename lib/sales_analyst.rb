@@ -120,8 +120,9 @@ class SalesAnalyst
   end
   
   def top_merchants_by_invoice_count
-    # merchants that are TWO sd ABOVE average_invoices_per_merchant_standard_deviation
-    # returns an array of merchants
+    high_invoice_count = sales_engine.merchants.all.find_all do |merchant|
+      (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count) > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+    end
   end
   
   def bottom_merchants_by_invoice_count
