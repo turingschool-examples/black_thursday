@@ -16,7 +16,7 @@ module Timeable
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
     ]
-    months.index(month)
+    months.index(month) + 1
   end
 
   def same_month?(time, month)

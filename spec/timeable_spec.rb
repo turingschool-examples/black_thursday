@@ -25,9 +25,8 @@ describe Timeable do
 
   describe '#month_to_int' do
     it 'converts a string representing month of the year to equal integer value' do
-      expect(@dummy.month_to_int('September')).to eq(8)
-      expect(@dummy.month_to_int('March')).to eq(2)
-      expect(@dummy.month_to_int('Banana')).to eq(nil)
+      expect(@dummy.month_to_int('September')).to eq(9)
+      expect(@dummy.month_to_int('March')).to eq(3)
     end
   end
 
@@ -36,6 +35,10 @@ describe Timeable do
       expect(@dummy.same_month?(Time.parse('2012-08-26 20:56:56 UTC'), 8)).to eq(true)
       expect(@dummy.same_month?(Time.parse('2012-05-26 20:56:56 UTC'), 5)).to eq(true)
       expect(@dummy.same_month?('2012-05-26 20:56:56 UTC', 5)).to eq(true)
+      expect(@dummy.same_month?(@dummy.convert_to_time('2012-03-26 20:56:56 UTC'), 
+        @dummy.month_to_int('March'))).to eq(true)
+      expect(@dummy.same_month?(@dummy.convert_to_time('2012-06-26 20:56:56 UTC'), 
+        @dummy.month_to_int('March'))).to eq(false)
     end
   end
 
