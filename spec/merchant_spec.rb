@@ -98,4 +98,27 @@ describe Merchant do
       expect(merchant.invoice_count).to eq(2)
     end
   end
+
+  describe '#revenue' do
+    it 'returns the sum of all paid in full invoices' do
+      inv1 = double('inv1')
+      inv2 = double('inv2')
+      inv3 = double('inv3')
+      inv4 = double('inv4')
+      inv5 = double('inv5')
+      allow(merchant).to receive(:_invoices).and_return([inv1, inv2, inv3, inv4, inv5])
+      allow(inv1).to receive(:paid?).and_return true
+      allow(inv2).to receive(:paid?).and_return false
+      allow(inv3).to receive(:paid?).and_return true
+      allow(inv4).to receive(:paid?).and_return false
+      allow(inv5).to receive(:paid?).and_return true
+      allow(inv1).to receive(:total).and_return(2000)
+      allow(inv2).to receive(:total).and_return(10000)
+      allow(inv3).to receive(:total).and_return(6500)
+      allow(inv4).to receive(:total).and_return(20000)
+      allow(inv5).to receive(:total).and_return(1500)
+
+      expect(merchant.revenue).to eq(10000)
+    end
+  end
 end
