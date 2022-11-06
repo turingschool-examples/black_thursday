@@ -3,7 +3,7 @@ require_relative '../lib/customer'
 require_relative '../lib/sales_engine'
 
 RSpec.describe CustomerRepository do
-  describe '#initilize' do
+  describe '#initialize' do
     it 'exists' do
       cr = CustomerRepository.new
 
@@ -68,6 +68,7 @@ RSpec.describe CustomerRepository do
         expect(cr.all[-1].id).to eq(11)
       end
     end
+
     describe '#delete' do
       it 'can delete and instance of customer' do
         cr = CustomerRepository.new('./data/test_data/customers_test.csv')
