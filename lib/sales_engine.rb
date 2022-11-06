@@ -25,7 +25,7 @@ class SalesEngine
 
     generate_and_add_to_repo(Item, ir, data[:items])
     generate_and_add_to_repo(Merchant, mr, data[:merchants])
-
+    
     SalesEngine.new(mr, ir)
   end
 

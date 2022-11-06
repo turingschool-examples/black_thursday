@@ -12,4 +12,9 @@ class InvoiceRepository < Repository
       invoice.status == status
     end
   end
+
+  def create(attributes)
+    attributes[:id] = max_id
+    add_to_repo(Invoice.new(attributes))
+  end
 end

@@ -95,5 +95,29 @@ RSpec.describe InvoiceRepository do
       expect(invoice_repository.find_all_by_status('doesntexist')).to eq([])
     end
   end
+
+  describe '#create' do
+    it 'can create a new invoice' do
+      expect(invoice_repository.all).to eq([])
+
+      invoice_repository.create({ customer_id: 8,
+                                  merchant_id: 5,
+                                  status: 'returned',
+                                  created_at: Time.now,
+                                  updated_at: Time.now })
+
+      expect(invoice_repository.all.first.id).to eq(1)
+
+      invoice_repository.create({ customer_id: 18,
+                                  merchant_id: 15,
+                                  status: 'returned',
+                                  created_at: Time.now,
+                                  updated_at: Time.now })
+
+
+      expect(invoice_repository.all[1].id).to eq(2)
+      expect(invoice_repository.all.size).to eq(2)
+    end
+  end
   
 end
