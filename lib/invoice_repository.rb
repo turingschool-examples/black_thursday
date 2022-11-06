@@ -3,47 +3,55 @@ require_relative './invoice'
 require 'pry'
 
 class InvoiceRepository
-    attr_reader :invoice_repo
+    attr_reader :invoices
 
   def initialize
-    @invoice_repo = []
+    @invoices = []
   end
 
   def create(attributes)
-    unless invoice_repo.empty?
+    unless invoices.empty?
     attributes[:id] = all.max do |invoice|
       invoice.id
       end.id + 1
     end
     new_invoice = Invoice.new(attributes)
-    @invoice_repo << new_invoice
+    @invoices << new_invoice
     new_invoice
   end
 
+  def parse_data(file)
+    rows = CSV.open file, headers: true, header_converters: :symbol
+      rows.each do |row|
+        new_item = Invoice.new(row.to_h)
+        @invoices << new_item
+      end  
+    end
+
   def all
-    @invoice_repo
+    @invoices
   end
 
   def find_by_id(id)
-    invoice_repo.find do |invoice|
+    @invoices.find do |invoice|
       invoice.id == id
     end
   end
 
   def find_all_by_customer_id(customer_id)
-    invoice_repo.select do |invoice|
+    @invoices.select do |invoice|
         invoice.customer_id == customer_id
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    invoice_repo.select do |invoice|
+    @invoices.select do |invoice|
         invoice.merchant_id == merchant_id
     end
   end
 
   def find_all_by_status(status)
-    invoice_repo.select do |invoice|
+    @invoices.select do |invoice|
         invoice.status == status.to_sym
     end
   end
@@ -56,10 +64,10 @@ class InvoiceRepository
   end
 
   def delete(id)
-    invoice_repo.delete_if { |invoice| invoice.id == id }
+    @invoices.delete_if { |invoice| invoice.id == id }
   end
 
   def inspect
-    "#<#{self.class} #{@invoice_repo.size} rows>"
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 end

@@ -116,8 +116,8 @@ RSpec.describe InvoiceItemRepository do
       :updated_at => Time.now
     })
 
-    expect(iir.find_by_item_id(1)).to eq([])
-    expect(iir.find_by_item_id(7)).to eq([item1, item2])
+    expect(iir.find_all_by_item_id(1)).to eq([])
+    expect(iir.find_all_by_item_id(7)).to eq([item1, item2])
   end
 
   it 'finds all InvoiceItems by Invoice id' do

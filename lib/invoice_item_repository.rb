@@ -31,7 +31,7 @@ class InvoiceItemRepository
     invoice_items.find { |invoice_item| invoice_item.id == id }
   end
 
-  def find_by_item_id(id)
+  def find_all_by_item_id(id)
     invoice_items.select { |invoice_item| invoice_item.item_id == id }
   end
 
