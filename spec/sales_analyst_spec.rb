@@ -80,7 +80,13 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_total(1)).to eq 21067.77
   end
 
-  it 'can return top x performing merchants in terms of revenue' do
-    expect(sales.analyst.top_revenue_earners(10)).to be_a Array 
+  xit 'can return top x performing merchants in terms of revenue' do
+    expect(sales_analyst.top_revenue_earners(10)).to be_a Array 
+  end
+
+  it 'can return total revenue for a single merchant' do 
+
+    expect(sales_analyst.revenue_by_merchant(12335938)).to be_a (BigDecimal)
+    expect(sales_analyst.revenue_by_merchant(12335938)).to eq (0.15863165e6)
   end
 end

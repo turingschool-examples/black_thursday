@@ -45,7 +45,6 @@ class SalesAnalyst
     (engine.invoices.all.length.to_f / engine.merchants.all.length).round(2)
   end
 
-#helper method for average_invoices_per_merchant_standard_deviation
   def inv_hash
     inv_hsh = engine.invoices.all.group_by do |invoice|
       invoice.merchant_id
@@ -103,7 +102,6 @@ class SalesAnalyst
     day_hsh.map do |keys, values|
       day_hsh[keys] = values.count
     end
-    require 'pry'; binding.pry
     day_hsh
   end
 
@@ -145,5 +143,29 @@ class SalesAnalyst
       invoice_items.sum { |ii| ii.unit_price * ii.quantity}.round(2)
     end
   end
+
+  # def top_revenue_earners(top_earners = 20)
+  #   #write total revenue method first
+  #     require 'pry'; binding.pry
+  # end
+
+  def revenue_by_merchant(merchant_id)
+    merchant_invoices = engine.invoices.find_all_by_merchant_id(merchant_id)
+    invoices = []
+    merchant_invoices.each do |invoice| 
+      if invoice.status == :shipped
+        invoices << invoice
+      end
+    end
+    total = 0
+    invoices.each do |invoice|
+      invoice_items = engine.invoice_items.find_all_by_invoice_id(invoice.id)
+        invoice_total = invoice_items.map do |item|
+          (item.quantity * item.unit_price)
+        end
+        total += invoice_total.sum
+    end
+    total
+  end 
 end
 
