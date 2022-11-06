@@ -22,11 +22,6 @@ class MerchantRepository
     end
   end
 
-  def create(attributes)
-    all << Merchant.new(:name => attributes[:name],
-                        :id => next_id)
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
