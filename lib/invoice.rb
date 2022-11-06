@@ -1,3 +1,5 @@
+require 'time'
+
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -6,13 +8,13 @@ class Invoice
   attr_accessor :status,
                 :updated_at
 
-  def initialize(input_hash)
-    @id           = input_hash[:id].to_i
-    @customer_id  = input_hash[:customer_id].to_i
-    @merchant_id  = input_hash[:merchant_id].to_i
-    @status       = input_hash[:status].to_sym
-    @created_at   = Time.parse(input_hash[:created_at].to_s)
-    @updated_at   = Time.parse(input_hash[:updated_at].to_s)
+  def initialize(attributes)
+    @id           = attributes[:id].to_i
+    @customer_id  = attributes[:customer_id].to_i
+    @merchant_id  = attributes[:merchant_id].to_i
+    @status       = attributes[:status].to_sym
+    @created_at   = Time.parse(attributes[:created_at].to_s)
+    @updated_at   = Time.parse(attributes[:updated_at].to_s)
   end
 
 

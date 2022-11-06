@@ -151,12 +151,6 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  describe '#average_item_price' do
-    xit 'returns the average item price' do
-      expect(sales_analyst.average_item_price).to eq 251.06
-    end
-  end
-
   describe '#average_invoices_per_merchant' do
     xit 'gives how many invoices a merchant has on average' do
       expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
@@ -301,7 +295,7 @@ end
     expect(expected.first.class).to eq Merchant
   end
 
-  xit "#revenue_by_merchant returns the revenue for given merchant" do
+  it "#revenue_by_merchant returns the revenue for given merchant" do
     expect(sales_analyst.revenue_by_merchant(12337411)).to eq (68159.36)
     expect(sales_analyst.revenue_by_merchant(12337411).class).to eq BigDecimal
   end

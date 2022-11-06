@@ -11,17 +11,6 @@ class ItemRepository
     @all = all
   end
 
-  def create(attributes)
-    all << Item.new({ :name         => attributes[:name],
-                      :id           => next_id,
-                      :description  => attributes[:description],
-                      :unit_price   => attributes[:unit_price],
-                      :created_at   => attributes[:created_at],
-                      :updated_at   => attributes[:updated_at],
-                      :merchant_id  => attributes[:merchant_id]
-                    })    
-  end
-
   def find_by_name(name)
     all.find do |item|
       item.name.upcase == name.upcase
