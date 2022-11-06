@@ -17,4 +17,10 @@ class InvoiceItemRepository
       datum.item_id == item_id
     end
   end
+
+  def find_all_by_invoice_id(invoice_id)
+    all.find_all do |datum|
+      datum.invoice_id == invoice_id
+    end
+  end
 end
