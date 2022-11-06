@@ -1,4 +1,13 @@
 class Repository
+  attr_reader :repo
+
+  def initialize
+    @repo = []
+  end
+
+  def all
+    @repo
+  end
 
   def parse_data(file, class_var)
     rows = CSV.open file, headers: true, header_converters: :symbol
@@ -18,6 +27,10 @@ class Repository
 
   def find_by_id(id)
     @repo.find { |item| item.id == id }
+  end
+
+  def update(id, attributes)
+    find_by_id(id).update(attributes) if find_by_id(id)
   end
 
   def delete(id)

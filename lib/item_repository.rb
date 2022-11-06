@@ -4,15 +4,6 @@ require 'pry'
 require_relative 'repository'
 
 class ItemRepository < Repository
-  attr_reader :items
-
-  def initialize
-    @repo = []
-  end
-
-  def all
-    @repo
-  end
 
   def find_by_name(name)
     @repo.find do |item|
@@ -49,10 +40,6 @@ class ItemRepository < Repository
     new_item = Item.new(attributes)
     @repo << new_item
     new_item
-  end
-
-  def update(id, attributes)
-    find_by_id(id).update(attributes) if find_by_id(id)
   end
 
   def inspect
