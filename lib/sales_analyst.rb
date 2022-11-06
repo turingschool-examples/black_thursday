@@ -103,4 +103,11 @@ class SalesAnalyst
       @invoices.find_all_by_merchant_id(merchant.id).size >= two_std_devs_above_avg
     end
   end
+
+  def bottom_merchants_by_invoice_count
+    two_std_devs_below_avg = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    @merchants.all.find_all do |merchant|
+      @invoices.find_all_by_merchant_id(merchant.id).size <= two_std_devs_below_avg
+    end
+  end
 end
