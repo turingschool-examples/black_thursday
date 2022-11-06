@@ -105,12 +105,25 @@ RSpec.describe CustomerRepository do
   end
 
   describe '#find_all_by_first_name' do
-    it 'returns an empty array or one or more customers matching the substring fragment' do
+    it 'returns an empty array or one or more customers matching the substring fragment first name' do
       cr = CustomerRepository.new('./data/test_data/customers_test.csv')
 
       fragment = 'ia'
 
       expected = cr.find_all_by_first_name(fragment)
+
+      expect(expected.length).to eq(2)
+      expect(expected.first.class).to eq(Customer)
+    end
+  end
+
+  describe '#find_all_by_last_name' do
+    it 'returns an empty array or one or more customers matching the substring fragment last name' do
+      cr = CustomerRepository.new('./data/test_data/customers_test.csv')
+
+      fragment = 'on'
+
+      expected = cr.find_all_by_last_name(fragment)
 
       expect(expected.length).to eq(2)
       expect(expected.first.class).to eq(Customer)
