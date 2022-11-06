@@ -1,4 +1,5 @@
 require 'pry'
+require 'bigdecimal'
 require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './invoice_repository'
@@ -233,18 +234,69 @@ class SalesAnalyst
   end
 
   def invoice_total(invoice_id)
+
     ii = find_invoice_item_by_invoice_id(invoice_id)
     ii.collect do |i|
+      if invoice_paid_in_full?(invoice_id)
       i.quantity.to_i * i.unit_price
+      else
+        0
+      end
     end.sum.to_f
   end
+  
+
 
   def invoice_status(status)
   invoice_count = invoices.all.select { |invoice| invoice.status == status }
   ((invoice_count.count).to_f / (invoices.all.count) * 100).round(2)
   end
 
+  
 
+  def total_revenue_by_date(date)
+    total = 0
+  invoice_items.all.find_all do |item|
+    # binding.pry
+    if item.created_at == date
+      total += item.unit_price
+    end
+  end
+  # total.to_f
+BigDecimal(total, 4)
+
+    
+  end
+
+  def total_merchant_revenue(merchant_id)
+    total = 0 
+    total_h = {}
+    x = @invoices.find_all_by_merchant_id(merchant_id)
+    x.each do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        total += invoice_total(invoice.id)
+      end
+    end
+    # x.group_by do |merchant|
+    total.round(2)
+    # # binding.pry
+    # end
+  end
+
+
+
+  def top_revenue_earners(rank = 20)
+    # binding.pry
+    # ranked_sorted_merchants[0..(rank-1)]
+    # binding.pry
+    # (merchant_revenue[0..(rank-1)]).reverse
+    x = merchants.all.max_by(rank) do |merchant|
+      total_merchant_revenue(merchant.id)
+    end
+    
+  end
+
+     
 # def merchants_with_pending_invoices
 #     @merchants.all.find_all do |merchant|  maybe possible to go straight to invoices?
 #     merchant.invoices.any? |invoice|      believe any? will skip any that dont have an invoice, think they all do so this could be redundant.

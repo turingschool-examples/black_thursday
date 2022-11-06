@@ -115,6 +115,12 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  describe '#average_item_price' do
+    it 'returns the average item price' do
+      expect(sales_analyst.average_item_price).to eq 251.06
+    end
+  end
+
   describe '#average_invoices_per_merchant' do
     it 'gives how many invoices a merchant has on average' do
       expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
@@ -178,7 +184,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#one_over_standard_dev' do
-  it 'returns the first part of the formula for standard deviation' do
+    it 'returns the first part of the formula for standard deviation' do
 
     expect(sales_analyst.one_over_standard_dev).to eq 730.21
   end
@@ -192,32 +198,58 @@ end
   end
 
 
-  # describe '#invoice_paid_in_full?(invoice_id)' do
-  #   it 'return true if transaction success and false if failed' do
+  describe '#invoice_paid_in_full?(invoice_id)' do
+    it 'return true if transaction success and false if failed' do
 
-  #     expected = sales_analyst.invoice_paid_in_full?(1)
-  #     expect(expected).to eq true
+      expected = sales_analyst.invoice_paid_in_full?(1)
+      expect(expected).to eq true
 
-  #     expected = sales_analyst.invoice_paid_in_full?(200)
-  #     expect(expected).to eq true
+      expected = sales_analyst.invoice_paid_in_full?(200)
+      expect(expected).to eq true
 
-  #     expected = sales_analyst.invoice_paid_in_full?(203)
-  #     expect(expected).to eq false
+      expected = sales_analyst.invoice_paid_in_full?(203)
+      expect(expected).to eq false
 
-  #     expected = sales_analyst.invoice_paid_in_full?(204)
-  #     expect(expected).to eq false
-  #   end
-  # end
+      expected = sales_analyst.invoice_paid_in_full?(204)
+      expect(expected).to eq false
+    end
+  end
 
-  describe '#invoice_total(1)' do # changetest later to other invoice number
+  describe '#invoice_total(1)' do # change test later to other invoice number
     it 'will return the invoice total for that id' do
 
       expect(sales_analyst.invoice_total(1)).to eq 21067.77
     end
   end
 
-  it "#merchants_with_only_one_item returns merchants with only one item" do
-    expect(sales_analyst.merchants_with_only_one_item.length).to eq 243 # the number of merchants taken from spec harness
+  describe '#total_revenue_by_date' do
+    it 'will give you the total revenue on any given date' do
+      date = Time.parse("2012-03-27 14:54:09 UTC")
+      
+      expect(sales_analyst.total_revenue_by_date(date)).to eq 5977.78
+    end
+  end
+
+  describe '#top_revenue_earners(x)' do
+    it 'will return the top revenue earners. (will default to 20)' do
+      merchants = sales_analyst.top_revenue_earners(10)
+
+      merchant_1 = sales_analyst.top_revenue_earners(10).first
+      merchant_2 = sales_analyst.top_revenue_earners(10).last
+      
+      expect(merchants.length).to eq 10
+      # binding.pry
+      expect(merchant_1.class).to eq Merchant
+      expect(merchant_1.id).to eq 12334634
+      # binding.pry
+
+      expect(merchant_2.class).to eq Merchant
+      expect(merchant_2.id).to eq 12335747
+    end
+  end
+
+  xit "#merchants_with_only_one_item returns merchants with only one item" do
+    expect(sales_analyst.merchants_with_only_one_item.length).to eq 243 #the number of merchants taken from spec harness
     expect(sales_analyst.merchants_with_only_one_item.first.class).to eq Merchant
   end
 
