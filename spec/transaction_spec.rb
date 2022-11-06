@@ -42,7 +42,7 @@ describe Transaction do
     end
 
     it 'returns transaction result' do
-      expect(@transaction.result).to eq('success')
+      expect(@transaction.result).to eq(:success)
     end
   end
 
@@ -64,7 +64,7 @@ describe Transaction do
          credit_card_expiration_date: '0125')
       expect(@transaction.credit_card_number).to eq('4242424242425555')
       expect(@transaction.credit_card_expiration_date).to eq('0125')
-      expect(@transaction.result).to eq('success')
+      expect(@transaction.result).to eq(:success)
     end
   end
 end
