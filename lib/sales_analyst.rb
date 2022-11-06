@@ -50,7 +50,7 @@ class SalesAnalyst
     prices = @items.find_all_by_merchant_id(id).map do |item|
       item.unit_price
     end
-    
+
     avg(prices).round(2)
   end
 
@@ -70,6 +70,8 @@ class SalesAnalyst
       item.unit_price > avg + 2*stdev
     end
   end
+
+  # Iteration 5
 
   def top_buyers(num_buyers = 20)
     @customers.all.sort_by do |cust|
@@ -120,6 +122,8 @@ class SalesAnalyst
       item.unit_price
     end
   end
+
+  # Invoices
 
   def average_invoices_per_merchant
     avg(invoices_per_merchant).round(2)

@@ -3,6 +3,18 @@ module Reposable
     Object.const_get(self.class.name.chomp('Repository'))
   end
 
+  def create(attributes)
+    new = {  
+            :id           => next_id,
+            :created_at   => Time.now,
+            :updated_at   => Time.now
+    }
+    attributes.each do |att,val|
+      new[att] = val
+    end
+    all << class_name.new(new)    
+  end
+
   def update(id,attributes)
     entry = find_by_id(id)
   
@@ -15,11 +27,7 @@ module Reposable
   end
 
   def next_id
-    if all.empty?
-      1
-    else
-      all.last.id.to_i + 1
-    end
+    all.empty? ? 1 : all.last.id.to_i + 1
   end
   
   def find_by_id(id)
