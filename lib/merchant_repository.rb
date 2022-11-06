@@ -21,8 +21,4 @@ class MerchantRepository < Repository
     name = attributes[:name]
     find_by_id(id).name = name
   end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
 end

@@ -44,8 +44,4 @@ class ItemRepository < Repository
     end
     item.updated_at = Time.now
   end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
 end

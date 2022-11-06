@@ -22,7 +22,7 @@ class Repository
     end
   end
 
-  # add superclass level test for this 
+  # add superclass level test for this
   def max_id
     max = @all.max_by do |item|
       item.id
@@ -41,13 +41,13 @@ class Repository
     add_to_repo(instance)
   end
 
-  # This method returns the string representation of the repository's child class name, 
+  # This method returns the string representation of the repository's child class name,
   # ie for the MerchantRepository class, this returns "Merchant"
   def child_class_name
-    self.class.name.split('Repository').join 
-  end 
- 
-  # add tests 
+    self.class.name.split('Repository').join
+  end
+
+  # add tests
   def update(id, attributes)
     instance = find_by_id(id)
     return nil if instance.nil?
@@ -59,5 +59,9 @@ class Repository
 
   def delete(id)
     @all.delete(find_by_id(id))
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
