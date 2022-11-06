@@ -204,10 +204,10 @@ RSpec.describe InvoiceItemRepository do
   it 'can load data' do
     iir = InvoiceItemRepository.new
     file = './data/invoice_items.csv'
-    ir.load_data(file)
+    iir.load_data(file)
 
-    expect(ir.all.first).to be_a(Item)
-    expect(ir.all.all?(InvoiceItem)).to eq(true)
+    expect(iir.all.first).to be_a(InvoiceItem)
+    expect(iir.all.all?(InvoiceItem)).to eq(true)
   end
 
 end
