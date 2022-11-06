@@ -52,5 +52,12 @@ describe '#id' do
       expect(t_2.credit_card_expiration_date).to eq("0221")
     end
   end
+
+  describe '#result' do 
+    it 'returns the result' do 
+      expect(t_1.result).to eq("success")
+      expect(t_2.result).to eq("failed")
+    end
+  end  
 end
   
