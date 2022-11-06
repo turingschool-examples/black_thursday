@@ -4,7 +4,8 @@ require 'bigdecimal'
 require 'bigdecimal/util'
 class SalesAnalyst
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
   def initialize(items, merchants, invoices)
     @items = items
@@ -80,8 +81,23 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    # find the total number of invoices
-
-    # divide that by total num of merchants
+    (@invoices.all.size / @merchants.all.size.to_f).round(2)
   end
+
+  def invoices_for_each_of_the_merchants
+    # require "pry"; binding.pry
+    @merchants.all.map do |merchant|
+      @invoices.find_all_by_merchant_id(merchant.id).size
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    # require "pry"; binding.pry
+    sum = invoices_for_each_of_the_merchants.sum(0.00) { |element| (element - mean) ** 2 }
+    variance = sum / (@invoices.all.size - 1)
+    return Math.sqrt(variance).round(2)
+  end
+
+
 end
