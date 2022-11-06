@@ -144,10 +144,16 @@ class SalesAnalyst
     end
   end
 
-  # def top_revenue_earners(top_earners = 20)
-  #   #write total revenue method first
-  #     require 'pry'; binding.pry
-  # end
+  def top_revenue_earners(top_earners = 20)
+    earnings_hash = {}
+    engine.merchants.merchants.map do |merchant|
+      earnings_hash[merchant.id] = revenue_by_merchant(merchant.id)
+    end
+    earnings_ordered = earnings_hash.sort_by { |keys, values| values}
+    merchants_ordered = earnings_ordered.reverse.map { |merchant| merchant[0]}
+    merchants_ordered.first(top_earners)
+    # require 'pry'; binding.pry
+  end
 
   def revenue_by_merchant(merchant_id)
     merchant_invoices = engine.invoices.find_all_by_merchant_id(merchant_id)
