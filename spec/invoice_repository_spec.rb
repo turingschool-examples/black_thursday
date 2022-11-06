@@ -19,6 +19,14 @@ RSpec.describe InvoiceRepository do
                                   updated_at: Time.now
                                 }) }
 
+  let(:invoice_3) { Invoice.new({ id: 4, 
+                                  customer_id: 2,
+                                  merchant_id: 3,
+                                  status: 'returned',
+                                  created_at: Time.now,
+                                  updated_at: Time.now
+                                }) }
+
   describe '#initialize' do
     it 'exist' do
       # require 'pry'; binding.pry
@@ -42,5 +50,17 @@ RSpec.describe InvoiceRepository do
       expect(invoice_repository.find_by_id(9)).to be_nil
     end
   end
-  
+
+  describe '#find_all_by_customer_id' do
+    it 'returns an empty array or all matches which have matching customer_id' do
+      invoice_repository.add_to_repo(invoice_1)
+      invoice_repository.add_to_repo(invoice_2)
+      invoice_repository.add_to_repo(invoice_3)
+
+      expect(invoice_repository.find_all_by_customer_id(7)).to eq([invoice_1])
+      expect(invoice_repository.find_all_by_customer_id(2)).to eq([invoice_2, invoice_3])
+      expect(invoice_repository.find_all_by_customer_id(4)).to eq([])
+    end
+  end
+ 
 end
