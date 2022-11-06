@@ -36,47 +36,37 @@ RSpec.describe InvoiceRepository do
   end
 
   it "#find_all_by_customer_id returns all invoices associated with given customer" do
-    customer_id = 300
-    expected = invoice_repository.find_all_by_customer_id(customer_id)
-# require 'pry'; binding.pry
-    expect(expected.invoices.length).to eq 10
+    # require 'pry'; binding.pry
+   expect(invoice_repository.find_all_by_customer_id(300).length).to eq 10
+   expect(invoice_repository.find_all_by_customer_id(1000)).to eq([])
 
-    customer_id = 1000
-    expected = invoice_repository.find_all_by_customer_id(customer_id)
-
-    expect(expected).to eq []
   end
 
-  xit "#find_all_by_merchant_id returns all invoices associated with given merchant" do
-    merchant_id = 12335080
-    expected = engine.invoices.find_all_by_merchant_id(merchant_id)
-
-    expect(expected.length).to eq 7
-
-    merchant_id = 1000
-    expected = engine.invoices.find_all_by_merchant_id(merchant_id)
-
-    expect(expected).to eq []
+  it "#find_all_by_merchant_id returns all invoices associated with given merchant" do
+    # require 'pry'; binding.pry
+   expect(invoice_repository.find_all_by_merchant_id(12335080).length).to eq 7
+   expect(invoice_repository.find_all_by_merchant_id(1000)).to eq([])
+    
   end
 
-  xit "#find_all_by_status returns all invoices associated with given status" do
+  it "#find_all_by_status returns all invoices associated with given status" do
     status = :shipped
-    expected = engine.invoices.find_all_by_status(status)
+    expect(invoice_repository.find_all_by_status(status).length).to eq 2839
 
-    expect(expected.length).to eq 2839
+    # expect(expected.length).to eq 2839
 
     status = :pending
-    expected = engine.invoices.find_all_by_status(status)
+    expect(invoice_repository.find_all_by_status(status).length).to eq 1473
 
-    expect(expected.length).to eq 1473
+    # expect(expected.length).to eq 1473
 
     status = :sold
-    expected = engine.invoices.find_all_by_status(status)
+    expect(invoice_repository.find_all_by_status(status)).to eq []
 
-    expect(expected).to eq []
+    # expect(expected).to eq []
   end
 
-  xit "#create creates a new invoice instance" do
+  it "#create creates a new invoice instance" do
     attributes = {
       :customer_id => 7,
       :merchant_id => 8,
@@ -84,47 +74,48 @@ RSpec.describe InvoiceRepository do
       :created_at  => Time.now,
       :updated_at  => Time.now,
     }
-    engine.invoices.create(attributes)
-    expected = engine.invoices.find_by_id(4986)
+    invoice_repository.create(attributes)
+    expected = invoice_repository.find_by_id(4986)
     expect(expected.merchant_id).to eq 8
   end
 
-  xit "#update updates an invoice" do
+  it "#update updates an invoice" do
     # require 'pry'; binding.pry
-    original_time = invoice_repository.invoices.find_by_id(4986).updated_at
+    original_time = invoice_repository.find_by_id(4985).updated_at
     attributes = {
       status: :success
     }
-    @engine.invoices.update(4986, attributes)
-    expected = invoice_repository.invoices.find_by_id(4986)
-    expect(expected.status).to eq :success
-    expect(expected.customer_id).to eq 7
-    expect(expected.updated_at).to be > original_time
+    invoice_repository.update(4985, attributes)
+    invoice_repository.find_by_id(4985)
+    expect(invoice_repository.find_by_id(4985).status).to eq :success
+    # require 'pry'; binding.pry
+    expect(invoice_repository.find_by_id(4985).customer_id).to eq 999
+    expect(invoice_repository.find_by_id(4985).updated_at).not_to be original_time
   end
 
-  xit "#update cannot update id, customer_id, merchant_id, or created_at" do
+  it "#update cannot update id, customer_id, merchant_id, or created_at" do
     attributes = {
       id: 5000,
       customer_id: 2,
       merchant_id: 3,
       created_at: Time.now
     }
-    engine.invoices.update(4986, attributes)
-    expected = engine.invoices.find_by_id(5000)
+    invoice_repository.update(4985, attributes)
+    expected = invoice_repository.find_by_id(5000)
     expect(expected).to eq nil
-    expected = engine.invoices.find_by_id(4986)
-    expect(expected.customer_id).not_to eq attributes[:customer_id]
-    expect(expected.customer_id).not_to eq attributes[:merchant_id]
-    expect(expected.created_at).not_to eq attributes[:created_at]
+    invoice_repository.find_by_id(4985)
+    expect(invoice_repository.find_by_id(4985).customer_id).not_to eq attributes[:customer_id]
+    expect(invoice_repository.find_by_id(4985).merchant_id).not_to eq attributes[:merchant_id]
+    expect(invoice_repository.find_by_id(4985).created_at).not_to eq attributes[:created_at]
   end
 
-  xit "#update on unknown invoice does nothing" do
-    engine.invoices.update(5000, {})
+  it "#update on unknown invoice does nothing" do
+    invoice_repository.update(5000, {})
   end
 
-  xit "#delete deletes the specified invoice" do
-    engine.invoices.delete(4986)
-    expected = engine.invoices.find_by_id(4986)
+  it "#delete deletes the specified invoice" do
+    invoice_repository.delete(4985)
+    expected = invoice_repository.find_by_id(4985)
     expect(expected).to eq nil
   end
 

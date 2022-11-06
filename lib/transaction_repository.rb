@@ -1,3 +1,4 @@
+require 'time'
 require 'csv'
 
 class TransactionRepository
@@ -50,7 +51,7 @@ class TransactionRepository
     @transactions << Transaction.new({ :id => new_id, 
                                       :invoice_id => attributes[:invoice_id], 
                                       :credit_card_number => attributes[:credit_card_number],
-                                      :credit_card_expiration_date => attributes [:credit_card_expiration_date],
+                                      :credit_card_expiration_date => attributes[:credit_card_expiration_date],
                                       :result => attributes[:result],
                                       :created_at => Time.now,
                                       :updated_at => Time.now}, self)
@@ -76,11 +77,11 @@ class TransactionRepository
       transaction = {
               :id => row[:id].to_i, 
               :invoice_id => row[:invoice_id].to_i,
-              :credit_card_number => row[:credit_card_number].to_i,
-              :credit_card_expiration_date => row[:credit_card_expiration_date].to_i,
+              :credit_card_number => row[:credit_card_number],
+              :credit_card_expiration_date => row[:credit_card_expiration_date],
               :result => row[:result].to_sym,
-              :created_at => row[:created_at],
-              :updated_at => row[:updated_at],
+              :created_at => Time.parse(row[:created_at]),
+              :updated_at => Time.parse(row[:updated_at]),
             }
       Transaction.new(transaction, self)
     end
