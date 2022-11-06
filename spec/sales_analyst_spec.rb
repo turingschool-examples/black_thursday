@@ -256,12 +256,12 @@ RSpec.describe SalesAnalyst do
     sales_engine = SalesEngine.from_csv(
 
       :items     => './data/items.csv',
-      :merchants => './data/merchant_invoices.csv',
+      :merchants => './data/merchants.csv',
       :invoices  => './data/invoices.csv'
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.top_days_by_invoice_count).to eq(["Monday"])
+    expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
   end
 
   it 'can calculate percentages by the status' do
