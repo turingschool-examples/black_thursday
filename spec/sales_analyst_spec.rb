@@ -119,4 +119,10 @@ RSpec.describe SalesAnalyst do
       expect(analyst.invoice_total(1)).to eq 21067.77
     end
   end
+
+  describe '#merchants_with_pending_invoices' do
+    it 'returns an array of merchants with pending invoices' do
+      expect(analyst.merchants_with_pending_invoices).to eq ([])
+    end
+  end
 end
