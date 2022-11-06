@@ -1,4 +1,5 @@
 require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice'
 
 RSpec.describe InvoiceRepository do
   let(:invoice_repository) { InvoiceRepository.new }
@@ -120,4 +121,54 @@ RSpec.describe InvoiceRepository do
     end
   end
   
+  describe '#update' do
+    it 'can update merchants name' do
+      invoice_repository.add_to_repo(invoice_1)
+      invoice_repository.add_to_repo(invoice_2)
+      invoice_repository.add_to_repo(invoice_3)
+
+      expect(invoice_repository.all[0].status).to eq('pending')
+      expect(invoice_repository.all[1].status).to eq('shipped')
+      expect(invoice_repository.all[2].status).to eq('returned')
+
+      invoice_repository.update( 6, {status: 'Canceled'})
+      invoice_repository.update( 1, {status: 'Returned'})
+      invoice_repository.update( 4, {status: 'Shipped'})
+
+      expect(invoice_repository.all[0].status).to eq('Canceled')
+      expect(invoice_repository.all[1].status).to eq('Returned')
+      expect(invoice_repository.all[2].status).to eq('Shipped')
+    end
+  end
+
+  describe '#delete' do
+    xit 'deletes the merchant instance with the corresponding id' do
+      merchant_repository.create({ name: 'Safeway' })
+      merchant_repository.create({ name: 'Walmart' })
+      merchant_repository.create({ name: 'Target' })
+
+      expect(merchant_repository.all.size).to eq(3)
+
+      merchant_repository.delete(1)
+      expect(merchant_repository.all.size).to eq(2)
+
+      merchant_repository.delete(2)
+      expect(merchant_repository.all[0].name).to eq('Target')
+      expect(merchant_repository.all.size).to eq(1)
+    end
+   
+
+    xit 'cannot delete an id that does not exist' do
+      merchant_repository.create({ name: 'Safeway' })
+      merchant_repository.create({ name: 'Walmart' })
+      merchant_repository.create({ name: 'Target' })
+
+      expect(merchant_repository.all.size).to eq(3)
+
+      merchant_repository.delete(4)
+
+      expect(merchant_repository.all.size).to eq(3)
+      expect(merchant_repository.all[0].name).to eq('Safeway')
+    end
+  end
 end
