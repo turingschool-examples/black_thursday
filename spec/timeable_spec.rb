@@ -37,4 +37,11 @@ describe Timeable do
       expect(@dummy.same_month?(Time.parse("2012-05-26 20:56:56 UTC"), 5)).to eq(true)
     end
   end
+
+  describe '#convert_to_time' do
+    it 'converts a string in time format to a time object' do
+      expect(@dummy.convert_to_time("2012-05-26 20:56:56 UTC")).to eq(Time.parse('2012-05-26 20:56:56 UTC'))
+      expect(@dummy.convert_to_time(Time.parse('2012-05-26 20:56:56 UTC'))).to eq(Time.parse('2012-05-26 20:56:56 UTC'))
+    end
+  end
 end
