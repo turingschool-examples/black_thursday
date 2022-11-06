@@ -42,6 +42,8 @@ module RepoQueries
   def sanitized_attributes(attributes)
     {
       name:        attributes[:name],
+      first_name:  attributes[:first_name],
+      last_name:   attributes[:last_name],
       description: attributes[:description],
       unit_price:  attributes[:unit_price],
       merchant_id: attributes[:merchant_id],
