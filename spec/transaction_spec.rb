@@ -31,5 +31,12 @@ describe '#id' do
       expect(t_2.id).to eq(1)
     end
   end
+
+  describe '#invoice_id' do 
+    it 'returns the invoice id' do 
+      expect(t_1.invoice_id).to eq(8)
+      expect(t_2.invoice_id).to eq(2)
+    end
+  end
 end
   
