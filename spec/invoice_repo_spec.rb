@@ -141,4 +141,10 @@ RSpec.describe InvoiceRepo do
       expect(analyst.invoice_paid_in_full?(204)).to be false
     end
   end
+
+  describe '#invoice_total' do
+    it 'returns the total dollar value of an Invoice' do
+      expect(analyst.invoice_total(1)).to eq 21067.77
+    end
+  end
 end

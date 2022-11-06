@@ -114,7 +114,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#invoice_total' do
-    it 'it returns the total dollar value of an Invoice' do
+    it 'returns the total dollar value of an Invoice' do
       expect(analyst.invoice_total(1)).to eq 21067.77
     end
   end
