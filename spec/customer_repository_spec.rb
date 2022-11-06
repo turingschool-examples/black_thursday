@@ -103,4 +103,17 @@ RSpec.describe CustomerRepository do
       expect(cr.all[0].updated_at).to be > Time.parse('2012-03-27 14:54:09 UTC')
     end
   end
+
+  describe '#find_all_by_first_name' do
+    it 'returns an empty array or one or more customers matching the substring fragment' do
+      cr = CustomerRepository.new('./data/test_data/customers_test.csv')
+
+      fragment = 'ia'
+
+      expected = cr.find_all_by_first_name(fragment)
+
+      expect(expected.length).to eq(2)
+      expect(expected.first.class).to eq(Customer)
+    end
+  end
 end
