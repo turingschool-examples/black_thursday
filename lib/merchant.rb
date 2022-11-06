@@ -46,6 +46,6 @@ class Merchant
   end
 
   def invoice_pending?
-    _invoices.any? { |invocie| invocie.status == :pending}
+    _invoices.any? { |invoice| !(invoice.paid?) }
   end
 end
