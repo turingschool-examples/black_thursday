@@ -38,5 +38,12 @@ describe '#id' do
       expect(t_2.invoice_id).to eq(2)
     end
   end
+
+  describe '#credit_card_number' do 
+    it 'returns matches of credit card number' do 
+      expect(t_1.credit_card_number).to eq("4242424242424242")
+      expect(t_2.credit_card_number).to eq("4242424242424243")
+    end
+  end
 end
   
