@@ -42,13 +42,10 @@ RSpec.describe InvoiceItemRepository do
   it 'can create a invoice item' do
     invoice_item_repository.all << invoice_item
     invoice_item_repository.create({
-    :id           => 7,
-    :item_id      => 8,
-    :invoice_id   => 9,
-    :quantity     => 10,
-    :unit_price   => BigDecimal(10.99, 4),
-    :created_at   => Time.now,
-    :updated_at   => Time.now
+      :item_id      => 8,
+      :invoice_id   => 9,
+      :quantity     => 10,
+      :unit_price   => BigDecimal(10.99, 4)
     })
 
     expect(invoice_item_repository.all[1]).to be_a(InvoiceItem)

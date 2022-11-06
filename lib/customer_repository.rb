@@ -22,15 +22,6 @@ class CustomerRepository
     end
   end
 
-  def create(attributes)
-    all.push(Customer.new({ :id         => next_id,
-                            :first_name => attributes[:first_name],
-                            :last_name  => attributes[:last_name],
-                            :created_at => attributes[:created_at],
-                            :updated_at => attributes[:updated_at]
-                            }))
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

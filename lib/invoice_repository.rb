@@ -28,16 +28,6 @@ class InvoiceRepository
     end
   end
 
-  def create(attributes)
-    all << Invoice.new({ :id            => next_id,
-                          :customer_id  => attributes[:customer_id],
-                          :merchant_id  => attributes[:merchant_id],
-                          :created_at   => attributes[:created_at],
-                          :updated_at   => attributes[:updated_at],
-                          :status       => attributes[:status]
-                      })    
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

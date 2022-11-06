@@ -3,17 +3,18 @@ require './lib/item_repository'
 require './lib/item'
 
 RSpec.describe Reposable do
+  let(:item) {Item.new({
+    :id          => 1,
+    :name        => "Pencil",
+    :description => "You can use it to write things",
+    :unit_price  => BigDecimal(10.99,4),
+    :created_at  => Time.now,
+    :updated_at  => Time.now,
+    :merchant_id => 2})}
+  let(:item_repo) {ItemRepository.new([item])}
+
   describe '#class_name' do
     it 'returns a const of the class the current repo is storing' do
-      item = Item.new({
-        :id          => 1,
-        :name        => "Pencil",
-        :description => "You can use it to write things",
-        :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
-        :merchant_id => 2})  
-      item_repo = ItemRepository.new
 
       expect(item_repo.class_name).to eq Item
     end
@@ -21,18 +22,25 @@ RSpec.describe Reposable do
 
   describe '#create' do
     it 'adds a new instance corresponding to the current repo' do
-      item_repo = ItemRepository.new
       item_repo.create({
-        :id          => 1,
-        :name        => "Pencil",
-        :description => "You can use it to write things",
+        :name        => "Eraser",
+        :description => "You can use it to erase things",
         :unit_price  => BigDecimal(10.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
         :merchant_id => 2
       })
 
-      expect(item_repo.all[0]).to be_a Item
+      expect(item_repo.all[1].name).to eq "Eraser"
+      expect(item_repo.all[1].id).to eq 2
+
+      item_repo.create({
+        :name        => "Pen",
+        :description => "You can use it to erase things",
+        :unit_price  => BigDecimal(20.99,4),
+        :merchant_id => 3
+      })
+
+      expect(item_repo.all[2].name).to eq "Pen"
+      expect(item_repo.all[2].id).to eq 3
     end
   end
 

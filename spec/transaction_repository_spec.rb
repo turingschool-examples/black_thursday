@@ -40,13 +40,11 @@ RSpec.describe TransactionRepository do
 
   it "#create creates a new transaction instance" do
     transaction_repository.all << transaction
-    transaction_repository.create({ :id => 6, 
+    transaction_repository.create({
                                     :invoice_id => 8,
                                     :credit_card_number => "4242424242424000",
                                     :credit_card_expiration_date  => "0230",
-                                    :result => "success",
-                                    :created_at => Time.now,
-                                    :updated_at => Time.now
+                                    :result => "success"
                                   })
 
     expect(transaction_repository.all[1]).to be_a(Transaction)

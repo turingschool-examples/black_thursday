@@ -92,20 +92,4 @@ RSpec.describe ItemRepository do
       expect(item_repo.find_all_by_merchant_id(3)).to eq [item3, item4]
     end
   end
-
-  describe '#create' do
-    it 'creates' do
-      item_repo = ItemRepository.new([item1,item2,item3,item4])
-
-      item_repo.create({
-        :name        => "Montblanc",
-        :description => "The nicest pen",
-        :unit_price  => BigDecimal(30.99,4),
-        :merchant_id => 3
-      })
-
-      expect(item_repo.all[4].name).to eq "Montblanc"
-      expect(item_repo.all[4].id).to eq 5
-    end
-  end
 end
