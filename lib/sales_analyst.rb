@@ -1,5 +1,6 @@
 require 'bigdecimal'
 require 'csv'
+require 'date'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -132,17 +133,26 @@ class SalesAnalyst
   end
   
   def top_days_by_invoice_count
+    sales_engine.invoices.all.find_all do |invoice|
+    # require 'pry'; binding.pry
+      invoice.created_at
+    end 
+    # weekday = created_at.strftime[("%A")]
     # use top_merchants_by_invoice_count (?)
     # find which days that invoices created at are more than ONE sd ABOVE the mean
+    average_invoices_per_merchant_standard_deviation
     # array of (days) strings
   end
   
   def invoice_status(status)
-    # find_all_by_status(:status)
-    # count how many invoices of THAT given status
-    # divide by total invoices
-    # x100
-    # do this for all three statuses
+    case status
+    when :pending
+      return (sales_engine.invoices.find_all_by_status(:pending).count / (invoice_count.to_f) *100).round(2)
+    when :shipped 
+      return (sales_engine.invoices.find_all_by_status(:shipped).count / (invoice_count.to_f) *100).round(2)
+    else 
+      return (sales_engine.invoices.find_all_by_status(:returned).count / (invoice_count.to_f) *100).round(2)
+    end
   end
   
   # ======================================= #

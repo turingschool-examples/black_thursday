@@ -111,14 +111,9 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.top_days_by_invoice_count.first.class).to eq(String)
   end
   
-  xit 'can return percentage of invoices that are not shipped' do
-    sales_analyst.invoice_status(:pending)
-    expect(sales_analyst.invoice_status(:status)).to eq(29.55)
-
-    sales_analyst.invoice_status(:pending)
+  it 'can return percentage of invoices that are not shipped' do
+    expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
     expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
-
-    sales_analyst.invoice_status(:pending)
     expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 
