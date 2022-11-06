@@ -122,6 +122,10 @@ RSpec.describe InvoiceRepository do
   it "#delete on unknown invoice does nothing" do
     invoice_repository.invoices.delete(5000)
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
   
 
 # all - returns an array of all known Invoice instances

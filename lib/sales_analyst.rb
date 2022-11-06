@@ -93,7 +93,6 @@ class SalesAnalyst
       item.unit_price > (average_price_for_all_items + (average_standard_deviation_for_all_items * 2))
     end
   end
-
     # find average_item_price_for_all_items
       # all item prices / all items count
     # find all items SD
@@ -103,10 +102,13 @@ class SalesAnalyst
 
 
    # ======================================= #
-   
-   def average_invoices_per_merchant
-    # total number of invoices per merchant
-    # divided by total number of merchants?
+
+  def average_invoices_per_merchant
+    (invoice_count / merchants_count.to_f).round(2)
+  end
+
+  def invoice_count
+    sales_engine.invoices.all.count
   end
   
   def average_invoices_per_merchant_standard_deviation
