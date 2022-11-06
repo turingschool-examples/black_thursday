@@ -45,4 +45,24 @@ RSpec.describe Invoice do
       expect(invoice.status).to eq :shipped
     end
   end
+
+  describe '#_transactions' do
+    it 'returns a list of transactions associated with the invoice' do
+      invoice_repo = double('InvoiceRepo')
+      engine = double('engine')
+      trans_repo = double('TransactionRepo')
+      invoice = Invoice.new({
+                              id: 1,
+                              customer_id: 1,
+                              merchant_id: 1,
+                              status: 'shipped',
+                              created_at: Time.now,
+                              updated_at: Time.now
+                            }, invoice_repo)
+      allow(invoice_repo).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:transactions).and_return(trans_repo)
+      allow(trans_repo).to receive(:find_all_by_invoice_id).and_return(['transaction1', 'transaction2'])
+      expect(invoice._transactions).to eq ['transactions1', 'transaction2']
+    end
+  end
 end
