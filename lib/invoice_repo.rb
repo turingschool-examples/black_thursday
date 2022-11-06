@@ -71,4 +71,10 @@ class InvoiceRepo < GeneralRepo
       invoice.paid_on?(date)
     end
   end
+
+  def total_revenue_by_date(date)
+    all_invoices_paid_on(date).sum do |invoice|
+      invoice_total(invoice.id)
+    end
+  end
 end
