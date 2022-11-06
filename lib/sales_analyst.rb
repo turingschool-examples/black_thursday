@@ -56,4 +56,8 @@ class SalesAnalyst
   def top_days_by_invoice_count
     @engine.invoices.top_days_by_invoice_count
   end
+
+  def invoice_paid_in_full?(id)
+    @engine.invoices.invoice_paid_in_full?(id)
+  end
 end
