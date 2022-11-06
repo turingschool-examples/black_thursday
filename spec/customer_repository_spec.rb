@@ -111,6 +111,17 @@ let (:customer_3) {Customer.new({:id => 8,
       expect(customer_repo.find_by_id(7).first_name).to eq("Rick") 
     end 
   end 
+
+  describe '#delete' do 
+    it 'will delete a customer' do 
+      customers = [customer_1, customer_2, customer_3]
+      customer_repo = CustomerRepository.new(customers)
+
+      customer_repo.delete(6) 
+
+      expect(customer_repo.all).to eq([customer_2, customer_3])
+    end 
+  end 
 end 
 
      
