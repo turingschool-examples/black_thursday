@@ -131,13 +131,44 @@ RSpec.describe TransactionRepository do
           :created_at => created = Time.now.to_s,
           :updated_at => updated = Time.now.to_s
           })
-          
+
         expect(t2).to be_a(Transaction)
         expect(t2.id).to eq(7)
         expect(t2.invoice_id).to eq(9)
         expect(t2.credit_card_number).to eq("565656565642424242")
         expect(t2.credit_card_expiration_date).to eq("0217")
         expect(t2.result).to eq("fail")
+    end
+  end
+
+  describe '#update' do
+    it 'updates transaction instance w/ corresponding id and provided attributes' do
+      tr = TransactionRepository.new
+      t = Transaction.new({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => created = Time.now.to_s,
+        :updated_at => old_time = Time.now.to_s
+        })
+
+        tr.all << t
+
+        expect(t.updated_at).to eq(Time.parse(old_time))
+
+        tr.update(6,
+          {
+            :credit_card_number => "1313131313131313",
+            :credit_card_expiration_date => "0222",
+            :result => "fail"
+          })
+
+        expect(t.credit_card_number).to eq("1313131313131313")
+        expect(t.credit_card_expiration_date).to eq("0222")
+        expect(t.result).to eq("fail")
+        expect(t.updated_at).not_to eq(Time.parse(old_time))
     end
   end
 end

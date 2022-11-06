@@ -8,6 +8,9 @@ require 'sales_engine_spec'
 require 'sales_analyst_spec'
 require 'invoice_repository_spec'
 require 'invoice_spec'
+require 'transaction_repository_spec'
+require 'transaction_spec'
+
 
 
 # require spec files
