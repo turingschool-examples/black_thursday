@@ -225,6 +225,7 @@ describe MerchantRepository do
 
       expect(mr.top_revenue_earners(2)).to eq([m3, m1])
       expect(mr.top_revenue_earners(3)).to eq([m3, m1, m4])
+      expect(mr.top_revenue_earners(4)).to eq([m3, m1, m4, m2])
     end
   end
 end

@@ -68,7 +68,7 @@ class MerchantRepository < GeneralRepo
       deviation_difference(std_dev, merchant.invoice_count, mer_avg) < -2
     end
   end
-  
+
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
     avg_count = average_items_per_merchant
@@ -84,5 +84,12 @@ class MerchantRepository < GeneralRepo
   def average_average_price_per_merchant
     total_avg_item_prices = all.sum { |merchant| average_item_price_for_merchant(merchant.id) }
     average(total_avg_item_prices, all.length).round(2)
+  end
+
+  def top_revenue_earners(num)
+    sorted = all.sort_by do |merchant|
+      -merchant.revenue
+    end
+    sorted.first(num)
   end
 end
