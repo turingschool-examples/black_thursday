@@ -4,7 +4,7 @@ require_relative '../lib/invoice'
 RSpec.describe InvoiceRepository do
   let(:invoice_repository) { InvoiceRepository.new }
 
-  let(:invoice_1) { Invoice.new({ id: 6, 
+  let(:invoice_1) { Invoice.new({ id: 6,
                                   customer_id: 7,
                                   merchant_id: 8,
                                   status: 'pending',
@@ -12,7 +12,7 @@ RSpec.describe InvoiceRepository do
                                   updated_at: Time.now
                                 }) }
 
-  let(:invoice_2) { Invoice.new({ id: 1, 
+  let(:invoice_2) { Invoice.new({ id: 1,
                                   customer_id: 2,
                                   merchant_id: 3,
                                   status: 'shipped',
@@ -20,7 +20,7 @@ RSpec.describe InvoiceRepository do
                                   updated_at: Time.now
                                 }) }
 
-  let(:invoice_3) { Invoice.new({ id: 4, 
+  let(:invoice_3) { Invoice.new({ id: 4,
                                   customer_id: 2,
                                   merchant_id: 3,
                                   status: 'returned',
@@ -28,7 +28,7 @@ RSpec.describe InvoiceRepository do
                                   updated_at: Time.now
                                 }) }
 
-  let(:invoice_4) { Invoice.new({ id: 2, 
+  let(:invoice_4) { Invoice.new({ id: 2,
                                   customer_id: 8,
                                   merchant_id: 5,
                                   status: 'returned',
@@ -90,10 +90,10 @@ RSpec.describe InvoiceRepository do
       invoice_repository.add_to_repo(invoice_3)
       invoice_repository.add_to_repo(invoice_4)
 
-      expect(invoice_repository.find_all_by_status('pending')).to eq([invoice_1])
-      expect(invoice_repository.find_all_by_status('shipped')).to eq([invoice_2])
-      expect(invoice_repository.find_all_by_status('returned')).to eq([invoice_3, invoice_4])
-      expect(invoice_repository.find_all_by_status('doesntexist')).to eq([])
+      expect(invoice_repository.find_all_by_status(:pending)).to eq([invoice_1])
+      expect(invoice_repository.find_all_by_status(:shipped)).to eq([invoice_2])
+      expect(invoice_repository.find_all_by_status(:returned)).to eq([invoice_3, invoice_4])
+      expect(invoice_repository.find_all_by_status(:doesntexist)).to eq([])
     end
   end
 
@@ -120,16 +120,16 @@ RSpec.describe InvoiceRepository do
       expect(invoice_repository.all.size).to eq(2)
     end
   end
-  
+
   describe '#update' do
     it 'can update status' do
       invoice_repository.add_to_repo(invoice_1)
       invoice_repository.add_to_repo(invoice_2)
       invoice_repository.add_to_repo(invoice_3)
 
-      expect(invoice_repository.all[0].status).to eq('pending')
-      expect(invoice_repository.all[1].status).to eq('shipped')
-      expect(invoice_repository.all[2].status).to eq('returned')
+      expect(invoice_repository.all[0].status).to eq(:pending)
+      expect(invoice_repository.all[1].status).to eq(:shipped)
+      expect(invoice_repository.all[2].status).to eq(:returned)
 
       invoice_repository.update( 6, {status: 'Canceled'})
       invoice_repository.update( 1, {status: 'Returned'})
@@ -156,7 +156,7 @@ RSpec.describe InvoiceRepository do
       expect(invoice_repository.all[0].customer_id).to eq(2)
       expect(invoice_repository.all.size).to eq(1)
     end
-   
+
 
    it 'cannot delete an id that does not exist' do
       invoice_repository.add_to_repo(invoice_1)
