@@ -13,7 +13,7 @@ class Transaction
   def initialize(data, repo)
     @item_repo                   = repo
     @id                          = data[:id].to_i
-    @invoice_id                  = data[:invoice_id]
+    @invoice_id                  = data[:invoice_id].to_i
     @credit_card_number          = data[:credit_card_number]
     @credit_card_expiration_date = data[:credit_card_expiration_date]
     @created_at                  = data[:created_at]

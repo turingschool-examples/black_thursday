@@ -87,9 +87,9 @@ describe InvoiceItemRepository do
       ii3 = iir.repository[2]
       ii4 = iir.repository[3]
       expect(iir.find_all_by_item_id('000000000')).to eq([])
-      expect(iir.find_all_by_item_id('263519844')).to eq([ii1])
+      expect(iir.find_all_by_item_id(263519844)).to eq([ii1])
       expect(iir.find_all_by_item_id(263454779)).to eq([ii2])
-      expect(iir.find_all_by_item_id('263451719')).to eq([ii3])
+      expect(iir.find_all_by_item_id(263451719)).to eq([ii3])
       expect(iir.find_all_by_item_id(263542298)).to eq([ii4])
     end
   end
