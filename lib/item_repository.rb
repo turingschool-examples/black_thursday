@@ -40,4 +40,7 @@ class ItemRepository < Repository
       item.merchant_id == merchant_id
     end
   end
+
+
+
 end
