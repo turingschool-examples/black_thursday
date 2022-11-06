@@ -60,4 +60,8 @@ class SalesAnalyst
   def invoice_paid_in_full?(id)
     @engine.invoices.invoice_paid_in_full?(id)
   end
+
+  def invoice_total(invoice_id)
+    @engine.invoice.invoice_total(invoice_id)
+  end
 end
