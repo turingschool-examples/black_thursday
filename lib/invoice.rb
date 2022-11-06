@@ -39,4 +39,8 @@ class Invoice
   def _transactions
     @_transactions ||= @invoice_repo.engine.transactions.find_all_by_invoice_id(@id)
   end
+
+  def paid?
+    _transactions.any? { |transaction| transaction.result == :success }
+  end
 end
