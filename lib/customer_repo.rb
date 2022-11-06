@@ -12,7 +12,7 @@ class CustomerRepo < GeneralRepo
               :updated_at
 
   def initialize(customer_data, engine)
-    super('Customer', customer_data, engine)
+    super(Customer, customer_data, engine)
   end
 
   def find_all_by_first_name(first_name)
