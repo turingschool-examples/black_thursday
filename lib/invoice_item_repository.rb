@@ -35,22 +35,30 @@ class InvoiceItemRepository
     end
   end
 
-  def create(attributes)
+  def create(attribute)
     new_invoice_item = @invoice_items.last.id + 1
-    @invoice_items << InvoiceItem.new(attributes, self)
+    @invoice_items << InvoiceItem.new({:id => new_invoice_item, :item_id => attribute[:item_id],
+      :invoice_id => attribute[:invoice_id],
+      :quantity => attribute[:quanity],
+      :unit_price => attribute[:unit_price],
+      :created_at => attribute[:created_at].to_s,
+      :updated_at => attribute[:updated_at].to_s
+      }, self)
   end
 
   def update(id, attribute)
-    @invoice_item.each do |invoice|
-      if invoice.id == id
-        invoice_update = invoice.name.replace(attribute)
-        return invoice_update
-      end
+    # require 'pry'; binding.pry
+    @invoice_items.each do |invoice|
+      invoice.update(attribute) if invoice.id == id
+      # if invoice.id == id
+      #   invoice_update = invoice.name.replace(attribute)
+      #   return invoice_update
+      # end
     end
   end
 
   def delete(id)
-    (@invoice_item.find_by_id(id)).delete
+    @invoice_items.delete(find_by_id(id))
   end
 
   def create_invoice_items(filepath)

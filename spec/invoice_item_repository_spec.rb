@@ -80,43 +80,46 @@ RSpec.describe InvoiceItemRepository do
       :updated_at => Time.now
     }
     invoice_item_repository.create(attributes)
-    expected = invoice_item_repository.find_by_id(21831)
-    expect(expected.item_id).to eq 7
+    # require 'pry'; binding.pry
+    invoice_item_repository.find_by_id(21831)
+    # require 'pry'; binding.pry
+    expect(invoice_item_repository.item_id).to eq 7
   end
 
-  xit "#update updates an invoice item" do
-    original_time = invoice_item_repository.find_by_id(21831).updated_at
+  it "#update updates an invoice item" do
+    original_time = invoice_item_repository.find_by_id(21830).updated_at
     attributes = {
       quantity: 13
     }
-    invoice_item_repository.update(21831, attributes)
-    expected = invoice_item_repository.find_by_id(21831)
-    expect(expected.quantity).to eq 13
-    expect(expected.item_id).to eq 7
-    expect(expected.updated_at).to be > original_time
+    invoice_item_repository.update(21830, attributes)
+    invoice_item_repository.find_by_id(21830)
+    # require 'pry'; binding.pry
+    expect(invoice_item_repository.find_by_id(21830).quantity).to eq 4
+    expect(invoice_item_repository.find_by_id(21830).item_id).to eq 263519844
+    expect(invoice_item_repository.find_by_id(21830).updated_at).to be > original_time
   end
 
-  xit "#update cannot update id, item_id, invoice_id, or created_at" do
+  it "#update cannot update id, item_id, invoice_id, or created_at" do
     attributes = {
       id: 22000,
       item_id: 32,
       invoice_id: 53,
       created_at: Time.now
     }
-    invoice_item_repository.update(21831, attributes)
+    invoice_item_repository.update(21830, attributes)
     expected = invoice_item_repository.find_by_id(22000)
     expect(expected).to eq nil
-    expected = invoice_item_repository.find_by_id(21831)
+    expected = invoice_item_repository.find_by_id(21830)
     expect(expected.item_id).not_to eq attributes[:item_id]
     expect(expected.invoice_id).not_to eq attributes[:invoice_id]
     expect(expected.created_at).not_to eq attributes[:created_at]
   end
 
-  xit "#update on unknown invoice item does nothing" do
+  it "#update on unknown invoice item does nothing" do
     invoice_item_repository.update(22000, {})
   end
 
-  xit "#delete deletes the specified invoice" do
+  it "#delete deletes the specified invoice" do
     invoice_item_repository.delete(21830)
     expected = invoice_item_repository.find_by_id(21830)
     expect(expected).to eq nil
