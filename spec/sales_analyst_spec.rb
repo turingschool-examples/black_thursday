@@ -18,7 +18,7 @@ RSpec.describe SalesAnalyst do
       customers:   './data/customers.csv'
     }
   end
-  
+
   let(:engine) { SalesEngine.from_csv(data) }
   let(:analyst) { SalesAnalyst.new(engine) }
   describe '#initialize' do
@@ -63,7 +63,7 @@ RSpec.describe SalesAnalyst do
       end
     end
   end
-  
+
   describe '#average_item_price_for_merchant' do
     it "returns the average price of a merchant's items" do
       expect(analyst.average_item_price_for_merchant(12_334_105)).to eq 16.66
@@ -127,7 +127,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#top_revenue_earners' do
-    it "returns an array of x merchants ranked by revenue" do
+    it 'returns an array of x merchants ranked by revenue' do
       expected = analyst.top_revenue_earners(10)
 
       expect(expected.length).to eq 10
