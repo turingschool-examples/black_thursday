@@ -20,7 +20,7 @@ module Timeable
   end
 
   def same_month?(time, month)
-    time.month == month
+    convert_to_time(time).month == month
   end
 
   def convert_to_time(time)

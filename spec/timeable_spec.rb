@@ -33,14 +33,15 @@ describe Timeable do
 
   describe '#same_month?' do
     it 'checks a time value against month integer value for equality' do
-      expect(@dummy.same_month?(Time.parse("2012-08-26 20:56:56 UTC"), 8)).to eq(true)
-      expect(@dummy.same_month?(Time.parse("2012-05-26 20:56:56 UTC"), 5)).to eq(true)
+      expect(@dummy.same_month?(Time.parse('2012-08-26 20:56:56 UTC'), 8)).to eq(true)
+      expect(@dummy.same_month?(Time.parse('2012-05-26 20:56:56 UTC'), 5)).to eq(true)
+      expect(@dummy.same_month?('2012-05-26 20:56:56 UTC', 5)).to eq(true)
     end
   end
 
   describe '#convert_to_time' do
     it 'converts a string in time format to a time object' do
-      expect(@dummy.convert_to_time("2012-05-26 20:56:56 UTC")).to eq(Time.parse('2012-05-26 20:56:56 UTC'))
+      expect(@dummy.convert_to_time('2012-05-26 20:56:56 UTC')).to eq(Time.parse('2012-05-26 20:56:56 UTC'))
       expect(@dummy.convert_to_time(Time.parse('2012-05-26 20:56:56 UTC'))).to eq(Time.parse('2012-05-26 20:56:56 UTC'))
     end
   end
