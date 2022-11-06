@@ -55,5 +55,9 @@ class CustomerRepository
     end
   end
 
-  
+  def delete(customer_id)
+    if all_ids.include?(customer_id)
+      @customers.delete(find_by_id(customer_id))
+    end 
+  end 
 end

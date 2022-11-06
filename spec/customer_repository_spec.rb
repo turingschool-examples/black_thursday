@@ -117,7 +117,7 @@ let (:customer_3) {Customer.new({:id => 8,
       customers = [customer_1, customer_2, customer_3]
       customer_repo = CustomerRepository.new(customers)
 
-      customer_repo.delete(customer_1) 
+      customer_repo.delete(6) 
 
       expect(customer_repo.all).to eq([customer_2, customer_3])
     end 
