@@ -55,6 +55,6 @@ RSpec.describe InvoiceItem do
   :updated_at => Time.now
     })
 
-    expect(ii.invoice_id).to eq(7)
+    expect(ii.invoice_id).to eq(8)
   end
 end
