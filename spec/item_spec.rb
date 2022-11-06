@@ -1,3 +1,5 @@
+# require 'simplecov'
+# SimpleCov.start
 require './lib/item'
 require 'pry'
 require 'time'
@@ -14,7 +16,8 @@ RSpec.describe Item do
                merchant_id: 2
              })
   end
-  it 'exists and has attributes' do
+
+it '#initialize' do
     expect(i).to be_instance_of(Item)
     expect(i.id).to eq(1)
     expect(i.name).to eq('Pencil')
@@ -25,11 +28,15 @@ RSpec.describe Item do
     expect(i.merchant_id).to eq(2)
   end
 
-  it 'changes unit_price to dollars' do
+  it '#to_price' do
+  expect(i.to_price("10.99")).to eq(10.99)
+  end
+
+  it '#unit_price_to_dollars' do
     expect(i.unit_price_to_dollars).to eq(10.99)
   end
 
-  it 'updates name, description, and unit price' do
+  it '#update' do
     i.update({
       name: 'Paint Brush',
       description: 'You can use it to paint things',
