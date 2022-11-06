@@ -22,10 +22,6 @@ class MerchantRepository < Repository
     find_by_id(id).name = name
   end
 
-  def delete(id)
-    @all.delete(find_by_id(id))
-  end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
