@@ -45,5 +45,12 @@ describe '#id' do
       expect(t_2.credit_card_number).to eq("4242424242424243")
     end
   end
+
+  describe '#credit_card_expiration_date' do 
+    it 'returns matches of credit card expiration date' do 
+      expect(t_1.credit_card_expiration_date).to eq("0220")
+      expect(t_2.credit_card_expiration_date).to eq("0221")
+    end
+  end
 end
   
