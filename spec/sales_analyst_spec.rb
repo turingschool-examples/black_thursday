@@ -125,4 +125,16 @@ RSpec.describe SalesAnalyst do
       expect(analyst.total_revenue_by_date('2009-02-07')).to eq 21067.77
     end
   end
+
+  describe '#top_revenue_earners' do
+    it "returns an array of x merchants ranked by revenue" do
+      expected = analyst.top_revenue_earners(10)
+
+      expect(expected.length).to eq 10
+      expect(expected.first.class).to eq Merchant
+      expect(expected.first.id).to eq 12334634
+      expect(expected.last.class).to eq Merchant
+      expect(expected.last.id).to eq 12335747
+    end
+  end
 end
