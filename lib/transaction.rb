@@ -19,10 +19,9 @@ class Transaction
   end
 
   def update(attributes)
-    @invoice_id = attributes[:invoice_id]
-    @credit_card_number = attributes[:credit_card_number]
-    @credit_card_expiration_date = attributes[:credit_card_expiration_date]
-    @result = attributes[:result]
+    (@credit_card_number = attributes[:credit_card_number]) if attributes[:credit_card_number] != nil
+    (@credit_card_expiration_date = attributes[:credit_card_expiration_date]) if attributes[:credit_card_expiration_date]
+    (@result = attributes[:result]) if attributes[:result] != nil
     @updated_at = Time.now
   end
 end
