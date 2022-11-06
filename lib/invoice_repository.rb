@@ -42,22 +42,19 @@ class InvoiceRepository
   end
 
   def find_all_by_merchant_id(id)
-    if !a_valid_id?(id)
-      return nil
+    if !a_valid_merchant_id?(id)
+      return []
     else
       @invoices.find_all do |invoice|
+        # require 'pry'; binding.pry
         invoice.merchant_id == id
       end
     end
   end
 
-  def find_all_by_status(id)
-    if !a_valid_id?(id)
-      return nil
-    else
-      @invoices.find do |invoice|
-        invoice.id == id
-      end
+  def find_all_by_status(status)
+      @invoices.find_all do |invoice|
+        invoice.status == status
     end
   end
 
@@ -70,12 +67,9 @@ class InvoiceRepository
       :updated_at  => Time.now}, self)
   end
 
-  def update(id, attribute)
+  def update(id, info)
     @invoices.each do |invoice|
-      if invoice.id == id
-        invoice_new_status = invoice.name.replace(attribute)
-        return invoice_new_status
-      end
+      invoice.update(info) if invoice.id == id
     end
   end
 
