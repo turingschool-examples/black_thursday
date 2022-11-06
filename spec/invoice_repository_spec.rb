@@ -87,6 +87,7 @@ RSpec.describe InvoiceRepository do
       invoice_repository.add_to_repo(invoice_1)
       invoice_repository.add_to_repo(invoice_2)
       invoice_repository.add_to_repo(invoice_3)
+      invoice_repository.add_to_repo(invoice_4)
 
       expect(invoice_repository.find_all_by_status('pending')).to eq([invoice_1])
       expect(invoice_repository.find_all_by_status('shipped')).to eq([invoice_2])

@@ -6,4 +6,10 @@ class InvoiceRepository < Repository
       invoice.customer_id == id
     end
   end
+
+  def find_all_by_status(status)
+    @all.select do |invoice|
+      invoice.status == status
+    end
+  end
 end

@@ -11,7 +11,7 @@ class Repository
 
   def find_by_id(id)
     @all.find do |instance|
-      instance.id == id 
+      instance.id == id
     end
   end
 
