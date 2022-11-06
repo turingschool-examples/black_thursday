@@ -88,5 +88,26 @@ class SalesAnalyst
   def average_invoices_per_merchant
    (@invoices.count/@merchants.count.to_f).round(2)
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    merchant_ids = @invoices.map do |invoice|
+      invoice.merchant_id
+    end
+    # binding.pry
+    merchant_invoices = merchant_ids.map do |merchant_id|
+      sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+    end
+    # binding.pry
+    sample_sum = 0
+    merchant_invoices.each do |invoice|
+      binding.pry
+      sample_sum += (invoice.count - mean)**2
+    end
+    # binding.pry
+
+    return Math.sqrt(sample_sum/(merchant_ids.length - 1)).round(2)
+binding.pry
+  end
   
 end
