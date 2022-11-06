@@ -64,4 +64,8 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     @engine.invoices.invoice_total(invoice_id)
   end
+
+  def merchants_with_pending_invoices
+    @engine.merchants.merchants_with_pending_invoices
+  end
 end
