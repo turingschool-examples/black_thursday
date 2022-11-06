@@ -115,12 +115,6 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  describe '#average_item_price' do
-    it 'returns the average item price' do
-      expect(sales_analyst.average_item_price).to eq 251.06
-    end
-  end
-
   describe '#average_invoices_per_merchant' do
     it 'gives how many invoices a merchant has on average' do
       expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)

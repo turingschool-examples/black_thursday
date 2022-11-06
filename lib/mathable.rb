@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 module Mathable
   def stdev(set)
     Math.sqrt(sum_square_diff(set)/(set.count-1))
@@ -10,6 +12,6 @@ module Mathable
   end
 
   def avg(set)
-    set.sum.to_f/set.count
+    BigDecimal(set.sum)/set.count
   end
 end

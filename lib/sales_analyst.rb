@@ -29,7 +29,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    avg(items_per_merchant).round(2)
+    avg(items_per_merchant).to_f.round(2)
   end
 
   def average_items_per_merchant_standard_deviation    
@@ -125,7 +125,7 @@ class SalesAnalyst
   # Invoices
 
   def average_invoices_per_merchant
-    avg(invoices_per_merchant).round(2)
+    avg(invoices_per_merchant).to_f.round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -242,7 +242,7 @@ class SalesAnalyst
       else
         0
       end
-    end.sum.to_f
+    end.sum
   end
   
 
