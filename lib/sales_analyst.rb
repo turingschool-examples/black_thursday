@@ -3,7 +3,8 @@ class SalesAnalyst
   include Calculations
   attr_reader :engine
   def initialize(engine = nil)
-    @engine = engine
+    @engine   = engine
+    @day_hash = day_hash
   end
 
   def average_items_per_merchant
@@ -36,11 +37,14 @@ class SalesAnalyst
     average(prices(merchant_id))
   end
 
-  def average_average_price_per_merchant
-    averages = merchants.all.map do |merchant|
+  def merchant_averages
+    merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    average(averages)
+  end
+
+  def average_average_price_per_merchant
+    average(merchant_averages)
   end
 
   def prices(merchant_id)
@@ -93,23 +97,36 @@ class SalesAnalyst
     end
   end
 
-  def invoice_by_days
-    days = invoices.all.map do |invoice|
+  def day_hash
+    { 'Monday' => 0, 'Tuesday' => 0, 'Wednesday' => 0, 'Thursday' => 0,
+      'Friday' => 0, 'Saturday' => 0, 'Sunday' => 0
+    }
+  end
+
+  def days
+    invoices.all.map do |invoice|
       invoice.created_at.strftime('%A')
     end
-    day_hash = {
-      'Monday' => 0,
-      'Tuesday' => 0,
-      'Wednesday' => 0,
-      'Thursday' => 0,
-      'Friday' => 0,
-      'Saturday' => 0,
-      'Sunday' => 0
-    }
-    days.each do |day|
-      day_hash[day] += 1
+  end
+
+  def top_days
+    std_dev = average_invoices_per_day_standard_deviation
+    invoice_by_days.find_all do |day, count|
+      count > (invoice_average_per_day + std_dev)
     end
-    day_hash
+  end
+
+  def invoice_by_days
+    days.each do |day|
+      @day_hash[day] += 1
+    end
+    @day_hash
+  end
+
+  def status_array(status)
+    invoices.all.find_all do |invoice|
+      invoice.status == status
+    end
   end
 
   def invoice_average_per_day
@@ -121,19 +138,12 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    std_dev = average_invoices_per_day_standard_deviation
-    top_days = invoice_by_days.find_all do |day, count|
-      count > (invoice_average_per_day + std_dev)
-    end
     top_days.map do |day|
       day[0]
     end
   end
 
   def invoice_status(status)
-    status_array = invoices.all.find_all do |invoice|
-      invoice.status == status
-    end
-    ((status_array.count / invoices.all.count.to_f) * 100).round(2)
+    ((status_array(status).count / invoices.all.count.to_f) * 100).round(2)
   end
 end
