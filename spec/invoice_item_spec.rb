@@ -114,7 +114,7 @@ RSpec.describe InvoiceItem do
     expect(ii.updated_at).to be < Time.now
   end
 
-  xit 'can convert unit price to dollars' do
+  it 'can convert unit price to dollars' do
     ii = InvoiceItem.new({
   :id => 6,
   :item_id => 7,
@@ -125,6 +125,6 @@ RSpec.describe InvoiceItem do
   :updated_at => Time.now
     })
 
-    expect(ii.unit_price_to_dollars).to be()
+    expect(ii.unit_price_to_dollars).to be(10.99)
   end
 end
