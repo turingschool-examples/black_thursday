@@ -18,10 +18,6 @@ class SalesAnalyst
     @invoices = invoice_repo
   end
 
-  def invoices_exist?
-    @invoices != nil
-  end
-
   def item_count
     items.all.count
   end
@@ -79,4 +75,47 @@ class SalesAnalyst
     @items.all.find_all  {|item|  item.unit_price > price_average + (price_stdrd_dev * 2)}
   end
 
+  def invoice_quantity_per_merchant
+    merchant_ids = @invoices.all.map { |invoice| invoice.merchant_id}
+    hash = Hash.new(0)
+    merchant_ids.each do |id|
+      hash[id] += 1
+    end
+    invoices_per_merchant = hash.values.sort
+  end
+
+  def merchant_invoice_num(merchant_id)
+    invoice_num = 0
+    @invoices.all.each do |invoice|
+      if invoice.merchant_id == merchant_id
+        invoice_num += 1
+      end
+    end
+    invoice_num
+  end
+
+  def average_invoices_per_merchant
+    (invoice_quantity_per_merchant.sum.to_f / invoice_quantity_per_merchant.count).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    difference_sum = invoice_quantity_per_merchant.map {|invoice_quantity| (average_invoices_per_merchant - invoice_quantity)**2 }.sum
+    price_stdrd_dev = Math.sqrt((difference_sum.to_f / invoice_quantity_per_merchant.count).abs).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    @merchants.all.find_all { |merchant| merchant_invoice_num(merchant.id) > average_invoices_per_merchant + average_items_per_merchant_standard_deviation * 2}
+  end
+
+  def bottom_merchants_by_invoice_count
+    @merchants.all.find_all { |merchant| merchant_invoice_num(merchant.id) < average_invoices_per_merchant - average_items_per_merchant_standard_deviation * 2}
+  end
+
+  # def top_days_by_invoice_count
+  #
+  # end
+  #
+  # def invoice_status
+  #
+  # end
 end

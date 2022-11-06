@@ -72,7 +72,7 @@ RSpec.describe SalesAnalyst do
     end
 
     it '#golden_items can determine which items are 2 standard deviations above the avg item price' do
-      expect(sales_analyst.golden_items).to eq([item_3])
+      expect(sales_analyst.golden_items).to eq([])
     end
   end
 
@@ -128,9 +128,29 @@ RSpec.describe SalesAnalyst do
     let (:invoice_repo) {InvoiceRepository.new(invoices)}
     let (:sales_analyst) {SalesAnalyst.new(item_repo, merchant_repo, invoice_repo)}
 
+    it '#invoice_quantity_per_merchant returns an array with correct invoice quantity values' do
+      expect(sales_analyst.invoice_quantity_per_merchant).to eq([1, 2])
+    end
+
+    it '#merchant_invoice_num returns how many invoices a merchant has' do
+      expect(sales_analyst.merchant_invoice_num(1)).to eq(2)
+      expect(sales_analyst.merchant_invoice_num(2)).to eq(1)
+    end
+
     it '#average_invoices_per_merchant correctly calculates and returns the average invoices per merchant' do
       expect(sales_analyst.average_invoices_per_merchant).to eq(1.5)
     end
 
+    it '#average_invoices_per_merchant_standard_deviation calculates and returns the correct value' do
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(0.5)
+    end
+
+    it '#top_merchants_by_invoice_count returns array of merchant objects 2 standard deviations above the mean' do
+      expect(sales_analyst.top_merchants_by_invoice_count).to eq([])
+    end
+
+    it '#bottom_merchants_by_invoice_count returns array of merchant objects 2 standard deviations below the mean' do
+      expect(sales_analyst.bottom_merchants_by_invoice_count).to eq([])
+    end
   end
 end
