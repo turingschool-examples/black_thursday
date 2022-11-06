@@ -34,17 +34,17 @@ RSpec.describe InvoiceRepository do
     expect(expected).to eq nil
   end
 
-  it '#find_all_by_customer_id returns all invoices associated with given customer' do
+  it 'can return all invoices associated with given customer id' do
     expect(invoice_repository.find_all_by_customer_id(300).length).to eq 10
     expect(invoice_repository.find_all_by_customer_id(1000)).to eq([])
   end
 
-  it '#find_all_by_merchant_id returns all invoices associated with given merchant' do
+  it 'can return all invoices associated with given merchant id' do
     expect(invoice_repository.find_all_by_merchant_id(12335080).length).to eq 7
     expect(invoice_repository.find_all_by_merchant_id(1000)).to eq([])
   end
 
-  it '#find_all_by_status returns all invoices associated with given status' do
+  it 'can return all invoices associated with given status' do
     status = :shipped
     expect(invoice_repository.find_all_by_status(status).length).to eq 2839
 
@@ -55,7 +55,7 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repository.find_all_by_status(status)).to eq []
   end
 
-  it '#create creates a new invoice instance' do
+  it 'can create a new invoice instance' do
     attributes = {
       :customer_id => 7,
       :merchant_id => 8,
@@ -68,7 +68,7 @@ RSpec.describe InvoiceRepository do
     expect(expected.merchant_id).to eq 8
   end
 
-  it '#update updates an invoice' do
+  it 'can update an invoice' do
     original_time = invoice_repository.find_by_id(4985).updated_at
     attributes = {
       status: :success
@@ -80,7 +80,7 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repository.find_by_id(4985).updated_at).not_to be original_time
   end
 
-  it '#update cannot update id, customer_id, merchant_id, or created_at' do
+  it 'cannot update id, customer_id, merchant_id, or created_at when it gets updated' do
     attributes = {
       id: 5000,
       customer_id: 2,
@@ -97,17 +97,17 @@ RSpec.describe InvoiceRepository do
     expect(invoice_repository.find_by_id(4985).created_at).not_to eq attributes[:created_at]
   end
 
-  it '#update on unknown invoice does nothing' do
+  it 'will do nothing if it tries to update an unknown invoice' do
     invoice_repository.update(5000, {})
   end
 
-  it '#delete deletes the specified invoice' do
+  it 'can delete a specified invoice' do
     invoice_repository.delete(4985)
     expected = invoice_repository.find_by_id(4985)
     expect(expected).to eq nil
   end
 
-  it '#delete on unknown invoice does nothing' do
+  it 'will not delete anything if the invoice is unknown' do
     invoice_repository.invoices.delete(5000)
   end
 
