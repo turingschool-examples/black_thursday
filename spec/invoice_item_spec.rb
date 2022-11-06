@@ -2,6 +2,7 @@ require './lib/invoice_item'
 require './lib/invoice_item_repository'
 
 RSpec.describe InvoiceItem do
+  let!(:time_now) {Time.now}
   let!(:invoice_item) {InvoiceItem.new({
     :id => 2345,
     :item_id => 263562118,
@@ -38,12 +39,12 @@ RSpec.describe InvoiceItem do
   end
 
   it "#created_at returns a Time instance for the date the invoice item was created" do
-      # expect(invoice_item.created_at).to eq Time.parse("2012-03-27 14:54:35 UTC")
+      expect(invoice_item.created_at).to eq(time_now)
       expect(invoice_item.created_at.class).to eq Time
     end
 
   it "#updated_at returns a Time instance for the date the invoice item was last updated" do
-    # expect(invoice_item.updated_at).to eq Time.parse("2012-03-27 14:54:35 UTC")
+    expect(invoice_item.updated_at).to eq(time_now)
     expect(invoice_item.updated_at.class).to eq Time
   end
 

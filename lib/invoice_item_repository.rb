@@ -23,6 +23,18 @@ class InvoiceItemRepository
     end 
   end
 
+  def find_all_by_item_id(id)
+    @invoice_items.find_all do |invoice|
+      invoice.item_id == id
+    end
+  end
+
+  def find_all_by_invoice_id(id)
+    @invoice_items.find_all do |invoice|
+      invoice.invoice_id == id
+    end
+  end
+
   def create(attributes)
     new_invoice_item = @invoice_items.last.id + 1
     @invoice_items << InvoiceItem.new(attributes, self)
@@ -38,7 +50,7 @@ class InvoiceItemRepository
   end
 
   def delete(id)
-    @invoice_item.delete(find_by_id(id))
+    (@invoice_item.find_by_id(id)).delete
   end
 
   def create_invoice_items(filepath)

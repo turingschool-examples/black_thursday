@@ -15,8 +15,11 @@ class  InvoiceItem
     @invoice_id = info[:invoice_id]
     @quanity    = info[:quanity]
     @unit_price = info[:unit_price]
-    @created_at = info[:created_at]
-    @updated_at = info[:updated_at]
+    @created_at = Time.parse(info[:created_at])
+    @updated_at = Time.parse(info[:updated_at])
     @repo       = repo
+  end
+  def update(info)
+    @updated_at = Time.now
   end
 end
