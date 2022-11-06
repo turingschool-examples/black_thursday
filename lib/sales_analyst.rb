@@ -110,17 +110,17 @@ class SalesAnalyst
   end
 
   def top_days
+    invoice_by_days_hash_populate
     std_dev = average_invoices_per_day_standard_deviation
-    invoice_by_days.find_all do |day, count|
+    @day_hash.find_all do |day, count|
       count > (invoice_average_per_day + std_dev)
     end
   end
-
-  def invoice_by_days
+  
+  def invoice_by_days_hash_populate
     days.each do |day|
       @day_hash[day] += 1
     end
-    @day_hash
   end
 
   def status_array(status)
@@ -130,11 +130,11 @@ class SalesAnalyst
   end
 
   def invoice_average_per_day
-    average(invoice_by_days.values)
+    average(@day_hash.values)
   end
 
   def average_invoices_per_day_standard_deviation
-    standard_deviation(invoice_by_days.values, invoice_average_per_day)
+    standard_deviation(@day_hash.values, invoice_average_per_day)
   end
 
   def top_days_by_invoice_count

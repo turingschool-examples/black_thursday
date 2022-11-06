@@ -249,7 +249,19 @@ RSpec.describe SalesAnalyst do
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.top_days_by_invoice_count).to eq(["Monday"])
+    expect(sales_analyst.top_days_by_invoice_count).to eq(['Monday'])
+  end
+
+  it 'can return the top days of the week by invoice count for original csv' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoices  => './data/invoices.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.top_days_by_invoice_count).to eq(['Wednesday'])
   end
 
   it 'can calculate percentages by the status' do
