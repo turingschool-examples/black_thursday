@@ -119,7 +119,7 @@ RSpec.describe InvoiceItemRepository do
     invoice_items.all << ii
     invoice_items.all << ii2
 
-    new_invoice_item = invoice_item.create({
+    new_invoice_item = invoice_items.create({
       :id => 7,
       :item_id => 8,
       :invoice_id => 9,
