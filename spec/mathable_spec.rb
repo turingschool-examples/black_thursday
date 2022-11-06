@@ -15,8 +15,8 @@ RSpec.describe Mathable do
   let(:sales_analyst) {sales_engine.analyst}
 
   describe '#stdev' do
-    it 'calculates the standard deviation' do
-      expect(sales_analyst.stdev([*1..10])).to eq 3.03
+    it 'calculates the standard deviation of a set' do
+      expect(sales_analyst.stdev([*1..10]).round(2)).to eq 3.03
     end
   end
 
@@ -26,9 +26,9 @@ RSpec.describe Mathable do
     end
   end
 
-  describe '#average' do
+  describe '#avg' do
     it 'calculates the average of a set' do
-      expect(sales_analyst.average([*1..10])).to eq 5.5
+      expect(sales_analyst.avg([*1..10])).to eq 5.5
     end
   end
 end
