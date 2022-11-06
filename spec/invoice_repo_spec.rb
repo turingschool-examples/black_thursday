@@ -137,14 +137,19 @@ RSpec.describe InvoiceRepo do
 
   describe '#invoice_paid_in_full?' do
     it 'returns a boolean indicating whether or not an invoice has been paid' do
-      expect(analyst.invoice_paid_in_full?(46)).to be true
-      expect(analyst.invoice_paid_in_full?(204)).to be false
+      allow(invoice1).to receive(:paid?).and_return(true)
+      allow(invoice2).to receive(:paid?).and_return(false)
+      
+      expect(ir.invoice_paid_in_full?(1)).to be true
+      expect(ir.invoice_paid_in_full?(2)).to be false
     end
   end
 
   describe '#invoice_total' do
     it 'returns the total dollar value of an Invoice' do
-      expect(analyst.invoice_total(1)).to eq 21067.77
+      allow(invoice1).to receive(:total).and_return(1000)
+
+      expect(ir.invoice_total(1)).to eq 1000
     end
   end
 end
