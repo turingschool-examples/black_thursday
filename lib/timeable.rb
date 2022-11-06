@@ -22,4 +22,10 @@ module Timeable
   def same_month?(time, month)
     time.month == month
   end
+
+  def convert_to_time(time)
+    return Time.parse(time) if time.is_a? String
+
+    time
+  end
 end
