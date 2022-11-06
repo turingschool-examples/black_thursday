@@ -8,7 +8,8 @@ require_relative './invoice_repository'
 
 class SalesEngine
   attr_reader :merchants,
-              :items
+              :items,
+              :invoices
 
   def initialize(merchant_repo, item_repo, invoice_repo)
     @merchants = merchant_repo
