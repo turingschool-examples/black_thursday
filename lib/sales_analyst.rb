@@ -251,9 +251,7 @@ class SalesAnalyst
   end
 
   def invoice_total(invoice_id)
-    # if invoice_paid_in_full?(invoice_id)
-      # return false
-    # end
+
     ii = find_invoice_item_by_invoice_id(invoice_id)
     ii.collect do |i|
       if invoice_paid_in_full?(invoice_id)
@@ -264,25 +262,7 @@ class SalesAnalyst
     end.sum.to_f
   end
   
-  # def merchant_revenue(merchant_id)
-  #   invoice_tot = []
-  #   merchant_invoices = valid_merchants(merchant_id)
-  #   merchant_invoices.each do |invoice|
-  #     invoice_tot << invoice_total(merchant_id)
-  #   end
-  #   invoice_tot.inject(0) do |sum,num|
-  #     sum + num
-  #   end
-  # end
 
-  # def valid_merchants(merchant_id)
-  #   merchant_invoices = invoices.all.find_all do |invoice|
-  #     invoice.merchant_id == merchant_id
-  #   end
-  #   merchant_invoices.find_all do |invoice|
-  #   invoice_paid_in_full?(invoice.id)
-  #   end
-  # end
 
   def invoice_status(status)
   invoice_count = invoices.all.select { |invoice| invoice.status == status }
@@ -314,16 +294,13 @@ BigDecimal(total, 4)
         total += invoice_total(invoice.id)
       end
     end
-    x.group_by do |merchant|
+    # x.group_by do |merchant|
     total.round(2)
-    binding.pry
+    # # binding.pry
+    # end
   end
 
-  # def ranked_sorted_merchants
-  #   sorted_merchants = merchants.all.sort_by do |merchant|
-  #     merchant_revenue(merchant.id)
-  #   end.reverse
-  # end
+
 
   def top_revenue_earners(rank = 20)
     # binding.pry
@@ -336,7 +313,7 @@ BigDecimal(total, 4)
     
   end
 
-     #dfg
+     
 # def merchants_with_pending_invoices
 #     @merchants.all.find_all do |merchant|  maybe possible to go straight to invoices?
 #     merchant.invoices.any? |invoice|      believe any? will skip any that dont have an invoice, think they all do so this could be redundant.
