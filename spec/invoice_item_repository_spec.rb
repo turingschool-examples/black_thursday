@@ -180,25 +180,25 @@ RSpec.describe InvoiceItemRepository do
       :updated_at => Time.now.to_s
       })
 
-      ii2 = InvoiceItem.new({
-        :id => 7,
-        :item_id => 8,
-        :invoice_id => 9,
-        :quantity => 1,
-        :unit_price => BigDecimal(10.99, 4),
-        :created_at => Time.now.to_s,
-        :updated_at => Time.now.to_s.to_s
-        })
+    ii2 = InvoiceItem.new({
+      :id => 7,
+      :item_id => 8,
+      :invoice_id => 9,
+      :quantity => 1,
+      :unit_price => BigDecimal(10.99, 4),
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s.to_s
+      })
 
     invoice_items = InvoiceItemRepository.new
     invoice_items.all << ii
     invoice_items.all << ii2
 
-    expect(invoice_items.all).to eq ([ii, ii2])
+    expect(invoice_items.all).to eq [ii, ii2]
 
     invoice_items.delete(7)
 
-    expect(invoice_items.all).to eq ([ii])
+    expect(invoice_items.all).to eq [ii]
   end
 
   it 'can load data' do
@@ -209,5 +209,4 @@ RSpec.describe InvoiceItemRepository do
     expect(iir.all.first).to be_a(InvoiceItem)
     expect(iir.all.all?(InvoiceItem)).to eq(true)
   end
-
 end
