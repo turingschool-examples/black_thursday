@@ -96,23 +96,19 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     top_merchants_invoices = []
      merchants_with_invoices.each do |invoices_array|
-      # binding.pry
-      if invoices_array.count > (average_invoices_per_merchant_standard_deviation + 2)
+      if invoices_array.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
       top_merchants_invoices.push(invoices_array)
       end
     end
     merchant_ids_collection = []
     top_merchants_invoices.each do |invoices_collection|
-      # binding.pry
       merchant_ids_collection.push(invoices_collection[0].merchant_id)
     end
     chosen_merchants = []
     merchant_ids_collection.each do |merchant|
-      # binding.pry
       chosen_merchants.push(@sales_engine.merchants.find_by_id(merchant))
     end
     chosen_merchants
-    # binding.pry
   end
   
 end
