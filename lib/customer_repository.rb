@@ -21,4 +21,10 @@ class CustomerRepository
     updated.last_name = attributes[:last_name]
     updated.updated_at = Time.now
   end
+
+  def find_all_by_first_name(fragment)
+    all.find_all do |customer|
+      customer.first_name.upcase.include?(fragment.upcase)
+    end
+  end
 end
