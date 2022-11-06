@@ -264,4 +264,5 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_status(:pending)).to eq(76.19)
     expect(sales_analyst.invoice_status(:shipped)).to eq(9.52)
     expect(sales_analyst.invoice_status(:returned)).to eq(14.29)
+  end
 end
