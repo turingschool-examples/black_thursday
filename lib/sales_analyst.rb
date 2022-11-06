@@ -72,4 +72,8 @@ class SalesAnalyst
   def top_revenue_earners(num = 20)
     @engine.merchants.top_revenue_earners(num)
   end
+
+  def revenue_by_merchant(id)
+    @engine.merchants.revenue_by_merchant(id)
+  end
 end
