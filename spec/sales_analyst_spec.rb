@@ -323,4 +323,12 @@ RSpec.describe SalesAnalyst do
       end
     end
   end
+
+  describe '#top_days_by_invoice_count' do
+    it 'returns an array of days as strings that have most invoices in the week' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.top_days_by_invoice_count).to eq ["Wednesday"]
+    end
+  end
 end

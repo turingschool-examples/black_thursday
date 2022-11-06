@@ -110,4 +110,18 @@ class SalesAnalyst
       @invoices.find_all_by_merchant_id(merchant.id).size <= two_std_devs_below_avg
     end
   end
+
+  def top_days_by_invoice_count
+    # iterate through each invoice into an array
+    invoice_days = @invoices.all.map do |invoice|
+      invoice.created_at.strftime('%A')
+    end
+    invoice_days.tally.max_by do |key, value|
+      value
+    end.select do |element|
+      element.class == String
+    end
+    # map that ^ array to created_at.strftime(%A)
+    # then .tally that ^ array
+  end
 end
