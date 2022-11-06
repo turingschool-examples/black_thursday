@@ -85,4 +85,24 @@ RSpec.describe Invoice do
       expect(invoice.paid?).to eq(true)
     end
   end
+
+  describe '#_invoice_items' do
+    it 'returns an array of invoice_items associated with an invoice' do
+      invoice_repo = double('InvoiceRepo')
+      engine = double('engine')
+      invoice_item_repo = double('InvoiceItemRepo')
+      invoice = Invoice.new({
+                              id: 1,
+                              customer_id: 1,
+                              merchant_id: 1,
+                              status: 'shipped',
+                              created_at: Time.now,
+                              updated_at: Time.now
+                            }, invoice_repo)
+      allow(invoice_repo).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:invoice_items).and_return(invoice_item_repo)
+      allow(invoice_item_repo).to receive(:find_all_by_invoice_id).and_return(['invoice_item1', 'invoice_item2'])
+      expect(invoice._transactions).to eq ['invoice_item1', 'invoice_item2']
+    end
+  end
 end
