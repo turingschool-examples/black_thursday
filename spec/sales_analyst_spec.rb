@@ -5,6 +5,7 @@ require './lib/merchant_repository'
 require './lib/item_repository'
 require './lib/sales_engine'
 require 'bigdecimal'
+require './lib/invoice_item_repository'
 
 RSpec.describe SalesAnalyst do
   let(:data) do
@@ -12,7 +13,7 @@ RSpec.describe SalesAnalyst do
       items:         './data/items.csv', 
       merchants: './data/merchants.csv',
       invoices: './data/invoices.csv',
-      invoice_items: './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
       transactions: './data/transactions.csv',
       customers:   './data/customers.csv'
     }

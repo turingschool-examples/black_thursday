@@ -62,6 +62,6 @@ class SalesAnalyst
   end
 
   def invoice_total(invoice_id)
-    @engine.invoice.invoice_total(invoice_id)
+    @engine.invoices.invoice_total(invoice_id)
   end
 end
