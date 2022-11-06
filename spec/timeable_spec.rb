@@ -30,6 +30,13 @@ describe Timeable do
     end
   end
 
+  describe '#time_to_year' do
+    it 'converts a time into an integer represting the year in time' do
+      expect(@dummy.time_to_year(Time.parse('2012-08-26 20:56:56 UTC'))).to eq(2012)
+      expect(@dummy.time_to_year('2012-08-26 20:56:56 UTC')).to eq(2012)
+    end
+  end
+
   describe '#same_month?' do
     it 'checks a time value against month integer value for equality' do
       expect(@dummy.same_month?(Time.parse('2012-08-26 20:56:56 UTC'), 8)).to eq(true)
