@@ -106,4 +106,38 @@ RSpec.describe TransactionRepository do
         expect(tr.find_all_by_result("not success")).to eq([])
     end
   end
+
+  describe '#create' do
+    it 'creates a new transaction with provided attributes' do
+      tr = TransactionRepository.new
+      t = Transaction.new({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => created = Time.now.to_s,
+        :updated_at => updated = Time.now.to_s
+        })
+
+        tr.all << t
+
+        t2 = tr.create({
+          :id => 10,
+          :invoice_id => 9,
+          :credit_card_number => "565656565642424242",
+          :credit_card_expiration_date => "0217",
+          :result => "fail",
+          :created_at => created = Time.now.to_s,
+          :updated_at => updated = Time.now.to_s
+          })
+          
+        expect(t2).to be_a(Transaction)
+        expect(t2.id).to eq(7)
+        expect(t2.invoice_id).to eq(9)
+        expect(t2.credit_card_number).to eq("565656565642424242")
+        expect(t2.credit_card_expiration_date).to eq("0217")
+        expect(t2.result).to eq("fail")
+    end
+  end
 end
