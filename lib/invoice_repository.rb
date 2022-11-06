@@ -5,21 +5,10 @@ require 'pry'
 
 class InvoiceRepository < Repository
 
-  def create(attributes)
-    unless repo.empty?
-    attributes[:id] = all.max do |invoice|
-      invoice.id
-      end.id + 1
-    end
-    new_invoice = Invoice.new(attributes)
-    @repo << new_invoice
-    new_invoice
-  end
-
-  def find_by_id(id)
-    @repo.find do |invoice|
-      invoice.id == id
-    end
+  def new_obj(attributes)
+    new_obj = Invoice.new(attributes)
+    @repo << new_obj
+    new_obj
   end
 
   def find_all_by_customer_id(customer_id)
