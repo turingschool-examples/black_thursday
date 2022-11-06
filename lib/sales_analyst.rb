@@ -297,11 +297,23 @@ BigDecimal(total, 4)
   end
 
      
-# def merchants_with_pending_invoices
-#     @merchants.all.find_all do |merchant|  maybe possible to go straight to invoices?
-#     merchant.invoices.any? |invoice|      believe any? will skip any that dont have an invoice, think they all do so this could be redundant.
-#     !invoices.is_paid_in_full?            depending on how are paid in full method works? i dont love ! but wasnt sure how else to write it.
-# end
+def merchants_with_pending_invoices
+  pending_invoices = []
+
+  invoices.all.each do |invoice|
+    if (invoice.status != :shipped || :returned) && !invoice_paid_in_full?(invoice.id)
+      pending_invoices << invoice
+    end
+  end.uniq
+  # binding.pry
+  pending_invoices2 = pending_invoices.map do |invoice|
+    invoice.merchant_id
+    end.uniq
+  pending_invoices2.map do |merchant_id|
+    @merchants.find_by_id(merchant_id)
+  end
+end  
+       
 
   def merchants_with_only_one_item
     @merchants.all.find_all do |merchant|
