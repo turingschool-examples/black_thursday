@@ -1,13 +1,13 @@
-require_relative '../lib/modules/standard_deviation'
+require_relative '../lib/modules/calculations'
 class SalesAnalyst
-  include StandardDeviation
+  include Calculations
   attr_reader :engine
   def initialize(engine = nil)
     @engine = engine
   end
 
   def average_items_per_merchant
-    (item_amount.sum / item_amount.length.to_f).round(2)
+    average(item_amount)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -33,14 +33,14 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    (prices(merchant_id).sum / prices(merchant_id).length).round(2)
+    average(prices(merchant_id))
   end
 
   def average_average_price_per_merchant
     averages = merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    (averages.sum / averages.length).round(2)
+    average(averages)
   end
 
   def prices(merchant_id)
@@ -66,7 +66,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (invoice_amount.sum / invoice_amount.length.to_f).round(2)
+    average(invoice_amount)
   end
 
   def invoice_amount
@@ -113,7 +113,7 @@ class SalesAnalyst
   end
 
   def invoice_average_per_day
-    (invoice_by_days.values.sum / invoice_by_days.values.length).round(2)
+    average(invoice_by_days.values)
   end
 
   def average_invoices_per_day_standard_deviation
