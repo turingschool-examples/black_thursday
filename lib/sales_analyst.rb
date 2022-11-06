@@ -305,7 +305,6 @@ def merchants_with_pending_invoices
       pending_invoices << invoice
     end
   end.uniq
-  # binding.pry
   pending_invoices2 = pending_invoices.map do |invoice|
     invoice.merchant_id
     end.uniq
