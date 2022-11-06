@@ -85,7 +85,6 @@ class SalesAnalyst
   end
 
   def invoices_for_each_of_the_merchants
-    # require "pry"; binding.pry
     @merchants.all.map do |merchant|
       @invoices.find_all_by_merchant_id(merchant.id).size
     end
@@ -93,11 +92,15 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
-    # require "pry"; binding.pry
     sum = invoices_for_each_of_the_merchants.sum(0.00) { |element| (element - mean) ** 2 }
-    variance = sum / (@invoices.all.size - 1)
+    variance = sum / (@merchants.all.size - 1)
     return Math.sqrt(variance).round(2)
   end
 
-
+  def top_merchants_by_invoice_count
+    two_std_devs_above_avg = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    @merchants.all.find_all do |merchant|
+      @invoices.find_all_by_merchant_id(merchant.id).size >= two_std_devs_above_avg
+    end
+  end
 end

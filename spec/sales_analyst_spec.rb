@@ -301,4 +301,15 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     end
   end
+
+  describe '#top_merchants_by_invoice_count' do
+    it 'returns merchants that are more than 2 standard deviations above avg invoice count' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.top_merchants_by_invoice_count.size).to be =< (475 * 0.025).round
+      sales_analyst.top_merchants_by_invoice_count.each do |merchant|
+        expect(merchant).to be_a Merchant
+      end
+    end
+  end
 end
