@@ -164,4 +164,18 @@ RSpec.describe InvoiceRepo do
       expect(ir.all_invoices_paid_on('2012-02-26')).to eq([invoice1, invoice4])
     end
   end
+
+  describe '#total_revenue_by_date' do
+    it 'sums the total of each invoice paid on a certain date' do
+      allow(invoice1).to receive(:paid_on?).and_return(true)
+      allow(invoice2).to receive(:paid_on?).and_return(false)
+      allow(invoice3).to receive(:paid_on?).and_return(false)
+      allow(invoice4).to receive(:paid_on?).and_return(true)
+      allow(invoice5).to receive(:paid_on?).and_return(false)
+      allow(invoice1).to receive(:total).and_return(1000)
+      allow(invoice4).to receive(:total).and_return(1500)
+
+      expect(ir.total_revenue_by_date('2012-02-26')).to eq(2500)
+    end
+  end
 end
