@@ -6,9 +6,7 @@ require 'pry'
 class InvoiceRepository < Repository
 
   def new_obj(attributes)
-    new_obj = Invoice.new(attributes)
-    @repo << new_obj
-    new_obj
+    new_obj_class(attributes, Invoice)
   end
 
   def find_all_by_customer_id(customer_id)

@@ -30,6 +30,12 @@ class Repository
     end
   end
 
+  def new_obj_class(attributes, class_arg)
+    new_item = class_arg.new(attributes)
+    @repo << new_item
+    new_item
+  end
+
   def find_by_id(id)
     @repo.find { |object| object.id == id }
   end

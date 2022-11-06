@@ -6,9 +6,7 @@ require_relative 'repository'
 class ItemRepository < Repository
 
   def new_obj(attributes)
-    new_item = Item.new(attributes)
-    @repo << new_item
-    new_item
+    new_obj_class(attributes, Item)
   end
 
   def find_by_name(name)
@@ -40,7 +38,4 @@ class ItemRepository < Repository
       item.merchant_id == merchant_id
     end
   end
-
-
-
 end
