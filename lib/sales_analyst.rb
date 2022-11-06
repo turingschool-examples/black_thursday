@@ -11,8 +11,11 @@ require_relative './invoice'
 require_relative './invoice_item'
 require_relative './customer'
 require_relative './transaction'
+require_relative './mathable'
 
 class SalesAnalyst
+  include Mathable
+  
   attr_reader :merchants, :items, :invoices, :customers, :transactions, :invoice_items
 
   def initialize(merchants,items,invoices,invoice_items,customers,transactions)
