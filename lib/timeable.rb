@@ -10,4 +10,12 @@ module Timeable
     ]
     days[day_index]
   end
+  
+  def month_to_int(month)
+    months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ]
+    months.index(month)
+  end
 end
