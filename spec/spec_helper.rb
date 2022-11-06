@@ -6,6 +6,9 @@ require 'item_spec'
 require 'merchant_spec'
 require 'sales_engine_spec'
 require 'sales_analyst_spec'
+require 'invoice_repository_spec'
+require 'invoice_spec'
+
 
 # require spec files
 # require_relative

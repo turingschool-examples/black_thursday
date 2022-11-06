@@ -32,7 +32,11 @@ class MerchantRepository
     Merchant
   end
 
-  def find_all_by_merchant_id(id)
-    @engine.find_all_by_merchant_id(id)
+  def find_all_items_by_merchant_id(id)
+    @engine.find_all_items_by_merchant_id(id)
+  end
+
+  def find_all_invoices_by_merchant_id(id)
+    @engine.find_all_invoices_by_merchant_id(id)
   end
 end

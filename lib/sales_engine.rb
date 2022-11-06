@@ -22,8 +22,12 @@ class SalesEngine
     @merchants.find_by_id(id)
   end
 
-  def find_all_by_merchant_id(id)
+  def find_all_items_by_merchant_id(id)
     @items.find_all_by_merchant_id(id)
+  end
+
+  def find_all_invoices_by_merchant_id(id)
+    @invoices.find_all_by_merchant_id(id)
   end
 
   def analyst

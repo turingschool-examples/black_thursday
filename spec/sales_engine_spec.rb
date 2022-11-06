@@ -75,7 +75,7 @@ RSpec.describe SalesEngine do
       :merchants => './data/merchants.csv',
     })
 
-    expect(se.find_all_by_merchant_id(12334105)).to eq(se.items.find_all_by_merchant_id(12334105))
+    expect(se.find_all_items_by_merchant_id(12334105)).to eq(se.items.find_all_by_merchant_id(12334105))
   end
 
   it 'can initialize a sales analyst' do
