@@ -4,14 +4,17 @@ require_relative '../lib/merchant_repository.rb'
 require_relative '../lib/merchant.rb'
 require_relative '../lib/invoice_repository.rb'
 require_relative '../lib/invoice.rb'
+require_relative '../lib/invoice_item_repository.rb'
+require_relative '../lib/invoice_item.rb'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices
+  attr_reader :items, :merchants, :invoices, :invoice_items
 
   def initialize(files)
     @items = ItemRepository.new(files[:items], self)
     @merchants = MerchantRepository.new(files[:merchants], self)
     @invoices = InvoiceRepository.new(files[:invoices], self)
+    @invoice_items = InvoiceItemRepository.new(files[:invoice_items], self)
   end
 
   def self.from_csv(files)
@@ -28,6 +31,10 @@ class SalesEngine
 
   def find_all_invoices_by_merchant_id(id)
     @invoices.find_all_by_merchant_id(id)
+  end
+
+  def find_all_invoice_items_by_id(id)
+    @invoice_items.find_all_invoice_items_by_id(id)
   end
 
   def analyst
