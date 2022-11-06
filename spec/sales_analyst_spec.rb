@@ -1,5 +1,5 @@
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 require './lib/sales_engine'
 require './lib/sales_analyst'
 
@@ -54,7 +54,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
   end
 
-  xit "#average_invoices_per_merchang_standard_deviation" do
+  it "#average_invoices_per_merchang_standard_deviation" do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
