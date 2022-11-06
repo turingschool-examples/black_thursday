@@ -1,24 +1,31 @@
-class CustomerRepository 
+require_relative 'customer'
+
+class CustomerRepository
+  attr_reader :customers
+
+  def inspect
+    "#<#{self.class} #{@customers.size} rows>"
+  end
 
   def initialize(customers)
     @customers = customers
-  end 
+  end
 
   def all
     @customers
-  end 
+  end
 
   def find_by_id(id)
     @customers.find {|customer| customer.id == id}
-  end 
+  end
 
   def find_all_by_first_name(first_name)
     @customers.find_all {|customer| customer.first_name == first_name}
-  end 
+  end
 
   def find_all_by_last_name(last_name)
     @customers.find_all {|customer| customer.last_name == last_name}
-  end 
+  end
 
   def create(attributes)
     ids = @customers.map { |customer| customer.id}
@@ -26,11 +33,11 @@ class CustomerRepository
     new_customer = Customer.new(attributes)
     @customers.push(new_customer)
     new_customer
-  end 
+  end
 
   def all_ids
     ids = @customers.map { |customer| customer.id}
-  end 
+  end
 
   def update(id, attributes)
     if all_ids.include?(id)
@@ -41,6 +48,6 @@ class CustomerRepository
            updated_customer.update_time
         end
         updated_customer
-    end 
+    end
   end
-end 
+end
