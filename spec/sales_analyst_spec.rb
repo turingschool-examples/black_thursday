@@ -360,7 +360,7 @@ end
   describe '#merchants_with_pending_invoices' do
     it 'will return all merchants who have pending invoices' do
 
-      
+    expect(sales_analyst.merchants_with_pending_invoices.length). to eq 467
     end
   end
 
