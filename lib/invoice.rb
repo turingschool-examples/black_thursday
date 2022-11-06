@@ -35,4 +35,8 @@ class Invoice
 
     @updated_at
   end
+
+  def _transactions
+    @_transactions ||= @invoice_repo.engine.transactions.find_all_by_invoice_id(@id)
+  end
 end
