@@ -98,4 +98,12 @@ describe Merchant do
       expect(merchant.invoice_count).to eq(2)
     end
   end
+
+  describe '#has_pending?' do
+    it 'returns whether or not the merchant has a pending invoice' do
+      item1 = double('invoice1')
+      item2 = double('invoice2')
+      allow(merchant).to receive(:_invoices).and_return([invoice1, invoice2])
+    end
+  end
 end
