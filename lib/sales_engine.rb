@@ -1,11 +1,9 @@
 require 'csv'
 require_relative 'merchant_repository'
-require_relative './item_repository'
-require_relative './item'
-require_relative './merchant'
-require_relative './sales_analyst'
-require_relative './invoice'
-require_relative './invoice_repository'
+require_relative 'item_repository'
+require_relative 'item'
+require_relative 'sales_analyst'
+require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
 require 'pry'
 
@@ -24,7 +22,7 @@ class SalesEngine
 
   def self.from_csv(hash_path)
     sales_engine = new  
-    sales_engine.items.parse_data(hash_path[:items])
+    sales_engine.items.parse_data(hash_path[:items], Item)
     sales_engine.merchants.parse_data(hash_path[:merchants])
     sales_engine.invoices.parse_data(hash_path[:invoices])
     sales_engine.invoice_items.parse_data(hash_path[:invoice_items])

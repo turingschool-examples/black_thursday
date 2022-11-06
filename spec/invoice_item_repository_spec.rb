@@ -1,4 +1,3 @@
-
 require './lib/invoice_item_repository'
 
 RSpec.describe InvoiceItemRepository do

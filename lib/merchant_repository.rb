@@ -1,3 +1,5 @@
+require_relative 'merchant'
+
 class MerchantRepository
   attr_reader :merchants
 
