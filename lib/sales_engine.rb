@@ -5,6 +5,7 @@ require_relative 'item'
 require_relative 'sales_analyst'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
+require_relative 'invoice_item'
 require 'pry'
 
 class SalesEngine
@@ -25,7 +26,7 @@ class SalesEngine
     sales_engine.items.parse_data(hash_path[:items], Item)
     sales_engine.merchants.parse_data(hash_path[:merchants])
     sales_engine.invoices.parse_data(hash_path[:invoices])
-    sales_engine.invoice_items.parse_data(hash_path[:invoice_items])
+    sales_engine.invoice_items.parse_data(hash_path[:invoice_items], InvoiceItem)
     sales_engine
   end
 

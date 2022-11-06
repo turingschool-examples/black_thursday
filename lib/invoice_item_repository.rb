@@ -1,53 +1,47 @@
 require 'csv'
 require_relative './invoice_item'
+require_relative 'repository'
 
-class InvoiceItemRepository
-  attr_reader :invoice_items
+
+class InvoiceItemRepository < Repository
+  attr_reader :repo
 
   def initialize
-    @invoice_items = []
+    @repo = []
   end
 
   def create(attributes)
-    attributes[:id] = (@invoice_items.last.id + 1) if invoice_items.last.nil? == false
-    new_invoice_item = InvoiceItem.new(attributes)
-    @invoice_items << new_invoice_item
-    new_invoice_item
+    attributes[:id] ||= new_id(attributes)
+    new_item = InvoiceItem.new(attributes)
+    @repo << new_item
+    new_item
   end
 
-  def parse_data(file)
-    rows = CSV.open file, headers: true, header_converters: :symbol
-    rows.each do |row|
-      new_item = InvoiceItem.new(row.to_h)
-      invoice_items << new_item
-    end
-  end
+  # def create(attributes)
+  #   require 'pry'; binding.pry
+  #   attributes[:id] = (@repo.last.id + 1) unless repo.nil? == false
+  #   new_invoice_item = InvoiceItem.new(attributes)
+  #   @repo << new_invoice_item
+  #   new_invoice_item
+  # end
 
   def all
-    @invoice_items
-  end
-
-  def find_by_id(id)
-    invoice_items.find { |invoice_item| invoice_item.id == id }
+    @repo
   end
 
   def find_all_by_item_id(id)
-    invoice_items.select { |invoice_item| invoice_item.item_id == id }
+    @repo.select { |invoice_item| invoice_item.item_id == id }
   end
 
   def find_all_by_invoice_id(id)
-    invoice_items.select { |invoice_item| invoice_item.invoice_id == id }
+    @repo.select { |invoice_item| invoice_item.invoice_id == id }
   end
 
   def update(id, attributes)
-    find_by_id(id).update(attributes) unless find_by_id(id).nil?
-  end
-
-  def delete(id)
-    invoice_items.delete_if { |invoice_item| invoice_item.id.== id }
+    find_by_id(id).update(attributes) if find_by_id(id)
   end
 
   def inspect
-    "#<#{self.class} #{@invoice_items.size} rows>"
+    "#<#{self.class} #{@repo.size} rows>"
   end
 end

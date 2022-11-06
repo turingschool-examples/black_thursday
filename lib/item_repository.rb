@@ -1,12 +1,10 @@
 require 'csv'
 require_relative 'item'
 require 'pry'
-require_relative 'repository1'
+require_relative 'repository'
 
 class ItemRepository < Repository
-# include FilePath
   attr_reader :items
-  # @repo.test
 
   def initialize
     @repo = []
@@ -14,12 +12,6 @@ class ItemRepository < Repository
 
   def all
     @repo
-  end
-
-  def find_by_id(id)
-    @repo.find do |item|
-      item.id == id
-    end
   end
 
   def find_by_name(name)
@@ -59,28 +51,16 @@ class ItemRepository < Repository
     new_item
   end
 
-  def new_id(attributes)
-    unless @repo.empty?
-      attributes[:id] = all.max do |item|
-        item.id
-      end.id + 1
-    end
-  end
-
-  # def parse_data(file)
-  #   rows = CSV.open file, headers: true, header_converters: :symbol
-  #   rows.each do |row|
-  #     new_obj = Item.new(row.to_h)
-  #     repo << new_obj
+  # def new_id(attributes)
+  #   unless @repo.empty?
+  #     attributes[:id] = all.max do |item|
+  #       item.id
+  #     end.id + 1
   #   end
   # end
 
   def update(id, attributes)
-    find_by_id(id).update(attributes) unless find_by_id(id).nil?
-  end
-
-  def delete(id)
-    @repo.delete_if { |item| item.id == id }
+    find_by_id(id).update(attributes) if find_by_id(id)
   end
 
   def inspect

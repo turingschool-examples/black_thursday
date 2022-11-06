@@ -34,7 +34,6 @@ RSpec.describe InvoiceItemRepository do
         :updated_at => Time.now
       })
     item2 = iir.create({
-        :id => 4,
         :item_id => 3,
         :invoice_id => 2,
         :quantity => 5,
@@ -92,7 +91,7 @@ RSpec.describe InvoiceItemRepository do
       :updated_at => Time.now
     })
     expect(iir.all).to eq([item1, item2])
-    expect(iir.find_by_id(7)).to eq(item2)
+    expect(iir.find_by_id(4)).to eq(item2)
   end
 
   it 'finds all InvoiceItems by Item id' do
