@@ -15,6 +15,14 @@ class InvoiceItemRepository
     new_invoice_item
   end
 
+  def parse_data(file)
+    rows = CSV.open file, headers: true, header_converters: :symbol
+    rows.each do |row|
+      new_item = InvoiceItem.new(row.to_h)
+      invoice_items << new_item
+    end
+  end
+
   def all
     @invoice_items
   end
@@ -37,5 +45,9 @@ class InvoiceItemRepository
 
   def delete(id)
     invoice_items.delete_if { |invoice_item| invoice_item.id.== id }
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoice_items.size} rows>"
   end
 end
