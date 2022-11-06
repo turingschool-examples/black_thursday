@@ -67,8 +67,14 @@ class InvoiceRepo < GeneralRepo
   end
 
   def all_invoices_paid_on(date)
+    if date.is_a? String
+      date_time = Time.parse(date)
+    else
+      date_time = date
+    end
     @repository.select do |invoice|
-      invoice.paid_on?(date)
+      invoice.paid? &&
+        invoice.created_at.strftime('%d/%m/%Y') == date_time.strftime('%d/%m/%Y')
     end
   end
 
