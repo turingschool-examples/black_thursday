@@ -39,5 +39,14 @@ RSpec.describe CustomerRepository do
         expect(cr.all.all?(Customer)).to be true
       end
     end
+
+    describe '#find_by_id' do
+      it 'returns nil or instance of customer by id' do
+        cr = CustomerRepository.new('./data/test_data/customers_test.csv')
+
+        expect(cr.find_by_id(11)).to eq(nil)
+        expect(cr.find_by_id(10)).to eq(cr.all[-1])
+      end
+    end
   end
 end
