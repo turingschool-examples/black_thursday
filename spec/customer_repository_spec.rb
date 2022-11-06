@@ -30,6 +30,7 @@ RSpec.describe CustomerRepository do
       expect(cr.engine).to be_a SalesEngine
     end
   end
+
   describe '#module methods' do
     describe '#all' do
       it 'returns an array of all customer instances' do
@@ -55,17 +56,35 @@ RSpec.describe CustomerRepository do
 
         cr.create(
           :id => 6,
-          :first_name => "Joan",
-          :last_name => "Clarke",
+          :first_name => 'Joan',
+          :last_name => 'Clarke',
           :created_at => Time.now.to_s,
           :updated_at => Time.now.to_s
         )
 
         expect(cr.all[-1]).to be_a Customer
-        expect(cr.all[-1].first_name).to eq("Joan")
-        expect(cr.all[-1].last_name).to eq("Clarke")
+        expect(cr.all[-1].first_name).to eq('Joan')
+        expect(cr.all[-1].last_name).to eq('Clarke')
         expect(cr.all[-1].id).to eq(11)
       end
+    end
+  end
+
+  describe '#update' do
+    it 'only update a customers first and last name and updates the time to current time' do
+      cr = CustomerRepository.new('./data/test_data/customers_test.csv')
+
+      expect(cr.all[0].id).to eq(1)
+      expect(cr.all[0].first_name).to eq('Joey')
+      expect(cr.all[0].last_name).to eq('Ondricka')
+      expect(cr.all[0].updated_at).to eq(Time.parse('2012-03-27 14:54:09 UTC'))
+
+      cr.update(1, {:first_name => 'John', :last_name => 'Smith'})
+
+      expect(cr.all[0].id).to eq(1)
+      expect(cr.all[0].first_name).to eq('John')
+      expect(cr.all[0].last_name).to eq('Smith')
+      expect(cr.all[0].updated_at).to be > Time.parse('2012-03-27 14:54:09 UTC')
     end
   end
 end
