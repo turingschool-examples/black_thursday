@@ -7,7 +7,7 @@ module RepoQueries
     all.find do |data|
       data.id == id
     end
-  end    
+  end
 
   def find_by_name(name)
     all.find do |data|
@@ -53,7 +53,7 @@ module RepoQueries
   end
 
   def time_stamp(datum)
-    return if datum.class == Merchant 
+    return if datum.class == Merchant
     datum.created_at = Time.now
     datum.updated_at = Time.now
   end
@@ -65,4 +65,19 @@ module RepoQueries
     all << datum
     datum
   end
+
+  def child
+    @child
+  end
+
+  # def update(id, attributes)
+  #   return if attributes.empty?
+  #   updated = find_by_id(id)
+  #   updated.name = attributes[:name]
+  #   updated.description = attributes[:description]
+  #   updated.unit_price = attributes[:unit_price]
+  #   updated.updated_at = Time.now
+  #   updated.status = attributes[:status]
+  #
+  # end
 end

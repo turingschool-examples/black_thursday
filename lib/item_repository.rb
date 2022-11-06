@@ -11,6 +11,7 @@ class ItemRepository
   def initialize(file = nil, engine = nil)
     @data = []
     @engine = engine
+    @child = Item
     load_data(file)
   end
 
@@ -39,9 +40,5 @@ class ItemRepository
     updated.description = attributes[:description]
     updated.unit_price = attributes[:unit_price]
     updated.updated_at = Time.now
-  end
-
-  def child
-    Item
   end
 end
