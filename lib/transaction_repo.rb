@@ -6,7 +6,7 @@ require_relative 'general_repo'
 # This is the transaction_repository class
 class TransactionRepo < GeneralRepo
   def initialize(data, engine)
-    super('Transaction', data, engine)
+    super(Transaction, data, engine)
   end
 
   def find_all_by_invoice_id(id)
