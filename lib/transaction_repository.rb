@@ -42,6 +42,6 @@ class TransactionRepository
   end
 
   def child
-    Transaction
+    @child 
   end
 end
