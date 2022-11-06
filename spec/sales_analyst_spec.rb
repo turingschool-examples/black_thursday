@@ -5,6 +5,7 @@ require './lib/merchant_repository'
 require './lib/item_repository'
 require './lib/sales_engine'
 require 'bigdecimal'
+require './lib/invoice_item_repository'
 
 RSpec.describe SalesAnalyst do
   let(:data) do
@@ -12,7 +13,7 @@ RSpec.describe SalesAnalyst do
       items:         './data/items.csv', 
       merchants: './data/merchants.csv',
       invoices: './data/invoices.csv',
-      invoice_items: './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
       transactions: './data/transactions.csv',
       customers:   './data/customers.csv'
     }
@@ -96,13 +97,26 @@ RSpec.describe SalesAnalyst do
     end
   end
 
-  describe 'top_days_by_invoice_count' do
+  describe '#top_days_by_invoice_count' do
     it 'returns a collection of all days that are above the average by one std deviation' do
       expected = analyst.top_days_by_invoice_count
       expect(expected).to be_a Array
       expected.each do |day|
         expect(day).to be('Wednesday')
       end
+    end
+  end
+
+  describe '#invoice_paid_in_full?' do
+    it 'returns a boolean indicating whether or not an invoice has been paid' do
+      expect(analyst.invoice_paid_in_full?(46)).to be true
+      expect(analyst.invoice_paid_in_full?(204)).to be false
+    end
+  end
+
+  describe '#invoice_total' do
+    it 'returns the total dollar value of an Invoice' do
+      expect(analyst.invoice_total(1)).to eq 21067.77
     end
   end
 end

@@ -36,7 +36,7 @@ describe TransactionRepo do
         updated_at:                  Time.now
       )
 
-      expect(@tr.all.last.result).to eq('success')
+      expect(@tr.all.last.result).to eq(:success)
     end
   end
 
@@ -69,9 +69,9 @@ describe TransactionRepo do
 
   describe '#find_all_by_result' do
     it 'searches for result and returns invoices found or empty array' do
-      expect(@tr.find_all_by_result('success')).to eq([@transaction1, @transaction2, 
+      expect(@tr.find_all_by_result(:success)).to eq([@transaction1, @transaction2, 
         @transaction3, @transaction4, @transaction5])
-      expect(@tr.find_all_by_result('failure')).to eq([])
+      expect(@tr.find_all_by_result(:failure)).to eq([])
     end
   end
 

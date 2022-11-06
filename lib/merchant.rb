@@ -40,7 +40,7 @@ include Calculable
   def invoice_count
     _invoices.count
   end
-  
+
   def avg_item_price
     average(item_prices.sum, item_count)
   end

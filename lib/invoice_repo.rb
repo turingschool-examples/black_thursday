@@ -57,4 +57,12 @@ class InvoiceRepo < GeneralRepo
     ]
     days[num]
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    find_by_id(invoice_id).paid?
+  end
+
+  def invoice_total(invoice_id)
+    find_by_id(invoice_id).total
+  end
 end

@@ -45,4 +45,87 @@ RSpec.describe Invoice do
       expect(invoice.status).to eq :shipped
     end
   end
+
+  describe '#_transactions' do
+    it 'returns a list of transactions associated with the invoice' do
+      invoice_repo = double('InvoiceRepo')
+      engine = double('engine')
+      trans_repo = double('TransactionRepo')
+      invoice = Invoice.new({
+                              id: 1,
+                              customer_id: 1,
+                              merchant_id: 1,
+                              status: 'shipped',
+                              created_at: Time.now,
+                              updated_at: Time.now
+                            }, invoice_repo)
+      allow(invoice_repo).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:transactions).and_return(trans_repo)
+      allow(trans_repo).to receive(:find_all_by_invoice_id).and_return(['transaction1', 'transaction2'])
+      expect(invoice._transactions).to eq ['transaction1', 'transaction2']
+    end
+  end
+
+  describe '#paid?' do
+    it 'returns a boolean indicating if a transaction was successful' do
+      transaction1 = double('transaction1')
+      transaction2 = double('transaction2')
+      invoice_repo = double('InvoiceRepo')
+      invoice = Invoice.new({
+                              id: 1,
+                              customer_id: 1,
+                              merchant_id: 1,
+                              status: 'shipped',
+                              created_at: Time.now,
+                              updated_at: Time.now
+                            }, invoice_repo)
+      allow(transaction1).to receive(:result).and_return(:success)
+      allow(transaction2).to receive(:result).and_return(:failed)
+      allow(invoice).to receive(:_transactions).and_return([transaction1, transaction2])
+      expect(invoice.paid?).to eq(true)
+    end
+  end
+
+  describe '#_invoice_items' do
+    it 'returns an array of invoice_items associated with an invoice' do
+      invoice_repo = double('InvoiceRepo')
+      engine = double('engine')
+      invoice_item_repo = double('InvoiceItemRepo')
+      invoice = Invoice.new({
+                              id: 1,
+                              customer_id: 1,
+                              merchant_id: 1,
+                              status: 'shipped',
+                              created_at: Time.now,
+                              updated_at: Time.now
+                            }, invoice_repo)
+      allow(invoice_repo).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:invoice_items).and_return(invoice_item_repo)
+      allow(invoice_item_repo).to receive(:find_all_by_invoice_id).and_return(['invoice_item1', 'invoice_item2'])
+      expect(invoice._invoice_items).to eq ['invoice_item1', 'invoice_item2']
+    end
+  end
+
+  describe '#total' do
+    it 'returns the total value of the invoice' do
+      invoice_item1 = double('invoice_item1')
+      invoice_item2 = double('invoice_item2')
+      invoice_repo = double('InvoiceRepo')
+      invoice = Invoice.new({
+                              id: 1,
+                              customer_id: 1,
+                              merchant_id: 1,
+                              status: 'shipped',
+                              created_at: Time.now,
+                              updated_at: Time.now
+                            }, invoice_repo)
+      allow(invoice_item1).to receive(:unit_price).and_return(10_000)
+      allow(invoice_item1).to receive(:quantity).and_return(2)
+      allow(invoice_item2).to receive(:unit_price).and_return(5000)
+      allow(invoice_item2).to receive(:quantity).and_return(3)
+      allow(invoice).to receive(:_invoice_items).and_return([invoice_item1, invoice_item2])
+
+      expect(invoice.total).to eq 35000
+    end
+  end
 end

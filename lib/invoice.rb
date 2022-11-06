@@ -35,4 +35,20 @@ class Invoice
 
     @updated_at
   end
+
+  def _transactions
+    @_transactions ||= @invoice_repo.engine.transactions.find_all_by_invoice_id(@id)
+  end
+
+  def paid?
+    _transactions.any? { |transaction| transaction.result == :success }
+  end
+
+  def _invoice_items
+    @_invoice_items ||= @invoice_repo.engine.invoice_items.find_all_by_invoice_id(@id)
+  end
+
+  def total
+    _invoice_items.sum { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
+  end
 end
