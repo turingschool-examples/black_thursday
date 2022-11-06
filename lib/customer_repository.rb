@@ -39,16 +39,17 @@ class CustomerRepository
 
   def create(attribute)
     new_id = @customers.last.id + 1
-    @customers << Customer.new({:id => new_id, :first_name => attribute[:first_name]}, self)
+    @customers << Customer.new({:id => new_id, 
+                                :first_name => attribute[:first_name],
+                                :last_name => attribute[:last_name],
+                                :created_at => attribute[:created_at].to_s,
+                                :updated_at => attribute[:updated_at].to_s
+                                }, self)
   end
 
   def update(id, attributes)
     @customers.find do |customer|
-      if customer.id == id
-        customer.first_name.replace(attributes[:first_name])
-        customer.last_name.replace(attributes[:last_name])
-        customer.updated_at.replace(Time.now.to_s)
-      end
+      customer.update(attributes) if customer.id == id
     end
   end
 
