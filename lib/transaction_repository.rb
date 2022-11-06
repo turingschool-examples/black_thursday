@@ -1,5 +1,7 @@
 require_relative '../lib/modules/repo_queries'
 require_relative '../lib/merchant'
+require 'csv'
+
 class TransactionRepository
   include RepoQueries
 
