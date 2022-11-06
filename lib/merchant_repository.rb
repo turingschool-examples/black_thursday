@@ -92,4 +92,8 @@ class MerchantRepository < GeneralRepo
     end
     sorted.first(num)
   end
+
+  def revenue_by_merchant(id)
+    find_by_id(id).revenue
+  end
 end
