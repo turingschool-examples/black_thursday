@@ -72,18 +72,30 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
-    merchant_ids = @invoices.map do |invoice|
-      invoice.merchant_id
-    end.uniq
-    merchant_invoices = merchant_ids.map do |merchant_id|
-      sales_engine.invoices.find_all_by_merchant_id(merchant_id)
-    end
+
     sample_sum = 0
-    merchant_invoices.each do |invoices_array|
+    
+    merchants_with_invoices.each do |invoices_array|
       sample_sum += (invoices_array.count - mean)**2
     end
-    return Math.sqrt(sample_sum/(merchant_ids.length - 1)).round(2)
+    return Math.sqrt(sample_sum/(uniq_merchant_ids.length - 1)).round(2)
   end
+
+  def uniq_merchant_ids
+    invoices.map do |invoice|
+      invoice.merchant_id
+    end.uniq
+  end
+
+  def merchants_with_invoices
+    uniq_merchant_ids.map do |merchant_id|
+      sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+    end
+  end
+
+  # def top_merchants_by_invoice_count
+
+  # end
   
 end
   # def golden_items
