@@ -1,4 +1,5 @@
 require_relative '../lib/invoice_item'
+require 'bigdecimal'
 
 RSpec.describe InvoiceItem do 
   let(:invoice_item) { InvoiceItem.new(
@@ -13,7 +14,7 @@ RSpec.describe InvoiceItem do
 
   describe '#initialize' do
     it 'exists' do
-      expect(invoice_item).to be_a(InvoiceRepository)
+      expect(invoice_item).to be_a(InvoiceItem)
     end
   end 
 end
