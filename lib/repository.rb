@@ -35,14 +35,17 @@ class Repository
   # create and update methods to be made
   def create(attributes)
     attributes[:id] = max_id
-    add_to_repo(Item.new(attributes))
+    # Object.const_get() returns the class of the passed string, ie passing "Merchant" returns the Merchant Class
+    # (doesn't return an instance of the Merchant Class but rather the whole Class)
+    instance = Object.const_get(child_class_name).new(attributes)
+    add_to_repo(instance)
   end
 
-  # untested, un-working (so far)
-  def create_helper(attributes, class_name)
-    create(attributes)
-    add_to_repo(class_name.new(attributes))
-  end
+  # This method returns the string representation of the repository's child class name, 
+  # ie for the MerchantRepository class, this returns "Merchant"
+  def child_class_name
+    self.class.name.split('Repository').join 
+  end 
  
   # add tests  and make work
   def update(id, attributes)
