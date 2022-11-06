@@ -152,7 +152,7 @@ RSpec.describe SalesAnalyst do
     it 'returns the dollar value of the total revenue from a given merchant' do
       expected = analyst.revenue_by_merchant('12334105')
       expect(expected.class).to eq BigDecimal
-      expect(expected).to eq(nil)
+      expect(expected).to eq(0.7377717e5)
     end
   end
 end
