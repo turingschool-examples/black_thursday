@@ -11,16 +11,16 @@ module Timeable
     days[day_index]
   end
 
-  def month_to_int(month)
+  def month_to_int(month_name)
     months = [
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
     ]
-    months.index(month) + 1
+    months.index(month_name) + 1
   end
 
-  def same_month?(time, month)
-    convert_to_time(time).month == month
+  def same_month?(time, month_number)
+    convert_to_time(time).month == month_number
   end
 
   def convert_to_time(time)
