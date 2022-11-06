@@ -30,16 +30,16 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (@items.all.count / @merchants.all.count.to_f).round(2)
+    avg(items_per_merchant).round(2)
   end
 
   def average_items_per_merchant_standard_deviation    
-    Math.sqrt(sum_square_diff_items/(item_counts.length-1)).round(2)
+    stdev(items_per_merchant).round(2)
   end
 
   def merchants_with_high_item_count
-    avg = average_items_per_merchant
-    stdev = average_items_per_merchant_standard_deviation
+    avg = avg(items_per_merchant)
+    stdev = stdev(items_per_merchant)
 
     @merchants.all.find_all do |merchant|
       @items.find_all_by_merchant_id(merchant.id).count > avg + stdev
@@ -47,24 +47,25 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    sum = @items.find_all_by_merchant_id(id).sum do |item|
+    prices = @items.find_all_by_merchant_id(id).map do |item|
       item.unit_price
     end
-    avg = sum.to_f / @items.find_all_by_merchant_id(id).count
-    BigDecimal(avg,4)
+    
+    avg(prices).round(2)
   end
 
   def average_average_price_per_merchant
-    sum = @merchants.all.sum do |merchant|
+    avg_prices = @merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    avg = sum / @merchants.all.count
-    avg.truncate(2)
+
+    avg(avg_prices).truncate(2)
   end
 
   def golden_items
-    avg = average_item_price
-    stdev = Math.sqrt(sum_square_diff_golden/(@items.all.size-1)).round(2)
+    avg = avg(item_prices)
+    stdev = stdev(item_prices)
+
     @items.all.select do |item|
       item.unit_price > avg + 2*stdev
     end
@@ -85,11 +86,9 @@ class SalesAnalyst
   end
 
   def customer_spent(cust_id)
-    sum = 0
-    customer_invoices(cust_id).each do |cust_inv|
-      invoice_paid_in_full?(cust_inv.id) ? sum += invoice_revenue(cust_inv.id) : 0
+    customer_invoices(cust_id).sum do |cust_inv|
+      invoice_paid_in_full?(cust_inv.id) ? invoice_revenue(cust_inv.id) : 0
     end
-    sum
   end
 
   def customer_invoices(cust_id)
@@ -109,69 +108,48 @@ class SalesAnalyst
       invoice_item.invoice_id == invoice_id
     end
   end
-
-  def sum_square_diff_items
-    item_counts.map do |count|
-      (count - average_items_per_merchant)**2
-    end.sum
-  end
   
-  def item_counts
+  def items_per_merchant
     @merchants.all.map do |merchant|
       @items.find_all_by_merchant_id(merchant.id).count
     end
   end
 
-  def sum_square_diff_golden
+  def item_prices
     @items.all.map do |item|
-      (item.unit_price - average_item_price)**2
-    end.sum
-  end
-
-  def average_item_price
-    sum = @items.all.sum do |item|
       item.unit_price
     end
-    (sum / @items.all.size).round(2)
   end
 
   def average_invoices_per_merchant
-    (@invoices.all.count / @merchants.all.count.to_f).round(2)
+    avg(invoices_per_merchant).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    # binding.pry
-    Math.sqrt(invoice_sum_square_diff / (invoice_count.length - 1)).round(2)
+    stdev(invoices_per_merchant).round(2)
   end
 
-  def invoice_sum_square_diff
-    invoice_count.map do |count|
-      (count - average_invoices_per_merchant)**2
-    end.sum
-  end
-
-  def invoice_count
+  def invoices_per_merchant
     @merchants.all.map do |merchant|
       @invoices.find_all_by_merchant_id(merchant.id).count
-      # binding.pry
     end
   end
 
   def top_merchants_by_invoice_count
-    average = average_invoices_per_merchant
-    stdev = average_invoices_per_merchant_standard_deviation
+    avg = avg(invoices_per_merchant)
+    stdev = stdev(invoices_per_merchant)
+
     @merchants.all.find_all do |merchant|
-    @invoices.find_all_by_merchant_id(merchant.id).count > average + (stdev * 2)
-    # binding.pry
+      @invoices.find_all_by_merchant_id(merchant.id).count > avg + (stdev * 2)
     end
   end
 
   def bottom_merchants_by_invoice_count
-    average = average_invoices_per_merchant
-    stdev = average_invoices_per_merchant_standard_deviation
+    avg = avg(invoices_per_merchant)
+    stdev = stdev(invoices_per_merchant)
 
     @merchants.all.find_all do |merchant|
-    @invoices.find_all_by_merchant_id(merchant.id).count < average - (stdev * 2)
+      @invoices.find_all_by_merchant_id(merchant.id).count < avg - (stdev * 2)
     end
   end
 

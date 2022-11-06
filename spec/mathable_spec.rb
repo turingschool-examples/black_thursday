@@ -14,6 +14,12 @@ RSpec.describe Mathable do
                                             :transactions => './data/transactions.csv'})}
   let(:sales_analyst) {sales_engine.analyst}
 
+  describe '#stdev' do
+    it 'calculates the standard deviation' do
+      expect(sales_analyst.stdev([*1..10])).to eq 3.03
+    end
+  end
+
   describe '#sum_square_diff' do
     it 'calculates the numerator for the stdev formula' do
       expect(sales_analyst.sum_square_diff([*1..10])).to eq 82.5
