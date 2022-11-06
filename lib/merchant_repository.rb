@@ -15,13 +15,6 @@ class MerchantRepository < Repository
     end
   end
 
-  def max_id
-    max = @all.max_by(&:id)
-    return 1 if max.nil?
-
-    (max.id + 1)
-  end
-
   def update(id, attributes)
     return nil if find_by_id(id).nil?
 
