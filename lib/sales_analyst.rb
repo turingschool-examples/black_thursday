@@ -134,11 +134,10 @@ class SalesAnalyst
   
   def top_days_by_invoice_count
     sales_engine.invoices.all.find_all do |invoice|
-    # require 'pry'; binding.pry
+    require 'pry'; binding.pry
       invoice.created_at
     end 
     # weekday = created_at.strftime[("%A")]
-    # use top_merchants_by_invoice_count (?)
     # find which days that invoices created at are more than ONE sd ABOVE the mean
     average_invoices_per_merchant_standard_deviation
     # array of (days) strings
