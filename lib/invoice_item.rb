@@ -2,13 +2,13 @@ require 'bigdecimal'
 
 class InvoiceItem
   attr_reader :item_id,
-              :invoice_id,
-              :quantity,
-              :unit_price
+              :invoice_id
 
   attr_accessor :id,
                 :created_at,
-                :updated_at
+                :quantity,
+                :updated_at,
+                :unit_price
 
   def initialize(attributes, repo = nil)
     @id         = attributes[:id]

@@ -131,4 +131,41 @@ RSpec.describe InvoiceItemRepository do
 
       expect(new_invoice_item.id).to be(8)
   end
+
+  it 'can update an invoice item' do
+    ii = InvoiceItem.new({
+      :id => 6,
+      :item_id => 7,
+      :invoice_id => 8,
+      :quantity => 1,
+      :unit_price => BigDecimal(10.99, 4),
+      :created_at => Time.now,
+      :updated_at => Time.now
+      })
+
+      ii2 = InvoiceItem.new({
+        :id => 7,
+        :item_id => 8,
+        :invoice_id => 9,
+        :quantity => 1,
+        :unit_price => BigDecimal(10.99, 4),
+        :created_at => Time.now,
+        :updated_at => Time.now
+        })
+
+    invoice_items = InvoiceItemRepository.new
+    invoice_items.all << ii
+    invoice_items.all << ii2
+
+    expect(ii.quantity).to eq (1)
+    expect(ii.unit_price).to eq (10.99)
+
+    invoice_items.update(7, {
+      quantity: 3,
+      unit_price: BigDecimal(11.99, 4)
+      })
+
+      expect(ii.quantity).to eq (1)
+      expect(ii.unit_price).to eq (10.99)
+  end
 end

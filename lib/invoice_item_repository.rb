@@ -23,4 +23,12 @@ class InvoiceItemRepository
       datum.invoice_id == invoice_id
     end
   end
+
+  def update(id, attributes)
+    return if attributes.empty?
+    updated = find_by_id(id)
+    updated.quantity = attributes[:quantity]
+    updated.unit_price = attributes[:unit_price]
+    updated.updated_at = Time.now
+  end
 end
