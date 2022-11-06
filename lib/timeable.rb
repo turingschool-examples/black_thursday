@@ -18,4 +18,8 @@ module Timeable
     ]
     months.index(month)
   end
+
+  def same_month?(time, month)
+    time.month == month
+  end
 end
