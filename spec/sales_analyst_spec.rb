@@ -119,4 +119,10 @@ RSpec.describe SalesAnalyst do
       expect(analyst.invoice_total(1)).to eq 21067.77
     end
   end
+
+  describe '#total_revenue_by_date' do
+    it 'sums the total of each invoice paid on a certain date' do
+      expect(analyst.total_revenue_by_date('2009-02-07')).to eq 21067.77
+    end
+  end
 end
