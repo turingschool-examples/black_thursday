@@ -68,4 +68,8 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     @engine.invoices.total_revenue_by_date(date)
   end
+
+  def top_revenue_earners(num)
+    @engine.merchants.top_revenue_earners(num)
+  end
 end
