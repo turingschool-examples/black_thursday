@@ -277,4 +277,20 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_status(:shipped)).to eq(9.52)
     expect(sales_analyst.invoice_status(:returned)).to eq(14.29)
   end
+
+  it 'can check if an invoice is paid in full' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/test_data/items_test.csv',
+      :merchants => './data/test_data/merchant_invoices_test2.csv',
+      :invoices  => './data/test_data/invoices_transactions_test.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/test_data/transactions_test.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.invoice_paid_in_full?(1)).to be(true)
+    expect(sales_analyst.invoice_paid_in_full?(2)).to be(false)
+  end
 end
