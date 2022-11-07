@@ -7,13 +7,13 @@ class SalesAnalyst
               :invoice_items,
               :customers,
               :transactions
-  def initialize(items, merchants, invoices, invoice_items, customers, transactions)
-    @items = items
-    @merchants = merchants
-    @invoices = invoices
-    @invoice_items = invoice_items
-    @customers = customers
-    @transactions = transactions
+  def initialize(engine)
+    @items = engine.items
+    @merchants = engine.merchants
+    @invoices = engine.invoices
+    @invoice_items = engine.invoice_items
+    @customers = engine.customers
+    @transactions = engine.transactions
   end
 
   def average_items_per_merchant
