@@ -127,16 +127,24 @@ RSpec.describe SalesAnalyst do
     #   expect(sales_analyst.invoice_average_per_day.length).to eq(200)
     # end
     
-    it 'can have a number of invoices per day' do
-      expect(sales_analyst.invoice_count_per_day).to be_a(Hash)
-      expect(sales_analyst.invoice_count_per_day.values.sum).to eq(sales_analyst.invoice_count)
-    end
+  it 'can have a number of invoices per day' do
+    expect(sales_analyst.invoice_count_per_day).to be_a(Hash)
+    expect(sales_analyst.invoice_count_per_day.values.sum).to eq(sales_analyst.invoice_count)
+  end
 
-    it 'can return the day with the highest invoice count' do
-      expect(sales_analyst.top_days_by_invoice_count.length).to eq(1)
-      expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
-      expect(sales_analyst.top_days_by_invoice_count.first.class).to eq(String)
-    end
+  it 'can have an average number of invoices per day' do
+    expect(sales_analyst.average_invoices_per_day).to eq(712.14)
+  end
+
+  it 'can have a standard deviation for all invoices' do
+    expect(sales_analyst.average_invoice_standard_deviation).to eq(18.07)
+  end
+
+  it 'can return the day with the highest invoice count' do
+    expect(sales_analyst.top_days_by_invoice_count.length).to eq(1)
+    expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
+    expect(sales_analyst.top_days_by_invoice_count.first.class).to eq(String)
+  end
   # end
   
   xit 'can return percentage of invoices that are not shipped' do
