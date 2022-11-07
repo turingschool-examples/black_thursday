@@ -6,17 +6,17 @@ RSpec.describe TransactionRepository do
 
   let(:t_1) { Transaction.new({ id: 6,
                                 invoice_id: 8,
-                                credit_card_number: "4242424242424242",
-                                credit_card_expiration_date: "0220",
-                                result: "success",
+                                credit_card_number: '4242424242424242',
+                                credit_card_expiration_date: '0220',
+                                result: 'success',
                                 created_at: Time.now,
                                 updated_at: Time.now
                               }) }
   let(:t_2) { Transaction.new({ id: 1, 
                               invoice_id: 2,
-                              credit_card_number: "4242424242424243",
-                              credit_card_expiration_date: "0221",
-                              result: "failed",
+                              credit_card_number: '4242424242424243',
+                              credit_card_expiration_date: '0221',
+                              result: 'failed',
                               created_at: Time.now,
                               updated_at: Time.now
                             }) }  
@@ -83,9 +83,9 @@ RSpec.describe TransactionRepository do
 
       transaction_repository.create({ id: 7,
                                       invoice_id: 9,
-                                      credit_card_number: "4242424242424244",
-                                      credit_card_expiration_date: "0222",
-                                      result: "success",
+                                      credit_card_number: '4242424242424244',
+                                      credit_card_expiration_date: '0222',
+                                      result: 'success',
                                       created_at: Time.now,
                                       updated_at: Time.now
                                     }) 
@@ -94,9 +94,9 @@ RSpec.describe TransactionRepository do
 
       transaction_repository.create({ id: 8,
                                       invoice_id: 9,
-                                      credit_card_number: "4242424242424245",
-                                      credit_card_expiration_date: "0223",
-                                      result: "failed",
+                                      credit_card_number: '4242424242424245',
+                                      credit_card_expiration_date: '0223',
+                                      result: 'failed',
                                       created_at: Time.now,
                                       updated_at: Time.now
                                     }) 
@@ -104,6 +104,21 @@ RSpec.describe TransactionRepository do
 
       expect(transaction_repository.all.last.id).to eq(2)
       expect(transaction_repository.all.size).to eq(2)
+    end
+  end
+
+  describe '#update' do
+    it 'can update credit card number, expiration date, and result' do
+      transaction_repository.add_to_repo(t_1)
+      transaction_repository.add_to_repo(t_2)
+
+      expect(transaction_repository.all[0].credit_card_number).to eq('4242424242424242')
+      expect(transaction_repository.all[0].credit_card_expiration_date).to eq('0220')
+      expect(transaction_repository.all[0].result).to eq('success')
+
+      transaction_repository.update( 0, {credit_card_number: "4242424242421111"})
+      transaction_repository.update( 0, {credit_card_expiration_date: '0230'})
+      transaction_repository.update( 0, {result: 'success'})
     end
   end
 
