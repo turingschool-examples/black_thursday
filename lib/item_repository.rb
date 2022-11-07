@@ -34,14 +34,12 @@ class ItemRepository < Repository
   end
 
   def update(id, attributes)
-    item = find_by_id(id)
-    return nil if item.nil?
-
-    attributes.each do |key, value|
-      next if [:id, :merchant_id, :created_at].include?(key)
-
-      item.instance_variable_set("@#{key}", value)
-    end
-    item.updated_at = Time.now
+    sanitized_attributes = {
+      name: attributes[:name],
+      description: attributes[:description],
+      unit_price: attributes[:unit_price],
+      updated_at: Time.now
+    }
+    super(id, sanitized_attributes)
   end
 end

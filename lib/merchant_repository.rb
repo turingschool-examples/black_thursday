@@ -16,9 +16,9 @@ class MerchantRepository < Repository
   end
 
   def update(id, attributes)
-    return nil if find_by_id(id).nil?
-
-    name = attributes[:name]
-    find_by_id(id).name = name
+      sanitized_attributes = {
+      name: attributes[:name]
+    }
+    super(id, sanitized_attributes)
   end
 end
