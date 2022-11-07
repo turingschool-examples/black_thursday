@@ -1,0 +1,2 @@
+class TransactionRepository
+end
