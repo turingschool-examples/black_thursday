@@ -65,6 +65,10 @@ class SalesAnalyst
     @engine.invoices.invoice_total(invoice_id)
   end
 
+  def merchants_with_pending_invoices
+    @engine.merchants.merchants_with_pending_invoices
+  end
+
   def total_revenue_by_date(date)
     @engine.invoices.total_revenue_by_date(date)
   end

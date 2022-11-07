@@ -212,6 +212,16 @@ describe MerchantRepository do
     end
   end
 
+  describe '#merchants_with_pending_invoices' do
+    it 'returns an array of merchants with pending invoices' do
+      allow(mr.all[0]).to receive(:invoice_pending?).and_return(true)
+      allow(mr.all[1]).to receive(:invoice_pending?).and_return(false)
+      allow(mr.all[2]).to receive(:invoice_pending?).and_return(false)
+      allow(mr.all[3]).to receive(:invoice_pending?).and_return(true)
+      expect(mr.merchants_with_pending_invoices).to eq ([mr.all[0], mr.all[3]])
+    end
+  end
+
   describe '#top_revenue_earners' do
     it 'returns an array of x merchants ranked by revenue' do
       allow(mr.all[0]).to receive(:revenue).and_return(30000)

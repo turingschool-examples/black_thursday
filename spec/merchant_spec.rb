@@ -99,6 +99,14 @@ describe Merchant do
     end
   end
 
+  describe '#invoice_pending?' do
+    it 'returns whether or not the merchant has a pending invoice' do
+      invoice1 = double('invoice1')
+      invoice2 = double('invoice2')
+      allow(merchant).to receive(:_invoices).and_return([invoice1, invoice2])
+    end
+  end
+
   describe '#revenue' do
     it 'returns the sum of all paid in full invoices' do
       inv1 = double('inv1')

@@ -120,6 +120,12 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  describe '#merchants_with_pending_invoices' do
+    it 'returns an array of merchants with pending invoices' do
+      expect(analyst.merchants_with_pending_invoices).to eq ([])
+    end
+  end
+
   describe '#total_revenue_by_date' do
     it 'sums the total of each invoice paid on a certain date' do
       expect(analyst.total_revenue_by_date('2009-02-07')).to eq 21067.77
