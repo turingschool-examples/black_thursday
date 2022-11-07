@@ -14,4 +14,13 @@ class CustomerRepository < Repository
       customer.last_name.downcase.include?(name_to_search.downcase)
     end
   end
+
+  def update(id, attributes)
+    sanitized_attributes = {
+      first_name: attributes[:first_name],
+      last_name: attributes[:last_name],
+      updated_at: Time.now
+    }
+    super(id, sanitized_attributes)
+  end
 end

@@ -84,4 +84,47 @@ RSpec.describe CustomerRepository do
     end
   end
 
+  describe 'create(attributes)' do
+    it 'creates a new Customer instance with provided attributes' do
+      expect(cr.all).to eq([]) 
+
+      cr.add_to_repo(customer_1)
+      expect(cr.all.count).to eq(1)
+
+      cr.create( { 
+        first_name: 'Tron',
+        last_name: 'Carter',
+        created_at:  Time.now,
+        updated_at:  Time.now })
+
+      expect(cr.all.count).to eq(2)
+      expect(cr.all[1].first_name).to eq('Tron')
+
+      cr.create( { 
+        first_name: 'Kathy',
+        last_name: 'Peterson',
+        created_at:  Time.now,
+        updated_at:  Time.now })
+
+      expect(cr.all.count).to eq(3)
+      expect(cr.all[2].first_name).to eq('Kathy')
+      expect(cr.all[2].last_name).to eq('Peterson')
+    end
+  end
+
+  describe 'update(attributes)' do
+    it 'updates customer first and last name only' do
+      cr.add_to_repo(customer_1)
+      cr.add_to_repo(customer_2)
+      cr.add_to_repo(customer_3)
+
+      expect(cr.all[0].first_name).to eq('Joan')
+      expect(cr.all[0].last_name).to eq('Clarke')
+
+      cr.update(6, { first_name: 'Jo-Anne', last_name: 'Clorpe', id: 22 })
+      expect(cr.all[0].first_name).to eq('Jo-Anne')
+      expect(cr.all[0].last_name).to eq('Clorpe')
+      expect(cr.all[0].id).to eq(6)
+    end
+  end
 end

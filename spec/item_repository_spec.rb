@@ -141,7 +141,7 @@ RSpec.describe ItemRepository do
       expect(ir.max_id).to eq(1)
 
       ir.add_to_repo(item_5)
-      
+
       expect(ir.max_id).to eq(6)
     end
   end
