@@ -5,7 +5,7 @@ require 'csv'
 class TransactionRepository
   include RepoQueries
 
-  attr_accessor :data
+  attr_reader :data
 
   def initialize(file = nil, engine = nil)
     @data = []
@@ -42,6 +42,6 @@ class TransactionRepository
   end
 
   def child
-    @child 
+    @child
   end
 end

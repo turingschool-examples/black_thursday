@@ -1,6 +1,5 @@
 require 'time'
 class Transaction
-
   attr_reader :repo
   attr_accessor :id,
                 :invoice_id,
