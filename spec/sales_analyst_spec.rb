@@ -94,8 +94,6 @@ RSpec.describe SalesAnalyst do
         })
         
         expect(sales_analyst.invoice_total(1234321)).to eq(109.90)
-
-
   end
 end
 
