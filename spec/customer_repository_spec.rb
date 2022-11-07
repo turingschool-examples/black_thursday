@@ -121,11 +121,13 @@ RSpec.describe CustomerRepository do
 
       expect(cr.all[0].first_name).to eq('Joan')
       expect(cr.all[0].last_name).to eq('Clarke')
+      expect(cr.all[0].created_at).to eq(cr.all[0].updated_at)
 
       cr.update(6, { first_name: 'Jo-Anne', last_name: 'Clorpe', id: 22 })
       expect(cr.all[0].first_name).to eq('Jo-Anne')
       expect(cr.all[0].last_name).to eq('Clorpe')
       expect(cr.all[0].id).to eq(6)
+      expect(cr.all[0].created_at).to_not eq(cr.all[0].updated_at)
     end
   end
 
