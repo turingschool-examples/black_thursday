@@ -144,5 +144,33 @@ RSpec.describe InvoiceItemRepository do
   end
 
   describe '#delete' do 
+    it 'deletes the invoice item with the corresponding id' do
+      iir.add_to_repo(invoice_item_1)
+      iir.add_to_repo(invoice_item_2)
+      iir.add_to_repo(invoice_item_3)
+
+      expect(iir.all.size).to eq(3)
+
+      iir.delete(6)
+      expect(iir.all.size).to eq(2)
+
+      iir.delete(1)
+      expect(iir.all[0].item_id).to eq(2)
+      expect(iir.all.size).to eq(1)
+    end
+
+
+   it 'cannot delete an id that does not exist' do
+      iir.add_to_repo(invoice_item_1)
+      iir.add_to_repo(invoice_item_2)
+      iir.add_to_repo(invoice_item_3)
+
+      expect(iir.all.size).to eq(3)
+
+      iir.delete(12)
+
+      expect(iir.all.size).to eq(3)
+      expect(iir.all[0].item_id).to eq(7)
+    end
   end
 end
