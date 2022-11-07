@@ -65,4 +65,22 @@ class InvoiceRepo < GeneralRepo
   def invoice_total(invoice_id)
     find_by_id(invoice_id).total
   end
+
+  def all_invoices_paid_on(date)
+    if date.is_a? String
+      date_time = Time.parse(date)
+    else
+      date_time = date
+    end
+    @repository.select do |invoice|
+      invoice.paid? &&
+        invoice.created_at.strftime('%d/%m/%Y') == date_time.strftime('%d/%m/%Y')
+    end
+  end
+
+  def total_revenue_by_date(date)
+    all_invoices_paid_on(date).sum do |invoice|
+      invoice_total(invoice.id)
+    end
+  end
 end

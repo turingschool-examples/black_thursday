@@ -18,7 +18,7 @@ RSpec.describe SalesAnalyst do
       customers:   './data/customers.csv'
     }
   end
-  
+
   let(:engine) { SalesEngine.from_csv(data) }
   let(:analyst) { SalesAnalyst.new(engine) }
   describe '#initialize' do
@@ -63,7 +63,7 @@ RSpec.describe SalesAnalyst do
       end
     end
   end
-  
+
   describe '#average_item_price_for_merchant' do
     it "returns the average price of a merchant's items" do
       expect(analyst.average_item_price_for_merchant(12_334_105)).to eq 16.66
@@ -123,6 +123,42 @@ RSpec.describe SalesAnalyst do
   describe '#merchants_with_pending_invoices' do
     it 'returns an array of merchants with pending invoices' do
       expect(analyst.merchants_with_pending_invoices).to eq ([])
+    end
+  end
+
+  describe '#total_revenue_by_date' do
+    it 'sums the total of each invoice paid on a certain date' do
+      expect(analyst.total_revenue_by_date('2009-02-07')).to eq 21067.77
+    end
+  end
+
+  describe '#top_revenue_earners' do
+    it 'returns an array of x merchants ranked by revenue' do
+      expected = analyst.top_revenue_earners(10)
+
+      expect(expected.length).to eq 10
+      expect(expected.first.class).to eq Merchant
+      expect(expected.first.id).to eq 12334634
+      expect(expected.last.class).to eq Merchant
+      expect(expected.last.id).to eq 12335747
+    end
+
+    it "it returns by default the top 20 merchants ranked by revenue if no argument is given" do
+      expected = analyst.top_revenue_earners
+
+      expect(expected.length).to eq 20
+      expect(expected.first.class).to eq Merchant
+      expect(expected.first.id).to eq 12334634
+      expect(expected.last.class).to eq Merchant
+      expect(expected.last.id).to eq 12334159
+    end
+  end
+
+  describe '#revenue_by_merchant' do
+    it 'returns the dollar value of the total revenue from a given merchant' do
+      expected = analyst.revenue_by_merchant('12334105')
+      expect(expected.class).to eq BigDecimal
+      expect(expected).to eq(0.7377717e5)
     end
   end
 end

@@ -48,4 +48,9 @@ class Merchant
   def invoice_pending?
     _invoices.any? { |invoice| !(invoice.paid?) }
   end
+
+  def revenue
+    paid_inv = _invoices.select { |invoice| invoice.paid? }
+    paid_inv.sum { |invoice| invoice.total }
+  end
 end

@@ -184,7 +184,7 @@ describe MerchantRepository do
       expect(mr.top_merchants_by_invoice_count).to eq([])
     end
   end
-  
+
   describe '#merchants_with_high_item_count' do
     it 'returns an array of merchants whos item count is greater than 1 standard deviation' do
       allow(mr.all[0]).to receive(:_items).and_return(['item'])
@@ -194,11 +194,11 @@ describe MerchantRepository do
       expect(mr.merchants_with_high_item_count).to eq([mr.all[2]])
     end
   end
-  
+
   describe '#average_item_price_for_merchant' do
     it 'returns the average item price for the given merchant id' do
       allow(mr.all[0]).to receive(:avg_item_price).and_return(2.0)
-      expect(mr.average_item_price_for_merchant(12_334_105)). to eq (2.0)
+      expect(mr.average_item_price_for_merchant(12_334_105)).to eq(2.0)
     end
   end
 
@@ -219,6 +219,31 @@ describe MerchantRepository do
       allow(mr.all[2]).to receive(:invoice_pending?).and_return(false)
       allow(mr.all[3]).to receive(:invoice_pending?).and_return(true)
       expect(mr.merchants_with_pending_invoices).to eq ([mr.all[0], mr.all[3]])
+    end
+  end
+
+  describe '#top_revenue_earners' do
+    it 'returns an array of x merchants ranked by revenue' do
+      allow(mr.all[0]).to receive(:revenue).and_return(30000)
+      allow(mr.all[1]).to receive(:revenue).and_return(5000)
+      allow(mr.all[2]).to receive(:revenue).and_return(60000)
+      allow(mr.all[3]).to receive(:revenue).and_return(25000)
+      m1 = mr.repository[0]
+      m2 = mr.repository[1]
+      m3 = mr.repository[2]
+      m4 = mr.repository[3]
+
+      expect(mr.top_revenue_earners(2)).to eq([m3, m1])
+      expect(mr.top_revenue_earners(3)).to eq([m3, m1, m4])
+      expect(mr.top_revenue_earners(4)).to eq([m3, m1, m4, m2])
+    end
+  end
+
+  describe '#revenue_by_merchant' do
+    it 'returns the total revenue of a given merchant' do
+      allow(mr.all[0]).to receive(:revenue).and_return(30000)
+      
+      expect(mr.revenue_by_merchant('12334105')).to eq(30000)
     end
   end
 end
