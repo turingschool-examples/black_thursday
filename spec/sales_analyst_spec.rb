@@ -86,6 +86,12 @@ RSpec.describe SalesAnalyst do
   it "#top_days_by_invoice_count" do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.dates).to be_instance_of(Array)
+    expect(sales_analyst.weekdays).to include("Monday")
+    expect(sales_analyst.weekdays).to include("Thursday")
+    expect(sales_analyst.weekday_counts).to be_instance_of(Hash)
+    expect(sales_analyst.weekday_counts.count).to eq(7)
+    expect(sales_analyst.weekday_invoice_avg.class).to eq(Integer)
+    expect(sales_analyst.weekday_inv_stndrd_dev.class).to eq(Float)
     expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
   end
 
