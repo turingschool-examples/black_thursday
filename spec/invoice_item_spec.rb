@@ -38,6 +38,14 @@ RSpec.describe InvoiceItem do
     it '#unit_price' do 
       expect(invoice_item.unit_price).to eq(10.99)
     end
+
+    it '#created_at' do 
+      expect(invoice_item.created_at).to be_a(Time)
+    end
+
+    it '#updated_at' do
+      expect(invoice_item.updated_at).to be_a(Time)
+    end
   end
 
 end
