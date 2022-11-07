@@ -6,6 +6,7 @@ module Sanitize
   end
 
   def to_time(time)
+    require 'pry'; binding.pry
     Time.parse(time.to_s)
   end
 
