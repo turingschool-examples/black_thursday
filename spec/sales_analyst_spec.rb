@@ -379,7 +379,7 @@ RSpec.describe SalesAnalyst do
                                   created_at: Time.parse("2022-11-07 08:26:45.880153 -0700"),
                                   updated_at: Time.now })}
 
-      expect(sales_analyst.top_days_by_invoice_count).to eq ["Monday", "Wednesday"]
+      expect(sales_analyst.top_days_by_invoice_count).to include("Monday", "Wednesday")
     end
   end
 
