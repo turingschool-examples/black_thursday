@@ -68,7 +68,7 @@ class MerchantRepository < GeneralRepo
       deviation_difference(std_dev, merchant.invoice_count, mer_avg) < -2
     end
   end
-  
+
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
     avg_count = average_items_per_merchant
@@ -86,6 +86,7 @@ class MerchantRepository < GeneralRepo
     average(total_avg_item_prices, all.length).round(2)
   end
 
+
   def merchants_with_only_one_item
     all.select { |merchant| merchant.item_count == 1 }
   end
@@ -94,5 +95,20 @@ class MerchantRepository < GeneralRepo
     merchants_with_only_one_item.select do |merchant|
       merchant.created_at.month == month_to_int(month_name)
     end
+  end
+
+  def merchants_with_pending_invoices
+    all.select { |merchant| merchant.invoice_pending? }
+  end
+  
+  def top_revenue_earners(num)
+    sorted = all.sort_by do |merchant|
+      -merchant.revenue
+    end
+    sorted.first(num)
+  end
+
+  def revenue_by_merchant(id)
+    find_by_id(id).revenue
   end
 end
