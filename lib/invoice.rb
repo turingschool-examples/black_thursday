@@ -26,5 +26,5 @@ include Sanitize
     @updated_at = Time.now
     self
   end
-  
+
 end
