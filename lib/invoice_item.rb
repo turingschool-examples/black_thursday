@@ -17,8 +17,8 @@ class InvoiceItem
     @invoice_id = invoice_item_data[:invoice_id]
     @quantity = invoice_item_data[:quantity]
     @unit_price = BigDecimal((invoice_item_data[:unit_price].to_f / 100), 4)
-    @created_at = invoice_item_data[:created_at]
-    @updated_at = invoice_item_data[:updated_at]
+    @created_at = return_time_from(invoice_item_data[:created_at])
+    @updated_at = return_time_from(invoice_item_data[:updated_at])
   end
 
   def unit_price_to_dollars 
