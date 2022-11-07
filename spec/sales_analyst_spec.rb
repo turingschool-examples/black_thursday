@@ -364,18 +364,22 @@ end
     end
   end
 
-  xit "#merchants_with_only_one_item returns merchants with only one item" do
-    expect(sales_analyst.merchants_with_only_one_item.length).to eq 243 #the number of merchants taken from spec harness
-    expect(sales_analyst.merchants_with_only_one_item.first.class).to eq Merchant
+  describe '#merchants_with_only_one_item' do
+    it "returns merchants with only one item" do
+      expect(sales_analyst.merchants_with_only_one_item.length).to eq 243
+      expect(sales_analyst.merchants_with_only_one_item.first.class).to eq Merchant
+    end
   end
 
-  it 'returns the month the merchant was created' do
-    merchant = Merchant.new({:id => 1, :name => "Turing School", :created_at  => Time.now})
-    @time_now = Time.parse("2022-11-03 18:56:21.000000000 -0700")
-    allow(Time).to receive(:now).and_return(@time_now)
-    expect(sales_analyst.month_merchant_created(merchant)).to eq 11
+  describe '#month_merchant_created' do
+    it 'returns the month the merchant was created' do
+      merchant = Merchant.new({:id => 1, :name => "Turing School", :created_at  => Time.now})
+      @time_now = Time.parse("2022-11-03 18:56:21.000000000 -0700")
+      allow(Time).to receive(:now).and_return(@time_now)
+      expect(sales_analyst.month_merchant_created(merchant)).to eq 11
+    end
   end
-
+  
   xit "#merchants_with_only_one_item_registered_in_month returns merchants with only one invoice in given month" do
     expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
 
