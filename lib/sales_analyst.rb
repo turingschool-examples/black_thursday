@@ -208,9 +208,17 @@ class SalesAnalyst
     # use unit_price listed within invoice_items
   end
 
-  def top_revenue_earners(top_number = 10)
-    # optional argument
-    # If no number is given for top_revenue_earners, 
+  def top_revenue_earners(top_number = 20)
+    # go through all merchants
+    
+      # go through all of the merchant's invoices
+      
+        #go find the total of each invoice (make sure it is paid in full)
+        
+      # add all invoice totals up to find merchant's total
+      
+    # rank merchants (sort) and take the top x as an array.
+    
     # it takes the top 20 merchants by defaul
   end
 
