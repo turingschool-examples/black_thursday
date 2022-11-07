@@ -178,19 +178,33 @@ class SalesAnalyst
   # ======================================= #
   
   def invoice_paid_in_full?(invoice_id) 
-    # returns true if the Invoice with the corresponding id is paid in full
+    return false if sales_engine.transactions.find_all_by_invoice_id(invoice_id).empty?
+
+    sales_engine.transactions.find_all_by_invoice_id(invoice_id).all? do |transaction|
+      transaction.result == :success
+    end
   end
   
   def invoice_total(invoice_id)
-    # returns the total $ amount of the Invoice with the corresponding id
-    # Failed charges should never be counted in revenue totals or statistics
-    # An invoice is considered paid in full if it has a successful transaction
+    total = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
+      invoice_item.quantity * (invoice_item.unit_price / 100)
+    end
+# require 'pry'; binding.pry
+    # CLOSE BUT NOT CORRECT "BIG DECIMAL"
+    total # = BigDecimal(total, 4)
   end
 
 
   # ======================================= #
+  def invoice_by_date(date)
+    sales_engine.invoices.find_all_by_date(date)
+  end
 
   def total_revenue_by_date(date)
+    # require 'pry'; binding.pry
+    invoice_by_date(date).sum do |invoice|
+      invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
+    end
     # use unit_price listed within invoice_items
   end
 

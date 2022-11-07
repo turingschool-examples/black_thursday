@@ -132,12 +132,12 @@ RSpec.describe SalesAnalyst do
 
   # ======================================= #
 
-  xit 'can return true if the invoice with corresponding id is paid in full' do
+  it 'can return true if the invoice with corresponding id is paid in full' do
     sales_analyst.invoice_paid_in_full?(1)
-      expect(expected.sales_analyst.invoice_paid_in_full?(1)).to eq(true)
+      expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
 
       sales_analyst.invoice_paid_in_full?(200)
-      expect(expected.sales_analyst.invoice_paid_in_full?(200)).to eq(true)
+      expect(sales_analyst.invoice_paid_in_full?(200)).to eq(true)
 
       sales_analyst.invoice_paid_in_full?(203)
       expect(sales_analyst.invoice_paid_in_full?(203)).to eq(false)
@@ -146,7 +146,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.invoice_paid_in_full?(204)).to eq(false)
   end
 
-  xit 'can return the total dollar amount if the invoice is paid in full ' do
+  it 'can return the total dollar amount if the invoice is paid in full ' do
     sales_analyst.invoice_total(1)
 
     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
@@ -156,9 +156,9 @@ RSpec.describe SalesAnalyst do
    # ======================================= #
 
    describe 'Iteration 4' do
-    let!(:merchant) {engine.merchants.find_by_id(12335523)}
+    let!(:merchant) {sales_engine.merchants.find_by_id(12335523)}
 
-    xit 'can find out the total revenue for a given date' do
+    it 'can find out the total revenue for a given date' do
       date = Time.parse("2009-02-07")
 
       expect(sales_analyst.total_revenue_by_date(date)).to eq(21067.77)
