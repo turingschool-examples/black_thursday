@@ -21,7 +21,7 @@ module Modify
   def update(id, attributes)
     updated_instance = find_by_id(id)
     if updated_instance != nil
-      updated_instance.updated_at = Time.now unless evaluate == Merchant
+      updated_instance.updated_at = Time.now
       merchant_update(updated_instance, attributes) if evaluate = Merchant
       item_update(updated_instance, attributes) if evaluate = Item
       invoice_update(updated_instance, attributes) if evaluate = Invoice
