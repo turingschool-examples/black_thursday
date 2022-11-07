@@ -122,6 +122,20 @@ RSpec.describe TransactionRepository do
     end
   end
 
+  describe '#delete' do
+    it 'deletes the transaction with the corresponding id' do
+      transaction_repository.add_to_repo(t_1)
+      transaction_repository.add_to_repo(t_2)
+
+      expect(transaction_repository.all.size).to eq(2)
+
+      transaction_repository.delete(6)
+      expect(transaction_repository.all.size).to eq(1)
+
+      transaction_repository.delete(1)
+      expect(transaction_repository.all.size).to eq(0)
+    end
+  end
 end
 
                               
