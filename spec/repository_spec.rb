@@ -87,8 +87,6 @@ RSpec.describe Repository do
     end
   end
 
-  # missing tests for update and create
-
   describe '#child_class_name' do
     it 'returns a string of what comes before the Repository for any Repository child class' do
       class ThingRepository < Repository

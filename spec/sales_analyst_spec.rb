@@ -291,6 +291,24 @@ RSpec.describe SalesAnalyst do
       sales_analyst = se.analyst
 
       expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
+
+      10.times { sales_analyst.invoices.create({
+                                  customer_id: 8,
+                                  merchant_id: 12334159,
+                                  status: 'returned',
+                                  created_at: Time.now,
+                                  updated_at: Time.now })}
+
+      expect(sales_analyst.average_invoices_per_merchant).to eq(10.52)
+    end
+  end
+
+  describe '#invoices_for_each_of_the_merchants' do
+    it 'returns an array with number of invoices for each merchant' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.invoices_for_each_of_the_merchants.size).to eq(475)
+      expect(sales_analyst.invoices_for_each_of_the_merchants.first).to be_a Integer
     end
   end
 
@@ -299,6 +317,15 @@ RSpec.describe SalesAnalyst do
       sales_analyst = se.analyst
 
       expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+
+      10.times { sales_analyst.invoices.create({
+                                  customer_id: 8,
+                                  merchant_id: 12334159,
+                                  status: 'returned',
+                                  created_at: Time.now,
+                                  updated_at: Time.now })}
+
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.34)
     end
   end
 
@@ -310,6 +337,16 @@ RSpec.describe SalesAnalyst do
       sales_analyst.top_merchants_by_invoice_count.each do |merchant|
         expect(merchant).to be_a Merchant
       end
+      expect(sales_analyst.top_merchants_by_invoice_count).not_to include(sales_analyst.merchants.find_by_id(12334159))
+
+      11.times { sales_analyst.invoices.create({
+                                  customer_id: 8,
+                                  merchant_id: 12334159,
+                                  status: 'returned',
+                                  created_at: Time.now,
+                                  updated_at: Time.now })}
+
+      expect(sales_analyst.top_merchants_by_invoice_count).to include(sales_analyst.merchants.find_by_id(12334159))
     end
   end
 
@@ -321,6 +358,11 @@ RSpec.describe SalesAnalyst do
       sales_analyst.bottom_merchants_by_invoice_count.each do |merchant|
         expect(merchant).to be_a Merchant
       end
+
+      sales_analyst.merchants.create({ name: 'Press Coffee'})
+      merchant = sales_analyst.merchants.find_by_name('Press Coffee')
+
+      expect(sales_analyst.bottom_merchants_by_invoice_count).to include(merchant)
     end
   end
 
@@ -329,6 +371,15 @@ RSpec.describe SalesAnalyst do
       sales_analyst = se.analyst
 
       expect(sales_analyst.top_days_by_invoice_count).to eq ["Wednesday"]
+
+      45.times { sales_analyst.invoices.create({
+                                  customer_id: 8,
+                                  merchant_id: 12334159,
+                                  status: 'returned',
+                                  created_at: Time.parse("2022-11-07 08:26:45.880153 -0700"),
+                                  updated_at: Time.now })}
+
+      expect(sales_analyst.top_days_by_invoice_count).to eq ["Monday", "Wednesday"]
     end
   end
 
@@ -339,6 +390,17 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
       expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
       expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
+
+      30.times { sales_analyst.invoices.create({
+                                  customer_id: 8,
+                                  merchant_id: 12334159,
+                                  status: 'returned',
+                                  created_at: Time.parse("2022-11-07 08:26:45.880153 -0700"),
+                                  updated_at: Time.now })}
+
+      expect(sales_analyst.invoice_status(:shipped)).to eq(56.61)
+      expect(sales_analyst.invoice_status(:pending)).to eq(29.37)
+      expect(sales_analyst.invoice_status(:returned)).to eq(14.02)
     end
   end
 end
