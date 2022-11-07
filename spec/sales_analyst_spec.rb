@@ -335,9 +335,9 @@ end
 
   describe '#total_revenue_by_date' do
     it 'will give you the total revenue on any given date' do
-      date = Time.parse("2012-03-27 14:54:09 UTC")
+      date = Time.parse("2012-03-28 14:54:09 UTC")
       
-      expect(sales_analyst.total_revenue_by_date(date)).to eq 5977.78
+      expect(sales_analyst.total_revenue_by_date(date)).to eq 16035.08
     end
   end
 

@@ -279,7 +279,7 @@ class SalesAnalyst
     end
   end
 
-  def merchants_with_pending_invoices
+  def pending_invoices
     pending_invoices = []
     invoices.all.each do |invoice|
       if (invoice.status != :shipped || :returned) && !invoice_paid_in_full?(invoice.id)
@@ -289,7 +289,10 @@ class SalesAnalyst
     pending_invoices2 = pending_invoices.map do |invoice|
       invoice.merchant_id
       end.uniq
-    pending_invoices2.map do |merchant_id|
+  end
+
+  def merchants_with_pending_invoices
+    pending_invoices.map do |merchant_id|
       @merchants.find_by_id(merchant_id)
     end
   end  
