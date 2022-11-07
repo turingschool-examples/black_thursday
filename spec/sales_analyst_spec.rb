@@ -144,7 +144,7 @@ RSpec.describe SalesAnalyst do
 
   describe '#merchants_with_pending_invoices' do
     it 'returns an array of merchants with pending invoices' do
-      expect(analyst.merchants_with_pending_invoices).to eq ([])
+      expect(analyst.merchants_with_pending_invoices.length).to eq(467)
     end
   end
 
@@ -181,6 +181,24 @@ RSpec.describe SalesAnalyst do
       expected = analyst.revenue_by_merchant('12334105')
       expect(expected.class).to eq BigDecimal
       expect(expected).to eq(0.7377717e5)
+    end
+  end
+
+  describe '#merchants_with_only_one_item' do
+    it 'returns a collection of merchants who only have one item' do
+      expected_length = 243
+      expected_class  = Merchant
+      expect(analyst.merchants_with_only_one_item.length).to eq(expected_length)
+      expect(analyst.merchants_with_only_one_item[0].class).to eq(expected_class)
+    end
+  end
+
+  describe '#merchants_with_only_one_item_registered_in_month' do
+    it 'returns a collection of merchants who only have one item per month registered' do
+      expected_length = 21
+      expected_class  = Merchant
+      expect(analyst.merchants_with_only_one_item_registered_in_month('March').length).to eq(expected_length)
+      expect(analyst.merchants_with_only_one_item_registered_in_month('March')[0].class).to eq(expected_class)
     end
   end
 end
