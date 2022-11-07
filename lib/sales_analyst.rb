@@ -91,40 +91,52 @@ class SalesAnalyst
     end
   end
 
+  def merchants_for_comparison(merchants_with_invoices)
+    merchants_invoices = []
+    merchants_with_invoices.each do |invoices_array|
+     if invoices_array.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+     merchants_invoices.push(invoices_array)
+     elsif invoices_array.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+      merchants_invoices.push(invoices_array)
+     end
+    end
+    merchants_invoices
+  end
+
+  def merchant_ids_collection(merchants_for_comparison)
+    merchants_invoices.map do |invoices_collection|
+    invoices_collection[0].merchant_id
+    end
+  end
+
+  def chosen_merchants(merchants_for_comparison)
+    merchant_ids_collection(merchants_for_comparison).map do |merchant|
+      @sales_engine.merchants.find_by_id(merchant)
+    end
+  end
+
   def top_merchants_by_invoice_count
-    top_merchants_invoices = []
-     merchants_with_invoices.each do |invoices_array|
-      if invoices_array.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
-      top_merchants_invoices.push(invoices_array)
-      end
-    end
-    merchant_ids_collection = []
-    top_merchants_invoices.each do |invoices_collection|
-      merchant_ids_collection.push(invoices_collection[0].merchant_id)
-    end
-    chosen_merchants = []
-    merchant_ids_collection.each do |merchant|
-      chosen_merchants.push(@sales_engine.merchants.find_by_id(merchant))
-    end
-    chosen_merchants
+    # merchants_invoices = []
+    #  merchants_with_invoices.each do |invoices_array|
+    #   if invoices_array.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+    #   merchants_invoices.push(invoices_array)
+    #   end
+    # end
+    merchants_for_comparison(merchants_with_invoices)
+
+    chosen_merchants(merchants_invoices)
   end
 
   def bottom_merchants_by_invoice_count
-    bottom_merchants_invoices = []
-     merchants_with_invoices.each do |invoices_array|
-      if invoices_array.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
-      bottom_merchants_invoices.push(invoices_array)
-      end
-    end
-    merchant_ids_collection = []
-    bottom_merchants_invoices.each do |invoices_collection|
-      merchant_ids_collection.push(invoices_collection[0].merchant_id)
-    end
-    chosen_merchants = []
-    merchant_ids_collection.each do |merchant|
-      chosen_merchants.push(@sales_engine.merchants.find_by_id(merchant))
-    end
-    chosen_merchants
+    # merchants_invoices = []
+    #  merchants_with_invoices.each do |invoices_array|
+    #   if invoices_array.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+    #   merchants_invoices.push(invoices_array)
+    #   end
+    # end
+    merchants_for_comparison(merchants_with_invoices)
+
+    chosen_merchants(merchants_invoices)
   end
   
   def top_days_by_invoice_count
