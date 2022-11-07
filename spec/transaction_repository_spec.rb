@@ -116,9 +116,13 @@ RSpec.describe TransactionRepository do
       expect(transaction_repository.all[0].credit_card_expiration_date).to eq('0220')
       expect(transaction_repository.all[0].result).to eq('success')
 
-      transaction_repository.update( 0, {credit_card_number: "4242424242421111"})
-      transaction_repository.update( 0, {credit_card_expiration_date: '0230'})
-      transaction_repository.update( 0, {result: 'success'})
+      transaction_repository.update( 6, {credit_card_number: '4242424242421111'})
+      transaction_repository.update( 6, {credit_card_expiration_date: '0230'})
+      transaction_repository.update( 6, {result: 'failed'})
+
+      expect(transaction_repository.all[0].credit_card_number).to eq('4242424242421111')
+      expect(transaction_repository.all[0].credit_card_expiration_date).to eq('0230')
+      expect(transaction_repository.all[0].result).to eq('failed')
     end
   end
 
