@@ -145,7 +145,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day
-    (invoice_count.to_f / 7).truncate(2)
+    (invoice_count.to_f / invoice_count_per_day.count).truncate(2)
   end
 
   def average_invoice_standard_deviation
@@ -213,7 +213,7 @@ class SalesAnalyst
     # (merchant.created_at)
   end
 
-  def sales_analyst.revenue_by_merchant(merchant_id)
+  def revenue_by_merchant(merchant_id)
     # formatted in dollars
   end
 
