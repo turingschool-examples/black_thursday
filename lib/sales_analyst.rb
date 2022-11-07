@@ -198,33 +198,40 @@ class SalesAnalyst
       invoice_total(invoice.id)
     end
   end
-
+  
   def invoices_paid_in_full_by_merchant(merchant)
-      invoices = sales_engine.invoices.find_all_by_merchant_id(merchant.id)
-        invoices.find_all do |invoice|
+    invoices = sales_engine.invoices.find_all_by_merchant_id(merchant.id)
+    invoices.find_all do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
   end
-
+  
   # ======================================= #
   def invoice_by_date(date)
     sales_engine.invoices.find_all_by_date(date)
   end
-
+  
   def total_revenue_by_date(date)
     invoice_by_date(date).sum do |invoice|
       invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
     end
   end
-
+  
   def top_revenue_earners(top_number = 20)
+    
+    merchants_ranked_by_revenue.shift(top_number)
+    
+    
+    
+    
+    
     hash = {}
     
     merchants = sales_engine.merchants.all
     merchants.each do |merchant|
       hash[merchant] = total_of_invoice_total(merchant)
     end
-
+    
     top_earners = hash.max_by(top_number) do |key, value| 
       value 
     end
@@ -232,29 +239,36 @@ class SalesAnalyst
       merchant[0]
     end
   end
-
+  
   def merchants_ranked_by_revenue
+    
     #not on iteraction pattern but noticed on spec harness
   end
-
+  
   def merchants_with_pending_invoices
+    #invoices._find_all_by_merchant_id(merchant.id)
+    
     # pending invoices = if none of the transactions are successful
   end
-
+  
   def merchants_with_only_one_item_registered_in_month(month)
     # merchants that only sell one item by the month they registered 
     # (merchant.created_at)
   end
-
+  
   def revenue_by_merchant(merchant_id)
+    merchant = 
     # formatted in dollars
+    invoices_paid_in_full_by_merchant(merchant).sum do |invoice|
+      invoice_total(invoice.id)
+    end
   end
-
+  
   def most_sold_item_for_merchant(merchant_id)
     # quantity sold
     # if a tie [item, item, item]
   end
-
+  
   def best_item_for_merchant(merchant_id)
     # item in terms of revenue generated
   end
