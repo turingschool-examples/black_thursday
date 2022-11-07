@@ -161,4 +161,11 @@ class SalesAnalyst
       item.unit_price * item.quantity
     end.sum
   end
+
+  def total_revenue_by_date(date)
+    invoices = @engine.find_all_invoices_by_date(date)
+    invoices.map do |invoice|
+      invoice_total(invoice.id)
+    end.sum
+  end
 end

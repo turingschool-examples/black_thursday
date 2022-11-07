@@ -55,4 +55,8 @@ class SalesEngine
   def analyst
     SalesAnalyst.new(self)
   end
+
+  def find_all_invoices_by_date(date)
+    @invoices.find_all_by_date(date)
+  end
 end

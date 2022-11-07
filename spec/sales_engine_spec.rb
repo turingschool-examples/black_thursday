@@ -86,4 +86,11 @@ RSpec.describe SalesEngine do
 
     expect(se.analyst).to be_a(SalesAnalyst)
   end
+
+  it 'can find all invoices by the date' do
+    se = SalesEngine.from_csv(:invoices => './data/invoices.csv')
+    
+
+    expect(se.find_all_invoices_by_date(Time.parse("2009-02-07"))).to eq([se.invoices.all[0]])
+  end
 end
