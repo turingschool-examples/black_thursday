@@ -59,7 +59,7 @@ RSpec.describe Customer do
       expect(customer_1.updated_at).to be_a(Time)
       expect(customer_2.updated_at).to be_a(Time)
       expect(customer_3.updated_at).to be_a(Time)
-      
+
       expect(customer_1.updated_at.round(2)).to eq(customer_1.created_at.round(2))
     end
   end
