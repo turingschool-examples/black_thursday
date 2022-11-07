@@ -194,14 +194,18 @@ class SalesAnalyst
     merchants_by_month_created[month.downcase]
   end
 
-  def most_sold_item_for_merchant(merchant_id)
+  def items_for_specific_merchant(merchant_id)
     specific_merchant_invoices = invoices.find_all_by_merchant_id(merchant_id)
     specific_invoice_items = specific_merchant_invoices.flat_map do |invoice|
       invoice_items.find_all_by_invoice_id(invoice.id)
     end
-    hash = specific_invoice_items.group_by do |invoice_item|
+    specific_invoice_items.group_by do |invoice_item|
       invoice_item.item_id
     end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    hash = items_for_specific_merchant(merchant_id)
     hash.map do |item_id, invoice_items|
       hash[item_id] = invoice_items.sum do |invoice_item|
         invoice_item.quantity
@@ -210,7 +214,17 @@ class SalesAnalyst
     top_item_id = hash.filter_map { |item_id, total_items| item_id if total_items == hash.values.max}
     top_item_id.map { |item| items.find_by_id(item)}
   end
-  
+
+  def best_item_for_merchant(merchant_id)
+    hash = items_for_specific_merchant(merchant_id)
+    hash.map do |item_id, invoice_items|
+      hash[item_id] = invoice_items.sum do |invoice_item|
+        invoice_item.quantity * invoice_item.unit_price
+      end
+    end
+    items.find_by_id(hash.key(hash.values.max))
+  end
+
   def merchants_with_pending_invoices
     pend_invoices = invoices.all.find_all do |invoice|
       !(invoice_paid_in_full?(invoice.id))
