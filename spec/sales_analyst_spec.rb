@@ -54,9 +54,49 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
 
+  context 'create invoice' do
+    let(:invoice) { sales_engine.invoice_repository.create ({
+          id: 1,
+          customer_id: 1,
+          merchant_id: 12335938,
+          status: "pending",
+          created_at: Time.now,
+          updated_at: Time.now
+          })}
   it '#invoice_paid_in_full?' do
-  sales_analyst = @sales_engine.analyst
-  expect(sales_analyst.invoice_paid_in_full?(75)).to eq(false)
+    sales_analyst = @sales_engine.analyst
+    expect(sales_analyst.invoice_paid_in_full?(12343)).to eq(false)
+    transaction = @sales_engine.transactions.create({
+    :invoice_id => 12343,
+    :credit_card_number => "4242424242424242",
+    :credit_card_expiration_date => "0220",
+    :result => "success",
+    :created_at => Time.now,
+    :updated_at => Time.now
+  })
+  expect(sales_analyst.invoice_paid_in_full?(12343)).to eq(true)
 
+  end
+
+  it '#invoice_total returns the total $ amount of the 
+      Invoice with the corresponding id.' do
+
+
+        sales_analyst = @sales_engine.analyst
+        @sales_engine.invoice_items.create({
+          :id => 12343,
+          :item_id => 7,
+          :invoice_id => 12343,
+          :quantity => 10,
+          :unit_price => BigDecimal(10.99, 4),
+          :created_at => Time.now,
+          :updated_at => Time.now
+        })
+        
+        expect(sales_analyst.invoice_total(8)).to eq(109.90)
+
+
+  end
 end
+
 end

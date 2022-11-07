@@ -85,26 +85,11 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    # sales_analyst.invoice_paid_in_full?(invoice_id) returns true
-    #  if the Invoice with the corresponding id is paid in full
-
-    # given invoiceid, find transaction
-
-    # transaction status == success
-
     purchases = sales_engine.transactions.find_all_by_invoice_id(invoice_id)
-    #  => [transactions]
     if purchases.empty?
       false
     else
     purchases.first.result == :success 
     end
-
-    # test = purchases.one? do |transaction|
-    #   require 'pry'; binding.pry
-    #   transaction.result == :success
-    # end
-
-    # require 'pry'; binding.pry
   end
 end
