@@ -292,5 +292,6 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.invoice_paid_in_full?(1)).to be(true)
     expect(sales_analyst.invoice_paid_in_full?(2)).to be(false)
+    expect(sales_analyst.invoice_paid_in_full?(3)).to be(false)
   end
 end
