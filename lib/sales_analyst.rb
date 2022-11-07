@@ -157,6 +157,16 @@ class SalesAnalyst
     end
   end
 
+  def total_revenue_by_date(date_input)
+    invoice_by_day = invoices.all.find_all do |invoice|
+      date_input.strftime("%D") == invoice.created_at.strftime("%D")
+    end
+
+    invoice_by_day.sum do |invoice|
+      invoice_total(invoice.id)
+    end
+  end
+
   def top_revenue_earners(top_earners = 20)
     sorted_merchants = merchants.all.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
@@ -185,3 +195,18 @@ class SalesAnalyst
   end
 end
 
+  def top_revenue_earners(x)
+
+  end
+
+  def merchants_with_pending_invoices
+
+  end
+
+  def merchants_with_only_one_item
+
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+
+  end
