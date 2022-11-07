@@ -113,6 +113,13 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_only_one_item_registered_in_month('May').first).to be_a Merchant
   end
 
+  it 'can return the most sold items for a specific merchant' do
+    expected = sales_analyst.most_sold_item_for_merchant(12334105)
+
+    expect(expected[0].id).to eq 263541512
+    expect(expected).to be_a Array
+    expect(expected[0]).to be_a Item
+  end
   it 'can return which merchants have pending invoices in an array' do
     expect(sales_analyst.merchants_with_pending_invoices.count).to eq(467)
     expect(sales_analyst.merchants_with_pending_invoices).to be_a(Array)
