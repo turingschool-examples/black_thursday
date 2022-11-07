@@ -33,6 +33,17 @@ RSpec.describe TransactionRepository do
     end
   end
 
+  describe '#find_by_id' do
+    it 'returns an instance of transaction with a matching id' do
+      transaction_repository.add_to_repo(t_1)
+      transaction_repository.add_to_repo(t_2)
+
+      expect(transaction_repository.find_by_id(6)).to eq(t_1)
+      expect(transaction_repository.find_by_id(1)).to eq(t_2)
+      expect(transaction_repository.find_by_id(9)).to be_nil
+    end
+  end
+
 end
 
                               
