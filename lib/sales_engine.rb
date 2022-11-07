@@ -61,7 +61,7 @@ class SalesEngine
       @customers = nil
     end
 
-    @analyst = SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @transactions, @customers)
+    @analyst = SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @transactions)
   end
 
   def self.from_csv(csv_hash)

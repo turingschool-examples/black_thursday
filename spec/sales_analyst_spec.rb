@@ -237,29 +237,29 @@ RSpec.describe SalesAnalyst do
                         :updated_at => Time.now})}
     let (:invoice_items) {[invoice_item_1, invoice_item_2, invoice_item_3]}
     let (:invoice_item_repo) {InvoiceItemRepository.new(invoice_items)}
-    let (:transaction_1) {Transaction.new{:id => 1,
+    let (:transaction_1) {Transaction.new({:id => 1,
                         :invoice_id => 1,
                         :credit_card_number => "2424242424242424",
                         :credit_card_expiration_date => "0424",
                         :result => "success",
                         :created_at => Time.now,
-                        :updated_at => Time.now}}
-    let (:transaction_2) {Transaction.new{:id => 2,
+                        :updated_at => Time.now})}
+    let (:transaction_2) {Transaction.new({:id => 2,
                         :invoice_id => 2,
                         :credit_card_number => "2424242424242424",
                         :credit_card_expiration_date => "0424",
                         :result => "failed",
                         :created_at => Time.now,
-                        :updated_at => Time.now}}
-    let (:transaction_3) {Transaction.new{:id => 3,
+                        :updated_at => Time.now})}
+    let (:transaction_3) {Transaction.new({:id => 3,
                         :invoice_id => 3,
                         :credit_card_number => "2424242424242424",
                         :credit_card_expiration_date => "0424",
                         :result => "failed",
                         :created_at => Time.now,
-                        :updated_at => Time.now}}
+                        :updated_at => Time.now})}
     let (:transactions) {[transaction_1, transaction_2, transaction_3]}
-    let (:transaction_repo) {[TransactionRepository.new(transactions)]}
+    let (:transaction_repo) {TransactionRepository.new(transactions)}
     let (:sales_analyst) {SalesAnalyst.new(item_repo, merchant_repo, invoice_repo, invoice_item_repo, transaction_repo)}
 
     it '#invoice_paid_in_full? returns true if transaction is successful, false otherwise' do

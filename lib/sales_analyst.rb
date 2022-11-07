@@ -152,4 +152,13 @@ class SalesAnalyst
     end
     ((num_status.to_f / invoices.all.count.to_f) * 100).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    transaction = @transactions.find_all_by_invoice_id(invoice_id)
+    if transaction[0].result == "success"
+      return true
+    else
+      return false
+    end
+  end
 end
