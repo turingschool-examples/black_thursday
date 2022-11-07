@@ -9,8 +9,8 @@ RSpec.describe ItemRepository do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => "1099",
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.round(2),
+        :updated_at  => Time.now.round(2),
         :merchant_id => 2}) }
 
   let(:item_2) { Item.new({
@@ -18,8 +18,8 @@ RSpec.describe ItemRepository do
         :name        => "Pen",
         :description => "You can use it to permanently write things",
         :unit_price  => "1299",
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.round(2),
+        :updated_at  => Time.now.round(2),
         :merchant_id => 7}) }
 
   let(:item_3) { Item.new({
@@ -27,8 +27,8 @@ RSpec.describe ItemRepository do
         :name        => "Stapler",
         :description => "Attaches pieces of paper together",
         :unit_price  => "1999",
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.round(2),
+        :updated_at  => Time.now.round(2),
         :merchant_id => 3}) }
 
   let(:item_4) { Item.new({
@@ -36,8 +36,8 @@ RSpec.describe ItemRepository do
         :name        => "Keyboard",
         :description => "Allows text input to a computer",
         :unit_price  => "2999",
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.round(2),
+        :updated_at  => Time.now.round(2),
         :merchant_id => 9}) }
 
   let(:item_5) { Item.new({
@@ -45,8 +45,8 @@ RSpec.describe ItemRepository do
         :name        => "Mouse",
         :description => "Moves the cursor around",
         :unit_price  => "2399",
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.round(2),
+        :updated_at  => Time.now.round(2),
         :merchant_id => 9}) }
 
   describe '#initialize' do
@@ -157,16 +157,16 @@ RSpec.describe ItemRepository do
         :name        => "Eraser",
         :description => "Erases pencil markings",
         :unit_price  => BigDecimal(2.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.round(2),
+        :updated_at  => Time.now.round(2),
         :merchant_id => 2})
 
       ir.create({
         :name        => "Scissors",
         :description => "They cut things",
         :unit_price  => BigDecimal(7.99,4),
-        :created_at  => Time.now,
-        :updated_at  => Time.now,
+        :created_at  => Time.now.round(2),
+        :updated_at  => Time.now.round(2),
         :merchant_id => 2})
 
       expect(ir.all[1].id).to eq(2)
