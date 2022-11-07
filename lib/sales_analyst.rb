@@ -1,5 +1,4 @@
-require 'bigdecimal'
-require 'csv'
+require_relative '../requirements'
 
 class SalesAnalyst
   attr_reader :sales_engine

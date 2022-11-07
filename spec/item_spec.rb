@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative '../requirements'
 
 RSpec.describe Item do
   let!(:time_now) {Time.now}

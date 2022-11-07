@@ -1,13 +1,4 @@
-require './lib/invoice_item'
-require './lib/invoice_item_repository'
-require './lib/sales_engine'
-require './lib/merchant'
-require './lib/merchant_repository'
-require './lib/item_repository'
-require './lib/item'
-require './lib/sales_analyst'
-require './lib/transaction'
-require './lib/transaction_repository'
+require_relative '../requirements'
 
 RSpec.describe InvoiceItemRepository do
   let!(:invoice_item_repository){InvoiceItemRepository.new('./data/invoice_items.csv', nil)}

@@ -1,5 +1,4 @@
-require 'rspec'
-require './lib/customer'
+require_relative '../requirements'
 
 RSpec.describe Customer do
 

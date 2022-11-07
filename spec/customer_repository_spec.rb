@@ -1,12 +1,4 @@
-require 'rspec'
-require './lib/item'
-require './lib/item_repository'
-require './lib/sales_engine'
-require './lib/merchant_repository'
-require './lib/merchant'
-require 'csv'
-require './lib/customer'
-require './lib/customer_repository'
+require_relative '../requirements'
 
 RSpec.describe CustomerRepository do
 

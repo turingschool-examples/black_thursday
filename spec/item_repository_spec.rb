@@ -1,12 +1,4 @@
-require 'rspec'
-require './lib/item'
-require './lib/item_repository'
-require './lib/sales_engine'
-require './lib/merchant_repository'
-require './lib/merchant'
-require 'csv'
-
-# require './lib/sales_engine'
+require_relative '../requirements'
 
 RSpec.describe ItemRepository do
   # let!(:time_now) {Time.now}

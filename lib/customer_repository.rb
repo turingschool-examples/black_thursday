@@ -1,3 +1,5 @@
+require_relative '../requirements'
+
 class CustomerRepository
 
   def initialize(customers, engine)

@@ -1,10 +1,4 @@
-require 'rspec'
-require './lib/item'
-require './lib/item_repository'
-require './lib/sales_engine'
-require './lib/merchant_repository'
-require './lib/merchant'
-require 'csv'
+require_relative '../requirements'
 
 RSpec.describe MerchantRepository do
   let!(:mr) {MerchantRepository.new("./data/merchants.csv", nil)}

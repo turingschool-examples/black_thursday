@@ -1,5 +1,4 @@
-require 'time'
-require 'csv'
+require_relative '../requirements'
 
 class TransactionRepository
 

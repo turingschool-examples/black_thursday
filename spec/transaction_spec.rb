@@ -1,5 +1,5 @@
-require './lib/transaction'
-require './lib/transaction_repository'
+require_relative '../requirements'
+
 
 RSpec.describe Transaction do
   let!(:time_now) {Time.now}

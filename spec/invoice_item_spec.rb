@@ -1,5 +1,4 @@
-require './lib/invoice_item'
-require './lib/invoice_item_repository'
+require_relative '../requirements'
 
 RSpec.describe InvoiceItem do
   let!(:invoice_item) {InvoiceItem.new({

@@ -1,6 +1,4 @@
-require 'time'
-require './lib/invoice_repository'
-require './lib/invoice'
+require_relative '../requirements'
 
 RSpec.describe Invoice do
   let!(:invoice) {Invoice.new({

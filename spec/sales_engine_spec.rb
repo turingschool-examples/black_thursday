@@ -1,19 +1,4 @@
-require 'csv'
-require './lib/sales_engine'
-require './lib/sales_analyst'
-require './lib/merchant'
-require './lib/merchant_repository'
-require './lib/item_repository'
-require './lib/item'
-require './lib/invoice'
-require './lib/invoice_repository'
-require './lib/invoice_item'
-require './lib/invoice_item_repository'
-require './lib/transaction'
-require './lib/transaction_repository'
-require './lib/customer'
-require './lib/customer_repository'
-
+require_relative '../requirements'
 
 RSpec.describe SalesEngine do
   let!(:sales_engine) {SalesEngine.from_csv({
