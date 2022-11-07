@@ -161,7 +161,7 @@ class SalesAnalyst
     sorted_merchants = merchants.all.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
     end
-    sorted_merchants.last(top_earners)
+    sorted_merchants.reverse.first(top_earners)
   end
 
   def revenue_by_merchant(merchant_id)
@@ -175,6 +175,13 @@ class SalesAnalyst
     merchants.all.find_all do |merchant|
       items.find_all_by_merchant_id(merchant.id).length <= 1
     end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_by_month_created = merchants_with_only_one_item.group_by do |merchant|
+      merchant.created_at.strftime("%B").downcase
+    end
+    merchants_by_month_created[month.downcase]
   end
 end
 

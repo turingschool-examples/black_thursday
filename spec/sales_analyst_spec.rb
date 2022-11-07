@@ -98,4 +98,10 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_only_one_item.length).to eq 243
     expect(sales_analyst.merchants_with_only_one_item.first).to be_a Merchant
   end
+
+  it 'can return the merchants that only offer one item by the month they registered' do
+    expect(sales_analyst.merchants_with_only_one_item_registered_in_month('May')).to be_a Array
+    expect(sales_analyst.merchants_with_only_one_item_registered_in_month('March').length).to eq 21
+    expect(sales_analyst.merchants_with_only_one_item_registered_in_month('May').first).to be_a Merchant
+  end
 end
