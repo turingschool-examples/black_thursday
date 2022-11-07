@@ -146,4 +146,11 @@ class SalesAnalyst
   def invoice_status(status)
     ((status_array(status).count / invoices.all.count.to_f) * 100).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @engine.find_all_transactions_by_invoice_id(invoice_id)
+    transactions.any? do |transaction|
+      transaction.result == :success 
+    end
+  end
 end
