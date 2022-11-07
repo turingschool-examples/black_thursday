@@ -2,7 +2,7 @@ require_relative 'sanitize'
 require 'time'
 
 class Transaction
-include Sanitize
+  include Sanitize
   attr_reader :id,
               :invoice_id,
               :credit_card_number,
