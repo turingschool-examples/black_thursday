@@ -17,14 +17,18 @@ RSpec.describe SalesAnalyst do
     items: "./data/items.csv",
     merchants: "./data/merchants.csv",
     invoices: "./data/invoices.csv",
-    customers: "./data/customers.csv"
+    customers: "./data/customers.csv",
+    invoice_items: "./data/invoice_items.csv",
+    transactions: "./data/transactions.csv"
     }) }
 
   it 'exists' do
     sales_analyst = SalesAnalyst.new( ItemRepository.new,
                                       MerchantRepository.new,
                                       InvoiceRepository.new,
-                                      CustomerRepository.new, 
+                                      CustomerRepository.new,
+                                      InvoiceItemRepository.new, 
+                                      TransactionRepository.new, 
                                     )
 
     expect(sales_analyst).to be_a(SalesAnalyst)
