@@ -66,8 +66,22 @@ RSpec.describe CustomerRepository do
       cr.add_to_repo(customer_4)
 
       expect(cr.find_all_by_first_name('Argo')).to eq([customer_3, customer_4])
+      expect(cr.find_all_by_first_name('Arg')).to eq([customer_3, customer_4])
+      expect(cr.find_all_by_first_name('Jo')).to eq([customer_1])
       expect(cr.find_all_by_first_name('Prometheus')).to eq([])
     end
   end
-  
+
+  describe '#find_all_by_last_name' do
+    it 'finds all last names that match substring provided or returns []' do
+      cr.add_to_repo(customer_1)
+      cr.add_to_repo(customer_2)
+      cr.add_to_repo(customer_3)
+      cr.add_to_repo(customer_4)
+
+      expect(cr.find_all_by_last_name('Clark')).to eq([customer_1, customer_2])
+      expect(cr.find_all_by_last_name('Prometheus')).to eq([])
+    end
+  end
+
 end

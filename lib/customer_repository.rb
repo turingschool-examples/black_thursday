@@ -8,4 +8,10 @@ class CustomerRepository < Repository
       customer.first_name.downcase.include?(name_to_search.downcase)
     end
   end
+
+  def find_all_by_last_name(name_to_search)
+    @all.select do |customer|
+      customer.last_name.downcase.include?(name_to_search.downcase)
+    end
+  end
 end
