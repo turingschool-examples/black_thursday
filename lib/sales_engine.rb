@@ -63,10 +63,13 @@ class SalesEngine
   def destination(method)
     return @invoices if invoices.respond_to?(method)
     return @merchants if merchants.respond_to?(method)
+    return @items if items.respond_to?(method)
+    return @invoice_items if invoice_items.respond_to?(method)
+    return @transactions if transactions.respond_to?(method)
+    return @customers if customers.respond_to?(method)
   end
 
   def send_down(message = {})
     destination(message[:method]).send(message[:method], *message[:args])
   end
-
 end
