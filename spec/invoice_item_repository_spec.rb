@@ -135,11 +135,11 @@ RSpec.describe InvoiceItemRepository do
                     })
 
       expect(iir.all[0].quantity).to eq(55)
-      # expect(iir.all[0].unit_price).to eq(22.99)
+      expect(iir.all[0].unit_price).to eq(BigDecimal(2299,4))
       expect(iir.all[1].quantity).to eq(56)
-      # expect(iir.all[0].unit_price).to eq(23.99)
+      expect(iir.all[1].unit_price).to eq(BigDecimal(2399, 4))
       expect(iir.all[2].quantity).to eq(57)
-      # expect(iir.all[0].unit_price).to eq(24.99)
+      expect(iir.all[2].unit_price).to eq(BigDecimal(2499, 4))
     end
   end
 
