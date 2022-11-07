@@ -105,7 +105,7 @@ RSpec.describe CustomerRepository do
   end
 
   describe '#find_all_by_first_name' do
-    it 'returns an empty array or one or more customers matching the substring fragment first name' do
+    it 'returns customers matching the substring fragment first name' do
       cr = CustomerRepository.new('./data/test_data/customers_test.csv')
 
       fragment = 'ia'
@@ -118,7 +118,7 @@ RSpec.describe CustomerRepository do
   end
 
   describe '#find_all_by_last_name' do
-    it 'returns an empty array or one or more customers matching the substring fragment last name' do
+    it 'returns customers matching the substring fragment last name' do
       cr = CustomerRepository.new('./data/test_data/customers_test.csv')
 
       fragment = 'on'
