@@ -37,25 +37,25 @@ RSpec.describe Repository do
     it 'returns all instances with matching merchant id' do
       item_1 = double({
             :id          => 1,
-            :name        => "Pencil",
-            :description => "You can use it to write things",
-            :unit_price  => "1099",
+            :name        => 'Pencil',
+            :description => 'You can use it to write things',
+            :unit_price  => '1099',
             :created_at  => Time.now,
             :updated_at  => Time.now,
             :merchant_id => 2})
       item_2 = double({
             :id          => 2,
-            :name        => "Pen",
-            :description => "You can use it to permanently write things",
-            :unit_price  => "1299",
+            :name        => 'Pen',
+            :description => 'You can use it to permanently write things',
+            :unit_price  => '1299',
             :created_at  => Time.now,
             :updated_at  => Time.now,
             :merchant_id => 7})
       item_3 = double({
             :id          => 3,
-            :name        => "Stapler",
-            :description => "Attaches pieces of paper together",
-            :unit_price  => "1999",
+            :name        => 'Stapler',
+            :description => 'Attaches pieces of paper together',
+            :unit_price  => '1999',
             :created_at  => Time.now,
             :updated_at  => Time.now,
             :merchant_id => 7})
@@ -88,11 +88,11 @@ RSpec.describe Repository do
   end
 
   describe '#child_class_name' do
-    it 'returns a string of what comes before the Repository for any Repository child class' do
+    it 'returns a string of what comes before the Repository in child class' do
       class ThingRepository < Repository
       end
       thing_repo = ThingRepository.new
-      expect(thing_repo.child_class_name).to eq("Thing")
+      expect(thing_repo.child_class_name).to eq('Thing')
     end
   end
 

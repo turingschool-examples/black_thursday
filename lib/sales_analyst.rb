@@ -118,7 +118,7 @@ class SalesAnalyst
     max_day = invoice_days.max_by do |key, value|
       value
     end
-    max_days = invoice_days.select do |key, value|
+    invoice_days.select do |key, value|
       value == max_day[1]
     end.keys
   end
