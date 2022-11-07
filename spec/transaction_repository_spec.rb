@@ -33,7 +33,7 @@ end
   end
 
   it '#find_all_by_credit_card_number' do
-  expect(transaction.find_all_by_credit_card_number(444)).to eq([])
+  expect(transactions.find_all_by_credit_card_number(444)).to eq([])
 end
 
 
