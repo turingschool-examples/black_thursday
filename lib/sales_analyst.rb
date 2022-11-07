@@ -148,7 +148,6 @@ class SalesAnalyst
     (invoice_count.to_f / 7).truncate(2)
   end
 
-
   def average_invoice_standard_deviation
     sum = 0
     invoice_count_per_day.each do |day, count|
@@ -157,36 +156,14 @@ class SalesAnalyst
     invoice_standard_deviation = Math.sqrt(sum / (invoice_count_per_day.count - 1)).round(2)
   end
 
-  # def invoices_by_days
-  #   sales_engine.invoices.all.map do |invoice|
-  #     invoice.created_at.strftime("%A")
-  #     require 'pry'; binding.pry
-  #   end
-  #   # all invoices by map
-  # end
-  
   def top_days_by_invoice_count
-
+    top_days = []
+    invoice_count_per_day.each do |day, count|
+      top_days << day if count > (average_invoices_per_day + average_invoice_standard_deviation)
+    end
+    top_days
   end
 
-  #   #find invoice count for each day
-  #  invoice_count_per_day.map do |day, invoice_count|
-  #     invoice_count_per_day.values
-  #   end
-  #   invoice_counts  
-  #   require 'pry'; binding.pry
-  # end
-
-    # variable = sales_engine.invoices.all.find_all do |day, count|
-    #   count > (invoice_average_per_day OR invoice count for EACH day + average_invoice_standard_deviation)
-    #   end
-    #   variable.map do |day|
-    #     day[0]
-    
-    # find which days that invoices created at are more than ONE sd ABOVE the mean
-      #average_invoice_standard_deviation
-    # array of (days) strings
-  
   def invoice_status(status)
     case status
     when :pending

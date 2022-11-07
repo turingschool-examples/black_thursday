@@ -81,53 +81,31 @@ RSpec.describe SalesAnalyst do
 
   # ======================================= #
 
-  xit 'has an average number of invoices per merchant' do
+  it 'has an average number of invoices per merchant' do
     expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
     expect(sales_analyst.average_invoices_per_merchant.class).to eq(Float)
   end
 
-  xit 'has a total number of invoices' do
+  it 'has a total number of invoices' do
     expect(sales_analyst.invoice_count).to eq(4985)
   end
   
-  xit 'can return the standard deviation of average number of invoices per merchant' do
+  it 'can return the standard deviation of average number of invoices per merchant' do
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation.class).to eq(Float)
   end
   
-  xit 'can return the merchant with the highest invoice count' do
+  it 'can return the merchant with the highest invoice count' do
     expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
     expect(sales_analyst.top_merchants_by_invoice_count.first.class).to eq(Merchant)
   end
   
-  xit 'can return the merchant with the lowest invoice count' do
+  it 'can return the merchant with the lowest invoice count' do
     expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
     expect(sales_analyst.bottom_merchants_by_invoice_count.first.class).to eq(Merchant)
   end
-
-  # describe 'invoices' do
-  #   let!(:sales_engine) {SalesEngine.from_csv({
-  #     :items     => "./data/test_data/test_items.csv",
-  #     :merchants => "./data/test_data/test_merchants.csv",
-  #     :customers => "./data/test_data/test_customers.csv",
-  #     :invoices => "./data/test_data/test_invoices.csv",
-  #     :invoice_items => "./data/test_data/test_invoice_items.csv",
-  #     :transactions => "./data/test_data/test_transactions.csv"
-  #     })}
-  
-  #   let!(:sales_analyst) {sales_engine.analyst}
-
-    # it 'can return the invoice count by days' do
-    #   require 'pry'; binding.pry
-    #   expect(sales_analyst.invoice_by_days)
-    # end
-
-    # it 'can return the avergae invoice count from the test invoices' do
-    #   require 'pry'; binding.pry
-    #   expect(sales_analyst.invoice_average_per_day.length).to eq(200)
-    # end
     
-  it 'can have a number of invoices per day' do
+  xit 'can have a number of invoices per day' do
     expect(sales_analyst.invoice_count_per_day).to be_a(Hash)
     expect(sales_analyst.invoice_count_per_day.values.sum).to eq(sales_analyst.invoice_count)
   end
@@ -145,9 +123,8 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
     expect(sales_analyst.top_days_by_invoice_count.first.class).to eq(String)
   end
-  # end
   
-  xit 'can return percentage of invoices that are not shipped' do
+  it 'can return percentage of invoices that are not shipped' do
     expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
     expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
     expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
