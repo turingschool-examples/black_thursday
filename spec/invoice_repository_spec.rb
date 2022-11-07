@@ -248,4 +248,12 @@ RSpec.describe InvoiceRepository do
       expect(i.status).to eq("completed")
       expect(i.updated_at).not_to eq(Time.parse(updated))
   end
+
+  it 'can find all invoices by the date' do
+    ivr = InvoiceRepository.new
+    file = './data/invoices.csv'
+    ivr.load_data(file)
+
+    expect(ivr.find_all_by_date(Time.parse("2009-02-07"))).to eq(ivr.all[0])
+  end
 end
