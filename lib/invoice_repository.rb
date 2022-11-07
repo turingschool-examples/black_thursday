@@ -1,3 +1,5 @@
+require 'time'
+
 class InvoiceRepository
   attr_reader :invoices
 
@@ -25,7 +27,6 @@ class InvoiceRepository
       return nil
     else
       @invoices.find_all do |invoice|
-        # require 'pry'; binding.pry
         invoice.customer_id == id
       end
     end
@@ -46,25 +47,28 @@ class InvoiceRepository
       return []
     else
       @invoices.find_all do |invoice|
-        # require 'pry'; binding.pry
         invoice.merchant_id == id
       end
     end
   end
 
   def find_all_by_status(status)
-      @invoices.find_all do |invoice|
-        invoice.status == status
+    @invoices.find_all do |invoice|
+      invoice.status == status
     end
   end
 
   def create(attribute)
     new_id = @invoices.last.id + 1
-    @invoices << Invoice.new({:id => new_id, :customer_id => attribute[:customer_id],
-      :merchant_id => attribute[:merchant_id],
-      :status      => attribute[:attribute],
-      :created_at  => Time.now,
-      :updated_at  => Time.now}, self)
+    @invoices << Invoice.new(
+      {
+      :id           => new_id, 
+      :customer_id  => attribute[:customer_id],
+      :merchant_id  => attribute[:merchant_id],
+      :status       => attribute[:attribute],
+      :created_at   => attribute[:created_at],
+      :updated_at   => attribute[:updated_at]
+      }, self)
   end
 
   def update(id, info)
@@ -96,7 +100,7 @@ class InvoiceRepository
     end
   end
   
-    def inspect
+  def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
 end
