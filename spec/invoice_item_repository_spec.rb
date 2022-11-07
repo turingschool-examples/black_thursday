@@ -8,6 +8,7 @@ require './lib/item'
 require './lib/sales_analyst'
 require './lib/transaction'
 require './lib/transaction_repository'
+require 'time'
 
 RSpec.describe InvoiceItemRepository do
   let!(:invoice_item_repository){InvoiceItemRepository.new('./data/invoice_items.csv', nil)}
@@ -70,7 +71,7 @@ RSpec.describe InvoiceItemRepository do
     expect(expected.empty?).to eq true
   end
 
-  xit "#create creates a new invoice item instance" do
+  it "#create creates a new invoice item instance" do
     attributes = {
       :item_id => 7,
       :invoice_id => 8,
@@ -83,7 +84,7 @@ RSpec.describe InvoiceItemRepository do
     # require 'pry'; binding.pry
     invoice_item_repository.find_by_id(21831)
     # require 'pry'; binding.pry
-    expect(invoice_item_repository.item_id).to eq 7
+    expect(invoice_item_repository.find_by_id(21831).item_id).to eq 7
   end
 
   it "#update updates an invoice item" do
