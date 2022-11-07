@@ -32,11 +32,11 @@ class MerchantRepository < GeneralRepo
   end
 
   def average_items_per_merchant
-    average(number_of_items_per_merchant.sum, all.length).round(2)
+    @_average_items_per_merchant ||= average(number_of_items_per_merchant.sum, all.length).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    deviation(number_of_items_per_merchant, average_items_per_merchant).round(2)
+    @_average_items_per_merchant_standard_deviation ||= deviation(number_of_items_per_merchant, average_items_per_merchant).round(2)
   end
 
   def number_of_invoices_per_merchant
@@ -46,11 +46,11 @@ class MerchantRepository < GeneralRepo
   end
 
   def average_invoices_per_merchant
-    average(number_of_invoices_per_merchant.sum, all.length).round(2)
+    @_av_inv_per_mer ||= average(number_of_invoices_per_merchant.sum, all.length).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    deviation(number_of_invoices_per_merchant, average_invoices_per_merchant).round(2)
+    @_av_inv_per_mer_std_dev ||= deviation(number_of_invoices_per_merchant, average_invoices_per_merchant).round(2)
   end
 
   def top_merchants_by_invoice_count
