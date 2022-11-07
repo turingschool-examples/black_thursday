@@ -193,20 +193,21 @@ class SalesAnalyst
     end
     merchants_by_month_created[month.downcase]
   end
+
+  def most_sold_item_for_merchant(merchant_id)
+    specific_merchant_invoices = invoices.find_all_by_merchant_id(merchant_id)
+    specific_invoice_items = specific_merchant_invoices.flat_map do |invoice|
+      invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+    hash = specific_invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+    hash.map do |item_id, invoice_items|
+      hash[item_id] = invoice_items.sum do |invoice_item|
+        invoice_item.quantity
+      end
+    end
+    top_item_id = hash.filter_map { |item_id, total_items| item_id if total_items == hash.values.max}
+    top_item_id.map { |item| items.find_by_id(item)}
+  end
 end
-
-  def top_revenue_earners(x)
-
-  end
-
-  def merchants_with_pending_invoices
-
-  end
-
-  def merchants_with_only_one_item
-
-  end
-
-  def merchants_with_only_one_item_registered_in_month(month)
-
-  end
