@@ -104,12 +104,40 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
     expect(sales_analyst.bottom_merchants_by_invoice_count.first.class).to eq(Merchant)
   end
+
+  # describe 'invoices' do
+  #   let!(:sales_engine) {SalesEngine.from_csv({
+  #     :items     => "./data/test_data/test_items.csv",
+  #     :merchants => "./data/test_data/test_merchants.csv",
+  #     :customers => "./data/test_data/test_customers.csv",
+  #     :invoices => "./data/test_data/test_invoices.csv",
+  #     :invoice_items => "./data/test_data/test_invoice_items.csv",
+  #     :transactions => "./data/test_data/test_transactions.csv"
+  #     })}
   
-  it 'can return the days with the highest invoice count' do
-    expect(sales_analyst.top_days_by_invoice_count.length).to eq(1)
-    expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
-    expect(sales_analyst.top_days_by_invoice_count.first.class).to eq(String)
-  end
+  #   let!(:sales_analyst) {sales_engine.analyst}
+
+    # it 'can return the invoice count by days' do
+    #   require 'pry'; binding.pry
+    #   expect(sales_analyst.invoice_by_days)
+    # end
+
+    # it 'can return the avergae invoice count from the test invoices' do
+    #   require 'pry'; binding.pry
+    #   expect(sales_analyst.invoice_average_per_day.length).to eq(200)
+    # end
+    
+    it 'can have a number of invoices per day' do
+      expect(sales_analyst.invoice_count_per_day).to be_a(Hash)
+      expect(sales_analyst.invoice_count_per_day.values.sum).to eq(sales_analyst.invoice_count)
+    end
+
+    it 'can return the day with the highest invoice count' do
+      expect(sales_analyst.top_days_by_invoice_count.length).to eq(1)
+      expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
+      expect(sales_analyst.top_days_by_invoice_count.first.class).to eq(String)
+    end
+  # end
   
   xit 'can return percentage of invoices that are not shipped' do
     expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
