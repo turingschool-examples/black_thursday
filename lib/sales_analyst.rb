@@ -94,9 +94,15 @@ class SalesAnalyst
   end
 
   def invoice_total(invoice_id)
+    # sales_analyst.invoice_total(invoice_id) returns 
+    # the total $ amount of the Invoice with the corresponding id.
+
+    # given invoiceid, find invoice obj
+    # with invoice obj, multiply quantity, unit_price
+    invoice_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
     # require 'pry'; binding.pry
-  invoice_item = sales_engine.invoice_items.find_by_id(invoice_id)
-  invoice_item.unit_price * invoice_item.quantity
+    invoice_items.sum { |invoice_item| invoice_item.quantity*invoice_item.unit_price}
+
 
 
   end
