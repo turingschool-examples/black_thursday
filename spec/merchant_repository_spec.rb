@@ -181,7 +181,7 @@ describe MerchantRepository do
       allow(mr.all[2]).to receive(:_invoices).and_return(['invoice1', 'invoice2', 'invoice3'])
       allow(mr.all[3]).to receive(:_invoices).and_return(['invoice1'])
 
-      expect(mr.top_merchants_by_invoice_count).to eq([])
+      expect(mr.bottom_merchants_by_invoice_count).to eq([])
     end
   end
 
