@@ -326,7 +326,7 @@ end
     end
   end
 
-  describe '#invoice_total(1)' do # change test later to other invoice number
+  describe '#invoice_total(1)' do
     it 'will return the invoice total for that id' do
 
       expect(sales_analyst.invoice_total(1)).to eq 21067.77
@@ -371,6 +371,20 @@ end
     end
   end
 
+  describe '#merchants_with_only_one_item_registered_in_month' do
+    it "returns merchants with only one invoice in given month" do
+      expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
+
+      expect(expected.length).to eq 21
+      expect(expected.first.class).to eq Merchant
+
+      expected = sales_analyst.merchants_with_only_one_item_registered_in_month("June")
+
+      expect(expected.length).to eq 18
+      expect(expected.first.class).to eq Merchant
+    end
+  end
+
   describe '#month_merchant_created' do
     it 'returns the month the merchant was created' do
       merchant = Merchant.new({:id => 1, :name => "Turing School", :created_at  => Time.now})
@@ -379,29 +393,30 @@ end
       expect(sales_analyst.month_merchant_created(merchant)).to eq 11
     end
   end
-  
-  xit "#merchants_with_only_one_item_registered_in_month returns merchants with only one invoice in given month" do
-    expected = sales_analyst.merchants_with_only_one_item_registered_in_month("March")
 
-    expect(expected.length).to eq 21
-    expect(expected.first.class).to eq Merchant
-
-    expected = sales_analyst.merchants_with_only_one_item_registered_in_month("June")
-
-    expect(expected.length).to eq 18
-    expect(expected.first.class).to eq Merchant
+  describe '#merchant_ids_in_month' do
+    it 'returns all the merchant ids in the month' do
+      month = sales_analyst.merchant_ids_in_month("March")
+      expect(month.length).to eq 422
+    end
   end
 
-  it "#revenue_by_merchant returns the revenue for given merchant" do
-    expect(sales_analyst.revenue_by_merchant(12337411)).to eq (68159.36)
-    expect(sales_analyst.revenue_by_merchant(12337411).class).to eq BigDecimal
+  describe '#revenue_by_merchant' do
+    it "#revenue_by_merchant returns the revenue for given merchant" do
+      expect(sales_analyst.revenue_by_merchant(12337411)).to eq (68159.36)
+      expect(sales_analyst.revenue_by_merchant(12337411).class).to eq BigDecimal
+    end
   end
 
-  xit '#most_sold_item_for_merchant returns the most sold item' do
-    expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq [item]
+  describe '#most_sold_item_for_merchant' do
+    xit 'returns the most sold item' do
+      expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq [item]
+    end
   end
 
-  xit '#best_item_for_merchant returns an item based off revenue generated' do
-    expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq [item]
+  describe '#best_item_for_merchant' do
+    xit 'returns an item based off revenue generated' do
+      expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq [item]
+    end
   end
 end
