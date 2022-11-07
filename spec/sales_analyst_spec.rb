@@ -40,6 +40,7 @@ RSpec.describe SalesAnalyst do
   it 'can return the average number of invoices per merchant standard deviation' do
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq (3.29)
   end
+
   it 'can return golden items' do
     expect(sales_analyst.golden_items.count).to eq(5)
     expect(sales_analyst.golden_items).to be_a(Array)
@@ -85,6 +86,11 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.top_revenue_earners(10)).to be_a Array
     expect(sales_analyst.top_revenue_earners(10).length).to eq (10)
     expect(sales_analyst.top_revenue_earners.length).to eq (20)
+  end
+
+  it 'can return total revenue by date' do
+    date = Time.parse("2009-02-07")
+    expect(sales_analyst.total_revenue_by_date(date)).to eq 21067.77
   end
 
   it 'can return total revenue for a single merchant' do
