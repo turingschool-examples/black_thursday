@@ -51,6 +51,28 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  describe '#top_merchants_by_invoice_count' do
+    it 'returns a collection of the merchants with a high deviation to the average' do
+      expected = analyst.top_merchants_by_invoice_count
+      expect(expected).to be_a Array
+      expect(expected).to all(be_a Merchant)
+      expected.each do |merchant|
+        expect(merchant.invoice_count).to be > 0
+      end
+    end
+  end
+
+  describe '#bottom_merchants_by_invoice_count' do
+    it 'returns a collection of the merchants with a low deviation to the average' do
+      expected = analyst.bottom_merchants_by_invoice_count
+      expect(expected).to be_a Array
+      expect(expected).to all(be_a Merchant)
+      expected.each do |merchant|
+        expect(merchant.invoice_count).to be > 0
+      end
+    end
+  end
+
   describe '#merchants_with_high_item_count' do
     it 'returns a list of merchants whose standard deviation of # of items is greater than 1' do
       expected = analyst.merchants_with_high_item_count
