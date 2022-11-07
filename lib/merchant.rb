@@ -9,7 +9,21 @@ include Calculable
   def initialize(data, repo)
     @id   = (data[:id]).to_i
     @name = data[:name]
+    @created_at  = data[:created_at]
+    @updated_at  = data[:updated_at]
     @merchant_repo = repo
+  end
+
+  def created_at
+    return Time.parse(@created_at) if @created_at.is_a? String
+
+    @created_at
+  end
+
+  def updated_at
+    return Time.parse(@updated_at) if @updated_at.is_a? String
+
+    @updated_at
   end
 
   def update(name)

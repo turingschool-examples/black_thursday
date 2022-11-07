@@ -211,4 +211,29 @@ describe MerchantRepository do
       expect(mr.average_average_price_per_merchant).to eq 3.55
     end
   end
+
+  describe '#merchants_with_only_one_item' do
+    it 'returns a collection of merchanta who only have one item' do
+      engine = double('engine')
+      items = double('item_repo')
+      allow(mr).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:items).and_return(items)
+      allow(items).to receive(:item_count).and_return(['item1'])
+
+      expect(mr.merchants_with_only_one_item).to eq(mr.all)
+    end
+  end
+
+  describe '#merchants_with_only_one_item_registered_in_month' do
+    it 'returns a collection of merchanta who only have one item' do
+      engine = double('engine')
+      items = double('item_repo')
+      item = double('item')
+      allow(mr).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:items).and_return(items)
+      allow(items).to receive(:item_count).and_return([item])
+
+      expect(mr.merchants_with_only_one_item_registered_in_month('March')).to eq(mr.all)
+    end
+  end
 end

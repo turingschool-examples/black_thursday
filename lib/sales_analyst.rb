@@ -64,4 +64,12 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     @engine.invoices.invoice_total(invoice_id)
   end
+
+  def merchants_with_only_one_item
+    @engine.merchants.merchants_with_only_one_item
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    @engine.merchants.merchants_with_only_one_item_registered_in_month(month_name)
+  end
 end

@@ -2,10 +2,11 @@
 
 require_relative 'general'
 require_relative 'calculable'
+require_relative 'timeable'
 
 # this is the GeneralRepo supeclass
 class GeneralRepo
-  include Calculable
+  include Calculable, Timeable
   attr_reader :repository,
               :engine
 
