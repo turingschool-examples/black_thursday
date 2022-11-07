@@ -91,16 +91,17 @@ RSpec.describe CustomerRepository do
       cr.add_to_repo(customer_1)
       expect(cr.all.count).to eq(1)
 
-      cr.create( { 
+      cr.create({ 
         first_name: 'Tron',
         last_name: 'Carter',
         created_at:  Time.now,
         updated_at:  Time.now })
 
       expect(cr.all.count).to eq(2)
+      expect(cr.all[1].id).to eq(2)
       expect(cr.all[1].first_name).to eq('Tron')
 
-      cr.create( { 
+      cr.create({ 
         first_name: 'Kathy',
         last_name: 'Peterson',
         created_at:  Time.now,
@@ -125,6 +126,23 @@ RSpec.describe CustomerRepository do
       expect(cr.all[0].first_name).to eq('Jo-Anne')
       expect(cr.all[0].last_name).to eq('Clorpe')
       expect(cr.all[0].id).to eq(6)
+    end
+  end
+
+  describe '#delete(id)' do
+    it 'deletes an item from the customer repo' do
+      cr.add_to_repo(customer_1)
+      cr.add_to_repo(customer_2)
+      cr.add_to_repo(customer_3)
+
+      expect(cr.all.count).to eq(3)
+
+      cr.delete(6)
+      expect(cr.all.count).to eq(2)
+      expect(cr.all).to eq([customer_2, customer_3])
+
+      cr.delete(2)
+      expect(cr.all).to eq([customer_3])
     end
   end
 end
