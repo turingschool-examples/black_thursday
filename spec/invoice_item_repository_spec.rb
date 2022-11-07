@@ -25,7 +25,7 @@ RSpec.describe InvoiceItemRepository do
                                         })}
   let(:invoice_item_3) { InvoiceItem.new({
                                           :id => 9,
-                                          :item_id => 10,
+                                          :item_id => 2,
                                           :invoice_id => 11,
                                           :quantity => 3,
                                           :unit_price => BigDecimal("1599",4),
@@ -62,6 +62,17 @@ RSpec.describe InvoiceItemRepository do
       expect(iir.find_by_id(6)).to eq(invoice_item_1)
       expect(iir.find_by_id(1)).to eq(invoice_item_2)
       expect(iir.find_by_id(55)).to be_nil
+    end
+  end
+
+  describe '#find_all_by_item_id' do 
+    it 'returns matches which have a matching item id' do 
+      iir.add_to_repo(invoice_item_1)
+      iir.add_to_repo(invoice_item_2)
+      iir.add_to_repo(invoice_item_3)
+      
+      expect(iir.find_all_by_item_id(2)).to eq([invoice_item_2, invoice_item_3])
+      expect(iir.find_all_by_item_id(76)).to eq([])
     end
   end
 end
