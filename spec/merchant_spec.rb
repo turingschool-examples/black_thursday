@@ -1,7 +1,7 @@
 require './lib/merchant'
 
 RSpec.describe Merchant do
-  let(:merchant) {Merchant.new({:id => 1, :name => "Turing School"})}
+  let(:merchant) {Merchant.new({:id => 1, :name => "Turing School", :created_at  => Time.now})}
 
   it 'is an instance of a merchant' do
     expect(merchant).to be_a(Merchant)
