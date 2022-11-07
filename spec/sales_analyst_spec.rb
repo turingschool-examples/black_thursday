@@ -109,19 +109,19 @@ RSpec.describe SalesAnalyst do
     let (:invoice_1) {Invoice.new({:id => 1,
                         :customer_id => 1,
                         :merchant_id => 1,
-                        :status => "pending",
+                        :status => :pending,
                         :created_at => Time.now,
                         :updated_at => Time.now})}
     let (:invoice_2) {Invoice.new({:id => 2,
                         :customer_id => 2,
                         :merchant_id => 1,
-                        :status => "pending",
+                        :status => :pending,
                         :created_at => Time.now,
                         :updated_at => Time.now})}
     let (:invoice_3) {Invoice.new({:id => 3,
                         :customer_id => 1,
                         :merchant_id => 2,
-                        :status => "shipped",
+                        :status => :shipped,
                         :created_at => Time.now,
                         :updated_at => Time.now})}
     let (:invoices) {[invoice_1, invoice_2, invoice_3]}
@@ -151,6 +151,16 @@ RSpec.describe SalesAnalyst do
 
     it '#bottom_merchants_by_invoice_count returns array of merchant objects 2 standard deviations below the mean' do
       expect(sales_analyst.bottom_merchants_by_invoice_count).to eq([])
+    end
+
+    it '#top_days_by_invoice_count returns and array of days one standard deviation above the mean' do
+      expect(sales_analyst.top_days_by_invoice_count).to eq([])
+    end
+
+    it '#invoice_status returns the % of invoices with the passed in status' do
+      expect(sales_analyst.invoice_status(:pending)).to eq(66.67)
+      expect(sales_analyst.invoice_status(:shipped)).to eq(33.33)
+      expect(sales_analyst.invoice_status(:returned)).to eq(0.0)
     end
   end
 end
