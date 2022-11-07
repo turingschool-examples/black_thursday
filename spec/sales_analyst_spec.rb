@@ -294,4 +294,19 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_paid_in_full?(2)).to be(false)
     expect(sales_analyst.invoice_paid_in_full?(3)).to be(false)
   end
+
+  it 'can return the total $ amount of an invoice' do
+     sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoices  => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.invoice_total(1)).to eq(21067.77)
+    expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
 end
