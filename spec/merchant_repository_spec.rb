@@ -3,8 +3,8 @@ require './lib/merchant'
 
 RSpec.describe MerchantRepository do
   let(:merchant_repository) {MerchantRepository.new}
-  let(:merchant) {Merchant.new({:id => 1, :name => "Turing School"})}
-  let(:merchant1) {Merchant.new({:id => 2, :name => "Turing Coffee"})}
+  let(:merchant) {Merchant.new({:id => 1, :name => "Turing School", :created_at  => Time.now})}
+  let(:merchant1) {Merchant.new({:id => 2, :name => "Turing Coffee", :created_at  => Time.now})}
 
   it 'is an instance of a #merchant_repository' do
     expect(merchant_repository).to be_a(MerchantRepository)
