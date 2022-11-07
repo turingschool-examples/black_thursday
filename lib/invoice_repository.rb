@@ -26,4 +26,8 @@ class InvoiceRepository < Repository
         invoice.status == status.to_sym
     end
   end
+
+  def find_all_by_invoice_id(id)
+    @repo.select { |invoice| invoice.id == id }
+  end
 end

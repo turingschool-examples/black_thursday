@@ -56,7 +56,7 @@ RSpec.describe SalesAnalyst do
 
   it '#invoice_paid_in_full?' do
   sales_analyst = @sales_engine.analyst
-  expect(sales_analyst.invoice_paid_in_full(75)).to eq(false)
+  expect(sales_analyst.invoice_paid_in_full?(75)).to eq(false)
 
 end
 end
