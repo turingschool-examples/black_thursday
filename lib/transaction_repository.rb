@@ -4,10 +4,13 @@ require_relative 'repo_module'
 
 class TransactionRepository
   include RepoModule
+
+  attr_reader :transactions
+
   def inspect
     "#<#{self.class} #{@transactions.size} rows>"
   end
-  attr_reader :transactions
+
   def initialize(transactions)
     @transactions = transactions
   end

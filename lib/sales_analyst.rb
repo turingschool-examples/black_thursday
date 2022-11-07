@@ -11,11 +11,15 @@ require_relative 'invoice_repository'
 class SalesAnalyst
   attr_reader :items,
               :merchants,
-              :invoices
-  def initialize(item_repo = nil, merchant_repo = nil, invoice_repo = nil)
+              :invoices,
+              :invoice_items,
+              :transactions
+  def initialize(item_repo = nil, merchant_repo = nil, invoice_repo = nil, invoice_item_repo = nil, transaction_repo = nil)
     @items = item_repo
     @merchants = merchant_repo
     @invoices = invoice_repo
+    @invoice_items = invoice_item_repo
+    @transactions = transaction_repo
   end
 
   def item_count
@@ -147,5 +151,14 @@ class SalesAnalyst
       end
     end
     ((num_status.to_f / invoices.all.count.to_f) * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    transaction = @transactions.find_all_by_invoice_id(invoice_id)
+    if transaction[0].result == "success"
+      return true
+    else
+      return false
+    end
   end
 end
