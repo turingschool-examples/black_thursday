@@ -115,7 +115,6 @@ class SalesAnalyst
     invoice_days = @invoices.all.map do |invoice|
       invoice.created_at.strftime('%A')
     end.tally
-    # require "pry"; binding.pry
     max_day = invoice_days.max_by do |key, value|
       value
     end
