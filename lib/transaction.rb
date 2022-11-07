@@ -1,4 +1,4 @@
-require 'time'
+require_relative 'require_store'
 
 class Transaction
   attr_accessor :id,

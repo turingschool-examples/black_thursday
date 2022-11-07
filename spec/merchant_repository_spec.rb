@@ -1,99 +1,47 @@
 require_relative '../lib/merchant_repository'
+require "spec_helper_2"
 
 RSpec.describe MerchantRepository do
   it 'exists' do
-    mr = MerchantRepository.new
-
-    expect(mr).to be_a(MerchantRepository)
+    expect(engine.merchants).to be_a(MerchantRepository)
   end
 
   it 'can have merchants' do
-    mr = MerchantRepository.new
-    m = {id: 5, name: "Turing School"}
-    mr.add(m)
-
-    expect(mr.merchants[0].name).to eq(m[:name])
+    expect(engine.merchants.all[0].name).to eq('Shopin1901')
   end
 
   it 'can list an array of all merchants' do
-    mr = MerchantRepository.new
-    m = {id: 5, name: "Turing School"}
-    m2 = {id: 4, name: "Porsche"}
-    mr.add(m)
-    mr.add(m2)
-
-    expect(mr.all).to be_a Array
+    expect(engine.merchants.all).to be_a Array
   end
 
   it 'can find a specific merchant by id' do
-    mr = MerchantRepository.new
-    m = {id: 5, name: "Turing School"}
-    m2 = {id: 4, name: "Porsche"}
-    mr.add(m)
-    mr.add(m2)
-
-    expect(mr.find_by_id(4).id).to eq(m2[:id])
+    expect(engine.merchants.find_by_id(12334105).name).to eq('Shopin1901')
   end
 
   it 'can find a specific merchant by name' do
-    mr = MerchantRepository.new
-    m = {id: 5, name: "Turing School"}
-    m2 = {id: 4, name: "Porsche"}
-    mr.add(m)
-    mr.add(m2)
-
-    expect(mr.find_by_name("porsche").name).to eq(m2[:name])
+    expect(engine.merchants.find_by_name('Shopin1901').id).to eq 12334105
   end
 
   it 'can find a all merchants that have the input as part of their name' do
-    mr = MerchantRepository.new
-    m = {id: 5, name: "Turing School"}
-    m2 = {id: 4, name: "Porsche"}
-    m3 = {id: 3, name: "Porsche AG"}
-    mr.add(m)
-    mr.add(m2)
-    mr.add(m3)
-
-    expect(mr.find_all_by_name("porsche")[0].name).to eq(m2[:name])
-    expect(mr.find_all_by_name("porsche")[1].name).to eq(m3[:name])
+    expect(engine.merchants.find_all_by_name('shop').length).to eq 26
+    expect(engine.merchants.find_all_by_name('shop')[0].name).to eq('Shopin1901')
   end
 
   it 'can create a new merchant' do
-    mr = MerchantRepository.new
-    m = {id: 5, name: "Turing School"}
-    m2 = {id: 4, name: "Porsche"}
-    m3 = {id: 3, name: "Porsche AG"}
-    mr.add(m)
-    mr.add(m2)
-    mr.add(m3)
-    mr.create({name: "BMW AG"})
+    engine.merchants.create({name: "BMW AG"})
 
-    expect(mr.merchants.last.name).to eq("BMW AG")
+    expect(engine.merchants.all.last.name).to eq("BMW AG")
   end
 
   it 'can update a merchant' do
-    mr = MerchantRepository.new
-    m = {id: 5, name: "Turing School"}
-    m2 = {id: 4, name: "Porsche"}
-    m3 = {id: 3, name: "Porsche AG"}
-    mr.add(m)
-    mr.add(m2)
-    mr.add(m3)
-    mr.update(5, {name: "Turing School of Software and Design"})
+    engine.merchants.update(12334105, {name: "Turing School of Software and Design"})
 
-    expect(mr.merchants.first.name).to eq("Turing School of Software and Design")
+    expect(engine.merchants.find_by_id(12334105).name).to eq("Turing School of Software and Design")
   end
 
   it 'can delete a merchant' do
-    mr = MerchantRepository.new
-    m = {id: 5, name: "Turing School"}
-    m2 = {id: 4, name: "Porsche"}
-    m3 = {id: 3, name: "Porsche AG"}
-    mr.add(m)
-    mr.add(m2)
-    mr.add(m3)
-    mr.delete(4)
+    engine.merchants.delete(12337412)
 
-    expect(mr.find_by_id(4)).to eq(nil)
+    expect(engine.merchants.find_by_id(12337412)).to eq nil
   end
 end

@@ -11,22 +11,22 @@ RSpec.describe ItemRepository do
   end
 
   it 'returns an array of all known Item instances' do
-    expect(item_repo.items).to be_a(Array)
+    expect(item_repo.all).to be_a(Array)
   end
 
   it 'finds by id, returns nil otherwise' do
-    expect(item_repo.find_by_id(263395237)).to eq(item_repo.items.first)
-    expect(item_repo.find_by_id(263567474)).to eq(item_repo.items.last)
-    expect(item_repo.find_by_id(263395617)).to eq(item_repo.items[1])
+    expect(item_repo.find_by_id(263395237)).to eq(item_repo.all.first)
+    expect(item_repo.find_by_id(263567474)).to eq(item_repo.all.last)
+    expect(item_repo.find_by_id(263395617)).to eq(item_repo.all[1])
     expect(item_repo.find_by_id(999999999)).to eq(nil)
     expect(item_repo.find_by_id(263395237)).to be_a(Item)
   end
 
   it 'finds by name (case insensitive), returns nil otherwise' do
-    expect(item_repo.find_by_name("510+ RealPush Icon Set")).to eq(item_repo.items.first)
-    expect(item_repo.find_by_name("510+ reAlPUSh IcoN seT")).to eq(item_repo.items.first)
-    expect(item_repo.find_by_name("Glitter scrabble frames")).to eq(item_repo.items[1])
-    expect(item_repo.find_by_name("GLITter SCRAbbLe fraMES")).to eq(item_repo.items[1])
+    expect(item_repo.find_by_name("510+ RealPush Icon Set")).to eq(item_repo.all.first)
+    expect(item_repo.find_by_name("510+ reAlPUSh IcoN seT")).to eq(item_repo.all.first)
+    expect(item_repo.find_by_name("Glitter scrabble frames")).to eq(item_repo.all[1])
+    expect(item_repo.find_by_name("GLITter SCRAbbLe fraMES")).to eq(item_repo.all[1])
     expect(item_repo.find_by_name("XXXXXXXXXX")).to eq(nil)
     expect(item_repo.find_by_name("510+ RealPush Icon Set")).to be_a(Item)
   end
@@ -78,7 +78,7 @@ RSpec.describe ItemRepository do
   end
 
   it 'can create a new item' do
-    items_pre = item_repo.items.length
+    items_pre = item_repo.all.length
     attributes = {
       name: "Colorado Sweater",
       description: "Perfect sweater for Colorado weather",
@@ -86,8 +86,8 @@ RSpec.describe ItemRepository do
       merchant_id: 3487283
     }
     item_repo.create(attributes)
-    expect(item_repo.items.last.id).to eq(263567474 + 1)
-    expect(items_pre).to eq(item_repo.items.length - 1)
+    expect(item_repo.all.last.id).to eq(263567474 + 1)
+    expect(items_pre).to eq(item_repo.all.length - 1)
   end
 
   it 'can update an item' do

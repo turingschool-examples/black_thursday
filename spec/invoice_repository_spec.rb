@@ -1,11 +1,9 @@
 require_relative '../lib/invoice_repository'
+require "spec_helper_2"
 
 RSpec.describe InvoiceRepository do
-  it 'exists and has no invoices by default' do
-    invr = InvoiceRepository.new
-
-    expect(invr).to be_a(InvoiceRepository)
-    expect(invr.invoices).to eq([])
+  it 'exists' do
+    expect(engine.invoices).to be_a(InvoiceRepository)
   end
 
   it 'can find all' do

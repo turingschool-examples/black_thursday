@@ -1,18 +1,12 @@
 require_relative '../lib/transaction_repository'
 require './lib/sales_engine'
+require "spec_helper_2"
 require 'pry'
 
 RSpec.describe TransactionRepository do
   it 'exists' do
-    tr = TransactionRepository.new
 
-    expect(tr).to be_a(TransactionRepository)
-  end
-
-  it 'has an empty transactions array by default' do
-    tr = TransactionRepository.new
-
-    expect(tr.transactions).to eq([])
+    expect(engine.transactions).to be_a(TransactionRepository)
   end
 
   it 'returns all transactions' do
