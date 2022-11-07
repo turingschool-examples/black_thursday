@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'repository'
+
 class CustomerRepository < Repository
 
   def find_all_by_first_name(name_to_search)
@@ -23,4 +24,5 @@ class CustomerRepository < Repository
     }
     super(id, sanitized_attributes)
   end
+
 end

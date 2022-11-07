@@ -98,7 +98,7 @@ RSpec.describe CustomerRepository do
         updated_at:  Time.now })
 
       expect(cr.all.count).to eq(2)
-      expect(cr.all[1].id).to eq(2)
+      expect(cr.all[1].id).to eq(7)
       expect(cr.all[1].first_name).to eq('Tron')
 
       cr.create({ 
