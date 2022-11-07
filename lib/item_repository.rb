@@ -1,21 +1,7 @@
 # frozen_string_literal: true
+require_relative 'repository'
 
-class ItemRepository
-  attr_reader :all
-
-  def initialize
-    @all = []
-  end
-
-  def add_to_repo(item)
-    @all << item
-  end
-
-  def find_by_id(id)
-    @all.find do |item|
-      item.id == id
-    end
-  end
+class ItemRepository < Repository
 
   def find_by_name(name)
     @all.find do |item|
@@ -47,37 +33,13 @@ class ItemRepository
     end
   end
 
-  def max_id
-    max = @all.max_by do |item|
-      item.id
-    end
-    return 1 if max.nil?
-
-    max.id + 1
-  end
-
-  def create(attributes)
-    attributes[:id] = max_id
-    add_to_repo(Item.new(attributes))
-  end
-
   def update(id, attributes)
-    item = find_by_id(id)
-    return nil if item.nil?
-
-    attributes.each do |key, value|
-      next if [:id, :merchant_id, :created_at].include?(key)
-
-      item.instance_variable_set("@#{key}", value)
-    end
-    item.updated_at = Time.now
-  end
-
-  def delete(id)
-    @all.delete(find_by_id(id))
-  end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    sanitized_attributes = {
+      name: attributes[:name],
+      description: attributes[:description],
+      unit_price: attributes[:unit_price],
+      updated_at: Time.now
+    }
+    super(id, sanitized_attributes)
   end
 end

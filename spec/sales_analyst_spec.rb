@@ -1,7 +1,9 @@
 require_relative '../lib/item'
 require_relative '../lib/merchant'
+require_relative '../lib/invoice'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/invoice_repository'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 require 'bigdecimal'
@@ -9,11 +11,12 @@ require 'bigdecimal'
 RSpec.describe SalesAnalyst do
   let(:se) {SalesEngine.from_csv({
     items: "./data/items.csv",
-    merchants: "./data/merchants.csv"
+    merchants: "./data/merchants.csv",
+    invoices: "./data/invoices.csv"
     })}
 
   it 'exists' do
-    sales_analyst = SalesAnalyst.new(ItemRepository.new, MerchantRepository.new)
+    sales_analyst = SalesAnalyst.new(ItemRepository.new, MerchantRepository.new, InvoiceRepository.new)
 
     expect(sales_analyst).to be_a(SalesAnalyst)
   end
@@ -280,6 +283,62 @@ RSpec.describe SalesAnalyst do
         :merchant_id => 12334159})
 
       expect(sales_analyst.golden_items.size).to eq(6)
+    end
+  end
+
+  describe '#average_invoices_per_merchant' do
+    it 'return the average count of invoices per merchant' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    end
+  end
+
+  describe '#average_invoices_per_merchant_standard_deviation' do
+    it 'returns standard deviation of average invoice per merchant' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
+    end
+  end
+
+  describe '#top_merchants_by_invoice_count' do
+    it 'returns merchants that are more than 2 standard deviations above avg invoice count' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.top_merchants_by_invoice_count.size).to be <= (475 * 0.025).round
+      sales_analyst.top_merchants_by_invoice_count.each do |merchant|
+        expect(merchant).to be_a Merchant
+      end
+    end
+  end
+
+  describe '#bottom_merchants_by_invoice_count' do
+    it 'returns merchants that are more than 2 standard deviations below avg invoice count' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.bottom_merchants_by_invoice_count.size).to be <= (475 * 0.025).round
+      sales_analyst.bottom_merchants_by_invoice_count.each do |merchant|
+        expect(merchant).to be_a Merchant
+      end
+    end
+  end
+
+  describe '#top_days_by_invoice_count' do
+    it 'returns an array of days as strings that have most invoices in the week' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.top_days_by_invoice_count).to eq ["Wednesday"]
+    end
+  end
+
+  describe '#invoice_status()' do
+    it 'returns percent of invoices shipped, pending, or returned' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
+      expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
+      expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
     end
   end
 end

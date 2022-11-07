@@ -4,11 +4,13 @@ require 'bigdecimal'
 require 'bigdecimal/util'
 class SalesAnalyst
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
-  def initialize(items, merchants)
+  def initialize(items, merchants, invoices)
     @items = items
     @merchants = merchants
+    @invoices = invoices
   end
 
   def average_items_per_merchant
@@ -76,5 +78,52 @@ class SalesAnalyst
     @items.all.select do |item|
       item.unit_price > two_std_devs_above_avg
     end
+  end
+
+  def average_invoices_per_merchant
+    (@invoices.all.size / @merchants.all.size.to_f).round(2)
+  end
+
+  def invoices_for_each_of_the_merchants
+    @merchants.all.map do |merchant|
+      @invoices.find_all_by_merchant_id(merchant.id).size
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    sum = invoices_for_each_of_the_merchants.sum(0.00) { |element| (element - mean) ** 2 }
+    variance = sum / (@merchants.all.size - 1)
+    return Math.sqrt(variance).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    two_std_devs_above_avg = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    @merchants.all.find_all do |merchant|
+      @invoices.find_all_by_merchant_id(merchant.id).size >= two_std_devs_above_avg
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    two_std_devs_below_avg = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    @merchants.all.find_all do |merchant|
+      @invoices.find_all_by_merchant_id(merchant.id).size <= two_std_devs_below_avg
+    end
+  end
+
+  def top_days_by_invoice_count
+    invoice_days = @invoices.all.map do |invoice|
+      invoice.created_at.strftime('%A')
+    end
+    invoice_days.tally.max_by do |key, value|
+      value
+    end.select do |element|
+      element.class == String
+    end
+  end
+
+  def invoice_status(status)
+    invoices_with_status = @invoices.find_all_by_status(status).size
+    (invoices_with_status / @invoices.all.size.to_f * 100).round(2)
   end
 end

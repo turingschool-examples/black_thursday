@@ -1,21 +1,7 @@
 # frozen_string_literal: true
+require_relative 'repository'
 
-class MerchantRepository
-  attr_reader :all
-
-  def initialize
-    @all = []
-  end
-
-  def add_to_repo(merchant)
-    @all << merchant
-  end
-
-  def find_by_id(id_num)
-    @all.find do |merchant|
-      merchant.id == id_num
-    end
-  end
+class MerchantRepository < Repository
 
   def find_by_name(name)
     @all.find do |merchant|
@@ -29,30 +15,10 @@ class MerchantRepository
     end
   end
 
-  def create(attributes)
-    attributes[:id] = max_id
-    add_to_repo(Merchant.new(attributes))
-  end
-
-  def max_id
-    max = @all.max_by(&:id)
-    return 1 if max.nil?
-
-    (max.id + 1)
-  end
-
   def update(id, attributes)
-    return nil if find_by_id(id).nil?
-
-    name = attributes[:name]
-    find_by_id(id).name = name
-  end
-
-  def delete(id)
-    @all.delete(find_by_id(id))
-  end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+      sanitized_attributes = {
+      name: attributes[:name]
+    }
+    super(id, sanitized_attributes)
   end
 end
