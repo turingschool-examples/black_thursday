@@ -82,10 +82,12 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can return top x performing merchants in terms of revenue' do
-    expect(sales_analyst.top_revenue_earners).to be_a Array
-    expect(sales_analyst.top_revenue_earners(10)).to be_a Array
-    expect(sales_analyst.top_revenue_earners(10).length).to eq (10)
-    expect(sales_analyst.top_revenue_earners.length).to eq (20)
+    expected = sales_analyst.top_revenue_earners
+    expected_10 = sales_analyst.top_revenue_earners(10)
+    expect(expected).to be_a Array
+    expect(expected_10).to be_a Array
+    expect(expected_10.length).to eq (10)
+    expect(expected.length).to eq (20)
   end
 
   it 'can return total revenue by date' do
