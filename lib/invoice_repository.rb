@@ -1,5 +1,6 @@
 require_relative 'repository'
-require_relative 'merchants'
+require_relative 'merchant'
+
 class InvoiceRepository < Repository
   def find_all_by_customer_id(id)
     @all.select do |invoice|
