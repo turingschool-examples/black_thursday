@@ -29,7 +29,12 @@ RSpec.describe TransactionRepository do
 end
 
   it '#find_all_by_invoice_id' do
-  expect(transactions.find_all_by_invoice_id(0)).to eq([]) 
+    expect(transactions.find_all_by_invoice_id(0)).to eq([]) 
+  end
 
+  it '#find_all_by_credit_card_number' do
+  expect(transaction.find_all_by_credit_card_number(444)).to eq([])
 end
+
+
 end
