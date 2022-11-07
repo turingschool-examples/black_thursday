@@ -92,7 +92,6 @@ RSpec.describe InvoiceItemRepository do
       expect(iir.all).to eq([])
 
       iir.create({ 
-                  :id => 20,
                   :item_id => 21,
                   :invoice_id => 22,
                   :quantity => 1,
@@ -101,7 +100,6 @@ RSpec.describe InvoiceItemRepository do
                   :updated_at => Time.now
                 })
       iir.create({ 
-                  :id => 23,
                   :item_id => 24,
                   :invoice_id => 25,
                   :quantity => 1,
@@ -110,9 +108,41 @@ RSpec.describe InvoiceItemRepository do
                   :updated_at => Time.now
                 })
 
-      expect(iir.all[0].invoice_id).to eq(22)
-      expect(iir.all[1].item_id).to eq(24)
+      expect(iir.all[0].id).to eq(1)
+      expect(iir.all[1].id).to eq(2)
       expect(iir.all.size).to eq(2)
     end
+  end
+
+  describe '#update' do 
+    it 'can update an invoice item' do 
+      iir.add_to_repo(invoice_item_1)
+      iir.add_to_repo(invoice_item_2)
+      iir.add_to_repo(invoice_item_3)
+
+      expect(iir.all[0].quantity).to eq(1)
+      expect(iir.all[1].quantity).to eq(2)
+      expect(iir.all[2].quantity).to eq(3)
+
+      iir.update( 6, {quantity: 55,
+                      unit_price: BigDecimal("2299",4)
+                    })
+      iir.update( 1, {quantity: 56,
+                      unit_price: BigDecimal("2399",4)
+                    })
+      iir.update( 9, {quantity: 57,
+                      unit_price: BigDecimal("2499",4)
+                    })
+
+      expect(iir.all[0].quantity).to eq(55)
+      # expect(iir.all[0].unit_price).to eq(22.99)
+      expect(iir.all[1].quantity).to eq(56)
+      # expect(iir.all[0].unit_price).to eq(23.99)
+      expect(iir.all[2].quantity).to eq(57)
+      # expect(iir.all[0].unit_price).to eq(24.99)
+    end
+  end
+
+  describe '#delete' do 
   end
 end

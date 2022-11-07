@@ -16,4 +16,13 @@ class InvoiceItemRepository < Repository
     end
   end
 
+  def update(id, attributes)
+    sanitized_attributes = {
+      quantity: attributes[:quantity],
+      unit_price: attributes[:unit_price],
+      updated_at: Time.now
+    }
+    super(id, sanitized_attributes)
+  end
+
 end
