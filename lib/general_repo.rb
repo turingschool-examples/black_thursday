@@ -41,6 +41,6 @@ class GeneralRepo
   end
 
   def inspect
-    # "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@repository.size} rows>"
   end
 end
