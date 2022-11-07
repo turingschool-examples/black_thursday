@@ -56,13 +56,24 @@ RSpec.describe TransactionRepository do
   end
 
   describe '#find_all_by_credit_card_number' do
-    it 'returns empty array or one or more matches with matching credit card number' do
+    it 'returns empty array or all matches with matching credit card number' do
       transaction_repository.add_to_repo(t_1)
       transaction_repository.add_to_repo(t_2)
 
       expect(transaction_repository.find_all_by_credit_card_number("4242424242424242")).to eq([t_1])
       expect(transaction_repository.find_all_by_credit_card_number("4242424242424243")).to eq([t_2])
       expect(transaction_repository.find_all_by_credit_card_number(4)).to eq([])
+    end
+  end
+
+  describe '#find_all_by_result' do
+    it 'returns empty array or all with matching result' do
+      transaction_repository.add_to_repo(t_1)
+      transaction_repository.add_to_repo(t_2)
+
+      expect(transaction_repository.find_all_by_result('success')).to eq([t_1])
+      expect(transaction_repository.find_all_by_result('failed')).to eq([t_2])
+      expect(transaction_repository.find_all_by_result('doesntexist')).to eq([])
     end
   end
 
