@@ -200,4 +200,25 @@ RSpec.describe InvoiceRepository do
     invoice_repo1.delete(1)
     expect(invoice_repo1.all).not_to include(inv_creation1)
   end
+
+  it '#find_all_by_invoice_id' do
+  invoice_repo1 = InvoiceRepository.new
+  inv_creation1 = invoice_repo1.create ({
+                        id: 1,
+                        customer_id: 1,
+                        merchant_id: 12335938,
+                        status: "pending",
+                        created_at: Time.now,
+                        updated_at: Time.now
+                        })
+  inv_creation2 = invoice_repo1.create ({
+                        id: 3,
+                        customer_id: 5,
+                        merchant_id: 12333135231,
+                        status: "pending",
+                        created_at: Time.now,
+                        updated_at: Time.now
+                        })
+                        expect(invoice_repo1.find_all_by_invoice_id(3)).to eq([inv_creation2])
+end
 end

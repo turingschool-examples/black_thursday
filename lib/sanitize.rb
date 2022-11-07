@@ -1,3 +1,5 @@
+require 'time'
+
 module Sanitize
   def to_price(price)
     p = BigDecimal(price, 4)
