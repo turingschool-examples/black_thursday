@@ -15,14 +15,12 @@ class Repository
     end
   end
 
-  # add a superclass level test for this
   def find_all_by_merchant_id(merchant_id)
     @all.find_all do |item|
       item.merchant_id == merchant_id
     end
   end
 
-  # add superclass level test for this
   def max_id
     max = @all.max_by(&:id)
     return 1 if max.nil?
