@@ -4,7 +4,7 @@ class  InvoiceItem
   attr_reader :id,
               :item_id,
               :invoice_id,
-              :quanity,
+              :quantity,
               :unit_price,
               :created_at,
               :updated_at
@@ -13,10 +13,13 @@ class  InvoiceItem
     @id         = info[:id]
     @item_id    = info[:item_id]
     @invoice_id = info[:invoice_id]
-    @quanity    = info[:quanity]
+    @quantity    = info[:quantity]
     @unit_price = info[:unit_price]
-    @created_at = info[:created_at]
-    @updated_at = info[:updated_at]
+    @created_at = Time.parse(info[:created_at])
+    @updated_at = Time.parse(info[:updated_at])
     @repo       = repo
+  end
+  def update(info)
+    @updated_at = Time.now
   end
 end
