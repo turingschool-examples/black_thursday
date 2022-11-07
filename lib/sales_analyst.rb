@@ -72,9 +72,7 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
-
     sample_sum = 0
-
     merchants_with_invoices.each do |invoices_array|
       sample_sum += (invoices_array.count - mean)**2
     end
