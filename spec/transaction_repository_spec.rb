@@ -25,7 +25,14 @@ RSpec.describe TransactionRepository do
     it 'exist' do
       expect(transaction_repository).to be_a(TransactionRepository)
     end
-  end                  
+  end          
+  
+  describe 'all' do
+    it 'starts as an empty array' do
+      expect(transaction_repository.all).to eq([])
+    end
+  end
+
 end
 
                               
