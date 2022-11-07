@@ -84,16 +84,16 @@ RSpec.describe SalesAnalyst do
 
         sales_analyst = @sales_engine.analyst
         @sales_engine.invoice_items.create({
-          :id => 12343,
+          :id => 1234321,
           :item_id => 7,
-          :invoice_id => 12343,
+          :invoice_id => 1234321,
           :quantity => 10,
           :unit_price => BigDecimal(10.99, 4),
           :created_at => Time.now,
           :updated_at => Time.now
         })
         
-        expect(sales_analyst.invoice_total(8)).to eq(109.90)
+        expect(sales_analyst.invoice_total(1234321)).to eq(109.90)
 
 
   end

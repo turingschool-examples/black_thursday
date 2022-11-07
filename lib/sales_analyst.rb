@@ -92,4 +92,12 @@ class SalesAnalyst
     purchases.first.result == :success 
     end
   end
+
+  def invoice_total(invoice_id)
+    # require 'pry'; binding.pry
+  invoice_item = sales_engine.invoice_items.find_by_id(invoice_id)
+  invoice_item.unit_price * invoice_item.quantity
+
+
+  end
 end
