@@ -120,4 +120,9 @@ RSpec.describe SalesAnalyst do
     expect(expected).to be_a Array
     expect(expected[0]).to be_a Item
   end
+  it 'can return which merchants have pending invoices in an array' do
+    expect(sales_analyst.merchants_with_pending_invoices.count).to eq(467)
+    expect(sales_analyst.merchants_with_pending_invoices).to be_a(Array)
+    expect(sales_analyst.merchants_with_pending_invoices.first).to be_a(Merchant)
+  end
 end
