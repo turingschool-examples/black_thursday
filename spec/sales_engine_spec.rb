@@ -28,44 +28,54 @@ RSpec.describe SalesEngine do
     expect(se.invoices).to be_instance_of(InvoiceRepository)
   end
 
+  context 'populate sales engine' do
+    before(:all) do 
+      @se = SalesEngine.from_csv({
+        items: './data/items.csv',
+        merchants: './data/merchants.csv',
+        invoices: './data/invoices.csv',
+        invoice_items: './data/invoice_items.csv'
+      })
+    end
   it 'creates a merchant and merchant repository' do
-    se = SalesEngine.from_csv({
-                                items: './data/items.csv',
-                                merchants: './data/merchants.csv',
-                                invoices: './data/invoices.csv',
-                                invoice_items: './data/invoice_items.csv'
-                              })
-    mr = se.merchants
+    # se = SalesEngine.from_csv({
+    #                             items: './data/items.csv',
+    #                             merchants: './data/merchants.csv',
+    #                             invoices: './data/invoices.csv',
+    #                             invoice_items: './data/invoice_items.csv'
+    #                           })
+    mr = @se.merchants
     merchant = mr.find_by_name('CJsDecor')
     expect(mr).to be_instance_of(MerchantRepository)
     expect(merchant).to be_instance_of(Merchant)
   end
 
   it 'creates item and item repository' do
-    se = SalesEngine.from_csv({
-                                items: './data/items.csv',
-                                merchants: './data/merchants.csv',
-                                invoices: './data/invoices.csv',
-                                invoice_items: './data/invoice_items.csv'
+    # se = SalesEngine.from_csv({
+    #                             items: './data/items.csv',
+    #                             merchants: './data/merchants.csv',
+    #                             invoices: './data/invoices.csv',
+    #                             invoice_items: './data/invoice_items.csv'
 
-                              })
-    ir   = se.items
+    #                           })
+    ir   = @se.items
     item = ir.find_by_name('disney scrabble frames')
     expect(ir).to be_instance_of(ItemRepository)
     expect(item).to be_instance_of(Item)
   end
 
   it 'creates invoice and invoice repository' do
-    se = SalesEngine.from_csv({
-                                items: './data/items.csv',
-                                merchants: './data/merchants.csv',
-                                invoices: './data/invoices.csv',
-                                invoice_items: './data/invoice_items.csv'
+    # se = SalesEngine.from_csv({
+    #                             items: './data/items.csv',
+    #                             merchants: './data/merchants.csv',
+    #                             invoices: './data/invoices.csv',
+    #                             invoice_items: './data/invoice_items.csv'
 
-                              })
-    inr   = se.invoices
+    #                           })
+    inr   = @se.invoices
     invoice = inr.find_by_id(6)
     expect(inr).to be_instance_of(InvoiceRepository)
     expect(invoice).to be_instance_of(Invoice)
   end
+end
 end
