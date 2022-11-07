@@ -5,16 +5,20 @@ require_relative './item'
 require_relative './item_repository'
 require_relative './invoice'
 require_relative './invoice_repository'
+require_relative './customer'
+require_relative './customer_repository'
 
 class SalesEngine
   attr_reader :merchants,
               :items,
-              :invoices
+              :invoices,
+              :customers
 
-  def initialize(merchant_repo, item_repo, invoice_repo)
-    @merchants = merchant_repo
-    @items = item_repo
-    @invoices = invoice_repo
+  def initialize(merchants, items, invoices, customers)
+    @merchants = merchants
+    @items = items
+    @invoices = invoices
+    @customers = customers 
   end
 
   def self.generate_and_add_to_repo(class_to_create, repo, csv_data)
@@ -27,16 +31,17 @@ class SalesEngine
     mr = MerchantRepository.new
     ir = ItemRepository.new
     invr = InvoiceRepository.new
+    cr = CustomerRepository.new
 
     generate_and_add_to_repo(Item, ir, data[:items])
     generate_and_add_to_repo(Merchant, mr, data[:merchants])
     generate_and_add_to_repo(Invoice, invr, data[:invoices])
+    generate_and_add_to_repo(Customer, cr, data[:customers])
 
-    SalesEngine.new(mr, ir, invr)
+    SalesEngine.new(mr, ir, invr, cr)
   end
 
   def analyst
-    SalesAnalyst.new(@items, @merchants, @invoices)
+    SalesAnalyst.new(@items, @merchants, @invoices, @customers)
   end
-
 end

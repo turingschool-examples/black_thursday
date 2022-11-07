@@ -1,13 +1,20 @@
 require_relative '../lib/item'
 require_relative '../lib/merchant'
+require_relative '../lib/customer'
+
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/customer_repository'
+
 require_relative '../lib/sales_engine'
 
 RSpec.describe SalesEngine do
   describe '#initialize' do
     it 'exists' do
-      se = SalesEngine.new(MerchantRepository.new, ItemRepository.new, InvoiceRepository.new)
+      se = SalesEngine.new( MerchantRepository.new,
+                            ItemRepository.new,
+                            InvoiceRepository.new,
+                            CustomerRepository.new )
 
       expect(se).to be_a SalesEngine
     end
@@ -18,7 +25,8 @@ RSpec.describe SalesEngine do
       se = SalesEngine.from_csv({
       items: "./data/items.csv",
       merchants: "./data/merchants.csv",
-      invoices: "./data/invoices.csv"
+      invoices: "./data/invoices.csv",
+      customers:  "./data/customers.csv"
       })
 
       mr = se.merchants
@@ -39,8 +47,10 @@ RSpec.describe SalesEngine do
       se = SalesEngine.from_csv({
         items:     "./data/items.csv",
         merchants: "./data/merchants.csv",
-        invoices: "./data/invoices.csv"
+        invoices: "./data/invoices.csv",
+        customers:  "./data/customers.csv"
       })
+
       ir = se.items
 
       expect(ir).to be_a ItemRepository
