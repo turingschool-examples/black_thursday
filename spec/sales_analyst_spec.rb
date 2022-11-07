@@ -261,5 +261,11 @@ RSpec.describe SalesAnalyst do
     let (:transactions) {[transaction_1, transaction_2, transaction_3]}
     let (:transaction_repo) {[TransactionRepository.new(transactions)]}
     let (:sales_analyst) {SalesAnalyst.new(item_repo, merchant_repo, invoice_repo, invoice_item_repo, transaction_repo)}
+
+    it '#invoice_paid_in_full? returns true if transaction is successful, false otherwise' do
+      expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
+      expect(sales_analyst.invoice_paid_in_full?(2)).to eq(false)
+      expect(sales_analyst.invoice_paid_in_full?(3)).to eq(false)
+    end
   end
 end
