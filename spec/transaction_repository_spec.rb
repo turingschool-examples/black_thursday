@@ -48,11 +48,21 @@ RSpec.describe TransactionRepository do
     it 'returns empty array or all invoices with matching invoice_id' do
       transaction_repository.add_to_repo(t_1)
       transaction_repository.add_to_repo(t_2)
-      # transaction_repository.add_to_repo(t_3)
-
+    
       expect(transaction_repository.find_all_by_invoice_id(8)).to eq([t_1])
       expect(transaction_repository.find_all_by_invoice_id(2)).to eq([t_2])
       expect(transaction_repository.find_all_by_invoice_id(4)).to eq([])
+    end
+  end
+
+  describe '#find_all_by_credit_card_number' do
+    it 'returns empty array or one or more matches with matching credit card number' do
+      transaction_repository.add_to_repo(t_1)
+      transaction_repository.add_to_repo(t_2)
+
+      expect(transaction_repository.find_all_by_credit_card_number("4242424242424242")).to eq([t_1])
+      expect(transaction_repository.find_all_by_credit_card_number("4242424242424243")).to eq([t_2])
+      expect(transaction_repository.find_all_by_credit_card_number(4)).to eq([])
     end
   end
 
