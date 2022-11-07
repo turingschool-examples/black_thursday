@@ -51,6 +51,11 @@ it '#create makes new transaction' do
   })
   expect(transaction).to be_instance_of(Transaction)
   expect(transaction.id).to be > transactions.all[-2].id
+end
 
+it '#delete' do
+expect(transactions.find_by_id(1)).to be_a(Transaction)
+transactions.delete(1)
+expect(transactions.find_by_id(1)).to eq([])
 end
 end
