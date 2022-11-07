@@ -127,6 +127,44 @@ class SalesAnalyst
     chosen_merchants
   end
   
+  def top_days_by_invoice_count
+    date_array = []
+    @invoices.each do |invoice|
+      date_array.push([invoice.created_at])
+    end
+
+    weekday_array = []
+    date_array.map do |date|
+      weekday_array.push(%w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday][date[0].wday])
+    end
+
+    weekday_array
+    weekday_counts = weekday_array.each_with_object(Hash.new(0)) do |weekday_array, counts|
+      counts[weekday_array] += 1
+    end
+
+    weekday_invoice_avg = 0
+    weekday_counts.each do |day, count|
+      weekday_invoice_avg += count
+    end
+    weekday_invoice_avg = weekday_invoice_avg / 7
+    weekday_invoice_avg
+
+    weekday_invoice_standard_deviation = 0
+    weekday_counts.each do |day, count|
+      weekday_invoice_standard_deviation += (count - weekday_invoice_avg)**2
+    end
+    weekday_invoice_standard_deviation = Math.sqrt(weekday_invoice_standard_deviation/6).to_f.round(2)
+
+    top_days = []
+    weekday_counts.each do |day, count|
+      if count > (weekday_invoice_avg + weekday_invoice_standard_deviation)
+        top_days.push(day)
+      end
+    end
+    top_days
+  end
+
 end
   # def golden_items
   #   prices = items.map { |item| item.unit_price }

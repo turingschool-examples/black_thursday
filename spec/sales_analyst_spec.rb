@@ -83,6 +83,6 @@ RSpec.describe SalesAnalyst do
 
   it "#top_days_by_invoice_count" do
     sales_analyst = sales_engine.analyst
-    expect(sales_analyst.top_days_by_invoice_count).to eq["Sunday", "Saturday"]
+    expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
   end
 end
