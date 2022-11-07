@@ -8,6 +8,8 @@ require_relative 'invoice_item_repository'
 require_relative 'invoice_item'
 require_relative 'transaction_repository'
 require_relative 'transaction'
+require_relative 'customer_repository'
+# require_relative 'customer'
 require 'pry'
 
 class SalesEngine
@@ -15,7 +17,7 @@ class SalesEngine
               :items,
               :invoices,
               :invoice_items,
-              :transactions
+              :transactions,
               :customers
 
   def initialize
@@ -28,7 +30,7 @@ class SalesEngine
   end
 
   def self.from_csv(hash_path)
-    sales_engine = new  
+    sales_engine = new
     sales_engine.items.parse_data(hash_path[:items], Item)
     sales_engine.merchants.parse_data(hash_path[:merchants], Merchant)
     sales_engine.invoices.parse_data(hash_path[:invoices], Invoice)

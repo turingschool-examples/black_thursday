@@ -15,8 +15,8 @@ class Customer
     @id = info[:id].to_i
     @first_name = info[:first_name]
     @last_name = info[:last_name]
-    @created_at = info[:created_at]
-    @updated_at = info[:updated_at]
+    @created_at = to_time(info[:created_at])
+    @updated_at = to_time(info[:updated_at])
   end
 
   def update(attributes)
