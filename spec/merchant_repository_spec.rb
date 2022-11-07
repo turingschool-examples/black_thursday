@@ -212,6 +212,30 @@ describe MerchantRepository do
     end
   end
 
+  describe '#merchants_with_only_one_item' do
+    it 'returns a collection of merchanta who only have one item' do
+      engine = double('engine')
+      items = double('item_repo')
+      allow(mr).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:items).and_return(items)
+      allow(items).to receive(:item_count).and_return(['item1'])
+
+      expect(mr.merchants_with_only_one_item).to eq(mr.all)
+    end
+  end
+
+  describe '#merchants_with_only_one_item_registered_in_month' do
+    it 'returns a collection of merchanta who only have one item' do
+      engine = double('engine')
+      items = double('item_repo')
+      item = double('item')
+      allow(mr).to receive(:engine).and_return(engine)
+      allow(engine).to receive(:items).and_return(items)
+      allow(items).to receive(:item_count).and_return([item])
+
+      expect(mr.merchants_with_only_one_item_registered_in_month('March')).to eq(mr.all)
+    end
+  end
   describe '#merchants_with_pending_invoices' do
     it 'returns an array of merchants with pending invoices' do
       allow(mr.all[0]).to receive(:invoice_pending?).and_return(true)

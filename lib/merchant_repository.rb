@@ -86,6 +86,17 @@ class MerchantRepository < GeneralRepo
     average(total_avg_item_prices, all.length).round(2)
   end
 
+
+  def merchants_with_only_one_item
+    all.select { |merchant| merchant.item_count == 1 }
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    merchants_with_only_one_item.select do |merchant|
+      merchant.created_at.month == month_to_int(month_name)
+    end
+  end
+
   def merchants_with_pending_invoices
     all.select { |merchant| merchant.invoice_pending? }
   end
