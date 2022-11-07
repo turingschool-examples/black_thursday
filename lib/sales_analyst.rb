@@ -161,4 +161,10 @@ class SalesAnalyst
       item.unit_price * item.quantity
     end.sum
   end
+
+  def total_revenue_by_date(date)
+    #all invoices totals on given date
+
+
+  end
 end
