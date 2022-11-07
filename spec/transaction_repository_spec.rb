@@ -26,5 +26,10 @@ RSpec.describe TransactionRepository do
   expect(transactions.find_by_id(0)).to eq(nil)
   expect(transactions.find_by_id(4)).to be_instance_of(Transaction)
   
-  end
+end
+
+  it '#find_all_by_invoice_id' do
+  expect(transactions.find_all_by_invoice_id(0)).to eq([]) 
+
+end
 end
