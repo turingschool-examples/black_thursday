@@ -145,9 +145,13 @@ class SalesAnalyst
     end
   end
 
-  def total_revenue_by_date(date)
-    invoice_by_day = engine.invoice_items.all.filter_map do |invoice_item|
-      date == invoice_item.updated_at.strftime("%Y-%M-%D")
+  def total_revenue_by_date(date_input)
+    invoice_by_day = engine.invoices.all.find_all do |invoice|
+
+      date_input.strftime("%D") == invoice.updated_at.strftime("%D")
+    end
+    invoice_by_day.sum do |invoice|
+      invoice_total(invoice.id)
     end
   end
 
