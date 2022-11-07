@@ -339,7 +339,20 @@ RSpec.describe SalesAnalyst do
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.top_revenue_earners(10)).to eq([])
-    expect(sales_analyst.top_revenue_earners).to eq([])
+    expected = sales_analyst.top_revenue_earners(10)
+    first = expected.first
+    last = expected.last
+
+    expect(expected.length).to eq(10)
+    expect(first.id).to eq 12334634
+    expect(last.id).to eq 12335747
+
+    expected = sales_analyst.top_revenue_earners
+    first = expected.first
+    last = expected.last
+
+    expect(expected.length).to eq(20)
+    expect(first.id).to eq 12334634
+    expect(last.id).to eq 12334159
   end
 end
