@@ -54,11 +54,11 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    @engine.invoices.top_days_by_invoice_count
+    @engine.send_down(method: :top_days_by_invoice_count)
   end
 
   def invoice_paid_in_full?(id)
-    @engine.invoices.invoice_paid_in_full?(id)
+    @engine.send_down(method: :invoice_paid_in_full?, args: id)
   end
 
   def invoice_total(invoice_id)
@@ -74,7 +74,7 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    @engine.merchants.merchants_with_pending_invoices
+    @engine.send_down(method: :merchants_with_pending_invoices)
   end
 
   def total_revenue_by_date(date)
@@ -86,6 +86,6 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(id)
-    @engine.merchants.revenue_by_merchant(id)
+    @engine.send_down(method: :revenue_by_merchant, args: id)
   end
 end
