@@ -1,77 +1,55 @@
+require 'time'
 require './lib/invoice_repository'
 require './lib/invoice'
 
 RSpec.describe Invoice do
   let!(:invoice) {Invoice.new({
-    :id => 1,
-    :customer_id => 1,
-    :merchant_id => 28282828,
+    :id => 3452,
+    :customer_id => 679,
+    :merchant_id => 12335690,
     :status => :pending,
-    :created_at => Time.now,
-    :updated_at => Time.now
+    :created_at => Time.parse("2012-03-27 14:54:46 UTC"),
+    :updated_at => Time.parse("2012-03-27 14:54:46 UTC")
   }, nil)}
 
   it 'is an invoice class' do
     expect(invoice).to be_a(Invoice)
   end
 
-  it 'returns all the invoice instances' do
-    expect(invoice.all).to eq([])
-  end
+  it "#id returns the invoice id" do
+    
+      expect(invoice.id).to eq 3452
+     
+      expect(invoice.id.class).to eq Fixnum
+    end
 
-  it 'can return an invoice by id' do
-    expect(invoice.find_by_id()).to eq()
-  end
+    it "#customer_id returns the invoice customer id" do
+      expect(invoice.customer_id).to eq 679
+      expect(invoice.customer_id.class).to eq Fixnum
+    end
 
-  it 'returns nil if it is not within' do
-    expect(invoice.find_by_id()).to eq(nil)
-    expect(invoice.find_by_id()).to eq(nil)
-  end
+    it "#merchant_id returns the invoice merchant id" do
+      expect(invoice.merchant_id).to eq 12335690
+      expect(invoice.merchant_id.class).to eq Fixnum
+    end
 
-  it 'can return the customer id' do
-    expect(invoice.find_all_by_customer_id()).to eq()
-  end
+    it "#status returns the invoice status" do
+      expect(invoice.status).to eq :pending
+      expect(invoice.status.class).to eq Symbol
+    end
 
-  it 'returns nil if it is not within' do
-    expect(invoice.find_all_by_customer_id()).to eq(nil)
-    expect(invoice.find_all_by_customer_id()).to eq(nil)
-  end
+    it "#created_at returns a Time instance for the date the invoice was created" do
+      expect(invoice.created_at).to eq Time.parse("2012-03-27 14:54:46 UTC")
+      expect(invoice.created_at.class).to eq Time
+    end
 
-  it 'can return the merchants id' do
-    expect(invoice.find_all_by_merchant_id()).to eq()
-  end
-
-  it 'returns nil if it is not within' do
-    expect(invoice.find_all_by_merchant_id()).to eq(nil)
-    expect(invoice.find_all_by_merchant_id()).to eq(nil)
-  end
-
-  it 'can return the status' do
-    expect(invoice.status).to eq()
-  end
-
-  it 'returns nil if it is not within' do
-    expect(invoice.status).to eq(nil)
-    expect(invoice.status).to eq(nil)
-  end
-
-  it 'can return the time instance when item was first created' do
-    expect(invoice.created_at).to eq()
-  end
-
-  it 'returns nil if it is not within' do
-    expect(invoice.created_at).to eq(nil)
-    expect(invoice.created_at).to eq(nil)
-  end
-
-  it 'can return the time for when the item was last modified' do
-    expect(invoice.updated_at).to eq()
-  end
-
-  it 'returns nil if it is not within' do
-    expect(invoice.updated_at).to eq(nil)
-    expect(invoice.updated_at).to eq(nil)
-  end
+    it "#updated_at returns a Time instance for the date the invoice was last updated" do
+      # require 'pry'; binding.pry
+      expect(invoice.updated_at).to eq Time.parse("2012-03-27 14:54:46 UTC")
+      # require 'pry'; binding.pry
+      expect(invoice.updated_at.class).to eq Time
+    end
+ 
 end
 
 

@@ -9,8 +9,14 @@ class  Customer
     @id         = info[:id]
     @first_name = info[:first_name]
     @last_name  = info[:last_name]
-    @created_at = info[:created_at]
-    @updated_at = info[:updated_at]
+    @created_at = Time.parse(info[:created_at])
+    @updated_at = Time.parse(info[:updated_at])
     @repo       = repo
+  end
+
+  def update(info)
+    (@first_name = info[:first_name]) if info[:first_name] != nil
+    (@last_name  = info[:last_name]) if info[:last_name] != nil
+    @updated_at = Time.now
   end
 end
