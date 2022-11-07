@@ -49,7 +49,7 @@ class SalesEngine
   end
 
   def find_all_invoice_items_by_id(id)
-    @invoice_items.find_all_invoice_items_by_id(id)
+    @invoice_items.find_all_by_invoice_id(id)
   end
 
   def analyst

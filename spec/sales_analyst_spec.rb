@@ -309,4 +309,5 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
     expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
+  end
 end

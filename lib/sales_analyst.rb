@@ -153,4 +153,12 @@ class SalesAnalyst
       transaction.result == :success 
     end
   end
+
+  def invoice_total(invoice_id)
+    return unless invoice_paid_in_full?(invoice_id)
+    invoice_items = @engine.find_all_invoice_items_by_id(invoice_id)
+    invoice_items.map do |item|
+      item.unit_price * item.quantity
+    end.sum
+  end
 end
