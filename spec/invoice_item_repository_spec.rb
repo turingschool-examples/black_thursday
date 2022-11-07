@@ -43,5 +43,25 @@ RSpec.describe InvoiceItemRepository do
     it 'starts as an empty array' do
       expect(iir.all).to eq([])
     end
+
+    it 'can add invoice items to array' do 
+      iir.add_to_repo(invoice_item_1)
+      iir.add_to_repo(invoice_item_2)
+      iir.add_to_repo(invoice_item_3)
+
+      expect(iir.all).to eq([invoice_item_1, invoice_item_2, invoice_item_3])
+    end
+  end
+
+  describe '#find_by_id' do
+    it 'returns an instance of invoice item with a matching id' do
+      iir.add_to_repo(invoice_item_1)
+      iir.add_to_repo(invoice_item_2)
+      iir.add_to_repo(invoice_item_3)
+
+      expect(iir.find_by_id(6)).to eq(invoice_item_1)
+      expect(iir.find_by_id(1)).to eq(invoice_item_2)
+      expect(iir.find_by_id(55)).to be_nil
+    end
   end
 end
