@@ -165,6 +165,16 @@ class SalesAnalyst
     top_days
   end
 
+  def invoice_status(input)
+    status_array = []
+    invoices.each do |invoice|
+      if invoice.status == input
+        status_array.push(invoice.status)
+      end
+    end
+    result = (status_array.count/invoices.count.to_f * 100).round(2)
+  end
+
 end
   # def golden_items
   #   prices = items.map { |item| item.unit_price }
