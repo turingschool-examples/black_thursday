@@ -92,4 +92,9 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.revenue_by_merchant(12335938)).to be_a (BigDecimal)
     expect(sales_analyst.revenue_by_merchant(12335938).to_f).to eq (158631.65)
   end
+
+  xit 'can return which merchants have pending invoices in an array' do
+    expect(sales_analyst.merchants_with_pending_invoices).to be_a(Array)
+    expect(sales_analyst.merchants_with_pending_invoices.first).to be_a(Merchant)
+  end
 end
