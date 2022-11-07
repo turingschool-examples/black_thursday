@@ -9,7 +9,7 @@ RSpec.describe Transaction do
                   created_at: Time.now,
                   updated_at: Time.now
                 }) }
-  let(:t_2) { Transaction.new({ id 1, 
+  let(:t_2) { Transaction.new({ id: 1, 
                   invoice_id: 2,
                   credit_card_number: '4242424242424243',
                   credit_card_expiration_date: '0221',
@@ -61,14 +61,14 @@ describe '#id' do
   end  
 
   describe '#created_at' do 
-    xit 'returns a Time for the date the transaction was first created' do 
+    it 'returns a Time for the date the transaction was first created' do 
       expect(t_1.created_at).to be_a(Time)
       expect(t_2.created_at).to be_a(Time)
     end
   end
-# #created_at and #updated_at undefined method?
+
   describe '#updated_at' do 
-    xit 'returns a Time for the date the transaction was last modified' do 
+    it 'returns a Time for the date the transaction was last modified' do 
       expect(t_1.updated_at).to be_a(Time)
       expect(t_2.updated_at).to be_a(Time)
     end
