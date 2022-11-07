@@ -39,4 +39,18 @@ end
   it '#find_all_by_result' do
   expect(transactions.find_all_by_result("success")).to be_a(Array)
 end
+
+it '#create makes new transaction' do
+ transaction = transactions.create({
+    :invoice_id => 8,
+    :credit_card_number => "4242424242424242",
+    :credit_card_expiration_date => "0220",
+    :result => "success",
+    :created_at => Time.now,
+    :updated_at => Time.now
+  })
+  expect(transaction).to be_instance_of(Transaction)
+  expect(transaction.id).to be > transactions.all[-2].id
+
+end
 end
