@@ -176,7 +176,6 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day
-    # binding.pry
   (invoice_days_count.sum / 7.0).round(2)
   end
 
@@ -220,7 +219,6 @@ class SalesAnalyst
     end
   end
 
-
   def invoice_paid_in_full?(invoice_id)
     find_transactions_by_invoice_id(invoice_id).any? do |transaction|
       transaction.result == :success
@@ -245,14 +243,10 @@ class SalesAnalyst
     end.sum
   end
   
-
-
   def invoice_status(status)
   invoice_count = invoices.all.select { |invoice| invoice.status == status }
   ((invoice_count.count).to_f / (invoices.all.count) * 100).round(2)
   end
-
-  
 
   def total_revenue_by_date(date)
     invoice_date = find_i_by_date(date)
@@ -262,7 +256,7 @@ class SalesAnalyst
   end
 
   def find_i_by_date(date)
-    invoices.all.find_all do |invoice|
+    x = invoices.all.find_all do |invoice|
       invoice.created_at.to_date === date.to_date
     end
   end
@@ -276,32 +270,30 @@ class SalesAnalyst
         total += invoice_total(invoice.id)
       end
     end
-    # x.group_by do |merchant|
     total.round(2)
-    # # binding.pry
-    # end
   end
-
-
 
   def top_revenue_earners(rank = 20)
-    # binding.pry
-    # ranked_sorted_merchants[0..(rank-1)]
-    # binding.pry
-    # (merchant_revenue[0..(rank-1)]).reverse
-    x = merchants.all.max_by(rank) do |merchant|
+    merchants.all.max_by(rank) do |merchant|
       total_merchant_revenue(merchant.id)
     end
-    
   end
 
-     
-# def merchants_with_pending_invoices
-#     @merchants.all.find_all do |merchant|  maybe possible to go straight to invoices?
-#     merchant.invoices.any? |invoice|      believe any? will skip any that dont have an invoice, think they all do so this could be redundant.
-#     !invoices.is_paid_in_full?            depending on how are paid in full method works? i dont love ! but wasnt sure how else to write it.
-# end
-
+  def merchants_with_pending_invoices
+    pending_invoices = []
+    invoices.all.each do |invoice|
+      if (invoice.status != :shipped || :returned) && !invoice_paid_in_full?(invoice.id)
+        pending_invoices << invoice
+      end
+    end.uniq
+    pending_invoices2 = pending_invoices.map do |invoice|
+      invoice.merchant_id
+      end.uniq
+    pending_invoices2.map do |merchant_id|
+      @merchants.find_by_id(merchant_id)
+    end
+  end  
+       
   def merchants_with_only_one_item
     @merchants.all.find_all do |merchant|
       @items.find_all_by_merchant_id(merchant.id).count == 1

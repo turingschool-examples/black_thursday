@@ -357,6 +357,13 @@ end
     end
   end
 
+  describe '#merchants_with_pending_invoices' do
+    it 'will return all merchants who have pending invoices' do
+
+    expect(sales_analyst.merchants_with_pending_invoices.length). to eq 467
+    end
+  end
+
   xit "#merchants_with_only_one_item returns merchants with only one item" do
     expect(sales_analyst.merchants_with_only_one_item.length).to eq 243 #the number of merchants taken from spec harness
     expect(sales_analyst.merchants_with_only_one_item.first.class).to eq Merchant
