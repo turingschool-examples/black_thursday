@@ -33,8 +33,10 @@ end
   end
 
   it '#find_all_by_credit_card_number' do
-  expect(transactions.find_all_by_credit_card_number(444)).to eq([])
+    expect(transactions.find_all_by_credit_card_number(444)).to eq([])
+  end
+
+  it '#find_all_by_result' do
+  expect(transactions.find_all_by_result("success")).to be_a(Array)
 end
-
-
 end

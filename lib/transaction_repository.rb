@@ -12,4 +12,10 @@ class TransactionRepository < Repository
     end
   end
 
+  def find_all_by_result
+    @repo.select do |transaction|
+        transaction.result == cc
+    end
+  end
+
 end
