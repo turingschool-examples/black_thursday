@@ -256,7 +256,7 @@ class SalesAnalyst
   end
 
   def find_i_by_date(date)
-    x = invoices.all.find_all do |invoice|
+    invoices.all.find_all do |invoice|
       invoice.created_at.to_date === date.to_date
     end
   end
@@ -304,9 +304,30 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.select do |merchant|
+      month_merchant_created(merchant) == number_month(month)
+    end
   end
 
+  def month_merchant_created(merchant)
+    merchant.created_at.to_date.month
+  end
 
+  def merchant_ids_in_month(month)
+    invoices_in_month(month).map do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def number_month(month)
+    Date::MONTHNAMES.find_index(month)
+  end
+
+  def invoices_in_month(month)
+    invoices.all.find_all do |invoice|
+      invoice.created_at.to_date.month == number_month(month)
+    end
+  end
 
   def invoices_by_merchant(merchant_id)
     @invoices.all.find_all do |invoice|
