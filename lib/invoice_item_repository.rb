@@ -24,5 +24,4 @@ class InvoiceItemRepository < Repository
     }
     super(id, sanitized_attributes)
   end
-
 end

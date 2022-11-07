@@ -159,8 +159,7 @@ RSpec.describe InvoiceItemRepository do
       expect(iir.all.size).to eq(1)
     end
 
-
-   it 'cannot delete an id that does not exist' do
+    it 'cannot delete an id that does not exist' do
       iir.add_to_repo(invoice_item_1)
       iir.add_to_repo(invoice_item_2)
       iir.add_to_repo(invoice_item_3)
