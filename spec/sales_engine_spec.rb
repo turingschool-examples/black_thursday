@@ -34,16 +34,11 @@ RSpec.describe SalesEngine do
         items: './data/items.csv',
         merchants: './data/merchants.csv',
         invoices: './data/invoices.csv',
-        invoice_items: './data/invoice_items.csv'
+        invoice_items: './data/invoice_items.csv',
+        transactions: "./data/transactions.csv"
       })
     end
   it 'creates a merchant and merchant repository' do
-    # se = SalesEngine.from_csv({
-    #                             items: './data/items.csv',
-    #                             merchants: './data/merchants.csv',
-    #                             invoices: './data/invoices.csv',
-    #                             invoice_items: './data/invoice_items.csv'
-    #                           })
     mr = @se.merchants
     merchant = mr.find_by_name('CJsDecor')
     expect(mr).to be_instance_of(MerchantRepository)
@@ -51,13 +46,6 @@ RSpec.describe SalesEngine do
   end
 
   it 'creates item and item repository' do
-    # se = SalesEngine.from_csv({
-    #                             items: './data/items.csv',
-    #                             merchants: './data/merchants.csv',
-    #                             invoices: './data/invoices.csv',
-    #                             invoice_items: './data/invoice_items.csv'
-
-    #                           })
     ir   = @se.items
     item = ir.find_by_name('disney scrabble frames')
     expect(ir).to be_instance_of(ItemRepository)
@@ -65,13 +53,6 @@ RSpec.describe SalesEngine do
   end
 
   it 'creates invoice and invoice repository' do
-    # se = SalesEngine.from_csv({
-    #                             items: './data/items.csv',
-    #                             merchants: './data/merchants.csv',
-    #                             invoices: './data/invoices.csv',
-    #                             invoice_items: './data/invoice_items.csv'
-
-    #                           })
     inr   = @se.invoices
     invoice = inr.find_by_id(6)
     expect(inr).to be_instance_of(InvoiceRepository)
