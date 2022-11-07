@@ -152,4 +152,84 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
     expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
   end
+
+   # ======================================= #
+
+   describe 'Iteration 4' do
+    let!(:merchant) {engine.merchants.find_by_id(12335523)}
+
+    xit 'can find out the total revenue for a given date' do
+      date = Time.parse("2009-02-07")
+
+      expect(sales_analyst.total_revenue_by_date(date)).to eq(21067.77)
+      expect(sales_analyst.total_revenue_by_date(date).class).to eq BigDecimal
+    end
+
+    xit 'can return the top x number of merchants ranked by revenue' do
+      sales_analyst.top_revenue_earners(10)
+  
+      expect(sales_analyst.top_revenue_earners(10).length).to eq(10)
+
+      expect(sales_analyst.top_revenue_earners(10).first.class).to eq(Merchant)
+      expect(sales_analyst.top_revenue_earners(10).first.id).to eq(12334634)
+
+      expect(sales_analyst.top_revenue_earners(10).last.class).to eq(Merchant)
+      expect(sales_analyst.top_revenue_earners(10).last.id).to eq(12335747)
+    end
+    
+    xit 'can return by default the top 20 merchants ranked by revenue if not argument is given' do  
+      expect(sales_analyst.top_revenue_earners.length).to eq(20)
+
+      expect(sales_analyst.top_revenue_earners.first.class).to eq(Merchant)
+      expect(sales_analyst.top_revenue_earners.first.id).to eq(12334634)
+
+      expect(sales_analyst.top_revenue_earners.last.class).to eq(Merchant)
+      expect(sales_analyst.top_revenue_earners.last.id).to eq(12334159)
+    end
+
+    xit 'can return merchants ranked by revenue' do
+      expect(sales_analyst.merchants_ranked_by_revenue.first.class).to eq(Merchant)
+
+      expect(sales_analyst.merchants_ranked_by_revenue.first.id).to eq(12334634)
+      expect(sales_analyst.merchants_ranked_by_revenue.last.id).to eq(12336175)
+    end
+    
+    xit 'can return all merchants with pending invoices' do
+      sales_analyst.merchants_with_pending_invoices
+  
+      expect(sales_analyst.merchants_with_pending_invoices.length).to eq(467)
+      expect(sales_analyst.merchants_with_pending_invoices.first.class).to eq(Merchant)
+    end
+
+    xit 'can return all merchants with only one item' do
+      expect(sales_analyst.merchants_with_only_one_item.length).to eq(243)
+      expect(sales_analyst.merchants_with_only_one_item.first.class).to eq(Merchant)
+    end
+
+    xit 'can return merchants with only one invoice for a given month' do
+      expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").length).to eq(21)
+      expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").first.class).to eq(Merchant)
+
+      expect(sales_analyst.merchants_with_only_one_item_registered_in_month("June").length).to eq(18)
+      expect(sales_analyst.merchants_with_only_one_item_registered_in_month("June").first.class).to eq(Merchant)
+    end
+
+    xit 'can return the final revenue for a single merchant' do
+      expect(sales_analyst.revenue_by_merchant(12334194)).to eq(BigDecimal)
+      #double check this spec harness
+      #dollar amount
+      expect(sales_analyst.revenue_by_merchant(12334194).class).to eq(BigDecimal)
+    end
+
+    xit 'can return the most sold item for a specified merchant' do
+      sales_analyst.most_sold_item_for_merchant(merchant_id)
+
+      expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq([])
+    end
+
+    xit 'can return the best item (in terms of revenue) for a specified merchant' do
+      sales_analyst.best_item_for_merchant(merchant_id)
+      
+      expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq([])
+    end
 end

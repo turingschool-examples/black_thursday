@@ -176,7 +176,7 @@ class SalesAnalyst
   end
   
   # ======================================= #
-
+  
   def invoice_paid_in_full?(invoice_id) 
     # returns true if the Invoice with the corresponding id is paid in full
   end
@@ -185,5 +185,44 @@ class SalesAnalyst
     # returns the total $ amount of the Invoice with the corresponding id
     # Failed charges should never be counted in revenue totals or statistics
     # An invoice is considered paid in full if it has a successful transaction
+  end
+
+
+  # ======================================= #
+
+  def total_revenue_by_date(date)
+    # use unit_price listed within invoice_items
+  end
+
+  def top_revenue_earners(top_number = 10)
+    # optional argument
+    # If no number is given for top_revenue_earners, 
+    # it takes the top 20 merchants by defaul
+  end
+
+  def merchants_ranked_by_revenue
+    #not on iteraction pattern but noticed on spec harness
+  end
+
+  def merchants_with_pending_invoices
+    # pending invoices = if none of the transactions are successful
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    # merchants that only sell one item by the month they registered 
+    # (merchant.created_at)
+  end
+
+  def sales_analyst.revenue_by_merchant(merchant_id)
+    # formatted in dollars
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    # quantity sold
+    # if a tie [item, item, item]
+  end
+
+  def best_item_for_merchant(merchant_id)
+    # item in terms of revenue generated
   end
 end
