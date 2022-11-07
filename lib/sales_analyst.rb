@@ -84,4 +84,6 @@ class SalesAnalyst
     end
   end
 
+  def invoice_paid_in_full
+  end
 end
