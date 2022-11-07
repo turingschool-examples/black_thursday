@@ -296,8 +296,8 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can return the total $ amount of an invoice' do
-     sales_engine = SalesEngine.from_csv(
-
+    sales_engine = SalesEngine.from_csv(
+      
       :items     => './data/items.csv',
       :merchants => './data/merchants.csv',
       :invoices  => './data/invoices.csv',
@@ -307,7 +307,7 @@ RSpec.describe SalesAnalyst do
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.invoice_total(1)).to eq(21067.77)
+    expect(sales_analyst.invoice_total(1)).to eq(21_067.77)
     expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
   end
 end
