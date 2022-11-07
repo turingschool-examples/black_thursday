@@ -1,6 +1,6 @@
 require_relative 'make_time'
 
-class InvoiceItem 
+class InvoiceItem
   include MakeTime
 
   attr_reader :id,
@@ -22,6 +22,6 @@ class InvoiceItem
   end
 
   def unit_price_to_dollars 
-    "$#{@unit_price.to_f.to_s}"
+    "$#{@unit_price.to_f}"
   end
 end
