@@ -31,4 +31,10 @@ class InvoiceRepository
     updated.status = attributes[:status]
     updated.updated_at = Time.now
   end
+
+  def find_all_by_date(date)
+    all.find_all do |invoice|
+    invoice.created_at == date
+    end
+  end
 end

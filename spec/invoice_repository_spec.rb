@@ -254,6 +254,6 @@ RSpec.describe InvoiceRepository do
     file = './data/invoices.csv'
     ivr.load_data(file)
 
-    expect(ivr.find_all_by_date(Time.parse("2009-02-07"))).to eq(ivr.all[0])
+    expect(ivr.find_all_by_date(Time.parse("2009-02-07"))).to eq([ivr.all[0]])
   end
 end
