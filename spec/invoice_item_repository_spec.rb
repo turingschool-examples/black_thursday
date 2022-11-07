@@ -86,4 +86,33 @@ RSpec.describe InvoiceItemRepository do
       expect(iir.find_all_by_invoice_id(11)).to eq([invoice_item_3])
     end
   end
+
+  describe '#create' do 
+    it 'can create a new invoice item' do
+      expect(iir.all).to eq([])
+
+      iir.create({ 
+                  :id => 20,
+                  :item_id => 21,
+                  :invoice_id => 22,
+                  :quantity => 1,
+                  :unit_price => BigDecimal("1999",4),
+                  :created_at => Time.now,
+                  :updated_at => Time.now
+                })
+      iir.create({ 
+                  :id => 23,
+                  :item_id => 24,
+                  :invoice_id => 25,
+                  :quantity => 1,
+                  :unit_price => BigDecimal("2099",4),
+                  :created_at => Time.now,
+                  :updated_at => Time.now
+                })
+
+      expect(iir.all[0].invoice_id).to eq(22)
+      expect(iir.all[1].item_id).to eq(24)
+      expect(iir.all.size).to eq(2)
+    end
+  end
 end
