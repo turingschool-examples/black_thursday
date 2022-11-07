@@ -195,6 +195,14 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    
+    pend_invoices = invoices.all.find_all do |invoice|
+      !(invoice_paid_in_full?(invoice.id))
+    end
+    merch_ids = pend_invoices.map do |invoice|
+      invoice.merchant_id
+    end
+    merch_ids.map do |id|
+      merchants.find_by_id(id)
+    end.uniq
   end
 end
