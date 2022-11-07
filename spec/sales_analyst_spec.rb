@@ -32,11 +32,6 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_high_item_count[0]).to be_a(Merchant)
   end
 
-  it 'checks average item price for merchant)' do
-    sales_analyst = sales_engine.analyst
-    expect(sales_analyst.average_item_price_for_merchant(12_334_159)).to be_a(BigDecimal)
-  end
-
   it '#average average price per merchant' do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_average_price_per_merchant).to be_a(BigDecimal)
