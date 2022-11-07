@@ -64,4 +64,20 @@ class SalesAnalyst
   def invoice_total(invoice_id)
     @engine.invoices.invoice_total(invoice_id)
   end
+
+  def merchants_with_pending_invoices
+    @engine.merchants.merchants_with_pending_invoices
+  end
+
+  def total_revenue_by_date(date)
+    @engine.invoices.total_revenue_by_date(date)
+  end
+
+  def top_revenue_earners(num = 20)
+    @engine.merchants.top_revenue_earners(num)
+  end
+
+  def revenue_by_merchant(id)
+    @engine.merchants.revenue_by_merchant(id)
+  end
 end

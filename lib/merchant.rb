@@ -2,7 +2,7 @@
 require 'calculable'
 # This is the Merchant Class
 class Merchant
-include Calculable
+  include Calculable
   attr_reader :id,
               :name
 
@@ -43,5 +43,14 @@ include Calculable
 
   def avg_item_price
     average(item_prices.sum, item_count)
+  end
+
+  def invoice_pending?
+    _invoices.any? { |invoice| !(invoice.paid?) }
+  end
+
+  def revenue
+    paid_inv = _invoices.select { |invoice| invoice.paid? }
+    paid_inv.sum { |invoice| invoice.total }
   end
 end
