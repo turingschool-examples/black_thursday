@@ -4,21 +4,21 @@ require_relative '../lib/transaction'
 RSpec.describe TransactionRepository do
   let(:transaction_repository) { TransactionRepository.new }
 
-  let(:t_1) { Transaction.new({ :id => 6,
-                                :invoice_id => 8,
-                                :credit_card_number => "4242424242424242",
-                                :credit_card_expiration_date => "0220",
-                                :result => "success",
-                                :created_at => Time.now,
-                                :updated_at => Time.now
+  let(:t_1) { Transaction.new({ id: 6,
+                                invoice_id: 8,
+                                credit_card_number: "4242424242424242",
+                                credit_card_expiration_date: "0220",
+                                result: "success",
+                                created_at: Time.now,
+                                updated_at: Time.now
                               }) }
-  let(:t_2) { Transaction.new({ :id => 1, 
-                              :invoice_id => 2,
-                              :credit_card_number => "4242424242424243",
-                              :credit_card_expiration_date => "0221",
-                              :result => "failed",
-                              :created_at => Time.now,
-                              :updated_at => Time.now
+  let(:t_2) { Transaction.new({ id: 1, 
+                              invoice_id: 2,
+                              credit_card_number: "4242424242424243",
+                              credit_card_expiration_date: "0221",
+                              result: "failed",
+                              created_at: Time.now,
+                              updated_at: Time.now
                             }) }  
 
   describe '#initialize' do
@@ -74,6 +74,36 @@ RSpec.describe TransactionRepository do
       expect(transaction_repository.find_all_by_result('success')).to eq([t_1])
       expect(transaction_repository.find_all_by_result('failed')).to eq([t_2])
       expect(transaction_repository.find_all_by_result('doesntexist')).to eq([])
+    end
+  end
+
+  describe '#create' do
+    it 'can create a new transaction' do
+      expect(transaction_repository.all).to eq([])
+
+      transaction_repository.create({ id: 7,
+                                      invoice_id: 9,
+                                      credit_card_number: "4242424242424244",
+                                      credit_card_expiration_date: "0222",
+                                      result: "success",
+                                      created_at: Time.now,
+                                      updated_at: Time.now
+                                    }) 
+
+      expect(transaction_repository.all.first.id).to eq(1)
+
+      transaction_repository.create({ id: 8,
+                                      invoice_id: 9,
+                                      credit_card_number: "4242424242424245",
+                                      credit_card_expiration_date: "0223",
+                                      result: "failed",
+                                      created_at: Time.now,
+                                      updated_at: Time.now
+                                    }) 
+
+
+      expect(transaction_repository.all.last.id).to eq(2)
+      expect(transaction_repository.all.size).to eq(2)
     end
   end
 
