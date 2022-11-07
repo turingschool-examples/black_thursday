@@ -189,11 +189,22 @@ class SalesAnalyst
     total = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
       invoice_item.quantity * (invoice_item.unit_price / 100)
     end
-# require 'pry'; binding.pry
-    # CLOSE BUT NOT CORRECT "BIG DECIMAL"
-    total # = BigDecimal(total, 4)
+
+    total = BigDecimal(total, 7)
   end
 
+  def total_of_invoice_total(merchant)
+    invoices_paid_in_full_by_merchant(merchant).sum do |invoice|
+      invoice_total(invoice.id)
+    end
+  end
+
+  def invoices_paid_in_full_by_merchant(merchant)
+      invoices = sales_engine.invoices.find_all_by_merchant_id(merchant.id)
+        invoices.find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+  end
 
   # ======================================= #
   def invoice_by_date(date)
@@ -201,25 +212,25 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    # require 'pry'; binding.pry
     invoice_by_date(date).sum do |invoice|
       invoice_total(invoice.id) if invoice_paid_in_full?(invoice.id)
     end
-    # use unit_price listed within invoice_items
   end
 
   def top_revenue_earners(top_number = 20)
-    # go through all merchants
+    hash = {}
     
-      # go through all of the merchant's invoices
-      
-        #go find the total of each invoice (make sure it is paid in full)
-        
-      # add all invoice totals up to find merchant's total
-      
-    # rank merchants (sort) and take the top x as an array.
-    
-    # it takes the top 20 merchants by defaul
+    merchants = sales_engine.merchants.all
+    merchants.each do |merchant|
+      hash[merchant] = total_of_invoice_total(merchant)
+    end
+
+    top_earners = hash.max_by(top_number) do |key, value| 
+      value 
+    end
+    top_earners.map do |merchant|
+      merchant[0]
+    end
   end
 
   def merchants_ranked_by_revenue

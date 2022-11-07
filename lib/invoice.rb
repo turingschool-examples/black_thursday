@@ -17,7 +17,7 @@ class Invoice
     @created_at   = Time.parse(info[:created_at])
     @updated_at   = Time.parse(info[:updated_at])
     @repo = repo
-    @invoices = []
+    # @invoices = []
   end
 
   def update(info)
