@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'require_store'
 
 class Merchant
   attr_accessor :id,
-              :name,
-              :created_at,
-              :updated_at
+                :name,
+                :created_at,
+                :updated_at
 
   def initialize(attributes)
     @id   = attributes[:id].to_i

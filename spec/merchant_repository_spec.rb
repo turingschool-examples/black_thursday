@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require_relative '../lib/merchant_repository'
-require "spec_helper_2"
+require 'spec_helper_2'
 
 RSpec.describe MerchantRepository do
   it 'exists' do
@@ -15,11 +17,11 @@ RSpec.describe MerchantRepository do
   end
 
   it 'can find a specific merchant by id' do
-    expect(engine.merchants.find_by_id(12334105).name).to eq('Shopin1901')
+    expect(engine.merchants.find_by_id(12_334_105).name).to eq('Shopin1901')
   end
 
   it 'can find a specific merchant by name' do
-    expect(engine.merchants.find_by_name('Shopin1901').id).to eq 12334105
+    expect(engine.merchants.find_by_name('Shopin1901').id).to eq 12_334_105
   end
 
   it 'can find a all merchants that have the input as part of their name' do
@@ -28,20 +30,20 @@ RSpec.describe MerchantRepository do
   end
 
   it 'can create a new merchant' do
-    engine.merchants.create({name: "BMW AG"})
+    engine.merchants.create({ name: 'BMW AG' })
 
-    expect(engine.merchants.all.last.name).to eq("BMW AG")
+    expect(engine.merchants.all.last.name).to eq('BMW AG')
   end
 
   it 'can update a merchant' do
-    engine.merchants.update(12334105, {name: "Turing School of Software and Design"})
+    engine.merchants.update(12_334_105, { name: 'Turing School of Software and Design' })
 
-    expect(engine.merchants.find_by_id(12334105).name).to eq("Turing School of Software and Design")
+    expect(engine.merchants.find_by_id(12_334_105).name).to eq('Turing School of Software and Design')
   end
 
   it 'can delete a merchant' do
-    engine.merchants.delete(12337412)
+    engine.merchants.delete(12_337_412)
 
-    expect(engine.merchants.find_by_id(12337412)).to eq nil
+    expect(engine.merchants.find_by_id(12_337_412)).to eq nil
   end
 end

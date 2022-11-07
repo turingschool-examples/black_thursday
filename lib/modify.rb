@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require_relative 'require_store'
 
 module Modify
   def evaluate
-    return Merchant if self.class == MerchantRepository
-    return Item if self.class == ItemRepository
-    return Invoice if self.class == InvoiceRepository
-    return InvoiceItem if self.class == InvoiceItemRepository
-    return Transaction if self.class == TransactionRepository
-    return Customer if self.class == CustomerRepository
+    return Merchant if instance_of?(MerchantRepository)
+    return Item if instance_of?(ItemRepository)
+    return Invoice if instance_of?(InvoiceRepository)
+    return InvoiceItem if instance_of?(InvoiceItemRepository)
+    return Transaction if instance_of?(TransactionRepository)
+    return Customer if instance_of?(CustomerRepository)
   end
 
   def create(attributes)
@@ -20,7 +22,7 @@ module Modify
 
   def update(id, attributes)
     updated_instance = find_by_id(id)
-    if updated_instance != nil
+    unless updated_instance.nil?
       updated_instance.updated_at = Time.now
       merchant_update(updated_instance, attributes) if evaluate = Merchant
       item_update(updated_instance, attributes) if evaluate = Item
@@ -51,8 +53,12 @@ module Modify
   end
 
   def transaction_update(updated_instance, attributes)
-    updated_instance.credit_card_number = attributes[:credit_card_number] if attributes.keys.include?(:credit_card_number)
-    updated_instance.credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes.keys.include?(:credit_card_expiration_date)
+    if attributes.keys.include?(:credit_card_number)
+      updated_instance.credit_card_number = attributes[:credit_card_number]
+    end
+    if attributes.keys.include?(:credit_card_expiration_date)
+      updated_instance.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+    end
     updated_instance.result = attributes[:result] if attributes.keys.include?(:result)
   end
 
@@ -62,7 +68,7 @@ module Modify
   end
 
   def delete(id)
-      to_be_deleted = find_by_id(id)
-      all.delete(to_be_deleted)
+    to_be_deleted = find_by_id(id)
+    all.delete(to_be_deleted)
   end
 end

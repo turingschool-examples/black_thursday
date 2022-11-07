@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'require_store'
 
 class InvoiceItem
@@ -8,6 +10,7 @@ class InvoiceItem
                 :unit_price,
                 :created_at,
                 :updated_at
+
   def initialize(data)
     @id         = data[:id].to_i
     @item_id    = data[:item_id].to_i

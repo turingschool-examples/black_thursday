@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'require_store'
 
 class SalesAnalyst
@@ -7,6 +9,7 @@ class SalesAnalyst
               :invoice_items,
               :customers,
               :transactions
+
   def initialize(engine)
     @items = engine.items
     @merchants = engine.merchants
@@ -21,9 +24,7 @@ class SalesAnalyst
   end
 
   def merch_hash
-    hsh = items.all.group_by do |item|
-      item.merchant_id
-    end
+    hsh = items.all.group_by(&:merchant_id)
     hsh.map do |keys, values|
       hsh[keys] = values.count
     end
@@ -31,7 +32,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    sqr_diff = merch_hash.sum do |merchant, items|
+    sqr_diff = merch_hash.sum do |_merchant, items|
       (items - average_items_per_merchant)**2.0
     end
     Math.sqrt(sqr_diff / (merch_hash.keys.count - 1)).round(2)
@@ -39,16 +40,15 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     merch_hash.filter_map do |merchant, items|
-     next if items - average_items_per_merchant_standard_deviation < average_items_per_merchant
-     merchants.find_by_id(merchant)
+      next if items - average_items_per_merchant_standard_deviation < average_items_per_merchant
+
+      merchants.find_by_id(merchant)
     end
   end
 
   def average_item_price_for_merchant(merchant_id)
     merchant_specific_items = items.find_all_by_merchant_id(merchant_id)
-    merchant_total_value = merchant_specific_items.sum do |item|
-      item.unit_price
-    end
+    merchant_total_value = merchant_specific_items.sum(&:unit_price)
     (merchant_total_value / merchant_specific_items.length).round(2)
   end
 
@@ -57,9 +57,7 @@ class SalesAnalyst
   end
 
   def inv_hash
-    inv_hsh = invoices.all.group_by do |invoice|
-      invoice.merchant_id
-    end
+    inv_hsh = invoices.all.group_by(&:merchant_id)
     inv_hsh.map do |keys, values|
       inv_hsh[keys] = values.count
     end
@@ -67,14 +65,14 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    sqr_diff = inv_hash.sum do |merchant, number|
+    sqr_diff = inv_hash.sum do |_merchant, number|
       (number - average_invoices_per_merchant)**2.0
     end
     Math.sqrt((sqr_diff / (inv_hash.keys.count - 1))).round(2)
   end
 
   def avg_price_per_item
-    items.all.sum { |item| item.unit_price} / items.all.length
+    items.all.sum(&:unit_price) / items.all.length
   end
 
   def average_item_price_standard_deviation
@@ -86,7 +84,7 @@ class SalesAnalyst
 
   def golden_items
     min = avg_price_per_item + (average_item_price_standard_deviation * 2)
-    max = 99999
+    max = 99_999
     items.find_all_by_price_in_range(min..max)
   end
 
@@ -108,7 +106,7 @@ class SalesAnalyst
 
   def day_hash
     day_hsh = invoices.all.group_by do |invoice|
-      invoice.created_at.strftime("%A")
+      invoice.created_at.strftime('%A')
     end
     day_hsh.map do |keys, values|
       day_hsh[keys] = values.count
@@ -117,7 +115,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day_standard_deviation
-    sqr_diff = day_hash.sum do |day, number|
+    sqr_diff = day_hash.sum do |_day, number|
       (number - average_invoices_per_day)**2.0
     end
     Math.sqrt((sqr_diff / 6)).round(2)
@@ -126,6 +124,7 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     inv_hash.filter_map do |merchant, amount|
       next if ((average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant) > amount
+
       @merchants.find_by_id(merchant)
     end
   end
@@ -133,6 +132,7 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     inv_hash.filter_map do |merchant, amount|
       next if (average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation * 2) < amount
+
       @merchants.find_by_id(merchant)
     end
   end
@@ -145,21 +145,21 @@ class SalesAnalyst
 
   def invoice_paid_in_full?(invoice)
     transactions_in_invoice = transactions.find_all_by_invoice_id(invoice)
-    transactions_in_invoice.any? { |transaction| transaction.result == :success}
+    transactions_in_invoice.any? { |transaction| transaction.result == :success }
   end
 
   def invoice_total(invoice)
     if !invoice_paid_in_full?(invoice)
-      return 0
+      0
     else
       invoice_items_specific = invoice_items.find_all_by_invoice_id(invoice)
-      invoice_items_specific.sum { |ii| ii.unit_price * ii.quantity}.round(2)
+      invoice_items_specific.sum { |ii| ii.unit_price * ii.quantity }.round(2)
     end
   end
 
   def total_revenue_by_date(date_input)
     invoice_by_day = invoices.all.find_all do |invoice|
-      date_input.strftime("%D") == invoice.created_at.strftime("%D")
+      date_input.strftime('%D') == invoice.created_at.strftime('%D')
     end
 
     invoice_by_day.sum do |invoice|
@@ -189,7 +189,7 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month)
     merchants_by_month_created = merchants_with_only_one_item.group_by do |merchant|
-      merchant.created_at.strftime("%B").downcase
+      merchant.created_at.strftime('%B').downcase
     end
     merchants_by_month_created[month.downcase]
   end
@@ -199,20 +199,16 @@ class SalesAnalyst
     specific_invoice_items = specific_merchant_invoices.flat_map do |invoice|
       invoice_items.find_all_by_invoice_id(invoice.id)
     end
-    specific_invoice_items.group_by do |invoice_item|
-      invoice_item.item_id
-    end
+    specific_invoice_items.group_by(&:item_id)
   end
 
   def most_sold_item_for_merchant(merchant_id)
     hash = items_for_specific_merchant(merchant_id)
     hash.map do |item_id, invoice_items|
-      hash[item_id] = invoice_items.sum do |invoice_item|
-        invoice_item.quantity
-      end
+      hash[item_id] = invoice_items.sum(&:quantity)
     end
-    top_item_id = hash.filter_map { |item_id, total_items| item_id if total_items == hash.values.max}
-    top_item_id.map { |item| items.find_by_id(item)}
+    top_item_id = hash.filter_map { |item_id, total_items| item_id if total_items == hash.values.max }
+    top_item_id.map { |item| items.find_by_id(item) }
   end
 
   def best_item_for_merchant(merchant_id)
@@ -227,11 +223,9 @@ class SalesAnalyst
 
   def merchants_with_pending_invoices
     pend_invoices = invoices.all.find_all do |invoice|
-      !(invoice_paid_in_full?(invoice.id))
+      !invoice_paid_in_full?(invoice.id)
     end
-    merch_ids = pend_invoices.map do |invoice|
-      invoice.merchant_id
-    end
+    merch_ids = pend_invoices.map(&:merchant_id)
     merch_ids.map do |id|
       merchants.find_by_id(id)
     end.uniq

@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require_relative 'require_store'
 
-class Customer 
+class Customer
   attr_accessor :id, :first_name, :last_name, :created_at, :updated_at
+
   def initialize(data)
     @id          = data[:id].to_i
     @first_name  = data[:first_name]

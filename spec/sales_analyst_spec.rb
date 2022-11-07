@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
-require "spec_helper_2"
+require 'spec_helper_2'
 
 RSpec.describe SalesAnalyst do
   let(:sales_analyst) { engine.analyst }
@@ -18,19 +20,17 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can return merchants with a high item count' do
-    merchants_with_high_item_count_id = sales_analyst.merchants_with_high_item_count.map do |merchant|
-      merchant.id
-    end
-    expect(merchants_with_high_item_count_id.include?(12334195)).to eq (true)
-    expect(merchants_with_high_item_count_id.include?(12334105)).to eq (false)
+    merchants_with_high_item_count_id = sales_analyst.merchants_with_high_item_count.map(&:id)
+    expect(merchants_with_high_item_count_id.include?(12_334_195)).to eq(true)
+    expect(merchants_with_high_item_count_id.include?(12_334_105)).to eq(false)
   end
 
   it 'can return the average item price for a specific merchant' do
-    expect(sales_analyst.average_item_price_for_merchant(12334159)).to eq 31.50
+    expect(sales_analyst.average_item_price_for_merchant(12_334_159)).to eq 31.50
   end
 
   it 'can return the average number of invoices per merchant' do
-    expect(sales_analyst.average_invoices_per_merchant).to eq (10.49)
+    expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
   end
 
   it 'can return a hash of merchant ids with number of invoices per merchant' do
@@ -38,7 +38,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can return the average number of invoices per merchant standard deviation' do
-    expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq (3.29)
+    expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
 
   it 'can return golden items' do
@@ -78,7 +78,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can return the total dollar amount paid for a specific invoice' do
-    expect(sales_analyst.invoice_total(1)).to eq 21067.77
+    expect(sales_analyst.invoice_total(1)).to eq 21_067.77
   end
 
   it 'can return top x performing merchants in terms of revenue' do
@@ -86,19 +86,18 @@ RSpec.describe SalesAnalyst do
     expected_10 = sales_analyst.top_revenue_earners(10)
     expect(expected).to be_a Array
     expect(expected_10).to be_a Array
-    expect(expected_10.length).to eq (10)
-    expect(expected.length).to eq (20)
+    expect(expected_10.length).to eq(10)
+    expect(expected.length).to eq(20)
   end
 
   it 'can return total revenue by date' do
-    date = Time.parse("2009-02-07")
-    expect(sales_analyst.total_revenue_by_date(date)).to eq 21067.77
+    date = Time.parse('2009-02-07')
+    expect(sales_analyst.total_revenue_by_date(date)).to eq 21_067.77
   end
 
   it 'can return total revenue for a single merchant' do
-
-    expect(sales_analyst.revenue_by_merchant(12335938)).to be_a (BigDecimal)
-    expect(sales_analyst.revenue_by_merchant(12335938).to_f).to eq 126300.9
+    expect(sales_analyst.revenue_by_merchant(12_335_938)).to be_a(BigDecimal)
+    expect(sales_analyst.revenue_by_merchant(12_335_938).to_f).to eq 126_300.9
   end
 
   it 'can return the merchants that offer only one item' do
@@ -114,9 +113,9 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can return the most sold items for a specific merchant' do
-    expected = sales_analyst.most_sold_item_for_merchant(12334105)
+    expected = sales_analyst.most_sold_item_for_merchant(12_334_105)
 
-    expect(expected[0].id).to eq 263541512
+    expect(expected[0].id).to eq 263_541_512
     expect(expected).to be_a Array
     expect(expected[0]).to be_a Item
   end
@@ -128,8 +127,8 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can return the most lucrative items for a specific merchant' do
-    expected = sales_analyst.best_item_for_merchant(12334113)
-    expect(expected.id).to eq 263422571
+    expected = sales_analyst.best_item_for_merchant(12_334_113)
+    expect(expected.id).to eq 263_422_571
     expect(expected).to be_a Item
   end
 end

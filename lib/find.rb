@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'require_store'
 
 module Find
@@ -69,13 +71,13 @@ module Find
 
   def find_all_by_first_name(name_frag)
     all.find_all do |singular|
-     singular.first_name.downcase.include?(name_frag.downcase)
+      singular.first_name.downcase.include?(name_frag.downcase)
     end
   end
 
   def find_all_by_last_name(name_frag)
     all.find_all do |singular|
-     singular.last_name.downcase.include?(name_frag.downcase)
+      singular.last_name.downcase.include?(name_frag.downcase)
     end
   end
 

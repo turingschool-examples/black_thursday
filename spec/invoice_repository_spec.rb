@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require_relative '../lib/invoice_repository'
-require "spec_helper_2"
+require 'spec_helper_2'
 
 RSpec.describe InvoiceRepository do
   it 'exists' do
@@ -16,7 +18,7 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'can find by merchant id' do
-    expect(engine.invoices.find_all_by_merchant_id(12335938).length).to eq 16
+    expect(engine.invoices.find_all_by_merchant_id(12_335_938).length).to eq 16
   end
 
   it 'can find by customer id' do
@@ -29,16 +31,16 @@ RSpec.describe InvoiceRepository do
 
   it 'can create a new invoice' do
     engine.invoices.create({
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status      => "pending",
-    })
+                             customer_id: 7,
+                             merchant_id: 8,
+                             status: 'pending'
+                           })
 
     expect(engine.invoices.all.last.id).to eq 4986
   end
 
   it 'can update an invoice' do
-    engine.invoices.update(4985, {status: :shipped})
+    engine.invoices.update(4985, { status: :shipped })
 
     expect(engine.invoices.all.last.status).to eq(:pending)
   end
