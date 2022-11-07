@@ -24,12 +24,10 @@ class Repository
 
   # add superclass level test for this
   def max_id
-    max = @all.max_by do |item|
-      item.id
-    end
+    max = @all.max_by(&:id)
     return 1 if max.nil?
 
-    max.id + 1
+    (max.id + 1)
   end
 
   #add tests
