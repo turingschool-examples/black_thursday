@@ -24,15 +24,15 @@ class Item
     @unit_price.round(2).to_f
   end
 
-  def update(id, attributes)
-    @name = attributes[:name]
-    @description = attributes[:description]
-    @unit_price = attributes[:unit_price]
+  def update(attributes)
+    @name = attributes[:name] if attributes[:name] != nil
+    @description = attributes[:description] if attributes[:description] != nil
+    @unit_price = attributes[:unit_price] if attributes[:unit_price] != nil
     @updated_at = Time.now
   end
 
-  def merchant
-    @repo.find_merchant_by_id(@merchant_id)
-  end
+  # def merchant
+  #   @repo.find_merchant_by_id(@merchant_id)
+  # end
 
 end
