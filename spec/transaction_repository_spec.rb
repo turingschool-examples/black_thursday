@@ -56,6 +56,6 @@ end
 it '#delete' do
 expect(transactions.find_by_id(1)).to be_a(Transaction)
 transactions.delete(1)
-expect(transactions.find_by_id(1)).to eq([])
+expect(transactions.find_by_id(1)).to eq(nil)
 end
 end

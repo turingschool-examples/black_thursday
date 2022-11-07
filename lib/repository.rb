@@ -10,10 +10,8 @@ class Repository
   end
 
   def parse_data(file, class_var)
-    # require 'pry'; binding.pry
     rows = CSV.open file, headers: true, header_converters: :symbol
     rows.each do |row|
-      # require 'pry'; binding.pry
       new_obj = class_var.new(row.to_h)
       @repo << new_obj
     end

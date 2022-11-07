@@ -7,7 +7,8 @@ RSpec.describe SalesAnalyst do
                            items: './data/items.csv',
                            merchants: './data/merchants.csv',
                            invoices: './data/invoices.csv',
-                           invoice_items: './data/invoice_items.csv'
+                           invoice_items: './data/invoice_items.csv',
+                           transactions: "./data/transactions.csv"
                          })
    end
 
@@ -52,4 +53,10 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
+
+  it '#invoice_paid_in_full?' do
+  sales_analyst = sales_engine.analyst
+  expect(sales_analyst.invoice_paid_in_full(75)).to eq(false)
+
+end
 end

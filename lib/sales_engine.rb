@@ -6,6 +6,8 @@ require_relative 'sales_analyst'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
 require_relative 'invoice_item'
+require_relative 'transaction_repository'
+require_relative 'transaction'
 require 'pry'
 
 class SalesEngine
