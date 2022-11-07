@@ -47,59 +47,6 @@ class SalesEngine
       })
   end
 
-  # def self.item_breakdown(items_entered)
-  #   items_raw = CSV.open(items_entered, headers: true, header_converters: :symbol)
-  #   item_repo = ItemRepository.new
-  #   items_raw.each do |item|
-  #     item_repo.add(item)
-  #   end
-  #   item_repo
-  # end
-
-  # def self.merchant_breakdown(merchants_entered)
-  #   merchant_repo = MerchantRepository.new
-  #   CSV.foreach(merchants_entered, headers: true, header_converters: :symbol) do |merchant|
-  #     merchant_repo.add(merchant)
-  #   end
-  #   merchant_repo
-  # end
-
-  # def self.invoice_breakdown(invoices_entered)
-  #   invoices_raw = CSV.open(invoices_entered, headers: true, header_converters: :symbol)
-  #   invoice_repo = InvoiceRepository.new
-  #   invoices_raw.each do |invoice|
-  #     invoice_repo.add(invoice)
-  #   end
-  #   invoice_repo
-  # end
-
-  # def self.invoice_item_breakdown(invoice_items_entered)
-  #   invoice_items_raw = CSV.open(invoice_items_entered, headers: true, header_converters: :symbol)
-  #   invoice_item_repo = InvoiceItemRepository.new
-  #   invoice_items_raw.each do |invoice_item|
-  #     invoice_item_repo.add(invoice_item)
-  #   end
-  #   invoice_item_repo
-  # end
-
-  # def self.customer_breakdown(customers_entered)
-  #   customers_raw = CSV.open(customers_entered, headers: true, header_converters: :symbol)
-  #   customer_repo = CustomerRepository.new
-  #   customers_raw.each do |customer|
-  #     customer_repo.add(customer)
-  #   end
-  #   customer_repo
-  # end
-
-  # def self.transaction_breakdown(transactions_entered)
-  #   transactions_raw = CSV.open(transactions_entered, headers: true, header_converters: :symbol)
-  #   transaction_repo = TransactionRepository.new
-  #   transactions_raw.each do |transaction|
-  #     transaction_repo.add(transaction)
-  #   end
-  #   transaction_repo
-  # end
-
   def analyst
     SalesAnalyst.new(@items, @merchants, @invoices, @invoice_items, @customers, @transactions)
   end
