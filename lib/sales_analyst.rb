@@ -322,7 +322,7 @@ class SalesAnalyst
 
   def invoices_in_month(month)
     invoices.all.find_all do |invoice|
-      invoice.created_at.to_date.month === number_month(month)
+      invoice.created_at.to_date.month == number_month(month)
     end
   end
 
