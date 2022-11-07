@@ -13,7 +13,7 @@ class SalesEngine
               :items,
               :invoices,
               :invoice_items,
-              :transaction_repository
+              :transactions
 
   def initialize
     @merchants = MerchantRepository.new
@@ -29,7 +29,7 @@ class SalesEngine
     sales_engine.merchants.parse_data(hash_path[:merchants], Merchant)
     sales_engine.invoices.parse_data(hash_path[:invoices], Invoice)
     sales_engine.invoice_items.parse_data(hash_path[:invoice_items], InvoiceItem)
-    sales_engine.invoice_items.parse_data(hash_path[:transaction_repository], TransactionRepository)
+    sales_engine.transactions.parse_data(hash_path[:transactions], Transaction)
     sales_engine
   end
 

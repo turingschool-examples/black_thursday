@@ -12,4 +12,8 @@ RSpec.describe TransactionRepository do
     transaction = sales_engine.transactions.find_by_id(6)
     expect(transaction.id).to eq(6)
   end
+
+  it '#all' do
+  expect(transactions.all).to be_a(Array)
+end
 end
