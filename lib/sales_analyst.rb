@@ -91,86 +91,76 @@ class SalesAnalyst
     end
   end
 
-  def merchants_for_comparison(merchants_with_invoices)
-    merchants_invoices = []
-    merchants_with_invoices.each do |invoices_array|
-     if invoices_array.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
-     merchants_invoices.push(invoices_array)
-     elsif invoices_array.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
-      merchants_invoices.push(invoices_array)
-     end
-    end
-    merchants_invoices
-  end
-
-  def merchant_ids_collection(merchants_for_comparison)
+  def merchant_ids_collection(merchants_invoices)
     merchants_invoices.map do |invoices_collection|
     invoices_collection[0].merchant_id
     end
   end
 
-  def chosen_merchants(merchants_for_comparison)
-    merchant_ids_collection(merchants_for_comparison).map do |merchant|
+  def chosen_merchants(merchants_invoices)
+    merchant_ids_collection(merchants_invoices).map do |merchant|
       @sales_engine.merchants.find_by_id(merchant)
     end
   end
 
   def top_merchants_by_invoice_count
-    # merchants_invoices = []
-    #  merchants_with_invoices.each do |invoices_array|
-    #   if invoices_array.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
-    #   merchants_invoices.push(invoices_array)
-    #   end
-    # end
-    merchants_for_comparison(merchants_with_invoices)
-
+    merchants_invoices = []
+     merchants_with_invoices.each do |invoices_array|
+      if invoices_array.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+      merchants_invoices.push(invoices_array)
+      end
+    end
     chosen_merchants(merchants_invoices)
   end
 
   def bottom_merchants_by_invoice_count
-    # merchants_invoices = []
-    #  merchants_with_invoices.each do |invoices_array|
-    #   if invoices_array.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
-    #   merchants_invoices.push(invoices_array)
-    #   end
-    # end
-    merchants_for_comparison(merchants_with_invoices)
-
+    merchants_invoices = []
+     merchants_with_invoices.each do |invoices_array|
+      if invoices_array.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+      merchants_invoices.push(invoices_array)
+      end
+    end
     chosen_merchants(merchants_invoices)
   end
   
-  def top_days_by_invoice_count
-    date_array = []
-    @invoices.each do |invoice|
-      date_array.push([invoice.created_at])
+  def dates
+    @invoices.map do |invoice|
+      invoice.created_at
     end
+  end
 
-    weekday_array = []
-    date_array.map do |date|
-      weekday_array.push(%w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday][date[0].wday])
+  def weekdays
+    dates.map do |date|
+      %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday][date.wday]
     end
+  end
 
-    weekday_array
-    weekday_counts = weekday_array.each_with_object(Hash.new(0)) do |weekday_array, counts|
-      counts[weekday_array] += 1
+  def weekday_counts
+    weekday_counts = weekdays.each_with_object(Hash.new(0)) do |weekday, counts|
+      counts[weekday] += 1
     end
+  end
 
+  def weekday_invoice_avg
     weekday_invoice_avg = 0
     weekday_counts.each do |day, count|
       weekday_invoice_avg += count
     end
-    weekday_invoice_avg = weekday_invoice_avg / 7
-    weekday_invoice_avg
+    weekday_invoice_avg / 7
+  end
 
-    weekday_invoice_standard_deviation = 0
+  def weekday_inv_stndrd_dev
+    weekday_inv_stndrd_dev = 0
     weekday_counts.each do |day, count|
-      weekday_invoice_standard_deviation += (count - weekday_invoice_avg)**2
+      weekday_inv_stndrd_dev += (count - weekday_invoice_avg)**2
     end
-    weekday_invoice_standard_deviation = Math.sqrt(weekday_invoice_standard_deviation/6).to_f.round(2)
+    Math.sqrt(weekday_inv_stndrd_dev/6).to_f.round(2)
+  end
 
+  def top_days_by_invoice_count
     top_days = []
     weekday_counts.each do |day, count|
-      if count > (weekday_invoice_avg + weekday_invoice_standard_deviation)
+      if count > (weekday_invoice_avg + weekday_inv_stndrd_dev)
         top_days.push(day)
       end
     end
@@ -186,7 +176,6 @@ class SalesAnalyst
     end
     result = (status_array.count/invoices.count.to_f * 100).round(2)
   end
-
 end
   # def golden_items
   #   prices = items.map { |item| item.unit_price }

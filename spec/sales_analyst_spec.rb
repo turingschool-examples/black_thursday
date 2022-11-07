@@ -69,15 +69,12 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_invoices).to be_instance_of(Array)
   end
 
-  it "#top_merchants_by_invoice_count" do
+  xit "#top_merchants_by_invoice_count" do
     sales_analyst = sales_engine.analyst
+    # expect(sales_analyst.merchant_ids_collection(merchants_invoices)).to be_instance_of(Array)
+    # expect(sales_analyst.chosen_merchants(merchants_invoices)).to be_instance_of(Array)
     expect(sales_analyst.top_merchants_by_invoice_count).to be_instance_of(Array)
     expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
-  end
-
-  xit "#merchant_ids_collection" do
-    sales_analyst = sales_engine.analyst
-    expect(sales_analyst.merchant_ids_collection(merchants_invoices)).to be_instance_of(Array)
   end
 
   xit "#bottom_merchants_by_invoice_count" do
@@ -88,6 +85,7 @@ RSpec.describe SalesAnalyst do
 
   it "#top_days_by_invoice_count" do
     sales_analyst = sales_engine.analyst
+    expect(sales_analyst.dates).to be_instance_of(Array)
     expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
   end
 
