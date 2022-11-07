@@ -1,6 +1,6 @@
 # require 'simplecov'
 # SimpleCov.start
-require_relative '../lib/item'
+require './lib/item'
 require 'pry'
 require 'time'
 
@@ -16,7 +16,8 @@ RSpec.describe Item do
                merchant_id: 2
              })
   end
-  it '#initialize' do
+
+it '#initialize' do
     expect(i).to be_instance_of(Item)
     expect(i.id).to eq(1)
     expect(i.name).to eq('Pencil')

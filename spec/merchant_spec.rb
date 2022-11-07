@@ -1,6 +1,4 @@
-# require 'simplecov'
-# SimpleCov.start
-require_relative '../lib/merchant'
+require './lib/merchant'
 
 RSpec.describe Merchant do
   let(:merchant) { Merchant.new({ id: 5, name: 'Turing School' })}
@@ -11,7 +9,7 @@ RSpec.describe Merchant do
     expect(merchant.name).to eq('Turing School')
   end
 
-  it '#update' do
+it '#update' do
     merchant.update({ id: 4, name: 'School' })
     expect(merchant.name).to eq('School')
     expect(merchant.id).to eq(5)
