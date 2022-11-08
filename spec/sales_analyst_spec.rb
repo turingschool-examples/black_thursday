@@ -303,7 +303,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.total_revenue_by_date(Time.parse("2022-11-07"))).to eq(0)
   end
 
-  it 'returns a hash of merchants with their total revenue' do
+  it 'returns a hash of all merchants with their total revenue' do
     sales_engine = SalesEngine.from_csv(
       :items     => './data/items.csv',
       :merchants => './data/merchants.csv',

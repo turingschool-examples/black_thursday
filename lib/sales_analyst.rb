@@ -169,6 +169,10 @@ class SalesAnalyst
     end.sum
   end
 
+  def merchant_revenue_hash
+
+  end
+
   def top_revenue_earners(x = 20)
     hash = {}
     @engine.merchants.all.each do |merchant|
