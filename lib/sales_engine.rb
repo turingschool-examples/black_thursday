@@ -41,7 +41,11 @@ class SalesEngine
     return @customers if customers.respond_to?(method)
   end
 
+  # Generic helper method for sending method calls to correct Repo.
   def send_down(message = {})
-    destination(message[:method]).send(message[:method], *message[:args])
+  # "Fuck ternaries" -Jeff C 
+    message[:destination] ? message[:destination] = instance_variable_get("@#{message[:destination]}") : message[:destination] = destination(message[:method])
+
+    message[:destination].send(message[:method], *message[:args])
   end
 end
