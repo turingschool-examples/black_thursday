@@ -54,4 +54,8 @@ class InvoiceItemRepository
   def delete(id)
     @invoiceitems.delete(find_by_id(id))
   end
+  
+  def find_all_by_date(date)
+    @invoiceitems.find_all {|invoiceitem| invoiceitem.created_at.to_s.include?(date)}
+  end
 end
