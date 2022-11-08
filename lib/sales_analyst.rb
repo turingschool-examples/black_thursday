@@ -21,6 +21,16 @@ class SalesAnalyst
     sales_engine.merchants.all.count
   end
 
+  def merchants 
+    sales_engine.merchants
+  end
+
+  def items
+    sales_engine.items
+  end
+
+  #look at enumerable and see if we can shorten
+
   def average_items_per_merchant_standard_deviation
     sum = 0
     sales_engine.merchants.all.each do |merchant|
@@ -205,8 +215,7 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     sales_engine.merchants.all.find_all do |merchant|
       sales_engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
-        sales_engine.transactions.find_all_by_invoice_id(invoice.id).all? do |transaction|
-        end
+        !invoice_paid_in_full?(invoice.id)
       end
     end
   end
