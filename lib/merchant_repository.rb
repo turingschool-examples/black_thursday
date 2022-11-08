@@ -3,45 +3,45 @@ require './lib/modules/repository_queries'
 class MerchantRepository
 include RepositoryQueries
 
-  def initialize(data, engine)
-    @data = create_merchants(data)
+  def initialize(records, engine)
+    @records = create_merchants(records)
     # @engine = engine
   end
   
   # def all
-  #   @data
+  #   @records
   # end
 
   def find_by_id(id) 
     nil if !a_valid_id?(id)
 
-    @data.find do |merchant|
+    @records.find do |merchant|
       merchant.id == id
     end
   end
 
   def a_valid_id?(id)
-    @data.any? do |merchant| merchant.id == id
+    @records.any? do |merchant| merchant.id == id
     end 
   end
   
   def find_by_name(name)
-    @data.find{|merchant| merchant.name.downcase == name.downcase}
+    @records.find{|merchant| merchant.name.downcase == name.downcase}
   end
 
   def find_all_by_name(string)
-    @data.find_all do |merchant|
+    @records.find_all do |merchant|
       merchant.name.downcase.include?(string.downcase)
     end
   end
 
   def create(attribute)
-    new_id = @data.last.id + 1
-    @data << Merchant.new({:id => new_id, :name => attribute}, self)
+    new_id = @records.last.id + 1
+    @records << Merchant.new({:id => new_id, :name => attribute}, self)
   end
 
   def update(id, name)
-    @data.each do |merchant|
+    @records.each do |merchant|
       if merchant.id == id
         merchant_new_name = merchant.name.replace(name)
         return merchant_new_name
@@ -50,10 +50,10 @@ include RepositoryQueries
   end
 
   def delete(id)
-    @data.delete(find_by_id(id))
+    @records.delete(find_by_id(id))
   end
 
-  #### Merchant Repository will make individual data
+  #### Merchant Repository will make individual records
   def create_merchants(filepath)
     contents = CSV.open filepath, headers: true, header_converters: :symbol
    
@@ -68,6 +68,6 @@ include RepositoryQueries
   end
   
   def inspect
-    "#<#{self.class} #{@data.size} rows>"
+    "#<#{self.class} #{@records.size} rows>"
   end
 end
