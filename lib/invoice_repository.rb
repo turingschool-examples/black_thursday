@@ -1,21 +1,20 @@
 class InvoiceRepository
-  attr_reader :invoices
 
-  def initialize(invoices, engine)
-    @invoices = create_invoices(invoices)
+  def initialize(filepath, engine)
+    @records = create_records(filepath)
     @engine = engine
   end
 
   def all
-    @invoices
+    @records
   end
 
   def find_by_id(id)
     if !a_valid_id?(id)
       return nil
     else
-      @invoices.find do |invoice|
-        invoice.id == id
+      @records.find do |record|
+        record.id == id
       end
     end
   end
@@ -24,20 +23,20 @@ class InvoiceRepository
     if !a_valid_id?(id)
       return nil
     else
-      @invoices.find_all do |invoice|
+      @records.find_all do |record|
         # require 'pry'; binding.pry
-        invoice.customer_id == id
+        record.customer_id == id
       end
     end
   end
 
   def a_valid_id?(id)
-    @invoices.any? do |invoice| invoice.id == id
+    @records.any? do |record| record.id == id
     end 
   end
   
   def a_valid_merchant_id?(id)
-    @invoices.any? do |invoice| invoice.merchant_id == id
+    @records.any? do |record| record.merchant_id == id
     end 
   end
 
@@ -45,22 +44,22 @@ class InvoiceRepository
     if !a_valid_merchant_id?(id)
       return []
     else
-      @invoices.find_all do |invoice|
+      @records.find_all do |record|
         # require 'pry'; binding.pry
-        invoice.merchant_id == id
+        record.merchant_id == id
       end
     end
   end
 
   def find_all_by_status(status)
-      @invoices.find_all do |invoice|
-        invoice.status == status
+      @records.find_all do |record|
+        record.status == status
     end
   end
 
   def create(attribute)
-    new_id = @invoices.last.id + 1
-    @invoices << Invoice.new({:id => new_id, :customer_id => attribute[:customer_id],
+    new_id = @records.last.id + 1
+    @records << record.new({:id => new_id, :customer_id => attribute[:customer_id],
       :merchant_id => attribute[:merchant_id],
       :status      => attribute[:attribute],
       :created_at  => Time.now,
@@ -68,23 +67,23 @@ class InvoiceRepository
   end
 
   def update(id, info)
-    @invoices.each do |invoice|
-      invoice.update(info) if invoice.id == id
+    @records.each do |record|
+      record.update(info) if record.id == id
     end
   end
 
   def delete(id)
-    @invoices.delete(find_by_id(id))
+    @records.delete(find_by_id(id))
   end
 
-  def create_invoices(filepath)
+  def create_records(filepath)
     contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
-    make_invoice_object(contents)
+    make_record(contents)
   end
   
-  def make_invoice_object(contents)
+  def make_record(contents)
     contents.map do |row|
-      invoice = {
+      record = {
               :id => row[:id].to_i, 
               :customer_id => row[:customer_id].to_i,
               :merchant_id => row[:merchant_id].to_i,
@@ -92,7 +91,7 @@ class InvoiceRepository
               :created_at => row[:created_at],
               :updated_at => row[:updated_at]
             }
-      Invoice.new(invoice, self)
+      Invoice.new(record, self)
     end
   end
   

@@ -33,7 +33,7 @@ RSpec.describe Item do
   end
 
   it 'can update name, description, and price based off id' do
-    item.update(1, {
+    item.update({
       :name => "Mechanical Pencil",
       :description => "You can use it to write things down",
       :unit_price => 9.99
