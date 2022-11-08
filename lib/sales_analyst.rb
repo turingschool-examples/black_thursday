@@ -247,19 +247,19 @@ class SalesAnalyst
     month_hash = {}
 
     sales_engine.merchants.all.find_all do |merchant|
-      invoices_for_month = sales_engine.invoices.find_all_by_merchant_id(merchant.id).find_all do |invoice|
-          invoice_by_month?(month, invoice)
+      invoices_for_month_and_one_item = sales_engine.invoices.find_all_by_merchant_id(merchant.id).find_all do |invoice|
+          (invoice_by_month?(month, invoice) && invoice.status != :pending) && (invoice_only_one_item?(invoice) && invoice_paid_in_full?(invoice.id))
         end
-  #   # merchants that only sell one item by the month they registered 
-      month_hash[merchant] = invoices_for_month
+
+      month_hash[merchant] = invoices_for_month_and_one_item
     end
 
     one_in_a_month = month_hash.find_all do |keys, values|
       values.length == 1
     end
+    
     one_in_a_month.map{|merchant|merchant[0]}
-    # one_month_hash.keys
-    # require 'pry'; binding.pry
+    
   end
   
   def revenue_by_merchant(merchant_id)
@@ -290,4 +290,8 @@ class SalesAnalyst
     invoice.created_at.strftime("%B") == month
   end
   
+  def invoice_only_one_item?(invoice)
+    sales_engine.invoice_items.find_all_by_invoice_id(invoice.id).length == 1
+  end
+
 end

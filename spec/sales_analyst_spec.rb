@@ -209,7 +209,7 @@ RSpec.describe SalesAnalyst do
     it 'can return merchants with only one invoice for a given month' do
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").length).to eq(21)
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").first.class).to eq(Merchant)
-
+require 'pry'; binding.pry
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("June").length).to eq(18)
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("June").first.class).to eq(Merchant)
     end
