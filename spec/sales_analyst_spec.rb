@@ -162,5 +162,12 @@ RSpec.describe SalesAnalyst do
 
       expect(sales_analyst.revenue_by_merchant(12334160)).to be_a(BigDecimal)
     end
+
+    it '#most_sold_item_for_merchant' do
+     sales_analyst = @sales_engine.analyst
+     expect(sales_analyst.most_sold_item_for_merchant(12334105)).to be_a(Array)
+     expect(sales_analyst.most_sold_item_for_merchant(12334105)[0]).to be_instance_of(Item)
+     expect(sales_analyst.most_sold_item_for_merchant(12334105)[0].id).to eq(263541512)
+  end
   end
 end
