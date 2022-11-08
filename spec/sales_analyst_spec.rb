@@ -1,6 +1,6 @@
 require_relative '../lib/sales_engine.rb'
 require_relative '../lib/item_repository.rb'
-# require './lib/item.rb'
+require_relative '../lib/item.rb'
 require_relative '../lib/merchant.rb'
 # require './lib/merchant_repository.rb'
 require_relative '../lib/sales_analyst'
@@ -508,7 +508,23 @@ RSpec.describe SalesAnalyst do
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.item_quantity_hash.keys.all?(Items)).to be(true)
-    expect(sales_analyst.item_quantity_hash.values.all?(Integer)).to be(true)
+    expect(sales_analyst.item_quantity_hash(1).keys.all?(Item)).to be(true)
+    expect(sales_analyst.item_quantity_hash(1).values.all?(Integer)).to be(true)
+  end
+
+  it 'returns a hash with items and revenue' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+      :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+      :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+      :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+      :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.item_revenue_hash(1).keys.all?(Item)).to be(true)
+    expect(sales_analyst.item_revenue_hash(1).values.all?(BigDecimal)).to be(true)
+  end
 
 end
