@@ -1,0 +1,11 @@
+id,name,description,unit_price,merchant_id,created_at,updated_at
+1,TestItem1,description,1200,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+2,TestItem2,description,1300,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+3,TestItem3,description,1400,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+4,TestItem4,description,1400,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+5,TestItem5,description,1400,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+6,TestItem6,description,1400,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+7,TestItem7,description,1400,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+8,TestItem8,description,1400,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+9,TestItem9,description,1400,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+10,TestItem10,description,3500,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC

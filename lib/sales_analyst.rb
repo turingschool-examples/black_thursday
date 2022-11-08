@@ -116,7 +116,7 @@ class SalesAnalyst
       count > (invoice_average_per_day + std_dev)
     end
   end
-  
+
   def invoice_by_days_hash_populate
     days.each do |day|
       @day_hash[day] += 1
@@ -150,7 +150,7 @@ class SalesAnalyst
   def invoice_paid_in_full?(invoice_id)
     transactions = @engine.find_all_transactions_by_invoice_id(invoice_id)
     transactions.any? do |transaction|
-      transaction.result == :success 
+      transaction.result == :success
     end
   end
 
@@ -177,7 +177,7 @@ class SalesAnalyst
 
   def ranked_merchants_with_revenue
     merchant_revenue_hash.sort_by do |k,v|
-      -v 
+      -v
     end
   end
 
@@ -193,5 +193,94 @@ class SalesAnalyst
 
   def top_revenue_earners(merch_num = 20)
     ranked_merchants[0..upper_bound(merch_num)]
+  end
+
+  def merchants_with_pending_invoices
+    merchants.all.find_all do |merchant|
+      merchant.invoices.any? do |invoice|
+        !invoice_paid_in_full?(invoice.id) # comeback and refactor
+      end
+    end
+  end
+
+  def merchants_with_only_one_item
+    merchants.all.find_all do |merchant|
+      merchant.items.length == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime('%B') == month
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
+    merchant.total_revenue
+  end
+
+  def paid_invoice_items(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
+    merchant.invoices.flat_map do |invoice|
+      return unless invoice_paid_in_full?(invoice.id)
+      @engine.find_all_invoice_items_by_id(invoice.id)
+    end
+  end
+
+  def item_quantity_hash(merchant_id)
+    paid_invoice_items(merchant_id).each_with_object({}) do |invoice_item, hash|
+      if hash.key?(invoice_item.items)
+        hash[invoice_item.items] += invoice_item.quantity
+      else
+        hash[invoice_item.items] = invoice_item.quantity
+      end
+    end
+  end
+
+  def item_revenue_hash(merchant_id)
+    paid_invoice_items(merchant_id).each_with_object({}) do |invoice_item, hash|
+      if hash.key?(invoice_item.items)
+        hash[invoice_item.items] += invoice_item.quantity * invoice_item.unit_price
+      else
+        hash[invoice_item.items] = invoice_item.quantity  * invoice_item.unit_price
+      end
+    end
+  end
+
+  def max_quantity(merchant_id)
+    item_quantity_hash(merchant_id).max_by do |k, v|
+      v
+    end.last
+  end
+
+  def top_items_by_quantity(merchant_id)
+    item_quantity_hash(merchant_id).find_all do |k, v|
+       v == max_quantity(merchant_id)
+    end
+  end
+
+  def max_revenue(merchant_id)
+    item_revenue_hash(merchant_id).max_by do |k, v|
+      v
+    end.last
+  end
+
+  def top_items_by_revenue(merchant_id)
+    item_revenue_hash(merchant_id).find_all do |k, v|
+       v == max_revenue(merchant_id)
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    top_items_by_quantity(merchant_id).map do |item|
+      item.first
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    top_items_by_revenue(merchant_id).map do |item|
+      item.first
+    end
   end
 end

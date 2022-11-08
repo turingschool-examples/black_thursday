@@ -25,6 +25,10 @@ class InvoiceItem
     @unit_price.to_f
   end
 
+  def items
+    @repo.find_items_by_item_id(item_id)
+  end
+
   def time_converter(attributes)
     return unless attributes
     Time.parse(attributes)

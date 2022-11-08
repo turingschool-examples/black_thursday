@@ -32,4 +32,8 @@ class InvoiceItemRepository
     updated.unit_price = attributes[:unit_price]
     updated.updated_at = Time.now
   end
+
+  def find_items_by_item_id(item_id)
+    @engine.find_items_by_item_id(item_id)
+  end
 end

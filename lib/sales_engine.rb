@@ -12,13 +12,13 @@ require_relative '../lib/transaction.rb'
 require_relative '../lib/transaction_repository.rb'
 
 class SalesEngine
-  attr_reader :items, 
+  attr_reader :items,
               :merchants,
-              :invoices, 
-              :transactions, 
+              :invoices,
+              :transactions,
               :customers,
               :invoice_items
-  
+
   def initialize(files)
     @items = ItemRepository.new(files[:items], self)
     @merchants = MerchantRepository.new(files[:merchants], self)
@@ -58,6 +58,10 @@ class SalesEngine
 
   def find_all_invoices_by_date(date)
     @invoices.find_all_by_date(date)
+  end
+
+  def find_items_by_item_id(item_id)
+    @items.find_by_id(item_id)
   end
 
   def invoice_total(invoice_id)
