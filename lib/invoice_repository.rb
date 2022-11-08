@@ -1,3 +1,5 @@
+require 'time'
+
 class InvoiceRepository
 
   def initialize(filepath, engine)
@@ -95,7 +97,7 @@ class InvoiceRepository
     end
   end
   
-    def inspect
+  def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
 end

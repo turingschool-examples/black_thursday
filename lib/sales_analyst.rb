@@ -92,7 +92,6 @@ class SalesAnalyst
       item.unit_price > (average_price_for_all_items + (average_standard_deviation_for_all_items * 2))
     end
   end
-
     # find average_item_price_for_all_items
       # all item prices / all items count
     # find all items SD
@@ -104,41 +103,124 @@ class SalesAnalyst
    # ======================================= #
 
   def average_invoices_per_merchant
-    # total number of invoices per merchant
-    # divided by total number of merchants?
+    (invoice_count / merchants_count.to_f).round(2)
   end
 
+  def invoice_count
+    sales_engine.invoices.all.count
+  end
+  
   def average_invoices_per_merchant_standard_deviation
-     # take average_invoices_per_merchant 
-    # find the standard deviation
-        # (invoice_count_ForEachMerchant - average_invoice_per_merchant) ^ 2
-        # add all of these up for every single merchant = sum
-            #  sum / (by total number of merchants - 1) = answer
-        # sqrt(answer) = sd
-    # Float
+    sum = 0
+    sales_engine.merchants.all.each do |merchant|
+      sum += (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count - average_invoices_per_merchant)**2
+    end
+    Math.sqrt(sum / (merchants_count - 1)).round(2)
   end
-
+  
   def top_merchants_by_invoice_count
-    # merchants that are TWO sd ABOVE average_invoices_per_merchant_standard_deviation
-    # returns an array of merchants
+    high_invoice_count = sales_engine.merchants.all.find_all do |merchant|
+      (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count) > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+    end
   end
   
   def bottom_merchants_by_invoice_count
-    # merchants that are TWO sd BELOW average_invoices_per_merchant_standard_deviation
-    # returns an array of merchants
+    low_invoice_count = sales_engine.merchants.all.find_all do |merchant|
+      (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count) < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+    end
+  end
+
+  def invoice_count_per_day
+    invoices_per_day = {}
+    days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    days_of_the_week.each do |day|
+      day_count = sales_engine.invoices.all.find_all do |invoice|
+        invoice.created_at.strftime("%A") == day
+      end
+      invoices_per_day[day] = day_count.count
+    end
+    invoices_per_day
+  end
+
+  def average_invoices_per_day
+    (invoice_count.to_f / invoice_count_per_day.count).truncate(2)
+  end
+
+  def average_invoice_standard_deviation
+    sum = 0
+    invoice_count_per_day.each do |day, count|
+      sum += ((count - average_invoices_per_day)**2)
+    end
+    invoice_standard_deviation = Math.sqrt(sum / (invoice_count_per_day.count - 1)).round(2)
   end
 
   def top_days_by_invoice_count
-    # use top_merchants_by_invoice_count (?)
-    # find which days that invoices created at are more than ONE sd ABOVE the mean
-    # array of (days) strings
+    top_days = []
+    invoice_count_per_day.each do |day, count|
+      top_days << day if count > (average_invoices_per_day + average_invoice_standard_deviation)
+    end
+    top_days
   end
 
   def invoice_status(status)
-    # find_all_by_status(:status)
-    # count how many invoices of THAT given status
-    # divide by total invoices
-    # x100
-    # do this for all three statuses
+    case status
+    when :pending
+      return (sales_engine.invoices.find_all_by_status(:pending).count / (invoice_count.to_f) *100).round(2)
+    when :shipped 
+      return (sales_engine.invoices.find_all_by_status(:shipped).count / (invoice_count.to_f) *100).round(2)
+    else 
+      return (sales_engine.invoices.find_all_by_status(:returned).count / (invoice_count.to_f) *100).round(2)
+    end
+  end
+  
+  # ======================================= #
+  
+  def invoice_paid_in_full?(invoice_id) 
+    # returns true if the Invoice with the corresponding id is paid in full
+  end
+  
+  def invoice_total(invoice_id)
+    # returns the total $ amount of the Invoice with the corresponding id
+    # Failed charges should never be counted in revenue totals or statistics
+    # An invoice is considered paid in full if it has a successful transaction
+  end
+
+
+  # ======================================= #
+
+  def total_revenue_by_date(date)
+    # use unit_price listed within invoice_items
+  end
+
+  def top_revenue_earners(top_number = 10)
+    # optional argument
+    # If no number is given for top_revenue_earners, 
+    # it takes the top 20 merchants by defaul
+  end
+
+  def merchants_ranked_by_revenue
+    #not on iteraction pattern but noticed on spec harness
+  end
+
+  def merchants_with_pending_invoices
+    # pending invoices = if none of the transactions are successful
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    # merchants that only sell one item by the month they registered 
+    # (merchant.created_at)
+  end
+
+  def revenue_by_merchant(merchant_id)
+    # formatted in dollars
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    # quantity sold
+    # if a tie [item, item, item]
+  end
+
+  def best_item_for_merchant(merchant_id)
+    # item in terms of revenue generated
   end
 end
