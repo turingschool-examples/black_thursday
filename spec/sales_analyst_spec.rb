@@ -241,21 +241,21 @@ RSpec.describe SalesAnalyst do
                         :invoice_id => 1,
                         :credit_card_number => "2424242424242424",
                         :credit_card_expiration_date => "0424",
-                        :result => "success",
+                        :result => :success,
                         :created_at => Time.now,
                         :updated_at => Time.now})}
     let (:transaction_2) {Transaction.new({:id => 2,
                         :invoice_id => 2,
                         :credit_card_number => "2424242424242424",
                         :credit_card_expiration_date => "0424",
-                        :result => "failed",
+                        :result => :failed,
                         :created_at => Time.now,
                         :updated_at => Time.now})}
     let (:transaction_3) {Transaction.new({:id => 3,
                         :invoice_id => 3,
                         :credit_card_number => "2424242424242424",
                         :credit_card_expiration_date => "0424",
-                        :result => "failed",
+                        :result => :failed,
                         :created_at => Time.now,
                         :updated_at => Time.now})}
     let (:transactions) {[transaction_1, transaction_2, transaction_3]}
@@ -266,6 +266,12 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
       expect(sales_analyst.invoice_paid_in_full?(2)).to eq(false)
       expect(sales_analyst.invoice_paid_in_full?(3)).to eq(false)
+    end
+
+    it '#invoice_total returns the total $ of the invoice' do
+      expect(sales_analyst.invoice_total(1)).to eq(5 * BigDecimal(78.54,4))
+      expect(sales_analyst.invoice_total(2)).to eq(4 * BigDecimal(22.24,4))
+      expect(sales_analyst.invoice_total(3)).to eq(6 * BigDecimal(32.44,4))
     end
   end
 end
