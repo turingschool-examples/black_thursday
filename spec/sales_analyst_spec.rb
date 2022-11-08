@@ -152,5 +152,11 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.total_revenue_by_date(Time.parse('2009-02-07'))).to be_instance_of(BigDecimal)
     end
 
+    it 'totals revenue by merchant' do
+      sales_analyst = @sales_engine.analyst
+
+      expect(sales_analyst.revenue_by_merchant(12334160)).to be_a(BigDecimal)
+    end
+
 end
 end

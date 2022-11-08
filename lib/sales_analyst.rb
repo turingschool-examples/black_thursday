@@ -217,4 +217,11 @@ class SalesAnalyst
     answer.keep_if { |_merch, items| items.count == 1 }
     answer.keys
   end
+
+  def revenue_by_merchant(id)
+    all_invoices = sales_engine.invoices.find_all_by_merchant_id(id)
+    all_invoices.sum do |invoice|
+     invoice_total(invoice.id)
+    end
+  end
 end
