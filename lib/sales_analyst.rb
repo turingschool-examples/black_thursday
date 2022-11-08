@@ -72,62 +72,110 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
-    merchant_ids = @invoices.map do |invoice|
+    sample_sum = 0
+    merchants_with_invoices.each do |invoices_array|
+      sample_sum += (invoices_array.count - mean)**2
+    end
+    return Math.sqrt(sample_sum/(uniq_merchant_ids.length - 1)).round(2)
+  end
+
+  def uniq_merchant_ids
+    invoices.map do |invoice|
       invoice.merchant_id
     end.uniq
-    # binding.pry
-    merchant_invoices = merchant_ids.map do |merchant_id|
+  end
+
+  def merchants_with_invoices
+    uniq_merchant_ids.map do |merchant_id|
       sales_engine.invoices.find_all_by_merchant_id(merchant_id)
     end
-    # binding.pry
-    sample_sum = 0
-    merchant_invoices.each do |invoice|
-      sample_sum += (invoice.count - mean)**2
-    end
-    # binding.pry
+  end
 
-    return Math.sqrt(sample_sum/(merchant_ids.length - 1)).round(2)
+  def merchant_ids_collection(merchants_invoices)
+    merchants_invoices.map do |invoices_collection|
+    invoices_collection[0].merchant_id
+    end
+  end
+
+  def chosen_merchants(merchants_invoices)
+    merchant_ids_collection(merchants_invoices).map do |merchant|
+      @sales_engine.merchants.find_by_id(merchant)
+    end
+  end
+
+
+  def top_merchants_by_invoice_count
+    merchants_invoices = []
+     merchants_with_invoices.each do |invoices_array|
+      if invoices_array.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+      merchants_invoices.push(invoices_array)
+      end
+    end
+    chosen_merchants(merchants_invoices)
+  end
+
+  def bottom_merchants_by_invoice_count
+    merchants_invoices = []
+     merchants_with_invoices.each do |invoices_array|
+      if invoices_array.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+      merchants_invoices.push(invoices_array)
+      end
+    end
+    chosen_merchants(merchants_invoices)
   end
   
+  def dates
+    @invoices.map do |invoice|
+      invoice.created_at
+    end
+  end
+
+  def weekdays
+    dates.map do |date|
+      %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday][date.wday]
+    end
+  end
+
+  def weekday_counts
+    weekday_counts = weekdays.each_with_object(Hash.new(0)) do |weekday, counts|
+      counts[weekday] += 1
+    end
+  end
+
+  def weekday_invoice_avg
+    weekday_invoice_avg = 0
+    weekday_counts.each do |day, count|
+      weekday_invoice_avg += count
+    end
+    weekday_invoice_avg / 7
+  end
+
+  def weekday_inv_stndrd_dev
+    weekday_inv_stndrd_dev = 0
+    weekday_counts.each do |day, count|
+      weekday_inv_stndrd_dev += (count - weekday_invoice_avg)**2
+    end
+    Math.sqrt(weekday_inv_stndrd_dev/6).to_f.round(2)
+  end
+
+  def top_days_by_invoice_count
+    top_days = []
+    weekday_counts.each do |day, count|
+      if count > (weekday_invoice_avg + weekday_inv_stndrd_dev)
+        top_days.push(day)
+      end
+    end
+    top_days
+  end
+
+  def invoice_status(input)
+    status_array = []
+    invoices.each do |invoice|
+      if invoice.status == input
+        status_array.push(invoice.status)
+      end
+    end
+    result = (status_array.count/invoices.count.to_f * 100).round(2)
+  end
 end
-  # def golden_items
-  #   prices = items.map { |item| item.unit_price }
-  #   # avg(prices)
-  #   # std_dev(prices)
-  #   avg = (prices.sum / prices.count).round(2)
-  #   total_diff = prices.inject(0) do |sum, price|
-  #     sum + (price - avg)**2
-  #   end.round(2)
-  #   # std_dev = std_dev(total_diff, prices)
-  #   std_dev = Math.sqrt(total_diff / (prices.length - 1)).round(2)
-  #   items.find_all do |item|
-  #     item.unit_price.to_f >= avg(prices)+ (std_dev * 2)
-  #   end
-  # end
-
-
-  # def std_dev(sample)
-  #   avg = avg(sample)
-  #   std_dev_calc(total_diff(sample, avg), sample)
-    
-  # end
-  
-  # def avg(sample)
-  #   (sample.sum / sample.count).round(2)
-  # end
-
-  # def total_diff(sample, avg)
-  #   sample.inject(0) do |sum, instance|
-  #     sum + (instance - avg)**2
-  #   end.round(2)
-    
-  # end
-  
-
-  # def std_dev_calc(difference, sample)
-  #   Math.sqrt(difference / (sample.length - 1)).round(2)
-  # end
-  
-  # # def total_diff(sample)
-  # # end
-# end
+ 
