@@ -69,7 +69,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_price_for_all_items.class).to eq(Float)
   end
   
-  it 'can return a standard deviation for all items' do
+  xit 'can return a standard deviation for all items' do
     expect(sales_analyst.average_standard_deviation_for_all_items).to eq(290099.0)
     expect(sales_analyst.average_standard_deviation_for_all_items.class).to eq(Float)
   end
@@ -90,7 +90,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_count).to eq(4985)
   end
   
-  xit 'can return the standard deviation of average number of invoices per merchant' do
+  it 'can return the standard deviation of average number of invoices per merchant' do
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation.class).to eq(Float)
   end

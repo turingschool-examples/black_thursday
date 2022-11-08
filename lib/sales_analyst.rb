@@ -114,8 +114,7 @@ class SalesAnalyst
 
   def invoice_count_per_day
     invoices_per_day = {}
-    days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    days_of_the_week.each do |day|
+    ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].each do |day|
       day_count = se_invoices.all.find_all do |invoice|
         invoice.created_at.strftime("%A") == day
       end
@@ -133,7 +132,7 @@ class SalesAnalyst
     invoice_count_per_day.each do |day, count|
       sum += ((count - average_invoices_per_day)**2)
     end
-    invoice_standard_deviation = Math.sqrt(sum / (invoice_count_per_day.count - 1)).round(2)
+    Math.sqrt(sum / (invoice_count_per_day.count - 1)).round(2)
   end
 
   def top_days_by_invoice_count

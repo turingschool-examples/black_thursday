@@ -1,7 +1,7 @@
 require 'time'
 
 class InvoiceRepository
-  attr_reader :invoices
+  # attr_reader :invoices
 
   def initialize(invoices, engine)
     @invoices = create_invoices(invoices)
