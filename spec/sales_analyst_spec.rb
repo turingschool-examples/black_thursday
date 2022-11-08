@@ -153,4 +153,11 @@ RSpec.describe SalesAnalyst do
     expect(expected.length).to eq (20)
     expect(expected_10.length).to eq (10)
   end
+
+  it 'can return an array of customers with unpaid invoices' do
+    expected = sales_analyst.customers_with_unpaid_invoices
+    expect(expected.count).to eq(3)
+    expect(expected).to be_a(Array)
+    expect(expected.first).to be_a(Customer)
+  end
 end
