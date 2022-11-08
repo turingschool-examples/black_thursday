@@ -144,4 +144,13 @@ RSpec.describe SalesAnalyst do
     expect(expected).to be_a Array
     expect(expected.first).to be_a Item
   end
+
+  it 'can return the customer that spent the most money' do
+    expected = sales_analyst.top_buyers
+    expected_10 = sales_analyst.top_buyers(10)
+    expect(expected).to be_a Array
+    expect(expected_10).to be_a Array
+    expect(expected.length).to eq (20)
+    expect(expected_10.length).to eq (10)
+  end
 end
