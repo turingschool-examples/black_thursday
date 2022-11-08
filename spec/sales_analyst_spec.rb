@@ -321,6 +321,11 @@ end
     end
   end
 
+  describe '#find_transactions_by_invoice_id(invoice_id)' do
+    it 'returns all the transactions for an invoice' do
+      expect(sales_analyst.find_transactions_by_invoice_id(1).count).to eq 2
+    end
+  end
 
   describe '#invoice_paid_in_full?(invoice_id)' do
     it 'return true if transaction success and false if failed' do
