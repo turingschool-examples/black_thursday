@@ -408,7 +408,7 @@ end
   end
 
   describe '#merchant_ids_in_month' do
-    xit 'returns all the merchant ids in the month' do
+    it 'returns all the merchant ids in the month' do
       month = sales_analyst.merchant_ids_in_month("March")
       expect(month.length).to eq 422
     end
