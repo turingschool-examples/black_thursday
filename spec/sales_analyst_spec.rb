@@ -421,11 +421,11 @@ end
     end
   end
 
-  describe '#most_sold_item_for_merchant' do
-    xit 'returns the most sold item' do
-      expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq [item]
-    end
-  end
+  # describe '#most_sold_item_for_merchant' do
+  #   xit 'returns the most sold item' do
+  #     expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq [item]
+  #   end
+  # end
 
   describe '#paid_invoice_items_by_merchant' do
     it 'returns only paid invoice items' do
@@ -438,6 +438,12 @@ end
     it 'returns an item based off revenue generated' do
       expect(sales_analyst.best_item_for_merchant(12337411).class).to eq Item
       expect(sales_analyst.best_item_for_merchant(12337411).name).to eq "Natural Creamy Cashew Butter - Raw"
+    end
+  end
+
+  describe '#most_sold_item_for_merchant(merchant_id)' do
+    it 'will return the most sold item for the merchant based on merchant id' do
+      expect(sales_analyst.most_sold_item_for_merchant(12334771)).to eq sales_analyst.items.find_by_id(263557908)
     end
   end
 end
