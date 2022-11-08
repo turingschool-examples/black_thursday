@@ -177,7 +177,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.top_revenue_earners(10).last.id).to eq(12335747)
     end
     
-    xit 'can return by default the top 20 merchants ranked by revenue if not argument is given' do  
+    it 'can return by default the top 20 merchants ranked by revenue if not argument is given' do  
       expect(sales_analyst.top_revenue_earners.length).to eq(20)
 
       expect(sales_analyst.top_revenue_earners.first.class).to eq(Merchant)
@@ -187,26 +187,26 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.top_revenue_earners.last.id).to eq(12334159)
     end
 
-    xit 'can return merchants ranked by revenue' do
+    it 'can return merchants ranked by revenue' do
       expect(sales_analyst.merchants_ranked_by_revenue.first.class).to eq(Merchant)
 
       expect(sales_analyst.merchants_ranked_by_revenue.first.id).to eq(12334634)
       expect(sales_analyst.merchants_ranked_by_revenue.last.id).to eq(12336175)
     end
     
-    xit 'can return all merchants with pending invoices' do
-      sales_analyst.merchants_with_pending_invoices
+    it 'can return all merchants with pending invoices' do
+      # sales_analyst.merchants_with_pending_invoices
   
       expect(sales_analyst.merchants_with_pending_invoices.length).to eq(467)
       expect(sales_analyst.merchants_with_pending_invoices.first.class).to eq(Merchant)
     end
 
-    xit 'can return all merchants with only one item' do
+    it 'can return all merchants with only one item' do
       expect(sales_analyst.merchants_with_only_one_item.length).to eq(243)
       expect(sales_analyst.merchants_with_only_one_item.first.class).to eq(Merchant)
     end
 
-    xit 'can return merchants with only one invoice for a given month' do
+    it 'can return merchants with only one invoice for a given month' do
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").length).to eq(21)
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").first.class).to eq(Merchant)
 

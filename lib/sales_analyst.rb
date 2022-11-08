@@ -192,22 +192,10 @@ class SalesAnalyst
 
     total = BigDecimal(total, 7)
   end
-
-  def total_of_invoice_total(merchant)
-    invoices_paid_in_full_by_merchant(merchant).sum do |invoice|
-      invoice_total(invoice.id)
-    end
-  end
   
-  def invoices_paid_in_full_by_merchant(merchant)
-    invoices = sales_engine.invoices.find_all_by_merchant_id(merchant.id)
-    invoices.find_all do |invoice|
-      invoice_paid_in_full?(invoice.id)
-    end
-  end
   
   # ============== ITERATION 4 METHODS ========================= #
-
+  
   def invoice_by_date(date)
     sales_engine.invoices.find_all_by_date(date)
   end
@@ -219,38 +207,59 @@ class SalesAnalyst
   end
   
   def top_revenue_earners(top_number = 20)
-    
-    #  merchants_ranked_by_revenue.shift(top_number)
-
-    hash = {}
-    
-    merchants = sales_engine.merchants.all
-    merchants.each do |merchant|
-      hash[merchant] = total_of_invoice_total(merchant)
-    end
-    
-    top_earners = hash.max_by(top_number) do |key, value| 
-      value 
-    end
-    top_earners.map do |merchant|
-      merchant[0]
-    end
+    merchants_ranked_by_revenue.shift(top_number)
   end
   
   def merchants_ranked_by_revenue
-    
-    #not on iteraction pattern but noticed on spec harness
+    ### Try min max by?
+    hash = {}
+    sales_engine.merchants.all.each do |merchant|
+      hash[merchant] = revenue_by_merchant(merchant.id)
+    end
+    ranked = hash.sort_by{|key, value| -value}
+    ranked.map{|merchant| merchant[0]}
   end
   
+  # def merchants_with_pending_invoices
+  #   sales_engine.merchants.all.find_all do |merchant|
+  #     sales_engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
+  #       invoice.status == :pending
+  #     end
+  #   end
+  # end
   def merchants_with_pending_invoices
-    #invoices._find_all_by_merchant_id(merchant.id)
-    
-    # pending invoices = if none of the transactions are successful
+    sales_engine.merchants.all.find_all do |merchant|
+      sales_engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
+        sales_engine.transactions.find_all_by_invoice_id(invoice.id).all? do |transaction|
+          transaction.result == "failed"
+        end
+      end
+    end
+  end
+
+  def merchants_with_only_one_item
+    sales_engine.merchants.all.find_all do |merchant|
+      sales_engine.items.find_all_by_merchant_id(merchant.id).length == 1
+    end
   end
   
   def merchants_with_only_one_item_registered_in_month(month)
-    # merchants that only sell one item by the month they registered 
-    # (merchant.created_at)
+    month_hash = {}
+
+    sales_engine.merchants.all.find_all do |merchant|
+      invoices_for_month = sales_engine.invoices.find_all_by_merchant_id(merchant.id).find_all do |invoice|
+          invoice_by_month?(month, invoice)
+        end
+  #   # merchants that only sell one item by the month they registered 
+      month_hash[merchant] = invoices_for_month
+    end
+
+    one_in_a_month = month_hash.find_all do |keys, values|
+      values.length == 1
+    end
+    one_in_a_month.map{|merchant|merchant[0]}
+    # one_month_hash.keys
+    # require 'pry'; binding.pry
   end
   
   def revenue_by_merchant(merchant_id)
@@ -259,9 +268,15 @@ class SalesAnalyst
     invoices_paid_in_full_by_merchant(merchant).sum do |invoice|
       invoice_total(invoice.id)
     end
-
   end
   
+  def invoices_paid_in_full_by_merchant(merchant)
+    invoices = sales_engine.invoices.find_all_by_merchant_id(merchant.id)
+    invoices.find_all do |invoice|
+      invoice_paid_in_full?(invoice.id)
+    end
+  end
+
   def most_sold_item_for_merchant(merchant_id)
     # quantity sold
     # if a tie [item, item, item]
@@ -270,4 +285,9 @@ class SalesAnalyst
   def best_item_for_merchant(merchant_id)
     # item in terms of revenue generated
   end
+
+  def invoice_by_month?(month, invoice)
+    invoice.created_at.strftime("%B") == month
+  end
+  
 end
