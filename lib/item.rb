@@ -1,41 +1,31 @@
 # frozen_string_literal: true
 
-require 'time'
+require 'timeable'
 require 'calculable'
 
 # This is the item class
 class Item
-  include Calculable
+  include Calculable, Timeable
   attr_reader :id,
               :name,
               :merchant_id,
-              :description
+              :description,
+              :created_time,
+              :updated_time
 
   def initialize(data, repo)
     @item_repo   = repo
     @id          = data[:id].to_i
     @name        = data[:name]
     @description = data[:description]
-    @created_at  = data[:created_at]
-    @updated_at  = data[:updated_at]
+    @created_time  = data[:created_at]
+    @updated_time  = data[:updated_at]
     @merchant_id = data[:merchant_id]
     @unit_price  = data[:unit_price]
   end
 
   def unit_price
     BigDecimal(price_converter(@unit_price))
-  end
-
-  def created_at
-    return Time.parse(@created_at) if @created_at.is_a? String
-
-    @created_at
-  end
-
-  def updated_at
-    return Time.parse(@updated_at) if @updated_at.is_a? String
-
-    @updated_at
   end
 
   def unit_price_to_dollars

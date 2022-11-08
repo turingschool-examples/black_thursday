@@ -7,9 +7,7 @@ require_relative 'customer'
 class CustomerRepo < GeneralRepo
   attr_reader :id,
               :first_name,
-              :last_name,
-              :created_at,
-              :updated_at
+              :last_name
 
   def initialize(customer_data, engine)
     super(Customer, customer_data, engine)

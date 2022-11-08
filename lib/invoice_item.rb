@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 require 'calculable'
+require 'timeable'
 
 # This is the invoice_item class
 class InvoiceItem
-  include Calculable
+  include Calculable, Timeable
   attr_reader :id,
               :item_id,
               :invoice_id,
-              :quantity
+              :quantity,
+              :created_time,
+              :updated_time
 
   def initialize(data, repo)
     @id = data[:id].to_i
@@ -16,8 +19,8 @@ class InvoiceItem
     @invoice_id = data[:invoice_id].to_i
     @quantity = data[:quantity].to_i
     @unit_price = data[:unit_price]
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
+    @created_time = data[:created_at]
+    @updated_time = data[:updated_at]
     @invoice_item_repo = repo
   end
 
@@ -29,21 +32,9 @@ class InvoiceItem
     price_converter(@unit_price).to_f
   end
 
-  def created_at
-    return Time.parse(@created_at) if @created_at.is_a? String
-
-    @created_at
-  end
-
-  def updated_at
-    return Time.parse(@updated_at) if @updated_at.is_a? String
-
-    @updated_at
-  end
-
   def update(data)
     @quantity = data[:quantity]
     @unit_price = data[:unit_price]
-    @updated_at = Time.now
+    @updated_time = Time.now
   end
 end
