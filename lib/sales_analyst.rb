@@ -17,7 +17,12 @@ require_relative './mathable'
 class SalesAnalyst
   include Mathable
   
-  attr_reader :merchants, :items, :invoices, :customers, :transactions, :invoice_items
+  attr_reader :merchants, 
+              :items, 
+              :invoices, 
+              :customers, 
+              :transactions, 
+              :invoice_items
 
   def initialize(merchants,items,invoices,invoice_items,customers,transactions)
     @merchants = merchants
@@ -162,17 +167,29 @@ class SalesAnalyst
     end
   end
 
+  # def invoice_days_count
+  #   # [708, 696, 692, 741, 718, 701, 729]
+  #   days_count = []
+  #   days_count << invoices_days_of_week.count(0)
+  #   days_count << invoices_days_of_week.count(1)
+  #   days_count << invoices_days_of_week.count(2)
+  #   days_count << invoices_days_of_week.count(3)
+  #   days_count << invoices_days_of_week.count(4)
+  #   days_count << invoices_days_of_week.count(5)
+  #   days_count << invoices_days_of_week.count(6)
+  #   days_count
+  # end
+
   def invoice_days_count
-    # [708, 696, 692, 741, 718, 701, 729]
-    days_count = []
-    days_count << invoices_days_of_week.count(0)
-    days_count << invoices_days_of_week.count(1)
-    days_count << invoices_days_of_week.count(2)
-    days_count << invoices_days_of_week.count(3)
-    days_count << invoices_days_of_week.count(4)
-    days_count << invoices_days_of_week.count(5)
-    days_count << invoices_days_of_week.count(6)
-    days_count
+    {
+      sunday:     invoices_days_of_week.count(0),
+      monday:     invoices_days_of_week.count(1),
+      tuesday:    invoices_days_of_week.count(2),
+      wednesday:  invoices_days_of_week.count(3),
+      thursday:   invoices_days_of_week.count(4),
+      friday:     invoices_days_of_week.count(5),
+      saturday:   invoices_days_of_week.count(6)
+    }
   end
 
   def average_invoices_per_day
@@ -193,18 +210,8 @@ class SalesAnalyst
     average_invoices_per_week_standard_deviation + average_invoices_per_day
   end
 
-  def top_days_by_invoice_count # refactor with group_by, possibly refactor invoice_days_count to hash?
-    days_of_week = []
-    array = invoice_days_count
-    hash = {
-      sunday:     array[0],
-      monday:     array[1],
-      tuesday:    array[2],
-      wednesday:  array[3],
-      thursday:   array[4],
-      friday:     array[5],
-      saturday:   array[6]
-            }
+  def top_days_by_invoice_count
+    hash = invoice_days_count
     hash.each do |day, count|
       if count > one_over_standard_dev
          days_of_week << day.to_s.capitalize
@@ -291,7 +298,23 @@ class SalesAnalyst
       end.uniq
   end
 
+  # def pending_invoices
+  #   invoices.all.select do |invoice|
+  #     if (invoice.status != :shipped || :returned) && !invoice_paid_in_full?(invoice.id)
+  #     end
+  #   end.uniq
+  # end
+
+  # def find_merchant_ids_with_pending_invoices
+  #   pi = pending_invoices
+  #   pi.map do |invoice|
+  #     invoice.merchant_id
+  #     end.uniq
+  # end
+
   def merchants_with_pending_invoices
+    # merchants_with_pi = find_merchant_ids_with_pending_invoices
+    # binding.pry
     pending_invoices.map do |merchant_id|
       @merchants.find_by_id(merchant_id)
     end

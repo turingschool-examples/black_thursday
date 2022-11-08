@@ -434,12 +434,6 @@ end
     end
   end
 
-  # describe '#most_sold_item_for_merchant' do
-  #   xit 'returns the most sold item' do
-  #     expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq [item]
-  #   end
-  # end
-
   describe '#paid_invoice_items_by_merchant' do
     it 'returns only paid invoice items' do
       expect(sales_analyst.paid_invoice_items_by_merchant(12337411).class).to eq Array
