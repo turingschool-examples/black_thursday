@@ -94,11 +94,7 @@ RSpec.describe ItemRepository do
 
       expect(item_repo.find_all_by_merchant_id(2)).to eq [item1, item2]
       expect(item_repo.find_all_by_merchant_id(3)).to eq [item3, item4]
-    end
-  end
-
-  describe '#find_by_id' do
-    it 'is a helper method to find by id' do
+      expect(item_repo.find_all_by_merchant_id(5)).to eq []
     end
   end
 end
