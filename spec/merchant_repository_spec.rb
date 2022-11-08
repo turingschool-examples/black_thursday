@@ -2,6 +2,7 @@ require 'rspec'
 require_relative '../lib/merchant'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_engine'
+require_relative '../lib/sales_analyst'
 
 RSpec.describe MerchantRepository do
   it 'can return an array of Merchant instances' do
