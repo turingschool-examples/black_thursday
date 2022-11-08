@@ -10,6 +10,7 @@ require './lib/invoice'
 require './lib/invoice_item'
 require './lib/customer'
 require './lib/transaction'
+require './lib/sales_engine'
 require 'csv'
 
 RSpec.describe SalesEngine do
