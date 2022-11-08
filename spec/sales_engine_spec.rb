@@ -1,4 +1,4 @@
-require_relative './lib/requirements'
+require './lib/requirements'
 
 RSpec.describe SalesEngine do
   let!(:sales_engine) {SalesEngine.from_csv({
@@ -9,7 +9,6 @@ RSpec.describe SalesEngine do
       :invoice_items => "./data/invoice_items.csv",
       :transactions => "./data/transactions.csv"})}
   it 'exists' do
-    require 'pry'; binding.pry
     expect(sales_engine).to be_a(SalesEngine)
   end
 

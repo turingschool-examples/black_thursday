@@ -5,9 +5,7 @@ RSpec.describe CustomerRepository do
   let!(:customer_repository) {CustomerRepository.new("./data/customers.csv", nil)}
 
   it 'is a customer repository class' do
-    # require 'pry'; binding.pry
     expect(customer_repository).to be_a(CustomerRepository)
-    
   end
   
   it 'can return all customers' do

@@ -1,5 +1,4 @@
-require 'bigdecimal'
-require_relative 'requirements'
+require 'requirements'
 
 class ItemRepository
   include RepositoryQueries

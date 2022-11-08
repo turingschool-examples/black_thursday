@@ -3,17 +3,16 @@ require './lib/requirements'
 RSpec.describe InvoiceItem do
   let!(:time_now) {Time.now.to_s}
   let!(:invoice_item) {InvoiceItem.new({
-    :id => 2345,
-    :item_id => 263562118,
-    :invoice_id => 522,
-    :quantity => 9,
-    :unit_price => BigDecimal(847.87, 9),
-    :created_at => time_now,
-    :updated_at => time_now
-  }, nil)}
+                                      :id => 2345,
+                                      :item_id => 263562118,
+                                      :invoice_id => 522,
+                                      :quantity => 9,
+                                      :unit_price => BigDecimal(847.87, 9),
+                                      :created_at => time_now,
+                                      :updated_at => time_now
+                                    }, nil)}
 
   it 'is a invoice item class' do
-    # require 'pry'; binding.pry
     expect(invoice_item).to be_a(InvoiceItem)
   end
 

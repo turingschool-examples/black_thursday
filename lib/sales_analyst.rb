@@ -1,4 +1,4 @@
-require_relative 'requirements'
+require 'requirements'
 
 class SalesAnalyst
   attr_reader :sales_engine

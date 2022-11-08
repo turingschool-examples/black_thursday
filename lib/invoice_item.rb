@@ -1,4 +1,4 @@
-require 'bigdecimal'
+require 'requirements'
 
 class  InvoiceItem
   attr_reader :id,

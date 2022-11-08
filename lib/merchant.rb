@@ -5,7 +5,7 @@ class Merchant
   def initialize(info, repo)
     @id = info[:id].to_i
     @name = info[:name]
-    # @repo = repo
+    @repo = repo
   end
   
   def update(attributes)
