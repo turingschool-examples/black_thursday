@@ -59,4 +59,8 @@ class SalesEngine
   def find_all_invoices_by_date(date)
     @invoices.find_all_by_date(date)
   end
+
+  def invoice_total(invoice_id)
+    analyst.invoice_total(invoice_id)
+  end
 end
