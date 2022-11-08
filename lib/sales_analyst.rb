@@ -184,4 +184,11 @@ class SalesAnalyst
     invoice_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
     invoice_items.sum { |invoice_item| invoice_item.quantity*invoice_item.unit_price}
   end
+
+  def merchants_with_pending_invoices
+     pending_invoices = sales_engine.invoices.find_all_by_status(:pending)
+     merchants_pending = pending_invoices.map do |invoice|
+      sales_engine.merchants.find_by_id(invoice.merchant_id)
+     end.uniq
+  end
 end

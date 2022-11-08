@@ -137,5 +137,6 @@ RSpec.describe SalesAnalyst do
   it "#merchants_with_pending_invoices" do
     sales_analyst = @sales_engine.analyst
     expect(sales_analyst.merchants_with_pending_invoices).to be_instance_of(Array)
+    expect(sales_analyst.merchants_with_pending_invoices.sample).to be_instance_of(Merchant)
   end
 end
