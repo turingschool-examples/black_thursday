@@ -248,13 +248,19 @@ class SalesAnalyst
     end
   end
 
-  def most_sold_item_for_merchant(merchant_id)
-    best_value = item_quantity_hash(merchant_id).max_by do |k, v|
+  def max_quantity(merchant_id)
+    item_quantity_hash(merchant_id).max_by do |k, v|
       v
     end.last
-    best_items = item_quantity_hash(merchant_id).find_all do |k, v|
-      v == best_value
-    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    # best_value = item_quantity_hash(merchant_id).max_by do |k, v|
+    #   v
+    # end.last
+    # best_items = item_quantity_hash(merchant_id).find_all do |k, v|
+    #   v == best_value
+    # end
     best_items.map do |item|
       item.first
     end
@@ -262,12 +268,12 @@ class SalesAnalyst
 
 
   def best_item_for_merchant(merchant_id)
-    best_value = item_revenue_hash(merchant_id).max_by do |k, v|
-      v
-    end.last
-    best_items = item_revenue_hash(merchant_id).find_all do |k, v|
-      v == best_value
-    end
+    # best_value = item_revenue_hash(merchant_id).max_by do |k, v|
+    #   v
+    # end.last
+    # best_items = item_revenue_hash(merchant_id).find_all do |k, v|
+    #   v == best_value
+    # end
     best_items.map do |item|
       item.first
     end
