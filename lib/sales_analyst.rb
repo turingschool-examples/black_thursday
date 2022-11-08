@@ -152,4 +152,11 @@ class SalesAnalyst
     end
     grouped.filter_map { |item_id, quantity| items.find_by_id(item_id) if quantity == grouped.values.max}
   end
+
+  def top_buyers(top_buyers = 20)
+    sorted_customers = customers.all.sort_by do |customer|
+      spending_by_customer(customer.id)
+    end
+    sorted_customers.reverse.first(top_buyers)
+  end
 end
