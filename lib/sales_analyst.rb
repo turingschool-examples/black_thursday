@@ -229,33 +229,32 @@ class SalesAnalyst
   end
 
   def item_quantity_hash(merchant_id)
-    hash = {}
-    paid_invoice_items(merchant_id).each do |invoice_item|
+    paid_invoice_items(merchant_id).each_with_object({}) do |invoice_item, hash|
       if hash.key?(invoice_item.items)
         hash[invoice_item.items] += invoice_item.quantity
       else
         hash[invoice_item.items] = invoice_item.quantity
       end
     end
-    hash
+  end
+
+  def item_revenue_hash(merchant_id)
+    paid_invoice_items(merchant_id).each_with_object({}) do |invoice_item, hash|
+      if hash.key?(invoice_item.items)
+        hash[invoice_item.items] += invoice_item.quantity * invoice_item.unit_price
+      else
+        hash[invoice_item.items] = invoice_item.quantity  * invoice_item.unit_price
+      end
+    end
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    # hash = {}
-    # paid_invoice_items(merchant_id).each do |invoice_item|
-    #   if hash.key?(invoice_item.items)
-    #     hash[invoice_item.items] += invoice_item.quantity
-    #   else
-    #     hash[invoice_item.items] = invoice_item.quantity
-    #   end
-    # end
-    best_value = hash.max_by do |k, v|
+    best_value = item_quantity_hash(merchant_id).max_by do |k, v|
       v
     end.last
-    best_items = hash.find_all do |k, v|
+    best_items = item_quantity_hash(merchant_id).find_all do |k, v|
       v == best_value
     end
-    # require 'pry' ; binding.pry
     best_items.map do |item|
       item.first
     end
@@ -263,21 +262,12 @@ class SalesAnalyst
 
 
   def best_item_for_merchant(merchant_id)
-    hash = {}
-    paid_invoice_items(merchant_id).each do |invoice_item|
-      if hash.key?(invoice_item.items)
-        hash[invoice_item.items] += invoice_item.quantity * invoice_item.unit_price
-      else
-        hash[invoice_item.items] = invoice_item.quantity * invoice_item.unit_price
-      end
-    end
-    best_value = hash.max_by do |k, v|
+    best_value = item_revenue_hash(merchant_id).max_by do |k, v|
       v
     end.last
-    best_items = hash.find_all do |k, v|
+    best_items = item_revenue_hash(merchant_id).find_all do |k, v|
       v == best_value
     end
-    # require 'pry' ; binding.pry
     best_items.map do |item|
       item.first
     end
