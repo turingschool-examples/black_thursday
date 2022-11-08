@@ -1,4 +1,4 @@
-require_relative '../requirements'
+require_relative './lib/requirements'
 
 RSpec.describe InvoiceRepository do
   let!(:invoice_repository) {InvoiceRepository.new('./data/invoices.csv', nil)}

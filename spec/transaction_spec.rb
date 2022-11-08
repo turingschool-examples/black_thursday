@@ -1,4 +1,4 @@
-require_relative '../requirements'
+require './lib/requirements'
 
 
 RSpec.describe Transaction do

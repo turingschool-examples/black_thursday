@@ -1,4 +1,4 @@
-require_relative '../requirements'
+require_relative './lib/requirements'
 
 RSpec.describe Merchant do
   let!(:m) {Merchant.new({:id =>5, :name => "Turing School"}, nil)}

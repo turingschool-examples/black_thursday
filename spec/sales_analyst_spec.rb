@@ -1,4 +1,4 @@
-require_relative '../requirements'
+require_relative './lib/requirements'
 
 RSpec.describe SalesAnalyst do
   let!(:sales_engine) {SalesEngine.from_csv({

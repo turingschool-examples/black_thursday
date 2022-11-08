@@ -1,4 +1,4 @@
-require_relative '../requirements'
+require_relative './lib/requirements'
 
 RSpec.describe Invoice do
   let!(:invoice) {Invoice.new({

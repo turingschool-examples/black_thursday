@@ -1,6 +1,7 @@
-require_relative '../requirements'
+require 'requirements'
 
 class TransactionRepository
+  include RepositoryQueries
 
   def initialize(records, engine)
     @records = create_records(records)

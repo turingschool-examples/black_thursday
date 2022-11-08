@@ -1,4 +1,4 @@
-require '..requirements'
+require 'requirements'
 
 
 class InvoiceRepository

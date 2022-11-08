@@ -1,4 +1,5 @@
-require '..requirements'
+require 'requirements'
+require 'repository_queries'
 
 class InvoiceItemRepository
   include RepositoryQueries
@@ -7,13 +8,7 @@ class InvoiceItemRepository
     @records = create_records(records)
   end
 
- 
 
-
-  def a_valid_id?(id)
-    @records.any? do |invoice| invoice.id == id
-    end 
-  end
 
   def find_all_by_item_id(id)
     @records.find_all do |invoice|

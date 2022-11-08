@@ -1,5 +1,5 @@
 require 'bigdecimal'
-require_relative '..requirements'
+require_relative 'requirements'
 
 
 
