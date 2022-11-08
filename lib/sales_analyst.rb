@@ -14,7 +14,7 @@ class SalesAnalyst
   end
 
   def items_count
-    sales_engine.items.all.count
+    items.all.count
   end
 
   def merchants_count
@@ -34,20 +34,20 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     sum = 0
     merchants.all.each do |merchant|
-      sum += (sales_engine.items.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant)**2
+      sum += (items.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant)**2
     end
     Math.sqrt(sum / (merchants_count - 1)).round(2)
   end
 
   def merchants_with_high_item_count
     high_item_count = merchants.all.find_all do |merchant|
-      (sales_engine.items.find_all_by_merchant_id(merchant.id).count) > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+      (items.find_all_by_merchant_id(merchant.id).count) > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
     end
   end
 
   def average_item_price_for_merchant(merchant_id)
     item_prices_per_merchant = []
-      items_per_merchant = sales_engine.items.find_all_by_merchant_id(merchant_id)
+      items_per_merchant = items.find_all_by_merchant_id(merchant_id)
       items_per_merchant.each do |item|
         item_prices_per_merchant << (item.unit_price / 100)
       end
@@ -64,7 +64,7 @@ class SalesAnalyst
   end
 
   def average_price_for_all_items
-    total_price_for_all_items = sales_engine.items.all.sum do |item|
+    total_price_for_all_items = items.all.sum do |item|
       item.unit_price
     end
     avg_price_of_items = (total_price_for_all_items / items_count).round(2)
@@ -72,14 +72,14 @@ class SalesAnalyst
 
   def average_standard_deviation_for_all_items
     sum = 0
-    sales_engine.items.all.each do |item|
+    items.all.each do |item|
       sum += (item.unit_price - average_price_for_all_items)**2
     end
     items_standard_deviation = Math.sqrt(sum / (items_count - 1)).round(2)
   end
 
   def golden_items
-    sales_engine.items.all.find_all do |item|
+    items.all.find_all do |item|
       item.unit_price > (average_price_for_all_items + (average_standard_deviation_for_all_items * 2))
     end
   end
@@ -209,7 +209,7 @@ class SalesAnalyst
 
   def merchants_with_only_one_item
     merchants.all.find_all do |merchant|
-      sales_engine.items.find_all_by_merchant_id(merchant.id).length == 1
+      items.find_all_by_merchant_id(merchant.id).length == 1
     end
   end
   
@@ -253,7 +253,7 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     hash = {}
-    array_of_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
+    array_of_items = items.find_all_by_merchant_id(merchant_id)
     array_of_items.each do |item|
       hash[item] = sales_engine.invoice_items.find_all_by_item_id(item.id).sum{|invoice_item| invoice_item.quantity}
     end
