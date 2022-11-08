@@ -190,4 +190,31 @@ class SalesAnalyst
       sales_engine.items.find_all_by_merchant_id(merchant.id).length == 1
     end
   end
+
+  def invoice_total(invoice_id)
+    invoice_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.sum { |invoice_item| invoice_item.quantity * invoice_item.unit_price }
+  end
+  def total_revenue_by_date(date)
+    invoices_by_date = sales_engine.invoices.all.find_all do |invoice|
+      date.strftime('%B %d, %Y') == invoice.created_at.strftime('%B %d, %Y')
+    end
+    invoice_items_by_date = sales_engine.invoice_items.find_all_by_invoice_id(invoices_by_date[0].id)
+    invoice_items_by_date.sum { |invoice| invoice.unit_price * invoice.quantity }
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_created_in_month = merchants.select do |merchant|
+      merchant.created_at.month == Date::MONTHNAMES.index(month)
+    end
+    grouped_items = items.group_by { |item| item.merchant_id }
+    grouped_items.transform_keys! do |merchant_id|
+      sales_engine.merchants.find_by_id(merchant_id)
+    end
+    answer = grouped_items.keep_if do |merchant, items|
+      merchants_created_in_month.include?(merchant)
+    end
+    answer.keep_if { |_merch, items| items.count == 1 }
+    answer.keys
+  end
 end
