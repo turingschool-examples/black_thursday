@@ -159,4 +159,14 @@ class SalesAnalyst
     end
     sorted_customers.reverse.first(top_buyers)
   end
+
+  def customers_with_unpaid_invoices
+    unpaid_invoices = invoices.all.find_all do |invoice|
+      !invoice_paid_in_full(invoice.id)
+    end
+    cust_ids = unpaid_invoices.map(&:customer_id)
+    cust_ids.map do |id|
+      customers.find_by_id(id)
+    end.uniq
+  end
 end
