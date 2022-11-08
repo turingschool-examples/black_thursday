@@ -175,7 +175,7 @@ class SalesAnalyst
     end
   end
   
-  # ======================================= #
+  # ============= ITERATION 3 METHODS ========================== #
   
   def invoice_paid_in_full?(invoice_id) 
     return false if sales_engine.transactions.find_all_by_invoice_id(invoice_id).empty?
@@ -206,7 +206,8 @@ class SalesAnalyst
     end
   end
   
-  # ======================================= #
+  # ============== ITERATION 4 METHODS ========================= #
+
   def invoice_by_date(date)
     sales_engine.invoices.find_all_by_date(date)
   end
@@ -219,12 +220,8 @@ class SalesAnalyst
   
   def top_revenue_earners(top_number = 20)
     
-    merchants_ranked_by_revenue.shift(top_number)
-    
-    
-    
-    
-    
+    #  merchants_ranked_by_revenue.shift(top_number)
+
     hash = {}
     
     merchants = sales_engine.merchants.all
@@ -257,11 +254,12 @@ class SalesAnalyst
   end
   
   def revenue_by_merchant(merchant_id)
-    merchant = 
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
     # formatted in dollars
     invoices_paid_in_full_by_merchant(merchant).sum do |invoice|
       invoice_total(invoice.id)
     end
+
   end
   
   def most_sold_item_for_merchant(merchant_id)

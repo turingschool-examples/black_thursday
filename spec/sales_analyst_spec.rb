@@ -214,8 +214,9 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("June").first.class).to eq(Merchant)
     end
 
-    xit 'can return the final revenue for a single merchant' do
-      expect(sales_analyst.revenue_by_merchant(12334194)).to eq(BigDecimal)
+    it 'can return the final revenue for a single merchant' do
+      expected = sales_analyst.revenue_by_merchant(12334194)
+      expect(expected).to eq(BigDecimal(expected))
       #double check this spec harness
       #dollar amount
       expect(sales_analyst.revenue_by_merchant(12334194).class).to eq(BigDecimal)
