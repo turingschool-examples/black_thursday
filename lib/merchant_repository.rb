@@ -8,9 +8,9 @@ class MerchantRepository
     # @engine = engine
   end
   
-  def create(attribute)
+  def create(attributes)
     new_id = @records.last.id + 1
-    @records << Merchant.new({:id => new_id, :name => attribute}, self)
+    @records << Merchant.new({:id => new_id, :name => attributes[:name]}, self)
   end
 
 #  def update(id, attributes)
@@ -20,7 +20,8 @@ class MerchantRepository
 
   def make_record(contents)
     contents.map do |row|
-      info = {:id => row[:id], :name => row[:name]}
+      info = {:id => row[:id], 
+              :name => row[:name]}
       Merchant.new(info, self)
     end
   end

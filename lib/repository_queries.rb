@@ -35,7 +35,7 @@ module RepositoryQueries
 
   def find_all_by_price(price)
     @records.find_all do |record|
-      record.unit_price == price.to_f
+      record.unit_price == price
     end
   end
 

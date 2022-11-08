@@ -1,8 +1,6 @@
 require 'bigdecimal'
 require_relative 'requirements'
 
-
-
 class ItemRepository
   include RepositoryQueries
 
@@ -17,16 +15,11 @@ class ItemRepository
     name: attributes[:name],
     description: attributes[:description],
     unit_price: attributes[:unit_price],
-    created_at: Time.now,
-    updated_at: Time.now,
+    created_at: Time.now.to_s,
+    updated_at: Time.now.to_s,
     merchant_id: attributes[:merchant_id]}, 
     self)
   end
-  
-  # def update(id, attributes)
-  #   record = self.find_by_id(id)
-  #   record.update(attributes)
-  # end
   
   def make_record(contents)
     contents.map do |row|
