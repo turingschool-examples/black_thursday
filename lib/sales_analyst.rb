@@ -3,6 +3,7 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
 class SalesAnalyst
+  include MakeTime
   attr_reader :items,
               :merchants,
               :invoices,
@@ -145,6 +146,16 @@ class SalesAnalyst
     return 0 unless invoice_paid_in_full?(invoice_id)
     @invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity
+    end
+  end
+
+
+  def total_revenue_by_date(date)
+    invoices_by_date = @invoices.all.find_all do |invoice|
+      invoice.created_at == return_time_from(date)
+    end
+    invoices_by_date.sum do |invoice| 
+      invoice_total(invoice.id)
     end
   end
 end
