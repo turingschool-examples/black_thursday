@@ -133,10 +133,23 @@ class SalesAnalyst
     end.uniq
   end
 
+  def invoices_by_customer
+    invoices.all.group_by(&:customer_id)
+  end
+
   def one_time_buyers
-    invoices_by_customer = invoices.all.group_by(&:customer_id)
     invoices_by_customer.filter_map do |customer, invoices|
       customers.find_by_id(customer) if invoices.length == 1
     end
+  end
+
+  def one_time_buyers_item
+    one_time = invoices_by_customer.delete_if { |customer, invoices| invoices.length > 1}
+    one_time_invoice_items = one_time.values.flatten.map { |invoice| invoice_items.find_all_by_invoice_id(invoice.id)}
+    grouped = one_time_invoice_items.flatten.group_by(&:item_id)
+    grouped.map do |item_id, invoice_items|
+      grouped[item_id] = invoice_items.sum(&:quantity)
+    end
+    grouped.filter_map { |item_id, quantity| items.find_by_id(item_id) if quantity == grouped.values.max}
   end
 end
