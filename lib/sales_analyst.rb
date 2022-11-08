@@ -7,13 +7,10 @@ class SalesAnalyst
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
-    # @sales_analyst = sales_analyst
   end
 
   def average_items_per_merchant
    (items_count / merchants_count.to_f).round(2)
-    # total number of items per merchant
-    # divided by total number of merchants
   end
 
   def items_count
@@ -30,21 +27,12 @@ class SalesAnalyst
       sum += (sales_engine.items.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant)**2
     end
     Math.sqrt(sum / (merchants_count - 1)).round(2)
-    # take average_items_per_merchant 
-    # find the standard deviation
-        # (item_count_ForEachMerchant - average_items_per_merchant) ^ 2
-        # add all of these up for every single merchant = sum
-            #  sum / (by total number of merchants - 1) = answer
-        # sqrt(answer) = sd
-    # Float
   end
 
   def merchants_with_high_item_count
     high_item_count = sales_engine.merchants.all.find_all do |merchant|
       (sales_engine.items.find_all_by_merchant_id(merchant.id).count) > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
     end
-    # find_all merchants with more than ONE sd ABOVE the average number of items offered
-    # return array of merchants
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -55,11 +43,6 @@ class SalesAnalyst
       end
       avg = ((item_prices_per_merchant.sum) / items_per_merchant.count)
       avg = BigDecimal(avg, 4)
-      # price of each item for that merchant
-      # add it all together
-      # divide by number of items for THAT merchant
-        # divide ^ by 100 because items are in cents and we want dollars
-      #BigDecimal
     end
 
   def average_average_price_per_merchant
@@ -68,10 +51,6 @@ class SalesAnalyst
       all_merchant_averages  << average_item_price_for_merchant(merchant.id)
     end
     ((all_merchant_averages.sum) / merchants_count).truncate(2)
-    # use average_item_price_for_merchant(merchant_id)
-    # add the sum of all averages between ALL of the merchants
-    # divided by number of total merchants
-    # BigDecimal
   end
 
   def average_price_for_all_items
@@ -94,13 +73,6 @@ class SalesAnalyst
       item.unit_price > (average_price_for_all_items + (average_standard_deviation_for_all_items * 2))
     end
   end
-    # find average_item_price_for_all_items
-      # all item prices / all items count
-    # find all items SD
-    # find all items that are TWO sd ABOVE the average_item_price_for_all_items
-    # returns an array of item objects
-    # it is an Item Class
-
 
    # ======================================= #
 
@@ -213,23 +185,27 @@ class SalesAnalyst
     sales_engine.merchants.all.each do |merchant|
       hash[merchant] = revenue_by_merchant(merchant.id)
     end
-    # require 'pry'; binding.pry
     ranked = hash.sort_by{|key, value| -value}
     ranked.map{|merchant| merchant[0]}
   end
   
-  # def merchants_with_pending_invoices
+  # def merchants_with_pending_invoices_test
   #   sales_engine.merchants.all.find_all do |merchant|
   #     sales_engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
   #       invoice.status == :pending
   #     end
   #   end
   # end
+
+  # def invoices_that_fail_then_succeed
+  #   require 'pry'; binding.pry
+  #   sales_engine.transactions
+  # end
+
   def merchants_with_pending_invoices
     sales_engine.merchants.all.find_all do |merchant|
       sales_engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
         sales_engine.transactions.find_all_by_invoice_id(invoice.id).all? do |transaction|
-          transaction.result == "failed"
         end
       end
     end
@@ -241,9 +217,16 @@ class SalesAnalyst
     end
   end
   
+  def invoice_only_one_item?(invoice)
+    sales_engine.invoice_items.find_all_by_invoice_id(invoice.id).length == 1
+  end
+
+  def invoice_by_month?(month, invoice)
+    invoice.created_at.strftime("%B") == month
+  end
+
   def merchants_with_only_one_item_registered_in_month(month)
     month_hash = {}
-
     sales_engine.merchants.all.find_all do |merchant|
       invoices_for_month_and_one_item = sales_engine.invoices.find_all_by_merchant_id(merchant.id).find_all do |invoice|
           (invoice_by_month?(month, invoice) && invoice.status != :pending) && (invoice_only_one_item?(invoice) && invoice_paid_in_full?(invoice.id))
@@ -251,17 +234,14 @@ class SalesAnalyst
 
       month_hash[merchant] = invoices_for_month_and_one_item
     end
-
     one_in_a_month = month_hash.find_all do |keys, values|
       values.length == 1
     end
-
     one_in_a_month.map{|merchant|merchant[0]}
   end
    
   def revenue_by_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
-    # formatted in dollars
     total = invoices_paid_in_full_by_merchant(merchant).sum do |invoice|
       invoice_total(invoice.id)
     end
@@ -290,13 +270,4 @@ class SalesAnalyst
   def best_item_for_merchant(merchant_id)
     # item in terms of revenue generated
   end
-
-  def invoice_by_month?(month, invoice)
-    invoice.created_at.strftime("%B") == month
-  end
-  
-  def invoice_only_one_item?(invoice)
-    sales_engine.invoice_items.find_all_by_invoice_id(invoice.id).length == 1
-  end
-
 end

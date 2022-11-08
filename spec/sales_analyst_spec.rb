@@ -194,8 +194,6 @@ RSpec.describe SalesAnalyst do
     end
     
     it 'can return all merchants with pending invoices' do # this is failing
-      # sales_analyst.merchants_with_pending_invoices
-  
       expect(sales_analyst.merchants_with_pending_invoices.length).to eq(467)
       expect(sales_analyst.merchants_with_pending_invoices.first.class).to eq(Merchant)
     end
@@ -227,7 +225,7 @@ RSpec.describe SalesAnalyst do
 
     xit 'can return the best item (in terms of revenue) for a specified merchant' do
       sales_analyst.best_item_for_merchant(merchant_id)
-
+      
       expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq([])
     end
   end
