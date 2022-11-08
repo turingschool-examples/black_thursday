@@ -220,14 +220,17 @@ class SalesAnalyst
     merchant.total_revenue
   end
 
+  def paid_invoice_items(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
+    merchant.invoices.flat_map do |invoice|
+      return unless invoice_paid_in_full?(invoice.id)
+      @engine.find_all_invoice_items_by_id(invoice.id)
+    end
+  end
+
   def most_sold_item_for_merchant(merchant_id)
     hash = {}
-    merchant = merchants.find_by_id(merchant_id)
-    paid_invoice_items = merchant.invoices.flat_map do |invoice|
-      return unless invoice_paid_in_full?(invoice.id)
-        @engine.find_all_invoice_items_by_id(invoice.id)
-      end
-    paid_invoice_items.each do |invoice_item|
+    paid_invoice_items(merchant_id).each do |invoice_item|
       if hash.key?(invoice_item.items)
         hash[invoice_item.items] += invoice_item.quantity
       else
@@ -246,23 +249,10 @@ class SalesAnalyst
     end
   end
 
-  def paid_invoice_items(merchant_id)
-    merchant = merchants.find_by_id(merchant_id)
-    merchant.invoices.flat_map do |invoice|
-      return unless invoice_paid_in_full?(invoice.id)
-        @engine.find_all_invoice_items_by_id(invoice.id)
-    end
-  end
 
   def best_item_for_merchant(merchant_id)
     hash = {}
-    paid_invoice_items(merchant_id)
-    # merchant = merchants.find_by_id(merchant_id)
-    # paid_invoice_items = merchant.invoices.flat_map do |invoice|
-    #   return unless invoice_paid_in_full?(invoice.id)
-    #     @engine.find_all_invoice_items_by_id(invoice.id)
-    #   end
-    paid_invoice_items.each do |invoice_item|
+    paid_invoice_items(merchant_id).each do |invoice_item|
       if hash.key?(invoice_item.items)
         hash[invoice_item.items] += invoice_item.quantity * invoice_item.unit_price
       else
