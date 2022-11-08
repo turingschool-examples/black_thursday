@@ -176,11 +176,7 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
-    hash = {}
-    @engine.merchants.all.each do |merchant|
-      hash[merchant] = merchant.total_revenue
-    end
-    sorted = hash.sort_by do |k,v|
+    sorted = merchant_revenue_hash.sort_by do |k,v|
       -v 
     end
     merchants = sorted.map do |merch_arr|
