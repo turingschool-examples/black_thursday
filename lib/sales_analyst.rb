@@ -29,6 +29,10 @@ class SalesAnalyst
     sales_engine.items
   end
 
+  def se_invoices
+    sales_engine.invoices
+  end
+
   #look at enumerable and see if we can shorten
 
   def average_items_per_merchant_standard_deviation
@@ -48,9 +52,7 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     item_prices_per_merchant = []
       items_per_merchant = items.find_all_by_merchant_id(merchant_id)
-      items_per_merchant.each do |item|
-        item_prices_per_merchant << (item.unit_price / 100)
-      end
+        items_per_merchant.each  {|item| item_prices_per_merchant << (item.unit_price / 100)}
       avg = ((item_prices_per_merchant.sum) / items_per_merchant.count)
       avg = BigDecimal(avg, 4)
     end
@@ -91,26 +93,26 @@ class SalesAnalyst
   end
 
   def invoice_count
-    sales_engine.invoices.all.count
+    se_invoices.all.count
   end
   
   def average_invoices_per_merchant_standard_deviation
     sum = 0
     merchants.all.each do |merchant|
-      sum += (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count - average_invoices_per_merchant)**2
+      sum += (se_invoices.find_all_by_merchant_id(merchant.id).count - average_invoices_per_merchant)**2
     end
     Math.sqrt(sum / (merchants_count - 1)).round(2)
   end
   
   def top_merchants_by_invoice_count
     high_invoice_count = merchants.all.find_all do |merchant|
-      (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count) > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+      (se_invoices.find_all_by_merchant_id(merchant.id).count) > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
     end
   end
   
   def bottom_merchants_by_invoice_count
     low_invoice_count = merchants.all.find_all do |merchant|
-      (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count) < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+      (se_invoices.find_all_by_merchant_id(merchant.id).count) < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
     end
   end
 
@@ -118,7 +120,7 @@ class SalesAnalyst
     invoices_per_day = {}
     days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     days_of_the_week.each do |day|
-      day_count = sales_engine.invoices.all.find_all do |invoice|
+      day_count = se_invoices.all.find_all do |invoice|
         invoice.created_at.strftime("%A") == day
       end
       invoices_per_day[day] = day_count.count
@@ -149,11 +151,11 @@ class SalesAnalyst
   def invoice_status(status)
     case status
     when :pending
-      return (sales_engine.invoices.find_all_by_status(:pending).count / (invoice_count.to_f) *100).round(2)
+      return (se_invoices.find_all_by_status(:pending).count / (invoice_count.to_f) *100).round(2)
     when :shipped 
-      return (sales_engine.invoices.find_all_by_status(:shipped).count / (invoice_count.to_f) *100).round(2)
+      return (se_invoices.find_all_by_status(:shipped).count / (invoice_count.to_f) *100).round(2)
     else 
-      return (sales_engine.invoices.find_all_by_status(:returned).count / (invoice_count.to_f) *100).round(2)
+      return (se_invoices.find_all_by_status(:returned).count / (invoice_count.to_f) *100).round(2)
     end
   end
   
@@ -177,7 +179,7 @@ class SalesAnalyst
   # ============== ITERATION 4 METHODS ========================= #
   
   def invoice_by_date(date)
-    sales_engine.invoices.find_all_by_date(date)
+    se_invoices.find_all_by_date(date)
   end
   
   def total_revenue_by_date(date)
@@ -201,7 +203,7 @@ class SalesAnalyst
   
   def merchants_with_pending_invoices
     merchants.all.find_all do |merchant|
-      sales_engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
+      se_invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
         !invoice_paid_in_full?(invoice.id)
       end
     end
@@ -224,7 +226,7 @@ class SalesAnalyst
   def merchants_with_only_one_item_registered_in_month(month)
     month_hash = {}
     merchants.all.find_all do |merchant|
-      invoices_for_month_and_one_item = sales_engine.invoices.find_all_by_merchant_id(merchant.id).find_all do |invoice|
+      invoices_for_month_and_one_item = se_invoices.find_all_by_merchant_id(merchant.id).find_all do |invoice|
           (invoice_by_month?(month, invoice) && invoice.status != :pending) && (invoice_only_one_item?(invoice) && invoice_paid_in_full?(invoice.id))
         end
 
@@ -245,7 +247,7 @@ class SalesAnalyst
   end
   
   def invoices_paid_in_full_by_merchant(merchant)
-    invoices = sales_engine.invoices.find_all_by_merchant_id(merchant.id)
+    invoices = se_invoices.find_all_by_merchant_id(merchant.id)
     invoices.find_all do |invoice|
       invoice_paid_in_full?(invoice.id)
     end
