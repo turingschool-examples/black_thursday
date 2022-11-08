@@ -89,18 +89,7 @@ describe MerchantRepository do
       expect(mr.number_of_items_per_merchant).to eq [2, 2, 2, 2]
     end
   end
-
-  describe '#items_per_merchant' do
-    it 'returns a list of items per merchant' do
-      allow(mr.all[0]).to receive(:_items).and_return(['item'])
-      allow(mr.all[1]).to receive(:_items).and_return(['item1', 'item2'])
-      allow(mr.all[2]).to receive(:_items).and_return(['item', 'item2', 'item3'])
-      allow(mr.all[3]).to receive(:_items).and_return(['item'])
-
-      expect(mr.items_per_merchant).to eq [['item'], ['item1', 'item2'], ['item', 'item2', 'item3'], ['item']]
-    end
-  end
-
+  
   describe '#average_items_per_merchant' do
     it 'returns the average number of items per merchant' do
       allow(mr.all[0]).to receive(:_items).and_return(['item'])
