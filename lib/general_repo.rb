@@ -40,7 +40,11 @@ class GeneralRepo
     @repository.delete(find_by_id(id))
   end
 
+  def send_up(message = {})
+    @engine.send_down(message)
+  end
+
   def inspect
-    # "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@repository.size} rows>"
   end
 end

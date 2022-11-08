@@ -25,7 +25,11 @@ class Merchant
 
   # Fetches items owned by merchant
   def _items
-    @_items ||= @merchant_repo.engine.items.find_all_by_merchant_id(@id)
+    @_items ||= @merchant_repo.send_up(method: :find_all_by_merchant_id, destination: 'items', args: @id)
+  end
+
+  def send_down(message = {})
+    destination(message[:method]).send(message[:method], *message[:args])
   end
 
   # Returns number of items owned by merchant.

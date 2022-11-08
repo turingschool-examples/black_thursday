@@ -165,7 +165,7 @@ RSpec.describe SalesAnalyst do
       expect(expected.last.id).to eq 12335747
     end
 
-    it "it returns by default the top 20 merchants ranked by revenue if no argument is given" do
+    it "returns by default the top 20 merchants ranked by revenue if no argument is given" do
       expected = analyst.top_revenue_earners
 
       expect(expected.length).to eq 20

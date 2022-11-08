@@ -36,7 +36,7 @@ class Invoice
   end
 
   def _invoice_items
-    @_invoice_items ||= @invoice_repo.engine.invoice_items.find_all_by_invoice_id(@id)
+    @_invoice_items ||= @invoice_repo.send_up(method: :find_all_by_invoice_id, destination: 'invoice_items', args: @id)
   end
 
   def total

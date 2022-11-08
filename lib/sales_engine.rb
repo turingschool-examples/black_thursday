@@ -32,27 +32,20 @@ class SalesEngine
     SalesEngine.new(data)
   end
 
-  def average_items_per_merchant
-    @merchants.average_items_per_merchant
+  def destination(method)
+    return @invoices if invoices.respond_to?(method)
+    return @merchants if merchants.respond_to?(method)
+    return @items if items.respond_to?(method)
+    return @invoice_items if invoice_items.respond_to?(method)
+    return @transactions if transactions.respond_to?(method)
+    return @customers if customers.respond_to?(method)
   end
 
-  def number_of_items_per_merchant
-    @merchants.number_of_items_per_merchant
-  end
-  
-  def average_items_per_merchant_standard_deviation
-    @merchants.average_items_per_merchant_standard_deviation
-  end
+  # Generic helper method for sending method calls to correct Repo.
+  def send_down(message = {})
+  # "Fuck ternaries" -Jeff C 
+    message[:destination] ? message[:destination] = instance_variable_get("@#{message[:destination]}") : message[:destination] = destination(message[:method])
 
-  def number_of_invoices_per_merchant
-    @merchants.number_of_invoices_per_merchant
-  end
-
-  def average_invoices_per_merchant
-    @merchants.average_invoices_per_merchant.round(2)
-  end
-
-  def average_invoices_per_merchant_standard_deviation
-    @merchants.average_invoices_per_merchant_standard_deviation
+    message[:destination].send(message[:method], *message[:args])
   end
 end
