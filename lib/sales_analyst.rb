@@ -175,11 +175,14 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(x = 20)
-    sorted = merchant_revenue_hash.sort_by do |k,v|
+  def ranked_merchants_with_revenue
+    merchant_revenue_hash.sort_by do |k,v|
       -v 
     end
-    merchants = sorted.map do |merch_arr|
+  end
+
+  def top_revenue_earners(x = 20)
+    merchants = ranked_merchants_with_revenue.map do |merch_arr|
       merch_arr[0]
     end
     upper_bound = (x - 1)
