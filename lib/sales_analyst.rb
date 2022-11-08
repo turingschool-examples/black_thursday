@@ -161,4 +161,9 @@ class SalesAnalyst
       return false
     end
   end
+  
+  def total_revenue_by_date(date)
+    #find all by date, if success add the unit price
+    #Note: When calculating revenue the unit_price listed within invoice_items should be used. The invoice_item.unit_price represents the final sale price of an item after sales, discounts or other intermediary price changes.
+  end
 end
