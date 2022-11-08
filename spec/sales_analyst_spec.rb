@@ -495,6 +495,20 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
 
     expect(sales_analyst.paid_invoice_items(1).all?(InvoiceItem)).to be(true)
-
   end
+
+  it 'returns a hash with items and quantitys' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+      :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+      :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+      :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+      :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.item_quantity_hash.keys.all?(Items)).to be(true)
+    expect(sales_analyst.item_quantity_hash.values.all?(Integer)).to be(true)
+
 end
