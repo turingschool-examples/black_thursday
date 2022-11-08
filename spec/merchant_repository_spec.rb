@@ -23,12 +23,14 @@ RSpec.describe MerchantRepository do
   it 'has a method to find a merchant by its ID' do
     merchant_repository.all << merchant
     expect(merchant_repository.find_by_id(1)).to eq(merchant)
+    expect(merchant_repository.find_by_id(2)).to eq nil
   end
 
   it 'has a method to find a merchant by its name' do
     merchant_repository.all << merchant
     expect(merchant_repository.find_by_name("Turing School")).to eq(merchant)
     expect(merchant_repository.find_by_name("tuRing schOol")).to eq(merchant)
+    expect(merchant_repository.find_by_name("Agoge")).to eq nil
   end
 
   it 'has a method to find all merchants which have part of a name in common' do

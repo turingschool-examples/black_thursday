@@ -51,6 +51,7 @@ RSpec.describe ItemRepository do
       item_repo = ItemRepository.new([item1])
 
       expect(item_repo.find_by_name("Pencil")).to eq item1
+      expect(item_repo.find_by_name("Ruler")).to eq nil
     end
   end
 
@@ -61,6 +62,8 @@ RSpec.describe ItemRepository do
       item_repo = ItemRepository.new([item1,item2,item3])
 
       expect(item_repo.find_all_with_description("write")).to eq [item1,item3]
+      expect(item_repo.find_all_with_description("you CAN")).to eq [item1,item2,item3]
+      expect(item_repo.find_all_with_description("snow")).to eq []
     end
   end
 
@@ -71,6 +74,7 @@ RSpec.describe ItemRepository do
       item_repo = ItemRepository.new([item1,item2,item3])
 
       expect(item_repo.find_all_by_price(BigDecimal(0.1099,4))).to eq [item1,item2]
+      expect(item_repo.find_all_by_price(BigDecimal(0.20000,4))).to eq []
     end
   end
 
@@ -90,11 +94,7 @@ RSpec.describe ItemRepository do
 
       expect(item_repo.find_all_by_merchant_id(2)).to eq [item1, item2]
       expect(item_repo.find_all_by_merchant_id(3)).to eq [item3, item4]
-    end
-  end
-
-  describe '#find_by_id' do
-    it 'is a helper method to find by id' do
+      expect(item_repo.find_all_by_merchant_id(5)).to eq []
     end
   end
 end

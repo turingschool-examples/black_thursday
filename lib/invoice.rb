@@ -16,6 +16,4 @@ class Invoice
     @created_at   = Time.parse(attributes[:created_at].to_s)
     @updated_at   = Time.parse(attributes[:updated_at].to_s)
   end
-
-
 end

@@ -321,6 +321,11 @@ end
     end
   end
 
+  describe '#find_transactions_by_invoice_id(invoice_id)' do
+    it 'returns all the transactions for an invoice' do
+      expect(sales_analyst.find_transactions_by_invoice_id(1).count).to eq 2
+    end
+  end
 
   describe '#invoice_paid_in_full?(invoice_id)' do
     it 'return true if transaction success and false if failed' do
@@ -343,6 +348,14 @@ end
     it 'will return the invoice total for that id' do
 
       expect(sales_analyst.invoice_total(1)).to eq 21067.77
+    end
+  end
+
+  describe '#invoice_status' do
+    it 'returns the percentage of invoice with input status' do
+      expect(sales_analyst.invoice_status(:pending)).to eq 29.55
+      expect(sales_analyst.invoice_status(:shipped)).to eq 56.95
+      expect(sales_analyst.invoice_status(:returned)).to eq 13.5
     end
   end
 
