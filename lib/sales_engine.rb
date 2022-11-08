@@ -12,13 +12,13 @@ require_relative '../lib/transaction.rb'
 require_relative '../lib/transaction_repository.rb'
 
 class SalesEngine
-  attr_reader :items, 
+  attr_reader :items,
               :merchants,
-              :invoices, 
-              :transactions, 
+              :invoices,
+              :transactions,
               :customers,
               :invoice_items
-  
+
   def initialize(files)
     @items = ItemRepository.new(files[:items], self)
     @merchants = MerchantRepository.new(files[:merchants], self)

@@ -271,7 +271,7 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.invoice_paid_in_full?(1)).to be(true)
     expect(sales_analyst.invoice_paid_in_full?(2)).to be(false)
-    expect(sales_analyst.invoice_paid_in_full?(3)).to be(false)
+    expect(sales_analyst.invoice_paid_in_full?(4)).to be(false)
   end
 
   it 'can return the total $ amount of an invoice' do
@@ -452,5 +452,19 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
 
     expect(sales_analyst.revenue_by_merchant(12335938)).to eq(0.2106777e5)
+  end
+
+  it 'can find the most sold item for a merchant' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/items.csv',
+      :merchants => './data/test_data/merchant_test4.csv',
+      :invoices  => './data/test_data/invoices_transactions_test.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/test_data/transactions_test.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.most_sold_item_for_merchant(12334753)).to eq(1)
   end
 end

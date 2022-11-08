@@ -219,4 +219,13 @@ class SalesAnalyst
     merchant = merchants.find_by_id(merchant_id)
     merchant.total_revenue
   end
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
+      merchant.invoices.map do |invoice|
+        return unless invoice_paid_in_full?(invoice.id)
+         @engine.find_all_invoice_items_by_id(invoice.id)
+        require 'pry' ; binding.pry
+      end
+  end
 end
