@@ -1,6 +1,4 @@
-require 'bigdecimal'
-require 'csv'
-require 'date'
+require 'requirements'
 
 class SalesAnalyst
   attr_reader :sales_engine

@@ -1,10 +1,4 @@
-require 'rspec'
-require './lib/item'
-require './lib/item_repository'
-require './lib/sales_engine'
-require './lib/merchant_repository'
-require './lib/merchant'
-require 'csv'
+require './lib/requirements'
 
 RSpec.describe MerchantRepository do
   let!(:mr) {MerchantRepository.new("./data/merchants.csv", nil)}
@@ -49,7 +43,7 @@ RSpec.describe MerchantRepository do
     expect(mr.all.last.name).to eq("CJsDecor")
     expect(mr.all.last.id).to eq(12337411)
     
-    mr.create("Another Merchant")
+    mr.create({name: "Another Merchant"})
     
     expect(mr.all.last.name).to eq("Another Merchant")
     expect(mr.all.last.id).to eq(12337412)
@@ -58,7 +52,7 @@ RSpec.describe MerchantRepository do
   it 'can update a merchant (by id) with new attributes *aka name updates*' do
     expect(mr.find_by_id(12337411).name).to eq("CJsDecor")
     
-    mr.update(12337411, "School of Light Knocks")
+    mr.update(12337411, { name: "School of Light Knocks"})
     
     expect(mr.find_by_id(12337411).name).to eq("School of Light Knocks")
   end

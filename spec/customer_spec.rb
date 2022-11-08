@@ -1,5 +1,4 @@
-require 'rspec'
-require './lib/customer'
+require './lib/requirements'
 
 RSpec.describe Customer do
 
@@ -7,12 +6,11 @@ RSpec.describe Customer do
                   :id => 1,
                   :first_name => 'bob',
                   :last_name => 'burger',
-                  :created_at => Time.now,
-                  :updated_at => Time.now
+                  :created_at => Time.now.to_s,
+                  :updated_at => Time.now.to_s
                   }, nil)}
   
   it 'is a customer class' do
-    require 'pry'; binding.pry
     expect(customer).to be_a(Customer)
     
   end
