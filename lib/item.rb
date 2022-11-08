@@ -30,7 +30,4 @@ class Item
     return unless attributes
     Time.parse(attributes)
   end
-  # def merchant
-  #   @repo
-  # end
 end

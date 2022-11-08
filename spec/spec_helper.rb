@@ -10,6 +10,10 @@ require 'invoice_repository_spec'
 require 'invoice_spec'
 require 'transaction_repository_spec'
 require 'transaction_spec'
+require 'customer_spec'
+require 'customer_repository_spec'
+require 'invoice_item_spec'
+require 'invoice_item_repository_spec'
 
 
 

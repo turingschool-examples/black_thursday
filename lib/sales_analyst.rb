@@ -283,5 +283,4 @@ class SalesAnalyst
       item.first
     end
   end
-
 end

@@ -60,6 +60,10 @@ class SalesEngine
     @invoices.find_all_by_date(date)
   end
 
+  def find_items_by_item_id(item_id)
+    @items.find_by_id(item_id)
+  end
+
   def invoice_total(invoice_id)
     analyst.invoice_total(invoice_id)
   end
