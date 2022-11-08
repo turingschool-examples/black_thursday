@@ -193,7 +193,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.merchants_ranked_by_revenue.last.id).to eq(12336175)
     end
     
-    it 'can return all merchants with pending invoices' do # this is failing
+    it 'can return all merchants with pending invoices' do
       expect(sales_analyst.merchants_with_pending_invoices.length).to eq(467)
       expect(sales_analyst.merchants_with_pending_invoices.first.class).to eq(Merchant)
     end
