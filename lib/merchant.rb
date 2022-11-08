@@ -1,9 +1,18 @@
 class Merchant
-  attr_accessor :id, :name, :repo
+  attr_accessor :id,
+                :name,
+                :repo,
+                :created_at
   def initialize(attributes, repo = nil)
     @id = attributes[:id].to_i
     @name = attributes[:name]
+    @created_at = time_converter(attributes[:created_at])
     @repo = repo
+  end
+
+  def time_converter(attributes)
+    return unless attributes
+    Time.parse(attributes)
   end
 
   def items
