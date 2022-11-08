@@ -98,4 +98,11 @@ module Calculation
   def average_items_per_merchant_standard_deviation
     standard_deviation_by_merchant(items)
   end
+
+  def spending_by_customer(customer_id)
+    customer_invoices = invoices.find_all_by_customer_id(customer_id)
+    customer_invoices.sum do |invoice|
+      invoice_total(invoice.id)
+    end
+  end
 end

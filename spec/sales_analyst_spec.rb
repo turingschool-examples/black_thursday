@@ -151,6 +151,6 @@ RSpec.describe SalesAnalyst do
     expect(expected).to be_a Array
     expect(expected_10).to be_a Array
     expect(expected.length).to eq (20)
-    expecte(expected(10).length).to eq (10)
+    expect(expected_10.length).to eq (10)
   end
 end
