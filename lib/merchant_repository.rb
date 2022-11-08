@@ -25,12 +25,6 @@ class MerchantRepository < GeneralRepo
     end
   end
 
-  def items_per_merchant
-    all.map do |merchant|
-      merchant._items
-    end
-  end
-
   def average_items_per_merchant
     @_average_items_per_merchant ||= average(number_of_items_per_merchant.sum, all.length).round(2)
   end
@@ -99,7 +93,7 @@ class MerchantRepository < GeneralRepo
   def merchants_with_pending_invoices
     all.select { |merchant| merchant.invoice_pending? }
   end
-  
+
   def top_revenue_earners(num)
     sorted = all.sort_by do |merchant|
       -merchant.revenue

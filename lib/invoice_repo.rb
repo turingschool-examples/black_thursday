@@ -2,10 +2,11 @@
 
 require_relative 'general_repo'
 require_relative 'invoice'
-require 'time'
+require 'timeable'
 
 # InvoiceRepo holds, creates, updates, destroys, and finds repository.
 class InvoiceRepo < GeneralRepo
+  include Timeable
   def initialize(data, engine)
     super(Invoice, data, engine)
   end
@@ -51,13 +52,6 @@ class InvoiceRepo < GeneralRepo
     top_days.keys
   end
 
-  def convert_int_to_day(num)
-    days = [
-      'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
-    ]
-    days[num]
-  end
-
   def invoice_paid_in_full?(invoice_id)
     find_by_id(invoice_id).paid?
   end
@@ -74,7 +68,7 @@ class InvoiceRepo < GeneralRepo
     end
     @repository.select do |invoice|
       invoice.paid? &&
-        invoice.created_at.strftime('%d/%m/%Y') == date_time.strftime('%d/%m/%Y')
+      format_time_to_string(invoice.created_at) == format_time_to_string(date_time)
     end
   end
 

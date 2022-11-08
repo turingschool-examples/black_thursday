@@ -51,6 +51,28 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  describe '#top_merchants_by_invoice_count' do
+    it 'returns a collection of the merchants with a high deviation to the average' do
+      expected = analyst.top_merchants_by_invoice_count
+      expect(expected).to be_a Array
+      expect(expected).to all(be_a Merchant)
+      expected.each do |merchant|
+        expect(merchant.invoice_count).to be > 0
+      end
+    end
+  end
+
+  describe '#bottom_merchants_by_invoice_count' do
+    it 'returns a collection of the merchants with a low deviation to the average' do
+      expected = analyst.bottom_merchants_by_invoice_count
+      expect(expected).to be_a Array
+      expect(expected).to all(be_a Merchant)
+      expected.each do |merchant|
+        expect(merchant.invoice_count).to be > 0
+      end
+    end
+  end
+
   describe '#merchants_with_high_item_count' do
     it 'returns a list of merchants whose standard deviation of # of items is greater than 1' do
       expected = analyst.merchants_with_high_item_count
@@ -159,6 +181,24 @@ RSpec.describe SalesAnalyst do
       expected = analyst.revenue_by_merchant('12334105')
       expect(expected.class).to eq BigDecimal
       expect(expected).to eq(0.7377717e5)
+    end
+  end
+
+  describe '#merchants_with_only_one_item' do
+    it 'returns a collection of merchants who only have one item' do
+      expected_length = 243
+      expected_class  = Merchant
+      expect(analyst.merchants_with_only_one_item.length).to eq(expected_length)
+      expect(analyst.merchants_with_only_one_item[0].class).to eq(expected_class)
+    end
+  end
+
+  describe '#merchants_with_only_one_item_registered_in_month' do
+    it 'returns a collection of merchants who only have one item per month registered' do
+      expected_length = 21
+      expected_class  = Merchant
+      expect(analyst.merchants_with_only_one_item_registered_in_month('March').length).to eq(expected_length)
+      expect(analyst.merchants_with_only_one_item_registered_in_month('March')[0].class).to eq(expected_class)
     end
   end
 end

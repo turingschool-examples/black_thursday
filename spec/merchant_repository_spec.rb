@@ -89,18 +89,7 @@ describe MerchantRepository do
       expect(mr.number_of_items_per_merchant).to eq [2, 2, 2, 2]
     end
   end
-
-  describe '#items_per_merchant' do
-    it 'returns a list of items per merchant' do
-      allow(mr.all[0]).to receive(:_items).and_return(['item'])
-      allow(mr.all[1]).to receive(:_items).and_return(['item1', 'item2'])
-      allow(mr.all[2]).to receive(:_items).and_return(['item', 'item2', 'item3'])
-      allow(mr.all[3]).to receive(:_items).and_return(['item'])
-
-      expect(mr.items_per_merchant).to eq [['item'], ['item1', 'item2'], ['item', 'item2', 'item3'], ['item']]
-    end
-  end
-
+  
   describe '#average_items_per_merchant' do
     it 'returns the average number of items per merchant' do
       allow(mr.all[0]).to receive(:_items).and_return(['item'])
@@ -181,7 +170,7 @@ describe MerchantRepository do
       allow(mr.all[2]).to receive(:_invoices).and_return(['invoice1', 'invoice2', 'invoice3'])
       allow(mr.all[3]).to receive(:_invoices).and_return(['invoice1'])
 
-      expect(mr.top_merchants_by_invoice_count).to eq([])
+      expect(mr.bottom_merchants_by_invoice_count).to eq([])
     end
   end
 
@@ -213,14 +202,16 @@ describe MerchantRepository do
   end
 
   describe '#merchants_with_only_one_item' do
-    it 'returns a collection of merchanta who only have one item' do
+    it 'returns a collection of merchants who only have one item' do
       engine = double('engine')
-      items = double('item_repo')
+      items = double('items_repo')
+      allow(mr.all[0]).to receive(:item_count).and_return(1.0)
+      allow(mr.all[1]).to receive(:item_count).and_return(2.0)
+      allow(mr.all[2]).to receive(:item_count).and_return(4.0)
+      allow(mr.all[3]).to receive(:item_count).and_return(7.0)
       allow(mr).to receive(:engine).and_return(engine)
       allow(engine).to receive(:items).and_return(items)
-      allow(items).to receive(:item_count).and_return(['item1'])
-
-      expect(mr.merchants_with_only_one_item).to eq(mr.all)
+      expect(mr.merchants_with_only_one_item).to eq([mr.all[0]])
     end
   end
 
@@ -228,14 +219,19 @@ describe MerchantRepository do
     it 'returns a collection of merchanta who only have one item' do
       engine = double('engine')
       items = double('item_repo')
-      item = double('item')
+      allow(mr.all[0]).to receive(:item_count).and_return(1.0)
+      allow(mr.all[1]).to receive(:item_count).and_return(2.0)
+      allow(mr.all[2]).to receive(:item_count).and_return(4.0)
+      allow(mr.all[0]).to receive(:created_at).and_return(Time.parse('2012-03-26 20:56:56 UTC'))
+      allow(mr.all[1]).to receive(:created_at).and_return(Time.parse('2012-06-26 20:56:56 UTC'))
+      allow(mr.all[2]).to receive(:created_at).and_return(Time.parse('2012-09-26 20:56:56 UTC'))
       allow(mr).to receive(:engine).and_return(engine)
       allow(engine).to receive(:items).and_return(items)
-      allow(items).to receive(:item_count).and_return([item])
-
-      expect(mr.merchants_with_only_one_item_registered_in_month('March')).to eq(mr.all)
+      allow(items).to receive(:find_all_by_merchant_id).and_return([mr.all[0], mr.all[1], mr.all[2]])
+      expect(mr.merchants_with_only_one_item_registered_in_month('March')).to eq([mr.all[0]])
     end
   end
+  
   describe '#merchants_with_pending_invoices' do
     it 'returns an array of merchants with pending invoices' do
       allow(mr.all[0]).to receive(:invoice_pending?).and_return(true)

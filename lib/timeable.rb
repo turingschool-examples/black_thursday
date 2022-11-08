@@ -32,4 +32,16 @@ module Timeable
 
     time
   end
+
+  def created_at
+    convert_to_time(created_time)
+  end
+
+  def updated_at
+    convert_to_time(updated_time)
+  end
+
+  def format_time_to_string(time)
+    time.strftime('%d/%m/%Y')
+  end
 end

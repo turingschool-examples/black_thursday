@@ -1,29 +1,22 @@
 # frozen_string_literal: true
+
 require 'calculable'
+require 'timeable'
+
 # This is the Merchant Class
 class Merchant
-  include Calculable
+  include Calculable, Timeable
   attr_reader :id,
-              :name
+              :name,
+              :created_time,
+              :updated_time
 
   def initialize(data, repo)
     @id   = (data[:id]).to_i
     @name = data[:name]
-    @created_at  = data[:created_at]
-    @updated_at  = data[:updated_at]
+    @created_time = data[:created_at]
+    @updated_time  = data[:updated_at]
     @merchant_repo = repo
-  end
-
-  def created_at
-    return Time.parse(@created_at) if @created_at.is_a? String
-
-    @created_at
-  end
-
-  def updated_at
-    return Time.parse(@updated_at) if @updated_at.is_a? String
-
-    @updated_at
   end
 
   def update(name)
