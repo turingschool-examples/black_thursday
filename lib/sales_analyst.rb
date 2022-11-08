@@ -181,6 +181,12 @@ class SalesAnalyst
     end
   end
 
+  def ranked_merchants 
+    ranked_merchants_with_revenue.map do |merch_arr|
+      merch_arr[0]
+    end
+  end
+
   def top_revenue_earners(x = 20)
     merchants = ranked_merchants_with_revenue.map do |merch_arr|
       merch_arr[0]

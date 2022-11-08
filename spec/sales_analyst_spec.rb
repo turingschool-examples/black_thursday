@@ -1,7 +1,7 @@
 require_relative '../lib/sales_engine.rb'
 require_relative '../lib/item_repository.rb'
 # require './lib/item.rb'
-# require './lib/merchant.rb'
+require_relative '../lib/merchant.rb'
 # require './lib/merchant_repository.rb'
 require_relative '../lib/sales_analyst'
 require 'csv'
@@ -349,7 +349,7 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
     expected = sales_analyst.ranked_merchants 
 
-    expect(expected.all?(Merchants)).to be(true)
+    expect(expected.all?(Merchant)).to be(true)
     expect(expected.first.id).to eq(12334634)
   end
 
