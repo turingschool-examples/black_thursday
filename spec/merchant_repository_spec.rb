@@ -52,7 +52,7 @@ RSpec.describe MerchantRepository do
   it 'can update a merchant (by id) with new attributes *aka name updates*' do
     expect(mr.find_by_id(12337411).name).to eq("CJsDecor")
     
-    mr.update(12337411, "School of Light Knocks")
+    mr.update(12337411, { name: "School of Light Knocks"})
     
     expect(mr.find_by_id(12337411).name).to eq("School of Light Knocks")
   end

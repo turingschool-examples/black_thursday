@@ -7,8 +7,8 @@ module RepositoryQueries
   def find_by_id(id)
     nil if !a_valid_id?(id)
 
-    @records.find do |item|
-      item.id == id
+    @records.find do |record|
+      record.id == id
     end
   end
 
@@ -49,6 +49,11 @@ module RepositoryQueries
     @records.find_all do |record|
       record.merchant_id == id.to_i
     end
+  end
+
+  def create_records(filepath)
+    contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
+    make_record(contents)
   end
 
   def delete(id)
