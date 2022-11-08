@@ -7,7 +7,7 @@ RSpec.describe InvoiceItem do
                                       :item_id => 263562118,
                                       :invoice_id => 522,
                                       :quantity => 9,
-                                      :unit_price => BigDecimal(847.87, 9),
+                                      :unit_price => 84787,
                                       :created_at => time_now,
                                       :updated_at => time_now
                                     }, nil)}
