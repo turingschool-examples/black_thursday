@@ -19,7 +19,7 @@ class InvoiceItemRepository < Repository
       quantity: attributes[:quantity],
       unit_price: attributes[:unit_price],
       updated_at: Time.now
-    }
+    }.compact
     super(id, sanitized_attributes)
   end
 end

@@ -133,4 +133,18 @@ class SalesAnalyst
     invoices_with_status = @invoices.find_all_by_status(status).size
     (invoices_with_status / @invoices.all.size.to_f * 100).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    results = @transactions.find_all_by_invoice_id(invoice_id).select do |transaction|
+      transaction.result == :success
+    end
+    !results.empty?
+  end
+
+  def invoice_total(invoice_id)
+    return 0 unless invoice_paid_in_full?(invoice_id)
+    @invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+  end
 end
