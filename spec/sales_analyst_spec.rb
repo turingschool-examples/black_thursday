@@ -139,7 +139,7 @@ RSpec.describe SalesAnalyst do
     expect(expected.length).to eq 76
   end
 
-  it 'can return the customers that have bought only one item' do
+  it 'can return the item that one time buyers have bought most' do
     expected = sales_analyst.one_time_buyers_item
     expect(expected).to be_a Array
     expect(expected.first).to be_a Item
