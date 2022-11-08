@@ -60,7 +60,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_invoices).to be_instance_of(Array)
   end
 
-  it "#top_merchants_by_invoice_count" do
+  xit "#top_merchants_by_invoice_count" do
     sales_analyst = @sales_engine.analyst
     # expect(sales_analyst.merchant_ids_collection(merchants_invoices)).to be_instance_of(Array)
     # expect(sales_analyst.chosen_merchants(merchants_invoices)).to be_instance_of(Array)
@@ -119,7 +119,6 @@ RSpec.describe SalesAnalyst do
   it '#invoice_total returns the total $ amount of the 
       Invoice with the corresponding id.' do
 
-
         sales_analyst = @sales_engine.analyst
         @sales_engine.invoice_items.create({
           :id => 1234321,
@@ -133,5 +132,10 @@ RSpec.describe SalesAnalyst do
         
         expect(sales_analyst.invoice_total(1234321)).to eq(109.90)
   end
-end
+  end
+
+  it "#merchants_with_pending_invoices" do
+    sales_analyst = @sales_engine.analyst
+    expect(sales_analyst.merchants_with_pending_invoices).to be_instance_of(Array)
+  end
 end
