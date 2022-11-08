@@ -33,6 +33,8 @@ RSpec.describe InvoiceRepository do
   it 'has a method to find_all_by_merchant_id' do
     invoice_repository.all << invoice
     expect(invoice_repository.find_all_by_merchant_id(8)).to eq([invoice])
+    expect(invoice_repository.find_all_by_merchant_id(9)).to eq([invoice2])
+    expect(invoice_repository.find_all_by_merchant_id(1)).to eq nil
   end
 
   it 'has a method to find_all_by_status' do
@@ -41,5 +43,7 @@ RSpec.describe InvoiceRepository do
 
     invoice_repository.all << invoice2
     expect(invoice_repository.find_all_by_status(:pending)).to eq([invoice, invoice2])
+    expect(invoice_repository.find_all_by_status(:shipped)).to eq nil
+    expect(invoice_repository.find_all_by_status(:sold)).to eq nil
   end
 end
