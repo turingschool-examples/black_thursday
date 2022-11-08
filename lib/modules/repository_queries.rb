@@ -39,15 +39,28 @@ module RepositoryQueries
     end
   end
 
-  def find_all_by_price_in_range(low, high)
+  def find_all_by_price_in_range(range)
     @records.find_all do |record|
-      record.unit_price >= low.to_f && record.unit_price <= high.to_f
+      record.unit_price >= range.min && record.unit_price <= range.max
     end
   end
   
   def find_all_by_merchant_id(id)
+    nil if !a_valid_merchant_id?(id)
+
     @records.find_all do |record|
       record.merchant_id == id.to_i
+    end
+  end
+
+  def a_valid_merchant_id?(id)
+    @records.any? do |record| record.merchant_id == id
+    end 
+  end
+
+  def find_all_by_status(status)
+      @records.find_all do |record|
+        record.status == status
     end
   end
 

@@ -28,7 +28,6 @@ class InvoiceRepository
       return nil
     else
       @records.find_all do |record|
-        # require 'pry'; binding.pry
         record.customer_id == id
       end
     end
@@ -39,21 +38,21 @@ class InvoiceRepository
   #   end 
   # end
   
-  def a_valid_merchant_id?(id)
-    @records.any? do |record| record.merchant_id == id
-    end 
-  end
+  # def a_valid_merchant_id?(id)
+  #   @records.any? do |record| record.merchant_id == id
+  #   end 
+  # end
 
-  def find_all_by_merchant_id(id)
-    if !a_valid_merchant_id?(id)
-      return []
-    else
-      @records.find_all do |record|
-        # require 'pry'; binding.pry
-        record.merchant_id == id
-      end
-    end
-  end
+  # def find_all_by_merchant_id(id)
+  #   if !a_valid_merchant_id?(id)
+  #     return []
+  #   else
+  #     @records.find_all do |record|
+  #       # require 'pry'; binding.pry
+  #       record.merchant_id == id
+  #     end
+  #   end
+  # end
 
   def find_all_by_status(status)
       @records.find_all do |record|

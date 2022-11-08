@@ -35,8 +35,8 @@ RSpec.describe ItemRepository do
   end
 
   it 'can find all items by price, within a range' do
-    expect(item_repository.find_all_by_price_in_range(593, 597)).to eq([item_repository.all[543], item_repository.all[1271]])
-    expect(item_repository.find_all_by_price_in_range(1.00, 3.00)).to eq([])
+    expect(item_repository.find_all_by_price_in_range(593..597)).to eq([item_repository.all[543], item_repository.all[1271]])
+    expect(item_repository.find_all_by_price_in_range(1.00..3.00)).to eq([])
   end
 
   it 'can find all items that are a merchants (id)' do
