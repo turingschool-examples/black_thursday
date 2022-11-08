@@ -18,7 +18,7 @@ class SalesAnalyst
   end
 
   def merchants_count
-    sales_engine.merchants.all.count
+    merchants.all.count
   end
 
   def merchants 
@@ -33,14 +33,14 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     sum = 0
-    sales_engine.merchants.all.each do |merchant|
+    merchants.all.each do |merchant|
       sum += (sales_engine.items.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant)**2
     end
     Math.sqrt(sum / (merchants_count - 1)).round(2)
   end
 
   def merchants_with_high_item_count
-    high_item_count = sales_engine.merchants.all.find_all do |merchant|
+    high_item_count = merchants.all.find_all do |merchant|
       (sales_engine.items.find_all_by_merchant_id(merchant.id).count) > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
     end
   end
@@ -57,7 +57,7 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     all_merchant_averages = []
-    sales_engine.merchants.all.each do |merchant|
+    merchants.all.each do |merchant|
       all_merchant_averages  << average_item_price_for_merchant(merchant.id)
     end
     ((all_merchant_averages.sum) / merchants_count).truncate(2)
@@ -84,7 +84,7 @@ class SalesAnalyst
     end
   end
 
-   # ======================================= #
+    # ============== ITERATION 2 METHODS ========================= #
 
   def average_invoices_per_merchant
     (invoice_count / merchants_count.to_f).round(2)
@@ -96,20 +96,20 @@ class SalesAnalyst
   
   def average_invoices_per_merchant_standard_deviation
     sum = 0
-    sales_engine.merchants.all.each do |merchant|
+    merchants.all.each do |merchant|
       sum += (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count - average_invoices_per_merchant)**2
     end
     Math.sqrt(sum / (merchants_count - 1)).round(2)
   end
   
   def top_merchants_by_invoice_count
-    high_invoice_count = sales_engine.merchants.all.find_all do |merchant|
+    high_invoice_count = merchants.all.find_all do |merchant|
       (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count) > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
     end
   end
   
   def bottom_merchants_by_invoice_count
-    low_invoice_count = sales_engine.merchants.all.find_all do |merchant|
+    low_invoice_count = merchants.all.find_all do |merchant|
       (sales_engine.invoices.find_all_by_merchant_id(merchant.id).count) < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
     end
   end
@@ -192,28 +192,15 @@ class SalesAnalyst
   
   def merchants_ranked_by_revenue
     hash = {}
-    sales_engine.merchants.all.each do |merchant|
+    merchants.all.each do |merchant|
       hash[merchant] = revenue_by_merchant(merchant.id)
     end
     ranked = hash.sort_by{|key, value| -value}
     ranked.map{|merchant| merchant[0]}
   end
   
-  # def merchants_with_pending_invoices_test
-  #   sales_engine.merchants.all.find_all do |merchant|
-  #     sales_engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
-  #       invoice.status == :pending
-  #     end
-  #   end
-  # end
-
-  # def invoices_that_fail_then_succeed
-  #   require 'pry'; binding.pry
-  #   sales_engine.transactions
-  # end
-
   def merchants_with_pending_invoices
-    sales_engine.merchants.all.find_all do |merchant|
+    merchants.all.find_all do |merchant|
       sales_engine.invoices.find_all_by_merchant_id(merchant.id).any? do |invoice|
         !invoice_paid_in_full?(invoice.id)
       end
@@ -221,7 +208,7 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-    sales_engine.merchants.all.find_all do |merchant|
+    merchants.all.find_all do |merchant|
       sales_engine.items.find_all_by_merchant_id(merchant.id).length == 1
     end
   end
@@ -236,7 +223,7 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month)
     month_hash = {}
-    sales_engine.merchants.all.find_all do |merchant|
+    merchants.all.find_all do |merchant|
       invoices_for_month_and_one_item = sales_engine.invoices.find_all_by_merchant_id(merchant.id).find_all do |invoice|
           (invoice_by_month?(month, invoice) && invoice.status != :pending) && (invoice_only_one_item?(invoice) && invoice_paid_in_full?(invoice.id))
         end
@@ -250,7 +237,7 @@ class SalesAnalyst
   end
    
   def revenue_by_merchant(merchant_id)
-    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
     total = invoices_paid_in_full_by_merchant(merchant).sum do |invoice|
       invoice_total(invoice.id)
     end
