@@ -41,7 +41,7 @@ class Merchant
   end
 
   def _invoices
-    @_invoices ||= @merchant_repo.engine.invoices.find_all_by_merchant_id(@id)
+    @_invoices ||= @merchant_repo.send_to_engine(method: :find_all_by_merchant_id, destination: 'invoices', args: @id)
   end
 
   def invoice_count
