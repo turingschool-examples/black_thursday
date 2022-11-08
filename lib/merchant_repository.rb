@@ -5,18 +5,13 @@ class MerchantRepository
 
   def initialize(records, engine)
     @records = create_records(records)
-    # @engine = engine
+    @engine = engine
   end
   
   def create(attributes)
     new_id = @records.last.id + 1
     @records << Merchant.new({:id => new_id, :name => attributes[:name]}, self)
   end
-
-#  def update(id, attributes)
-#     record = self.find_by_id(id)
-#     record.update(attributes)
-#   end
 
   def make_record(contents)
     contents.map do |row|

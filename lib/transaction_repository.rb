@@ -5,7 +5,7 @@ class TransactionRepository
 
   def initialize(records, engine)
     @records = create_records(records)
-    @engine = engine
+    @engine  = engine
   end
 
   def create(attributes)

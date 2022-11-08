@@ -1,4 +1,4 @@
-require_relative './lib/requirements'
+require './lib/requirements'
 
 RSpec.describe Customer do
 
