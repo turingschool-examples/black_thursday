@@ -320,6 +320,23 @@ RSpec.describe SalesAnalyst do
     expect(expected.values.all?(Numeric)).to be(true)
   end
 
+  it 'ranks the merchants by revenue' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoices  => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    expected = sales_analyst.ranked_merchants_with_revenue
+    first_arr = expected.first
+
+    expect(first_arr[0].id).to eq(12334634)
+    expect(frist_arr[1]).to eq(2)
+  end
+
   it 'can find top 20 revenue earners or a specified amount' do
     sales_engine = SalesEngine.from_csv(
       :items     => './data/items.csv',
