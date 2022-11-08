@@ -134,21 +134,19 @@ RSpec.describe SalesAnalyst do
 
   it 'can return true if the invoice with corresponding id is paid in full' do
     sales_analyst.invoice_paid_in_full?(1)
-      expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
+    expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
 
-      sales_analyst.invoice_paid_in_full?(200)
-      expect(sales_analyst.invoice_paid_in_full?(200)).to eq(true)
+    sales_analyst.invoice_paid_in_full?(200)
+    expect(sales_analyst.invoice_paid_in_full?(200)).to eq(true)
 
-      sales_analyst.invoice_paid_in_full?(203)
-      expect(sales_analyst.invoice_paid_in_full?(203)).to eq(false)
+    sales_analyst.invoice_paid_in_full?(203)
+    expect(sales_analyst.invoice_paid_in_full?(203)).to eq(false)
 
-      sales_analyst.invoice_paid_in_full?(204)
-      expect(sales_analyst.invoice_paid_in_full?(204)).to eq(false)
+    sales_analyst.invoice_paid_in_full?(204)
+    expect(sales_analyst.invoice_paid_in_full?(204)).to eq(false)
   end
 
   it 'can return the total dollar amount if the invoice is paid in full ' do
-    sales_analyst.invoice_total(1)
-
     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
     expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
   end
@@ -165,7 +163,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.total_revenue_by_date(date).class).to eq BigDecimal
     end
 
-    it 'can return the top x number of merchants ranked by revenue' do # this is failing
+    it 'can return the top x number of merchants ranked by revenue' do
       sales_analyst.top_revenue_earners(10)
   
       expect(sales_analyst.top_revenue_earners(10).length).to eq(10)
@@ -177,7 +175,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.top_revenue_earners(10).last.id).to eq(12335747)
     end
     
-    it 'can return by default the top 20 merchants ranked by revenue if not argument is given' do  # this is failing
+    it 'can return by default the top 20 merchants ranked by revenue if not argument is given' do 
       expect(sales_analyst.top_revenue_earners.length).to eq(20)
 
       expect(sales_analyst.top_revenue_earners.first.class).to eq(Merchant)
@@ -187,7 +185,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.top_revenue_earners.last.id).to eq(12334159)
     end
 
-    it 'can return merchants ranked by revenue' do # this is failing
+    it 'can return merchants ranked by revenue' do
       expect(sales_analyst.merchants_ranked_by_revenue.first.class).to eq(Merchant)
       expect(sales_analyst.merchants_ranked_by_revenue.length).to eq(sales_analyst.sales_engine.merchants.all.length)
 
@@ -202,7 +200,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.merchants_with_pending_invoices.first.class).to eq(Merchant)
     end
 
-    it 'can return all merchants with only one item' do # this is failing
+    it 'can return all merchants with only one item' do
       expect(sales_analyst.merchants_with_only_one_item.length).to eq(243)
       expect(sales_analyst.merchants_with_only_one_item.first.class).to eq(Merchant)
     end
@@ -218,8 +216,6 @@ RSpec.describe SalesAnalyst do
     it 'can return the final revenue for a single merchant' do
       expected = sales_analyst.revenue_by_merchant(12334194)
       expect(expected).to eq(BigDecimal(expected))
-      #double check this spec harness
-      #dollar amount
       expect(sales_analyst.revenue_by_merchant(12334194).class).to eq(BigDecimal)
     end
 

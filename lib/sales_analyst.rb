@@ -180,7 +180,7 @@ class SalesAnalyst
   def invoice_paid_in_full?(invoice_id) 
     return false if sales_engine.transactions.find_all_by_invoice_id(invoice_id).empty?
 
-    sales_engine.transactions.find_all_by_invoice_id(invoice_id).all? do |transaction|
+    sales_engine.transactions.find_all_by_invoice_id(invoice_id).any? do |transaction|
       transaction.result == :success
     end
   end
@@ -189,10 +189,8 @@ class SalesAnalyst
     total = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
       invoice_item.quantity * (invoice_item.unit_price / 100)
     end
-
     total = BigDecimal(total, 7)
   end
-  
   
   # ============== ITERATION 4 METHODS ========================= #
   
@@ -211,11 +209,11 @@ class SalesAnalyst
   end
   
   def merchants_ranked_by_revenue
-    ### Try min max by?
     hash = {}
     sales_engine.merchants.all.each do |merchant|
       hash[merchant] = revenue_by_merchant(merchant.id)
     end
+    # require 'pry'; binding.pry
     ranked = hash.sort_by{|key, value| -value}
     ranked.map{|merchant| merchant[0]}
   end
@@ -259,16 +257,14 @@ class SalesAnalyst
     end
 
     one_in_a_month.map{|merchant|merchant[0]}
-    
   end
-  
+   
   def revenue_by_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
     # formatted in dollars
     total = invoices_paid_in_full_by_merchant(merchant).sum do |invoice|
       invoice_total(invoice.id)
     end
-
     total.round(2)
   end
   
@@ -281,13 +277,10 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     hash = {}
-
     array_of_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
-    
     array_of_items.each do |item|
       hash[item] = sales_engine.invoice_items.find_all_by_item_id(item.id).sum{|invoice_item| invoice_item.quantity}
     end
-
     ordered_array = hash.sort_by{|k,v| -v}
     top_number = ordered_array.first[1]
     top_pairs = ordered_array.find_all{|pair| pair[1] == top_number}
