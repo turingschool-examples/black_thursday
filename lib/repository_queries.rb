@@ -75,6 +75,19 @@ module RepositoryQueries
     end
   end
 
+  def find_all_by_credit_card_number(cc)
+    @records.find_all do |record|
+      record.credit_card_number == cc
+    end
+  end
+
+  def find_all_by_result(result)
+    result.to_sym if result.class != Symbol
+    @records.find_all do |record|
+      record.result == result
+    end
+  end
+
   def create_records(filepath)
     contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
     make_record(contents)
