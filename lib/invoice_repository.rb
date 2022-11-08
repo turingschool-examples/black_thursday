@@ -1,25 +1,27 @@
 require 'time'
+require './lib/modules/repository_queries'
 
 class InvoiceRepository
+  include RepositoryQueries
 
   def initialize(filepath, engine)
     @records = create_records(filepath)
     @engine = engine
   end
 
-  def all
-    @records
-  end
+  # def all
+  #   @records
+  # end
 
-  def find_by_id(id)
-    if !a_valid_id?(id)
-      return nil
-    else
-      @records.find do |record|
-        record.id == id
-      end
-    end
-  end
+  # def find_by_id(id)
+  #   if !a_valid_id?(id)
+  #     return nil
+  #   else
+  #     @records.find do |record|
+  #       record.id == id
+  #     end
+  #   end
+  # end
 
   def find_all_by_customer_id(id)
     if !a_valid_id?(id)
@@ -32,10 +34,10 @@ class InvoiceRepository
     end
   end
 
-  def a_valid_id?(id)
-    @records.any? do |record| record.id == id
-    end 
-  end
+  # def a_valid_id?(id)
+  #   @records.any? do |record| record.id == id
+  #   end 
+  # end
   
   def a_valid_merchant_id?(id)
     @records.any? do |record| record.merchant_id == id
@@ -61,11 +63,11 @@ class InvoiceRepository
 
   def create(attribute)
     new_id = @records.last.id + 1
-    @records << record.new({:id => new_id, :customer_id => attribute[:customer_id],
+    @records << Invoice.new({:id => new_id, :customer_id => attribute[:customer_id],
       :merchant_id => attribute[:merchant_id],
       :status      => attribute[:attribute],
-      :created_at  => Time.now,
-      :updated_at  => Time.now}, self)
+      :created_at  => Time.now.to_s,
+      :updated_at  => Time.now.to_s}, self)
   end
 
   def update(id, info)
@@ -74,15 +76,6 @@ class InvoiceRepository
     end
   end
 
-  def delete(id)
-    @records.delete(find_by_id(id))
-  end
-
-  def create_records(filepath)
-    contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
-    make_record(contents)
-  end
-  
   def make_record(contents)
     contents.map do |row|
       record = {

@@ -20,8 +20,8 @@ class Invoice
     @invoices = []
   end
 
-  def update(info)
-    @status       = info[:status] if (info[:status] != nil)
+  def update(attributes)
+    @status       = attributes[:status] if !attributes[:status].nil?
     @updated_at   = Time.now
   end
 end

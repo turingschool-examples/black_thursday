@@ -56,6 +56,11 @@ module RepositoryQueries
     make_record(contents)
   end
 
+   def update(id, attributes)
+    record = self.find_by_id(id)
+    record.update(attributes)
+  end
+
   def delete(id)
     @records.delete(find_by_id(id))
   end

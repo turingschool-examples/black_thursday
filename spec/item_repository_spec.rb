@@ -53,7 +53,7 @@ RSpec.describe ItemRepository do
       :id => 0,
       :name => "Stapler", 
       :description => "You can use this to staple things", 
-      :unit_price => 7.00,
+      :unit_price => BigDecimal(12.00, 4),
       :created_at => Time.now,
       :updated_at => Time.now,
       :merchant_id => 2

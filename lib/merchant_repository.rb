@@ -1,7 +1,7 @@
 require './lib/modules/repository_queries'
 
 class MerchantRepository
-include RepositoryQueries
+  include RepositoryQueries
 
   def initialize(records, engine)
     @records = create_records(records)
@@ -13,10 +13,10 @@ include RepositoryQueries
     @records << Merchant.new({:id => new_id, :name => attribute}, self)
   end
 
- def update(id, attributes)
-    record = self.find_by_id(id)
-    record.update(attributes)
-  end
+#  def update(id, attributes)
+#     record = self.find_by_id(id)
+#     record.update(attributes)
+#   end
 
   def make_record(contents)
     contents.map do |row|
