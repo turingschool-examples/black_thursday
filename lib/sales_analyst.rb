@@ -192,7 +192,6 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
-    upper_bound = (x - 1)
-    final = ranked_merchants[0..upper_bound]
+    ranked_merchants[0..upper_bound(x)]
   end
 end
