@@ -51,6 +51,7 @@ RSpec.describe ItemRepository do
       item_repo = ItemRepository.new([item1])
 
       expect(item_repo.find_by_name("Pencil")).to eq item1
+      expect(item_repo.find_by_name("Ruler")).to eq nil
     end
   end
 
