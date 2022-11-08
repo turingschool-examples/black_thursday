@@ -527,4 +527,19 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.item_revenue_hash(1).values.all?(BigDecimal)).to be(true)
   end
 
+  it 'returns the maximum quantity of all items'  do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+      :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+      :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+      :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+      :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.max_quantity(1)).to eq (9)
+    expect(sales_analyst.item_revenue_hash(1).values.all?(BigDecimal)).to be(true)
+  end
+
 end
