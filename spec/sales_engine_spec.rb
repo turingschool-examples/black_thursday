@@ -93,4 +93,19 @@ RSpec.describe SalesEngine do
 
     expect(se.find_all_invoices_by_date(Time.parse("2009-02-07"))).to eq([se.invoices.all[0]])
   end
+
+  it 'can return the total money amount of an invoice' do
+    sales_engine = SalesEngine.from_csv(
+
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoices  => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+
+    expect(sales_engine.invoice_total(1)).to eq(21_067.77)
+    expect(sales_engine.invoice_total(1).class).to eq(BigDecimal)
+  end
 end

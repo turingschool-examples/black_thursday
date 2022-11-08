@@ -36,4 +36,8 @@ class MerchantRepository
   def find_all_invoices_by_merchant_id(id)
     @engine.find_all_invoices_by_merchant_id(id)
   end
+
+  def invoice_total(invoice_id)
+    @engine.invoice_total(invoice_id)
+  end
 end

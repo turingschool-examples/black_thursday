@@ -13,4 +13,14 @@ class Merchant
   def invoices
     @repo.find_all_invoices_by_merchant_id(id)
   end
+
+  def invoice_total(invoice_id)
+    @repo.invoice_total(invoice_id)
+  end
+
+  def total_revenue
+    invoices.map do |invoice|
+      invoice_total(invoice.id)
+    end.compact.sum
+  end
 end

@@ -168,4 +168,30 @@ class SalesAnalyst
       invoice_total(invoice.id)
     end.sum
   end
+
+  def merchant_revenue_hash
+    @engine.merchants.all.each_with_object({}) do |merchant, hash|
+      hash[merchant] = merchant.total_revenue
+    end
+  end
+
+  def ranked_merchants_with_revenue
+    merchant_revenue_hash.sort_by do |k,v|
+      -v 
+    end
+  end
+
+  def ranked_merchants
+    ranked_merchants_with_revenue.map do |merch_arr|
+      merch_arr[0]
+    end
+  end
+
+  def upper_bound(int)
+    int - 1
+  end
+
+  def top_revenue_earners(merch_num = 20)
+    ranked_merchants[0..upper_bound(merch_num)]
+  end
 end
