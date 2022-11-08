@@ -186,9 +186,15 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
+    failed_transactions = sales_engine.transactions.find_all_by_result("failed")
+    binding.pry
      pending_invoices = sales_engine.invoices.find_all_by_status(:pending)
+    #  binding.pry
      merchants_pending = pending_invoices.map do |invoice|
+      # binding.pry
       sales_engine.merchants.find_by_id(invoice.merchant_id)
+      # binding.pry
      end.uniq
+    #  binding.pry
   end
 end
