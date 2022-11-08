@@ -1,4 +1,4 @@
-require_relative './lib/requirements'
+require './lib/requirements'
 
 RSpec.describe InvoiceItem do
   let!(:time_now) {Time.now.to_s}

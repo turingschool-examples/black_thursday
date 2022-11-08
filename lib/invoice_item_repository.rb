@@ -8,20 +8,6 @@ class InvoiceItemRepository
     @records = create_records(records)
   end
 
-
-
-  def find_all_by_item_id(id)
-    @records.find_all do |invoice|
-      invoice.item_id == id
-    end
-  end
-
-  def find_all_by_invoice_id(id)
-    @records.find_all do |invoice|
-      invoice.invoice_id == id
-    end
-  end
-
   def create(attribute)
     new_record = @records.last.id + 1
     @records << InvoiceItem.new({:id => new_record, 

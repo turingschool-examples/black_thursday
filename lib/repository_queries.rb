@@ -63,6 +63,18 @@ module RepositoryQueries
     end
   end
 
+  def find_all_by_item_id(id)
+    @records.find_all do |record|
+      record.item_id == id
+    end
+  end
+
+  def find_all_by_invoice_id(id)
+    @records.find_all do |record|
+      record.invoice_id == id
+    end
+  end
+
   def create_records(filepath)
     contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
     make_record(contents)
