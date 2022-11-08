@@ -64,7 +64,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.golden_items.first.class).to eq(Item)
   end
 
-  # ======================================= #
+   # ============== ITERATION 2 METHODS ========================= #
 
   xit 'has an average number of invoices per merchant' do
     expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
@@ -75,7 +75,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_count).to eq(4985)
   end
   
-  xit 'can return the standard deviation of average number of invoices per merchant' do
+  it 'can return the standard deviation of average number of invoices per merchant' do
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation.class).to eq(Float)
   end
@@ -115,33 +115,31 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
   end
 
-  # ======================================= #
+   # ============== ITERATION 3 METHODS ========================= #
 
-  xit 'can return true if the invoice with corresponding id is paid in full' do
+  it 'can return true if the invoice with corresponding id is paid in full' do
     sales_analyst.invoice_paid_in_full?(1)
-      expect(expected.sales_analyst.invoice_paid_in_full?(1)).to eq(true)
+    expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
 
-      sales_analyst.invoice_paid_in_full?(200)
-      expect(expected.sales_analyst.invoice_paid_in_full?(200)).to eq(true)
+    sales_analyst.invoice_paid_in_full?(200)
+    expect(sales_analyst.invoice_paid_in_full?(200)).to eq(true)
 
-      sales_analyst.invoice_paid_in_full?(203)
-      expect(sales_analyst.invoice_paid_in_full?(203)).to eq(false)
+    sales_analyst.invoice_paid_in_full?(203)
+    expect(sales_analyst.invoice_paid_in_full?(203)).to eq(false)
 
-      sales_analyst.invoice_paid_in_full?(204)
-      expect(sales_analyst.invoice_paid_in_full?(204)).to eq(false)
+    sales_analyst.invoice_paid_in_full?(204)
+    expect(sales_analyst.invoice_paid_in_full?(204)).to eq(false)
   end
 
-  xit 'can return the total dollar amount if the invoice is paid in full ' do
-    sales_analyst.invoice_total(1)
-
+  it 'can return the total dollar amount if the invoice is paid in full ' do
     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
     expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
   end
 
-   # ======================================= #
+   # ============== ITERATION 4 METHODS ========================= #
 
    describe 'Iteration 4' do
-    let!(:merchant) {engine.merchants.find_by_id(12335523)}
+    let!(:merchant) {sales_engine.merchants.find_by_id(12335523)}
 
     xit 'can find out the total revenue for a given date' do
       date = Time.parse("2009-02-07")
@@ -161,8 +159,8 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.top_revenue_earners(10).last.class).to eq(Merchant)
       expect(sales_analyst.top_revenue_earners(10).last.id).to eq(12335747)
     end
-    
-    xit 'can return by default the top 20 merchants ranked by revenue if not argument is given' do  
+
+    xit 'can return by default the top 20 merchants ranked by revenue if not argument is given' do 
       expect(sales_analyst.top_revenue_earners.length).to eq(20)
 
       expect(sales_analyst.top_revenue_earners.first.class).to eq(Merchant)
@@ -174,14 +172,13 @@ RSpec.describe SalesAnalyst do
 
     xit 'can return merchants ranked by revenue' do
       expect(sales_analyst.merchants_ranked_by_revenue.first.class).to eq(Merchant)
+      expect(sales_analyst.merchants_ranked_by_revenue.length).to eq(sales_analyst.sales_engine.merchants.all.length)
 
       expect(sales_analyst.merchants_ranked_by_revenue.first.id).to eq(12334634)
       expect(sales_analyst.merchants_ranked_by_revenue.last.id).to eq(12336175)
     end
     
     xit 'can return all merchants with pending invoices' do
-      sales_analyst.merchants_with_pending_invoices
-  
       expect(sales_analyst.merchants_with_pending_invoices.length).to eq(467)
       expect(sales_analyst.merchants_with_pending_invoices.first.class).to eq(Merchant)
     end
@@ -191,7 +188,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.merchants_with_only_one_item.first.class).to eq(Merchant)
     end
 
-    xit 'can return merchants with only one invoice for a given month' do
+    xit 'can return merchants with only one invoice for a given month' do # this is failing
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").length).to eq(21)
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").first.class).to eq(Merchant)
 
@@ -200,22 +197,26 @@ RSpec.describe SalesAnalyst do
     end
 
     xit 'can return the final revenue for a single merchant' do
-      expect(sales_analyst.revenue_by_merchant(12334194)).to eq(BigDecimal)
-      #double check this spec harness
-      #dollar amount
+      expected = sales_analyst.revenue_by_merchant(12334194)
+      expect(expected).to eq(BigDecimal(expected))
       expect(sales_analyst.revenue_by_merchant(12334194).class).to eq(BigDecimal)
     end
 
     xit 'can return the most sold item for a specified merchant' do
-      sales_analyst.most_sold_item_for_merchant(merchant_id)
+      sales_analyst.most_sold_item_for_merchant(12334194)
 
-      expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq([])
+      expect(sales_analyst.most_sold_item_for_merchant(12334194)).to eq([sales_analyst.sales_engine.items.find_by_id(263539266)])
     end
 
-    xit 'can return the best item (in terms of revenue) for a specified merchant' do
-      sales_analyst.best_item_for_merchant(merchant_id)
+    it 'can find total for a single invoice_item' do
+      expect(sales_analyst.invoice_item_quantity_and_unit_price(sales_analyst.se_invoice_items.find_all_by_item_id(263409279)[2])).to eq(334800.0)
+      
+    end
 
-      expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq([])
+    it 'can return the best item (in terms of revenue) for a specified merchant' do
+      sales_analyst.best_item_for_merchant(12334634)
+      
+      expect(sales_analyst.best_item_for_merchant(12334634)).to eq([sales_analyst.items.find_by_id(263395721)])
     end
   end
 end

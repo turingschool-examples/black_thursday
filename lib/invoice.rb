@@ -6,8 +6,8 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at,
-              :invoices
+              :updated_at
+              # :invoices
 
   def initialize(info, repo)
     @id           = info[:id].to_i
@@ -17,7 +17,7 @@ class Invoice
     @created_at   = Time.parse(info[:created_at])
     @updated_at   = Time.parse(info[:updated_at])
     @repo = repo
-    @invoices = []
+    # @invoices = []
   end
 
   def update(attributes)
