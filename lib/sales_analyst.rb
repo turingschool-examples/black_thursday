@@ -154,12 +154,17 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    transaction = @transactions.find_all_by_invoice_id(invoice_id)
-    if transaction[0].result == "success"
-      return true
-    else
-      return false
+    transactions_by_invoice = @transactions.find_all_by_invoice_id(invoice_id)
+    transactions_by_invoice.any? do |transaction|
+      transaction.result == :success
     end
+  end
+
+  def invoice_total(id)
+    total_price_by_quantity = @invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+    total_price_by_quantity.sum
   end
   
   def total_revenue_by_date(date)
