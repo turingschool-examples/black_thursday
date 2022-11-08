@@ -440,4 +440,17 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_only_one_item_registered_in_month("May")[0].name).to eq ("Candisart")
   end
 
+  it 'can find revenue by merchant id'
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/items.csv',
+      :merchants => './data/test_data/merchant_test4.csv',
+      :invoices  => './data/test_data/invoices_transactions_test.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/test_data/transactions_test.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.revenue_by_merchant(12335938)).to eq(0)
+
 end
