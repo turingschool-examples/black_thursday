@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../lib/invoice_item'
 require_relative '../lib/sales_engine'
 
@@ -5,14 +7,14 @@ RSpec.describe InvoiceItem do
   before :each do
     @time = Time.now.to_s
     @ii = InvoiceItem.new({
-      :id => 6,
-      :item_id => 7,
-      :invoice_id => 8,
-      :quantity => 1,
-      :unit_price => BigDecimal(1099, 4),
-      :created_at => @time,
-      :updated_at => @time
-    })
+                            id: 6,
+                            item_id: 7,
+                            invoice_id: 8,
+                            quantity: 1,
+                            unit_price: BigDecimal(1099, 4),
+                            created_at: @time,
+                            updated_at: @time
+                          })
   end
 
   it 'exists and has attributes' do

@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require_relative 'require_store'
 
 class Invoice
   attr_accessor :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
+
   def initialize(data)
     @id          = data[:id].to_i
     @customer_id = data[:customer_id].to_i
