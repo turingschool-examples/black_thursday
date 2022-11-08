@@ -170,11 +170,9 @@ class SalesAnalyst
   end
 
   def merchant_revenue_hash
-    hash = {}
-    @engine.merchants.all.each do |merchant|
+    @engine.merchants.all.each_with_object({}) do |merchant, hash|
       hash[merchant] = merchant.total_revenue
     end
-    hash
   end
 
   def top_revenue_earners(x = 20)
