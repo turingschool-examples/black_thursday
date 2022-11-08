@@ -60,13 +60,6 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_invoices).to be_instance_of(Array)
   end
 
-  it 'finds merchants with only one item' do
-    sales_analyst = @sales_engine.analyst
-
-    expect(sales_analyst.merchants_with_only_one_item).to be_a(Array)
-    expect(sales_analyst.merchants_with_only_one_item[0]).to be_a(Merchant)
-  end
-
   xit "#top_merchants_by_invoice_count" do
     sales_analyst = @sales_engine.analyst
     # expect(sales_analyst.merchant_ids_collection(merchants_invoices)).to be_instance_of(Array)
@@ -140,5 +133,13 @@ RSpec.describe SalesAnalyst do
         
         expect(sales_analyst.invoice_total(1234321)).to eq(109.90)
   end
+
+  it 'finds merchants with only one item' do
+    sales_analyst = @sales_engine.analyst
+
+    expect(sales_analyst.merchants_with_only_one_item).to be_a(Array)
+    expect(sales_analyst.merchants_with_only_one_item[0]).to be_a(Merchant)
+  end
+
 end
 end
