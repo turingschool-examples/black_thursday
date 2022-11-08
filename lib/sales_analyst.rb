@@ -98,23 +98,23 @@ class SalesAnalyst
 
 
   def top_merchants_by_invoice_count
-    merchants_invoices = []
-     merchants_with_invoices.each do |invoices_array|
+    merchants_with_invoices = []
+     merchants_invoices.each do |invoices_array|
       if invoices_array.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
-      merchants_invoices.push(invoices_array)
+      merchants_with_invoices.push(invoices_array)
       end
     end
-    chosen_merchants(merchants_invoices)
+    chosen_merchants(merchants_with_invoices)
   end
 
   def bottom_merchants_by_invoice_count
-    merchants_invoices = []
-     merchants_with_invoices.each do |invoices_array|
+    merchants_with_invoices = []
+     merchants_invoices.each do |invoices_array|
       if invoices_array.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
-      merchants_invoices.push(invoices_array)
+      merchants_with_invoices.push(invoices_array)
       end
     end
-    chosen_merchants(merchants_invoices)
+    chosen_merchants(merchants_with_invoices)
   end
   
   def dates

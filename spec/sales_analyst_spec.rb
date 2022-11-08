@@ -8,7 +8,8 @@ RSpec.describe SalesAnalyst do
                            merchants: './data/merchants.csv',
                            invoices: './data/invoices.csv',
                            invoice_items: './data/invoice_items.csv',
-                           transactions: "./data/transactions.csv"
+                           transactions: "./data/transactions.csv",
+                           :customers => "./data/customers.csv"
                          })
    end
 
@@ -50,22 +51,17 @@ RSpec.describe SalesAnalyst do
   end
 
   it "#average_invoices_per_merchant_standard_deviation" do
-    sales_analyst = sales_engine.analyst
+    sales_analyst = @sales_engine.analyst
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
 
-  it "#uniq_merchant_ids" do
-    sales_analyst = sales_engine.analyst
-    expect(sales_analyst.uniq_merchant_ids).to be_instance_of(Array)
+  it "#merchants_invoices" do
+    sales_analyst = @sales_engine.analyst
+    expect(sales_analyst.merchants_invoices).to be_instance_of(Array)
   end
 
-  it "#merchants_with_invoices" do
-    sales_analyst = sales_engine.analyst
-    expect(sales_analyst.merchants_with_invoices).to be_instance_of(Array)
-  end
-
-  xit "#top_merchants_by_invoice_count" do
-    sales_analyst = sales_engine.analyst
+  it "#top_merchants_by_invoice_count" do
+    sales_analyst = @sales_engine.analyst
     # expect(sales_analyst.merchant_ids_collection(merchants_invoices)).to be_instance_of(Array)
     # expect(sales_analyst.chosen_merchants(merchants_invoices)).to be_instance_of(Array)
     expect(sales_analyst.top_merchants_by_invoice_count).to be_instance_of(Array)
@@ -73,13 +69,13 @@ RSpec.describe SalesAnalyst do
   end
 
   xit "#bottom_merchants_by_invoice_count" do
-    sales_analyst = sales_engine.analyst
+    sales_analyst = @sales_engine.analyst
     expect(sales_analyst.bottom_merchants_by_invoice_count).to be_instance_of(Array)
     expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
   end
 
   it "#top_days_by_invoice_count" do
-    sales_analyst = sales_engine.analyst
+    sales_analyst = @sales_engine.analyst
     expect(sales_analyst.dates).to be_instance_of(Array)
     expect(sales_analyst.weekdays).to include("Monday")
     expect(sales_analyst.weekdays).to include("Thursday")
@@ -91,7 +87,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it "#invoice_status" do
-    sales_analyst = sales_engine.analyst
+    sales_analyst = @sales_engine.analyst
     expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
     expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
     expect(sales_analyst.invoice_status(:returned)).to eq(13.5) 
@@ -118,7 +114,6 @@ RSpec.describe SalesAnalyst do
     :updated_at => Time.now
   })
   expect(sales_analyst.invoice_paid_in_full?(12343)).to eq(true)
-
   end
 
   it '#invoice_total returns the total $ amount of the 
@@ -138,4 +133,5 @@ RSpec.describe SalesAnalyst do
         
         expect(sales_analyst.invoice_total(1234321)).to eq(109.90)
   end
+end
 end
