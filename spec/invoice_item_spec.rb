@@ -50,7 +50,7 @@ RSpec.describe InvoiceItem do
 
   describe '#unit_price_to_dollars' do
     it 'returns the price of the invoice item in dollars as a Float' do 
-      expect(invoice_item.unit_price_to_dollars).to eq("$10.99")
+      expect(invoice_item.unit_price_to_dollars).to eq(10.99)
     end
   end
 end

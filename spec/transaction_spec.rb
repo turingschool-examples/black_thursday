@@ -55,10 +55,10 @@ describe '#id' do
 
   describe '#result' do 
     it 'returns the result' do 
-      expect(t_1.result).to eq('success')
-      expect(t_2.result).to eq('failed')
+      expect(t_1.result).to eq(:success)
+      expect(t_2.result).to eq(:failed)
     end
-  end  
+  end
 
   describe '#created_at' do 
     it 'returns a Time for the date the transaction was first created' do 
