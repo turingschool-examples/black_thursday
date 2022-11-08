@@ -118,7 +118,6 @@ RSpec.describe MerchantRepository do
 
   it 'can return the total money amount of an invoice' do
     sales_engine = SalesEngine.from_csv(
-
       :items     => './data/items.csv',
       :merchants => './data/merchants.csv',
       :invoices  => './data/invoices.csv',

@@ -181,17 +181,17 @@ class SalesAnalyst
     end
   end
 
-  def ranked_merchants 
+  def ranked_merchants
     ranked_merchants_with_revenue.map do |merch_arr|
       merch_arr[0]
     end
   end
 
-  def upper_bound(x) 
-    x-1
+  def upper_bound(int)
+    int - 1
   end
 
-  def top_revenue_earners(x = 20)
-    ranked_merchants[0..upper_bound(x)]
+  def top_revenue_earners(merch_num = 20)
+    ranked_merchants[0..upper_bound(merch_num)]
   end
 end
