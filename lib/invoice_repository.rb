@@ -9,57 +9,6 @@ class InvoiceRepository
     @engine = engine
   end
 
-  # def all
-  #   @records
-  # end
-
-  # def find_by_id(id)
-  #   if !a_valid_id?(id)
-  #     return nil
-  #   else
-  #     @records.find do |record|
-  #       record.id == id
-  #     end
-  #   end
-  # end
-
-  def find_all_by_customer_id(id)
-    if !a_valid_id?(id)
-      return nil
-    else
-      @records.find_all do |record|
-        record.customer_id == id
-      end
-    end
-  end
-
-  # def a_valid_id?(id)
-  #   @records.any? do |record| record.id == id
-  #   end 
-  # end
-  
-  # def a_valid_merchant_id?(id)
-  #   @records.any? do |record| record.merchant_id == id
-  #   end 
-  # end
-
-  # def find_all_by_merchant_id(id)
-  #   if !a_valid_merchant_id?(id)
-  #     return []
-  #   else
-  #     @records.find_all do |record|
-  #       # require 'pry'; binding.pry
-  #       record.merchant_id == id
-  #     end
-  #   end
-  # end
-
-  def find_all_by_status(status)
-      @records.find_all do |record|
-        record.status == status
-    end
-  end
-
   def create(attribute)
     new_id = @records.last.id + 1
     @records << Invoice.new({:id => new_id, :customer_id => attribute[:customer_id],

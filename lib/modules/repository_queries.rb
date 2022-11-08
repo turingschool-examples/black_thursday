@@ -58,6 +58,19 @@ module RepositoryQueries
     end 
   end
 
+  def find_all_by_customer_id(id)
+    nil if !a_valid_customer_id?(id)
+    
+    @records.find_all do |record|
+      record.customer_id == id
+    end
+  end
+
+  def a_valid_customer_id?(id)
+    @records.any? do |record| record.customer_id == id
+    end
+  end
+
   def find_all_by_status(status)
       @records.find_all do |record|
         record.status == status
