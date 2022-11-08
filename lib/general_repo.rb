@@ -14,6 +14,7 @@ class GeneralRepo
     @class_nm = class_nm
     @repository = []
     @engine = engine
+    @index_by_id = {}
     data.each { |general| create(general) }
   end
 
@@ -22,13 +23,14 @@ class GeneralRepo
   end
 
   def find_by_id(id)
-    @repository.find { |general| general.id == id.to_i }
+    @index_by_id[id]
   end
 
   def create(general_data)
-    general_data[:id] ||= (@repository.last.id.to_i + 1).to_s
+    general_data[:id] ||= (@repository.last.id.to_i + 1)
     general = @class_nm.new(general_data, self)
     @repository << general
+    @index_by_id[general_data[:id].to_i] = general
     general
   end
 
@@ -38,6 +40,7 @@ class GeneralRepo
 
   def delete(id)
     @repository.delete(find_by_id(id))
+    @index_by_id.delete(id)
   end
 
   def send_up(message = {})
