@@ -223,10 +223,15 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.most_sold_item_for_merchant(12334194)).to eq([sales_analyst.sales_engine.items.find_by_id(263539266)])
     end
 
-    xit 'can return the best item (in terms of revenue) for a specified merchant' do
-      sales_analyst.best_item_for_merchant(merchant_id)
+    it 'can find total for a single invoice_item' do
+      expect(sales_analyst.invoice_item_quantity_and_unit_price(sales_analyst.se_invoice_items.find_all_by_item_id(263409279)[2])).to eq(334800.0)
       
-      expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq([])
+    end
+
+    it 'can return the best item (in terms of revenue) for a specified merchant' do
+      sales_analyst.best_item_for_merchant(12334634)
+      
+      expect(sales_analyst.best_item_for_merchant(12334634)).to eq([sales_analyst.items.find_by_id(263395721)])
     end
   end
 end

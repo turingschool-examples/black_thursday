@@ -267,6 +267,27 @@ class SalesAnalyst
   end
   
   def best_item_for_merchant(merchant_id)
-    # item in terms of revenue generated
+    hash = {}
+    merchant = merchants.find_by_id(merchant_id)
+    invoices_paid_in_full_by_merchant(merchant).each do |invoice|
+      total_for_items_in_invoice(invoice.id, hash)
+    end
+    
+    ordered_array = hash.sort_by{|k,v| -v}
+    top_number = ordered_array.first[1]
+    top_pairs = ordered_array.find_all{|pair| pair[1] == top_number}
+    top_items = top_pairs.map{|pair| pair[0]}
+    top_items.map{|item_id| items.find_by_id(item_id)}
+  end
+
+
+  def total_for_items_in_invoice(invoice_id, hash)
+    se_invoice_items.find_all_by_invoice_id(invoice_id).map do |invoice_item|
+        hash[invoice_item.item_id] = (hash[invoice_item.item_id].to_f + invoice_item_quantity_and_unit_price(invoice_item))
+    end
+  end
+
+  def invoice_item_quantity_and_unit_price(invoice_item)
+    invoice_item.quantity * invoice_item.unit_price
   end
 end
