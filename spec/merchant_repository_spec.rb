@@ -1,6 +1,7 @@
 require 'rspec'
 require_relative '../lib/merchant'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
 
 RSpec.describe MerchantRepository do
   it 'can return an array of Merchant instances' do
@@ -32,7 +33,6 @@ RSpec.describe MerchantRepository do
       expect(mr.find_by_id(1)).to eq(nil)
       expect(mr.find_by_id(2)).to eq(m2)
       expect(mr.find_by_id(7)).to eq(nil)
-
     end
   end
 
@@ -45,7 +45,6 @@ RSpec.describe MerchantRepository do
 
     expect(mr.find_by_name("TuRing School")).to eq(m)
     expect(mr.find_by_name("the other other school")).to eq(nil)
-
   end
 
   it 'can find all instances of a merchant' do
@@ -57,12 +56,9 @@ RSpec.describe MerchantRepository do
     mr.add_merchant(m2)
     mr.add_merchant(m3)
 
-
     expect(mr.find_all_by_name("turing School")).to eq([m, m2])
     expect(mr.find_all_by_name("tuRing ScHool")).to eq([m, m2])
     expect(mr.find_all_by_name("the other other School")).to eq([])
-
-
   end
 
   it 'creates a new merchant with the attributes provided with a new highest id' do
@@ -75,7 +71,7 @@ RSpec.describe MerchantRepository do
     mr.add_merchant(m3)
 
     m4 = mr.create({:name => "other other school"})
-    #require 'pry'; binding.pry
+
     expect(m4.id).to eq(8)
     expect(m4.name).to eq("other other school")
   end
@@ -117,7 +113,22 @@ RSpec.describe MerchantRepository do
 
     expect(mr.all.first).to be_a(Merchant)
     expect(mr.all.all?(Merchant)).to eq(true)
+  end
 
+  it 'can return the total money amount of an invoice' do
+    sales_engine = SalesEngine.from_csv(
 
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoices  => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+
+    mr = sales_engine.merchants
+
+    expect(mr.class).to eq(MerchantRepository)
+    expect(mr.invoice_total(1)).to eq(21_067.77)
   end
 end
