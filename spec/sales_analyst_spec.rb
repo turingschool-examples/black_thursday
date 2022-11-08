@@ -465,6 +465,36 @@ RSpec.describe SalesAnalyst do
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.most_sold_item_for_merchant(1)[0]).to eq('TestItem2')
+    expect(sales_analyst.most_sold_item_for_merchant(1)[0].name).to eq('TestItem2')
+    expect(sales_analyst.most_sold_item_for_merchant(1)[1].name).to eq('TestItem3')
+  end
+
+  it 'can find the best item for a merchant' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+      :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+      :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+      :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+      :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.best_item_for_merchant(1)[0].name).to eq('TestItem3')
+  end
+
+  it 'can find paid invoice items' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+      :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+      :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+      :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+      :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expect(sales_analyst.paid_invoice_items(1).all?(InvoiceItem)).to be(true)
+
   end
 end
