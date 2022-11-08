@@ -24,12 +24,12 @@ module Modify
     updated_instance = find_by_id(id)
     unless updated_instance.nil?
       updated_instance.updated_at = Time.now
-      merchant_update(updated_instance, attributes) if evaluate = Merchant
-      item_update(updated_instance, attributes) if evaluate = Item
-      invoice_update(updated_instance, attributes) if evaluate = Invoice
-      invoice_item_update(updated_instance, attributes) if evaluate = InvoiceItem
-      customer_update(updated_instance, attributes) if evaluate = Customer
-      transaction_update(updated_instance, attributes) if evaluate = Transaction
+      merchant_update(updated_instance, attributes) if evaluate == Merchant
+      item_update(updated_instance, attributes) if evaluate == Item
+      invoice_update(updated_instance, attributes) if evaluate == Invoice
+      invoice_item_update(updated_instance, attributes) if evaluate == InvoiceItem
+      customer_update(updated_instance, attributes) if evaluate == Customer
+      transaction_update(updated_instance, attributes) if evaluate == Transaction
     end
   end
 
