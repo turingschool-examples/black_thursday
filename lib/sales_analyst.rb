@@ -184,4 +184,10 @@ class SalesAnalyst
     invoice_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
     invoice_items.sum { |invoice_item| invoice_item.quantity*invoice_item.unit_price}
   end
+
+  def merchants_with_only_one_item
+    merchants.select do |merchant| 
+      sales_engine.items.find_all_by_merchant_id(merchant.id).length == 1
+    end
+  end
 end
