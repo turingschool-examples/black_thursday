@@ -1,13 +1,14 @@
 require_relative 'sales_engine'
 
 class SalesAnalyst
-  attr_reader :sales_engine, :items, :merchants, :invoices
+  attr_reader :sales_engine, :items, :merchants, :invoices, :transactions
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @items = sales_engine.items.all
     @merchants = sales_engine.merchants.all
     @invoices = sales_engine.invoices.all
+    @transactions = sales_engine.transactions.all
   end
 
   def average_items_per_merchant
@@ -176,7 +177,9 @@ class SalesAnalyst
     if purchases.empty?
       false
     else
-    purchases.first.result == :success 
+      purchases.any? do |purchase|
+        purchase.result == :success
+      end
     end
   end
 
@@ -185,16 +188,15 @@ class SalesAnalyst
     invoice_items.sum { |invoice_item| invoice_item.quantity*invoice_item.unit_price}
   end
 
-  def merchants_with_pending_invoices
-    failed_transactions = sales_engine.transactions.find_all_by_result("failed")
-    binding.pry
-     pending_invoices = sales_engine.invoices.find_all_by_status(:pending)
-    #  binding.pry
-     merchants_pending = pending_invoices.map do |invoice|
-      # binding.pry
+  def merchants_with_pending_invoices    
+   invoices_not_paid_in_full = @invoices.map do |invoice|
+      if !invoice_paid_in_full?(invoice.id)
+        invoice
+      end
+    end.compact
+
+   merchants_pending = invoices_not_paid_in_full.map do |invoice|
       sales_engine.merchants.find_by_id(invoice.merchant_id)
-      # binding.pry
-     end.uniq
-    #  binding.pry
+   end.uniq
   end
 end
