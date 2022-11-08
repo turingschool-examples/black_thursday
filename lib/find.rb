@@ -92,4 +92,8 @@ module Find
       singular.result == result
     end
   end
+
+  def items_merchant_specific(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
+  end
 end

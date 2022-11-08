@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'calculation'
 require_relative 'find'
 require_relative 'modify'
 require 'csv'
