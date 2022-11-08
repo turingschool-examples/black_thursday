@@ -353,6 +353,21 @@ RSpec.describe SalesAnalyst do
     expect(expected.first.id).to eq(12334634)
   end
 
+  it 'returns one less than the integer input' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoices  => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv',
+      :transactions => './data/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    expected = sales_analyst.upper_bound(20)
+
+    expect(expected).to eq(19)
+  end
+
   it 'can find top 20 revenue earners or a specified amount' do
     sales_engine = SalesEngine.from_csv(
       :items     => './data/items.csv',
