@@ -20,7 +20,7 @@ class CustomerRepository < Repository
       first_name: attributes[:first_name],
       last_name: attributes[:last_name],
       updated_at: Time.now
-    }
+    }.compact
     super(id, sanitized_attributes)
   end
 

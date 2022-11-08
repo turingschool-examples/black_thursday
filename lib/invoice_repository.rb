@@ -18,7 +18,7 @@ class InvoiceRepository < Repository
     sanitized_attributes = {
       status: attributes[:status],
       updated_at: Time.now
-    }
+    }.compact
     super(id, sanitized_attributes)
   end
 end

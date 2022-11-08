@@ -18,7 +18,7 @@ class MerchantRepository < Repository
   def update(id, attributes)
       sanitized_attributes = {
       name: attributes[:name]
-    }
+      }.compact
     super(id, sanitized_attributes)
   end
 end
