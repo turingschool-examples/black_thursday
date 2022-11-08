@@ -34,7 +34,7 @@ RSpec.describe SalesAnalyst do
   end
 
   it 'can return a hash of merchant ids with number of invoices per merchant' do
-    expect(sales_analyst.inv_hash).to be_a Hash
+    expect(sales_analyst.grouped_by_merchant_id(sales_analyst.invoices)).to be_a Hash
   end
 
   it 'can return the average number of invoices per merchant standard deviation' do
