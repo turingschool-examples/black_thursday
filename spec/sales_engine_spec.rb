@@ -4,6 +4,7 @@ require 'rspec'
 require 'csv'
 require './lib/sales_engine'
 require './lib/merchant_repository'
+require './lib/sales_analyst'
 
 describe SalesEngine do
   let(:data) do
@@ -35,28 +36,15 @@ describe SalesEngine do
       expect(se.invoices).to be_a InvoiceRepo
       expect(se.transactions).to be_a TransactionRepo
       expect(se.customers).to be_a CustomerRepo
-      # expect(se.analyst).to be_a SalesAnalyst
+      expect(se.analyst).to be_a SalesAnalyst
     end
   end
 
-  describe '#average_items_per_merchant' do
-    it 'returns the average_items_per_merchant' do
+  describe '#send_to_repo' do
+    it 'passes a message to the repo' do
       se = SalesEngine.from_csv(data)
-      expect(se.average_items_per_merchant).to eq(0.25)
-    end
-  end
-
-  describe '#average_invoices_per_merchant' do
-    it 'returns the average_invoices_per_merchant' do
-      se = SalesEngine.from_csv(data)
-      expect(se.average_invoices_per_merchant).to eq(0.0)
-    end
-  end
-
-  describe '#average_invoices_per_merchant_standard_deviation' do
-    it 'returns the average_invoices_per_merchant' do
-      se = SalesEngine.from_csv(data)
-      expect(se.average_invoices_per_merchant_standard_deviation).to eq(0.0)
+      expect(se.send_to_repo(method: :average_items_per_merchant).round(2)).to eq(0.25)
+      expect(se.send_to_repo(method: :invoice_total, args: 1, destination: 'invoices')).to eq(5636.63)
     end
   end
 end
