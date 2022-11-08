@@ -49,11 +49,54 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_invoices_per_merchant).to eq(10.49)
   end
 
-  it "#average_invoices_per_merchang_standard_deviation" do
-    sales_analyst = @sales_engine.analyst
+  it "#average_invoices_per_merchant_standard_deviation" do
+    sales_analyst = sales_engine.analyst
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
   end
 
+  it "#uniq_merchant_ids" do
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.uniq_merchant_ids).to be_instance_of(Array)
+  end
+
+  it "#merchants_with_invoices" do
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.merchants_with_invoices).to be_instance_of(Array)
+  end
+
+  xit "#top_merchants_by_invoice_count" do
+    sales_analyst = sales_engine.analyst
+    # expect(sales_analyst.merchant_ids_collection(merchants_invoices)).to be_instance_of(Array)
+    # expect(sales_analyst.chosen_merchants(merchants_invoices)).to be_instance_of(Array)
+    expect(sales_analyst.top_merchants_by_invoice_count).to be_instance_of(Array)
+    expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
+  end
+
+  xit "#bottom_merchants_by_invoice_count" do
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.bottom_merchants_by_invoice_count).to be_instance_of(Array)
+    expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
+  end
+
+  it "#top_days_by_invoice_count" do
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.dates).to be_instance_of(Array)
+    expect(sales_analyst.weekdays).to include("Monday")
+    expect(sales_analyst.weekdays).to include("Thursday")
+    expect(sales_analyst.weekday_counts).to be_instance_of(Hash)
+    expect(sales_analyst.weekday_counts.count).to eq(7)
+    expect(sales_analyst.weekday_invoice_avg.class).to eq(Integer)
+    expect(sales_analyst.weekday_inv_stndrd_dev.class).to eq(Float)
+    expect(sales_analyst.top_days_by_invoice_count).to eq(["Wednesday"])
+  end
+
+  it "#invoice_status" do
+    sales_analyst = sales_engine.analyst
+    expect(sales_analyst.invoice_status(:pending)).to eq(29.55)
+    expect(sales_analyst.invoice_status(:shipped)).to eq(56.95)
+    expect(sales_analyst.invoice_status(:returned)).to eq(13.5) 
+  end
+  
   context 'create invoice' do
     let(:invoice) { sales_engine.invoice_repository.create ({
           id: 1,
@@ -95,6 +138,4 @@ RSpec.describe SalesAnalyst do
         
         expect(sales_analyst.invoice_total(1234321)).to eq(109.90)
   end
-end
-
 end
