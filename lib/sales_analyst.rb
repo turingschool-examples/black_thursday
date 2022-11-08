@@ -116,7 +116,7 @@ class SalesAnalyst
       count > (invoice_average_per_day + std_dev)
     end
   end
-  
+
   def invoice_by_days_hash_populate
     days.each do |day|
       @day_hash[day] += 1
@@ -150,7 +150,7 @@ class SalesAnalyst
   def invoice_paid_in_full?(invoice_id)
     transactions = @engine.find_all_transactions_by_invoice_id(invoice_id)
     transactions.any? do |transaction|
-      transaction.result == :success 
+      transaction.result == :success
     end
   end
 
@@ -177,7 +177,7 @@ class SalesAnalyst
 
   def ranked_merchants_with_revenue
     merchant_revenue_hash.sort_by do |k,v|
-      -v 
+      -v
     end
   end
 
@@ -193,5 +193,13 @@ class SalesAnalyst
 
   def top_revenue_earners(merch_num = 20)
     ranked_merchants[0..upper_bound(merch_num)]
+  end
+
+  def merchants_with_pending_invoices
+    merchants.all.find_all do |merchant|
+      merchant.invoices.any? do |invoice|
+      !invoice_paid_in_full?(invoice.id)
+      end
+    end
   end
 end
