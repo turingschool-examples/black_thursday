@@ -1,12 +1,4 @@
-require './lib/invoice_repository'
-require './lib/invoice'
-require 'rspec'
-require './lib/item'
-require './lib/item_repository'
-require './lib/sales_engine'
-require './lib/merchant_repository'
-require './lib/merchant'
-require 'csv'
+require './lib/requirements'
 
 RSpec.describe InvoiceRepository do
   let!(:invoice_repository) {InvoiceRepository.new('./data/invoices.csv', nil)}
@@ -74,7 +66,6 @@ RSpec.describe InvoiceRepository do
       status: :success
     }
     invoice_repository.update(4985, attributes)
-    invoice_repository.find_by_id(4985)
     expect(invoice_repository.find_by_id(4985).status).to eq :success
     expect(invoice_repository.find_by_id(4985).customer_id).to eq 999
     expect(invoice_repository.find_by_id(4985).updated_at).not_to be original_time
@@ -108,7 +99,7 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'will not delete anything if the invoice is unknown' do
-    invoice_repository.invoices.delete(5000)
+    invoice_repository.delete(5000)
   end
 
   def inspect

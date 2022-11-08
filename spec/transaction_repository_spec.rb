@@ -1,12 +1,4 @@
-require './lib/sales_engine'
-require './lib/merchant'
-require './lib/merchant_repository'
-require './lib/item_repository'
-require './lib/item'
-require './lib/sales_analyst'
-require './lib/transaction'
-require './lib/transaction_repository'
-require 'csv'
+require './lib/requirements'
 
 RSpec.describe TransactionRepository do
   let!(:transaction_repository) {TransactionRepository.new('./data/transactions.csv', nil)}
@@ -33,8 +25,8 @@ RSpec.describe TransactionRepository do
   end
 
   it 'can find all by credit card number in an array' do
-    expect(transaction_repository.find_all_by_credit_card_number(4271805778010747)).to eq([transaction_repository.all[2]])
-    expect(transaction_repository.find_all_by_credit_card_number(4444444444444444)).to eq([])
+    expect(transaction_repository.find_all_by_credit_card_number("4271805778010747")).to eq([transaction_repository.all[2]])
+    expect(transaction_repository.find_all_by_credit_card_number("4444444444444444")).to eq([])
   end
 
   it 'can find all transaction by result' do

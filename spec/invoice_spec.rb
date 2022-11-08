@@ -1,13 +1,11 @@
-require 'time'
-require './lib/invoice_repository'
-require './lib/invoice'
+require './lib/requirements'
 
 RSpec.describe Invoice do
   let!(:invoice) {Invoice.new({
-    :id           => 3452,
-    :customer_id  => 679,
-    :merchant_id  => 12335690,
-    :status       => :pending,
+    :id           => "3452",
+    :customer_id  => "679",
+    :merchant_id  => "12335690",
+    :status       => "pending",
     :created_at   => "2012-03-27 14:54:46 UTC",
     :updated_at   => "2012-03-27 14:54:46 UTC"
   }, nil)}

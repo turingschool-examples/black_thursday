@@ -1,20 +1,18 @@
-require './lib/invoice_item'
-require './lib/invoice_item_repository'
+require './lib/requirements'
 
 RSpec.describe InvoiceItem do
-  let!(:time_now) {Time.now}
+  let!(:time_now) {Time.now.to_s}
   let!(:invoice_item) {InvoiceItem.new({
-    :id => 2345,
-    :item_id => 263562118,
-    :invoice_id => 522,
-    :quantity => 9,
-    :unit_price => BigDecimal(847.87, 9),
-    :created_at => Time.now,
-    :updated_at => Time.now
-  }, nil)}
+                                      :id => 2345,
+                                      :item_id => 263562118,
+                                      :invoice_id => 522,
+                                      :quantity => 9,
+                                      :unit_price => 84787,
+                                      :created_at => time_now,
+                                      :updated_at => time_now
+                                    }, nil)}
 
   it 'is a invoice item class' do
-    # require 'pry'; binding.pry
     expect(invoice_item).to be_a(InvoiceItem)
   end
 
@@ -39,12 +37,12 @@ RSpec.describe InvoiceItem do
   end
 
   it "#created_at returns a Time instance for the date the invoice item was created" do
-      expect(invoice_item.created_at).to eq(time_now)
+      expect(invoice_item.created_at).to eq(Time.parse(time_now))
       expect(invoice_item.created_at.class).to eq Time
     end
 
   it "#updated_at returns a Time instance for the date the invoice item was last updated" do
-    expect(invoice_item.updated_at).to eq(time_now)
+    expect(invoice_item.updated_at).to eq(Time.parse(time_now))
     expect(invoice_item.updated_at.class).to eq Time
   end
 

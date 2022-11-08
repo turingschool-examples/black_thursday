@@ -1,4 +1,4 @@
-require 'bigdecimal'
+require 'requirements'
 
 class Item
   attr_reader :id,
@@ -9,14 +9,14 @@ class Item
               :updated_at,
               :merchant_id
 
-  def initialize(item, repo)
-    @id = item[:id]
-    @name = item[:name]
-    @description = item[:description]
-    @unit_price = item[:unit_price]
-    @created_at = item[:created_at]
-    @updated_at = item[:updated_at]
-    @merchant_id = item[:merchant_id]
+  def initialize(info, repo)
+    @id = info[:id].to_i
+    @name = info[:name]
+    @description = info[:description]
+    @unit_price = BigDecimal(info[:unit_price].to_f / 100, 7)
+    @created_at = Time.parse(info[:created_at])
+    @updated_at = Time.parse(info[:updated_at])
+    @merchant_id = info[:merchant_id].to_i
     @repo = repo
   end
 
@@ -24,15 +24,10 @@ class Item
     @unit_price.round(2).to_f
   end
 
-  def update(id, attributes)
-    @name = attributes[:name]
-    @description = attributes[:description]
-    @unit_price = attributes[:unit_price]
+  def update(attributes)
+    @name = attributes[:name] if !attributes[:name].nil?
+    @description = attributes[:description] if !attributes[:description].nil?
+    @unit_price = attributes[:unit_price] if !attributes[:unit_price].nil?
     @updated_at = Time.now
   end
-
-  def merchant
-    @repo.find_merchant_by_id(@merchant_id)
-  end
-
 end
