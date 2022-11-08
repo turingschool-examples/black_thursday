@@ -20,7 +20,7 @@ class Merchant
 
   def total_revenue 
     invoices.map do |invoice|
-      @repo.invoice_total(invoice.id)
-    end.sum
+      invoice_total(invoice.id)
+    end.compact.sum
   end
 end

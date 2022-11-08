@@ -43,7 +43,7 @@ RSpec.describe do
       expect(m.invoice_total(1)).to eq(21_067.77)
   end
 
-  xit 'can return an array of invoice totals for each of its invoices ' do
+  it 'can return an array of invoice totals for each of its invoices ' do
     sales_engine = SalesEngine.from_csv(
       :items     => './data/items.csv',
       :merchants => './data/merchants.csv',
@@ -53,8 +53,8 @@ RSpec.describe do
       :customers => './data/customers.csv'
       )
 
-      m = sales_engine.merchants.all[0]
+      m = sales_engine.merchants.all[333]
 
-      expect(m.total_revenue).to eq()
+      expect(m.total_revenue).to eq(0.1263009e6)
   end
 end
