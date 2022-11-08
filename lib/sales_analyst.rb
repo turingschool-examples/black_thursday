@@ -198,8 +198,15 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     merchants.all.find_all do |merchant|
       merchant.invoices.any? do |invoice|
-      !invoice_paid_in_full?(invoice.id)
+      !invoice_paid_in_full?(invoice.id) # comeback and refactor
       end
     end
   end
+
+  def merchants_with_only_one_item
+    merchants.all.find_all do |merchant|
+      merchant.items.length == 1
+    end
+  end
+
 end
