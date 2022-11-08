@@ -73,7 +73,7 @@ class SalesAnalyst
     items.all.each do |item|
       sum += (item.unit_price - average_price_for_all_items)**2
     end
-    items_standard_deviation = Math.sqrt(sum / (items_count - 1)).round(2)
+    Math.sqrt(sum / (items_count - 1)).round(2)
   end
 
   def golden_items
