@@ -456,15 +456,15 @@ RSpec.describe SalesAnalyst do
 
   it 'can find the most sold item for a merchant' do
     sales_engine = SalesEngine.from_csv(
-      :items     => './data/items.csv',
-      :merchants => './data/test_data/merchant_test4.csv',
-      :invoices  => './data/test_data/invoices_transactions_test.csv',
-      :invoice_items => './data/invoice_items.csv',
-      :transactions => './data/test_data/transactions_test.csv',
+      :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+      :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+      :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+      :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+      :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
       :customers => './data/customers.csv'
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.most_sold_item_for_merchant(12334753)).to eq(1)
+    expect(sales_analyst.most_sold_item_for_merchant(1)[0]).to eq('TestItem2')
   end
 end
