@@ -228,7 +228,7 @@ class SalesAnalyst
     end
   end
 
-  def most_sold_item_for_merchant(merchant_id)
+  def item_quantity_hash(merchant_id)
     hash = {}
     paid_invoice_items(merchant_id).each do |invoice_item|
       if hash.key?(invoice_item.items)
@@ -237,6 +237,18 @@ class SalesAnalyst
         hash[invoice_item.items] = invoice_item.quantity
       end
     end
+    hash
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    # hash = {}
+    # paid_invoice_items(merchant_id).each do |invoice_item|
+    #   if hash.key?(invoice_item.items)
+    #     hash[invoice_item.items] += invoice_item.quantity
+    #   else
+    #     hash[invoice_item.items] = invoice_item.quantity
+    #   end
+    # end
     best_value = hash.max_by do |k, v|
       v
     end.last
