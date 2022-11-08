@@ -22,5 +22,4 @@ RSpec.describe Invoice do
     expect(invoice.created_at).to eq(Time.parse("2022-11-02 15:50:00.281414 -0700"))
     expect(invoice.updated_at).to eq(Time.parse("2022-11-02 15:50:00.281414 -0700"))
   end
-
 end

@@ -25,10 +25,9 @@ RSpec.describe InvoiceRepository do
   end
 
   it 'has a method to find_all_by_customer_id' do
-    expect(invoice_repository.find_all_by_customer_id(2)).to eq []
-
     invoice_repository.all << invoice
     expect(invoice_repository.find_all_by_customer_id(7)).to eq([invoice])
+    expect(invoice_repository.find_all_by_customer_id(2)).to eq []
   end
 
   it 'has a method to find_all_by_merchant_id' do
