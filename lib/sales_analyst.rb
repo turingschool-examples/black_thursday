@@ -50,18 +50,14 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    item_prices_per_merchant = []
-      items_per_merchant = items.find_all_by_merchant_id(merchant_id)
-        items_per_merchant.each  {|item| item_prices_per_merchant << (item.unit_price / 100)}
-      avg = ((item_prices_per_merchant.sum) / items_per_merchant.count)
-      avg = BigDecimal(avg, 4)
-    end
+    items_per_merchant = items.find_all_by_merchant_id(merchant_id)
+      item_prices_per_merchant = items_per_merchant.map  {|item| (item.unit_price / 100)}
+    avg = ((item_prices_per_merchant.sum) / items_per_merchant.count)
+    avg = BigDecimal(avg, 4)
+  end
 
   def average_average_price_per_merchant
-    all_merchant_averages = []
-    merchants.all.each do |merchant|
-      all_merchant_averages  << average_item_price_for_merchant(merchant.id)
-    end
+    all_merchant_averages = merchants.all.map {|merchant| average_item_price_for_merchant(merchant.id)}
     ((all_merchant_averages.sum) / merchants_count).truncate(2)
   end
 
