@@ -1,13 +1,13 @@
-require_relative './lib/requirements'
+require './lib/requirements'
 
 RSpec.describe Item do
-  let!(:time_now) {Time.now}
+  let!(:time_now) {Time.now.to_s}
   let!(:item) {Item.new(
     {
   :id          => 1,
   :name        => "Pencil",
   :description => "You can use it to write things",
-  :unit_price  => BigDecimal(10.99,4),
+  :unit_price  => BigDecimal(1099,4),
   :created_at => time_now,
   :updated_at => time_now,
   :merchant_id => 2
@@ -23,8 +23,8 @@ RSpec.describe Item do
     expect(item.name).to eq("Pencil")
     expect(item.description).to eq("You can use it to write things")
     expect(item.unit_price).to be_a(BigDecimal)
-    expect(item.created_at).to eq(time_now)
-    expect(item.updated_at).to eq(time_now)
+    expect(item.created_at).to eq(Time.parse(time_now))
+    expect(item.updated_at).to eq(Time.parse(time_now))
     expect(item.merchant_id).to eq(2)
   end
 

@@ -1,4 +1,4 @@
-require_relative './lib/requirements'
+require './lib/requirements'
 
 RSpec.describe ItemRepository do
   # let!(:time_now) {Time.now}
@@ -30,13 +30,13 @@ RSpec.describe ItemRepository do
   end
 
   it 'can find all items by a given price' do
-    expect(item_repository.find_all_by_price(199)).to eq([item_repository.all[94]])
-    expect(item_repository.find_all_by_price(5.00)).to eq([])
+    expect(item_repository.find_all_by_price(1.99)).to eq([item_repository.all[94]])
+    expect(item_repository.find_all_by_price(0.05)).to eq([])
   end
 
   it 'can find all items by price, within a range' do
-    expect(item_repository.find_all_by_price_in_range(593..597)).to eq([item_repository.all[543], item_repository.all[1271]])
-    expect(item_repository.find_all_by_price_in_range(1.00..3.00)).to eq([])
+    expect(item_repository.find_all_by_price_in_range(5.93..5.97)).to eq([item_repository.all[543], item_repository.all[1271]])
+    expect(item_repository.find_all_by_price_in_range(0.5..0.7)).to eq([])
   end
 
   it 'can find all items that are a merchants (id)' do
@@ -64,7 +64,7 @@ RSpec.describe ItemRepository do
   end
 
   it 'can update an item by the id, giving new attributes' do
-    expect(item_repository.all[10].updated_at).to eq("1988-09-01 17:09:25 UTC")
+    expect(item_repository.all[10].updated_at).to eq(Time.parse("1988-09-01 17:09:25 UTC"))
     item_repository.update(263397163, {
       :name => "Mechanical Pencil",
       :description => "You can use it to write things down",
@@ -74,8 +74,8 @@ RSpec.describe ItemRepository do
     expect(item_repository.all[10].name).to eq("Mechanical Pencil")
     expect(item_repository.all[10].description).to eq("You can use it to write things down")
     expect(item_repository.all[10].unit_price).to eq(9.99)
-    expect(item_repository.all[10].created_at).to eq("2016-01-11 10:51:02 UTC")
-    expect(item_repository.all[10].updated_at).not_to eq("1988-09-01 17:09:25 UTC")
+    expect(item_repository.all[10].created_at).to eq(Time.parse("2016-01-11 10:51:02 UTC"))
+    expect(item_repository.all[10].updated_at).not_to eq(Time.parse("1988-09-01 17:09:25 UTC"))
   end
 
   it 'can delete an item by supplied id' do
