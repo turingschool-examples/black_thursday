@@ -132,4 +132,11 @@ class SalesAnalyst
       merchants.find_by_id(id)
     end.uniq
   end
+
+  def one_time_buyers
+    invoices_by_customer = invoices.all.group_by(&:customer_id)
+    invoices_by_customer.filter_map do |customer, invoices|
+      customers.find_by_id(customer) if invoices.length == 1
+    end
+  end
 end
