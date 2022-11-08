@@ -119,7 +119,6 @@ RSpec.describe SalesAnalyst do
   it '#invoice_total returns the total $ amount of the 
       Invoice with the corresponding id.' do
 
-
         sales_analyst = @sales_engine.analyst
         @sales_engine.invoice_items.create({
           :id => 1234321,
@@ -134,6 +133,12 @@ RSpec.describe SalesAnalyst do
         expect(sales_analyst.invoice_total(1234321)).to eq(109.90)
   end
 
+  it "#merchants_with_pending_invoices" do
+    sales_analyst = @sales_engine.analyst
+    expect(sales_analyst.merchants_with_pending_invoices).to be_instance_of(Array)
+    expect(sales_analyst.merchants_with_pending_invoices.sample).to be_instance_of(Merchant)
+  end
+
   it 'finds merchants with only one item' do
     sales_analyst = @sales_engine.analyst
 
@@ -141,7 +146,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_only_one_item[0]).to be_a(Merchant)
   end
 
-  it '#merchants_with_only_one_item_registered_in_month' do
+    it '#merchants_with_only_one_item_registered_in_month' do
       sales_analyst = @sales_engine.analyst
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month('January')).to be_a(Array)
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month('January')[0]).to be_instance_of(Merchant)
@@ -157,6 +162,5 @@ RSpec.describe SalesAnalyst do
 
       expect(sales_analyst.revenue_by_merchant(12334160)).to be_a(BigDecimal)
     end
-
-end
+  end
 end
