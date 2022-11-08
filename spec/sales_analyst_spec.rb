@@ -27,8 +27,8 @@ RSpec.describe SalesAnalyst do
                                       MerchantRepository.new,
                                       InvoiceRepository.new,
                                       CustomerRepository.new,
-                                      InvoiceItemRepository.new, 
-                                      TransactionRepository.new, 
+                                      InvoiceItemRepository.new,
+                                      TransactionRepository.new,
                                     )
 
     expect(sales_analyst).to be_a(SalesAnalyst)
@@ -414,6 +414,18 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.invoice_status(:shipped)).to eq(56.61)
       expect(sales_analyst.invoice_status(:pending)).to eq(29.37)
       expect(sales_analyst.invoice_status(:returned)).to eq(14.02)
+    end
+  end
+
+  describe '#invoice_paid_in_full?()' do
+    it 'returns true if the Invoice with corresponding ID is paid in full' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.invoice_paid_in_full?(306)).to be true
+      expect(sales_analyst.invoice_paid_in_full?(1)).to be true
+      expect(sales_analyst.invoice_paid_in_full?(203)).to be false
+      expect(sales_analyst.invoice_paid_in_full?(195)).to be false
+      expect(sales_analyst.invoice_paid_in_full?(131321354054203)).to be false
     end
   end
 end
