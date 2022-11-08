@@ -167,8 +167,10 @@ class SalesAnalyst
     total_price_by_quantity.sum
   end
   
-  def total_revenue_by_date(date)
-    #find all by date, if success add the unit price
-    #Note: When calculating revenue the unit_price listed within invoice_items should be used. The invoice_item.unit_price represents the final sale price of an item after sales, discounts or other intermediary price changes.
+  def total_revenue_by_date(date) #yyyy-mm-dd
+    ii = @invoice_items.find_all_by_date(date)
+    ii.map do |invoice|
+      invoice.unit_price
+    end.sum.to_f.truncate(2)
   end
 end
