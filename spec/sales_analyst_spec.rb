@@ -395,7 +395,7 @@ end
   end
 
   describe '#merchant_ids_in_month' do
-    it 'returns all the merchant ids in the month' do
+    xit 'returns all the merchant ids in the month' do
       month = sales_analyst.merchant_ids_in_month("March")
       expect(month.length).to eq 422
     end
@@ -414,9 +414,17 @@ end
     end
   end
 
+  describe '#paid_invoice_items_by_merchant' do
+    it 'returns only paid invoice items' do
+      expect(sales_analyst.paid_invoice_items_by_merchant(12337411).class).to eq Array
+      expect(sales_analyst.paid_invoice_items_by_merchant(12337411).count).to eq 10
+    end
+  end
+
   describe '#best_item_for_merchant' do
-    xit 'returns an item based off revenue generated' do
-      expect(sales_analyst.best_item_for_merchant(merchant_id)).to eq [item]
+    it 'returns an item based off revenue generated' do
+      expect(sales_analyst.best_item_for_merchant(12337411).class).to eq Item
+      expect(sales_analyst.best_item_for_merchant(12337411).name).to eq "Natural Creamy Cashew Butter - Raw"
     end
   end
 end

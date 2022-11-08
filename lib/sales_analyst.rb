@@ -350,7 +350,16 @@ class SalesAnalyst
   def most_sold_item_for_merchant(merchant_id)
   end
 
-  def best_item_for_merchant(merchant_id)
+  def paid_invoice_items_by_merchant(merchant_id)
+    paid_invoices = invoice_items_by_merchant(merchant_id).find_all do |invoice_item|
+      invoice_paid_in_full?(invoice_item.invoice_id)
+    end
   end
 
+  def best_item_for_merchant(merchant_id)
+    best_invoice_item = paid_invoices.max_by do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+    items.find_by_id(best_invoice_item.item_id)
+  end
 end
