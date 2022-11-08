@@ -207,6 +207,7 @@ class SalesAnalyst
     merchants.all.find_all do |merchant|
       merchant.items.length == 1
     end
+
   end
 
 end
