@@ -198,7 +198,7 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     merchants.all.find_all do |merchant|
       merchant.invoices.any? do |invoice|
-      !invoice_paid_in_full?(invoice.id) # comeback and refactor
+        !invoice_paid_in_full?(invoice.id) # comeback and refactor
       end
     end
   end
@@ -257,7 +257,7 @@ class SalesAnalyst
   def top_items_by_quantity(merchant_id)
     item_quantity_hash(merchant_id).find_all do |k, v|
        v == max_quantity(merchant_id)
-     end
+    end
   end
 
   def max_revenue(merchant_id)
@@ -269,7 +269,7 @@ class SalesAnalyst
   def top_items_by_revenue(merchant_id)
     item_revenue_hash(merchant_id).find_all do |k, v|
        v == max_revenue(merchant_id)
-     end
+    end
   end
 
   def most_sold_item_for_merchant(merchant_id)

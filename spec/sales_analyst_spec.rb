@@ -580,7 +580,6 @@ RSpec.describe SalesAnalyst do
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.top_items_by_revenue(1).length).to eq (1)
+    expect(sales_analyst.top_items_by_revenue(1).length).to eq(1)
   end
-
 end
