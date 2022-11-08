@@ -8,6 +8,8 @@ RSpec.describe CustomerRepository do
       cr = CustomerRepository.new
 
       expect(cr).to be_a CustomerRepository
+      expect(cr.data).to eq([])
+      expect(cr.engine).to eq(nil)
     end
 
     it 'can load data' do
