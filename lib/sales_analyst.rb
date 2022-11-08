@@ -279,13 +279,7 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    # best_value = item_revenue_hash(merchant_id).max_by do |k, v|
-    #   v
-    # end.last
-    # best_items = item_revenue_hash(merchant_id).find_all do |k, v|
-    #   v == best_value
-    # end
-    best_items.map do |item|
+    top_items_by_revenue(merchant_id).map do |item|
       item.first
     end
   end
