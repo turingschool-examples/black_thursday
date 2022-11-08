@@ -199,23 +199,29 @@ RSpec.describe SalesAnalyst do
 
   describe '#top_merchants_by_invoice_count' do
     it 'returns merchants whose average # of invoices >2 stdev' do
-    avg = sales_analyst.average_invoices_per_merchant
-    stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
-    expect(
-      sales_analyst.top_merchants_by_invoice_count.all? {
-      |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count > avg + (stdev * 2)
-      }).to be true
+      avg = sales_analyst.average_invoices_per_merchant
+      stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
+      expect(
+        sales_analyst.top_merchants_by_invoice_count.all? {
+        |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count > avg + (stdev * 2)
+        }).to be true
     end
   end
 
   describe '#bottom_merchants_by_invoice_count' do
     it 'returns merchants whose average # of invoices <1 stdev' do
-    avg = sales_analyst.average_invoices_per_merchant
-    stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
-    expect(
-      sales_analyst.bottom_merchants_by_invoice_count.all? {
-      |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count < avg - (stdev * 2)
-      }).to be true
+      avg = sales_analyst.average_invoices_per_merchant
+      stdev = sales_analyst.average_invoices_per_merchant_standard_deviation
+      expect(
+        sales_analyst.bottom_merchants_by_invoice_count.all? {
+        |merchant| sales_analyst.invoices.find_all_by_merchant_id(merchant.id).count < avg - (stdev * 2)
+        }).to be true
+    end
+  end
+
+  describe '#invoices_days_of_week' do
+    it 'returns all the invoices in the days of week' do
+      expect(sales_analyst.invoices_days_of_week.count).to eq 4985
     end
   end
 
