@@ -1,4 +1,4 @@
-require './lib/modules/repository_queries'
+require_relative '..requirements'
 
 class MerchantRepository
   include RepositoryQueries

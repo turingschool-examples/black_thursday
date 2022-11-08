@@ -1,5 +1,5 @@
-require 'time'
-require './lib/modules/repository_queries'
+require '..requirements'
+
 
 class InvoiceRepository
   include RepositoryQueries

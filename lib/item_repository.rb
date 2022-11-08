@@ -1,5 +1,6 @@
 require 'bigdecimal'
-require './lib/modules/repository_queries'
+require_relative '..requirements'
+
 
 
 class ItemRepository

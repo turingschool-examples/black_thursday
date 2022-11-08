@@ -1,4 +1,4 @@
-require './lib/modules/repository_queries'
+require '..requirements'
 
 class InvoiceItemRepository
   include RepositoryQueries
