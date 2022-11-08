@@ -5,6 +5,7 @@ require_relative '../lib/item_repository.rb'
 # require './lib/merchant_repository.rb'
 require_relative '../lib/sales_analyst'
 require 'csv'
+require 'bigdecimal'
 
 RSpec.describe SalesAnalyst do
   it 'exists' do
@@ -316,8 +317,7 @@ RSpec.describe SalesAnalyst do
     expected = sales_analyst.merchant_revenue_hash
     expect(expected.class).to eq(Hash)
     expect(expected.keys.all?(Merchant)).to be(true)
-    expect(expected.keys.all?(BigDecimal)).to be(true)
-
+    expect(expected.values.all?(Numeric)).to be(true)
   end
 
   it 'can find top 20 revenue earners or a specified amount' do
