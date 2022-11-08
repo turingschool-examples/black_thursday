@@ -43,8 +43,8 @@ class GeneralRepo
     @index_by_id.delete(id)
   end
 
-  def send_up(message = {})
-    @engine.send_down(message)
+  def send_to_engine(message = {})
+    @engine.send_to_repo(message)
   end
 
   def inspect

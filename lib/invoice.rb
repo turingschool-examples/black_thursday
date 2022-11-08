@@ -28,7 +28,7 @@ class Invoice
   end
 
   def _transactions
-    @_transactions ||= @invoice_repo.engine.transactions.find_all_by_invoice_id(@id)
+    @_transactions ||= @invoice_repo.send_to_engine(destination: 'transactions', method: :find_all_by_invoice_id, args: @id)
   end
 
   def paid?
@@ -36,7 +36,7 @@ class Invoice
   end
 
   def _invoice_items
-    @_invoice_items ||= @invoice_repo.send_up(method: :find_all_by_invoice_id, destination: 'invoice_items', args: @id)
+    @_invoice_items ||= @invoice_repo.send_to_engine(method: :find_all_by_invoice_id, destination: 'invoice_items', args: @id)
   end
 
   def total

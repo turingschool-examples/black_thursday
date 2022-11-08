@@ -42,10 +42,11 @@ class SalesEngine
   end
 
   # Generic helper method for sending method calls to correct Repo.
-  def send_down(message = {})
-  # "Fuck ternaries" -Jeff C 
-    message[:destination] ? message[:destination] = instance_variable_get("@#{message[:destination]}") : message[:destination] = destination(message[:method])
-
-    message[:destination].send(message[:method], *message[:args])
+  def send_to_repo(message = {})
+    if message[:destination].nil?
+      destination(message[:method]).send(message[:method], *message[:args])
+    else
+      instance_variable_get("@#{message[:destination]}").send(message[:method], *message[:args])
+    end
   end
 end

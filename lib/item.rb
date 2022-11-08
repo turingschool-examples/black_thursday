@@ -36,6 +36,6 @@ class Item
     @name = attributes[:name] unless attributes[:name].nil?
     @description = attributes[:description] unless attributes[:description].nil?
     @unit_price = attributes[:unit_price] unless attributes[:unit_price].nil?
-    @updated_at = Time.now
+    @updated_time = Time.now
   end
 end
