@@ -19,6 +19,7 @@ class  InvoiceItem
     @updated_at = Time.parse(info[:updated_at])
     @repo       = repo
   end
+
   def update(attributes)
     @quantity   = attributes[:quantity]
     @updated_at = Time.now

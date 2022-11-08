@@ -11,17 +11,12 @@ class InvoiceRepository
 
   def create(attribute)
     new_id = @records.last.id + 1
-    @records << Invoice.new({:id => new_id, :customer_id => attribute[:customer_id],
+    @records << Invoice.new({:id => new_id, 
+      :customer_id => attribute[:customer_id],
       :merchant_id => attribute[:merchant_id],
       :status      => attribute[:attribute],
       :created_at  => Time.now.to_s,
       :updated_at  => Time.now.to_s}, self)
-  end
-
-  def update(id, info)
-    @records.each do |record|
-      record.update(info) if record.id == id
-    end
   end
 
   def make_record(contents)

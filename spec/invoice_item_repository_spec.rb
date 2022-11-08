@@ -4,12 +4,10 @@ RSpec.describe InvoiceItemRepository do
   let!(:invoice_item_repository){InvoiceItemRepository.new('./data/invoice_items.csv', nil)}
 
   it 'is an invoice item repository class' do
-    # require 'pry'; binding.pry
     expect(invoice_item_repository).to be_a(InvoiceItemRepository)
   end
 
   it "#all returns an array of all invoice item instances" do
-      # expected = invoice_item_repository.invoice_items.all
       expect(invoice_item_repository.all.count).to eq 21830
     end
 
@@ -71,21 +69,20 @@ RSpec.describe InvoiceItemRepository do
       :updated_at => Time.now
     }
     invoice_item_repository.create(attributes)
-    # require 'pry'; binding.pry
     invoice_item_repository.find_by_id(21831)
-    # require 'pry'; binding.pry
     expect(invoice_item_repository.find_by_id(21831).item_id).to eq 7
   end
 
   it "#update updates an invoice item" do
     original_time = invoice_item_repository.find_by_id(21830).updated_at
+    expect(invoice_item_repository.find_by_id(21830).quantity).to eq 4
     attributes = {
       quantity: 13
     }
     invoice_item_repository.update(21830, attributes)
     invoice_item_repository.find_by_id(21830)
-    # require 'pry'; binding.pry
-    expect(invoice_item_repository.find_by_id(21830).quantity).to eq 4
+
+    expect(invoice_item_repository.find_by_id(21830).quantity).to eq 13
     expect(invoice_item_repository.find_by_id(21830).item_id).to eq 263519844
     expect(invoice_item_repository.find_by_id(21830).updated_at).to be > original_time
   end

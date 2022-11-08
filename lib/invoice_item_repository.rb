@@ -7,19 +7,8 @@ class InvoiceItemRepository
     @records = create_records(records)
   end
 
-  def all
-    @records
-  end
+ 
 
-  # def find_by_id(id)
-  #   if !a_valid_id?(id)
-  #     return nil
-  #   else
-  #     @records.find do |invoice|
-  #       invoice.id == id
-  #     end
-  #   end
-  # end
 
   def a_valid_id?(id)
     @records.any? do |invoice| invoice.id == id
@@ -50,26 +39,6 @@ class InvoiceItemRepository
       }, self)
   end
 
-  # def update(id, attribute)
-  #   # require 'pry'; binding.pry
-  #   @records.each do |invoice|
-  #     invoice.update(attribute) if invoice.id == id
-  #     # if invoice.id == id
-  #     #   invoice_update = invoice.name.replace(attribute)
-  #     #   return invoice_update
-  #     # end
-  #   end
-  # end
-
-  def delete(id)
-    @records.delete(find_by_id(id))
-  end
-
-  # def create_records(filepath)
-  #   contents = CSV.open filepath, headers: true, header_converters: :symbol, quote_char: '"'
-  #   make_record_object(contents)
-  # end
-  
   def make_record(contents)
     contents.map do |row|
       record = {
@@ -85,7 +54,7 @@ class InvoiceItemRepository
     end
   end
 
-    def inspect
+  def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
 end

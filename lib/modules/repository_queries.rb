@@ -5,7 +5,7 @@ module RepositoryQueries
   end
   
   def find_by_id(id)
-    nil if !a_valid_id?(id)
+    return nil if !a_valid_id?(id)
 
     @records.find do |record|
       record.id == id
@@ -46,28 +46,14 @@ module RepositoryQueries
   end
   
   def find_all_by_merchant_id(id)
-    nil if !a_valid_merchant_id?(id)
-
     @records.find_all do |record|
       record.merchant_id == id.to_i
     end
   end
 
-  def a_valid_merchant_id?(id)
-    @records.any? do |record| record.merchant_id == id
-    end 
-  end
-
   def find_all_by_customer_id(id)
-    nil if !a_valid_customer_id?(id)
-    
     @records.find_all do |record|
       record.customer_id == id
-    end
-  end
-
-  def a_valid_customer_id?(id)
-    @records.any? do |record| record.customer_id == id
     end
   end
 
@@ -82,7 +68,8 @@ module RepositoryQueries
     make_record(contents)
   end
 
-   def update(id, attributes)
+  def update(id, attributes)
+    return nil if !a_valid_id?(id)
     record = self.find_by_id(id)
     record.update(attributes)
   end
