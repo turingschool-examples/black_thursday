@@ -55,4 +55,26 @@ describe Timeable do
       expect(@dummy.convert_to_time(Time.parse('2012-05-26 20:56:56 UTC'))).to eq(Time.parse('2012-05-26 20:56:56 UTC'))
     end
   end
+
+  describe '#created_at' do
+    it 'sets the time of registration' do
+      dummy = double('dummy')
+      allow(dummy).to receive(:created_at).and_return(Time.parse('2012-05-26 20:56:56 UTC'))
+      expect(dummy.created_at).to be_instance_of(Time)
+    end
+  end
+
+  describe '#updated_at' do
+    it 'sets the time of most recent update' do
+      dummy = double('dummy')
+      allow(dummy).to receive(:updated_at).and_return(Time.parse('2012-05-26 20:56:56 UTC'))
+      expect(dummy.updated_at).to be_instance_of(Time)
+    end
+  end
+
+  describe '#format_time_to_string' do
+    it 'converts a time object to a day/month/year formatted string' do
+      expect(@dummy.format_time_to_string(Time.parse('2012-05-26 20:56:56 UTC'))).to eq("26/05/2012")
+    end
+  end
 end
