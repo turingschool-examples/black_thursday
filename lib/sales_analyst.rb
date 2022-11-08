@@ -15,14 +15,15 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    avg = average_items_per_merchant
-    total_diff = merchants.inject(0) do |sum, merchant|
-      merchant_items = sales_engine.items.find_all_by_merchant_id(merchant.id)
-      sum + (merchant_items.count - avg)**2
-    end
-    Math.sqrt(total_diff / (merchants.length - 1)).round(2)
+    Math.sqrt(diff_items_per_merchant / (merchants.count - 1)).round(2)
   end
 
+  def diff_items_per_merchant
+    merchants.inject(0) do |sum, merchant|
+      merchant_items = sales_engine.items.find_all_by_merchant_id(merchant.id)
+      sum + (merchant_items.count - average_items_per_merchant)**2
+    end
+  end
   
   def merchants_with_high_item_count
     double = average_items_per_merchant_standard_deviation * 2
@@ -46,24 +47,23 @@ class SalesAnalyst
   def average_average_price_per_merchant
     total_price = merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end.inject(0, :+)
+    end.sum
     (total_price / merchants.count).round(2)
   end
   
   def golden_items
     prices = items.map { |item| item.unit_price }
     avg = (prices.sum / prices.count).round(2)
-    total_diff = prices.inject(0) do |sum, price|
-      sum + (price - avg)**2
-    end.round(2)
-    std_dev = Math.sqrt(total_diff / (prices.length - 1)).round(2)
+    std_dev = Math.sqrt(total_diff(prices, avg) / (prices.length - 1)).round(2)
     items.find_all do |item|
       item.unit_price.to_f >= avg+ (std_dev * 2)
     end
   end
 
-  def golden_items_std_dev
-   
+  def total_diff(prices, avg)
+    prices.inject(0) do |sum, price|
+      sum + (price - avg)**2
+    end.round(2)
   end
 
   def average_invoices_per_merchant
@@ -72,22 +72,15 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     mean = average_invoices_per_merchant
-    sample_sum = 0
-    merchants_with_invoices.each do |invoices_array|
-      sample_sum += (invoices_array.count - mean)**2
+    sum = merchants_invoices.inject(0) do |sum, invoice|
+      sum += (invoice.count - mean)**2
     end
-    return Math.sqrt(sample_sum/(uniq_merchant_ids.length - 1)).round(2)
+    return Math.sqrt(sum/(merchants.length - 1)).round(2)
   end
-
-  def uniq_merchant_ids
-    invoices.map do |invoice|
-      invoice.merchant_id
-    end.uniq
-  end
-
-  def merchants_with_invoices
-    uniq_merchant_ids.map do |merchant_id|
-      sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+  
+  def merchants_invoices
+    @merchants.map do |merchant|
+      sales_engine.invoices.find_all_by_merchant_id(merchant.id)
     end
   end
 
@@ -177,5 +170,18 @@ class SalesAnalyst
     end
     result = (status_array.count/invoices.count.to_f * 100).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    purchases = sales_engine.transactions.find_all_by_invoice_id(invoice_id)
+    if purchases.empty?
+      false
+    else
+    purchases.first.result == :success 
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.sum { |invoice_item| invoice_item.quantity*invoice_item.unit_price}
+  end
 end
- 

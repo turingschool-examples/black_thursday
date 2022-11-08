@@ -1,33 +1,32 @@
-require 'bigdecimal'
 require 'csv'
 require 'time'
-require 'pry'
-require_relative 'item_repository'
+require 'bigdecimal'
+require_relative './item'
+require_relative './item_repository'
 require_relative 'sanitize'
 
-class Item
+class InvoiceItem
 include Sanitize
   attr_reader :id,
-              :name,
-              :description,
+              :item_id,
+              :invoice_id,
+              :quantity,
               :unit_price,
               :created_at,
-              :updated_at,
-              :merchant_id
+              :updated_at
 
   def initialize(info)
     @id = info[:id].to_i
-    @name = info[:name]
-    @description = info[:description]
+    @item_id = info[:item_id].to_i
+    @invoice_id = info[:invoice_id].to_i
+    @quantity = info[:quantity].to_i
     @unit_price = to_price(info[:unit_price])
     @created_at = to_time(info[:created_at])
     @updated_at = to_time(info[:updated_at])
-    @merchant_id = info[:merchant_id].to_i
   end
 
   def update(attributes)
-    @name = attributes[:name] if attributes[:name]
-    @description = attributes[:description] if attributes[:description]
+    @quantity = attributes[:quantity] if attributes[:quantity]
     @unit_price = attributes[:unit_price] if attributes[:unit_price]
     @updated_at = Time.now
     self
