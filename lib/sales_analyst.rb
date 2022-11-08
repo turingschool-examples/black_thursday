@@ -31,8 +31,6 @@ class SalesAnalyst
     sales_engine.invoices
   end
 
-  #look at enumerable and see if we can shorten
-
   def average_items_per_merchant_standard_deviation
     sum = 0
     merchants.all.each do |merchant|
