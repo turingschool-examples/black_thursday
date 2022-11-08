@@ -132,7 +132,7 @@ RSpec.describe SalesAnalyst do
 
    # ============== ITERATION 3 METHODS ========================= #
 
-  xit 'can return true if the invoice with corresponding id is paid in full' do
+  it 'can return true if the invoice with corresponding id is paid in full' do
     sales_analyst.invoice_paid_in_full?(1)
     expect(sales_analyst.invoice_paid_in_full?(1)).to eq(true)
 
@@ -146,7 +146,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.invoice_paid_in_full?(204)).to eq(false)
   end
 
-  xit 'can return the total dollar amount if the invoice is paid in full ' do
+  it 'can return the total dollar amount if the invoice is paid in full ' do
     expect(sales_analyst.invoice_total(1)).to eq(21067.77)
     expect(sales_analyst.invoice_total(1).class).to eq(BigDecimal)
   end

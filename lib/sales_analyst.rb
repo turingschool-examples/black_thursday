@@ -155,17 +155,23 @@ class SalesAnalyst
   end
   
   # ============= ITERATION 3 METHODS ========================== #
-  
-  def invoice_paid_in_full?(invoice_id) 
-    return false if sales_engine.transactions.find_all_by_invoice_id(invoice_id).empty?
+  def se_transactions
+    sales_engine.transactions
+  end
 
-    sales_engine.transactions.find_all_by_invoice_id(invoice_id).any? do |transaction|
+  def invoice_paid_in_full?(invoice_id) 
+    return false if se_transactions.find_all_by_invoice_id(invoice_id).empty?
+    se_transactions.find_all_by_invoice_id(invoice_id).any? do |transaction|
       transaction.result == :success
     end
   end
   
+  def se_invoice_items
+    sales_engine.invoice_items
+  end
+
   def invoice_total(invoice_id)
-    total = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
+    total = se_invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
       invoice_item.quantity * (invoice_item.unit_price / 100)
     end
     total = BigDecimal(total, 7)
