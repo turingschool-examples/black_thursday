@@ -215,4 +215,8 @@ class SalesAnalyst
     end
   end
 
+  def revenue_by_merchant(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
+    merchant.total_revenue
+  end
 end

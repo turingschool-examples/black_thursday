@@ -440,7 +440,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_only_one_item_registered_in_month("May")[0].name).to eq ("Candisart")
   end
 
-  it 'can find revenue by merchant id'
+  it 'can find revenue by merchant id' do
     sales_engine = SalesEngine.from_csv(
       :items     => './data/items.csv',
       :merchants => './data/test_data/merchant_test4.csv',
@@ -451,6 +451,6 @@ RSpec.describe SalesAnalyst do
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.revenue_by_merchant(12335938)).to eq(0)
-
+    expect(sales_analyst.revenue_by_merchant(12335938)).to eq(0.2106777e5)
+  end
 end
