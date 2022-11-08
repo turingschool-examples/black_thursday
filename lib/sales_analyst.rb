@@ -257,7 +257,7 @@ class SalesAnalyst
     one_in_a_month = month_hash.find_all do |keys, values|
       values.length == 1
     end
-    
+
     one_in_a_month.map{|merchant|merchant[0]}
     
   end
@@ -265,9 +265,11 @@ class SalesAnalyst
   def revenue_by_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
     # formatted in dollars
-    invoices_paid_in_full_by_merchant(merchant).sum do |invoice|
+    total = invoices_paid_in_full_by_merchant(merchant).sum do |invoice|
       invoice_total(invoice.id)
     end
+
+    total.round(2)
   end
   
   def invoices_paid_in_full_by_merchant(merchant)
@@ -278,8 +280,18 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    # quantity sold
-    # if a tie [item, item, item]
+    hash = {}
+
+    array_of_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
+    
+    array_of_items.each do |item|
+      hash[item] = sales_engine.invoice_items.find_all_by_item_id(item.id).sum{|invoice_item| invoice_item.quantity}
+    end
+
+    ordered_array = hash.sort_by{|k,v| -v}
+    top_number = ordered_array.first[1]
+    top_pairs = ordered_array.find_all{|pair| pair[1] == top_number}
+    top_items = top_pairs.map{|pair| pair[0]}
   end
   
   def best_item_for_merchant(merchant_id)
