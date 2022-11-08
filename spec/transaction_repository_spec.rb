@@ -37,7 +37,7 @@ end
   end
 
   it '#find_all_by_result' do
-  expect(@transactions.find_all_by_result("success")).to be_a(Array)
+  expect(@transactions.find_all_by_result(:success)).to be_a(Array)
 end
 
 it '#create makes new transaction' do
