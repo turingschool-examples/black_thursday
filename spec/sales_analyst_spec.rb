@@ -190,6 +190,13 @@ RSpec.describe SalesAnalyst do
     end
   end
 
+  describe '#invoices_per_merchant' do
+    it 'returns invoices_per_merchant' do
+      expect(sales_analyst.invoices_per_merchant.count).to eq 475
+    end
+  end
+  
+
   describe '#top_merchants_by_invoice_count' do
     it 'returns merchants whose average # of invoices >2 stdev' do
     avg = sales_analyst.average_invoices_per_merchant
