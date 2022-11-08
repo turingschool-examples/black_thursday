@@ -210,6 +210,7 @@ class SalesAnalyst
     invoice_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
     invoice_items.sum { |invoice_item| invoice_item.quantity * invoice_item.unit_price }
   end
+
   def total_revenue_by_date(date)
     invoices_by_date = sales_engine.invoices.all.find_all do |invoice|
       date.strftime('%B %d, %Y') == invoice.created_at.strftime('%B %d, %Y')
@@ -238,5 +239,18 @@ class SalesAnalyst
     all_invoices.sum do |invoice|
      invoice_total(invoice.id)
     end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchant_invoices = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+    merchant_invoice_items = merchant_invoices.flat_map {|merchant_invoice| sales_engine.invoice_items.find_all_by_invoice_id(merchant_invoice.id)}
+    item_hash = merchant_invoice_items.group_by {|invoice_item| invoice_item.item_id}
+    item_quantity = item_hash.transform_values{|invoice_items|invoice_items.map{|invoice_item|invoice_item.quantity}}
+    item_quantity.transform_values!{|value|value.sum}
+    item_quantity.transform_keys! do |item|
+      sales_engine.items.find_by_id(item)
+    end
+    most_sold_items = item_quantity.max_by{|k,v| v}
+    most_sold_items.delete_if{|n| n.class == Integer}
   end
 end
