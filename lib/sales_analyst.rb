@@ -103,6 +103,7 @@ class SalesAnalyst
     end
   end
 
+
   def top_merchants_by_invoice_count
     merchants_invoices = []
      merchants_with_invoices.each do |invoices_array|
@@ -177,43 +178,4 @@ class SalesAnalyst
     result = (status_array.count/invoices.count.to_f * 100).round(2)
   end
 end
-  # def golden_items
-  #   prices = items.map { |item| item.unit_price }
-  #   # avg(prices)
-  #   # std_dev(prices)
-  #   avg = (prices.sum / prices.count).round(2)
-  #   total_diff = prices.inject(0) do |sum, price|
-  #     sum + (price - avg)**2
-  #   end.round(2)
-  #   # std_dev = std_dev(total_diff, prices)
-  #   std_dev = Math.sqrt(total_diff / (prices.length - 1)).round(2)
-  #   items.find_all do |item|
-  #     item.unit_price.to_f >= avg(prices)+ (std_dev * 2)
-  #   end
-  # end
-
-
-  # def std_dev(sample)
-  #   avg = avg(sample)
-  #   std_dev_calc(total_diff(sample, avg), sample)
-    
-  # end
-  
-  # def avg(sample)
-  #   (sample.sum / sample.count).round(2)
-  # end
-
-  # def total_diff(sample, avg)
-  #   sample.inject(0) do |sum, instance|
-  #     sum + (instance - avg)**2
-  #   end.round(2)
-    
-  # end
-  
-
-  # def std_dev_calc(difference, sample)
-  #   Math.sqrt(difference / (sample.length - 1)).round(2)
-  # end
-  
-  # # def total_diff(sample)
-  # # end
+ 

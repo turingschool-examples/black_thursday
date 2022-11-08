@@ -1,5 +1,5 @@
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 require 'rspec'
 require './lib/invoice_repository'
 require 'pry'
