@@ -428,4 +428,13 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.invoice_paid_in_full?(131321354054203)).to be false
     end
   end
+
+  describe '#invoice_total()' do
+    it 'returns the total amount of the invoice with corresponding ID' do
+      sales_analyst = se.analyst
+
+      expect(sales_analyst.invoice_total(203)).to eq(0)
+      expect(sales_analyst.invoice_total(306)).to eq(BigDecimal(21891.28, 7))
+    end
+  end
 end

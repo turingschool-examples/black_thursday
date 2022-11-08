@@ -140,4 +140,11 @@ class SalesAnalyst
     end
     results.size > 0
   end
+
+  def invoice_total(invoice_id)
+    return 0 if !invoice_paid_in_full?(invoice_id)
+    @invoice_items.find_all_by_invoice_id(invoice_id).sum do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+  end
 end
