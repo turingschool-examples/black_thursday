@@ -351,6 +351,14 @@ end
     end
   end
 
+  describe '#invoice_status' do
+    it 'returns the percentage of invoice with input status' do
+      expect(sales_analyst.invoice_status(:pending)).to eq 29.55
+      expect(sales_analyst.invoice_status(:shipped)).to eq 56.95
+      expect(sales_analyst.invoice_status(:returned)).to eq 13.5
+    end
+  end
+
   describe '#total_revenue_by_date' do
     it 'will give you the total revenue on any given date' do
       date = Time.parse("2012-03-28 14:54:09 UTC")
