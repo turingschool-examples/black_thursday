@@ -156,7 +156,7 @@ RSpec.describe SalesAnalyst do
 
   it 'can return an array of customers with unpaid invoices' do
     expected = sales_analyst.customers_with_unpaid_invoices
-    expect(expected.count).to eq(3)
+    expect(expected.count).to eq(786)
     expect(expected).to be_a(Array)
     expect(expected.first).to be_a(Customer)
   end
