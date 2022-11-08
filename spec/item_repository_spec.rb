@@ -62,6 +62,8 @@ RSpec.describe ItemRepository do
       item_repo = ItemRepository.new([item1,item2,item3])
 
       expect(item_repo.find_all_with_description("write")).to eq [item1,item3]
+      expect(item_repo.find_all_with_description("you CAN")).to eq [item1,item2,item3]
+      expect(item_repo.find_all_with_description("snow")).to eq []
     end
   end
 
