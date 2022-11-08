@@ -408,11 +408,11 @@ end
     end
   end
 
-  describe '#most_sold_item_for_merchant' do
-    xit 'returns the most sold item' do
-      expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq [item]
-    end
-  end
+  # describe '#most_sold_item_for_merchant' do
+  #   xit 'returns the most sold item' do
+  #     expect(sales_analyst.most_sold_item_for_merchant(merchant_id)).to eq [item]
+  #   end
+  # end
 
   describe '#best_item_for_merchant' do
     xit 'returns an item based off revenue generated' do
