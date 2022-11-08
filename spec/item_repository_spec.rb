@@ -74,6 +74,7 @@ RSpec.describe ItemRepository do
       item_repo = ItemRepository.new([item1,item2,item3])
 
       expect(item_repo.find_all_by_price(BigDecimal(0.1099,4))).to eq [item1,item2]
+      expect(item_repo.find_all_by_price(BigDecimal(0.20000,4))).to eq []
     end
   end
 
