@@ -1,4 +1,4 @@
-require_relative './lib/requirements'
+require './lib/requirements'
 
 RSpec.describe MerchantRepository do
   let!(:mr) {MerchantRepository.new("./data/merchants.csv", nil)}
@@ -43,7 +43,7 @@ RSpec.describe MerchantRepository do
     expect(mr.all.last.name).to eq("CJsDecor")
     expect(mr.all.last.id).to eq(12337411)
     
-    mr.create("Another Merchant")
+    mr.create({name: "Another Merchant"})
     
     expect(mr.all.last.name).to eq("Another Merchant")
     expect(mr.all.last.id).to eq(12337412)
