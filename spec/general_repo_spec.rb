@@ -77,4 +77,14 @@ RSpec.describe GeneralRepo do
       expect(gr.repository).to eq [object1, object3, object4, object5]
     end
   end
+
+  describe '#send_to_engine' do
+    it 'passes a message to the engine' do
+      engine = double('engine')
+      gr = GeneralRepo.new(General, data, engine)
+
+      expect(engine).to receive(:send_to_repo)
+      gr.send_to_engine
+    end
+  end
 end
