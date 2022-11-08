@@ -334,7 +334,7 @@ RSpec.describe SalesAnalyst do
     first_arr = expected.first
 
     expect(first_arr[0].id).to eq(12334634)
-    expect(first_arr[1]).to eq(2)
+    expect(first_arr[1].class).to eq(BigDecimal)
   end
 
   it 'can find top 20 revenue earners or a specified amount' do
