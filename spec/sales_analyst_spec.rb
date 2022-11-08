@@ -1,9 +1,13 @@
 require_relative '../lib/item'
 require_relative '../lib/merchant'
 require_relative '../lib/invoice'
+require_relative '../lib/customer'
+
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/customer_repository'
+
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 require 'bigdecimal'
@@ -12,11 +16,20 @@ RSpec.describe SalesAnalyst do
   let(:se) {SalesEngine.from_csv({
     items: "./data/items.csv",
     merchants: "./data/merchants.csv",
-    invoices: "./data/invoices.csv"
-    })}
+    invoices: "./data/invoices.csv",
+    customers: "./data/customers.csv",
+    invoice_items: "./data/invoice_items.csv",
+    transactions: "./data/transactions.csv"
+    }) }
 
   it 'exists' do
-    sales_analyst = SalesAnalyst.new(ItemRepository.new, MerchantRepository.new, InvoiceRepository.new)
+    sales_analyst = SalesAnalyst.new( ItemRepository.new,
+                                      MerchantRepository.new,
+                                      InvoiceRepository.new,
+                                      CustomerRepository.new,
+                                      InvoiceItemRepository.new, 
+                                      TransactionRepository.new, 
+                                    )
 
     expect(sales_analyst).to be_a(SalesAnalyst)
   end

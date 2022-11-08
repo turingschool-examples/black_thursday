@@ -1,13 +1,26 @@
 require_relative '../lib/item'
 require_relative '../lib/merchant'
+require_relative '../lib/customer'
+require_relative '../lib/invoice_item'
+require_relative '../lib/transaction'
+
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/customer_repository'
+require_relative '../lib/invoice_item_repository'
+require_relative '../lib/transaction_repository'
+
 require_relative '../lib/sales_engine'
 
 RSpec.describe SalesEngine do
   describe '#initialize' do
     it 'exists' do
-      se = SalesEngine.new(MerchantRepository.new, ItemRepository.new, InvoiceRepository.new)
+      se = SalesEngine.new( MerchantRepository.new,
+                            ItemRepository.new,
+                            InvoiceRepository.new,
+                            CustomerRepository.new,
+                            InvoiceItemRepository.new,
+                            TransactionRepository.new)
 
       expect(se).to be_a SalesEngine
     end
@@ -18,7 +31,10 @@ RSpec.describe SalesEngine do
       se = SalesEngine.from_csv({
       items: "./data/items.csv",
       merchants: "./data/merchants.csv",
-      invoices: "./data/invoices.csv"
+      invoices: "./data/invoices.csv",
+      customers:  "./data/customers.csv",
+      invoice_items:  "./data/invoice_items.csv",
+      transactions:  "./data/transactions.csv"
       })
 
       mr = se.merchants
@@ -37,10 +53,14 @@ RSpec.describe SalesEngine do
 
     it 'loads item data from csv files' do
       se = SalesEngine.from_csv({
-        items:     "./data/items.csv",
-        merchants: "./data/merchants.csv",
-        invoices: "./data/invoices.csv"
+        items:         "./data/items.csv",
+        merchants:     "./data/merchants.csv",
+        invoices:      "./data/invoices.csv",
+        customers:     "./data/customers.csv",
+        invoice_items: "./data/invoice_items.csv",
+        transactions:  "./data/transactions.csv"
       })
+
       ir = se.items
 
       expect(ir).to be_a ItemRepository
