@@ -220,7 +220,7 @@ RSpec.describe SalesAnalyst do
   end
 
   describe '#invoices_days_of_week' do
-    it 'returns all the invoices in the days of week' do
+    it 'returns a array with intergers 0-6 with 0 being sunday' do
       expect(sales_analyst.invoices_days_of_week.count).to eq 4985
     end
   end
