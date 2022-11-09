@@ -80,12 +80,12 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_invoices_per_merchant_standard_deviation.class).to eq(Float)
   end
   
-  xit 'can return the merchant with the highest invoice count' do # this is taking a very long time.
+  it 'can return the merchant with the highest invoice count' do # this is taking a very long time.
     expect(sales_analyst.top_merchants_by_invoice_count.length).to eq(12)
     expect(sales_analyst.top_merchants_by_invoice_count.first.class).to eq(Merchant)
   end
   
-  xit 'can return the merchant with the lowest invoice count' do # also long time, probably same thing
+  it 'can return the merchant with the lowest invoice count' do # also long time, probably same thing
     expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(4)
     expect(sales_analyst.bottom_merchants_by_invoice_count.first.class).to eq(Merchant)
   end

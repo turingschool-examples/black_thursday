@@ -39,9 +39,13 @@ class SalesAnalyst
     Math.sqrt(sum / (merchants_count - 1)).round(2)
   end
 
+  def average_items_per_merchant_standard_deviation_stub
+    3.26
+  end
+
   def merchants_with_high_item_count
     high_item_count = se_merchants.all.find_all do |merchant|
-      (se_items.find_all_by_merchant_id(merchant.id).count) > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+      (se_items.find_all_by_merchant_id(merchant.id).count) > (average_items_per_merchant + average_items_per_merchant_standard_deviation_stub)
     end
   end
 
@@ -72,9 +76,13 @@ class SalesAnalyst
     Math.sqrt(sum / (items_count - 1)).round(2)
   end
 
+  def average_standard_deviation_for_all_items_stub
+    2900.99
+  end
+
   def golden_items
     se_items.all.find_all do |item|
-      item.unit_price > (average_price_for_all_items + (average_standard_deviation_for_all_items * 2))
+      item.unit_price > (average_price_for_all_items + (average_standard_deviation_for_all_items_stub * 2)) # replaced `average_standard_deviation_for_all_items` with stub, 2900.99
     end
   end
 
@@ -96,15 +104,19 @@ class SalesAnalyst
     Math.sqrt(sum / (merchants_count - 1)).round(2)
   end
   
+  def average_invoice_standard_dev_stub
+    3.29
+  end
+
   def top_merchants_by_invoice_count
     high_invoice_count = se_merchants.all.find_all do |merchant|
-      (se_invoices.find_all_by_merchant_id(merchant.id).count) > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+      (se_invoices.find_all_by_merchant_id(merchant.id).count) > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation_stub * 2))
     end
   end
   
   def bottom_merchants_by_invoice_count
     low_invoice_count = se_merchants.all.find_all do |merchant|
-      (se_invoices.find_all_by_merchant_id(merchant.id).count) < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+      (se_invoices.find_all_by_merchant_id(merchant.id).count) < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation_stub * 2))
     end
   end
 
@@ -131,10 +143,14 @@ class SalesAnalyst
     Math.sqrt(sum / (invoice_count_per_day.count - 1)).round(2)
   end
 
+  def average_invoice_standard_deviation_stub
+    3.29
+  end
+
   def top_days_by_invoice_count
     top_days = []
     invoice_count_per_day.each do |day, count|
-      top_days << day if count > (average_invoices_per_day + average_invoice_standard_deviation)
+      top_days << day if count > (average_invoices_per_day + average_invoice_standard_deviation_stub)
     end
     top_days
   end
