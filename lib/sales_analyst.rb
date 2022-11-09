@@ -1,7 +1,10 @@
 require_relative '../lib/modules/calculations'
 class SalesAnalyst
   include Calculations
-  attr_reader :engine
+
+  attr_reader :engine,
+              :day_hash
+
   def initialize(engine = nil)
     @engine   = engine
     @day_hash = day_hash
@@ -11,18 +14,14 @@ class SalesAnalyst
     average(item_amount)
   end
 
-  def average_items_per_merchant_standard_deviation
-    standard_deviation(item_amount, average_items_per_merchant)
-  end
-
-  def average_item_price_std_dev
-    standard_deviation(all_merchant_prices, average_average_price_per_merchant)
-  end
-
   def item_amount
     merchants.all.map do |merchant|
       @engine.find_all_items_by_merchant_id(merchant.id).length
     end
+  end
+
+  def average_items_per_merchant_standard_deviation
+    standard_deviation(item_amount, average_items_per_merchant)
   end
 
   def merchants_with_high_item_count
@@ -32,31 +31,35 @@ class SalesAnalyst
       (average_items_per_merchant + std_dev)
     end
   end
-
+  
   def average_item_price_for_merchant(merchant_id)
     average(prices(merchant_id))
   end
-
+  
   def merchant_averages
     merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
   end
-
+  
   def average_average_price_per_merchant
     average(merchant_averages)
   end
-
+  
   def prices(merchant_id)
     merchants.find_by_id(merchant_id).items.map do |item|
       item.unit_price
     end
   end
-
+  
   def all_merchant_prices
     merchants.all.flat_map do |merchant|
       prices(merchant.id)
     end
+  end
+  
+  def average_item_price_std_dev
+    standard_deviation(all_merchant_prices, average_average_price_per_merchant)
   end
 
   def golden_items
@@ -98,15 +101,25 @@ class SalesAnalyst
   end
 
   def day_hash
-    { 'Monday' => 0, 'Tuesday' => 0, 'Wednesday' => 0, 'Thursday' => 0,
-      'Friday' => 0, 'Saturday' => 0, 'Sunday' => 0
-    }
+    unless @day_hash
+      @day_hash = { 'Monday' => 0, 'Tuesday' => 0, 'Wednesday' => 0, 'Thursday' => 0,
+        'Friday' => 0, 'Saturday' => 0, 'Sunday' => 0
+      }
+    end
+    @day_hash
   end
 
   def days
     invoices.all.map do |invoice|
       invoice.created_at.strftime('%A')
     end
+  end
+
+  def invoice_by_days_hash_populate
+    days.each do |day|
+      @day_hash[day] += 1
+    end
+    @day_hash
   end
 
   def top_days
@@ -117,24 +130,8 @@ class SalesAnalyst
     end
   end
 
-  def invoice_by_days_hash_populate
-    days.each do |day|
-      @day_hash[day] += 1
-    end
-  end
-
-  def status_array(status)
-    invoices.all.find_all do |invoice|
-      invoice.status == status
-    end
-  end
-
   def invoice_average_per_day
     average(@day_hash.values)
-  end
-
-  def average_invoices_per_day_standard_deviation
-    standard_deviation(@day_hash.values, invoice_average_per_day)
   end
 
   def top_days_by_invoice_count
@@ -143,8 +140,18 @@ class SalesAnalyst
     end
   end
 
+  def status_array(status)
+    invoices.all.find_all do |invoice|
+      invoice.status == status
+    end
+  end
+  
   def invoice_status(status)
     ((status_array(status).count / invoices.all.count.to_f) * 100).round(2)
+  end
+
+  def average_invoices_per_day_standard_deviation
+    standard_deviation(@day_hash.values, invoice_average_per_day)
   end
 
   def invoice_paid_in_full?(invoice_id)
@@ -220,6 +227,18 @@ class SalesAnalyst
     merchant.total_revenue
   end
 
+  def most_sold_item_for_merchant(merchant_id)
+    top_items_by_quantity(merchant_id).map do |item|
+      item.first
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    top_items_by_revenue(merchant_id).map do |item|
+      item.first
+    end
+  end
+
   def paid_invoice_items(merchant_id)
     merchant = merchants.find_by_id(merchant_id)
     merchant.invoices.flat_map do |invoice|
@@ -269,18 +288,6 @@ class SalesAnalyst
   def top_items_by_revenue(merchant_id)
     item_revenue_hash(merchant_id).find_all do |k, v|
        v == max_revenue(merchant_id)
-    end
-  end
-
-  def most_sold_item_for_merchant(merchant_id)
-    top_items_by_quantity(merchant_id).map do |item|
-      item.first
-    end
-  end
-
-  def best_item_for_merchant(merchant_id)
-    top_items_by_revenue(merchant_id).map do |item|
-      item.first
     end
   end
 end

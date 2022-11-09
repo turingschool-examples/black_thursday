@@ -2,26 +2,139 @@ require_relative '../lib/sales_engine.rb'
 require_relative '../lib/item_repository.rb'
 require_relative '../lib/item.rb'
 require_relative '../lib/merchant.rb'
-# require './lib/merchant_repository.rb'
 require_relative '../lib/sales_analyst'
 require 'csv'
 require 'bigdecimal'
 
 RSpec.describe SalesAnalyst do
-  it 'exists' do
-    sales_analyst = SalesAnalyst.new
+  describe '#initialize' do
+    it 'exists' do
+      sales_analyst = SalesAnalyst.new
+  
+      expect(sales_analyst).to be_a(SalesAnalyst)
+    end
+  
+    it 'has a sales engine' do
+      sales_engine = SalesEngine.from_csv({
+        :items     => './data/items.csv',
+        :merchants => './data/merchants.csv'
+      })
+      sales_analyst = sales_engine.analyst
+  
+      expect(sales_analyst.engine).to be_a(SalesEngine)
+    end
 
-    expect(sales_analyst).to be_a(SalesAnalyst)
+    it 'starts with a hash of days of the week' do
+      sales_engine = SalesEngine.from_csv({
+        :items     => './data/items.csv',
+        :merchants => './data/merchants.csv'
+      })
+      sales_analyst = sales_engine.analyst
+      expect(@day_hash).to eq(nil)
+      sales_analyst.day_hash
+      expect(sales_analyst.day_hash.class).to eq(Hash)
+      expect(sales_analyst.day_hash.keys.include?("Monday")).to be(true)
+    end
   end
 
-  it 'has a sales engine' do
-    sales_engine = SalesEngine.from_csv({
-      :items     => './data/items.csv',
-      :merchants => './data/merchants.csv'
-    })
-    sales_analyst = sales_engine.analyst
+  describe '#module methods' do
+    it 'Take the difference between each number and the mean, then square it.' do
+      sales_engine = SalesEngine.from_csv(
+        :items     => './data/test_data/items_test.csv',
+        :merchants => './data/test_data/merchant_test.csv'
+      )
+      sales_analyst = sales_engine.analyst
+  
+      expect(sales_analyst.diff_and_square(sales_analyst.item_amount, sales_analyst.average_items_per_merchant)).to eq([1,0,1])
+    end
+  
+    it "gets the sum from #diff_and_square" do
+      sales_engine = SalesEngine.from_csv(
+        :items     => './data/test_data/items_test.csv',
+        :merchants => './data/test_data/merchant_test.csv'
+      )
+      sales_analyst = sales_engine.analyst
+  
+      expect(sales_analyst.diff_and_square_sum(sales_analyst.item_amount, sales_analyst.average_items_per_merchant)).to eq(2)
+  
+    end
+  
+    it 'Divide the sum by the number of elements minus 1.' do
+      sales_engine = SalesEngine.from_csv(
+        :items     => './data/test_data/items_test.csv',
+        :merchants => './data/test_data/merchant_test.csv'
+      )
+      sales_analyst = sales_engine.analyst
+  
+      expect(sales_analyst.divide_diff_and_square_sum(sales_analyst.item_amount, sales_analyst.average_items_per_merchant)).to eq(1)
+    end
 
-    expect(sales_analyst.engine).to be_a(SalesEngine)
+    it 'can calculate the standard deviation of arrays with their average' do
+      sales_engine = SalesEngine.from_csv(
+        :items     => './data/test_data/items_test.csv',
+        :merchants => './data/test_data/merchant_test.csv'
+      )
+      sales_analyst = sales_engine.analyst
+
+      amounts = [3,4,5]
+      average = sales_analyst.average(amounts)
+
+      expect(sales_analyst.standard_deviation(amounts, average)).to eq(1)
+    end
+
+    it 'can calculate average given an array of values' do
+      sales_engine = SalesEngine.from_csv(
+        :items     => './data/test_data/items_test.csv',
+        :merchants => './data/test_data/merchant_test.csv'
+      )
+      sales_analyst = sales_engine.analyst
+
+      amount = [3,4,5]
+
+      expect(sales_analyst.average(amount)).to eq(4)
+    end
+
+    it 'can return a merchant repository' do
+      sales_engine = SalesEngine.from_csv(
+        :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+        :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+        :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+        :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+        :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+        :customers => './data/customers.csv'
+      )
+      sales_analyst = sales_engine.analyst
+
+      expect(sales_analyst.merchants.class).to eq(MerchantRepository)
+    end
+
+    it 'can return a item repository' do
+      sales_engine = SalesEngine.from_csv(
+        :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+        :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+        :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+        :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+        :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+        :customers => './data/customers.csv'
+      )
+      sales_analyst = sales_engine.analyst
+
+      expect(sales_analyst.items.class).to eq(ItemRepository)
+    end
+
+    it 'can return a invoice repository' do
+      sales_engine = SalesEngine.from_csv(
+        :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+        :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+        :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+        :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+        :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+        :customers => './data/customers.csv'
+      )
+      sales_analyst = sales_engine.analyst
+
+      expect(sales_analyst.invoices.class).to eq(InvoiceRepository)
+    end
   end
 
   it 'calculates the average items per merchant' do
@@ -34,36 +147,22 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_items_per_merchant).to eq(2.88)
   end
 
-  it 'Take the difference between each number and the mean, then square it.' do
+  it 'returns an array of item amounts for every merchant' do
     sales_engine = SalesEngine.from_csv(
-      :items     => './data/test_data/items_test.csv',
-      :merchants => './data/test_data/merchant_test.csv'
-    )
-    sales_analyst = sales_engine.analyst
+        :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+        :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+        :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+        :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+        :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+        :customers => './data/customers.csv'
+      )
+      sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.diff_and_square(sales_analyst.item_amount, sales_analyst.average_items_per_merchant)).to eq([1,0,1])
+      expected = sales_analyst.item_amount
+
+      expect(expected.all?(Numeric)).to be(true)
   end
 
-  it "gets the sum from #diff_and_square" do
-    sales_engine = SalesEngine.from_csv(
-      :items     => './data/test_data/items_test.csv',
-      :merchants => './data/test_data/merchant_test.csv'
-    )
-    sales_analyst = sales_engine.analyst
-
-    expect(sales_analyst.diff_and_square_sum(sales_analyst.item_amount, sales_analyst.average_items_per_merchant)).to eq(2)
-
-  end
-
-  it 'Divide the sum by the number of elements minus 1.' do
-    sales_engine = SalesEngine.from_csv(
-      :items     => './data/test_data/items_test.csv',
-      :merchants => './data/test_data/merchant_test.csv'
-    )
-    sales_analyst = sales_engine.analyst
-
-    expect(sales_analyst.divide_diff_and_square_sum(sales_analyst.item_amount, sales_analyst.average_items_per_merchant)).to eq(1)
-  end
 
   it 'returns the standard deviation' do
     sales_engine = SalesEngine.from_csv(
@@ -74,36 +173,7 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.0)
   end
-  it 'returns the standard deviation' do
-    sales_engine = SalesEngine.from_csv(
-      :items     => './data/test_data/items_test.csv',
-      :merchants => './data/test_data/merchant_test.csv'
-    )
-    sales_analyst = sales_engine.analyst
-
-    expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.0)
-  end
-
-  it 'returns the standard deviation' do
-    sales_engine = SalesEngine.from_csv(
-      :items     => './data/test_data/items_test.csv',
-      :merchants => './data/test_data/merchant_test.csv'
-    )
-    sales_analyst = sales_engine.analyst
-
-    expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(1.0)
-  end
-
-  xit 'returns the standard deviation' do
-    sales_engine = SalesEngine.from_csv(
-      :items     => './data/test_data/items.csv',
-      :merchants => './data/test_data/merchants.csv'
-    )
-    sales_analyst = sales_engine.analyst
-
-    expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
-  end
-
+  
   it 'returns the merchants with high item counts' do
     sales_engine = SalesEngine.from_csv(
       :items     => './data/test_data/items_test2.csv',
@@ -125,6 +195,18 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_item_price_for_merchant(12334105)).to be_a(BigDecimal)
   end
 
+  it 'returns an array of average item prices for each merchant' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/items_test2.csv',
+      :merchants => './data/test_data/merchant_test2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expected = sales_analyst.merchant_averages
+
+    expect(expected.all?(Numeric)).to be(true)
+  end
+
   it 'sums all the averages, and find the average across all merchant' do
     sales_engine = SalesEngine.from_csv(
       :items     => './data/test_data/items_test.csv',
@@ -133,6 +215,26 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
 
     expect(sales_analyst.average_average_price_per_merchant).to eq(13.67)
+  end
+
+  it 'finds the item prices of a merchant by its id' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/items_test.csv',
+      :merchants => './data/test_data/merchant_test.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    
+    expect(sales_analyst.prices(12334105)).to eq([12.0, 13.0, 14.0])
+  end
+  
+  it 'finds each merchants item prices' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/items_test.csv',
+      :merchants => './data/test_data/merchant_test.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    
+    expect(sales_analyst.all_merchant_prices).to eq([0.12e2, 0.13e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2])
   end
 
   it 'returns average item price per merchant standard deviation' do
@@ -145,32 +247,9 @@ RSpec.describe SalesAnalyst do
 
     expect(sales_analyst.average_item_price_std_dev).to eq(0.43)
   end
-
-  it 'finds the item prices of a merchant by its id' do
-    sales_engine = SalesEngine.from_csv(
-      :items     => './data/test_data/items_test.csv',
-      :merchants => './data/test_data/merchant_test.csv'
-    )
-    sales_analyst = sales_engine.analyst
-
-    expect(sales_analyst.prices(12334105)).to eq([12.0, 13.0, 14.0])
-  end
-
-  it 'finds each merchants item prices' do
-    sales_engine = SalesEngine.from_csv(
-      :items     => './data/test_data/items_test.csv',
-      :merchants => './data/test_data/merchant_test.csv'
-    )
-    sales_analyst = sales_engine.analyst
-
-    expect(sales_analyst.all_merchant_prices).to eq([0.12e2, 0.13e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2, 0.14e2])
-  end
-
-
+  
   it 'returns golden items' do
-
     sales_engine = SalesEngine.from_csv(
-
       :items     => './data/test_data/items_test3.csv',
       :merchants => './data/test_data/merchant_test3.csv'
     )
@@ -188,6 +267,19 @@ RSpec.describe SalesAnalyst do
     sales_analyst = sales_engine.analyst
 
     expect(sales_analyst.average_invoices_per_merchant).to eq(4)
+  end
+
+  it 'returns an array of invoice amounts for all merchants' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/items_test.csv',
+      :merchants => './data/test_data/merchant_invoices_test.csv',
+      :invoices  => './data/test_data/invoices_test.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expected = sales_analyst.invoice_amount
+
+    expect(expected).to eq([3,4,5])
   end
 
   it 'can calculate average invoices per merchant standard deviation' do
@@ -223,6 +315,63 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.bottom_merchants_by_invoice_count).to eq([sales_engine.merchants.all[0]])
   end
 
+  it 'returns an array of the days all invoices were created at' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/items_test.csv',
+      :merchants => './data/test_data/merchant_invoices_test3.csv',
+      :invoices  => './data/test_data/invoices_test3.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expected = sales_analyst.days
+
+    expect(expected.include?("Saturday")).to be(true)
+    expect(expected.include?("Monday")).to be(true)
+    expect(expected.include?("Friday")).to be(true)
+  end
+
+  it 'populates day hash with the counts of every invoice day' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/items_test.csv',
+      :merchants => './data/test_data/merchant_invoices_test3.csv',
+      :invoices  => './data/test_data/invoices_test3.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expected = sales_analyst.invoice_by_days_hash_populate
+
+    expect(expected).to eq({
+                             "Friday"=>20, "Monday"=>10, "Saturday"=>11,
+                             "Sunday"=>0, "Thursday"=>0, "Tuesday"=>0, "Wednesday"=>10
+                             })
+  end
+
+  it 'returns day with counts where count is higher than than 1 std deviation' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/items_test.csv',
+      :merchants => './data/test_data/merchant_invoices_test3.csv',
+      :invoices  => './data/test_data/invoices_test3.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    expected = sales_analyst.top_days
+
+    expect(expected).to eq([["Friday", 20]])
+  end
+
+  it 'calculates the average of invoice averages per day' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/items_test.csv',
+      :merchants => './data/test_data/merchant_invoices_test3.csv',
+      :invoices  => './data/test_data/invoices_test3.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    sales_analyst.invoice_by_days_hash_populate
+    expected = sales_analyst.invoice_average_per_day
+
+    expect(expected).to eq(7.29)
+  end
+
   it 'can return the top days of the week by invoice count' do
     sales_engine = SalesEngine.from_csv(
       :items     => './data/test_data/items_test.csv',
@@ -234,15 +383,15 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.top_days_by_invoice_count).to eq(['Monday'])
   end
 
-  it 'can return the top days of the week by invoice count for original csv' do
+  it 'returns an array of invoices that have the status' do
     sales_engine = SalesEngine.from_csv(
-      :items     => './data/items.csv',
-      :merchants => './data/merchants.csv',
-      :invoices  => './data/invoices.csv'
+      :items     => './data/test_data/items_test.csv',
+      :merchants => './data/test_data/merchant_invoices_test2.csv',
+      :invoices  => './data/test_data/invoices_test2.csv'
     )
     sales_analyst = sales_engine.analyst
 
-    expect(sales_analyst.top_days_by_invoice_count).to eq(['Wednesday'])
+    expect(sales_analyst.status_array(:pending).all?(Invoice)).to be(true)
   end
 
   it 'can calculate percentages by the status' do
