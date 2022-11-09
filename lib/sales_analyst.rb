@@ -59,9 +59,10 @@ class SalesAnalyst
 
   def average_price_for_all_items
     total_price_for_all_items = se_items.all.sum do |item|
-      item.unit_price_to_dollars * 100
+      item.unit_price
     end
     avg_price_of_items = (total_price_for_all_items / items_count).round(2)
+    avg_price_of_items = BigDecimal(avg_price_of_items, 24)
   end
 
   def average_standard_deviation_for_all_items
@@ -73,7 +74,7 @@ class SalesAnalyst
 
   def golden_items
     se_items.all.find_all do |item|
-      item.unit_price_to_dollars > (average_price_for_all_items + (average_standard_deviation_for_all_items * 2))
+      item.unit_price > (average_price_for_all_items + (average_standard_deviation_for_all_items * 2))
     end
   end
 
