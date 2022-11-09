@@ -220,16 +220,16 @@ RSpec.describe TransactionRepository do
   end
 
   describe '#child'
-  it 'has a child' do
-    tr = TransactionRepository.new
-    t = Transaction.new({
-      :id => 6,
-      :invoice_id => 8,
-      :credit_card_number => "4242424242424242",
-      :credit_card_expiration_date => "0220",
-      :result => "success",
-      :created_at => created = Time.now.to_s,
-      :updated_at => old_time = Time.now.to_s
+    it 'has a child' do
+      tr = TransactionRepository.new
+      t = Transaction.new({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => created = Time.now.to_s,
+        :updated_at => old_time = Time.now.to_s
       })
 
       expect(tr.child).to eq(Transaction)
