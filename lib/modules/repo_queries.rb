@@ -80,15 +80,4 @@ module RepoQueries
   def child
     @child
   end
-
-  # def update(id, attributes)
-  #   return if attributes.empty?
-  #   updated = find_by_id(id)
-  #   updated.name = attributes[:name]
-  #   updated.description = attributes[:description]
-  #   updated.unit_price = attributes[:unit_price]
-  #   updated.updated_at = Time.now
-  #   updated.status = attributes[:status]
-  #
-  # end
 end
