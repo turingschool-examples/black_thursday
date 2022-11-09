@@ -154,6 +154,19 @@ RSpec.describe InvoiceRepository do
       expect(ivr.all.first).to be_a(Invoice)
       expect(ivr.all.all?(Invoice)).to eq(true)
     end
+
+    it 'has a child' do
+      ivr = InvoiceRepository.new
+      i = Invoice.new(
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => created = Time.now.to_s,
+        :updated_at  => updated = Time.now.to_s
+      )
+
+      expect(ivr.child).to eq(Invoice)
   end
 
   it 'can have an engine' do
