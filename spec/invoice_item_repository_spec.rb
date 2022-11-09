@@ -249,4 +249,12 @@ RSpec.describe InvoiceItemRepository do
     expect(iir.find_by_id(2)).to eq i2
     expect(iir.find_by_id(3)).to eq nil
   end
+
+  it 'returns a string with class and repo size' do
+    ivr = InvoiceItemRepository.new('./data/invoice_items.csv')
+
+    expect(ivr.inspect).to eq("#<InvoiceItemRepository 21830 rows>")
+  end
 end
+  
+
