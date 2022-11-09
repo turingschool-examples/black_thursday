@@ -170,17 +170,19 @@ RSpec.describe SalesAnalyst do
      expect(sales_analyst.most_sold_item_for_merchant(12334105)[0].id).to eq(263541512)
     end
 
-    it '#top_revenue_earners' do
+    xit '#top_revenue_earners' do
     sales_analyst = @sales_engine.analyst
     expect(sales_analyst.top_revenue_earners(5)).to be_a(Array)
     expect(sales_analyst.top_revenue_earners(5).count).to eq(5)
     expect(sales_analyst.top_revenue_earners(5)[0]).to be_instance_of(Merchant)
+    end
 
-    it "#best_item_for_merchant" do
+    it '#best_item_for_merchant' do
       sales_analyst = @sales_engine.analyst
       expect(sales_analyst.best_item_for_merchant(12334496)).to be_instance_of(Item)
-
-    end
+      expect(sales_analyst.best_item_for_merchant(12334496).id).to eq(263524340)
+      expect(sales_analyst.best_item_for_merchant(12337341).id).to eq(263431343)
+      expect(sales_analyst.best_item_for_merchant(12335254).id).to eq(263535488)
     end
   end
 end
