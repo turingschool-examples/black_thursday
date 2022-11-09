@@ -4,7 +4,7 @@ require 'bigdecimal'
 
 describe Item do
   describe '#initialize' do
-    it 'exist' do
+    it 'exists' do
       i = Item.new({
         :id          => 1,
         :name        => "Pencil",
@@ -55,5 +55,20 @@ describe Item do
     end
   end
 
+  describe '#time_converter' do
+    it 'parses the time' do
+      i = Item.new({
+        :id          => 1,
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => '1099',
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
+        :merchant_id => 2
+      })
 
+      expect(i.updated_at).to be_a(Time)
+      expect(i.created_at).to be_a(Time)
+    end
+  end
 end
