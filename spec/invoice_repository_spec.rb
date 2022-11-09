@@ -213,6 +213,7 @@ RSpec.describe InvoiceRepository do
   end
 
   describe '#find_all_by_status' do
+
     it 'find all invoices by status' do
       ivr = InvoiceRepository.new
       i1 = Invoice.new(
