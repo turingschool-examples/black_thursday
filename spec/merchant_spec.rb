@@ -63,4 +63,27 @@ RSpec.describe do
       expect(m.total_revenue).to eq(0.1263009e6)
    end
   end
+
+  describe '#invoices' do
+    xit 'finds all invoices by merchant id' do
+      sales_engine = SalesEngine.from_csv(
+        :items     => './data/test_data/invoices_test.csv',
+        :merchants => './data/test_data/merchant_invoices_test.csv'
+      )
+      m = sales_engine.merchants.all[0]
+
+      expect(m.invoices.length).to eq(3)
+    end
+  end
+
+  # describe '#invoice_total' do
+  #   it 'finds the total of the invoice by invoice id' do
+  #     sales_engine = SalesEngine.from_csv(
+  #       :items     => './data/test_data/invoices_test.csv',
+  #       :merchants => './data/test_data/merchant_invoices_test.csv'
+  #     )
+  #     m = sales_engine.merchants.all[0]
+  #     expect(m.invoice_total)
+  #   end
+  # end
 end
