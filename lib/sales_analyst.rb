@@ -12,11 +12,11 @@ class SalesAnalyst
   end
 
   def items_count
-    items.all.count
+    se_items.all.count
   end
 
   def merchants_count
-    merchants.all.count
+    se_merchants.all.count
   end
 
   def se_merchants 
@@ -34,14 +34,14 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     sum = 0
     se_merchants.all.each do |merchant|
-      sum += (items.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant)**2
+      sum += (se_items.find_all_by_merchant_id(merchant.id).count - average_items_per_merchant)**2
     end
     Math.sqrt(sum / (merchants_count - 1)).round(2)
   end
 
   def merchants_with_high_item_count
     high_item_count = se_merchants.all.find_all do |merchant|
-      (items.find_all_by_merchant_id(merchant.id).count) > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+      (se_items.find_all_by_merchant_id(merchant.id).count) > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
     end
   end
 
@@ -62,7 +62,6 @@ class SalesAnalyst
       item.unit_price_to_dollars * 100
     end
     avg_price_of_items = (total_price_for_all_items / items_count).round(2)
-    require 'pry'; binding.pry
   end
 
   def average_standard_deviation_for_all_items
@@ -70,7 +69,6 @@ class SalesAnalyst
       (item.unit_price - average_price_for_all_items)**2
     end
     Math.sqrt(sum / (items_count - 1)).round(2)
-    require 'pry'; binding.pry
   end
 
   def golden_items
@@ -98,13 +96,13 @@ class SalesAnalyst
   end
   
   def top_merchants_by_invoice_count
-    high_invoice_count = merchants.all.find_all do |merchant|
+    high_invoice_count = se_merchants.all.find_all do |merchant|
       (se_invoices.find_all_by_merchant_id(merchant.id).count) > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
     end
   end
   
   def bottom_merchants_by_invoice_count
-    low_invoice_count = merchants.all.find_all do |merchant|
+    low_invoice_count = se_merchants.all.find_all do |merchant|
       (se_invoices.find_all_by_merchant_id(merchant.id).count) < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
     end
   end
@@ -187,7 +185,7 @@ class SalesAnalyst
   end
   
   def top_revenue_earners(top_number = 20)
-    se_merchants_ranked_by_revenue.shift(top_number)
+    merchants_ranked_by_revenue.shift(top_number)
   end
   
   def merchants_ranked_by_revenue
@@ -209,7 +207,7 @@ class SalesAnalyst
 
   def merchants_with_only_one_item
     se_merchants.all.find_all do |merchant|
-      items.find_all_by_merchant_id(merchant.id).length == 1
+      se_items.find_all_by_merchant_id(merchant.id).length == 1
     end
   end
   
@@ -253,7 +251,7 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     hash = {}
-    array_of_items = items.find_all_by_merchant_id(merchant_id)
+    array_of_items = se_items.find_all_by_merchant_id(merchant_id)
     array_of_items.each do |item|
       hash[item] = sales_engine.invoice_items.find_all_by_item_id(item.id).sum{|invoice_item| invoice_item.quantity}
     end
@@ -274,7 +272,7 @@ class SalesAnalyst
     top_number = ordered_array.first[1]
     top_pairs = ordered_array.find_all{|pair| pair[1] == top_number}
     top_items = top_pairs.map{|pair| pair[0]}
-    top_items.map{|item_id| items.find_by_id(item_id)}
+    top_items.map{|item_id| se_items.find_by_id(item_id)}
   end
 
 
@@ -285,6 +283,6 @@ class SalesAnalyst
   end
 
   def invoice_item_quantity_and_unit_price(invoice_item)
-    invoice_item.quantity * invoice_item.unit_price_to_dollars
+    invoice_item.quantity * invoice_item.unit_price_to_dollars 
   end
 end

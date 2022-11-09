@@ -75,6 +75,12 @@ module RepositoryQueries
     end
   end
 
+  def find_all_by_date(date)
+    @records.find_all do |record|
+      record.created_at.to_s.include?(date.to_s)
+    end
+  end
+
   def find_all_by_credit_card_number(cc)
     @records.find_all do |record|
       record.credit_card_number == cc
