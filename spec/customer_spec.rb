@@ -26,8 +26,8 @@ RSpec.describe Customer do
         :id => 6,
         :first_name => "Joan",
         :last_name => "Clarke",
-        :created_at => created = Time.now.to_s,
-        :updated_at => updated = Time.now.to_s
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s
       )
 
       expect(c.updated_at).to be_a(Time)

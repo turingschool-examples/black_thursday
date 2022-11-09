@@ -1,5 +1,6 @@
 require_relative '../lib/invoice_item.rb'
 require_relative '../lib/invoice_item_repository.rb'
+require_relative '../lib/sales_engine.rb'
 require 'time'
 
 RSpec.describe InvoiceItem do
@@ -131,17 +132,24 @@ RSpec.describe InvoiceItem do
   end
 
   it 'can return an array of its items' do
+    se = SalesEngine.from_csv({
+      :items     => './data/items.csv',
+      :merchants => './data/merchants.csv',
+      :invoice_items => './data/invoice_items.csv'
+    })
+    ivr = se.invoice_items
+  
     ii = InvoiceItem.new({
         :id => 6,
-        :item_id => 7,
+        :item_id => 263519844,
         :invoice_id => 8,
         :quantity => 1,
         :unit_price => 1099,
         :created_at => Time.now.to_s,
         :updated_at => Time.now.to_s
-    })
+    }, ivr)
 
-    expect(ii.items.all?).to be(Item)
+    expect(ii.items).to be_a(Item)
   end
 
   it 'can convert time' do
