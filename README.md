@@ -36,6 +36,6 @@ As individuals:
 
 Please include a minimum of 1 question from each group member (max: 3 questions per group member). Include these questions as a section in your project README. Your evaluating instructor will answer these in your feedback video.
 
-*  with having to find multiple starndard devation methods could this have also been made into a module and would this have made the test run faster
-*  with so many files/class being similar is there a way to help with writer empathy when writing methods that are reaching from the top to the bottom of the chain
-*  
+*  with having to find multiple standard devation methods could this have also been made into a module and would this have made the test run faster?
+*  with so many files/class being similar is there a way to help with writer empathy when writing methods that are reaching from the top to the bottom of the chain?
+*  Would you have recommended using mocks and stubs to run faster tests? Are those acceptable to include in a "final code?"
