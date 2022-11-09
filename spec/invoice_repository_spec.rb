@@ -8,7 +8,7 @@ RSpec.describe InvoiceRepository do
     ivr = InvoiceRepository.new
 
     expect(ivr).to be_a(InvoiceRepository)
-  end  
+  end
 
   it 'starts with no invoices' do
     ivr = InvoiceRepository.new
@@ -16,9 +16,52 @@ RSpec.describe InvoiceRepository do
     expect(ivr.data).to eq([])
   end
   describe '#module methods' do
+
+    it 'can create a new invoice' do
+      ivr = InvoiceRepository.new
+      i1 = Invoice.new(
+        :id          => 6,
+        :customer_id => 8,
+        :merchant_id => 8,
+        :status      => 'pending',
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
+      )
+      i2 = Invoice.new(
+        :id          => 5,
+        :customer_id => 8,
+        :merchant_id => 8,
+        :status      => 'pending',
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
+      )
+      i3 = Invoice.new(
+        :id          => 7,
+        :customer_id => 9,
+        :merchant_id => 10,
+        :status      => 'completed',
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
+      )
+
+      ivr.all.push(i1,i2,i3)
+
+      ivr.create(
+        :id          => 7,
+        :customer_id => 9,
+        :merchant_id => 10,
+        :status      => 'completed',
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
+      )
+
+      expect(ivr.all[-1].id).to eq(8)
+      expect(ivr.all[-1]).to be_a(Invoice)
+    end
+
     it 'can return all invoices' do
       ivr = InvoiceRepository.new
-  
+
       i = Invoice.new(
         :id          => 6,
         :customer_id => 7,
@@ -27,9 +70,9 @@ RSpec.describe InvoiceRepository do
         :created_at  => created = Time.now.to_s,
         :updated_at  => updated = Time.now.to_s
       )
-  
-      ivr.all << i 
-  
+
+      ivr.all << i
+
       expect(ivr.all).to eq([i])
     end
 
@@ -44,7 +87,7 @@ RSpec.describe InvoiceRepository do
         :updated_at  => updated = Time.now.to_s
       )
 
-      ivr.all << i 
+      ivr.all << i
 
       expect(ivr.find_by_id(6)).to eq(i)
       expect(ivr.find_by_id(2)).to eq(nil)
@@ -94,13 +137,36 @@ RSpec.describe InvoiceRepository do
         :updated_at  => updated = Time.now.to_s
       )
 
-      ivr.all << i 
+      ivr.all << i
 
       expect(ivr.all).to eq([i])
 
       ivr.delete(6)
 
       expect(ivr.all).to eq([])
+    end
+
+    it 'can load data' do
+      ivr = InvoiceRepository.new
+      file = './data/invoices.csv'
+      ivr.load_data(file)
+
+      expect(ivr.all.first).to be_a(Invoice)
+      expect(ivr.all.all?(Invoice)).to eq(true)
+    end
+
+    it 'has a child' do
+      ivr = InvoiceRepository.new
+      i = Invoice.new(
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => "pending",
+        :created_at  => created = Time.now.to_s,
+        :updated_at  => updated = Time.now.to_s
+      )
+
+      expect(ivr.child).to eq(Invoice)
     end
   end
 
@@ -111,17 +177,9 @@ RSpec.describe InvoiceRepository do
     expect(ivr.engine).to be_a(SalesEngine)
   end
 
-  it 'can load data' do
-    ivr = InvoiceRepository.new
-    file = './data/invoices.csv'
-    ivr.load_data(file)
-
-    expect(ivr.all.first).to be_a(Invoice)
-    expect(ivr.all.all?(Invoice)).to eq(true)
-  end
-
-  it 'can find invoices by customer id' do
-    ivr = InvoiceRepository.new
+  describe '#find_all_by_costumer_id' do
+    it 'can find invoices by customer id' do
+      ivr = InvoiceRepository.new
       i1 = Invoice.new(
         :id          => 6,
         :customer_id => 8,
@@ -151,10 +209,13 @@ RSpec.describe InvoiceRepository do
 
       expect(ivr.all).to eq([i1,i2,i3])
       expect(ivr.find_all_by_customer_id(8)).to eq([i1,i2])
+    end
   end
 
-  it 'find all invoices by status' do
-    ivr = InvoiceRepository.new
+  describe '#find_all_by_status' do
+
+    it 'find all invoices by status' do
+      ivr = InvoiceRepository.new
       i1 = Invoice.new(
         :id          => 6,
         :customer_id => 8,
@@ -184,53 +245,13 @@ RSpec.describe InvoiceRepository do
 
       expect(ivr.all).to eq([i1,i2,i3])
       expect(ivr.find_all_by_status(:pending)).to eq([i1,i2])
+    end
   end
 
-  it 'can create a new invoice' do
-    ivr = InvoiceRepository.new
-      i1 = Invoice.new(
-        :id          => 6,
-        :customer_id => 8,
-        :merchant_id => 8,
-        :status      => 'pending',
-        :created_at  => Time.now.to_s,
-        :updated_at  => Time.now.to_s
-      )
-      i2 = Invoice.new(
-        :id          => 5,
-        :customer_id => 8,
-        :merchant_id => 8,
-        :status      => 'pending',
-        :created_at  => Time.now.to_s,
-        :updated_at  => Time.now.to_s
-      )
-      i3 = Invoice.new(
-        :id          => 7,
-        :customer_id => 9,
-        :merchant_id => 10,
-        :status      => 'completed',
-        :created_at  => Time.now.to_s,
-        :updated_at  => Time.now.to_s
-      )
+  describe '#update' do
+    it 'can update invoices status and update time only' do
+      ivr = InvoiceRepository.new
 
-      ivr.all.push(i1,i2,i3)
-
-      ivr.create(
-        :id          => 7,
-        :customer_id => 9,
-        :merchant_id => 10,
-        :status      => 'completed',
-        :created_at  => Time.now.to_s,
-        :updated_at  => Time.now.to_s
-      )
-
-      expect(ivr.all[-1].id).to eq(8)
-      expect(ivr.all[-1]).to be_a(Invoice)
-  end
-
-  it 'can update invoices status and update time only' do
-    ivr = InvoiceRepository.new
-  
       i = Invoice.new(
         :id          => 6,
         :customer_id => 7,
@@ -240,20 +261,23 @@ RSpec.describe InvoiceRepository do
         :updated_at  => updated = Time.now.to_s
       )
 
-      ivr.all << i 
+      ivr.all << i
       expect(i.updated_at).to eq(Time.parse(updated))
 
       ivr.update(6, status: "completed")
 
       expect(i.status).to eq("completed")
       expect(i.updated_at).not_to eq(Time.parse(updated))
+    end
   end
 
-  it 'can find all invoices by the date' do
-    ivr = InvoiceRepository.new
-    file = './data/invoices.csv'
-    ivr.load_data(file)
+  describe '#find_all_by_date' do
+    it 'can find all invoices by the date' do
+      ivr = InvoiceRepository.new
+      file = './data/invoices.csv'
+      ivr.load_data(file)
 
-    expect(ivr.find_all_by_date(Time.parse("2009-02-07"))).to eq([ivr.all[0]])
+      expect(ivr.find_all_by_date(Time.parse("2009-02-07"))).to eq([ivr.all[0]])
+    end
   end
 end

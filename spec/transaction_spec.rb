@@ -22,4 +22,19 @@ RSpec.describe Transaction do
     expect(t.created_at).to eq(Time.parse(created))
     expect(t.updated_at).to eq(Time.parse(updated))
   end
+
+  it 'can convert a time' do
+      t = Transaction.new({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => created = Time.now.to_s,
+        :updated_at => updated = Time.now.to_s
+        })
+
+    expect(t.created_at).to be_a(Time)
+    expect(t.updated_at).to be_a(Time)
+  end
 end
