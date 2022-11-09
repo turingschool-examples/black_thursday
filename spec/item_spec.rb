@@ -62,8 +62,8 @@ describe Item do
         :name        => "Pencil",
         :description => "You can use it to write things",
         :unit_price  => '1099',
-        :created_at  => created = Time.now.to_s,
-        :updated_at  => updated = Time.now.to_s,
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s,
         :merchant_id => 2
       })
 

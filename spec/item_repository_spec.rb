@@ -301,7 +301,7 @@ describe ItemRepository do
                     name: "Apple",
                     description: "You can eat it",
                     unit_price: BigDecimal(20.25,4)
-                    })
+                  })
 
       expect(ir.all[0].name).to eq "Apple"
       expect(i1.description).to eq "You can eat it"
