@@ -185,7 +185,7 @@ class SalesAnalyst
 
   def invoice_total(invoice_id)
     invoice_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
-    invoice_items.sum { |invoice_item| invoice_item.quantity*invoice_item.unit_price}
+    invoice_items.sum { |invoice_item| invoice_item.quantity * invoice_item.unit_price}
   end
 
   def merchants_with_pending_invoices    
@@ -204,11 +204,6 @@ class SalesAnalyst
     merchants.select do |merchant| 
       sales_engine.items.find_all_by_merchant_id(merchant.id).length == 1
     end
-  end
-
-  def invoice_total(invoice_id)
-    invoice_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
-    invoice_items.sum { |invoice_item| invoice_item.quantity * invoice_item.unit_price }
   end
 
   def total_revenue_by_date(date)
@@ -268,9 +263,30 @@ class SalesAnalyst
     sales_engine.invoices.find_all_by_merchant_id(merchant_id).inject(BigDecimal(0)) do |sum, invoice|
       if invoice_paid_in_full?(invoice.id)
         invoice_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
-        sum + invoice_items.sum{|invoice_item|invoice_item.quantity*invoice_item.unit_price}
+        sum + (invoice_items.sum{|invoice_item|invoice_item.quantity*invoice_item.unit_price})
+      else
         sum
       end
     end
   end
+
+  def best_item_for_merchant(merchant_id)
+    invoice_items = []
+    sales_engine.invoices.find_all_by_merchant_id(merchant_id).each do |invoice|
+      if invoice_paid_in_full?(invoice.id)
+        invoice_items.push(sales_engine.invoice_items.find_all_by_invoice_id(invoice.id))
+      end
+    end
+      invoice_item_revenues = []
+      invoice_items.each do |invoice_itemz|
+        invoice_itemz.each do |invoice_item|
+        invoice_item_revenues.push([invoice_item, (invoice_item.quantity * invoice_item.unit_price)])
+        end
+      end
+      result = invoice_item_revenues.sort_by do |item_revenue|
+        item_revenue[1]
+      end
+      id = result.last[0].item_id
+      best_item = sales_engine.items.find_by_id(id)
+    end
 end
