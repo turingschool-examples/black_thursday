@@ -253,4 +253,24 @@ class SalesAnalyst
     most_sold_items = item_quantity.max_by{|k,v| v}
     most_sold_items.delete_if{|n| n.class == Integer}
   end
+
+  def top_revenue_earners(n= 20)
+    merchants_ranked_by_revenue[0..n - 1]
+  end
+
+  def merchants_ranked_by_revenue
+    rank = sales_engine.merchants.all.sort_by do |merchant|
+      revenue(merchant.id)
+    end.reverse
+  end
+
+  def revenue(merchant_id)    
+    sales_engine.invoices.find_all_by_merchant_id(merchant_id).inject(BigDecimal(0)) do |sum, invoice|
+      if invoice_paid_in_full?(invoice.id)
+        invoice_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+        sum + invoice_items.sum{|invoice_item|invoice_item.quantity*invoice_item.unit_price}
+        sum
+      end
+    end
+  end
 end
