@@ -39,27 +39,27 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.merchants_with_high_item_count.first.class).to eq(Merchant)
   end
 
-  xit 'can return average item price for the given merchant' do
+  it 'can return average item price for the given merchant' do
     expect(sales_analyst.average_item_price_for_merchant(12334105)).to eq(16.66)
     expect(sales_analyst.average_item_price_for_merchant(12334105).class).to eq(BigDecimal)
   end
 
-  xit 'can return average item price per (all) merchants' do
+  it 'can return average item price per (all) merchants' do
     expect(sales_analyst.average_average_price_per_merchant).to eq(350.29)
     expect(sales_analyst.average_average_price_per_merchant.class).to eq(BigDecimal)
   end
   
-  xit 'can return an average price for all items' do
+  it 'can return an average price for all items' do
     expect(sales_analyst.average_price_for_all_items).to eq(25105.51)
     expect(sales_analyst.average_price_for_all_items.class).to eq(Float)
   end
   
-  xit 'can return a standard deviation for all items' do
+  it 'can return a standard deviation for all items' do
     expect(sales_analyst.average_standard_deviation_for_all_items).to eq(290099.0)
     expect(sales_analyst.average_standard_deviation_for_all_items.class).to eq(Float)
   end
 
-  xit 'can return items that are two standard deviations ABOVE the average ITEM price (golden items)' do
+  it 'can return items that are two standard deviations ABOVE the average ITEM price (golden items)' do
     expect(sales_analyst.golden_items.length).to eq(5)
     expect(sales_analyst.golden_items.first.class).to eq(Item)
   end
