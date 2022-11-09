@@ -22,4 +22,10 @@ RSpec.describe Transaction do
     expect(t.created_at).to eq(Time.parse(created))
     expect(t.updated_at).to eq(Time.parse(updated))
   end
+
+  xit 'can convert a time' do
+    time = "2022-11-08 18:04:14.248601 -0600"
+
+    expect()
+  end
 end

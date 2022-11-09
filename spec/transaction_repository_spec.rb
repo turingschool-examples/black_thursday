@@ -218,4 +218,20 @@ RSpec.describe TransactionRepository do
       expect(tr.all.all?(Transaction)).to eq(true)
     end
   end
+
+  describe '#child'
+  it 'has a child' do
+    tr = TransactionRepository.new
+    t = Transaction.new({
+      :id => 6,
+      :invoice_id => 8,
+      :credit_card_number => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result => "success",
+      :created_at => created = Time.now.to_s,
+      :updated_at => old_time = Time.now.to_s
+      })
+
+      expect(tr.child).to be_a(Transaction)
+  end
 end
