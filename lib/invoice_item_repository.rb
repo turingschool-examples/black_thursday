@@ -4,7 +4,8 @@ require 'bigdecimal'
 class InvoiceItemRepository
   include RepoQueries
 
-  attr_reader :data, :engine
+  attr_reader :data,
+              :engine
 
   def initialize(file = nil, engine = nil)
     @data = []
