@@ -1,7 +1,5 @@
 require_relative '../lib/invoice_item.rb'
 require_relative '../lib/sales_engine'
-require_relative '../lib/modules/repo_queries'
-
 
 RSpec.describe InvoiceItemRepository do
 
