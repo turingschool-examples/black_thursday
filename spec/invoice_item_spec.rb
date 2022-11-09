@@ -143,4 +143,19 @@ RSpec.describe InvoiceItem do
 
     expect(ii.items.all?).to be(Item)
   end
+
+  it 'can convert time' do
+    ii = InvoiceItem.new({
+        :id => 6,
+        :item_id => 7,
+        :invoice_id => 8,
+        :quantity => 1,
+        :unit_price => 1099,
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s
+    })
+
+    expect(ii.updated_at).to be_a(Time)
+    expect(ii.created_at).to be_a(Time)
+  end
 end
