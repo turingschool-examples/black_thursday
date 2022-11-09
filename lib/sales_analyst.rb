@@ -31,7 +31,7 @@ class SalesAnalyst
       (average_items_per_merchant + std_dev)
     end
   end
-  
+
   def average_item_price_for_merchant(merchant_id)
     average(prices(merchant_id))
   end
@@ -144,7 +144,7 @@ class SalesAnalyst
       invoice.status == status
     end
   end
-
+  
   def invoice_status(status)
     ((status_array(status).count / invoices.all.count.to_f) * 100).round(2)
   end
