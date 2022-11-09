@@ -661,6 +661,34 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.item_quantity_hash(1).values.all?(Integer)).to be(true)
   end
 
+  it 'adds to pre existing hash items quantities' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+      :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+      :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+      :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+      :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    testitem1 = sales_engine.find_all_items_by_merchant_id(1)[0]
+    expect(sales_analyst.item_quantity_hash(1)[testitem1]).to eq(8)
+  end
+
+  it 'adds to pre existing hash items revenue' do
+    sales_engine = SalesEngine.from_csv(
+      :items     => './data/test_data/most_sold_item_for_merchant/items.csv',
+      :merchants => './data/test_data/most_sold_item_for_merchant/merchants.csv',
+      :invoices  => './data/test_data/most_sold_item_for_merchant/invoices.csv',
+      :invoice_items => './data/test_data/most_sold_item_for_merchant/invoiceitems.csv',
+      :transactions => './data/test_data/most_sold_item_for_merchant/transactions.csv',
+      :customers => './data/customers.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    testitem1 = sales_engine.find_all_items_by_merchant_id(1)[0]
+    expect(sales_analyst.item_revenue_hash(1)[testitem1]).to eq(8.0)
+  end
+
   it 'returns a hash with items and revenue' do
     sales_engine = SalesEngine.from_csv(
       :items     => './data/test_data/most_sold_item_for_merchant/items.csv',

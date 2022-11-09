@@ -86,6 +86,14 @@ RSpec.describe CustomerRepository do
         expect(cr.all[0].first_name).to eq("Cecelia")
       end
     end
+
+    describe 'inspect' do
+      it 'returns a string with class and repo size' do
+        cr = CustomerRepository.new('./data/test_data/customers_test.csv')
+
+        expect(cr.inspect).to eq("#<CustomerRepository 10 rows>")
+      end
+    end
   end
 
   describe '#update' do
