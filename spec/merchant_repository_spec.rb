@@ -176,5 +176,4 @@ RSpec.describe MerchantRepository do
       expect(mr.find_all_invoices_by_merchant_id(1).length).to eq(3)
     end
   end
-
 end

@@ -1,7 +1,11 @@
 require 'rspec'
+require 'bigdecimal'
 require_relative '../lib/merchant'
+require_relative '../lib/item'
+require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
+require_relative '../lib/merchant_repository'
 
 RSpec.describe do
   it 'exists' do
@@ -65,25 +69,25 @@ RSpec.describe do
   end
 
   describe '#invoices' do
-    xit 'finds all invoices by merchant id' do
+    it 'finds all invoices by merchant id' do
+      sales_engine = SalesEngine.from_csv(
+        :merchants => './data/merchants.csv',
+        :invoices  => './data/invoices.csv'
+      )
+      m = sales_engine.merchants.all[1]
+
+      expect(m.invoices.length).to eq(7)
+    end
+  end
+
+  describe '#invoice_total' do
+    it 'finds the total of the invoice by invoice id' do
       sales_engine = SalesEngine.from_csv(
         :items     => './data/test_data/invoices_test.csv',
         :merchants => './data/test_data/merchant_invoices_test.csv'
       )
       m = sales_engine.merchants.all[0]
-
-      expect(m.invoices.length).to eq(3)
+      expect(m.invoice_total)
     end
   end
-
-  # describe '#invoice_total' do
-  #   it 'finds the total of the invoice by invoice id' do
-  #     sales_engine = SalesEngine.from_csv(
-  #       :items     => './data/test_data/invoices_test.csv',
-  #       :merchants => './data/test_data/merchant_invoices_test.csv'
-  #     )
-  #     m = sales_engine.merchants.all[0]
-  #     expect(m.invoice_total)
-  #   end
-  # end
 end
