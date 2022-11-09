@@ -203,4 +203,35 @@ RSpec.describe InvoiceItemRepository do
     expect(iir.all.first).to be_a(InvoiceItem)
     expect(iir.all.all?(InvoiceItem)).to eq(true)
   end
+
+  it 'can find items by item id' do
+    iir = InvoiceItemRepository.new
+    i1 = Item.new({
+      :id          => 1,
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal(10.99,4),
+      :created_at  => Time.now.to_s,
+      :updated_at  => Time.now.to_s,
+      :merchant_id => 2
+    })
+
+    i2 = Item.new({
+      :id          => 2,
+      :name        => "Pen",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal(15.99,4),
+      :created_at  => Time.now.to_s,
+      :updated_at  => Time.now.to_s,
+      :merchant_id => 3
+    })
+
+
+    iir.all << i1
+    iir.all << i2
+
+    expect(iir.find_by_id(1)).to eq i1
+    expect(iir.find_by_id(2)).to eq i2
+    expect(iir.find_by_id(3)).to eq nil
+  end
 end
