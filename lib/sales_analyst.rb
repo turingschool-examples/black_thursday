@@ -35,13 +35,13 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     average(prices(merchant_id))
   end
-  
+
   def merchant_averages
     merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
   end
-  
+
   def average_average_price_per_merchant
     average(merchant_averages)
   end
@@ -102,9 +102,8 @@ class SalesAnalyst
 
   def day_hash
     unless @day_hash
-      @day_hash = { 'Monday' => 0, 'Tuesday' => 0, 'Wednesday' => 0, 'Thursday' => 0,
-        'Friday' => 0, 'Saturday' => 0, 'Sunday' => 0
-      }
+      @day_hash = {'Monday' => 0, 'Tuesday' => 0, 'Wednesday' => 0, 'Thursday' => 0,
+        'Friday' => 0, 'Saturday' => 0, 'Sunday' => 0}
     end
     @day_hash
   end
@@ -145,7 +144,7 @@ class SalesAnalyst
       invoice.status == status
     end
   end
-  
+
   def invoice_status(status)
     ((status_array(status).count / invoices.all.count.to_f) * 100).round(2)
   end
