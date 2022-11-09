@@ -167,6 +167,7 @@ RSpec.describe InvoiceRepository do
       )
 
       expect(ivr.child).to eq(Invoice)
+    end
   end
 
   it 'can have an engine' do
