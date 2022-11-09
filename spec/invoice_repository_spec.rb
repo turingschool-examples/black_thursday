@@ -163,9 +163,9 @@ RSpec.describe InvoiceRepository do
     expect(ivr.engine).to be_a(SalesEngine)
   end
 
-
-  it 'can find invoices by customer id' do
-    ivr = InvoiceRepository.new
+  describe '#find_all_by_costumer_id' do
+    it 'can find invoices by customer id' do
+      ivr = InvoiceRepository.new
       i1 = Invoice.new(
         :id          => 6,
         :customer_id => 8,
@@ -195,65 +195,66 @@ RSpec.describe InvoiceRepository do
 
       expect(ivr.all).to eq([i1,i2,i3])
       expect(ivr.find_all_by_customer_id(8)).to eq([i1,i2])
+    end
   end
 
   describe '#find_all_by_status' do
     it 'find all invoices by status' do
       ivr = InvoiceRepository.new
-        i1 = Invoice.new(
-          :id          => 6,
-          :customer_id => 8,
-          :merchant_id => 8,
-          :status      => 'pending',
-          :created_at  => Time.now.to_s,
-          :updated_at  => Time.now.to_s
-        )
-        i2 = Invoice.new(
-          :id          => 5,
-          :customer_id => 8,
-          :merchant_id => 8,
-          :status      => 'pending',
-          :created_at  => Time.now.to_s,
-          :updated_at  => Time.now.to_s
-        )
-        i3 = Invoice.new(
-          :id          => 7,
-          :customer_id => 9,
-          :merchant_id => 10,
-          :status      => 'completed',
-          :created_at  => Time.now.to_s,
-          :updated_at  => Time.now.to_s
-        )
+      i1 = Invoice.new(
+        :id          => 6,
+        :customer_id => 8,
+        :merchant_id => 8,
+        :status      => 'pending',
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
+      )
+      i2 = Invoice.new(
+        :id          => 5,
+        :customer_id => 8,
+        :merchant_id => 8,
+        :status      => 'pending',
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
+      )
+      i3 = Invoice.new(
+        :id          => 7,
+        :customer_id => 9,
+        :merchant_id => 10,
+        :status      => 'completed',
+        :created_at  => Time.now.to_s,
+        :updated_at  => Time.now.to_s
+      )
 
-        ivr.all.push(i1,i2,i3)
+      ivr.all.push(i1,i2,i3)
 
-        expect(ivr.all).to eq([i1,i2,i3])
-        expect(ivr.find_all_by_status(:pending)).to eq([i1,i2])
-      end
+      expect(ivr.all).to eq([i1,i2,i3])
+      expect(ivr.find_all_by_status(:pending)).to eq([i1,i2])
     end
+  end
 
   describe '#update' do
     it 'can update invoices status and update time only' do
       ivr = InvoiceRepository.new
 
-        i = Invoice.new(
-          :id          => 6,
-          :customer_id => 7,
-          :merchant_id => 8,
-          :status      => 'pending',
-          :created_at  => Time.now.to_s,
-          :updated_at  => updated = Time.now.to_s
-        )
+      i = Invoice.new(
+        :id          => 6,
+        :customer_id => 7,
+        :merchant_id => 8,
+        :status      => 'pending',
+        :created_at  => Time.now.to_s,
+        :updated_at  => updated = Time.now.to_s
+      )
 
-        ivr.all << i
-        expect(i.updated_at).to eq(Time.parse(updated))
+      ivr.all << i
+      expect(i.updated_at).to eq(Time.parse(updated))
 
-        ivr.update(6, status: "completed")
+      ivr.update(6, status: "completed")
 
-        expect(i.status).to eq("completed")
-        expect(i.updated_at).not_to eq(Time.parse(updated))
-      end
+      expect(i.status).to eq("completed")
+      expect(i.updated_at).not_to eq(Time.parse(updated))
     end
+  end
 
   describe '#find_all_by_date' do
     it 'can find all invoices by the date' do
