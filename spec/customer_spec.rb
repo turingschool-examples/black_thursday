@@ -19,4 +19,19 @@ RSpec.describe Customer do
       expect(c.updated_at).to eq(Time.parse(updated))
     end
   end
+
+  describe '#time_converter' do
+    it 'can convert the time' do
+      c = Customer.new(
+        :id => 6,
+        :first_name => "Joan",
+        :last_name => "Clarke",
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s
+      )
+
+      expect(c.updated_at).to be_a(Time)
+      expect(c.created_at).to be_a(Time)
+    end
+  end
 end
