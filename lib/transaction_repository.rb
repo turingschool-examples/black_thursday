@@ -40,8 +40,4 @@ class TransactionRepository
     updated.result = attributes[:result]
     updated.updated_at = Time.now
   end
-
-  def child
-    @child
-  end
 end

@@ -232,6 +232,6 @@ RSpec.describe TransactionRepository do
       :updated_at => old_time = Time.now.to_s
       })
 
-      expect(tr.child).to be_a(Transaction)
+      expect(tr.child).to eq(Transaction)
   end
 end
