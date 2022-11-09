@@ -176,7 +176,11 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.top_revenue_earners(5).count).to eq(5)
     expect(sales_analyst.top_revenue_earners(5)[0]).to be_instance_of(Merchant)
 
+    it "#best_item_for_merchant" do
+      sales_analyst = @sales_engine.analyst
+      expect(sales_analyst.best_item_for_merchant(12334496)).to be_instance_of(Item)
 
+    end
     end
   end
 end
