@@ -6,6 +6,8 @@ require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/invoice_item'
+require_relative '../lib/invoice_item_repository'
 
 RSpec.describe do
   it 'exists' do
@@ -83,11 +85,14 @@ RSpec.describe do
   describe '#invoice_total' do
     it 'finds the total of the invoice by invoice id' do
       sales_engine = SalesEngine.from_csv(
-        :items     => './data/test_data/invoices_test.csv',
-        :merchants => './data/test_data/merchant_invoices_test.csv'
+        :merchants => './data/merchants.csv',
+        :items     => './data/items.csv',
+        :invoices => './data/invoices.csv',
+        :invoice_items => './data/invoice_items.csv',
+        :transactions => './data/transactions.csv'
       )
       m = sales_engine.merchants.all[0]
-      expect(m.invoice_total)
+      expect(m.invoice_total(46)).to be_a(BigDecimal)
     end
   end
 end
