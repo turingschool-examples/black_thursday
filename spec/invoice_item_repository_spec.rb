@@ -15,6 +15,13 @@ RSpec.describe InvoiceItemRepository do
     expect(invoice_items.data).to eq []
   end
 
+  it 'can have an engine' do
+      se = SalesEngine.new(invoice_items: './data/invoice_items.csv')
+      invoice_items = InvoiceItemRepository.new('./data/invoice_items.csv', se)
+
+      expect(invoice_items.engine).to be_a SalesEngine
+    end
+
   it 'has a child' do
       invoice_items = InvoiceItemRepository.new
 
