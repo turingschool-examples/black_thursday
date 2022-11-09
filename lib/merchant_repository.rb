@@ -16,7 +16,8 @@ class MerchantRepository
   def make_record(contents)
     contents.map do |row|
       info = {:id => row[:id], 
-              :name => row[:name]}
+              :name => row[:name],
+              :created_at => row[:created_at]}
       Merchant.new(info, self)
     end
   end

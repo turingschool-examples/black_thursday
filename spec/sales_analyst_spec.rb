@@ -103,7 +103,7 @@ RSpec.describe SalesAnalyst do
     expect(sales_analyst.average_invoice_standard_deviation).to eq(18.07)
   end
 
-  it 'can return the day with the highest invoice count' do
+  it 'can return the day with the highest invoice count' do # oddly failed now
     expect(sales_analyst.top_days_by_invoice_count.length).to eq(1)
     expect(sales_analyst.top_days_by_invoice_count.first).to eq("Wednesday")
     expect(sales_analyst.top_days_by_invoice_count.first.class).to eq(String)
@@ -188,7 +188,7 @@ RSpec.describe SalesAnalyst do
       expect(sales_analyst.merchants_with_only_one_item.first.class).to eq(Merchant)
     end
 
-    xit 'can return merchants with only one invoice for a given month' do # to be revised
+    it 'can return merchants with only one invoice for a given month' do # to be revised
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").length).to eq(21)
       expect(sales_analyst.merchants_with_only_one_item_registered_in_month("March").first.class).to eq(Merchant)
 
