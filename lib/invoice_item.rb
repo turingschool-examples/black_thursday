@@ -20,6 +20,10 @@ class  InvoiceItem
     @repo       = repo
   end
 
+  def unit_price_to_dollars
+    @unit_price.round(2).to_f
+  end
+
   def update(attributes)
     @quantity   = attributes[:quantity]
     @updated_at = Time.now
