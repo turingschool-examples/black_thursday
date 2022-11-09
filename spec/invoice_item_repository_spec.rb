@@ -15,6 +15,12 @@ RSpec.describe InvoiceItemRepository do
     expect(invoice_items.data).to eq []
   end
 
+  it 'has a child' do
+      invoice_items = InvoiceItemRepository.new
+
+      expect(invoice_items.child).to eq(InvoiceItem)
+    end
+
   it 'can find an invoice id' do
     ii = InvoiceItem.new({
       :id => 6,
