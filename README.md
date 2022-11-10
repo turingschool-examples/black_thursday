@@ -42,3 +42,6 @@ After speaking with other classmates our spec harness run time is much longer th
 Kyle: What are some strategies to sticking to tdd especially when making helper methods? It can feel tedious at times
 Nigel: How can we best implement repo update method into a module when different repos want to update an instance with different attributes? And if they share the same method then some instances will not correctly initialize.
 Kara: Is there a better way to connect all the find by id methods in to a module, even though they are specific to the class? It seems like it could clean up a lot
+
+BLOG
+https://drive.google.com/file/d/14NhA3IJPbdgz0ukNNMhkFj7TZPW9_baj/view?usp=sharing
